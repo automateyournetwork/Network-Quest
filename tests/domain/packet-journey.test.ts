@@ -1,12 +1,21 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import type { EvaluationStatus } from '../../src/domain/types';
+import type { DomainAction, EvaluationStatus, WorldVersion } from '../../src/domain/types';
+import { evaluateCopper } from '../../src/domain/copper';
+import type { CopperChallenge, CopperInput } from '../../src/domain/copper';
+import {
+  comparePacketPattern, decodeToySamples, encodePacketPayload, encodeToyBits,
+  evaluatePacketJourney, evaluateSymbolAnswer,
+} from '../../src/domain/packet-journey';
+import type {
+  PacketJourneyChallenge, PacketJourneyWorld, PacketProfile, SymbolChallenge, ToySymbolProfile,
+} from '../../src/domain/packet-journey';
 
 /**
- * T031 preparation only: independent fixture integrity and literal arithmetic.
- * No domain implementation, renderer, expected-result stub or score generator
- * is called here. TODOs require real T032/T033 code before behavior can pass.
+ * T031 integrity and literal expectations remain separately identified below.
+ * T032 activates 34 cases through real domain functions and actual copper calls.
+ * Five control TODOs still require T033/T034 execution.
  * The shared T014 pending evaluator cases remain untouched by these references.
  */
 type JsonValue = null | boolean | number | string | JsonValue[] | JsonObject;
@@ -420,10 +429,101 @@ describe('T031 pause/step/replay contract preparation — controls remain T033/T
   });
 });
 
-describe('T032 real encoding/comparison/validation/current-physical-result execution — pending', () => {
-  for (const entry of [...fixture.encodingVectors, ...fixture.comparisonCases, ...fixture.validationCases, ...fixture.transmissionCases]) {
-    it.todo(`${entry.id}: execute actual domain code against this independently authored expectation`);
+const symbolsProfile = byId(fixture.reviewedContext.profiles, 'spec001:PROFILE-SYMBOLS') as unknown as ToySymbolProfile;
+const packetProfile = byId(fixture.reviewedContext.profiles, 'spec001:PROFILE-PACKET') as unknown as PacketProfile;
+const current = { configurationRevision: 7, attemptId: 'attempt-a' } as WorldVersion;
+function command<T>(input: T, version = current): DomainAction<T> {
+  return { actionId: 'packet-inspection' as DomainAction<T>['actionId'], expectedVersion: version, input };
+}
+function vectorSamples(vector: InputCase): unknown {
+  const values = vector.input['symbolValues'] as number[];
+  const positions = vector.input['samplePositions'] as number[];
+  return values.map((value, index) => ({ value, unit: vector.input['symbolUnit'], position: positions[index] }));
+}
+function symbolChallenge(vectorId = 'PJ-T12'): SymbolChallenge {
+  return { profile: symbolsProfile, samples: vectorSamples(byId(fixture.encodingVectors, vectorId)) } as SymbolChallenge;
+}
+function assertResult(result: { status: string; reasonCode: string; observations: readonly unknown[]; acceptedEffects: readonly unknown[] }, expected: JsonObject) {
+  const { status, reason, ...observation } = expected;
+  if (status !== undefined) expect(result.status).toBe(status);
+  if (reason !== undefined) expect(result.reasonCode).toBe(reason);
+  expect(result.observations[0]).toMatchObject(observation);
+  expect(result.acceptedEffects).toEqual([]);
+}
+function journeyChallenge(bench: string, impairment: string): PacketJourneyChallenge {
+  return {
+    packetProfile, symbolProfile: symbolsProfile,
+    bench: bench === 'controlled-copper-bench' ? fixture.assumptions.completeBench : fixture.assumptions.lengthOnlyBench,
+    impairment: impairment === 'none' ? null : fixture.assumptions.substitution,
+  } as unknown as PacketJourneyChallenge;
+}
+function physicalWorld(entry: TransmissionCase): PacketJourneyWorld {
+  let physicalEvidence: PacketJourneyWorld['physicalEvidence'] = null;
+  if (entry.physicalChallenge !== null && entry.evaluatedVersion !== null) {
+    const challenge = fixture.physicalChallenges[entry.physicalChallenge]!;
+    // Real source operands and action; never supply entry.expected to a runtime function.
+    const copperProfile = byId(source.profiles, challenge.profileId);
+    const result = evaluateCopper({ kind: challenge.kind, profile: { id: copperProfile.id, parameters: copperProfile.parameters }, lengths: challenge.lengths } as unknown as CopperChallenge,
+      command(entry.physicalAction as CopperInput, entry.evaluatedVersion as WorldVersion), entry.evaluatedVersion as WorldVersion);
+    expect(result.status).toBe(entry.expected['physicalStatus']);
+    const observation = result.observations[0];
+    if (entry.expected['physicalScope']) expect(observation).toMatchObject({ scope: entry.expected['physicalScope'] });
+    for (const [expectedKey, actualKey] of [['totalMetres', 'total'], ['headroomMetres', 'headroom'], ['excessMetres', 'excess']]) {
+      if (expectedKey && actualKey && entry.expected[expectedKey] !== undefined) {
+        expect(observation).toMatchObject({ [actualKey]: { value: entry.expected[expectedKey], unit: 'm' } });
+      }
+    }
+    physicalEvidence = { result, evaluatedVersion: entry.evaluatedVersion as WorldVersion, stale: entry.stale };
   }
+  return { ...entry.currentVersion, physicalEvidence } as PacketJourneyWorld;
+}
+
+describe('T032 actual encoding/comparison/validation/current-physical-result execution', () => {
+  it.each(fixture.encodingVectors)('$id executes encode/decode against independent literals', entry => {
+    if (entry.id === 'PJ-NQ') {
+      assertResult(encodePacketPayload(packetProfile, symbolsProfile), entry.expected);
+    } else {
+      const result = decodeToySamples(symbolsProfile, vectorSamples(entry) as SymbolChallenge['samples']);
+      assertResult(result, entry.expected);
+      const trace = result.observations[0];
+      if (!trace || trace.kind !== 'toy-trace') throw new Error('Expected decoded trace');
+      const encoded = encodeToyBits(symbolsProfile, trace.bits);
+      expect(encoded.observations[0]).toMatchObject({ symbolValues: entry.expected['roundTripSymbolValues'], bits: entry.expected['bits'] });
+    }
+  });
+  it.each(fixture.comparisonCases)('$id executes the supplied learner comparison', entry => {
+    if (typeof entry.input['vectorId'] === 'string') {
+      assertResult(evaluateSymbolAnswer(symbolChallenge(entry.input['vectorId']), command({ bits: entry.input['learnerBits'] } as { bits: string }), current), entry.expected);
+    } else {
+      assertResult(comparePacketPattern({ profile: packetProfile, expectedBits: entry.input['expectedBits'], recoveredBits: entry.input['recoveredBits'] } as Parameters<typeof comparePacketPattern>[0],
+        command({ claim: entry.input['claim'] ?? 'known-pattern-matches' } as Parameters<typeof comparePacketPattern>[1]['input']), current), entry.expected);
+    }
+  });
+  it.each(fixture.validationCases)('$id executes malformed authored or learner input', entry => {
+    let profile: unknown = structuredClone(symbolsProfile);
+    const input = entry.input;
+    if ('mapping' in input) {
+      const mapping = input['mapping'] as JsonObject[] | null;
+      profile = { ...symbolsProfile, parameters: { bitsPerSymbol: 2, levels: mapping?.map(row => ({ symbol: { value: row['value'], unit: row['unit'] }, bits: row['bits'] })) ?? null } };
+    }
+    if ('profileId' in input) profile = { ...(profile as ToySymbolProfile), id: input['profileId'] };
+    if ('authoredBits' in input) {
+      assertResult(encodeToyBits(profile as ToySymbolProfile, input['authoredBits'] as string), entry.expected);
+    } else if (entry.category === 'author') {
+      assertResult(decodeToySamples(profile as ToySymbolProfile,
+        ('authoredSamples' in input ? input['authoredSamples'] : vectorSamples(byId(fixture.encodingVectors, 'PJ-T12'))) as SymbolChallenge['samples']), entry.expected);
+    } else if (entry.id === 'PJ-MISSING-PACKET-ANSWER') {
+      assertResult(comparePacketPattern({ profile: packetProfile, expectedBits: '0100111001010001', recoveredBits: '0100111001010001' }, command(null as never), current), entry.expected);
+    } else {
+      assertResult(evaluateSymbolAnswer(symbolChallenge(), command(entry.id === 'PJ-MALFORMED-ANSWER' ? { bits: input['learnerBits'] } as { bits: string } : null as never), current), entry.expected);
+    }
+  });
+  it.each(fixture.transmissionCases)('$id consumes an actual current physical evaluation', entry => {
+    const world = physicalWorld(entry);
+    const result = evaluatePacketJourney(journeyChallenge(entry.bench, entry.impairment), command({ kind: 'inspect', phase: 'compare' }, entry.currentVersion as WorldVersion), world);
+    const { physicalStatus: _physicalStatus, physicalScope: _physicalScope, totalMetres: _total, headroomMetres: _headroom, excessMetres: _excess, journeyStatus, ...expected } = entry.expected;
+    assertResult(result, { ...expected, status: journeyStatus! });
+  });
 });
 
 describe('T033/T034 real pause/step/replay and renderer authority checks — pending', () => {
