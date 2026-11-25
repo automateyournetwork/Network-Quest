@@ -1,0 +1,483 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Network Quest save v1",
+  "description": "One safe adventure payload; raw UTF-8 body <=262144 bytes. Registry, freshness and safety validation is additional.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "saveSchemaVersion": {
+      "const": 1
+    },
+    "contentVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "maxLength": 32
+    },
+    "episodeId": {
+      "const": "spec001"
+    },
+    "adventureId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "safeState": {
+      "enum": [
+        "stable-exploration",
+        "safe-preparation",
+        "safe-continue"
+      ]
+    },
+    "world": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "roomId": {
+          "$ref": "#/$defs/id"
+        },
+        "position": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "safePositionId": {
+              "$ref": "#/$defs/id"
+            }
+          },
+          "required": [
+            "safePositionId"
+          ]
+        },
+        "configurationRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2147483647
+        },
+        "attemptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "flags": {
+          "type": "object",
+          "maxProperties": 512,
+          "propertyNames": {
+            "$ref": "#/$defs/id"
+          },
+          "additionalProperties": {
+            "type": [
+              "boolean",
+              "integer",
+              "string"
+            ],
+            "maxLength": 128,
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          }
+        },
+        "completedObjectiveIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "completedQuestIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "achievementIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "maxItems": 128,
+          "uniqueItems": true
+        },
+        "dialogueEffectIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "maxItems": 1024,
+          "uniqueItems": true
+        },
+        "inventory": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "itemId": {
+                "$ref": "#/$defs/id"
+              },
+              "quantity": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 99
+              }
+            },
+            "required": [
+              "itemId",
+              "quantity"
+            ]
+          },
+          "maxItems": 256
+        },
+        "recruits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "characterId": {
+                "$ref": "#/$defs/id"
+              },
+              "level": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              },
+              "abilityIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/id"
+                },
+                "maxItems": 32,
+                "uniqueItems": true
+              },
+              "progressFlags": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/id"
+                },
+                "maxItems": 64,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "characterId",
+              "level",
+              "abilityIds",
+              "progressFlags"
+            ]
+          },
+          "maxItems": 25
+        },
+        "activeAllyIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "maxItems": 2,
+          "uniqueItems": true
+        },
+        "compendiumIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "maxItems": 128,
+          "uniqueItems": true
+        },
+        "route": {
+          "enum": [
+            null,
+            "copper",
+            "fiber",
+            "radio"
+          ]
+        },
+        "continueOutcome": {
+          "enum": [
+            null,
+            "E01",
+            "E02"
+          ]
+        }
+      },
+      "required": [
+        "roomId",
+        "position",
+        "configurationRevision",
+        "attemptId",
+        "flags",
+        "completedObjectiveIds",
+        "completedQuestIds",
+        "achievementIds",
+        "dialogueEffectIds",
+        "inventory",
+        "recruits",
+        "activeAllyIds",
+        "compendiumIds",
+        "route",
+        "continueOutcome"
+      ]
+    },
+    "notebook": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "factIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "maxItems": 1024,
+          "uniqueItems": true
+        },
+        "mapRoomIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "maxItems": 128,
+          "uniqueItems": true
+        },
+        "personalNotes": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "hypotheses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512
+              },
+              "subjectIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/id"
+                },
+                "maxItems": 16,
+                "uniqueItems": true
+              },
+              "status": {
+                "enum": [
+                  "open",
+                  "supported",
+                  "rejected"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "text",
+              "subjectIds",
+              "status"
+            ]
+          },
+          "maxItems": 64
+        },
+        "measurements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "ruleId": {
+                "$ref": "#/$defs/id"
+              },
+              "subjectIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/id"
+                },
+                "maxItems": 16,
+                "uniqueItems": true
+              },
+              "roomId": {
+                "$ref": "#/$defs/id"
+              },
+              "configurationRevision": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2147483647
+              },
+              "attemptId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "stale": {
+                "type": "boolean"
+              },
+              "readings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "value": {
+                      "type": "number"
+                    },
+                    "unit": {
+                      "enum": [
+                        "dBm",
+                        "dB",
+                        "m",
+                        "W",
+                        "bit",
+                        "symbol",
+                        "Mbps",
+                        "Hz",
+                        "s",
+                        "count"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "value",
+                    "unit"
+                  ]
+                },
+                "maxItems": 16
+              },
+              "conclusionCode": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96
+              }
+            },
+            "required": [
+              "id",
+              "ruleId",
+              "subjectIds",
+              "roomId",
+              "configurationRevision",
+              "attemptId",
+              "stale",
+              "readings",
+              "conclusionCode"
+            ]
+          },
+          "maxItems": 512
+        }
+      },
+      "required": [
+        "factIds",
+        "mapRoomIds",
+        "personalNotes",
+        "hypotheses",
+        "measurements"
+      ]
+    },
+    "assistance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "objectiveId": {
+            "$ref": "#/$defs/id"
+          },
+          "hintId": {
+            "$ref": "#/$defs/id"
+          },
+          "level": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3
+          },
+          "attemptId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "objectiveId",
+          "hintId",
+          "level",
+          "attemptId"
+        ]
+      },
+      "maxItems": 2048
+    },
+    "outcomeHistory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "outcome": {
+            "enum": [
+              "E01",
+              "E02",
+              "E03"
+            ]
+          },
+          "attemptId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "route": {
+            "enum": [
+              null,
+              "copper",
+              "fiber",
+              "radio"
+            ]
+          },
+          "caveatIds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/id"
+            },
+            "maxItems": 32,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "id",
+          "outcome",
+          "attemptId",
+          "route",
+          "caveatIds"
+        ]
+      },
+      "maxItems": 256
+    }
+  },
+  "required": [
+    "saveSchemaVersion",
+    "contentVersion",
+    "episodeId",
+    "adventureId",
+    "safeState",
+    "world",
+    "notebook",
+    "assistance",
+    "outcomeHistory"
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^spec[0-9]{3}:[A-Za-z0-9][A-Za-z0-9._-]{0,55}$",
+      "maxLength": 64
+    }
+  }
+}

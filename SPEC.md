@@ -4,7 +4,13 @@ Version 0.1 · Kickoff specification · 2026-11-24 · Status: specified, not imp
 
 Copyright 2026 John Capobianco. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). SPDX-License-Identifier: CC-BY-4.0.
 
-Governed by [CONSTITUTION.md](CONSTITUTION.md). Build sequence: [PLAN.md](PLAN.md). This is the first of seven realm specifications, not a commitment to implement every inspirational character or protocol in the first release.
+Governed by the [current constitution](.specify/memory/constitution.md). The original decisions remain in [CONSTITUTION.md](CONSTITUTION.md). Build sequence: [PLAN.md](PLAN.md). This is the first of seven realm specifications, not a commitment to implement every inspirational character or protocol in the first release.
+
+The [Spec Kit feature specification](specs/001-physical-layer-underworld/spec.md) organizes this
+same episode into player stories, requirements and success criteria. This file remains the
+detailed source contract; both views must preserve the same scope and IDs. Its
+[quality checklist](specs/001-physical-layer-underworld/checklists/requirements.md) records
+document readiness separately from game acceptance.
 
 ## The adventure
 
@@ -137,6 +143,8 @@ Each minigame has instructions, practice, explanation, retry and exit, and can b
 - **E03 — The Honest Shutdown:** an unresolved defect is identified; the player intentionally isolates the unsafe path. The episode closes with a recovery plan rather than calling the outage repaired. Continue returns to a safe pre-commit preparation state.
 
 Each outcome has a personalized epilogue based on the chosen route, side quests, characters helped, and maintenance decisions. Assistance does not turn an otherwise valid repair into a bad ending. A failed guess at the Rift gives a specific observation and a route back to diagnosis. Dramatic deaths use a short skippable scene, explain the cause, and offer Restore Save or a clearly labeled in-memory Retry from Encounter Preparation. The latter is temporary session recovery, not a second persistent save slot. Guests can retry in memory but cannot restore an account save until signed in.
+
+Retry from Encounter Preparation and Continue after E03 MUST restore the encounter and inventory to their safe preparation state while retaining new notebook clues, personal notes and hint-use history from the attempt. Measurements obtained during that attempt MUST remain visible as stale and MUST NOT count as current validation until measured again. This rule applies to in-session retry, not Restore Save, which loads the confirmed saved adventure. Retained information becomes durable only through the existing safe manual-save or opt-in autosave rules; retry does not create another persistent slot.
 
 ## Learning model and independent cases
 
@@ -280,6 +288,10 @@ If the account has no save, offer to save the current guest adventure. If it alr
 
 V1 associates an account with a provider and that provider's stable subject/user ID. Google and GitHub logins are supported independently; switching providers does not silently merge accounts. Show the signed-in provider so players know how to return to their save. Explicit linking of providers can be specified later; matching email alone never links them.
 
+Logout MUST warn when the current adventure has unsaved progress and allow cancellation. Canceling leaves the signed-in session and current adventure unchanged. Confirmed logout ends the signed-in session, clears the current adventure from memory and returns to the title screen. It MUST NOT automatically save, replace or delete the saved account adventure, or continue that adventure as a guest. Signing in again allows the existing save to be restored.
+
+After an account-deletion request loses its response, show deletion as unconfirmed until that specific operation is confirmed by the server. Being signed out does not prove deletion. A status check must not repeat deletion or silently create/sign in to an account. If confirmation is unavailable or expired, keep the outcome unconfirmed and explain that a new destructive attempt requires a fresh explicit choice.
+
 ### Slot contract
 
 There is exactly one logical slot per account. It records the episode/content version, safe room and position, quest and world flags, inventory, recruits/party, compendium, notebook/evidence/notes, assistance, selected route/outcomes and a server revision/timestamp. Account preferences are stored separately from the adventure snapshot; they are not another slot.
@@ -307,11 +319,12 @@ Unsupported newer saves are preserved and explained. Supported older saves migra
 | SAVE05 | Enable autosave, reach a safe boundary | Same slot revision advances; no second slot appears |
 | SAVE06 | Die, choose E03, or interrupt a transition with autosave on | Last valid recoverable save survives |
 | SAVE07 | Two devices load revision 8; A saves revision 9; B attempts revision 8 | B sees a conflict; revision 9 is unchanged |
-| SAVE08 | Response is lost after a committed write; client retries the same request | One logical update; revision is not advanced twice |
+| SAVE08 | Response is lost after a committed write; client retries the same request, including after changed content/schema write policy | A retained matching acknowledgement is returned without another write; revision is not advanced twice and current slot state remains intact |
 | SAVE09 | Network failure or session expiry during saving | Honest unsaved status; confirmed save preserved; retry/sign-in available |
 | SAVE10 | Tamper with account ID, fields, payload size, or content version | Server rejects inappropriate data/access without changing another account |
 | SAVE11 | Upgrade a Spec001 save after a new episode adds a door or changes a safe position | Progress is preserved; migration explanation and valid position provided |
-| SAVE12 | Delete the account after explicit confirmation and recent authentication | Active sessions and live progress removed; backup-retention behavior explained |
+| SAVE12 | Delete after explicit confirmation/recent authentication; also lose the response, expire the session and check an unknown/expired confirmation | Active sessions/live progress removed; backup retention explained. Only operation-specific completion confirms deletion; session absence, unknown confirmation or network failure remains unconfirmed and checking status never repeats deletion |
+| SAVE13 | Log out with unsaved progress, first canceling and then confirming; sign in again | Cancel preserves the session and current adventure; confirmed logout clears the in-memory adventure and returns to title without changing the server save; sign-in can restore that save |
 
 ## Distribution and release boundary
 
@@ -321,7 +334,7 @@ A fresh public checkout must contain the instructions, source and versioned asse
 
 Credits identify original creators, source repositories for reused components, licenses, and generated/edited media provenance in an understandable way. Detailed production metadata belongs in contributor documentation; it does not interrupt the adventure. The game settings explain account data and offer logout and confirmed deletion. Account pages and saves must never be exposed in search indexes or public static assets.
 
-This kickoff does not implement, deploy or claim a functioning game. Backend credentials, actual host capacity, art/audio quality and playability remain implementation evidence to produce. The owner starts the next build stage after this three-document kickoff.
+The original three-document kickoff and subsequent Spec Kit governance setup do not implement, deploy or claim a functioning game. Backend credentials, actual host capacity, art/audio quality and playability remain implementation evidence to produce. The owner initiates the build stage separately.
 
 ## Browser interaction and quality targets
 
@@ -367,12 +380,12 @@ Every row requires recorded evidence before Spec001 is called complete. These ch
 | AC04 | NQ-04 | A clue from one room remains usable in another; stale readings are identified |
 | AC05 | NQ-05, NQ-06 | All 25 entries have role/limitation/art; all nine required recruits have progression and abilities |
 | AC06 | NQ-07 | Four side quests and three minigames each start, teach, finish/retry and exit; none gates the main route |
-| AC07 | NQ-08 | All three outcome classes are reachable; failure explains recovery and cannot silently destroy the save |
+| AC07 | NQ-08 | All three outcome classes are reachable; failure explains recovery and cannot silently destroy the save. Failure retry and E03 Continue restore encounter/inventory preparation state, retain clues/notes/hint-use history and mark prior-attempt measurements stale |
 | AC08 | NQ-09 | Inventory proves 12 finished rooms, 25 distinct modeled characters and 150 named modeled props; sources reopen |
 | AC09 | NQ-09 | 36 scene image layers, 25 portraits and 24 illustrations have honest generation/edit records and in-game use |
 | AC10 | NQ-09 | Eight music cues, 12 ambience profiles, 40 effects and 60 selected voice lines are integrated and auditioned |
 | AC11 | NQ-10 | Real Google and GitHub sign-in each pass save/close/restore with isolation; cancel preserves guest play |
-| AC12 | NQ-11 | Manual saves and opt-in autosave share one slot; SAVE01–12 pass, including concurrent and retried writes |
+| AC12 | NQ-11 | Manual saves and opt-in autosave share one slot; SAVE01–13 pass, including concurrent and retried writes |
 | AC13 | NQ-12 | A prior save survives an added future door and safe-position migration without lost notebook/recruit state |
 | AC14 | C14 | Core adventure works with keyboard/text controls, reduced motion and 200% text zoom |
 | AC15 | C14 | Browser/viewports and performance targets have recorded results; unsupported mobile claims are absent |

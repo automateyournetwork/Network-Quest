@@ -1,0 +1,921 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Network Quest asset manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "episodeId": {
+      "const": "spec001"
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/asset"
+      },
+      "maxItems": 5000
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "episodeId",
+    "assets"
+  ],
+  "$defs": {
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "assetId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96
+        },
+        "semanticIdentity": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "kind": {
+          "enum": [
+            "character-model",
+            "prop-model",
+            "scene-layer",
+            "portrait",
+            "illustration",
+            "sprite-sheet",
+            "music",
+            "ambience",
+            "effect",
+            "voice"
+          ]
+        },
+        "status": {
+          "enum": [
+            "planned",
+            "produced",
+            "exported",
+            "integrated",
+            "accepted",
+            "rejected"
+          ]
+        },
+        "countsTowardQuota": {
+          "type": "boolean"
+        },
+        "interactiveOrEvidence": {
+          "type": "boolean"
+        },
+        "variantOf": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 96
+        },
+        "derivedFrom": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96
+          },
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "file": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "maxLength": 512,
+                    "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "bytes": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "format": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64
+                  }
+                },
+                "required": [
+                  "path",
+                  "sha256",
+                  "bytes",
+                  "format"
+                ]
+              },
+              "role": {
+                "enum": [
+                  "native",
+                  "raw-generation",
+                  "master",
+                  "script",
+                  "prompt",
+                  "reference",
+                  "rights",
+                  "archive"
+                ]
+              },
+              "application": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "retrieval": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "archiveSha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "memberPath": {
+                    "type": "string",
+                    "maxLength": 512,
+                    "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+                  },
+                  "release": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128
+                  },
+                  "instructionsPath": {
+                    "type": "string",
+                    "maxLength": 512,
+                    "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+                  }
+                },
+                "required": [
+                  "url",
+                  "archiveSha256",
+                  "memberPath",
+                  "release",
+                  "instructionsPath"
+                ]
+              },
+              "reopenEvidencePath": {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+              }
+            },
+            "required": [
+              "file",
+              "role",
+              "application",
+              "version"
+            ],
+            "description": "file path is repository-relative or a member documented by public versioned retrieval; no private-only source."
+          },
+          "maxItems": 128
+        },
+        "exports": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "file": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "maxLength": 512,
+                    "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "bytes": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "format": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64
+                  }
+                },
+                "required": [
+                  "path",
+                  "sha256",
+                  "bytes",
+                  "format"
+                ]
+              },
+              "mimeType": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96
+              },
+              "sourceHashes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "maxItems": 64
+              },
+              "tool": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "preset": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "integrationEvidencePath": {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+              }
+            },
+            "required": [
+              "file",
+              "mimeType",
+              "sourceHashes",
+              "tool",
+              "preset",
+              "integrationEvidencePath"
+            ]
+          },
+          "maxItems": 64
+        },
+        "production": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "method": {
+                "enum": [
+                  "modeled",
+                  "blender-rendered",
+                  "openai-generated",
+                  "manual-edit",
+                  "music-generated",
+                  "tts-generated",
+                  "composed",
+                  "synthesized",
+                  "recorded",
+                  "mixed"
+                ]
+              },
+              "tool": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "modelRevision": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "eventId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "settingsPath": {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+              },
+              "promptOrScriptPath": {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+              },
+              "referenceHashes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "maxItems": 64
+              },
+              "outputHashes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "maxItems": 64
+              },
+              "notes": {
+                "type": "string",
+                "maxLength": 2048
+              }
+            },
+            "required": [
+              "method",
+              "tool",
+              "version",
+              "modelRevision",
+              "eventId",
+              "settingsPath",
+              "promptOrScriptPath",
+              "referenceHashes",
+              "outputHashes",
+              "notes"
+            ]
+          },
+          "maxItems": 128
+        },
+        "rights": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "reviewStatus": {
+              "enum": [
+                "pending",
+                "accepted",
+                "rejected"
+              ]
+            },
+            "creators": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "maxItems": 32
+            },
+            "licenseIds": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "maxItems": 32
+            },
+            "noticePaths": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+              },
+              "maxItems": 32
+            },
+            "sourceUrls": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uri"
+              },
+              "maxItems": 32
+            },
+            "termsSnapshotPaths": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+              },
+              "maxItems": 32
+            },
+            "inputPermissionPaths": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+              },
+              "maxItems": 32
+            },
+            "aiDisclosure": {
+              "type": "string",
+              "maxLength": 2048
+            }
+          },
+          "required": [
+            "reviewStatus",
+            "creators",
+            "licenseIds",
+            "noticePaths",
+            "sourceUrls",
+            "termsSnapshotPaths",
+            "inputPermissionPaths",
+            "aiDisclosure"
+          ]
+        },
+        "usedBy": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "contentId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 96
+              },
+              "use": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "evidencePath": {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+              }
+            },
+            "required": [
+              "contentId",
+              "use",
+              "evidencePath"
+            ]
+          },
+          "maxItems": 128
+        },
+        "verification": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "check": {
+                "enum": [
+                  "structure",
+                  "source-reopen",
+                  "visual",
+                  "browser-comparison",
+                  "listening",
+                  "rights",
+                  "owner",
+                  "budget"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "pending",
+                  "passed",
+                  "failed"
+                ]
+              },
+              "reviewer": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "date": {
+                "type": "string",
+                "format": "date"
+              },
+              "hashes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "maxItems": 64
+              },
+              "environment": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512
+              },
+              "evidencePath": {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+              },
+              "findings": {
+                "type": "string",
+                "maxLength": 2048
+              }
+            },
+            "required": [
+              "check",
+              "status",
+              "reviewer",
+              "date",
+              "hashes",
+              "environment",
+              "evidencePath",
+              "findings"
+            ]
+          },
+          "maxItems": 128
+        },
+        "model": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "blendSourcePath": {
+              "type": "string",
+              "maxLength": 512,
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+            },
+            "objectIds": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "maxItems": 256
+            },
+            "units": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32
+            },
+            "axes": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32
+            },
+            "pivot": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "collisionProxy": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "animationClips": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "maxItems": 64
+            },
+            "triangles": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "textureBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            }
+          },
+          "required": [
+            "blendSourcePath",
+            "objectIds",
+            "units",
+            "axes",
+            "pivot",
+            "collisionProxy",
+            "animationClips",
+            "triangles",
+            "textureBytes"
+          ]
+        },
+        "image": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "width": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "colorSpace": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "alpha": {
+              "type": "boolean"
+            },
+            "cameraRecordPath": {
+              "type": "string",
+              "maxLength": 512,
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+            },
+            "layerRole": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "registrationPath": {
+              "type": "string",
+              "maxLength": 512,
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+            },
+            "frameTimingPath": {
+              "type": "string",
+              "maxLength": 512,
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+            }
+          },
+          "required": [
+            "width",
+            "height",
+            "colorSpace",
+            "alpha",
+            "cameraRecordPath",
+            "layerRole",
+            "registrationPath"
+          ]
+        },
+        "audio": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "nativeProjectPath": {
+              "type": "string",
+              "maxLength": 512,
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+            },
+            "masterPath": {
+              "type": "string",
+              "maxLength": 512,
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+            },
+            "codec": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "sampleRate": {
+              "type": "integer",
+              "minimum": 8000,
+              "maximum": 192000
+            },
+            "channels": {
+              "enum": [
+                1,
+                2
+              ]
+            },
+            "durationSeconds": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "loopStartSample": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "loopEndSample": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "loudnessLufs": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "peakDbfs": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "captionId": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 96
+            },
+            "voiceRecordPath": {
+              "type": "string",
+              "maxLength": 512,
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
+            }
+          },
+          "required": [
+            "nativeProjectPath",
+            "masterPath",
+            "codec",
+            "sampleRate",
+            "channels",
+            "durationSeconds",
+            "loopStartSample",
+            "loopEndSample",
+            "loudnessLufs",
+            "peakDbfs",
+            "captionId"
+          ]
+        }
+      },
+      "required": [
+        "assetId",
+        "semanticIdentity",
+        "kind",
+        "status",
+        "countsTowardQuota",
+        "interactiveOrEvidence",
+        "variantOf",
+        "derivedFrom",
+        "sources",
+        "exports",
+        "production",
+        "rights",
+        "usedBy",
+        "verification"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "accepted"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "sources": {
+                "minItems": 1
+              },
+              "exports": {
+                "minItems": 1
+              },
+              "usedBy": {
+                "minItems": 1
+              },
+              "production": {
+                "minItems": 1
+              },
+              "rights": {
+                "properties": {
+                  "reviewStatus": {
+                    "const": "accepted"
+                  }
+                }
+              },
+              "verification": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "countsTowardQuota": {
+                "const": true
+              }
+            },
+            "required": [
+              "countsTowardQuota"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "accepted"
+              },
+              "sources": {
+                "minItems": 1
+              },
+              "exports": {
+                "minItems": 1
+              },
+              "usedBy": {
+                "minItems": 1
+              },
+              "production": {
+                "minItems": 1
+              },
+              "rights": {
+                "properties": {
+                  "reviewStatus": {
+                    "const": "accepted"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "accepted"
+              },
+              "kind": {
+                "enum": [
+                  "character-model",
+                  "prop-model"
+                ]
+              }
+            },
+            "required": [
+              "status",
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "model"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "accepted"
+              },
+              "kind": {
+                "enum": [
+                  "scene-layer",
+                  "portrait",
+                  "illustration",
+                  "sprite-sheet"
+                ]
+              }
+            },
+            "required": [
+              "status",
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "image"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "accepted"
+              },
+              "kind": {
+                "enum": [
+                  "music",
+                  "ambience",
+                  "effect",
+                  "voice"
+                ]
+              }
+            },
+            "required": [
+              "status",
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "audio"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -2,6 +2,12 @@
 
 Version 0.1 · Kickoff · 2026-11-24 · Owner: John Capobianco
 
+> Historical kickoff source. The current governing document is the
+> [Spec Kit constitution](.specify/memory/constitution.md), v0.2.0, adopted into Spec Kit on
+> 2026-11-25. The interview decisions and refinement record below are preserved. References to
+> the three-file kickoff describe the original deliverable; the current setup adds Spec Kit
+> governance and templates.
+
 Copyright 2026 John Capobianco. This document is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). SPDX-License-Identifier: CC-BY-4.0.
 
 This document governs Network Quest, an original educational browser adventure through the seven OSI realms. Read it before [SPEC.md](SPEC.md), which defines Spec001, and [PLAN.md](PLAN.md), which defines the build sequence. These are planning contracts; no playable game, assets, account service, or deployment is delivered by this kickoff.

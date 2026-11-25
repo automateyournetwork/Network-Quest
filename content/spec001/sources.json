@@ -1,0 +1,2779 @@
+{
+  "recordVersion": 1,
+  "episode": "spec001",
+  "date": "2026-11-25",
+  "purpose": "T006 pre-implementation source review and independently authored expected cases; not production content schema or evaluator tests",
+  "review": {
+    "reviewer": "Codex implementation worker loop 008",
+    "kind": "agent-performed source inspection and independent arithmetic",
+    "humanTechnicalReview": "pending T160",
+    "runtimeEvaluation": "not implemented; pending T014 and later evaluators",
+    "report": "docs/evidence/spec001/rule-source-review.md"
+  },
+  "authority": {
+    "technical": "Only bounded supportedClaim fields from inspected primary sources",
+    "scenario": "SPEC.md, Learning model and independent cases, T01–T16 and Packet perspective and encapsulation",
+    "state": "Constitution C9/C10; SPEC.md; specs/001-physical-layer-underworld/data-model.md; contracts/gameplay.md",
+    "supplementaryCases": "Authored review examples; not claims of existing gameplay or real-product behavior"
+  },
+  "sourceRegisterNotes": {
+    "REF02": "IEEE 802.3 working-group landing page retained only as discovery pointer; no clause verification claimed.",
+    "REF03": "IEEE 802.11 working-group landing page retained only as discovery pointer; no clause verification claimed.",
+    "REF05": "Specific QFX calculation page S06 used in place of broad PTX manual pointer for this calculation claim.",
+    "missingDates": "null publicationOrUpdateDate means not established from retrieved material; retrievalDate is separate."
+  },
+  "evaluationOrdering": [
+    "Validate authored challenge/profile/units and supported model first; malformed source is content-error, never learner failure.",
+    "Validate action shape: empty or malformed learner action is invalid-input.",
+    "Check current attempt/configuration and explicit stale flag for submitted measurement evidence.",
+    "Check physical compatibility and safety prerequisites before arithmetic can establish usability.",
+    "Evaluate the applicable scoped quantities; all required checks must pass; accept every equivalent valid action.",
+    "Apply accepted effects atomically and once; interruption/replay cannot create partial or duplicate awards."
+  ],
+  "sources": [
+    {
+      "id": "S01",
+      "title": "ITU-T X.200 (07/1994): Information technology — Open Systems Interconnection — Basic Reference Model: The basic model",
+      "url": "https://www.itu.int/rec/dologin_pub.asp?id=T-REC-X.200-199407-I!!PDF-E&lang=e&type=items",
+      "section": "7.7.2; 7.7.3.3–7.7.3.4; 7.7.4.4; printed pages 49–51, PDF pages 53–55",
+      "publicationOrUpdateDate": "1994-07",
+      "retrievedDate": "2026-11-25",
+      "supportedClaim": "Physical entities transmit bits over physical media and can relay interconnected circuits; transmission may be synchronous or asynchronous.",
+      "limits": "Conceptual architecture only. No universal medium, numeric threshold, wire header, or claim that PHYs never have their own error mechanisms.",
+      "specificationAliases": [
+        "REF01"
+      ],
+      "inspection": "Opened official recommendation, followed English PDF, inspected section text",
+      "reviewStatus": "agent-source-review-complete; human-review-pending"
+    },
+    {
+      "id": "S02",
+      "title": "RFC 1122: Requirements for Internet Hosts — Communication Layers",
+      "url": "https://www.rfc-editor.org/rfc/rfc1122.html#section-1.1.3",
+      "section": "1.1.3 Internet Protocol Suite, pages 8–11",
+      "publicationOrUpdateDate": "1989-10",
+      "retrievedDate": "2026-11-25",
+      "supportedClaim": "The Internet suite distinguishes application, transport, Internet and link functions; its grouping differs from the OSI teaching realms.",
+      "limits": "Historical architectural context, not current protocol configuration guidance; does not authorize seven invented mandatory headers.",
+      "specificationAliases": [
+        "REF07"
+      ],
+      "inspection": "Opened RFC Editor HTML and read corresponding publisher plain-text section",
+      "reviewStatus": "agent-source-review-complete; human-review-pending"
+    },
+    {
+      "id": "S03",
+      "title": "Cisco 800 Series Integrated Services Router Hardware Installation Guide — Technical Specifications",
+      "url": "https://www.cisco.com/c/en/us/td/docs/routers/access/800/hardware/installation/guide/800HIG/appendix.html",
+      "section": "Cable Specifications → Ethernet Cable Specifications → Maximum Cable Length",
+      "publicationOrUpdateDate": "2014-07-30",
+      "retrievedDate": "2026-11-25",
+      "supportedClaim": "This hardware guide specifies a 100 m maximum Ethernet cable distance between the described router and connected equipment.",
+      "limits": "Product-specific illustration only. The game 100 m channel and inclusive comparator remain fictional; no universal limit for all copper or all Ethernet. No certification claim.",
+      "specificationAliases": [],
+      "inspection": "Opened publisher page with browser tool",
+      "reviewStatus": "agent-source-review-complete; human-review-pending"
+    },
+    {
+      "id": "S04",
+      "title": "What's Wrong with My Cable?",
+      "url": "https://www.flukenetworks.com/blog/cabling-chronicles/whats-wrong-my-cable",
+      "section": "Failures of the Five Wiremap Tests",
+      "publicationOrUpdateDate": "2019-02-13",
+      "retrievedDate": "2026-11-25",
+      "supportedClaim": "Wiremap examines conductor continuity and termination; an open can reflect a broken conductor, poor connection or damaged connector.",
+      "limits": "The fixture supplies a diagnosed required-path break. An arbitrary open indication alone does not prove its location or cause; tester setup also matters.",
+      "specificationAliases": [],
+      "inspection": "Opened publisher page with browser tool",
+      "reviewStatus": "agent-source-review-complete; human-review-pending"
+    },
+    {
+      "id": "S05",
+      "title": "IBM AS/400e series: LAN, Frame-Relay and ATM Support, Version 4, SC41-5404-01",
+      "url": "https://public.dhe.ibm.com/systems/power/docs/systemi/v5r4/en_US/sc415404.pdf",
+      "section": "Chapter 5 Ethernet networks → Ethernet topologies → Repeater hubs; PDF page 101",
+      "publicationOrUpdateDate": "1998-02",
+      "retrievedDate": "2026-11-25",
+      "supportedClaim": "Historical Ethernet repeater hubs receive and repeat data to linked segments with amplification and retiming; the described shared medium operates half duplex.",
+      "limits": "Not a modern wireless extender or a universal repeater topology allowance. Inability to restore an unchanged physical break is an explicit scenario inference, supported together with S04.",
+      "specificationAliases": [],
+      "inspection": "Opened IBM PDF; downloaded to temporary directory and extracted the exact page using pdftotext; no source copy retained",
+      "reviewStatus": "agent-source-review-complete; human-review-pending"
+    },
+    {
+      "id": "S06",
+      "title": "QFX5130 Network Cable and Transceiver Planning",
+      "url": "https://networkingdocs.hpe.com/documentation/us/en/hardware/qfx5130/topics/topic-map/qfx5130-network-cable-transceiver.html",
+      "section": "Calculate Power Budget and Power Margin for Fiber-Optic Cables → Calculate Power Budget for Fiber-Optic Cables; How to Calculate Power Margin for Fiber-Optic Cables",
+      "publicationOrUpdateDate": null,
+      "retrievedDate": "2026-11-25",
+      "supportedClaim": "Budget equals minimum transmit power minus receiver sensitivity; margin subtracts link loss from that budget. Actual component losses need vendor data.",
+      "limits": "Original Juniper URL redirects to publisher HPE documentation. Use equations only; a positive margin does not independently prove the maximum receiver bound. No sample losses or fixture thresholds imported.",
+      "specificationAliases": [
+        "REF05"
+      ],
+      "inspection": "Opened Juniper URL/redirect; read equation text in returned publisher HTML",
+      "reviewStatus": "agent-source-review-complete; human-review-pending"
+    },
+    {
+      "id": "S07",
+      "title": "Cisco 10GBASE SFP+ Modules Data Sheet",
+      "url": "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/data_sheet_c78-455693.html",
+      "section": "Platform support; Product specifications, Table 3 SFP+ port cabling specifications and Table 4 Optical transmit and receive specifications",
+      "publicationOrUpdateDate": "2026-10-06",
+      "retrievedDate": "2026-11-25",
+      "supportedClaim": "Module-specific media, wavelength, reach and receiver minimum/maximum power are separate specifications. Host compatibility requires support information.",
+      "limits": "No real module is instantiated in the toy optical fixture. Do not generalize shell shape or SMF/MMF slogans; supported combinations vary by module.",
+      "specificationAliases": [],
+      "inspection": "Opened publisher page and read Table 4 rows in publisher HTML",
+      "reviewStatus": "agent-source-review-complete; human-review-pending"
+    },
+    {
+      "id": "S08",
+      "title": "Troubleshooting a Traditional Cisco Wireless Network",
+      "url": "https://www.cisco.com/c/en/us/support/docs/smb/wireless/CB-Wireless-Mesh/1902-tz-Troubleshooting-Traditional-Cisco-Wireless-Network.html",
+      "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+      "publicationOrUpdateDate": "2020-07-13",
+      "retrievedDate": "2026-11-25",
+      "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+      "limits": "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile.",
+      "specificationAliases": [
+        "REF06"
+      ],
+      "inspection": "Opened publisher page with browser tool",
+      "reviewStatus": "agent-source-review-complete; human-review-pending"
+    },
+    {
+      "id": "S09",
+      "title": "Wireless Site Survey FAQ",
+      "url": "https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-lan-wlan/68666-wireless-site-survey-faq.html",
+      "section": "What is Signal-to-Noise Ratio (SNR)?",
+      "publicationOrUpdateDate": "2008-01-21",
+      "retrievedDate": "2026-11-25",
+      "supportedClaim": "SNR is a signal-to-noise power ratio; its dB value is ten times the base-ten logarithm of that ratio.",
+      "limits": "For compatible power measurements with one reference, subtracting dBm yields dB. No universal acceptable threshold follows from this definition.",
+      "specificationAliases": [],
+      "inspection": "Opened publisher page with browser tool",
+      "reviewStatus": "agent-source-review-complete; human-review-pending"
+    },
+    {
+      "id": "S10",
+      "title": "Power over Ethernet (PoE) standards and compatibility",
+      "url": "https://kb.netgear.com/12902/Power-over-Ethernet-PoE-standards-and-compatibility",
+      "section": "Introductory PSE/PD definitions; PoE budget; PoE class, table headings for power delivered to PD versus switch-port output",
+      "publicationOrUpdateDate": "2025-07-07",
+      "retrievedDate": "2026-11-25",
+      "supportedClaim": "PSE output and power delivered to a PD are distinct accounting boundaries. Multiple devices must fit the available aggregate budget.",
+      "limits": "Only this distinction and aggregate-budget concept are used. No table wattages, PoE class allocation, priority behavior or detection timing are used by the fiction.",
+      "specificationAliases": [],
+      "inspection": "Opened publisher page with browser tool",
+      "reviewStatus": "agent-source-review-complete; human-review-pending"
+    },
+    {
+      "id": "S11",
+      "title": "Configure and Verify Ethernet 10/100/1000Mb Half/Full Duplex Auto-Negotiation",
+      "url": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/10561-3.html",
+      "section": "When to Use Ethernet 10/100 Mb Auto-Negotiation",
+      "publicationOrUpdateDate": "2025-11-06",
+      "retrievedDate": "2026-11-25",
+      "supportedClaim": "Negotiation exchanges supported speed and duplex abilities; both link partners need coherent settings.",
+      "limits": "T11 is set intersection with one common member and both ends negotiating. Forced modes, parallel detection and modern PHY-specific negotiation are outside this model.",
+      "specificationAliases": [
+        "REF04"
+      ],
+      "inspection": "Opened publisher page with browser tool",
+      "reviewStatus": "agent-source-review-complete; human-review-pending"
+    },
+    {
+      "id": "S12",
+      "title": "AN 835: PAM4 Signaling Fundamentals — 2.1 Naming Conventions",
+      "url": "https://docs.altera.com/r/docs/683852/current/an-835-pam4-signaling-fundamentals/naming-conventions?contentId=3pjo4rivWRA3S_3guTsLHg",
+      "section": "2.1 Naming Conventions; Table 4 Linear and Gray Coding",
+      "publicationOrUpdateDate": "2025-12-16",
+      "retrievedDate": "2026-11-25",
+      "supportedClaim": "Four amplitude levels can represent four two-bit combinations; the source distinguishes linear and Gray coding.",
+      "limits": "T12 deliberately uses the declared linear toy labels. Do not substitute a real PHY map, count useful bitrate from symbol count, or imply the toy implements PAM4.",
+      "specificationAliases": [],
+      "inspection": "Opened publisher page with browser tool",
+      "reviewStatus": "agent-source-review-complete; human-review-pending"
+    },
+    {
+      "id": "S13",
+      "title": "AN 835: PAM4 Signaling Fundamentals — 4.2.3 Clock and Data Recovery (CDR)",
+      "url": "https://docs.altera.com/r/docs/683852/current/an-835-pam4-signaling-fundamentals/clock-and-data-recovery-cdr?contentId=nXMAcJhwUb~wUsi5ZroOUw",
+      "section": "4.2.3 Clock and Data Recovery (CDR)",
+      "publicationOrUpdateDate": "2025-12-16",
+      "retrievedDate": "2026-11-25",
+      "supportedClaim": "High-speed serial reception includes clock/data recovery; multilevel signaling requires appropriate timing recovery.",
+      "limits": "Physical timing context only. The toy uses explicit discrete sampling; no analog jitter model, NTP synchronization, timing reflex requirement or CDR implementation.",
+      "specificationAliases": [],
+      "inspection": "Opened publisher page with browser tool",
+      "reviewStatus": "agent-source-review-complete; human-review-pending"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "spec001:PROFILE-COPPER-100",
+      "kind": "fictional-teaching-profile",
+      "sources": [
+        "S03",
+        "S04",
+        "S05"
+      ],
+      "parameters": {
+        "maximumChannelLength": {
+          "value": 100,
+          "unit": "m"
+        },
+        "inclusiveMaximum": true
+      },
+      "assumptions": [
+        "Known compatible endpoints/media/terminations; one passive channel; supplied lengths exact and nonnegative.",
+        "Every required conductor is continuous unless explicitly broken; fresh tests required."
+      ],
+      "limits": [
+        "No cable certification, electromagnetic model, hidden permanent-link/patch-cord sublimits or real-product claim.",
+        "Repeater added without fixing a break cannot restore continuity. Regenerative topologies require separate reviewed segment limits and are unsupported here."
+      ]
+    },
+    {
+      "id": "spec001:PROFILE-OPTICAL",
+      "kind": "fictional-teaching-profile",
+      "sources": [
+        "S06",
+        "S07"
+      ],
+      "parameters": {
+        "transmit": {
+          "value": -3,
+          "unit": "dBm"
+        },
+        "sensitivity": {
+          "value": -14,
+          "unit": "dBm"
+        },
+        "maximumReceive": {
+          "value": -1,
+          "unit": "dBm"
+        },
+        "requiredMargin": {
+          "value": 2,
+          "unit": "dB"
+        },
+        "inclusiveBounds": true
+      },
+      "assumptions": [
+        "Explicit matched pair, media, wavelength direction, supported rate, connector/polarity and host capability; inspected connection.",
+        "Loss is passive, finite and nonnegative, expressed in dB; total provided includes all modeled losses; no amplifier."
+      ],
+      "limits": [
+        "Evaluate compatibility before arithmetic.",
+        "No dispersion, uncertainty, aging, temperature or actual product simulation.",
+        "T06 supplies received power independently; combining 0 dBm receive with -3 dBm transmit and nonnegative passive loss is inconsistent content."
+      ]
+    },
+    {
+      "id": "spec001:PROFILE-RADIO",
+      "kind": "fictional-teaching-profile",
+      "sources": [
+        "S08",
+        "S09"
+      ],
+      "parameters": {
+        "requiredSNR": {
+          "value": 20,
+          "unit": "dB"
+        },
+        "inclusiveMinimum": true
+      },
+      "assumptions": [
+        "Signal and noise use comparable received power measurements in dBm.",
+        "Known compatible radio settings and viable path are independently supplied; sample fresh after change."
+      ],
+      "limits": [
+        "No universal Wi-Fi throughput, channel ranking, coverage model or regulatory assertion.",
+        "Missing authored path/settings facts are content-error; explicitly incompatible chosen settings are incorrect."
+      ]
+    },
+    {
+      "id": "spec001:PROFILE-POWER",
+      "kind": "fictional-teaching-profile",
+      "sources": [
+        "S10"
+      ],
+      "parameters": {
+        "deliveredBudget": {
+          "value": 30,
+          "unit": "W"
+        },
+        "inclusiveMaximum": true
+      },
+      "assumptions": [
+        "Budget and demands measured at the delivered endpoint boundary after losses.",
+        "Device/port/power-method compatibility and per-port constraints independently satisfied."
+      ],
+      "limits": [
+        "No PoE class, voltage negotiation, inrush model or hidden PSE-to-PD loss subtraction.",
+        "Power adequacy alone does not prove data connectivity."
+      ]
+    },
+    {
+      "id": "spec001:PROFILE-CAPABILITIES",
+      "kind": "toy-negotiation",
+      "sources": [
+        "S11"
+      ],
+      "parameters": {
+        "endpointA": [
+          {
+            "rate": {
+              "value": 1000,
+              "unit": "Mb/s"
+            },
+            "duplex": "full"
+          },
+          {
+            "rate": {
+              "value": 100,
+              "unit": "Mb/s"
+            },
+            "duplex": "full"
+          }
+        ],
+        "endpointB": [
+          {
+            "rate": {
+              "value": 100,
+              "unit": "Mb/s"
+            },
+            "duplex": "full"
+          },
+          {
+            "rate": {
+              "value": 10,
+              "unit": "Mb/s"
+            },
+            "duplex": "half"
+          }
+        ]
+      },
+      "assumptions": [
+        "Both endpoints negotiate; accepted selection must exist in both advertised sets.",
+        "T11 has one common member, so no ranking algorithm is needed."
+      ],
+      "limits": [
+        "No unsupported capability creation, forced-mode fallback, parallel detection, PAUSE or master/slave simulation.",
+        "A challenge with several common choices must declare and review any ranking rule; do not invent one."
+      ]
+    },
+    {
+      "id": "spec001:PROFILE-SYMBOLS",
+      "kind": "toy-symbol-map",
+      "sources": [
+        "S01",
+        "S12",
+        "S13"
+      ],
+      "parameters": {
+        "levels": [
+          {
+            "symbol": {
+              "value": -3,
+              "unit": "toy-level"
+            },
+            "bits": "00"
+          },
+          {
+            "symbol": {
+              "value": -1,
+              "unit": "toy-level"
+            },
+            "bits": "01"
+          },
+          {
+            "symbol": {
+              "value": 1,
+              "unit": "toy-level"
+            },
+            "bits": "10"
+          },
+          {
+            "symbol": {
+              "value": 3,
+              "unit": "toy-level"
+            },
+            "bits": "11"
+          }
+        ],
+        "bitsPerSymbol": 2
+      },
+      "assumptions": [
+        "Discrete exact samples are provided in order with explicit sample positions; player may step, pause and replay."
+      ],
+      "limits": [
+        "No analog voltage claim, complete PAM4 PHY, clock-rate/throughput inference or timing score.",
+        "Unknown authored symbols/missing sample positions are content-error; missing learner answer is invalid-input."
+      ]
+    },
+    {
+      "id": "spec001:PROFILE-PACKET",
+      "kind": "known-laboratory-pattern",
+      "sources": [
+        "S01",
+        "S02",
+        "S12"
+      ],
+      "parameters": {
+        "payloadHex": [
+          "4E",
+          "51"
+        ],
+        "payloadText": "NQ",
+        "highlightedBits": "0100111001010001",
+        "displayBitOrder": "most-significant-bit first within each highlighted byte"
+      },
+      "assumptions": [
+        "Two highlighted bytes within an opaque upper-interface frame; known sample order.",
+        "Compare recovered highlighted bits after evaluating the declared physical path."
+      ],
+      "limits": [
+        "Display bit order is a toy convention, not a claim about Ethernet serialization.",
+        "Not a whole two-byte Ethernet frame, FCS validation, universal error detector or higher-layer simulator."
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "PHY01",
+      "name": "physical-observation",
+      "kind": "technical-predicate",
+      "objectives": [
+        "O01"
+      ],
+      "sources": [
+        "S08"
+      ],
+      "profiles": [],
+      "correctCases": [
+        "C-PWR-OBS"
+      ],
+      "incorrectCases": [
+        "C-PWR-INFER"
+      ],
+      "boundaryCases": [
+        "B-PWR-ONLY"
+      ],
+      "invalidInputCases": [
+        "I-PHY01"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    },
+    {
+      "id": "PHY02",
+      "name": "physical-scope-and-investigation",
+      "kind": "technical-predicate",
+      "objectives": [
+        "O02",
+        "O10"
+      ],
+      "sources": [
+        "S01",
+        "S02",
+        "S04"
+      ],
+      "profiles": [],
+      "correctCases": [
+        "C-SCOPE"
+      ],
+      "incorrectCases": [
+        "C-SCOPE-WRONG"
+      ],
+      "boundaryCases": [
+        "B-SCOPE"
+      ],
+      "invalidInputCases": [
+        "I-PHY02"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    },
+    {
+      "id": "PHY03",
+      "name": "compatibility-and-inspection",
+      "kind": "technical-predicate",
+      "objectives": [
+        "O03",
+        "O05",
+        "O07",
+        "O09"
+      ],
+      "sources": [
+        "S03",
+        "S07",
+        "S08",
+        "S10"
+      ],
+      "profiles": [],
+      "correctCases": [
+        "C-COMPAT"
+      ],
+      "incorrectCases": [
+        "T07"
+      ],
+      "boundaryCases": [
+        "B-COMPAT",
+        "B-INSPECTION"
+      ],
+      "invalidInputCases": [
+        "I-PHY03"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    },
+    {
+      "id": "PHY04",
+      "name": "copper-length",
+      "kind": "technical-predicate",
+      "objectives": [
+        "O03",
+        "O04"
+      ],
+      "sources": [
+        "S03"
+      ],
+      "profiles": [
+        "spec001:PROFILE-COPPER-100"
+      ],
+      "correctCases": [
+        "T01"
+      ],
+      "incorrectCases": [
+        "T02"
+      ],
+      "boundaryCases": [
+        "B-COPPER-100",
+        "B-COPPER-OVER"
+      ],
+      "invalidInputCases": [
+        "I-PHY04"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    },
+    {
+      "id": "PHY05",
+      "name": "continuity-and-regeneration-limits",
+      "kind": "technical-predicate",
+      "objectives": [
+        "O03",
+        "O04"
+      ],
+      "sources": [
+        "S04",
+        "S05"
+      ],
+      "profiles": [
+        "spec001:PROFILE-COPPER-100"
+      ],
+      "correctCases": [
+        "C-CONTINUITY"
+      ],
+      "incorrectCases": [
+        "T03"
+      ],
+      "boundaryCases": [
+        "B-CONTINUITY"
+      ],
+      "invalidInputCases": [
+        "I-PHY05"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    },
+    {
+      "id": "PHY06",
+      "name": "optical-receive-and-reserve",
+      "kind": "technical-predicate",
+      "objectives": [
+        "O05",
+        "O06"
+      ],
+      "sources": [
+        "S06",
+        "S07"
+      ],
+      "profiles": [
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "correctCases": [
+        "T04"
+      ],
+      "incorrectCases": [
+        "T05",
+        "T06",
+        "T07"
+      ],
+      "boundaryCases": [
+        "T15",
+        "B-OPT-MAX",
+        "B-OPT-OVER",
+        "B-OPT-RESERVE"
+      ],
+      "invalidInputCases": [
+        "I-PHY06"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    },
+    {
+      "id": "PHY07",
+      "name": "radio-path-and-snr",
+      "kind": "technical-predicate",
+      "objectives": [
+        "O07",
+        "O08"
+      ],
+      "sources": [
+        "S08",
+        "S09"
+      ],
+      "profiles": [
+        "spec001:PROFILE-RADIO"
+      ],
+      "correctCases": [
+        "T08"
+      ],
+      "incorrectCases": [
+        "T09"
+      ],
+      "boundaryCases": [
+        "B-RADIO-20",
+        "B-RADIO-BELOW",
+        "B-RADIO-PATH"
+      ],
+      "invalidInputCases": [
+        "I-PHY07"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    },
+    {
+      "id": "PHY08",
+      "name": "delivered-power",
+      "kind": "technical-predicate",
+      "objectives": [
+        "O09"
+      ],
+      "sources": [
+        "S10"
+      ],
+      "profiles": [
+        "spec001:PROFILE-POWER"
+      ],
+      "correctCases": [
+        "C-POWER"
+      ],
+      "incorrectCases": [
+        "T10"
+      ],
+      "boundaryCases": [
+        "B-POWER-30",
+        "B-POWER-OVER",
+        "B-POWER-COMPAT"
+      ],
+      "invalidInputCases": [
+        "I-PHY08"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    },
+    {
+      "id": "PHY09",
+      "name": "common-capability",
+      "kind": "technical-predicate",
+      "objectives": [
+        "O09",
+        "O10"
+      ],
+      "sources": [
+        "S11"
+      ],
+      "profiles": [
+        "spec001:PROFILE-CAPABILITIES"
+      ],
+      "correctCases": [
+        "T11"
+      ],
+      "incorrectCases": [
+        "C-NEG-WRONG"
+      ],
+      "boundaryCases": [
+        "B-NEG-NONE"
+      ],
+      "invalidInputCases": [
+        "I-PHY09"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    },
+    {
+      "id": "PHY10",
+      "name": "toy-symbols-and-timing",
+      "kind": "technical-predicate",
+      "objectives": [
+        "O10"
+      ],
+      "sources": [
+        "S01",
+        "S12",
+        "S13"
+      ],
+      "profiles": [
+        "spec001:PROFILE-SYMBOLS"
+      ],
+      "correctCases": [
+        "T12"
+      ],
+      "incorrectCases": [
+        "C-SYMBOL-WRONG"
+      ],
+      "boundaryCases": [
+        "B-SYMBOL",
+        "B-TIMING"
+      ],
+      "invalidInputCases": [
+        "I-PHY10"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    },
+    {
+      "id": "PHY11",
+      "name": "packet-pattern-comparison",
+      "kind": "technical-predicate",
+      "objectives": [
+        "O01",
+        "O10",
+        "O12"
+      ],
+      "sources": [
+        "S01",
+        "S02",
+        "S12"
+      ],
+      "profiles": [
+        "spec001:PROFILE-PACKET"
+      ],
+      "correctCases": [
+        "C-PACKET"
+      ],
+      "incorrectCases": [
+        "C-PACKET-DIFF"
+      ],
+      "boundaryCases": [
+        "B-PACKET"
+      ],
+      "invalidInputCases": [
+        "I-PHY11"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    },
+    {
+      "id": "STATE01",
+      "name": "measurement-freshness",
+      "kind": "design-state-invariant",
+      "objectives": [
+        "O04",
+        "O06",
+        "O08",
+        "O11",
+        "O12"
+      ],
+      "sources": [],
+      "profiles": [],
+      "correctCases": [
+        "C-FRESH"
+      ],
+      "incorrectCases": [
+        "T13"
+      ],
+      "boundaryCases": [
+        "B-RETRY",
+        "B-STALE-FLAG"
+      ],
+      "invalidInputCases": [
+        "I-STATE01"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    },
+    {
+      "id": "STATE02",
+      "name": "authored-data-validity",
+      "kind": "design-state-invariant",
+      "objectives": [
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06",
+        "O07",
+        "O08",
+        "O09",
+        "O10",
+        "O11",
+        "O12"
+      ],
+      "sources": [],
+      "profiles": [],
+      "correctCases": [
+        "C-VALID"
+      ],
+      "incorrectCases": [
+        "C-VALID-WRONG"
+      ],
+      "boundaryCases": [
+        "B-LOSS-ZERO"
+      ],
+      "invalidInputCases": [
+        "I-STATE02"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    },
+    {
+      "id": "STATE03",
+      "name": "equivalent-solutions-and-effects",
+      "kind": "design-state-invariant",
+      "objectives": [
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06",
+        "O07",
+        "O08",
+        "O09",
+        "O10",
+        "O11",
+        "O12"
+      ],
+      "sources": [],
+      "profiles": [],
+      "correctCases": [
+        "T16"
+      ],
+      "incorrectCases": [
+        "C-ALT-INVALID"
+      ],
+      "boundaryCases": [
+        "B-REPLAY",
+        "B-INTERRUPT"
+      ],
+      "invalidInputCases": [
+        "I-STATE03"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    },
+    {
+      "id": "STATE04",
+      "name": "intervention-and-restoration",
+      "kind": "design-state-invariant",
+      "objectives": [
+        "O11",
+        "O12"
+      ],
+      "sources": [
+        "S08"
+      ],
+      "profiles": [],
+      "correctCases": [
+        "C-E01",
+        "C-E02",
+        "C-E03"
+      ],
+      "incorrectCases": [
+        "C-END-WRONG"
+      ],
+      "boundaryCases": [
+        "B-ENDPOINT"
+      ],
+      "invalidInputCases": [
+        "I-STATE04"
+      ],
+      "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+    }
+  ],
+  "referenceCases": [
+    {
+      "id": "T01",
+      "ruleId": "PHY04",
+      "inputs": {
+        "profile": "spec001:PROFILE-COPPER-100",
+        "lengths": [
+          {
+            "value": 85,
+            "unit": "m"
+          },
+          {
+            "value": 10,
+            "unit": "m"
+          }
+        ],
+        "compatible": true,
+        "intact": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "total": {
+            "value": 95,
+            "unit": "m"
+          },
+          "headroom": {
+            "value": 5,
+            "unit": "m"
+          },
+          "scope": "length only"
+        }
+      },
+      "independentReasoning": "85 + 10 = 95; 100 - 95 = 5; 95 <= 100"
+    },
+    {
+      "id": "T02",
+      "ruleId": "PHY04",
+      "inputs": {
+        "profile": "spec001:PROFILE-COPPER-100",
+        "lengths": [
+          {
+            "value": 95,
+            "unit": "m"
+          },
+          {
+            "value": 10,
+            "unit": "m"
+          }
+        ]
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "total": {
+            "value": 105,
+            "unit": "m"
+          },
+          "excess": {
+            "value": 5,
+            "unit": "m"
+          },
+          "reason": "length-exceeded"
+        }
+      },
+      "independentReasoning": "95 + 10 = 105; 105 - 100 = 5"
+    },
+    {
+      "id": "T03",
+      "ruleId": "PHY05",
+      "inputs": {
+        "requiredPathOpen": true,
+        "alternatePath": false,
+        "action": "add-repeater",
+        "continuityRestored": false
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "connectedPath": false,
+          "reason": "open-remains"
+        }
+      },
+      "independentReasoning": "The stated action leaves the required connection open; a relay must receive a signal through a usable circuit."
+    },
+    {
+      "id": "T04",
+      "ruleId": "PHY06",
+      "inputs": {
+        "profile": "spec001:PROFILE-OPTICAL",
+        "compatible": true,
+        "loss": {
+          "value": 8,
+          "unit": "dB"
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "receive": {
+            "value": -11,
+            "unit": "dBm"
+          },
+          "margin": {
+            "value": 3,
+            "unit": "dB"
+          },
+          "overload": false,
+          "reserveMet": true
+        }
+      },
+      "independentReasoning": "-3 - 8 = -11; -11 - (-14) = 3; compare margin with 2 and receive with -1"
+    },
+    {
+      "id": "T05",
+      "ruleId": "PHY06",
+      "inputs": {
+        "profile": "spec001:PROFILE-OPTICAL",
+        "compatible": true,
+        "loss": {
+          "value": 10,
+          "unit": "dB"
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "receive": {
+            "value": -13,
+            "unit": "dBm"
+          },
+          "margin": {
+            "value": 1,
+            "unit": "dB"
+          },
+          "overload": false,
+          "reserveMet": false
+        }
+      },
+      "independentReasoning": "-3 - 10 = -13; -13 - (-14) = 1; compare margin with 2 and receive with -1"
+    },
+    {
+      "id": "T06",
+      "ruleId": "PHY06",
+      "inputs": {
+        "receivedObservation": {
+          "value": 0,
+          "unit": "dBm"
+        },
+        "maximumReceive": {
+          "value": -1,
+          "unit": "dBm"
+        },
+        "compatible": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "overload": true,
+          "excess": {
+            "value": 1,
+            "unit": "dB"
+          }
+        }
+      },
+      "independentReasoning": "0 > -1; 0 - (-1) = 1. Separate receive observation; T04 transmitter is not inherited."
+    },
+    {
+      "id": "T07",
+      "ruleId": "PHY03",
+      "inputs": {
+        "knownProfiles": true,
+        "compatible": false,
+        "nominalOpticalBudgetSufficient": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "reason": "incompatible-profiles",
+          "usableLink": false,
+          "arithmeticCannotOverride": true
+        }
+      },
+      "independentReasoning": {
+        "reason": "incompatible-profiles",
+        "usableLink": false,
+        "arithmeticCannotOverride": true
+      }
+    },
+    {
+      "id": "T08",
+      "ruleId": "PHY07",
+      "inputs": {
+        "profile": "spec001:PROFILE-RADIO",
+        "signal": {
+          "value": -65,
+          "unit": "dBm"
+        },
+        "noise": {
+          "value": -90,
+          "unit": "dBm"
+        },
+        "otherPathChecks": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "snr": {
+            "value": 25,
+            "unit": "dB"
+          },
+          "thresholdMet": true,
+          "throughputProven": false
+        }
+      },
+      "independentReasoning": "-65 - (-90) = 25; compare with 20 dB"
+    },
+    {
+      "id": "T09",
+      "ruleId": "PHY07",
+      "inputs": {
+        "profile": "spec001:PROFILE-RADIO",
+        "signal": {
+          "value": -65,
+          "unit": "dBm"
+        },
+        "noise": {
+          "value": -78,
+          "unit": "dBm"
+        },
+        "otherPathChecks": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "snr": {
+            "value": 13,
+            "unit": "dB"
+          },
+          "thresholdMet": false,
+          "throughputProven": false
+        }
+      },
+      "independentReasoning": "-65 - (-78) = 13; compare with 20 dB"
+    },
+    {
+      "id": "T10",
+      "ruleId": "PHY08",
+      "inputs": {
+        "profile": "spec001:PROFILE-POWER",
+        "demands": [
+          {
+            "value": 12,
+            "unit": "W"
+          },
+          {
+            "value": 11,
+            "unit": "W"
+          },
+          {
+            "value": 10,
+            "unit": "W"
+          }
+        ],
+        "otherConstraints": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "total": {
+            "value": 33,
+            "unit": "W"
+          },
+          "excess": {
+            "value": 3,
+            "unit": "W"
+          }
+        }
+      },
+      "independentReasoning": "12 + 11 + 10 = 33; 33 - 30 = 3"
+    },
+    {
+      "id": "T11",
+      "ruleId": "PHY09",
+      "inputs": {
+        "profile": "spec001:PROFILE-CAPABILITIES",
+        "bothNegotiate": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "common": [
+            {
+              "rate": {
+                "value": 100,
+                "unit": "Mb/s"
+              },
+              "duplex": "full"
+            }
+          ]
+        }
+      },
+      "independentReasoning": "Intersection contains only (100 Mb/s, full)."
+    },
+    {
+      "id": "T12",
+      "ruleId": "PHY10",
+      "inputs": {
+        "profile": "spec001:PROFILE-SYMBOLS",
+        "symbols": [
+          {
+            "value": -3,
+            "unit": "toy-level"
+          },
+          {
+            "value": 1,
+            "unit": "toy-level"
+          },
+          {
+            "value": 3,
+            "unit": "toy-level"
+          },
+          {
+            "value": -1,
+            "unit": "toy-level"
+          }
+        ]
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "bits": "00101101",
+          "representedBits": 8,
+          "symbols": 4
+        }
+      },
+      "independentReasoning": "Read map entries in sequence: 00 | 10 | 11 | 01. Four groups of two bits = eight."
+    },
+    {
+      "id": "T13",
+      "ruleId": "STATE01",
+      "inputs": {
+        "measurementRevision": 7,
+        "currentRevision": 8,
+        "measurementAttempt": "a",
+        "currentAttempt": "a",
+        "priorResult": "passing"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "reason": "stale-evidence",
+          "fresh": false,
+          "currentValidationAward": false
+        }
+      },
+      "independentReasoning": "The physical change advances configuration revision; 7 != 8."
+    },
+    {
+      "id": "T14",
+      "ruleId": "STATE02",
+      "inputs": {
+        "variants": [
+          "missing-required-unit",
+          "negative-passive-loss",
+          "unknown-authored-profile"
+        ]
+      },
+      "expected": {
+        "status": "content-error",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0,
+          "reason": "malformed-authored-challenge"
+        }
+      },
+      "independentReasoning": "Each variant independently violates the declared content model; do not grade the learner."
+    },
+    {
+      "id": "T15",
+      "ruleId": "PHY06",
+      "inputs": {
+        "profile": "spec001:PROFILE-OPTICAL",
+        "compatible": true,
+        "loss": {
+          "value": 9,
+          "unit": "dB"
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "receive": {
+            "value": -12,
+            "unit": "dBm"
+          },
+          "margin": {
+            "value": 2,
+            "unit": "dB"
+          },
+          "overload": false,
+          "reserveMet": true
+        }
+      },
+      "independentReasoning": "-3 - 9 = -12; -12 - (-14) = 2; compare margin with 2 and receive with -1"
+    },
+    {
+      "id": "T16",
+      "ruleId": "STATE03",
+      "inputs": {
+        "candidates": [
+          "repair-A",
+          "repair-B"
+        ],
+        "bothSatisfyEveryDeclaredRule": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "accepted": [
+            "repair-A",
+            "repair-B"
+          ],
+          "positionOrPresentationRelevant": false
+        }
+      },
+      "independentReasoning": "Apply the same predicates to each candidate; both conjunctions are true."
+    }
+  ],
+  "reviewCases": [
+    {
+      "id": "C-PWR-OBS",
+      "ruleId": "PHY01",
+      "inputs": {
+        "powerLamp": "on",
+        "linkLamp": "off",
+        "action": "record-both"
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "powered": true,
+          "linkIndicated": false,
+          "serviceProven": false
+        }
+      },
+      "independentReasoning": {
+        "powered": true,
+        "linkIndicated": false,
+        "serviceProven": false
+      }
+    },
+    {
+      "id": "C-PWR-INFER",
+      "ruleId": "PHY01",
+      "inputs": {
+        "powerLamp": "on",
+        "linkLamp": "off",
+        "claim": "service-restored"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "reason": "power-is-not-data-proof"
+        }
+      },
+      "independentReasoning": {
+        "reason": "power-is-not-data-proof"
+      }
+    },
+    {
+      "id": "B-PWR-ONLY",
+      "ruleId": "PHY01",
+      "inputs": {
+        "powerLamp": "on",
+        "linkLamp": "unobserved",
+        "action": "record-power-only"
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "powerObservationRecorded": true,
+          "linkKnown": false,
+          "objectiveComplete": false
+        }
+      },
+      "independentReasoning": "A valid partial observation must not invent the missing observation or complete O01."
+    },
+    {
+      "id": "C-SCOPE",
+      "ruleId": "PHY02",
+      "inputs": {
+        "endpoints": [
+          "known-A",
+          "known-B"
+        ],
+        "physicalPath": "declared-path",
+        "hypothesisPinned": true,
+        "claim": "physical-bit-transmission"
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "investigationPrepared": true,
+          "hypothesisIsFact": false
+        }
+      },
+      "independentReasoning": {
+        "investigationPrepared": true,
+        "hypothesisIsFact": false
+      }
+    },
+    {
+      "id": "C-SCOPE-WRONG",
+      "ruleId": "PHY02",
+      "inputs": {
+        "action": "ask-physical-repeater-to-resolve-IP-address"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "reason": "outside-physical-role"
+        }
+      },
+      "independentReasoning": {
+        "reason": "outside-physical-role"
+      }
+    },
+    {
+      "id": "B-SCOPE",
+      "ruleId": "PHY02",
+      "inputs": {
+        "endpoints": [
+          "known-A",
+          "known-B"
+        ],
+        "physicalPath": "declared-path",
+        "hypothesisPinned": true,
+        "hypothesisLaterDisproved": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "investigationPrepared": true,
+          "hypothesisIsFact": false
+        }
+      },
+      "independentReasoning": "O02 records a testable hypothesis; it does not reward matching secret author wording."
+    },
+    {
+      "id": "C-COMPAT",
+      "ruleId": "PHY03",
+      "inputs": {
+        "knownProfiles": true,
+        "everyRequiredCompatibilityCheck": true,
+        "requiredInspectionComplete": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "scope": "preparation compatibility only"
+        }
+      },
+      "independentReasoning": {
+        "scope": "preparation compatibility only"
+      }
+    },
+    {
+      "id": "B-COMPAT",
+      "ruleId": "PHY03",
+      "inputs": {
+        "knownProfiles": true,
+        "sameConnectorShape": true,
+        "requiredWavelengthDirectionMatches": false,
+        "numericBudgetSufficient": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "reason": "one-required-compatibility-predicate-fails"
+        }
+      },
+      "independentReasoning": {
+        "reason": "one-required-compatibility-predicate-fails"
+      }
+    },
+    {
+      "id": "B-INSPECTION",
+      "ruleId": "PHY03",
+      "inputs": {
+        "everyRequiredCompatibilityCheck": true,
+        "requiredInspectionComplete": false
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "reason": "inspect-before-changing",
+          "preparationComplete": false
+        }
+      },
+      "independentReasoning": {
+        "reason": "inspect-before-changing",
+        "preparationComplete": false
+      }
+    },
+    {
+      "id": "B-COPPER-100",
+      "ruleId": "PHY04",
+      "inputs": {
+        "lengths": [
+          {
+            "value": 90,
+            "unit": "m"
+          },
+          {
+            "value": 10,
+            "unit": "m"
+          }
+        ],
+        "maximum": {
+          "value": 100,
+          "unit": "m"
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "total": {
+            "value": 100,
+            "unit": "m"
+          },
+          "headroom": {
+            "value": 0,
+            "unit": "m"
+          }
+        }
+      },
+      "independentReasoning": "90 + 10 = 100; equality passes authored inclusive maximum."
+    },
+    {
+      "id": "B-COPPER-OVER",
+      "ruleId": "PHY04",
+      "inputs": {
+        "lengths": [
+          {
+            "value": 90,
+            "unit": "m"
+          },
+          {
+            "value": 10.01,
+            "unit": "m"
+          }
+        ],
+        "maximum": {
+          "value": 100,
+          "unit": "m"
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "total": {
+            "value": 100.01,
+            "unit": "m"
+          },
+          "excess": {
+            "value": 0.01,
+            "unit": "m"
+          }
+        }
+      },
+      "independentReasoning": "90 + 10.01 = 100.01 > 100; no display rounding before comparison."
+    },
+    {
+      "id": "C-CONTINUITY",
+      "ruleId": "PHY05",
+      "inputs": {
+        "action": "replace-broken-section",
+        "allRequiredConductorsIntact": true,
+        "freshContinuityTest": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "continuityEstablished": true,
+          "wholeRouteProven": false
+        }
+      },
+      "independentReasoning": {
+        "continuityEstablished": true,
+        "wholeRouteProven": false
+      }
+    },
+    {
+      "id": "B-CONTINUITY",
+      "ruleId": "PHY05",
+      "inputs": {
+        "requiredConductors": [
+          true,
+          true,
+          false,
+          true
+        ],
+        "repeaterPowered": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "connectedRequiredPath": false
+        }
+      },
+      "independentReasoning": "One remaining open required conductor suffices to fail the declared continuity predicate."
+    },
+    {
+      "id": "B-REGEN-UNREVIEWED",
+      "ruleId": "PHY05",
+      "inputs": {
+        "authoredChallenge": "two-segments-with-regenerator",
+        "segmentProfilesAndLimitsProvided": false
+      },
+      "expected": {
+        "status": "content-error",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      },
+      "independentReasoning": "The single-channel profile supplies no regenerative topology limits; author a reviewed profile first."
+    },
+    {
+      "id": "B-OPT-MAX",
+      "ruleId": "PHY06",
+      "inputs": {
+        "receive": {
+          "value": -1,
+          "unit": "dBm"
+        },
+        "sensitivity": {
+          "value": -14,
+          "unit": "dBm"
+        },
+        "maximumReceive": {
+          "value": -1,
+          "unit": "dBm"
+        },
+        "requiredMargin": {
+          "value": 2,
+          "unit": "dB"
+        },
+        "compatible": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "margin": {
+            "value": 13,
+            "unit": "dB"
+          },
+          "overload": false
+        }
+      },
+      "independentReasoning": "-1 - (-14) = 13; maximum equality is included. Supplied receive observation."
+    },
+    {
+      "id": "B-OPT-OVER",
+      "ruleId": "PHY06",
+      "inputs": {
+        "receive": {
+          "value": -0.99,
+          "unit": "dBm"
+        },
+        "maximumReceive": {
+          "value": -1,
+          "unit": "dBm"
+        },
+        "compatible": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "overload": true,
+          "excess": {
+            "value": 0.01,
+            "unit": "dB"
+          }
+        }
+      },
+      "independentReasoning": "-0.99 > -1; excess 0.01 dB."
+    },
+    {
+      "id": "B-OPT-RESERVE",
+      "ruleId": "PHY06",
+      "inputs": {
+        "profile": "spec001:PROFILE-OPTICAL",
+        "loss": {
+          "value": 9.01,
+          "unit": "dB"
+        },
+        "compatible": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "receive": {
+            "value": -12.01,
+            "unit": "dBm"
+          },
+          "margin": {
+            "value": 1.99,
+            "unit": "dB"
+          }
+        }
+      },
+      "independentReasoning": "-3 - 9.01 = -12.01; -12.01 - (-14) = 1.99 < 2."
+    },
+    {
+      "id": "B-RADIO-20",
+      "ruleId": "PHY07",
+      "inputs": {
+        "signal": {
+          "value": -65,
+          "unit": "dBm"
+        },
+        "noise": {
+          "value": -85,
+          "unit": "dBm"
+        },
+        "minimum": {
+          "value": 20,
+          "unit": "dB"
+        },
+        "otherPathChecks": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "snr": {
+            "value": 20,
+            "unit": "dB"
+          }
+        }
+      },
+      "independentReasoning": "-65 - (-85) = 20; equality included."
+    },
+    {
+      "id": "B-RADIO-BELOW",
+      "ruleId": "PHY07",
+      "inputs": {
+        "signal": {
+          "value": -65,
+          "unit": "dBm"
+        },
+        "noise": {
+          "value": -84.99,
+          "unit": "dBm"
+        },
+        "minimum": {
+          "value": 20,
+          "unit": "dB"
+        },
+        "otherPathChecks": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "snr": {
+            "value": 19.99,
+            "unit": "dB"
+          }
+        }
+      },
+      "independentReasoning": "-65 - (-84.99) = 19.99 < 20."
+    },
+    {
+      "id": "B-RADIO-PATH",
+      "ruleId": "PHY07",
+      "inputs": {
+        "signal": {
+          "value": -65,
+          "unit": "dBm"
+        },
+        "noise": {
+          "value": -90,
+          "unit": "dBm"
+        },
+        "selectedRadioSettingsCompatible": false
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "reason": "incompatible-radio-settings",
+          "usableLink": false
+        }
+      },
+      "independentReasoning": "A 25 dB result cannot override known incompatible settings."
+    },
+    {
+      "id": "C-POWER",
+      "ruleId": "PHY08",
+      "inputs": {
+        "demands": [
+          {
+            "value": 12,
+            "unit": "W"
+          },
+          {
+            "value": 11,
+            "unit": "W"
+          }
+        ],
+        "deliveredBudget": {
+          "value": 30,
+          "unit": "W"
+        },
+        "otherConstraints": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "total": {
+            "value": 23,
+            "unit": "W"
+          },
+          "headroom": {
+            "value": 7,
+            "unit": "W"
+          }
+        }
+      },
+      "independentReasoning": "12 + 11 = 23; 30 - 23 = 7."
+    },
+    {
+      "id": "B-POWER-30",
+      "ruleId": "PHY08",
+      "inputs": {
+        "demands": [
+          {
+            "value": 12,
+            "unit": "W"
+          },
+          {
+            "value": 11,
+            "unit": "W"
+          },
+          {
+            "value": 7,
+            "unit": "W"
+          }
+        ],
+        "deliveredBudget": {
+          "value": 30,
+          "unit": "W"
+        },
+        "otherConstraints": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "total": {
+            "value": 30,
+            "unit": "W"
+          },
+          "headroom": {
+            "value": 0,
+            "unit": "W"
+          }
+        }
+      },
+      "independentReasoning": "12 + 11 + 7 = 30; equality included."
+    },
+    {
+      "id": "B-POWER-OVER",
+      "ruleId": "PHY08",
+      "inputs": {
+        "demands": [
+          {
+            "value": 12,
+            "unit": "W"
+          },
+          {
+            "value": 11,
+            "unit": "W"
+          },
+          {
+            "value": 7.01,
+            "unit": "W"
+          }
+        ],
+        "deliveredBudget": {
+          "value": 30,
+          "unit": "W"
+        },
+        "otherConstraints": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "total": {
+            "value": 30.01,
+            "unit": "W"
+          },
+          "excess": {
+            "value": 0.01,
+            "unit": "W"
+          }
+        }
+      },
+      "independentReasoning": "12 + 11 + 7.01 = 30.01 > 30."
+    },
+    {
+      "id": "B-POWER-COMPAT",
+      "ruleId": "PHY08",
+      "inputs": {
+        "totalDemand": {
+          "value": 23,
+          "unit": "W"
+        },
+        "deliveredBudget": {
+          "value": 30,
+          "unit": "W"
+        },
+        "oneRequiredPortCompatible": false
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "reason": "incompatible-port",
+          "budgetCannotOverride": true
+        }
+      },
+      "independentReasoning": {
+        "reason": "incompatible-port",
+        "budgetCannotOverride": true
+      }
+    },
+    {
+      "id": "C-NEG-WRONG",
+      "ruleId": "PHY09",
+      "inputs": {
+        "profile": "spec001:PROFILE-CAPABILITIES",
+        "selected": {
+          "rate": {
+            "value": 1000,
+            "unit": "Mb/s"
+          },
+          "duplex": "full"
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "reason": "unsupported-by-B"
+        }
+      },
+      "independentReasoning": {
+        "reason": "unsupported-by-B"
+      }
+    },
+    {
+      "id": "B-NEG-NONE",
+      "ruleId": "PHY09",
+      "inputs": {
+        "A": [
+          {
+            "rate": {
+              "value": 100,
+              "unit": "Mb/s"
+            },
+            "duplex": "full"
+          }
+        ],
+        "B": [
+          {
+            "rate": {
+              "value": 10,
+              "unit": "Mb/s"
+            },
+            "duplex": "half"
+          }
+        ],
+        "bothNegotiate": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "common": [],
+          "reason": "no-common-mode"
+        }
+      },
+      "independentReasoning": "The intersection is empty; no invented fallback."
+    },
+    {
+      "id": "C-SYMBOL-WRONG",
+      "ruleId": "PHY10",
+      "inputs": {
+        "symbols": [
+          {
+            "value": -3,
+            "unit": "toy-level"
+          },
+          {
+            "value": 1,
+            "unit": "toy-level"
+          },
+          {
+            "value": 3,
+            "unit": "toy-level"
+          },
+          {
+            "value": -1,
+            "unit": "toy-level"
+          }
+        ],
+        "learnerBits": "00011011",
+        "mapping": "spec001:PROFILE-SYMBOLS"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "expectedBits": "00101101"
+        }
+      },
+      "independentReasoning": {
+        "expectedBits": "00101101"
+      }
+    },
+    {
+      "id": "B-SYMBOL",
+      "ruleId": "PHY10",
+      "inputs": {
+        "symbols": [
+          {
+            "value": 3,
+            "unit": "toy-level"
+          }
+        ],
+        "mapping": "spec001:PROFILE-SYMBOLS",
+        "samplePositionsKnown": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "bits": "11",
+          "representedBits": 2,
+          "symbols": 1
+        }
+      },
+      "independentReasoning": "One supplied symbol is one map entry; no seconds or throughput implied."
+    },
+    {
+      "id": "B-TIMING",
+      "ruleId": "PHY10",
+      "inputs": {
+        "sameToyMap": true,
+        "suppliedSamples": [
+          {
+            "value": -3,
+            "unit": "toy-level"
+          },
+          {
+            "value": 1,
+            "unit": "toy-level"
+          }
+        ],
+        "learnerReversesSampleOrder": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "expectedBits": "0010",
+          "submittedBits": "1000"
+        }
+      },
+      "independentReasoning": "Sample order is part of the declaration; pause/step controls do not change it."
+    },
+    {
+      "id": "C-PACKET",
+      "ruleId": "PHY11",
+      "inputs": {
+        "profile": "spec001:PROFILE-PACKET",
+        "recoveredBits": "0100111001010001",
+        "fresh": true,
+        "physicalPathValid": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "knownPatternMatches": true,
+          "payloadBytes": 2,
+          "representedBits": 16,
+          "wholeFrameIsTwoBytes": false
+        }
+      },
+      "independentReasoning": "0x4E = 4*16+14 = 78 = 01001110; 0x51 = 5*16+1 = 81 = 01010001."
+    },
+    {
+      "id": "C-PACKET-DIFF",
+      "ruleId": "PHY11",
+      "inputs": {
+        "expectedBits": "0100111001010001",
+        "recoveredBits": "0100111001010000",
+        "pathObservation": "modeled-impairment"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "knownPatternMatches": false,
+          "differingBits": 1,
+          "universalPHYErrorDetection": false
+        }
+      },
+      "independentReasoning": "Only the final highlighted bit differs; name the supplied modeled defect, not an inferred real-world cause."
+    },
+    {
+      "id": "B-PACKET",
+      "ruleId": "PHY11",
+      "inputs": {
+        "recoveredBits": "0100111001010001",
+        "claim": "matching-NQ-proves-every-application"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "knownPatternMatches": true,
+          "claimSupported": false
+        }
+      },
+      "independentReasoning": "A matching controlled pattern proves only that scoped observation, not every service."
+    },
+    {
+      "id": "C-FRESH",
+      "ruleId": "STATE01",
+      "inputs": {
+        "measurementRevision": 8,
+        "currentRevision": 8,
+        "measurementAttempt": "b",
+        "currentAttempt": "b",
+        "explicitlyStale": false
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "fresh": true
+        }
+      },
+      "independentReasoning": "Revision and attempt both match, and stale flag is false."
+    },
+    {
+      "id": "B-RETRY",
+      "ruleId": "STATE01",
+      "inputs": {
+        "measurementRevision": 8,
+        "currentRevision": 9,
+        "measurementAttempt": "b",
+        "currentAttempt": "c",
+        "action": "Retry-or-E03-Continue",
+        "sameVisibleCableRestored": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "fresh": false,
+          "notesCluesHintsRetained": true,
+          "inventoryRestoredToPreparation": true
+        }
+      },
+      "independentReasoning": "New attempt/generation prevents revival even when the visible preparation cable matches."
+    },
+    {
+      "id": "B-STALE-FLAG",
+      "ruleId": "STATE01",
+      "inputs": {
+        "measurementRevision": 8,
+        "currentRevision": 8,
+        "measurementAttempt": "b",
+        "currentAttempt": "b",
+        "explicitlyStale": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "fresh": false
+        }
+      },
+      "independentReasoning": {
+        "fresh": false
+      }
+    },
+    {
+      "id": "C-VALID",
+      "ruleId": "STATE02",
+      "inputs": {
+        "profile": "spec001:PROFILE-OPTICAL",
+        "loss": {
+          "value": 8,
+          "unit": "dB"
+        },
+        "contentWellFormed": true,
+        "learnerAnswerCorrect": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "gradingMayProceed": true
+        }
+      },
+      "independentReasoning": {
+        "gradingMayProceed": true
+      }
+    },
+    {
+      "id": "C-VALID-WRONG",
+      "ruleId": "STATE02",
+      "inputs": {
+        "profile": "spec001:PROFILE-OPTICAL",
+        "loss": {
+          "value": 8,
+          "unit": "dB"
+        },
+        "contentWellFormed": true,
+        "learnerClaimsReceive": {
+          "value": -13,
+          "unit": "dBm"
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "reason": "valid-content-wrong-answer"
+        }
+      },
+      "independentReasoning": "-3 - 8 = -11, not -13; valid challenge permits ordinary grading."
+    },
+    {
+      "id": "B-LOSS-ZERO",
+      "ruleId": "STATE02",
+      "inputs": {
+        "profile": "spec001:PROFILE-OPTICAL",
+        "loss": {
+          "value": 0,
+          "unit": "dB"
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "contentWellFormed": true,
+          "receive": {
+            "value": -3,
+            "unit": "dBm"
+          },
+          "margin": {
+            "value": 11,
+            "unit": "dB"
+          }
+        }
+      },
+      "independentReasoning": "Zero passive loss is an idealized supported boundary, not negative loss; -3 - 0 = -3; -3 - (-14) = 11."
+    },
+    {
+      "id": "C-ERROR-UNIT",
+      "ruleId": "STATE02",
+      "inputs": {
+        "loss": {
+          "value": 8
+        }
+      },
+      "expected": {
+        "status": "content-error",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      },
+      "independentReasoning": "Malformed or unsupported author data cannot be used to grade the learner."
+    },
+    {
+      "id": "C-ERROR-LOSS",
+      "ruleId": "STATE02",
+      "inputs": {
+        "loss": {
+          "value": -0.01,
+          "unit": "dB"
+        }
+      },
+      "expected": {
+        "status": "content-error",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      },
+      "independentReasoning": "Malformed or unsupported author data cannot be used to grade the learner."
+    },
+    {
+      "id": "C-ERROR-PROFILE",
+      "ruleId": "STATE02",
+      "inputs": {
+        "authoredProfile": "spec001:UNKNOWN"
+      },
+      "expected": {
+        "status": "content-error",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      },
+      "independentReasoning": "Malformed or unsupported author data cannot be used to grade the learner."
+    },
+    {
+      "id": "C-ERROR-UNIT-KIND",
+      "ruleId": "STATE02",
+      "inputs": {
+        "passiveLoss": {
+          "value": 8,
+          "unit": "dBm"
+        }
+      },
+      "expected": {
+        "status": "content-error",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      },
+      "independentReasoning": "Malformed or unsupported author data cannot be used to grade the learner."
+    },
+    {
+      "id": "C-ERROR-INCONSISTENT",
+      "ruleId": "STATE02",
+      "inputs": {
+        "transmit": {
+          "value": -3,
+          "unit": "dBm"
+        },
+        "passiveLoss": {
+          "value": 0,
+          "unit": "dB"
+        },
+        "receive": {
+          "value": 0,
+          "unit": "dBm"
+        }
+      },
+      "expected": {
+        "status": "content-error",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      },
+      "independentReasoning": "Malformed or unsupported author data cannot be used to grade the learner."
+    },
+    {
+      "id": "C-ERROR-SYMBOL",
+      "ruleId": "STATE02",
+      "inputs": {
+        "authoredSamples": [
+          {
+            "value": 2,
+            "unit": "toy-level"
+          }
+        ],
+        "profile": "spec001:PROFILE-SYMBOLS"
+      },
+      "expected": {
+        "status": "content-error",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      },
+      "independentReasoning": "Malformed or unsupported author data cannot be used to grade the learner."
+    },
+    {
+      "id": "C-ALT-INVALID",
+      "ruleId": "STATE03",
+      "inputs": {
+        "candidate": "repair-C",
+        "allButOneRequiredPredicatePass": true,
+        "failedPredicate": "physical-compatibility"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "accepted": false,
+          "reason": "equivalence-requires-all-predicates"
+        }
+      },
+      "independentReasoning": {
+        "accepted": false,
+        "reason": "equivalence-requires-all-predicates"
+      }
+    },
+    {
+      "id": "B-REPLAY",
+      "ruleId": "STATE03",
+      "inputs": {
+        "actionId": "same-action",
+        "alreadyApplied": true,
+        "stillValidResult": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "additionalProgressAwards": 0,
+          "additionalItemConsumption": 0
+        }
+      },
+      "independentReasoning": "Repeated delivery of the same accepted action does not apply effects again."
+    },
+    {
+      "id": "B-INTERRUPT",
+      "ruleId": "STATE03",
+      "inputs": {
+        "transitionInterruptedBeforeAtomicAcceptance": true
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "partialRewards": 0,
+          "partialConsumption": 0
+        }
+      },
+      "independentReasoning": "No complete accepted action exists. Recover/retry the transition, preserving pre-transition state; not a learner physical mistake."
+    },
+    {
+      "id": "C-E01",
+      "ruleId": "STATE04",
+      "inputs": {
+        "allScopedPhysicalChecks": true,
+        "freshLinkMeasurements": true,
+        "endpointServiceTest": true,
+        "temporaryDependency": false,
+        "defectRemoved": true,
+        "selection": "permanent"
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "classification": "E01"
+        }
+      },
+      "independentReasoning": {
+        "classification": "E01"
+      }
+    },
+    {
+      "id": "C-E02",
+      "ruleId": "STATE04",
+      "inputs": {
+        "allScopedPhysicalChecks": true,
+        "freshLinkMeasurements": true,
+        "endpointServiceTest": true,
+        "temporaryDependency": true,
+        "limitationAndFollowupRecorded": true,
+        "selection": "temporary"
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "classification": "E02"
+        }
+      },
+      "independentReasoning": {
+        "classification": "E02"
+      }
+    },
+    {
+      "id": "C-E03",
+      "ruleId": "STATE04",
+      "inputs": {
+        "unresolvedDefectIdentified": true,
+        "deliberateIsolation": true,
+        "recoveryPlanRecorded": true,
+        "selection": "shutdown"
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "classification": "E03",
+          "restoredService": false
+        }
+      },
+      "independentReasoning": "Correct classification of safe shutdown does not label a failed repair successful."
+    },
+    {
+      "id": "C-END-WRONG",
+      "ruleId": "STATE04",
+      "inputs": {
+        "linkUp": true,
+        "endpointServiceTest": false,
+        "selection": "permanent"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "reason": "link-up-is-not-service-proof",
+          "classification": "unresolved"
+        }
+      },
+      "independentReasoning": {
+        "reason": "link-up-is-not-service-proof",
+        "classification": "unresolved"
+      }
+    },
+    {
+      "id": "B-ENDPOINT",
+      "ruleId": "STATE04",
+      "inputs": {
+        "allScopedPhysicalChecks": true,
+        "freshLinkMeasurements": true,
+        "endpointServiceTest": "not-run",
+        "selection": "permanent"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "reason": "final-proof-missing",
+          "endingAward": false
+        }
+      },
+      "independentReasoning": "The last required validation is still missing; a passing link alone cannot finish O12."
+    },
+    {
+      "id": "I-PHY01",
+      "ruleId": "PHY01",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    },
+    {
+      "id": "I-PHY02",
+      "ruleId": "PHY02",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    },
+    {
+      "id": "I-PHY03",
+      "ruleId": "PHY03",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    },
+    {
+      "id": "I-PHY04",
+      "ruleId": "PHY04",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    },
+    {
+      "id": "I-PHY05",
+      "ruleId": "PHY05",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    },
+    {
+      "id": "I-PHY06",
+      "ruleId": "PHY06",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    },
+    {
+      "id": "I-PHY07",
+      "ruleId": "PHY07",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    },
+    {
+      "id": "I-PHY08",
+      "ruleId": "PHY08",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    },
+    {
+      "id": "I-PHY09",
+      "ruleId": "PHY09",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    },
+    {
+      "id": "I-PHY10",
+      "ruleId": "PHY10",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    },
+    {
+      "id": "I-PHY11",
+      "ruleId": "PHY11",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    },
+    {
+      "id": "I-STATE01",
+      "ruleId": "STATE01",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    },
+    {
+      "id": "I-STATE02",
+      "ruleId": "STATE02",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    },
+    {
+      "id": "I-STATE03",
+      "ruleId": "STATE03",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    },
+    {
+      "id": "I-STATE04",
+      "ruleId": "STATE04",
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "progressAward": 0,
+          "reason": "required-action-missing"
+        }
+      },
+      "independentReasoning": "No learner action is available to grade; no physical conclusion follows."
+    }
+  ],
+  "contentErrorCases": [
+    "T14",
+    "C-ERROR-UNIT",
+    "C-ERROR-LOSS",
+    "C-ERROR-PROFILE",
+    "C-ERROR-UNIT-KIND",
+    "C-ERROR-INCONSISTENT",
+    "C-ERROR-SYMBOL",
+    "B-REGEN-UNREVIEWED"
+  ],
+  "limitations": [
+    "No application evaluators, schemas, fixture test harness or human review are delivered by T006.",
+    "No real physical product profile is approved for grading. Added scored content requires a new source/model/case review.",
+    "All supplemental quantities and categorical scenario conditions are authored teaching examples.",
+    "Do not derive future expected answers from application implementation output."
+  ]
+}

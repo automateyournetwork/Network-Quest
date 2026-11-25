@@ -1,0 +1,611 @@
+openapi: 3.1.0
+info:
+  title: Network Quest identity and single-save API
+  version: 1.0.0
+  description: |
+    Proposed contract, not a running service. All responses use Cache-Control no-store.
+    Cookie is Secure, HttpOnly, SameSite=Lax, host-only, scoped to the game path.
+    Cookie path is not a same-origin security boundary.
+    Mutations require exact Origin and session-bound X-CSRF-Token; callback uses
+    one-use state/PKCE and Google nonce. The read-only deletion-status POST uses
+    exact Origin and its narrow receipt credential, not a revoked account session.
+    Server determines account ownership. Never log deletion receipt headers.
+    See gameplay.md and delivery.md for user choices, rate limits and recovery.
+servers:
+  - url: /arcade/play/network-quest/api/v1
+security:
+  - GameSession: []
+paths:
+  /session:
+    get:
+      operationId: getSession
+      summary: Bootstrap guest CSRF or inspect current account
+      security: []
+      description: |
+        May issue a guest session cookie; never authenticates by itself. Returns
+        provider identity, preferences revision and current slot summary when signed in.
+        Authoritative check after provider-window completion and uncertain logout.
+        Guest status cannot confirm that account deletion completed.
+      responses:
+        '200':
+          description: Guest or authenticated session
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+  /auth/{provider}/start:
+    post:
+      operationId: startAuth
+      summary: Create a short-lived one-use authorization transaction
+      parameters:
+        - $ref: '#/components/parameters/Provider'
+        - $ref: '#/components/parameters/Csrf'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [purpose]
+              properties:
+                purpose:
+                  enum: [login, delete-reauth]
+      description: |
+        Open a window synchronously from a user click, then navigate it to the returned URL.
+        No arbitrary redirect/return URL accepted. delete-reauth requires an authenticated
+        session and binds the expected existing account; another account cannot authorize
+        deletion. Login rotates session/CSRF after callback. Google scopes openid profile;
+        GitHub explicit empty scopes via dedicated identity-only OAuth app. Both use S256.
+      responses:
+        '200':
+          description: Server-generated allowlisted provider URL
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [authorizationUrl, expiresAt]
+                properties:
+                  authorizationUrl:
+                    type: string
+                    format: uri
+                  expiresAt:
+                    type: string
+                    format: date-time
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+  /auth/{provider}/callback:
+    get:
+      operationId: authCallback
+      summary: Validate provider response and complete the private login transaction
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/Provider'
+        - name: state
+          in: query
+          required: true
+          schema: {type: string, maxLength: 512}
+        - name: code
+          in: query
+          schema: {type: string, maxLength: 4096}
+        - name: error
+          in: query
+          schema: {type: string, maxLength: 256}
+      description: |
+        Require exactly code or provider error, valid initiating session and unexpired,
+        matching, unused state. Exchange server-side using stored PKCE verifier.
+        Google verifies signature and required iss/aud/sub/exp/iat/nonce; GitHub GET /user
+        establishes stable numeric identity. No email matching or refresh-token storage.
+        Return a minimal completion page; postMessage contains only a completion hint,
+        never tokens, account records or CSRF. Main tab validates origin/source then GETs
+        session. Logout invalidates outstanding transactions. Redact query strings in logs.
+      responses:
+        '200':
+          description: Accessible completion/cancellation page; canceled login preserves guest state
+          content:
+            text/html:
+              schema: {type: string}
+        '400':
+          description: Invalid or expired callback; accessible error page, no authentication
+          content:
+            text/html:
+              schema: {type: string}
+        '503':
+          description: Provider unavailable; accessible error page, no false success
+          content:
+            text/html:
+              schema: {type: string}
+  /logout:
+    post:
+      operationId: logout
+      summary: Revoke current session and pending auth attempts; preserve the save
+      parameters:
+        - $ref: '#/components/parameters/Csrf'
+      description: |
+        Invoked only after the client warning is confirmed. No save or deletion side effect.
+        Revoke authoritatively, expire cookie, then client clears adventure and returns to
+        title. Canceled warning makes no call. Network failure needs retry/session recheck.
+        A request with an expired session returns 401; GET session can confirm guest state.
+      responses:
+        '204': {description: Current session revoked; slot unchanged}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+  /save:
+    get:
+      operationId: getSave
+      summary: Read the sole account slot without changing it
+      responses:
+        '200':
+          description: Current slot; validate supported version before interpreting payload
+          headers:
+            ETag:
+              $ref: '#/components/headers/SaveEtag'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedSnapshot'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Account has no save
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+    put:
+      operationId: putSave
+      summary: Conditionally create or replace the single slot
+      parameters:
+        - $ref: '#/components/parameters/Csrf'
+        - $ref: '#/components/parameters/Idempotency'
+        - name: If-Match
+          in: header
+          description: Exactly the last reviewed strong save ETag; replacement only
+          schema: {type: string, pattern: '^"save-[1-9][0-9]*"$'}
+        - name: If-None-Match
+          in: header
+          description: Empty slot creation only
+          schema: {const: '*'}
+        - name: X-Save-Mode
+          in: header
+          required: true
+          schema: {enum: [manual, automatic]}
+        - name: X-Confirm-Adventure-Replacement
+          in: header
+          description: Required on a manual write replacing a different adventure; consent binds request adventure and precondition
+          schema: {const: 'true'}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./save.schema.json
+      description: |
+        Raw UTF-8 body <=262144 bytes. Exactly one conditional header required.
+        Authenticate and check CSRF/origin, fixed raw-byte bound and header/key syntax first;
+        ownership always comes from session. Do not gate replays on current content policy.
+        Fingerprint method, route, mode, replacement-confirmation header, precondition and exact body bytes.
+        Lookup an authorized account/key receipt BEFORE schema/content/safe-state validation.
+        Same key/fingerprint returns original acknowledgement without another write.
+        This remains true after a deployment stops accepting the old content for new writes.
+        Different fingerprint returns 409. If no receipt exists, validate outside the write
+        lock and retain the candidate/error without returning a semantic failure yet.
+        BEGIN IMMEDIATE: recheck session/account and receipt BEFORE returning that error or
+        comparing revision; a concurrently committed matching receipt wins over the error.
+        Only a still-new operation can be rejected by current schema/content/safe-state policy.
+        For a new automatic operation recheck current
+        autosave preference and an existing slot with the same adventureId; otherwise 409.
+        First adoption is a manual save. Manual replacement of another adventure requires
+        X-Confirm-Adventure-Replacement:true after UI confirmation; otherwise 409.
+        New writes atomically update slot/revision/server time and successful receipt.
+        Return committedRevision separately from currentSummary: a replay may be older.
+        On replay older than current, client reconciles and pauses autosave; never labels
+        the old acknowledgement as proof its snapshot is still the current server save.
+        Conditional failure returns 412/current summary; explicit replacement uses a new
+        key and reviewed current ETag. No automatic merge. New unsupported payloads get 422;
+        acknowledged replays are exempt only from current semantic policy, not authorization.
+      responses:
+        '200':
+          description: Replacement or successful replay; may acknowledge an older committed revision
+          headers:
+            ETag:
+              $ref: '#/components/headers/SaveEtag'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveAcknowledgement'
+        '201':
+          description: First slot created
+          headers:
+            ETag:
+              $ref: '#/components/headers/SaveEtag'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveAcknowledgement'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          description: Key reused with different bytes, autosave disabled, or adoption required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '412':
+          description: Slot differs from reviewed precondition; no write
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conflict'
+        '413':
+          description: Raw payload exceeds 262144 bytes; no write
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Invalid data, content/schema version or unsafe state; no write
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '428':
+          description: Conditional header required; no write
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+  /preferences:
+    patch:
+      operationId: patchPreferences
+      summary: Conditionally update account preferences independently of adventure state
+      parameters:
+        - $ref: '#/components/parameters/Csrf'
+        - name: If-Match
+          in: header
+          required: true
+          description: Preferences ETag from session/latest preferences response
+          schema: {type: string, pattern: '^"prefs-[1-9][0-9]*"$'}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreferencesPatch'
+      description: |
+        Require at least one recognized field. Never writes adventure progress.
+        Autosave opt-in UI must explain shared single-slot replacement.
+        Fetch latest preferences after conflict or uncertain response; merge no defaults blindly.
+      responses:
+        '200':
+          description: Updated preferences and revision
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preferences'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '412':
+          description: Preferences changed; GET session to review current values
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '428':
+          description: Preferences precondition missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+  /account:
+    delete:
+      operationId: deleteAccount
+      summary: Remove live account progress after explicit confirmation and fresh same-account auth
+      parameters:
+        - $ref: '#/components/parameters/Csrf'
+        - $ref: '#/components/parameters/DeletionReceipt'
+        - name: X-Confirm-Account-Deletion
+          in: header
+          required: true
+          schema: {const: 'delete-my-account'}
+      description: |
+        Require same-account delete-reauth completed within five minutes; ordinary old login
+        is insufficient. Client supplies a fresh 256-bit random receipt held only in memory.
+        After authorization, bind its hash/24-hour expiry to a durable external deletion intent.
+        Serialize with saves; revoke all sessions/attempts and remove live account rows and save
+        receipts. Mark the external intent completed only after that transaction commits, then
+        return 204. Reconcile a crash between these steps; do not claim false completion.
+        A reused receipt bound to another account is 409 without mutation. A retry with a still
+        valid session must repeat authorization; the receipt alone cannot trigger deletion.
+        After response loss show unconfirmed and POST account/deletion-status with the receipt.
+        GET session guest status, 401, missing/expired receipt or network failure is not deletion
+        confirmation. Explain actual backup expiry; do not claim erasure from every backup or
+        provider-wide sign-out. Checking status never recreates an account or starts deletion.
+      responses:
+        '204': {description: Live account removed and recovery deletion marker durable}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Invalid CSRF/origin or fresh same-account deletion authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: Deletion receipt already belongs to a different operation/account; no mutation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+  /account/deletion-status:
+    post:
+      operationId: getDeletionStatus
+      summary: Read only the outcome of the deletion authorized by this receipt
+      security:
+        - DeletionReceipt: []
+      parameters:
+        - $ref: '#/components/parameters/DeletionReceipt'
+      description: |
+        Requires exact configured Origin and the 43-character unpadded base64url receipt
+        header; no account session or CSRF token is required because deletion revokes them.
+        This is read-only: receipt possession cannot delete, sign in, create an account or
+        read identity/progress. Look up its hash in private 24-hour recovery metadata and
+        report the durable ledger state. Never accept a browser account ID as a selector.
+        Unknown and expired receipts have the same 404 response. Missing/malformed receipt
+        is 400; wrong Origin is 403. None proves success or failure of an earlier deletion.
+        Poll with bounded backoff and honor Retry-After; no automatic destructive retry.
+        Return no-store responses and never place the token in URLs, logs or response bodies.
+        Results affect only the matching pending operation, never a later signed-in account.
+      responses:
+        '200':
+          description: Known pending/completed operation; only completed confirms live deletion
+          headers:
+            Retry-After:
+              description: Suggested polling delay when pending
+              schema: {type: integer, minimum: 2}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletionStatus'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          description: Invalid Origin; deletion state is not disclosed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Receipt unknown or expired; deletion remains unconfirmed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+components:
+  securitySchemes:
+    GameSession:
+      type: apiKey
+      in: cookie
+      name: __Secure-nq_session
+      description: Opaque server-owned guest/auth session; authentication required except bootstrap/auth start.
+    DeletionReceipt:
+      type: apiKey
+      in: header
+      name: X-Deletion-Receipt
+      description: 256-bit random unpadded base64url token; authorizes read-only status of one deletion for 24 hours.
+  parameters:
+    Provider:
+      name: provider
+      in: path
+      required: true
+      schema: {enum: [google, github]}
+    Csrf:
+      name: X-CSRF-Token
+      in: header
+      required: true
+      schema: {type: string, minLength: 32, maxLength: 256}
+    Idempotency:
+      name: Idempotency-Key
+      in: header
+      required: true
+      schema: {type: string, format: uuid}
+    DeletionReceipt:
+      name: X-Deletion-Receipt
+      in: header
+      required: true
+      description: Generate 32 cryptographically random bytes before confirmed DELETE; retain only in memory for status checks.
+      schema: {type: string, minLength: 43, maxLength: 43, pattern: '^[A-Za-z0-9_-]{43}$'}
+  headers:
+    SaveEtag:
+      description: Current slot strong ETag, not necessarily the replay's committed revision
+      schema: {type: string, pattern: '^"save-[1-9][0-9]*"$'}
+  schemas:
+    DeletionStatus:
+      type: object
+      additionalProperties: false
+      required: [state, expiresAt]
+      properties:
+        state: {enum: [pending, completed]}
+        expiresAt: {type: string, format: date-time}
+    Problem:
+      type: object
+      additionalProperties: false
+      required: [code, message, requestId]
+      properties:
+        code: {type: string, maxLength: 96}
+        message: {type: string, maxLength: 512}
+        requestId: {type: string, format: uuid}
+    Conflict:
+      type: object
+      additionalProperties: false
+      required: [code, message, requestId, currentSummary]
+      properties:
+        code: {const: save-conflict}
+        message: {type: string, maxLength: 512}
+        requestId: {type: string, format: uuid}
+        currentSummary:
+          oneOf:
+            - $ref: '#/components/schemas/SaveSummary'
+            - type: 'null'
+    SaveSummary:
+      type: object
+      additionalProperties: false
+      required: [revision, etag, savedAt, adventureId, episodeId, roomId, outcome, saveSchemaVersion, contentVersion]
+      properties:
+        revision: {type: integer, minimum: 1}
+        etag: {type: string, pattern: '^"save-[1-9][0-9]*"$'}
+        savedAt: {type: string, format: date-time}
+        adventureId: {type: string, format: uuid}
+        episodeId: {type: string, maxLength: 32}
+        roomId: {type: string, maxLength: 64}
+        outcome: {enum: [null, E01, E02]}
+        saveSchemaVersion: {type: integer, minimum: 1}
+        contentVersion: {type: string, maxLength: 32}
+    SavedSnapshot:
+      type: object
+      additionalProperties: false
+      required: [summary, snapshot]
+      properties:
+        summary:
+          $ref: '#/components/schemas/SaveSummary'
+        snapshot:
+          type: object
+          description: |
+            Stored versioned JSON; summary identifies schema before interpretation.
+            Supported v1 is save.schema.json. Future unknown schemas are returned intact,
+            never implicitly migrated/reset. Client must refuse unsupported versions.
+    SaveAcknowledgement:
+      type: object
+      additionalProperties: false
+      required: [requestId, committedRevision, committedAt, replayed, currentSummary]
+      properties:
+        requestId: {type: string, format: uuid}
+        committedRevision: {type: integer, minimum: 1}
+        committedAt: {type: string, format: date-time}
+        replayed: {type: boolean}
+        currentSummary:
+          $ref: '#/components/schemas/SaveSummary'
+    PreferencesPatch:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        autosaveEnabled: {type: boolean}
+        musicVolume: {type: number, minimum: 0, maximum: 1}
+        effectsVolume: {type: number, minimum: 0, maximum: 1}
+        voiceVolume: {type: number, minimum: 0, maximum: 1}
+        captions: {type: boolean}
+        reducedMotion: {enum: [system, 'on', 'off']}
+        textScale: {type: number, minimum: 1, maximum: 2}
+    Preferences:
+      type: object
+      additionalProperties: false
+      required: [revision, etag, values]
+      properties:
+        revision: {type: integer, minimum: 1}
+        etag: {type: string, pattern: '^"prefs-[1-9][0-9]*"$'}
+        values:
+          allOf:
+            - $ref: '#/components/schemas/PreferencesPatch'
+            - required: [autosaveEnabled, musicVolume, effectsVolume, voiceVolume, captions, reducedMotion, textScale]
+    Session:
+      oneOf:
+        - type: object
+          additionalProperties: false
+          required: [state, csrfToken]
+          properties:
+            state: {const: guest}
+            csrfToken: {type: string, minLength: 32, maxLength: 256}
+        - type: object
+          additionalProperties: false
+          required: [state, csrfToken, provider, displayName, expiresAt, preferences, saveSummary]
+          properties:
+            state: {const: authenticated}
+            csrfToken: {type: string, minLength: 32, maxLength: 256}
+            provider: {enum: [google, github]}
+            displayName: {type: string, maxLength: 128}
+            expiresAt: {type: string, format: date-time}
+            preferences:
+              $ref: '#/components/schemas/Preferences'
+            saveSummary:
+              oneOf:
+                - $ref: '#/components/schemas/SaveSummary'
+                - type: 'null'
+  responses:
+    BadRequest:
+      description: Malformed request; no state change
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Unauthorized:
+      description: Missing/expired authentication; preserve in-memory play and reauthenticate
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Forbidden:
+      description: Invalid origin/CSRF/authorization; no state change
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    RateLimited:
+      description: Bounded request rate exceeded; preserve state and retry later
+      headers:
+        Retry-After:
+          schema: {type: integer, minimum: 1}
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Unavailable:
+      description: Temporary provider/storage/busy failure; no false saved/signed-in/deleted claim
+      headers:
+        Retry-After:
+          schema: {type: integer, minimum: 1}
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'

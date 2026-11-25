@@ -1,0 +1,62 @@
+# Network-Quest Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2026-11-25
+
+## Governing Contracts
+
+Read `.specify/memory/constitution.md` first. `CONSTITUTION.md` preserves the original kickoff;
+root `SPEC.md` and `PLAN.md` are the current Spec001 behavior and build contracts. Preserve
+requirement IDs, source-backed teaching rules, media/source quantities, the one-save contract,
+accessibility and evidence gates. A prototype or task count does not certify episode completion.
+Document changes do not automatically initiate implementation, publication or another episode.
+
+## Active Technologies
+
+- TypeScript 7.0.2, Node.js 26.13.1/npm11.20.0, local PHP8.4.28; actual client lock/build verified in T008. Composer lock/platform and isolated production install verified T009; remote CLI PHP8.4.28/SQLite3.54.1 verified; web PHP/private storage/locking/TLS/cron synthetic checks verified; retention remains open. + Vite 8.3.8, Three.js/@types 0.187.0, Vitest 5.1.2, Playwright 1.65.1, axe-core/Playwright 4.14.1, Ajv 8 with ajv-formats (Draft 2020-12); PHP google/apiclient ^2.20, league/oauth2-client ^2.10, opis/json-schema ^2.6; development PHPUnit ^12.5. Client installation/build tested; PHP dependencies installed/validated; no service implementation yet. (001-physical-layer-underworld)
+
+## Project Structure
+
+```text
+src/               # Planned client
+content/spec001/   # Planned authored data
+assets-src/        # Planned editable media
+public/assets/     # Planned exports
+server/            # Planned PHP service
+tools/             # Planned validators
+tests/             # Planned checks
+```
+
+## Commands
+
+Available bootstrap commands: `npm run typecheck`, `npm run build`, `npm run dev`
+(explicit local TLS certificate/key plus isolated PHP bootstrap), `npm run dev:verify`,
+and loopback-only `npm run dev:client`/`npm run preview:client` (HTTP static only).
+See README for HTTPS setup and actual 503 API limitations. Use the pinned runtime from
+`docs/evidence/spec001/runtime.md`. The remaining command contract in
+`specs/001-physical-layer-underworld/quickstart.md` is still planned.
+Planned checks: `npm run check`, `npm run test:domain`, `npm run test:api`,
+`npm run test:e2e`, `npm run assets:verify`, `npm run build`.
+
+## Code Style
+
+Keep deterministic domain rules separate from presentation and persistence. Validate content
+and snapshots against shared schemas plus semantic checks. Use semantic HTML controls,
+prepared SQL, typed units and explicit state transitions.
+
+## Recent Changes
+
+- 001-physical-layer-underworld: Added TypeScript 7.0.2, Node.js 26.13.1/npm11.20.0, local PHP8.4.28; actual client lock/build verified in T008. Composer lock/platform and isolated production install verified T009; remote CLI PHP8.4.28/SQLite3.54.1 verified; web PHP/private storage/locking/TLS/cron synthetic checks verified; retention remains open. + Vite 8.3.8, Three.js/@types 0.187.0, Vitest 5.1.2, Playwright 1.65.1, axe-core/Playwright 4.14.1, Ajv 8 with ajv-formats (Draft 2020-12); PHP google/apiclient ^2.20, league/oauth2-client ^2.10, opis/json-schema ^2.6; development PHPUnit ^12.5. Client installation/build tested; PHP dependencies installed/validated; no service implementation yet.
+
+<!-- MANUAL ADDITIONS START -->
+- Implementation was initiated on 2026-11-25. Follow `docs/implementation/HANDOFF.md` and `state.json` for the one-task-per-fresh-agent loop run (200-loop cap); preserve each loop note and check only verified task completions.
+- The first setup batch permits T008 -> T009/T010 -> T011 as local G0 evidence preparation while external feasibility remains open; independent local foundation follows verified tool/source/bootstrap checks. External feasibility blocks dependent integrations and aggregate gate acceptance, not unrelated local work. See the explicit exception in tasks.md.
+- Active working artifacts: `specs/001-physical-layer-underworld/{spec,plan,research,data-model,quickstart,tasks}.md` and `contracts/`.
+- Planning and the task breakdown are complete; follow the execution sequence in tasks.md because story grouping spans G1–G5. G0 remains BLOCKED by named external evidence; T008–T011 local bootstrap passes its checks. G1–G7 and real provider/host/media acceptance remain pending. Do not run nonexistent application commands or treat a design PASS as runtime acceptance.
+- Preserve both accepted clarifications: canceled logout changes nothing; confirmed logout clears memory/title with no implicit save. Retry/E03 Continue rewind preparation/inventory while retaining clues, notes and hint-use history and making prior measurements stale.
+- Save receipts must be resolved before current semantic policy or stale revisions; recheck inside the final transaction before returning any provisional validation error. A replayed acknowledgement can be older than the current server slot.
+- Lost deletion responses require operation-specific receipt status. Guest session state never proves deletion; unknown/expired status remains unconfirmed. Status checking cannot delete, sign in or affect a later account.
+- The implementation skill follows explicit task execution batches across story sections. G6 leaves G7-dependent checks pending until packaging, recovery, staging and owner-initiated publication make them executable.
+- No next episode, installation, publication or provider registration is implied by planning artifacts. Follow the current user-authorized stage.
+- Audacity 4 sources are .aup4, with no legacy scripting pipe. Preserve genuine Blender/OpenAI/audio sources and actual human review evidence.
+- Owner authorization on 2026-11-25 includes scoped reviewed GitHub commits/pushes and deployment/arcade listing of the finished accepted release after required owner reviews. These are separate operations. Preserve dirty work and inspect staging; exclude private website/operator/credential/player/backup data. Optional Git auto-commit hooks remain disabled; coordinator owns publication.
+<!-- MANUAL ADDITIONS END -->

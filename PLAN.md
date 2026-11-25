@@ -1,12 +1,16 @@
 # Network Quest — Spec001 Build Plan
 
-Version 0.1 · Kickoff plan · 2026-11-24 · Status: instructions for a future build
+Version 0.1 · Kickoff plan 2026-11-24 · Implementation initiated 2026-11-25
 
 Copyright 2026 John Capobianco. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). SPDX-License-Identifier: CC-BY-4.0.
 
-Read [CONSTITUTION.md](CONSTITUTION.md) and [SPEC.md](SPEC.md) first. This plan delivers Spec001 before work advances to Specs002–007. The current deliverable is only these three Markdown files. All source paths, scripts, commands, services, tests, and assets proposed below are future deliverables unless expressly listed as observed evidence.
+Read the [current constitution](.specify/memory/constitution.md) and [SPEC.md](SPEC.md) first; [CONSTITUTION.md](CONSTITUTION.md) preserves the original decisions. This plan delivers Spec001 before work advances to Specs002–007. The original 2026-11-24 kickoff delivered three Markdown files; the 2026-11-25 Spec Kit setup adds governance and templates. All game source paths, scripts, commands, services, tests, and assets proposed below are future deliverables unless expressly listed as observed evidence.
 
-## Starting evidence
+The detailed implementation plan is now [specs/001-physical-layer-underworld/plan.md](specs/001-physical-layer-underworld/plan.md), with [research decisions](specs/001-physical-layer-underworld/research.md), data/API contracts and a planned quickstart. It preserves this build contract and both accepted clarifications. The [implementation handoff](docs/implementation/HANDOFF.md) records current execution and scoped results. G0 remains blocked; G1–G7 remain pending.
+
+Owner continuation on 2026-11-25 explicitly authorizes scoped reviewed GitHub commits/pushes and deployment/arcade listing of the finished accepted release after required owner reviews and acceptance checks. GitHub publication and GoDaddy activation are separate operations; no repeated generic permission is needed once those conditions are met. Preserve existing work and use current private operator practices, never an old manifest.
+
+## Starting evidence (kickoff observations)
 
 - The separate public Network-Quest repository exists; the website repository is closed source and remains independent.
 - Read-only inspection of the website workspace found 28 arcade entries, an Astro/Three.js integration, and PC Globe exploration/audio work.
@@ -67,7 +71,7 @@ Separate immutable definitions from `GameState`: current safe room/location, com
 
 Use explicit transitions: `loading → introduction/exploring → dialogue/inspection/planning → resolving → feedback → exploring/outcome`. Loading, malformed content and unsupported save versions have distinct recovery screens. The reducer validates allowed actions; replayed inputs cannot double-grant items or complete an objective twice. Evaluate networking decisions as pure functions returning status, reason, observations and accepted-result evidence; then apply effects through the reducer.
 
-At G2, implement deterministic replay of recorded decisions for test fixtures, a content graph check, and safe encounter preparation snapshots kept in memory. The public client is inspectable and a single-player save is not a trusted certification record. The backend still validates ownership, schemas, sizes and accepted field types; it does not execute uploaded code or arbitrary rules.
+At G2, implement deterministic replay of recorded decisions for test fixtures, a content graph check, and safe encounter preparation snapshots kept in memory. In-session retry and E03 Continue restore encounter and inventory state from preparation while preserving new notebook clues, personal notes and hint-use history; mark measurements from the prior attempt stale. Keep this retention separate from Restore Save, which loads the confirmed saved adventure, and persist retained information only through the existing safe save rules. The public client is inspectable and a single-player save is not a trusted certification record. The backend still validates ownership, schemas, sizes and accepted field types; it does not execute uploaded code or arbitrary rules.
 
 ## Rule implementation and evidence
 
@@ -80,6 +84,8 @@ Write T01–T16 expected values directly from SPEC.md into independent fixtures 
 G0 records title, URL, section, publication/retrieval date, applicable profile and supported claim for each teaching rule. G1 proves one correct, incorrect and boundary case in a browser. G4 requires every mandatory objective to reference a reviewed rule and independent case. G6 adds transfer cases and a beginner playthrough; it does not infer learning from a screenshot or a passing program test alone.
 
 ## Asset production on the Mac
+
+Planning research on 2026-11-25 selects ACE-Step 1.5 (MIT code/model) as the first local music audition candidate; the original Apache-2.0 v1 candidate below remains an alternative. Audacity 4 uses .aup4 and lacks the older scripting pipe/MIDI tracks. See the feature research for tested-version gates, independent MIDI/source handling and precise component/output license review; no audition has yet passed.
 
 1. **Art benchmark:** establish apprentice/Photon/Titan sheets, the Workshop keyframe, one copper scene and one fiber scene. Check silhouette, lighting, scale, UI readability and camera consistency before multiplying assets.
 2. **Blender sources:** create actual `.blend` scenes and reusable asset files. Use named collections, consistent units/orientation, applied export transforms where appropriate, meaningful pivots, material slots, collision proxies and animation names. Reopen sources in Blender and render a contact sheet. Save modeling scripts when used.
@@ -109,15 +115,18 @@ Keep the gameplay document open while a user-initiated provider window/tab compl
 | GET `/session` | Return authenticated/guest status, provider/display label, CSRF token, save summary and preferences; no provider tokens |
 | POST `/auth/{provider}/start` | CSRF-checked initiation; create state/nonce/PKCE as applicable; return an allowlisted provider redirect |
 | GET `/auth/{provider}/callback` | Validate one-use provider response; create/rotate session; complete in the sign-in window/tab |
-| POST `/logout` | Invalidate session; preserve saved adventure |
+| POST `/logout` | Invalidate session; preserve saved adventure. The client warns about unsaved progress and allows cancellation before logout; confirmed logout clears the in-memory adventure and returns to title without an implicit save. |
 | GET `/save` | Return this account's save and ETag/revision, or an explicit empty-slot response |
-| PUT `/save` | Validate schema, ownership, expected revision and idempotency key; transactionally replace only this slot |
+| PUT `/save` | Authenticate/bound the request, resolve retained acknowledgements before current semantic policy, then validate and conditionally commit only a new operation |
 | PATCH `/preferences` | Update allowlisted settings including explicit autosave choice; independent revision check |
-| DELETE `/account` | Require recent authentication and explicit confirmation; remove live identity, sessions, preferences and progress |
+| DELETE `/account` | Require recent same-account authentication, explicit confirmation and a random deletion receipt; durably remove live data and record completion |
+| POST `/account/deletion-status` | Read pending/completed status for that narrow receipt after session revocation; expose no identity/progress and perform no deletion |
 
 Proposed tables: `accounts`, `identities`, `sessions`, `preferences`, `saves`, `write_receipts` and schema migrations. `saves.account_id` is unique. Keep the database, session storage and backups outside the web root in a dedicated game directory. Browser requests cannot select the account ID used in SQL. Save snapshots are schema-validated data, capped initially at 256 KiB; notes have a separate 4,096-character limit. Validate every collection length and item ID against the supported content registry.
 
-For an empty slot, require `If-None-Match: *`; for replacement, require `If-Match` with the current revision ETag. Conditional failure returns HTTP 412 and a current summary, not a silent overwrite. Within a transaction, compare the revision, write the new snapshot, advance revision once and store the idempotency receipt. Bind each receipt to account, request ID and payload hash. A repeated matching request returns its previous result; reuse with a different payload is rejected. The check-and-write must be atomic under simultaneous requests.
+For an empty slot, require `If-None-Match: *`; for replacement, require `If-Match` with the current revision ETag. Conditional failure returns HTTP 412 and a current summary, not a silent overwrite. Authenticate and bound requests before receipt lookup. Resolve a retained matching receipt before current schema/content/safe-state policy as well as revision checks, including after a deployment changes new-write policy. Semantic validation may run outside the write lock, but its error cannot be returned until a final transaction rechecks authorization and any concurrently committed receipt. Only a still-new operation is subject to current semantic validation, autosave/adoption policy and revision comparison; then write the snapshot, advance revision once and store the receipt atomically. Bind receipts to account, request ID and a fingerprint of method, route, save mode, replacement-confirmation header, precondition and exact payload bytes. A repeated matching request returns its prior committed revision without another write; different request bytes are rejected. If another device has since advanced the slot, report that current summary separately and reconcile before autosave. The check-and-write must be atomic under simultaneous requests.
+
+Deletion confirmation uses a client-generated 256-bit random receipt, retained only in memory and sent in a header. Keep its hash/24-hour expiry with the external deletion ledger; completed status requires committed live-data removal and session revocation. The exact-origin, receipt-authorized status POST returns only pending/completed and expiry, even after the account session ends. Unknown/expired receipts and guest session status leave deletion unconfirmed. Never log or persist the raw client receipt, automatically repeat deletion, or clear a later signed-in account from an old status result.
 
 Use server timestamps. Return explicit 401/403/412/413/422/429/error responses as appropriate; do not include stack traces or credentials. Session expiry leaves the client's current adventure in memory. Do not keep unsynchronized browser drafts as undisclosed persistent extra slots. Service backups are operational recovery copies, not user-selectable saves.
 
@@ -182,8 +191,8 @@ Snapshot of 28 entries inspected on 2026-11-24. License text below is catalog me
 | --- | --- | --- |
 | Domain | T01–T16 plus authored per-puzzle cases | Pure evaluator checks against independent expected values |
 | Content | Unique/qualified IDs, references, prerequisites, valid alternatives, source records | Schema and graph checks; deliberate corrupt-content fixtures |
-| State | Retry, item consumption, duplicate actions, dialogue skip, route choice, outcomes | Transition tests and deterministic replay |
-| Identity/save | SAVE01–12; CSRF/replay/ownership rejection; real Google and GitHub callbacks | API checks against isolated test DB and browser sessions; actual provider smoke tests |
+| State | Retry/E03 rollback with retained clues, notes and hint-use history, stale measurements, item consumption, duplicate actions, dialogue skip, route choice, outcomes | Transition tests and deterministic replay |
+| Identity/save | SAVE01–13; CSRF/replay/ownership rejection; real Google and GitHub callbacks | API checks against isolated test DB and browser sessions; actual provider smoke tests |
 | Gameplay | Copper/fiber/radio completion, four side quests, three minigames, E01/E02/E03 | Browser paths plus human playthrough notes |
 | Accessibility | Keyboard, text scene controls, focus, captions, zoom, reduced motion, touch layout | Automated checks plus manual keyboard/assistive-technology review; state untested combinations |
 | Assets | 12 rooms, 25 character sources/exports, 150 unique props, image/audio quotas and usage | Manifest audit, Blender reopening, render comparison, browser inspection and listening |
@@ -198,17 +207,17 @@ For human review, recruit at least one networking beginner and one technical rev
 
 ## Instructions for the build agent
 
-When the owner initiates implementation, follow this sequence. These are future instructions; no script exists merely because it is listed here.
+The owner initiated implementation on 2026-11-25. Follow this sequence and the explicit task dependencies. Commands and capabilities are available only when their task evidence records actual implementation.
 
 | Step | Instruction | Evidence before proceeding |
 | --- | --- | --- |
-| 1 | Read the three contracts, map AC01–21 to work, and complete W01/G0. Pin supported dependencies. Verify host, provider and media prerequisites without exposing credentials. | Capability matrix separates observed, tested and unavailable items; unresolved critical capabilities remain open |
-| 2 | Scaffold the standalone Vite/TypeScript client and PHP service; create license files and test harness. Implement T01/T02/T14 and one full R01/R02 interaction. | G1: valid/invalid decisions, explanatory feedback, keyboard/text controls and notebook |
+| 1 | Read the three contracts, map AC01–21 to work, and complete W01/G0. Pin supported dependencies. Verify host, provider and media prerequisites without exposing credentials. W01 may create the dependency/configuration/license/local HTTPS bootstrap necessary to test feasibility and freeze working locks. After local tool/source/bootstrap checks pass, continue independent domain/state/room implementation under the owner's instruction to stop only for urgent issues. Unresolved host/provider/listening checks block their dependent integration or media acceptance, and keep aggregate G0/G1 acceptance open. | Capability matrix separates observed, tested and unavailable items; unresolved critical capabilities remain open |
+| 2 | After local prerequisites pass, expand the verified standalone Vite/TypeScript client and PHP service bootstrap and create the test harness. Implement T01/T02/T14 and one full R01/R02 interaction. | G1: valid/invalid decisions, explanatory feedback, keyboard/text controls and notebook |
 | 3 | Implement content/graph validation, T01–T16, guest promotion and single-slot persistence. | G2: account ownership, conditional writes and SAVE cases demonstrated; unconfigured provider checks remain unverified |
 | 4 | Finish a representative room with real Blender/generated imagery; audition music, effects and key voices. | G3: owner reviews actual media; export, browser and performance evidence meets benchmark |
 | 5 | Complete one gameplay route, then the others, side activities, compendium and endings. | G4: all routes/outcomes work; authored puzzles replace temporary scaffolding |
 | 6 | Produce and integrate all required media in reviewed batches. | G5: distinct assets, sources, image records and audible/visual checks satisfy AC08–10 |
-| 7 | Run the full matrix, play the episode, fix findings and retest affected behavior. | G6: failures/untested areas are visible; owner is satisfied before advancing |
+| 7 | Run the G6-executable matrix rows, play the episode, fix findings and retest affected behavior; keep G7 packaging, operational recovery, staging and publication rows pending with named dependencies. | G6: all scoped criteria pass and the owner is satisfied; later release checks remain explicitly pending |
 | 8 | Prepare a versioned release, stage same-host integration and test recovery; publish when the owner initiates release. | G7: provider/save/browser and unaffected arcade/analytics checks; otherwise retain prior release |
 
 ### Future command contract
@@ -247,9 +256,9 @@ For each work package: read its requirements; choose the highest-priority unmet 
 
 ## Kickoff handoff
 
-The three planning documents are the entire current release. Their ten review passes each checked decisions, progression, learning rules, media, persistence, distribution, accessibility, execution and final consistency. Document validation covers Markdown structure, relative links, IDs, asset arithmetic, graph connectivity, explicit unknowns and the file boundary. It does not claim that any future gameplay, authentication, media or deployment check has passed.
+The three planning documents were the entire original kickoff release; the current constitution and Spec Kit templates now govern subsequent work. Their ten review passes each checked decisions, progression, learning rules, media, persistence, distribution, accessibility, execution and final consistency. Document validation covers Markdown structure, relative links, IDs, asset arithmetic, graph connectivity, explicit unknowns and the file boundary. It does not claim that any future gameplay, authentication, media or deployment check has passed.
 
-Suggested next instruction when the owner is ready: “Start Network Quest Spec001 at G0 using CONSTITUTION.md, SPEC.md and PLAN.md. Verify prerequisites, then implement through the current evidence gate. Keep the public game independent of the website, preserve the asset scope and single-save contract, and show actual results before advancing.”
+Suggested next instruction when the owner is ready: “Start Network Quest Spec001 at G0 using .specify/memory/constitution.md, SPEC.md and PLAN.md. Verify prerequisites, then implement through the current evidence gate. Keep the public game independent of the website, preserve the asset scope and single-save contract, and show actual results before advancing.”
 
 No generated art, Blender assets, audio, game source, deployment, provider registrations or player database are created by this kickoff. Implementation can create the future files described here when the owner starts that work. Preserve this distinction in the repository's first commit and final handoff.
 
