@@ -1,0 +1,4945 @@
+{
+  "license": "CC-BY-4.0",
+  "task": "T036",
+  "fixtureVersion": 1,
+  "behavioralAcceptance": "pending",
+  "sources": [
+    {
+      "id": "SPEC-SAVE",
+      "path": "SPEC.md",
+      "anchor": "### Persistence acceptance cases"
+    },
+    {
+      "id": "API-SAVE",
+      "path": "specs/001-physical-layer-underworld/contracts/game-api.openapi.yaml",
+      "anchor": "Lookup an authorized account/key receipt BEFORE schema/content/safe-state validation."
+    },
+    {
+      "id": "API-AUTH",
+      "path": "specs/001-physical-layer-underworld/contracts/game-api.openapi.yaml",
+      "anchor": "Google verifies signature and required iss/aud/sub/exp/iat/nonce; GitHub GET /user"
+    },
+    {
+      "id": "API-DELETE",
+      "path": "specs/001-physical-layer-underworld/contracts/game-api.openapi.yaml",
+      "anchor": "Unknown and expired receipts have the same 404 response."
+    },
+    {
+      "id": "MODEL",
+      "path": "specs/001-physical-layer-underworld/data-model.md",
+      "anchor": "## Save transaction"
+    },
+    {
+      "id": "MODEL-MIGRATION",
+      "path": "specs/001-physical-layer-underworld/data-model.md",
+      "anchor": "## Version evolution and recovery"
+    },
+    {
+      "id": "GAMEPLAY",
+      "path": "specs/001-physical-layer-underworld/contracts/gameplay.md",
+      "anchor": "## Clarified retry and logout"
+    },
+    {
+      "id": "DELIVERY",
+      "path": "specs/001-physical-layer-underworld/contracts/delivery.md",
+      "anchor": "## Consistent backup, deletion and rollback"
+    },
+    {
+      "id": "SCHEMA",
+      "path": "specs/001-physical-layer-underworld/contracts/save.schema.json",
+      "anchor": "\"title\": \"Network Quest save v1\""
+    },
+    {
+      "id": "AUTH-RESEARCH",
+      "path": "specs/001-physical-layer-underworld/research.md",
+      "anchor": "## R05 — Auth transaction and logout"
+    }
+  ],
+  "scope": "Independently authored synthetic expectations, not API results. Current application routes remain 503; no service/provider/browser acceptance is implied.",
+  "harness": {
+    "use": "server/tests/Support/TestEnvironment.php",
+    "storage": "owned disposable storage only; never configurable real paths",
+    "connections": "independent PDO connections and independently bound synthetic sessions",
+    "races": "Instrument service phase barriers; every actor starts before the first finishes; each actor has a distinct connection and independently bound session where authenticated. Hold/release the indicated phases with bounded waits and cleanup, never timing sleeps or sequential HTTP calls. For races involving deletion, serialize its external ledger and live DB work with the same barrier.",
+    "activationTasks": [
+      "T037",
+      "T038",
+      "T039",
+      "T040",
+      "T041",
+      "T042",
+      "T043",
+      "T044",
+      "T045",
+      "T046",
+      "T053",
+      "T054",
+      "T055",
+      "T056",
+      "T057"
+    ],
+    "missingInputs": [
+      "real schema/semantic validator",
+      "private owned test account/session factories; never enable production auth bypass",
+      "actual transaction hooks for deterministic overlap",
+      "provider adapter rejection doubles separate from real provider acceptance",
+      "authored content registry and safe-position membership",
+      "durable external ledger/crash recovery implementation",
+      "accurate longest backup retention",
+      "unsafe semantic fixture registry with explicit world marker; this is not evidence that a server can observe omitted client UI"
+    ]
+  },
+  "synthetic": {
+    "origin": "https://network-quest.invalid",
+    "accounts": {
+      "A": "60000000-0000-4000-8000-000000000001",
+      "B": "60000000-0000-4000-8000-000000000002"
+    },
+    "sessions": {
+      "session-a1": "A",
+      "session-a2": "A",
+      "session-b1": "B",
+      "guest-a": null
+    },
+    "providers": {
+      "google": {
+        "verifiedSub": "synthetic-google-sub-001",
+        "account": "A"
+      },
+      "github": {
+        "stableNumericId": "900000000001",
+        "account": "B"
+      }
+    },
+    "sameEmail": "same-person@example.invalid",
+    "identityExpected": "Google/GitHub remain independent even if same email; display-name change does not change subject ownership",
+    "deletionReceiptNotice": "Deterministic 32-byte example is public fixture data, never a usable credential; production generates 32 cryptographically random bytes."
+  },
+  "policy": {
+    "rawBodyMaxBytes": 262144,
+    "notesMaxUnicodeCharacters": 4096,
+    "writeReceiptSeconds": 604800,
+    "deletionReceiptSeconds": 86400,
+    "authTransactionSeconds": 600,
+    "deleteReauthSeconds": 300,
+    "sessionIdleSeconds": 7200,
+    "sessionAbsoluteSeconds": 86400,
+    "busyTimeoutMilliseconds": 250,
+    "fingerprintFields": [
+      "method",
+      "path",
+      "X-Save-Mode",
+      "X-Confirm-Adventure-Replacement",
+      "precondition",
+      "exact-body-bytes"
+    ],
+    "ordering": [
+      "authenticate-origin-csrf-byte-bound-header-key-syntax",
+      "authorized-account-key-receipt",
+      "bounded-validation-retain-candidate-or-error",
+      "BEGIN IMMEDIATE",
+      "reauthorize-account-session",
+      "receipt-recheck",
+      "provisional-error-if-still-new",
+      "current-autosave-and-adoption",
+      "conditional-revision",
+      "atomic-slot-and-receipt-commit"
+    ]
+  },
+  "responseRules": {
+    "all": {
+      "Cache-Control": "no-store"
+    },
+    "Problem": {
+      "required": [
+        "code",
+        "message",
+        "requestId"
+      ],
+      "additionalProperties": false,
+      "requestId": "UUID; no invented stable problem code unless specified"
+    },
+    "Conflict": {
+      "required": [
+        "code",
+        "message",
+        "requestId",
+        "currentSummary"
+      ],
+      "code": "save-conflict"
+    },
+    "SaveAcknowledgement": {
+      "required": [
+        "requestId",
+        "committedRevision",
+        "committedAt",
+        "replayed",
+        "currentSummary"
+      ],
+      "ETag": "currentSummary.etag, not necessarily committedRevision"
+    },
+    "DeletionStatus": {
+      "required": [
+        "state",
+        "expiresAt"
+      ],
+      "additionalProperties": false,
+      "state": [
+        "pending",
+        "completed"
+      ]
+    },
+    "204": "empty body",
+    "callback": "minimal accessible HTML; origin-safe completion hint only; main tab validates source/origin then GET session"
+  },
+  "requestProfiles": {
+    "replace": {
+      "method": "PUT",
+      "path": "/arcade/play/network-quest/api/v1/save",
+      "headers": {
+        "Origin": "https://network-quest.invalid",
+        "X-CSRF-Token": "synthetic-csrf-not-a-real-token-0001",
+        "Idempotency-Key": "70000000-0000-4000-8000-000000000001",
+        "X-Save-Mode": "manual",
+        "If-Match": "\"save-8\"",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "source": "specs/001-physical-layer-underworld/contracts/examples/save-v1.json",
+        "encoding": "exact-file-utf8-bytes"
+      },
+      "session": "session-a1"
+    },
+    "create": {
+      "extends": "replace",
+      "removeHeaders": [
+        "If-Match"
+      ],
+      "headers": {
+        "If-None-Match": "*"
+      }
+    },
+    "automatic": {
+      "extends": "replace",
+      "headers": {
+        "X-Save-Mode": "automatic"
+      }
+    },
+    "read": {
+      "method": "GET",
+      "path": "/arcade/play/network-quest/api/v1/save",
+      "headers": {},
+      "body": null,
+      "session": "session-a1"
+    },
+    "preferences": {
+      "method": "PATCH",
+      "path": "/arcade/play/network-quest/api/v1/preferences",
+      "headers": {
+        "Origin": "https://network-quest.invalid",
+        "X-CSRF-Token": "synthetic-csrf-not-a-real-token-0001",
+        "If-Match": "\"prefs-3\"",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "autosaveEnabled": true
+      },
+      "session": "session-a1"
+    },
+    "logout": {
+      "method": "POST",
+      "path": "/arcade/play/network-quest/api/v1/logout",
+      "headers": {
+        "Origin": "https://network-quest.invalid",
+        "X-CSRF-Token": "synthetic-csrf-not-a-real-token-0001"
+      },
+      "body": null,
+      "session": "session-a1"
+    },
+    "delete": {
+      "method": "DELETE",
+      "path": "/arcade/play/network-quest/api/v1/account",
+      "headers": {
+        "Origin": "https://network-quest.invalid",
+        "X-CSRF-Token": "synthetic-csrf-not-a-real-token-0001",
+        "X-Confirm-Account-Deletion": "delete-my-account",
+        "X-Deletion-Receipt": "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8"
+      },
+      "body": null,
+      "session": "session-a1"
+    },
+    "deletion-status": {
+      "method": "POST",
+      "path": "/arcade/play/network-quest/api/v1/account/deletion-status",
+      "headers": {
+        "Origin": "https://network-quest.invalid",
+        "X-Deletion-Receipt": "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8"
+      },
+      "body": null,
+      "session": null
+    },
+    "auth-start-google": {
+      "method": "POST",
+      "path": "/arcade/play/network-quest/api/v1/auth/google/start",
+      "headers": {
+        "Origin": "https://network-quest.invalid",
+        "X-CSRF-Token": "synthetic-csrf-not-a-real-token-0001",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "purpose": "login"
+      },
+      "session": "guest-a"
+    },
+    "auth-start-github": {
+      "method": "POST",
+      "path": "/arcade/play/network-quest/api/v1/auth/github/start",
+      "headers": {
+        "Origin": "https://network-quest.invalid",
+        "X-CSRF-Token": "synthetic-csrf-not-a-real-token-0001",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "purpose": "login"
+      },
+      "session": "guest-a"
+    },
+    "callback-google": {
+      "method": "GET",
+      "path": "/arcade/play/network-quest/api/v1/auth/google/callback",
+      "headers": {},
+      "query": {
+        "state": "synthetic-state-one-use",
+        "code": "synthetic-code"
+      },
+      "body": null,
+      "session": "guest-a"
+    },
+    "callback-github": {
+      "method": "GET",
+      "path": "/arcade/play/network-quest/api/v1/auth/github/callback",
+      "headers": {},
+      "query": {
+        "state": "synthetic-state-one-use",
+        "code": "synthetic-code"
+      },
+      "body": null,
+      "session": "guest-a"
+    }
+  },
+  "cases": [
+    {
+      "id": "SV-CREATE",
+      "requirements": [
+        "SAVE02"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "create",
+      "given": [
+        "authenticated A; empty slot; structural example plus explicitly reviewed semantic registry"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 201,
+        "bodySchema": "SaveAcknowledgement",
+        "assertions": [
+          "one slot at revision 1",
+          "receipt and slot commit atomically",
+          "committedRevision=1; currentSummary.revision=1; ETag=\"save-1\"",
+          "server savedAt and committedAt; never client clock"
+        ]
+      }
+    },
+    {
+      "id": "SV-REPLACE",
+      "requirements": [
+        "SAVE02"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated A; same adventure at revision 8; candidate safe and semantically accepted"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 200,
+        "bodySchema": "SaveAcknowledgement",
+        "assertions": [
+          "one slot at revision 9; exactly one receipt",
+          "committedRevision=9; currentSummary.revision=9; ETag=\"save-9\""
+        ]
+      }
+    },
+    {
+      "id": "SV-EMPTY-READ",
+      "requirements": [
+        "SAVE03"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "read",
+      "given": [
+        "authenticated A; no slot"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 404,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no write; no reset; offer manual adoption"
+        ]
+      }
+    },
+    {
+      "id": "SV-READ",
+      "requirements": [
+        "SAVE02"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "read",
+      "given": [
+        "A owns revision 8; B owns different state"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 200,
+        "bodySchema": "SavedSnapshot",
+        "assertions": [
+          "return only A summary/snapshot; ETag=\"save-8\"",
+          "zero writes; no implicit migration"
+        ]
+      }
+    },
+    {
+      "id": "SV-CREATE-OCCUPIED",
+      "requirements": [
+        "SAVE07"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "create",
+      "given": [
+        "A slot revision 8"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 412,
+        "bodySchema": "Conflict",
+        "assertions": [
+          "currentSummary revision 8; slot/receipt unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-REPLACE-EMPTY",
+      "requirements": [
+        "SAVE07"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "A slot absent"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 412,
+        "bodySchema": "Conflict",
+        "assertions": [
+          "currentSummary=null; slot/receipt unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-STALE",
+      "requirements": [
+        "SAVE07"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "A slot revision 9; request reviewed revision 8"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 412,
+        "bodySchema": "Conflict",
+        "assertions": [
+          "code=save-conflict; currentSummary revision 9; slot unchanged; no new successful receipt"
+        ]
+      }
+    },
+    {
+      "id": "SV-ADOPT-AUTO",
+      "requirements": [
+        "SAVE03"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "automatic",
+      "given": [
+        "autosave enabled; empty slot"
+      ],
+      "requestChanges": {
+        "headers": {
+          "If-None-Match": "*"
+        },
+        "removeHeaders": [
+          "If-Match"
+        ]
+      },
+      "expected": {
+        "status": 409,
+        "bodySchema": "Problem",
+        "assertions": [
+          "first adoption must be manual; no slot or receipt created"
+        ]
+      }
+    },
+    {
+      "id": "SV-DIFFERENT-AUTO",
+      "requirements": [
+        "SAVE03"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "automatic",
+      "given": [
+        "autosave enabled; slot adventure differs from request"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 409,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no write; opt-in is not replacement consent"
+        ]
+      }
+    },
+    {
+      "id": "SV-DIFFERENT-MANUAL",
+      "requirements": [
+        "SAVE03"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "slot adventure differs from request"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 409,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no write without explicit bound replacement consent"
+        ]
+      }
+    },
+    {
+      "id": "SV-CONFIRMED-REPLACE",
+      "requirements": [
+        "SAVE03"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "different adventure; explicit confirmation binds this candidate and reviewed revision 8"
+      ],
+      "requestChanges": {
+        "headers": {
+          "X-Confirm-Adventure-Replacement": "true"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "bodySchema": "SaveAcknowledgement",
+        "assertions": [
+          "one slot revision 9 for request adventure; no merge"
+        ]
+      }
+    },
+    {
+      "id": "SV-RECONSENT",
+      "requirements": [
+        "SAVE07"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "confirmed replacement reviewed revision 8; concurrent slot advances to 9"
+      ],
+      "requestChanges": {
+        "headers": {
+          "X-Confirm-Adventure-Replacement": "true"
+        }
+      },
+      "expected": {
+        "status": 412,
+        "bodySchema": "Conflict",
+        "assertions": [
+          "old consent cannot override revision 9; require new key and reviewed ETag for a new decision"
+        ]
+      }
+    },
+    {
+      "id": "SV-AUTO-OPTIN",
+      "requirements": [
+        "SAVE05"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "automatic",
+      "given": [
+        "autosave enabled; same-adventure slot revision 8; eligible safe boundary"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 200,
+        "bodySchema": "SaveAcknowledgement",
+        "assertions": [
+          "same single slot revision 9"
+        ]
+      }
+    },
+    {
+      "id": "SV-AUTO-OPTOUT",
+      "requirements": [
+        "SAVE04"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "automatic",
+      "given": [
+        "opt-out committed before queued operation reaches final transaction; no receipt"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 409,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no write; check latest preferences inside transaction"
+        ]
+      }
+    },
+    {
+      "id": "SV-UNAUTH",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "matching retained receipt exists for A/key; current slot revision 9"
+      ],
+      "requestChanges": {
+        "session": null
+      },
+      "expected": {
+        "status": 401,
+        "bodySchema": "Problem",
+        "assertions": [
+          "authentication precedes receipt lookup; no receipt disclosure",
+          "slot and receipt unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-REVOKED",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "matching retained receipt exists for A/key; current slot revision 9"
+      ],
+      "requestChanges": {
+        "session": "revoked-a"
+      },
+      "expected": {
+        "status": 401,
+        "bodySchema": "Problem",
+        "assertions": [
+          "authentication precedes receipt lookup; no receipt disclosure",
+          "slot and receipt unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-ORIGIN",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "matching retained receipt exists for A/key; current slot revision 9"
+      ],
+      "requestChanges": {
+        "headers": {
+          "Origin": "https://other.invalid"
+        }
+      },
+      "expected": {
+        "status": 403,
+        "bodySchema": "Problem",
+        "assertions": [
+          "exact Origin precedes receipt lookup; no receipt disclosure",
+          "slot and receipt unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-CSRF",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "matching retained receipt exists for A/key; current slot revision 9"
+      ],
+      "requestChanges": {
+        "headers": {
+          "X-CSRF-Token": "synthetic-csrf-from-another-session"
+        }
+      },
+      "expected": {
+        "status": 403,
+        "bodySchema": "Problem",
+        "assertions": [
+          "session-bound CSRF precedes receipt lookup; no receipt disclosure",
+          "slot and receipt unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-NO-PRECONDITION",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "matching retained receipt exists for A/key; current slot revision 9"
+      ],
+      "requestChanges": {
+        "removeHeaders": [
+          "If-Match"
+        ]
+      },
+      "expected": {
+        "status": 428,
+        "bodySchema": "Problem",
+        "assertions": [
+          "conditional header presence precedes receipt lookup; no receipt disclosure",
+          "slot and receipt unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-TWO-PRECONDITIONS",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "matching retained receipt exists for A/key; current slot revision 9"
+      ],
+      "requestChanges": {
+        "headers": {
+          "If-None-Match": "*"
+        }
+      },
+      "expected": {
+        "status": 400,
+        "bodySchema": "Problem",
+        "assertions": [
+          "exactly one precondition precedes receipt lookup; no receipt disclosure",
+          "slot and receipt unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-WEAK-ETAG",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "matching retained receipt exists for A/key; current slot revision 9"
+      ],
+      "requestChanges": {
+        "headers": {
+          "If-Match": "W/\"save-8\""
+        }
+      },
+      "expected": {
+        "status": 400,
+        "bodySchema": "Problem",
+        "assertions": [
+          "strong ETag syntax precedes receipt lookup; no receipt disclosure",
+          "slot and receipt unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-BAD-KEY",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "matching retained receipt exists for A/key; current slot revision 9"
+      ],
+      "requestChanges": {
+        "headers": {
+          "Idempotency-Key": "not-a-uuid"
+        }
+      },
+      "expected": {
+        "status": 400,
+        "bodySchema": "Problem",
+        "assertions": [
+          "UUID key syntax precedes receipt lookup; no receipt disclosure",
+          "slot and receipt unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-BAD-MODE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "matching retained receipt exists for A/key; current slot revision 9"
+      ],
+      "requestChanges": {
+        "headers": {
+          "X-Save-Mode": "background"
+        }
+      },
+      "expected": {
+        "status": 400,
+        "bodySchema": "Problem",
+        "assertions": [
+          "save mode syntax precedes receipt lookup; no receipt disclosure",
+          "slot and receipt unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-BAD-CONFIRM",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "matching retained receipt exists for A/key; current slot revision 9"
+      ],
+      "requestChanges": {
+        "headers": {
+          "X-Confirm-Adventure-Replacement": "yes"
+        }
+      },
+      "expected": {
+        "status": 400,
+        "bodySchema": "Problem",
+        "assertions": [
+          "replacement header syntax precedes receipt lookup; no receipt disclosure",
+          "slot and receipt unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-BODY-OVER",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "matching retained receipt exists for A/key; current slot revision 9"
+      ],
+      "requestChanges": {
+        "wireCase": "WIRE-OVER"
+      },
+      "expected": {
+        "status": 413,
+        "bodySchema": "Problem",
+        "assertions": [
+          "262144-byte bound precedes receipt lookup; no receipt disclosure",
+          "slot and receipt unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-WRONG-OWNER",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "A/key has receipt; B session valid with own CSRF and empty slot"
+      ],
+      "requestChanges": {
+        "session": "session-b1",
+        "headers": {
+          "X-CSRF-Token": "synthetic-csrf-not-a-real-token-0002"
+        }
+      },
+      "expected": {
+        "status": 412,
+        "bodySchema": "Conflict",
+        "assertions": [
+          "B cannot read A receipt; conditional check applies only to B slot",
+          "A slot/receipt unchanged; currentSummary=null"
+        ]
+      }
+    },
+    {
+      "id": "SV-REPLAY",
+      "requirements": [
+        "SAVE08"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "request committed revision 9; response lost; retained matching receipt"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 200,
+        "bodySchema": "SaveAcknowledgement",
+        "assertions": [
+          "replayed=true; committedRevision=9; currentSummary.revision=9; ETag=\"save-9\"",
+          "no second write or revision; exact request bytes/key retained only in memory"
+        ]
+      }
+    },
+    {
+      "id": "SV-REPLAY-OLDER",
+      "requirements": [
+        "SAVE08"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "same request originally reviewed revision 7 and committed revision 8; another device advanced slot to 9"
+      ],
+      "requestChanges": {
+        "headers": {
+          "If-Match": "\"save-7\""
+        }
+      },
+      "expected": {
+        "status": 200,
+        "bodySchema": "SaveAcknowledgement",
+        "assertions": [
+          "replayed=true; committedRevision=8; currentSummary.revision=9; ETag=\"save-9\"",
+          "no write; client pauses autosave and reconciles; old ack is not latest slot"
+        ]
+      }
+    },
+    {
+      "id": "SV-OLD-POLICY",
+      "requirements": [
+        "SAVE08"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "commit and lose response under policy P0; deploy P1 accepting read but rejecting old content/schema/safe-state for new writes; receipt retained"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 200,
+        "bodySchema": "SaveAcknowledgement",
+        "assertions": [
+          "receipt before current schema/content/safe-state validation and stale revision",
+          "no write; original committedRevision/committedAt preserved; current summary returned"
+        ]
+      }
+    },
+    {
+      "id": "SV-OLD-POLICY-NEW-KEY",
+      "requirements": [
+        "SAVE08"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "same old payload rejected by P1; no receipt for new key"
+      ],
+      "requestChanges": {
+        "headers": {
+          "Idempotency-Key": "70000000-0000-4000-8000-000000000002"
+        }
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "final authorization and receipt recheck precedes returning retained validation error",
+          "old slot/receipt unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-REPLAY-AUTO-OPTOUT",
+      "requirements": [
+        "SAVE08"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "automatic",
+      "given": [
+        "automatic write committed with opt-in; receipt retained; preference now opted out"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 200,
+        "bodySchema": "SaveAcknowledgement",
+        "assertions": [
+          "retained receipt before current autosave policy; no write"
+        ]
+      }
+    },
+    {
+      "id": "SV-KEY-BODY",
+      "requirements": [
+        "SAVE08"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "retained receipt for original exact request/key"
+      ],
+      "requestChanges": {
+        "bodySerialization": "append one ASCII space to exact original bytes"
+      },
+      "expected": {
+        "status": 409,
+        "bodySchema": "Problem",
+        "assertions": [
+          "different fingerprint; no write and no acknowledgement disclosure"
+        ]
+      }
+    },
+    {
+      "id": "SV-KEY-MODE",
+      "requirements": [
+        "SAVE08"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "retained receipt for original exact request/key"
+      ],
+      "requestChanges": {
+        "headers": {
+          "X-Save-Mode": "automatic"
+        }
+      },
+      "expected": {
+        "status": 409,
+        "bodySchema": "Problem",
+        "assertions": [
+          "different fingerprint; no write and no acknowledgement disclosure"
+        ]
+      }
+    },
+    {
+      "id": "SV-KEY-CONFIRM",
+      "requirements": [
+        "SAVE08"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "retained receipt for original exact request/key"
+      ],
+      "requestChanges": {
+        "headers": {
+          "X-Confirm-Adventure-Replacement": "true"
+        }
+      },
+      "expected": {
+        "status": 409,
+        "bodySchema": "Problem",
+        "assertions": [
+          "different fingerprint; no write and no acknowledgement disclosure"
+        ]
+      }
+    },
+    {
+      "id": "SV-KEY-PRECONDITION",
+      "requirements": [
+        "SAVE08"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "retained receipt for original exact request/key"
+      ],
+      "requestChanges": {
+        "headers": {
+          "If-Match": "\"save-9\""
+        }
+      },
+      "expected": {
+        "status": 409,
+        "bodySchema": "Problem",
+        "assertions": [
+          "different fingerprint; no write and no acknowledgement disclosure"
+        ]
+      }
+    },
+    {
+      "id": "SV-RECEIPT-BEFORE-EXPIRY",
+      "requirements": [
+        "SAVE08"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "receipt age six days 23:59:59; slot revision 9; exact retained request"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 200,
+        "bodySchema": "SaveAcknowledgement",
+        "assertions": [
+          "no second write; receipt acknowledged"
+        ]
+      }
+    },
+    {
+      "id": "SV-RECEIPT-EXPIRED",
+      "requirements": [
+        "SAVE08"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "receipt age seven days plus one second; successful receipt no longer available; slot revision 9; candidate valid"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 412,
+        "bodySchema": "Conflict",
+        "assertions": [
+          "old If-Match save-8 cannot overwrite save-9; no duplicate write"
+        ]
+      }
+    },
+    {
+      "id": "SV-NETWORK-ROLLBACK",
+      "requirements": [
+        "SAVE09"
+      ],
+      "sourceIds": [
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "injected storage failure before commit; candidate otherwise valid"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 503,
+        "bodySchema": "Problem",
+        "assertions": [
+          "rollback slot and receipt together; no Saved claim; retry exact request"
+        ]
+      }
+    },
+    {
+      "id": "SV-BUSY",
+      "requirements": [
+        "SAVE09"
+      ],
+      "sourceIds": [
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "another independent connection keeps BEGIN IMMEDIATE beyond 250ms busy budget"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 503,
+        "bodySchema": "Problem",
+        "assertions": [
+          "Retry-After integer >=1; no successful receipt or partial slot write"
+        ]
+      }
+    },
+    {
+      "id": "SV-RATE",
+      "requirements": [
+        "SAVE09"
+      ],
+      "sourceIds": [
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "60 saves/minute/account limit exceeded"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 429,
+        "bodySchema": "Problem",
+        "assertions": [
+          "Retry-After integer >=1; preserve slot and client memory"
+        ]
+      }
+    },
+    {
+      "id": "PREF-UPDATE",
+      "requirements": [
+        "SAVE05"
+      ],
+      "sourceIds": [
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "preferences",
+      "given": [
+        "preferences revision 3; save revision 8"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 200,
+        "bodySchema": "Preferences",
+        "assertions": [
+          "preferences revision 4/etag=\"prefs-4\"; save remains revision 8; no save receipt"
+        ]
+      }
+    },
+    {
+      "id": "PREF-STALE",
+      "requirements": [
+        "SAVE05"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "preferences",
+      "given": [
+        "preferences now revision 4"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 412,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no preference or save write; GET session and review; no blind defaults merge"
+        ]
+      }
+    },
+    {
+      "id": "PREF-MISSING",
+      "requirements": [
+        "SAVE05"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "preferences",
+      "given": [
+        "preferences revision 3"
+      ],
+      "requestChanges": {
+        "removeHeaders": [
+          "If-Match"
+        ]
+      },
+      "expected": {
+        "status": 428,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no write"
+        ]
+      }
+    },
+    {
+      "id": "PREF-EMPTY",
+      "requirements": [
+        "SAVE05"
+      ],
+      "sourceIds": [
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "preferences",
+      "given": [
+        "preferences revision 3"
+      ],
+      "requestChanges": {
+        "body": {}
+      },
+      "expected": {
+        "status": 400,
+        "bodySchema": "Problem",
+        "assertions": [
+          "at least one recognized field required; no write"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-START-GOOGLE",
+      "requirements": [
+        "SAVE02"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "auth-start-google",
+      "given": [
+        "valid initiating guest CSRF/Origin; fixed registered callback"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 200,
+        "bodySchema": "AuthStart",
+        "assertions": [
+          "authorization URL allowlisted; S256; one-use transaction expires in ten minutes",
+          "no browser token; rotate session/CSRF only after verified callback",
+          "Google scopes exactly openid profile; GitHub scopes explicitly empty"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-STATE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "missing, wrong or unmatched state"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-SESSION",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "wrong initiating session"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-EXPIRED",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "transaction older than ten minutes"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-REPLAY",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "state already consumed"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-PKCE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "stored S256 verifier does not match code transaction"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-CODE-AND-ERROR",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "both code and provider error"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-NO-CODE-OR-ERROR",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "neither code nor provider error"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-LOGGED-OUT",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "logout already invalidated transaction"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-DELETE-ACCOUNT",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "delete-reauth provider identity differs from expected existing account"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-CANCEL",
+      "requirements": [
+        "SAVE01"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "valid bound unused state; provider denies authorization"
+      ],
+      "requestChanges": {
+        "query": {
+          "state": "synthetic-state-one-use",
+          "error": "access_denied"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "accessible cancellation page; guest room/inventory/notes unchanged; no save claim"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-OUTAGE",
+      "requirements": [
+        "SAVE09"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "provider exchange unavailable"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 503,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "accessible error; no false authentication; retain guest state"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-START-GITHUB",
+      "requirements": [
+        "SAVE02"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "auth-start-github",
+      "given": [
+        "valid initiating guest CSRF/Origin; fixed registered callback"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 200,
+        "bodySchema": "AuthStart",
+        "assertions": [
+          "authorization URL allowlisted; S256; one-use transaction expires in ten minutes",
+          "no browser token; rotate session/CSRF only after verified callback",
+          "Google scopes exactly openid profile; GitHub scopes explicitly empty"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GITHUB-STATE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-github",
+      "given": [
+        "missing, wrong or unmatched state"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GITHUB-SESSION",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-github",
+      "given": [
+        "wrong initiating session"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GITHUB-EXPIRED",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-github",
+      "given": [
+        "transaction older than ten minutes"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GITHUB-REPLAY",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-github",
+      "given": [
+        "state already consumed"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GITHUB-PKCE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-github",
+      "given": [
+        "stored S256 verifier does not match code transaction"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GITHUB-CODE-AND-ERROR",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-github",
+      "given": [
+        "both code and provider error"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GITHUB-NO-CODE-OR-ERROR",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-github",
+      "given": [
+        "neither code nor provider error"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GITHUB-LOGGED-OUT",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-github",
+      "given": [
+        "logout already invalidated transaction"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GITHUB-DELETE-ACCOUNT",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-github",
+      "given": [
+        "delete-reauth provider identity differs from expected existing account"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "no authentication/rotation/account creation/deletion authorization",
+          "accessible HTML error; no tokens, CSRF, provider subjects or callback query strings in logs"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GITHUB-CANCEL",
+      "requirements": [
+        "SAVE01"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-github",
+      "given": [
+        "valid bound unused state; provider denies authorization"
+      ],
+      "requestChanges": {
+        "query": {
+          "state": "synthetic-state-one-use",
+          "error": "access_denied"
+        }
+      },
+      "expected": {
+        "status": 200,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "accessible cancellation page; guest room/inventory/notes unchanged; no save claim"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GITHUB-OUTAGE",
+      "requirements": [
+        "SAVE09"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-github",
+      "given": [
+        "provider exchange unavailable"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 503,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "accessible error; no false authentication; retain guest state"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-SIGNATURE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "AUTH-RESEARCH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "synthetic ID token has invalid/missing/wrong-type signature; all other claims valid"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "Google verified ID token required, not merely decoded claims; no authentication"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-ISS",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "AUTH-RESEARCH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "synthetic ID token has invalid/missing/wrong-type iss; all other claims valid"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "Google verified ID token required, not merely decoded claims; no authentication"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-AUD",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "AUTH-RESEARCH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "synthetic ID token has invalid/missing/wrong-type aud; all other claims valid"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "Google verified ID token required, not merely decoded claims; no authentication"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-SUB",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "AUTH-RESEARCH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "synthetic ID token has invalid/missing/wrong-type sub; all other claims valid"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "Google verified ID token required, not merely decoded claims; no authentication"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-EXP",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "AUTH-RESEARCH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "synthetic ID token has invalid/missing/wrong-type exp; all other claims valid"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "Google verified ID token required, not merely decoded claims; no authentication"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-IAT",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "AUTH-RESEARCH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "synthetic ID token has invalid/missing/wrong-type iat; all other claims valid"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "Google verified ID token required, not merely decoded claims; no authentication"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GOOGLE-NONCE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "AUTH-RESEARCH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "synthetic ID token has invalid/missing/wrong-type nonce; all other claims valid"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "Google verified ID token required, not merely decoded claims; no authentication"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-GITHUB-ID",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-github",
+      "given": [
+        "synthetic GET /user has missing/non-numeric stable id; display name/email present"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 400,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "display name/email cannot establish owner; no authentication"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-SCOPE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "auth-start-github",
+      "given": [
+        "configured scopes include repository or email access"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 503,
+        "bodySchema": "Problem",
+        "assertions": [
+          "fail closed before provider navigation; configured excessive privilege must not become a valid auth URL"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-RETURN-URL",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "auth-start-google",
+      "given": [
+        "caller supplies arbitrary return URL"
+      ],
+      "requestChanges": {
+        "body": {
+          "purpose": "login",
+          "returnUrl": "https://other.invalid/"
+        }
+      },
+      "expected": {
+        "status": 400,
+        "bodySchema": "Problem",
+        "assertions": [
+          "reject unknown field; no transaction/provider navigation/authentication"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-ORIGIN",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "auth-start-google",
+      "given": [
+        "otherwise valid guest start"
+      ],
+      "requestChanges": {
+        "headers": {
+          "Origin": "https://other.invalid"
+        }
+      },
+      "expected": {
+        "status": 403,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no auth transaction created"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-CSRF",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "auth-start-github",
+      "given": [
+        "otherwise valid guest start"
+      ],
+      "requestChanges": {
+        "headers": {
+          "X-CSRF-Token": "synthetic-wrong-session-csrf-000000"
+        }
+      },
+      "expected": {
+        "status": 403,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no auth transaction created"
+        ]
+      }
+    },
+    {
+      "id": "LOGOUT-CONFIRM",
+      "requirements": [
+        "SAVE13"
+      ],
+      "sourceIds": [
+        "GAMEPLAY"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "logout",
+      "given": [
+        "user confirmed; session A1 active; pending auth transaction; slot revision 8"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 204,
+        "bodySchema": "none",
+        "assertions": [
+          "revoke current session and auth attempts; expire cookie",
+          "no save, replacement or deletion; slot stays revision 8",
+          "then clear world/checkpoint/notebook/assistance/UI and return title"
+        ]
+      }
+    },
+    {
+      "id": "LOGOUT-EXPIRED",
+      "requirements": [
+        "SAVE13"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "logout",
+      "given": [
+        "current session expired"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 401,
+        "bodySchema": "Problem",
+        "assertions": [
+          "do not pretend response is 204; GET session may confirm guest after uncertain outcome",
+          "slot unchanged"
+        ]
+      }
+    },
+    {
+      "id": "DELETE-COMMIT",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "delete",
+      "given": [
+        "explicit confirmation; same-account delete-reauth completed 60 seconds ago"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 204,
+        "bodySchema": "none",
+        "assertions": [
+          "durable external pending intent and receipt hash before live removal",
+          "transaction removes live account/identities/preferences/slot/save receipts; revokes all sessions/attempts",
+          "mark external ledger completed after live commit before reporting success",
+          "backup expiry explained accurately; no provider-wide signout claim"
+        ]
+      }
+    },
+    {
+      "id": "DELETE-OLD-AUTH",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "delete",
+      "given": [
+        "delete-reauth completed five minutes plus one second ago"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 403,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no new deletion intent or live deletion; preserve existing binding",
+          "receipt alone never authorizes deletion"
+        ]
+      }
+    },
+    {
+      "id": "DELETE-ORDINARY-AUTH",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "delete",
+      "given": [
+        "fresh ordinary login but no delete-reauth purpose"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 403,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no new deletion intent or live deletion; preserve existing binding",
+          "receipt alone never authorizes deletion"
+        ]
+      }
+    },
+    {
+      "id": "DELETE-WRONG-ACCOUNT",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "delete",
+      "given": [
+        "fresh delete-reauth of B while deleting A"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 403,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no new deletion intent or live deletion; preserve existing binding",
+          "receipt alone never authorizes deletion"
+        ]
+      }
+    },
+    {
+      "id": "DELETE-NO-CONFIRM",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "delete",
+      "given": [
+        "fresh same-account delete-reauth"
+      ],
+      "requestChanges": {
+        "removeHeaders": [
+          "X-Confirm-Account-Deletion"
+        ]
+      },
+      "expected": {
+        "status": 400,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no new deletion intent or live deletion; preserve existing binding",
+          "receipt alone never authorizes deletion"
+        ]
+      }
+    },
+    {
+      "id": "DELETE-WRONG-CSRF",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "delete",
+      "given": [
+        "fresh same-account delete-reauth"
+      ],
+      "requestChanges": {
+        "headers": {
+          "X-CSRF-Token": "synthetic-wrong-session-csrf-000000"
+        }
+      },
+      "expected": {
+        "status": 403,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no new deletion intent or live deletion; preserve existing binding",
+          "receipt alone never authorizes deletion"
+        ]
+      }
+    },
+    {
+      "id": "DELETE-WRONG-ORIGIN",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "delete",
+      "given": [
+        "fresh same-account delete-reauth"
+      ],
+      "requestChanges": {
+        "headers": {
+          "Origin": "https://other.invalid"
+        }
+      },
+      "expected": {
+        "status": 403,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no new deletion intent or live deletion; preserve existing binding",
+          "receipt alone never authorizes deletion"
+        ]
+      }
+    },
+    {
+      "id": "DELETE-REVOKED",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "delete",
+      "given": [
+        "session revoked"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 401,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no new deletion intent or live deletion; preserve existing binding",
+          "receipt alone never authorizes deletion"
+        ]
+      }
+    },
+    {
+      "id": "DELETE-BOUND-ELSEWHERE",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "delete",
+      "given": [
+        "receipt already bound to B/another operation"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 409,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no new deletion intent or live deletion; preserve existing binding",
+          "receipt alone never authorizes deletion"
+        ]
+      }
+    },
+    {
+      "id": "DELETE-BAD-RECEIPT",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "delete",
+      "given": [
+        "fresh same-account delete-reauth"
+      ],
+      "requestChanges": {
+        "headers": {
+          "X-Deletion-Receipt": "short"
+        }
+      },
+      "expected": {
+        "status": 400,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no new deletion intent or live deletion; preserve existing binding",
+          "receipt alone never authorizes deletion"
+        ]
+      }
+    },
+    {
+      "id": "STATUS-PENDING",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "deletion-status",
+      "given": [
+        "known pending intent; session revoked"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 200,
+        "bodySchema": "DeletionStatus",
+        "assertions": [
+          "read-only; no deletion, sign-in, account creation or progress access",
+          "no account ID/token in response; status affects only matching operation"
+        ],
+        "confirmation": "unconfirmed",
+        "body": {
+          "state": "pending",
+          "expiresAt": "2026-11-26T12:00:00Z"
+        },
+        "headers": {
+          "Retry-After": {
+            "minimum": 2
+          }
+        }
+      }
+    },
+    {
+      "id": "STATUS-COMPLETED",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "deletion-status",
+      "given": [
+        "known completed ledger; session revoked"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 200,
+        "bodySchema": "DeletionStatus",
+        "assertions": [
+          "read-only; no deletion, sign-in, account creation or progress access",
+          "no account ID/token in response; status affects only matching operation"
+        ],
+        "confirmation": "confirmed",
+        "body": {
+          "state": "completed",
+          "expiresAt": "2026-11-26T12:00:00Z"
+        }
+      }
+    },
+    {
+      "id": "STATUS-UNKNOWN",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "deletion-status",
+      "given": [
+        "synthetic receipt not found"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 404,
+        "bodySchema": "Problem",
+        "assertions": [
+          "read-only; no deletion, sign-in, account creation or progress access",
+          "no account ID/token in response; status affects only matching operation"
+        ],
+        "confirmation": "unconfirmed"
+      }
+    },
+    {
+      "id": "STATUS-EXPIRED",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "deletion-status",
+      "given": [
+        "receipt 24 hours plus one second old; longer deletion marker remains"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 404,
+        "bodySchema": "Problem",
+        "assertions": [
+          "read-only; no deletion, sign-in, account creation or progress access",
+          "no account ID/token in response; status affects only matching operation"
+        ],
+        "confirmation": "unconfirmed"
+      }
+    },
+    {
+      "id": "STATUS-ORIGIN",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "deletion-status",
+      "given": [
+        "otherwise known receipt"
+      ],
+      "requestChanges": {
+        "headers": {
+          "Origin": "https://other.invalid"
+        }
+      },
+      "expected": {
+        "status": 403,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no ledger disclosure or mutation; deletion remains unconfirmed"
+        ]
+      }
+    },
+    {
+      "id": "STATUS-MISSING",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "deletion-status",
+      "given": [
+        "otherwise known receipt"
+      ],
+      "requestChanges": {
+        "removeHeaders": [
+          "X-Deletion-Receipt"
+        ]
+      },
+      "expected": {
+        "status": 400,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no ledger disclosure or mutation; deletion remains unconfirmed"
+        ]
+      }
+    },
+    {
+      "id": "STATUS-MALFORMED",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "deletion-status",
+      "given": [
+        "otherwise known receipt"
+      ],
+      "requestChanges": {
+        "headers": {
+          "X-Deletion-Receipt": "short"
+        }
+      },
+      "expected": {
+        "status": 400,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no ledger disclosure or mutation; deletion remains unconfirmed"
+        ]
+      }
+    },
+    {
+      "id": "STATUS-NONCANONICAL",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "deletion-status",
+      "given": [
+        "otherwise known receipt"
+      ],
+      "requestChanges": {
+        "headers": {
+          "X-Deletion-Receipt": "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh9"
+        }
+      },
+      "expected": {
+        "status": 400,
+        "bodySchema": "Problem",
+        "assertions": [
+          "no ledger disclosure or mutation; deletion remains unconfirmed"
+        ]
+      }
+    },
+    {
+      "id": "STATUS-RATE",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "deletion-status",
+      "given": [
+        "30/minute/receipt hash or 60/minute/source bucket exceeded"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 429,
+        "bodySchema": "Problem",
+        "assertions": [
+          "Retry-After >=1; bounded polling backoff; no destructive retry"
+        ]
+      }
+    },
+    {
+      "id": "STATUS-UNAVAILABLE",
+      "requirements": [
+        "SAVE12"
+      ],
+      "sourceIds": [
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "deletion-status",
+      "given": [
+        "ledger cannot be read"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 503,
+        "bodySchema": "Problem",
+        "assertions": [
+          "Retry-After >=1; outcome unconfirmed; never infer from guest session"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-UNKNOWN-ACCOUNT",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-UNKNOWN-ACCOUNT"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-CLIENT-REVISION",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-CLIENT-REVISION"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-CLIENT-TIME",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-CLIENT-TIME"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-UI",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-UI"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-CHECKPOINT",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-CHECKPOINT"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-PREFERENCES",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-PREFERENCES"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-VERSION",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-VERSION"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-CONTENT-SHAPE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-CONTENT-SHAPE"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-EPISODE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-EPISODE"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-ADVENTURE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-ADVENTURE"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-E03-SAFE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-E03-SAFE"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-ENCOUNTER",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-ENCOUNTER"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-DIALOGUE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-DIALOGUE"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-TRANSITION",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-TRANSITION"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-FAILURE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-FAILURE"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-UNQUALIFIED-ID",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-UNQUALIFIED-ID"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-WORLD-EXTRA",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-WORLD-EXTRA"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-NEGATIVE-REVISION",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-NEGATIVE-REVISION"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-NONINTEGER-REVISION",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-NONINTEGER-REVISION"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-ZERO-ITEM",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-ZERO-ITEM"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-TOO-MANY-ITEM",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-TOO-MANY-ITEM"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-DUPLICATE-OBJECTIVE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-DUPLICATE-OBJECTIVE"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-THREE-ALLIES",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-THREE-ALLIES"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-E03-CONTINUE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-E03-CONTINUE"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-INVALID-ROUTE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-INVALID-ROUTE"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-NOTE-TYPE",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-NOTE-TYPE"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-HINT-LEVEL",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-HINT-LEVEL"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-MISSING-NOTEBOOK",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-MISSING-NOTEBOOK"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-NOTES-4097",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-NOTES-4097"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-NOTES-COMBINING-4098",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-NOTES-COMBINING-4098"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SEM-UNKNOWN-ID",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SEM-UNKNOWN-ID"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SEM-DUPLICATE-ITEM",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SEM-DUPLICATE-ITEM"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SEM-ALLY-NOT-RECRUIT",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SEM-ALLY-NOT-RECRUIT"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SEM-UNSAFE-POSITION",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SEM-UNSAFE-POSITION"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SEM-UNKNOWN-CONTENT",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SEM-UNKNOWN-CONTENT"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SEM-FRESHNESS",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SEM-FRESHNESS"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SEM-WRONG-UNIT",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SEM-WRONG-UNIT"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "VALIDATE-SC-UNKNOWN-UNIT",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated authorized request; no retained receipt; current revision8",
+        "registry assumptions declared in conformance fixture; no actual production registry asserted"
+      ],
+      "requestChanges": {
+        "schemaCaseId": "SC-UNKNOWN-UNIT"
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "only still-new operation is rejected after final BEGIN IMMEDIATE authorization/receipt recheck",
+          "slot and successful receipts unchanged"
+        ]
+      }
+    },
+    {
+      "id": "SV-MALFORMED-JSON",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA",
+        "API-SAVE"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "no retained receipt; authorized request"
+      ],
+      "requestChanges": {
+        "wireCase": "WIRE-TRUNCATED-JSON"
+      },
+      "expected": {
+        "status": 400,
+        "bodySchema": "Problem",
+        "assertions": [
+          "reject malformed JSON; preserve slot/receipts"
+        ]
+      }
+    },
+    {
+      "id": "SV-INVALID-UTF8",
+      "requirements": [
+        "SAVE10"
+      ],
+      "sourceIds": [
+        "SCHEMA"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authorized new operation with no receipt"
+      ],
+      "requestChanges": {
+        "wireCase": "WIRE-INVALID-UTF8"
+      },
+      "expected": {
+        "status": 400,
+        "bodySchema": "Problem",
+        "assertions": [
+          "reject malformed UTF-8 JSON; no slot or successful receipt change"
+        ]
+      }
+    },
+    {
+      "id": "SV-UNKNOWN-STORED",
+      "requirements": [
+        "SAVE11"
+      ],
+      "sourceIds": [
+        "MODEL-MIGRATION"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "read",
+      "given": [
+        "stored future snapshot from save-migration-baseline.unknownNewerSnapshot; summary identifies schema99/content99"
+      ],
+      "requestChanges": {},
+      "expected": {
+        "status": 200,
+        "bodySchema": "SavedSnapshot",
+        "assertions": [
+          "return stored object intact; never validate unknown body as v1 before returning it",
+          "GET performs zero writes; client update-needed disables replacement/autosave; no implicit reset"
+        ]
+      }
+    },
+    {
+      "id": "AUTH-SEPARATE-OWNERS",
+      "requirements": [
+        "SAVE02"
+      ],
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "callback-google",
+      "given": [
+        "independent Google verifiedSub and GitHub stableNumericId from synthetic fixture; same email input"
+      ],
+      "requestChanges": {
+        "trials": [
+          "valid Google callback and session check",
+          "valid GitHub callback and session check",
+          "repeat each with changed display name"
+        ]
+      },
+      "expected": {
+        "status": 200,
+        "bodySchema": "CallbackHtml",
+        "assertions": [
+          "two independent account IDs and slots; email never becomes identity key or merge criterion",
+          "same provider stable subject after display-name change resolves same owner; numeric GitHub identity is not Google ID-token evidence",
+          "provider tokens discarded server-side; no token/subject/account records/CSRF in completion hint"
+        ]
+      }
+    },
+    {
+      "id": "SV-UNSAFE-OPEN-DIALOGUE-TRANSACTION",
+      "requirements": [
+        "SAVE06"
+      ],
+      "sourceIds": [
+        "GAMEPLAY"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated new operation with no retained receipt",
+        "hypothetical selected test registry defines spec001:fixture.unsafe-state with this value as incompatible with any safe snapshot; no current-content membership asserted"
+      ],
+      "requestChanges": {
+        "bodyPatch": [
+          {
+            "op": "set",
+            "path": "/world/flags/spec001:fixture.unsafe-state",
+            "value": "open-dialogue-transaction"
+          }
+        ]
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "reject explicit unsafe world marker under the declared test registry after final authorization/receipt recheck; preserve recoverable slot",
+          "server cannot infer omitted transient UI; real client separately prevents PUT while dialogue/transition/encounter is active"
+        ]
+      }
+    },
+    {
+      "id": "SV-UNSAFE-PENDING-EFFECT",
+      "requirements": [
+        "SAVE06"
+      ],
+      "sourceIds": [
+        "GAMEPLAY"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated new operation with no retained receipt",
+        "hypothetical selected test registry defines spec001:fixture.unsafe-state with this value as incompatible with any safe snapshot; no current-content membership asserted"
+      ],
+      "requestChanges": {
+        "bodyPatch": [
+          {
+            "op": "set",
+            "path": "/world/flags/spec001:fixture.unsafe-state",
+            "value": "pending-effect"
+          }
+        ]
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "reject explicit unsafe world marker under the declared test registry after final authorization/receipt recheck; preserve recoverable slot",
+          "server cannot infer omitted transient UI; real client separately prevents PUT while dialogue/transition/encounter is active"
+        ]
+      }
+    },
+    {
+      "id": "SV-UNSAFE-ROOM-TRANSITION",
+      "requirements": [
+        "SAVE06"
+      ],
+      "sourceIds": [
+        "GAMEPLAY"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated new operation with no retained receipt",
+        "hypothetical selected test registry defines spec001:fixture.unsafe-state with this value as incompatible with any safe snapshot; no current-content membership asserted"
+      ],
+      "requestChanges": {
+        "bodyPatch": [
+          {
+            "op": "set",
+            "path": "/world/flags/spec001:fixture.unsafe-state",
+            "value": "room-transition"
+          }
+        ]
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "reject explicit unsafe world marker under the declared test registry after final authorization/receipt recheck; preserve recoverable slot",
+          "server cannot infer omitted transient UI; real client separately prevents PUT while dialogue/transition/encounter is active"
+        ]
+      }
+    },
+    {
+      "id": "SV-UNSAFE-CUTSCENE",
+      "requirements": [
+        "SAVE06"
+      ],
+      "sourceIds": [
+        "GAMEPLAY"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated new operation with no retained receipt",
+        "hypothetical selected test registry defines spec001:fixture.unsafe-state with this value as incompatible with any safe snapshot; no current-content membership asserted"
+      ],
+      "requestChanges": {
+        "bodyPatch": [
+          {
+            "op": "set",
+            "path": "/world/flags/spec001:fixture.unsafe-state",
+            "value": "cutscene"
+          }
+        ]
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "reject explicit unsafe world marker under the declared test registry after final authorization/receipt recheck; preserve recoverable slot",
+          "server cannot infer omitted transient UI; real client separately prevents PUT while dialogue/transition/encounter is active"
+        ]
+      }
+    },
+    {
+      "id": "SV-UNSAFE-ACTIVE-ENCOUNTER",
+      "requirements": [
+        "SAVE06"
+      ],
+      "sourceIds": [
+        "GAMEPLAY"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated new operation with no retained receipt",
+        "hypothetical selected test registry defines spec001:fixture.unsafe-state with this value as incompatible with any safe snapshot; no current-content membership asserted"
+      ],
+      "requestChanges": {
+        "bodyPatch": [
+          {
+            "op": "set",
+            "path": "/world/flags/spec001:fixture.unsafe-state",
+            "value": "active-encounter"
+          }
+        ]
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "reject explicit unsafe world marker under the declared test registry after final authorization/receipt recheck; preserve recoverable slot",
+          "server cannot infer omitted transient UI; real client separately prevents PUT while dialogue/transition/encounter is active"
+        ]
+      }
+    },
+    {
+      "id": "SV-UNSAFE-TERMINAL-FAILURE",
+      "requirements": [
+        "SAVE06"
+      ],
+      "sourceIds": [
+        "GAMEPLAY"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated new operation with no retained receipt",
+        "hypothetical selected test registry defines spec001:fixture.unsafe-state with this value as incompatible with any safe snapshot; no current-content membership asserted"
+      ],
+      "requestChanges": {
+        "bodyPatch": [
+          {
+            "op": "set",
+            "path": "/world/flags/spec001:fixture.unsafe-state",
+            "value": "terminal-failure"
+          }
+        ]
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "reject explicit unsafe world marker under the declared test registry after final authorization/receipt recheck; preserve recoverable slot",
+          "server cannot infer omitted transient UI; real client separately prevents PUT while dialogue/transition/encounter is active"
+        ]
+      }
+    },
+    {
+      "id": "SV-UNSAFE-E03-SHUTDOWN",
+      "requirements": [
+        "SAVE06"
+      ],
+      "sourceIds": [
+        "GAMEPLAY"
+      ],
+      "behavioralAcceptance": "pending",
+      "requestProfile": "replace",
+      "given": [
+        "authenticated new operation with no retained receipt",
+        "hypothetical selected test registry defines spec001:fixture.unsafe-state with this value as incompatible with any safe snapshot; no current-content membership asserted"
+      ],
+      "requestChanges": {
+        "bodyPatch": [
+          {
+            "op": "set",
+            "path": "/world/flags/spec001:fixture.unsafe-state",
+            "value": "E03-shutdown"
+          }
+        ]
+      },
+      "expected": {
+        "status": 422,
+        "bodySchema": "Problem",
+        "assertions": [
+          "reject explicit unsafe world marker under the declared test registry after final authorization/receipt recheck; preserve recoverable slot",
+          "server cannot infer omitted transient UI; real client separately prevents PUT while dialogue/transition/encounter is active"
+        ]
+      }
+    }
+  ],
+  "overlapSchedules": [
+    {
+      "id": "RACE-TWO-WRITERS",
+      "sourceIds": [
+        "MODEL",
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "actors": [
+        "save-A",
+        "save-B"
+      ],
+      "events": [
+        {
+          "actor": "save-A",
+          "phase": "start"
+        },
+        {
+          "actor": "save-A",
+          "phase": "after-initial-receipt-miss",
+          "barrier": "hold-A"
+        },
+        {
+          "actor": "save-B",
+          "phase": "start"
+        },
+        {
+          "actor": "save-B",
+          "phase": "after-initial-receipt-miss",
+          "barrier": "hold-B"
+        },
+        {
+          "actor": "save-A",
+          "phase": "release",
+          "barrier": "hold-A"
+        },
+        {
+          "actor": "save-A",
+          "phase": "BEGIN IMMEDIATE; recheck; commit revision 9"
+        },
+        {
+          "actor": "save-A",
+          "phase": "finish"
+        },
+        {
+          "actor": "save-B",
+          "phase": "release",
+          "barrier": "hold-B"
+        },
+        {
+          "actor": "save-B",
+          "phase": "BEGIN IMMEDIATE; recheck; reject stale revision"
+        },
+        {
+          "actor": "save-B",
+          "phase": "finish"
+        }
+      ],
+      "expected": [
+        "independent sessions and DB connections load revision 8; distinct keys",
+        "A=200 revision9; B=412 current9; exactly one new receipt/slot revision",
+        "repeat with opposite winner; no timing sleeps as synchronization"
+      ],
+      "caseIds": [
+        "SV-REPLACE",
+        "SV-STALE"
+      ]
+    },
+    {
+      "id": "RACE-SAME-KEY",
+      "sourceIds": [
+        "MODEL",
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "actors": [
+        "retry-A",
+        "retry-B"
+      ],
+      "events": [
+        {
+          "actor": "retry-A",
+          "phase": "start"
+        },
+        {
+          "actor": "retry-A",
+          "phase": "after-initial-receipt-miss",
+          "barrier": "hold-A"
+        },
+        {
+          "actor": "retry-B",
+          "phase": "start"
+        },
+        {
+          "actor": "retry-B",
+          "phase": "after-initial-receipt-miss",
+          "barrier": "hold-B"
+        },
+        {
+          "actor": "retry-A",
+          "phase": "release",
+          "barrier": "hold-A"
+        },
+        {
+          "actor": "retry-A",
+          "phase": "BEGIN IMMEDIATE; recheck; commit revision 9; lose response"
+        },
+        {
+          "actor": "retry-A",
+          "phase": "finish"
+        },
+        {
+          "actor": "retry-B",
+          "phase": "release",
+          "barrier": "hold-B"
+        },
+        {
+          "actor": "retry-B",
+          "phase": "BEGIN IMMEDIATE; matching receipt before precondition"
+        },
+        {
+          "actor": "retry-B",
+          "phase": "finish"
+        }
+      ],
+      "expected": [
+        "exact same key/bytes/fingerprint; independent connections",
+        "one commit; B=200 replayed=true committed9; no double increment"
+      ],
+      "caseIds": [
+        "SV-REPLAY"
+      ]
+    },
+    {
+      "id": "RACE-PROVISIONAL-ERROR",
+      "sourceIds": [
+        "MODEL",
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "actors": [
+        "old-policy-writer",
+        "new-policy-retry"
+      ],
+      "events": [
+        {
+          "actor": "old-policy-writer",
+          "phase": "start"
+        },
+        {
+          "actor": "old-policy-writer",
+          "phase": "validated under P0 before compatible-reader deployment; hold before final transaction",
+          "barrier": "hold-writer"
+        },
+        {
+          "actor": "new-policy-retry",
+          "phase": "start"
+        },
+        {
+          "actor": "new-policy-retry",
+          "phase": "initial receipt miss; P1 validation rejects old body; retain provisional error",
+          "barrier": "hold-error"
+        },
+        {
+          "actor": "old-policy-writer",
+          "phase": "release",
+          "barrier": "hold-writer"
+        },
+        {
+          "actor": "old-policy-writer",
+          "phase": "BEGIN IMMEDIATE; authorization/receipt recheck; commit revision 9 under P0"
+        },
+        {
+          "actor": "old-policy-writer",
+          "phase": "finish"
+        },
+        {
+          "actor": "new-policy-retry",
+          "phase": "release",
+          "barrier": "hold-error"
+        },
+        {
+          "actor": "new-policy-retry",
+          "phase": "BEGIN IMMEDIATE; authorization then receipt recheck wins over cached 422"
+        },
+        {
+          "actor": "new-policy-retry",
+          "phase": "finish"
+        }
+      ],
+      "expected": [
+        "same account/key/exact request bytes; independent connections and explicitly injected P0/P1 policies",
+        "retry=200 replayed=true, not422/412; one write",
+        "do not require an actual deployment; fixture controls policy boundary; no implementation acceptance until real service runs"
+      ],
+      "caseIds": [
+        "SV-OLD-POLICY",
+        "SV-OLD-POLICY-NEW-KEY"
+      ]
+    },
+    {
+      "id": "RACE-LOGOUT-WINS",
+      "sourceIds": [
+        "MODEL",
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "actors": [
+        "save-A",
+        "logout-A"
+      ],
+      "events": [
+        {
+          "actor": "save-A",
+          "phase": "start"
+        },
+        {
+          "actor": "save-A",
+          "phase": "after-validation-before-final-transaction",
+          "barrier": "hold-save"
+        },
+        {
+          "actor": "logout-A",
+          "phase": "start"
+        },
+        {
+          "actor": "logout-A",
+          "phase": "revoke session and auth attempts; commit;204"
+        },
+        {
+          "actor": "logout-A",
+          "phase": "finish"
+        },
+        {
+          "actor": "save-A",
+          "phase": "release",
+          "barrier": "hold-save"
+        },
+        {
+          "actor": "save-A",
+          "phase": "BEGIN IMMEDIATE; revoked-session recheck denies receipt/validation/precondition"
+        },
+        {
+          "actor": "save-A",
+          "phase": "finish"
+        }
+      ],
+      "expected": [
+        "save=401; slot and successful receipts unchanged",
+        "no new save from logout; client clears only after confirmed revocation"
+      ],
+      "caseIds": [
+        "SV-REVOKED",
+        "LOGOUT-CONFIRM"
+      ]
+    },
+    {
+      "id": "RACE-SAVE-WINS-LOGOUT",
+      "sourceIds": [
+        "MODEL",
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "actors": [
+        "save-A",
+        "logout-A"
+      ],
+      "events": [
+        {
+          "actor": "save-A",
+          "phase": "start"
+        },
+        {
+          "actor": "save-A",
+          "phase": "BEGIN IMMEDIATE; hold write barrier before commit",
+          "barrier": "hold-save"
+        },
+        {
+          "actor": "logout-A",
+          "phase": "start"
+        },
+        {
+          "actor": "logout-A",
+          "phase": "wait on same serialization barrier",
+          "barrier": "hold-logout"
+        },
+        {
+          "actor": "save-A",
+          "phase": "release",
+          "barrier": "hold-save"
+        },
+        {
+          "actor": "save-A",
+          "phase": "commit revision9; response lost"
+        },
+        {
+          "actor": "save-A",
+          "phase": "finish"
+        },
+        {
+          "actor": "logout-A",
+          "phase": "release",
+          "barrier": "hold-logout"
+        },
+        {
+          "actor": "logout-A",
+          "phase": "revoke session; commit;204"
+        },
+        {
+          "actor": "logout-A",
+          "phase": "finish"
+        }
+      ],
+      "expected": [
+        "prior save may have committed9; logout never rolls it back or claims to have saved",
+        "UI retains honest unknown in-flight outcome; later authenticated restore can establish latest slot"
+      ],
+      "caseIds": [
+        "SV-REPLAY",
+        "LOGOUT-CONFIRM"
+      ]
+    },
+    {
+      "id": "RACE-DELETE-WINS",
+      "sourceIds": [
+        "MODEL",
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "actors": [
+        "save-A",
+        "delete-A"
+      ],
+      "events": [
+        {
+          "actor": "save-A",
+          "phase": "start"
+        },
+        {
+          "actor": "save-A",
+          "phase": "after-validation-before-final-transaction",
+          "barrier": "hold-save"
+        },
+        {
+          "actor": "delete-A",
+          "phase": "start"
+        },
+        {
+          "actor": "delete-A",
+          "phase": "hold write barrier; durable intent/receipt hash; delete live rows and revoke all sessions; commit; completed marker"
+        },
+        {
+          "actor": "delete-A",
+          "phase": "finish"
+        },
+        {
+          "actor": "save-A",
+          "phase": "release",
+          "barrier": "hold-save"
+        },
+        {
+          "actor": "save-A",
+          "phase": "BEGIN IMMEDIATE; final authorization/ledger recheck rejects"
+        },
+        {
+          "actor": "save-A",
+          "phase": "finish"
+        }
+      ],
+      "expected": [
+        "save=401; no resurrection or receipt disclosure; all live account progress absent",
+        "delete=204 only after external completion marker durable"
+      ],
+      "caseIds": [
+        "DELETE-COMMIT",
+        "SV-REVOKED"
+      ]
+    },
+    {
+      "id": "RACE-SAVE-WINS-DELETE",
+      "sourceIds": [
+        "MODEL",
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "actors": [
+        "save-A",
+        "delete-A"
+      ],
+      "events": [
+        {
+          "actor": "save-A",
+          "phase": "start"
+        },
+        {
+          "actor": "save-A",
+          "phase": "BEGIN IMMEDIATE; hold write barrier",
+          "barrier": "hold-save"
+        },
+        {
+          "actor": "delete-A",
+          "phase": "start"
+        },
+        {
+          "actor": "delete-A",
+          "phase": "wait on same serialization barrier",
+          "barrier": "hold-delete"
+        },
+        {
+          "actor": "save-A",
+          "phase": "release",
+          "barrier": "hold-save"
+        },
+        {
+          "actor": "save-A",
+          "phase": "commit revision9"
+        },
+        {
+          "actor": "save-A",
+          "phase": "finish"
+        },
+        {
+          "actor": "delete-A",
+          "phase": "release",
+          "barrier": "hold-delete"
+        },
+        {
+          "actor": "delete-A",
+          "phase": "durable intent; remove revision9/all sessions/receipts; commit; completed marker"
+        },
+        {
+          "actor": "delete-A",
+          "phase": "finish"
+        }
+      ],
+      "expected": [
+        "save=200 before deletion linearizes; delete=204 after durable marker",
+        "final account/slot/receipts absent; pending callback cannot recreate earlier identity automatically"
+      ],
+      "caseIds": [
+        "DELETE-COMMIT",
+        "SV-REPLACE"
+      ]
+    },
+    {
+      "id": "RACE-OPTOUT",
+      "sourceIds": [
+        "MODEL",
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "actors": [
+        "save-A",
+        "preferences-A"
+      ],
+      "events": [
+        {
+          "actor": "save-A",
+          "phase": "start"
+        },
+        {
+          "actor": "save-A",
+          "phase": "automatic request validated; before transaction",
+          "barrier": "hold-save"
+        },
+        {
+          "actor": "preferences-A",
+          "phase": "start"
+        },
+        {
+          "actor": "preferences-A",
+          "phase": "commit autosaveEnabled=false on separate preferences revision"
+        },
+        {
+          "actor": "preferences-A",
+          "phase": "finish"
+        },
+        {
+          "actor": "save-A",
+          "phase": "release",
+          "barrier": "hold-save"
+        },
+        {
+          "actor": "save-A",
+          "phase": "BEGIN IMMEDIATE; receipt miss; recheck latest opt-in;409"
+        },
+        {
+          "actor": "save-A",
+          "phase": "finish"
+        }
+      ],
+      "expected": [
+        "save revision stays8; preference revision advances alone; no save receipt"
+      ],
+      "caseIds": [
+        "SV-AUTO-OPTOUT",
+        "PREF-UPDATE"
+      ]
+    },
+    {
+      "id": "RACE-CREATE",
+      "sourceIds": [
+        "MODEL",
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "actors": [
+        "create-A",
+        "create-B"
+      ],
+      "events": [
+        {
+          "actor": "create-A",
+          "phase": "start"
+        },
+        {
+          "actor": "create-A",
+          "phase": "initial receipt miss and empty-slot review",
+          "barrier": "hold-A"
+        },
+        {
+          "actor": "create-B",
+          "phase": "start"
+        },
+        {
+          "actor": "create-B",
+          "phase": "initial receipt miss and empty-slot review",
+          "barrier": "hold-B"
+        },
+        {
+          "actor": "create-A",
+          "phase": "release",
+          "barrier": "hold-A"
+        },
+        {
+          "actor": "create-A",
+          "phase": "BEGIN IMMEDIATE; create revision1; commit"
+        },
+        {
+          "actor": "create-A",
+          "phase": "finish"
+        },
+        {
+          "actor": "create-B",
+          "phase": "release",
+          "barrier": "hold-B"
+        },
+        {
+          "actor": "create-B",
+          "phase": "BEGIN IMMEDIATE; receipt miss; If-None-Match fails"
+        },
+        {
+          "actor": "create-B",
+          "phase": "finish"
+        }
+      ],
+      "expected": [
+        "distinct keys; independent connections; both begin against empty slot",
+        "A=201 revision1; B=412 current1; one slot and one receipt; repeat opposite winner"
+      ],
+      "caseIds": [
+        "SV-CREATE",
+        "SV-CREATE-OCCUPIED"
+      ]
+    },
+    {
+      "id": "RACE-KEY-MISMATCH",
+      "sourceIds": [
+        "MODEL",
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "actors": [
+        "save-A",
+        "save-B"
+      ],
+      "events": [
+        {
+          "actor": "save-A",
+          "phase": "start"
+        },
+        {
+          "actor": "save-A",
+          "phase": "initial receipt miss",
+          "barrier": "hold-A"
+        },
+        {
+          "actor": "save-B",
+          "phase": "start"
+        },
+        {
+          "actor": "save-B",
+          "phase": "same key but whitespace-different body; initial receipt miss; validation complete",
+          "barrier": "hold-B"
+        },
+        {
+          "actor": "save-A",
+          "phase": "release",
+          "barrier": "hold-A"
+        },
+        {
+          "actor": "save-A",
+          "phase": "BEGIN IMMEDIATE; commit revision9/receipt"
+        },
+        {
+          "actor": "save-A",
+          "phase": "finish"
+        },
+        {
+          "actor": "save-B",
+          "phase": "release",
+          "barrier": "hold-B"
+        },
+        {
+          "actor": "save-B",
+          "phase": "BEGIN IMMEDIATE; receipt mismatch before precondition"
+        },
+        {
+          "actor": "save-B",
+          "phase": "finish"
+        }
+      ],
+      "expected": [
+        "B=409, not412 or a replay; A=200; exactly one commit",
+        "recheck mismatched fingerprint even when initial lookup missed"
+      ],
+      "caseIds": [
+        "SV-KEY-BODY",
+        "SV-REPLACE"
+      ]
+    },
+    {
+      "id": "RACE-REVOKED-PROVISIONAL-ERROR",
+      "sourceIds": [
+        "MODEL",
+        "DELIVERY"
+      ],
+      "behavioralAcceptance": "pending",
+      "actors": [
+        "invalid-save-A",
+        "logout-A"
+      ],
+      "events": [
+        {
+          "actor": "invalid-save-A",
+          "phase": "start"
+        },
+        {
+          "actor": "invalid-save-A",
+          "phase": "initial receipt miss; retain provisional schema/content422",
+          "barrier": "hold-error"
+        },
+        {
+          "actor": "logout-A",
+          "phase": "start"
+        },
+        {
+          "actor": "logout-A",
+          "phase": "revoke initiating session; commit204"
+        },
+        {
+          "actor": "logout-A",
+          "phase": "finish"
+        },
+        {
+          "actor": "invalid-save-A",
+          "phase": "release",
+          "barrier": "hold-error"
+        },
+        {
+          "actor": "invalid-save-A",
+          "phase": "BEGIN IMMEDIATE; reauthorize before cached error or receipt disclosure"
+        },
+        {
+          "actor": "invalid-save-A",
+          "phase": "finish"
+        }
+      ],
+      "expected": [
+        "save=401, not422; no slot/receipt mutation",
+        "final authorization precedes returning a provisional validation error"
+      ],
+      "caseIds": [
+        "SV-REVOKED",
+        "SV-OLD-POLICY-NEW-KEY",
+        "LOGOUT-CONFIRM"
+      ]
+    }
+  ],
+  "crashCases": [
+    {
+      "id": "CRASH-INTENT",
+      "sourceIds": [
+        "DELIVERY"
+      ],
+      "stopAfter": "external pending intent and authorized receipt hash durable, before live DB deletion commit",
+      "expected": [
+        "ledger pending; status pending, not completed",
+        "account access honors intent; cannot reopen account",
+        "reconciliation completes live removal/revocation then marks completed",
+        "status check itself performs no reconciliation writes"
+      ]
+    },
+    {
+      "id": "CRASH-LIVE-COMMIT",
+      "sourceIds": [
+        "DELIVERY"
+      ],
+      "stopAfter": "live removal/session revocation commits, before external completed marker",
+      "expected": [
+        "receipt status reflects durable pending ledger until recovery marks completion",
+        "guest session cannot confirm deletion",
+        "reconciliation observes committed live removal and marks completed without resurrection"
+      ]
+    },
+    {
+      "id": "CRASH-COMPLETED-RESPONSE",
+      "sourceIds": [
+        "DELIVERY"
+      ],
+      "stopAfter": "external completed marker durable, before DELETE response delivered",
+      "expected": [
+        "read-only receipt status returns completed; no new DELETE or login",
+        "known unexpired receipt confirms deletion even without session"
+      ]
+    },
+    {
+      "id": "RESTORE-DELETED",
+      "sourceIds": [
+        "DELIVERY"
+      ],
+      "stopAfter": "restore older isolated backup containing account deleted after backup; confirmation receipt expired",
+      "expected": [
+        "replay longer-lived deletion marker before opening restored DB",
+        "do not resurrect account/progress; expired receipt remains404/unconfirmed",
+        "actual longest backup retention is an external input, not fabricated seven-day coverage"
+      ]
+    }
+  ],
+  "fingerprintIsolation": {
+    "scope": "pure fingerprint unit contract; do not send unsupported methods/routes to save endpoint",
+    "baseline": "replace",
+    "variants": [
+      {
+        "field": "method",
+        "value": "POST"
+      },
+      {
+        "field": "path",
+        "value": "/arcade/play/network-quest/api/v1/save-other"
+      }
+    ],
+    "expected": "each must differ from original fingerprint; router independently rejects unsupported method/path before save handling"
+  },
+  "receiptStorage": "acknowledgement metadata only; never a second payload snapshot; scoped by account/key and available after same-account reauthentication",
+  "unknownExpiredStatus": "STATUS-UNKNOWN and STATUS-EXPIRED have indistinguishable 404 Problem shape/content except ordinary opaque requestId; no state/expiry/account leakage",
+  "contractClarifications": [
+    "Coordinator added the missing auth-start BadRequest400 response while T036 was authored; purpose-only body and no arbitrary return URL remain unchanged."
+  ]
+}

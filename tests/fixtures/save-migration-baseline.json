@@ -1,0 +1,328 @@
+{
+  "license": "CC-BY-4.0",
+  "task": "T036",
+  "fixtureVersion": 1,
+  "behavioralAcceptance": "pending",
+  "sourceIds": [
+    "SPEC-SAVE",
+    "MODEL-MIGRATION",
+    "MODEL",
+    "GAMEPLAY"
+  ],
+  "authorship": "Input and expected snapshot were authored independently as explicit literals before migration implementation; neither is application output.",
+  "scope": "Hypothetical fixture-only registries, not released content membership, a real older release, next-episode implementation or a supported production migration.",
+  "registryAssumptions": {
+    "fromVersion": "0.9.0",
+    "toVersion": "1.0.0",
+    "saveSchemas": [
+      1
+    ],
+    "commonIds": [
+      "spec001:fixture.workshop",
+      "spec001:fixture.powered",
+      "spec001:fixture.inspect",
+      "spec001:fixture.quest",
+      "spec001:fixture.achievement",
+      "spec001:fixture.dialogue-grant",
+      "spec001:fixture.helper",
+      "spec001:fixture.observe",
+      "spec001:fixture.trained",
+      "spec001:fixture.power-fact",
+      "spec001:fixture.length",
+      "spec001:fixture.hint-method",
+      "spec001:fixture.shutdown-caveat"
+    ],
+    "fromOnlyIds": [
+      "spec001:fixture.old-bench",
+      "spec001:fixture.old-probe"
+    ],
+    "toOnlyIds": [
+      "spec001:fixture.safe-bench",
+      "spec001:fixture.probe",
+      "spec001:fixture.future-door"
+    ],
+    "renamedIds": {
+      "spec001:fixture.old-probe": "spec001:fixture.probe"
+    },
+    "relocatedPositions": {
+      "spec001:fixture.old-bench": "spec001:fixture.safe-bench"
+    },
+    "futureDoor": {
+      "id": "spec001:fixture.future-door",
+      "available": false,
+      "requiredForCurrentCompletion": false,
+      "grantsProgress": false
+    },
+    "rules": [
+      "The fixture probe is unique and remains quantity 1. The helper is an eligible level-2 recruit with the stated ability and progress flag.",
+      "The completed inspection and quest allow the stated achievement and dialogue grant; the power fact and method hint remain valid historical references.",
+      "This artificial layout change modifies the physical configuration: increment 4 to 5 and stale the old measurement; preserve its original revision, attempt, readings and conclusion.",
+      "The recorded E03 is a prior attempt followed by Continue; the current safe-preparation world is not shutdown.",
+      "The target bench is explicitly safe for preparation; none of these fixture IDs assert membership in content/spec001."
+    ]
+  },
+  "input": {
+    "saveSchemaVersion": 1,
+    "contentVersion": "0.9.0",
+    "episodeId": "spec001",
+    "adventureId": "10000000-0000-4000-8000-000000000001",
+    "safeState": "safe-preparation",
+    "world": {
+      "roomId": "spec001:fixture.workshop",
+      "position": {
+        "safePositionId": "spec001:fixture.old-bench"
+      },
+      "configurationRevision": 4,
+      "attemptId": "20000000-0000-4000-8000-000000000001",
+      "flags": {
+        "spec001:fixture.powered": true
+      },
+      "completedObjectiveIds": [
+        "spec001:fixture.inspect"
+      ],
+      "completedQuestIds": [
+        "spec001:fixture.quest"
+      ],
+      "achievementIds": [
+        "spec001:fixture.achievement"
+      ],
+      "dialogueEffectIds": [
+        "spec001:fixture.dialogue-grant"
+      ],
+      "inventory": [
+        {
+          "itemId": "spec001:fixture.old-probe",
+          "quantity": 1
+        }
+      ],
+      "recruits": [
+        {
+          "characterId": "spec001:fixture.helper",
+          "level": 2,
+          "abilityIds": [
+            "spec001:fixture.observe"
+          ],
+          "progressFlags": [
+            "spec001:fixture.trained"
+          ]
+        }
+      ],
+      "activeAllyIds": [
+        "spec001:fixture.helper"
+      ],
+      "compendiumIds": [
+        "spec001:fixture.helper"
+      ],
+      "route": "copper",
+      "continueOutcome": null
+    },
+    "notebook": {
+      "factIds": [
+        "spec001:fixture.power-fact"
+      ],
+      "mapRoomIds": [
+        "spec001:fixture.workshop"
+      ],
+      "personalNotes": "Keep the power clue. Café 🧭",
+      "hypotheses": [
+        {
+          "id": "30000000-0000-4000-8000-000000000001",
+          "text": "Inspect continuity after checking power.",
+          "subjectIds": [
+            "spec001:fixture.old-probe"
+          ],
+          "status": "open"
+        }
+      ],
+      "measurements": [
+        {
+          "id": "40000000-0000-4000-8000-000000000001",
+          "ruleId": "spec001:fixture.length",
+          "subjectIds": [
+            "spec001:fixture.old-probe"
+          ],
+          "roomId": "spec001:fixture.workshop",
+          "configurationRevision": 4,
+          "attemptId": "20000000-0000-4000-8000-000000000001",
+          "stale": false,
+          "readings": [
+            {
+              "name": "length",
+              "value": 5,
+              "unit": "m"
+            }
+          ],
+          "conclusionCode": "fixture-inspected"
+        }
+      ]
+    },
+    "assistance": [
+      {
+        "objectiveId": "spec001:fixture.inspect",
+        "hintId": "spec001:fixture.hint-method",
+        "level": 1,
+        "attemptId": "20000000-0000-4000-8000-000000000001"
+      }
+    ],
+    "outcomeHistory": [
+      {
+        "id": "50000000-0000-4000-8000-000000000001",
+        "outcome": "E03",
+        "attemptId": "20000000-0000-4000-8000-000000000002",
+        "route": "copper",
+        "caveatIds": [
+          "spec001:fixture.shutdown-caveat"
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "saveSchemaVersion": 1,
+    "contentVersion": "1.0.0",
+    "episodeId": "spec001",
+    "adventureId": "10000000-0000-4000-8000-000000000001",
+    "safeState": "safe-preparation",
+    "world": {
+      "roomId": "spec001:fixture.workshop",
+      "position": {
+        "safePositionId": "spec001:fixture.safe-bench"
+      },
+      "configurationRevision": 5,
+      "attemptId": "20000000-0000-4000-8000-000000000001",
+      "flags": {
+        "spec001:fixture.powered": true
+      },
+      "completedObjectiveIds": [
+        "spec001:fixture.inspect"
+      ],
+      "completedQuestIds": [
+        "spec001:fixture.quest"
+      ],
+      "achievementIds": [
+        "spec001:fixture.achievement"
+      ],
+      "dialogueEffectIds": [
+        "spec001:fixture.dialogue-grant"
+      ],
+      "inventory": [
+        {
+          "itemId": "spec001:fixture.probe",
+          "quantity": 1
+        }
+      ],
+      "recruits": [
+        {
+          "characterId": "spec001:fixture.helper",
+          "level": 2,
+          "abilityIds": [
+            "spec001:fixture.observe"
+          ],
+          "progressFlags": [
+            "spec001:fixture.trained"
+          ]
+        }
+      ],
+      "activeAllyIds": [
+        "spec001:fixture.helper"
+      ],
+      "compendiumIds": [
+        "spec001:fixture.helper"
+      ],
+      "route": "copper",
+      "continueOutcome": null
+    },
+    "notebook": {
+      "factIds": [
+        "spec001:fixture.power-fact"
+      ],
+      "mapRoomIds": [
+        "spec001:fixture.workshop"
+      ],
+      "personalNotes": "Keep the power clue. Café 🧭",
+      "hypotheses": [
+        {
+          "id": "30000000-0000-4000-8000-000000000001",
+          "text": "Inspect continuity after checking power.",
+          "subjectIds": [
+            "spec001:fixture.probe"
+          ],
+          "status": "open"
+        }
+      ],
+      "measurements": [
+        {
+          "id": "40000000-0000-4000-8000-000000000001",
+          "ruleId": "spec001:fixture.length",
+          "subjectIds": [
+            "spec001:fixture.probe"
+          ],
+          "roomId": "spec001:fixture.workshop",
+          "configurationRevision": 4,
+          "attemptId": "20000000-0000-4000-8000-000000000001",
+          "stale": true,
+          "readings": [
+            {
+              "name": "length",
+              "value": 5,
+              "unit": "m"
+            }
+          ],
+          "conclusionCode": "fixture-inspected"
+        }
+      ]
+    },
+    "assistance": [
+      {
+        "objectiveId": "spec001:fixture.inspect",
+        "hintId": "spec001:fixture.hint-method",
+        "level": 1,
+        "attemptId": "20000000-0000-4000-8000-000000000001"
+      }
+    ],
+    "outcomeHistory": [
+      {
+        "id": "50000000-0000-4000-8000-000000000001",
+        "outcome": "E03",
+        "attemptId": "20000000-0000-4000-8000-000000000002",
+        "route": "copper",
+        "caveatIds": [
+          "spec001:fixture.shutdown-caveat"
+        ]
+      }
+    ]
+  },
+  "expectedExplanation": "The old bench moved to the safe bench; the probe ID was renamed. Earlier measurements remain visible but require a new measurement. A future door is unavailable and awards nothing.",
+  "preservePaths": [
+    "adventureId",
+    "world.completedObjectiveIds",
+    "world.completedQuestIds",
+    "world.achievementIds",
+    "world.dialogueEffectIds",
+    "world.recruits",
+    "world.activeAllyIds",
+    "world.compendiumIds",
+    "notebook.factIds",
+    "notebook.mapRoomIds",
+    "notebook.personalNotes",
+    "assistance",
+    "outcomeHistory"
+  ],
+  "storageExpectations": {
+    "getWrites": 0,
+    "beforeEligibleConditionalSave": "original stored bytes unchanged",
+    "onInterruptedMigration": "original stored bytes unchanged; no partial candidate becomes durable",
+    "unknownNewer": "return intact; update-needed; disable replacement and autosave; no reset",
+    "unknownReferences": "reject new write; preserve old stored bytes"
+  },
+  "unknownNewerSnapshot": {
+    "saveSchemaVersion": 99,
+    "contentVersion": "99.0.0",
+    "episodeId": "spec099",
+    "futureOpaqueField": {
+      "retain": [
+        "uninterpreted",
+        "data"
+      ]
+    }
+  }
+}

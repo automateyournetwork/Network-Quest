@@ -98,6 +98,11 @@ the guest UI. Packet implementation and R01 integration still join the actual
 physical state and controls before T034/G1 acceptance; no animation or fixture
 can certify a working physical path.
 
+T026 may build its separate dialogue state/UI/tests alongside final T025 browser
+verification using the implemented `InteractionPlanner` and `GameplayStore` ports.
+Coordinate any shared action-bus intents and browser registration through root;
+join final interfaces before acceptance. This does not complete T025 or guest play.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -226,7 +231,7 @@ can certify a working physical path.
 
 **Ready after**: T022–T030.
 
-- [ ] T031 [US3] Independently author byte/bit/symbol/impairment expectations in `tests/fixtures/packet-journey.json` and `tests/domain/packet-journey.test.ts`: 0x4E 0x51 is 01001110 01010001; T12 is 00101101, with explicit toy-model limits.
+- [X] T031 [US3] Independently author byte/bit/symbol/impairment expectations in `tests/fixtures/packet-journey.json` and `tests/domain/packet-journey.test.ts`: 0x4E 0x51 is 01001110 01010001; T12 is 00101101, with explicit toy-model limits.
 - [ ] T032 [US3] Implement deterministic encode/transmit/impair/decode journey steps in `src/domain/packet-journey.ts`; consume the current physical evaluator result rather than an independent cutscene success flag.
 - [ ] T033 [US3] Build pause/step/replay and semantic keyboard/pointer journey controls in `src/ui/packet-journey.ts` and truthful upper-realm context in `content/spec001/packet-context.json`; no seven invented headers or claim that two payload bytes are a full Ethernet frame.
 - [ ] T034 [US3] Integrate and verify the initial R01 message demonstration in `src/state/packet-activity.ts` and `tests/e2e/packet-introduction.spec.ts`; record observed message/result agreement in `docs/evidence/spec001/US3-introduction.md`.
@@ -250,7 +255,7 @@ can certify a working physical path.
 
 **Ready after**: T035.
 
-- [ ] T036 [US4] Author SAVE01–13, auth rejection, concurrency, schema and logout expectations in `server/tests/Fixtures/save-cases.json` and `tests/fixtures/save-conformance.json`; include committed-save retry after changed write policy, a receipt appearing during validation, and lost deletion responses with pending/completed/unknown/expired status. Retain the hypothetical older-content baseline in `tests/fixtures/save-migration-baseline.json`, unsafe/E03 states and clarified cancel/confirm behavior.
+- [X] T036 [US4] Author SAVE01–13, auth rejection, concurrency, schema and logout expectations in `server/tests/Fixtures/save-cases.json` and `tests/fixtures/save-conformance.json`; include committed-save retry after changed write policy, a receipt appearing during validation, and lost deletion responses with pending/completed/unknown/expired status. Retain the hypothetical older-content baseline in `tests/fixtures/save-migration-baseline.json`, unsafe/E03 states and clarified cancel/confirm behavior.
 - [ ] T037 [US4] Implement dedicated accounts/identities/sessions/auth_transactions/preferences/saves/receipts/migrations tables in `server/migrations/001_game.sql` and `server/src/Database.php`; enforce one slot/account, provider-subject uniqueness and private rollback-journal storage.
 - [ ] T038 [US4] Implement opaque Secure/HttpOnly/Lax host-only sessions, rotation, idle/absolute expiry, same-origin CSRF and redacted/rate-limited requests in `server/src/Sessions.php` and `server/src/Security.php`; GET session bootstraps guest CSRF without granting identity.
 - [ ] T039 [P] [US4] Implement Google authorization-code/S256 and verified required iss/aud/sub/exp/iat/nonce checks in `server/src/Identity/Google.php`; request openid profile only, validate one-use session-bound state and discard provider tokens after identification.

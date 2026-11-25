@@ -1,0 +1,1447 @@
+{
+  "license": "CC-BY-4.0",
+  "task": "T036",
+  "fixtureVersion": 1,
+  "behavioralAcceptance": "pending",
+  "sources": [
+    {
+      "id": "SPEC-SAVE",
+      "path": "SPEC.md",
+      "anchor": "### Persistence acceptance cases"
+    },
+    {
+      "id": "API-SAVE",
+      "path": "specs/001-physical-layer-underworld/contracts/game-api.openapi.yaml",
+      "anchor": "Lookup an authorized account/key receipt BEFORE schema/content/safe-state validation."
+    },
+    {
+      "id": "API-AUTH",
+      "path": "specs/001-physical-layer-underworld/contracts/game-api.openapi.yaml",
+      "anchor": "Google verifies signature and required iss/aud/sub/exp/iat/nonce; GitHub GET /user"
+    },
+    {
+      "id": "API-DELETE",
+      "path": "specs/001-physical-layer-underworld/contracts/game-api.openapi.yaml",
+      "anchor": "Unknown and expired receipts have the same 404 response."
+    },
+    {
+      "id": "MODEL",
+      "path": "specs/001-physical-layer-underworld/data-model.md",
+      "anchor": "## Save transaction"
+    },
+    {
+      "id": "MODEL-MIGRATION",
+      "path": "specs/001-physical-layer-underworld/data-model.md",
+      "anchor": "## Version evolution and recovery"
+    },
+    {
+      "id": "GAMEPLAY",
+      "path": "specs/001-physical-layer-underworld/contracts/gameplay.md",
+      "anchor": "## Clarified retry and logout"
+    },
+    {
+      "id": "DELIVERY",
+      "path": "specs/001-physical-layer-underworld/contracts/delivery.md",
+      "anchor": "## Consistent backup, deletion and rollback"
+    },
+    {
+      "id": "SCHEMA",
+      "path": "specs/001-physical-layer-underworld/contracts/save.schema.json",
+      "anchor": "\"title\": \"Network Quest save v1\""
+    },
+    {
+      "id": "AUTH-RESEARCH",
+      "path": "specs/001-physical-layer-underworld/research.md",
+      "anchor": "## R05 — Auth transaction and logout"
+    }
+  ],
+  "scope": "Expectation integrity and shared schema checks only; no service, browser, provider or SAVE acceptance has passed.",
+  "schemaBase": "specs/001-physical-layer-underworld/contracts/examples/save-v1.json",
+  "schemaContract": "specs/001-physical-layer-underworld/contracts/save.schema.json",
+  "patchLanguage": "JSON-pointer set/remove and Unicode-string repeat; apply to a fresh clone of exact minimal example. These transform test INPUT only, never derive expected result from application code.",
+  "semanticAssumptions": [
+    "The minimal example is a structural design example. Its safe-position membership is not asserted; production acceptance requires an authored registry.",
+    "SEM vectors intentionally isolate missing IDs, a duplicate unique fixture.probe, an active helper absent from recruits, absent safe position, unsupported content, mismatched freshness and fixture.length requiring m. No synthetic ID is claimed as current content.",
+    "All new-write schema/semantic failures follow final authorization/receipt recheck. A matching retained receipt bypasses current semantic policy, never authentication or fixed wire guards."
+  ],
+  "schemaCases": [
+    {
+      "id": "SC-MINIMAL",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [],
+      "schemaValid": true,
+      "semanticExpectation": "requires-authored-registry"
+    },
+    {
+      "id": "SC-UNKNOWN-ACCOUNT",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/accountId",
+          "value": "60000000-0000-4000-8000-000000000002"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-CLIENT-REVISION",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/revision",
+          "value": 99
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-CLIENT-TIME",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/savedAt",
+          "value": "2026-11-25T12:00:00Z"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-UI",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/ui",
+          "value": {}
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-CHECKPOINT",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/checkpoint",
+          "value": {}
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-PREFERENCES",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/preferences",
+          "value": {}
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-VERSION",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/saveSchemaVersion",
+          "value": 2
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-CONTENT-SHAPE",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/contentVersion",
+          "value": "latest"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-EPISODE",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/episodeId",
+          "value": "spec002"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-ADVENTURE",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/adventureId",
+          "value": "not-a-uuid"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-E03-SAFE",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/safeState",
+          "value": "E03"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-ENCOUNTER",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/safeState",
+          "value": "active-encounter"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-DIALOGUE",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/safeState",
+          "value": "dialogue"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-TRANSITION",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/safeState",
+          "value": "transition"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-FAILURE",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/safeState",
+          "value": "terminal-failure"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-UNQUALIFIED-ID",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/world/roomId",
+          "value": "R01"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-WORLD-EXTRA",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/world/accountId",
+          "value": "other"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-NEGATIVE-REVISION",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/world/configurationRevision",
+          "value": -1
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-NONINTEGER-REVISION",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/world/configurationRevision",
+          "value": 1.5
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-ZERO-ITEM",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/world/inventory",
+          "value": [
+            {
+              "itemId": "spec001:fixture.probe",
+              "quantity": 0
+            }
+          ]
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-TOO-MANY-ITEM",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/world/inventory",
+          "value": [
+            {
+              "itemId": "spec001:fixture.probe",
+              "quantity": 100
+            }
+          ]
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-DUPLICATE-OBJECTIVE",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/world/completedObjectiveIds",
+          "value": [
+            "spec001:O01",
+            "spec001:O01"
+          ]
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-THREE-ALLIES",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/world/activeAllyIds",
+          "value": [
+            "spec001:CH01",
+            "spec001:CH02",
+            "spec001:CH03"
+          ]
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-E03-CONTINUE",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/world/continueOutcome",
+          "value": "E03"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-INVALID-ROUTE",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/world/route",
+          "value": "magic"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-NOTE-TYPE",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/notebook/personalNotes",
+          "value": 7
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-HINT-LEVEL",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/assistance",
+          "value": [
+            {
+              "objectiveId": "spec001:O01",
+              "hintId": "spec001:fixture.hint",
+              "level": 4,
+              "attemptId": "20000000-0000-4000-8000-000000000001"
+            }
+          ]
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-MISSING-NOTEBOOK",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "remove",
+          "path": "/notebook"
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-PREPARATION",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/safeState",
+          "value": "safe-preparation"
+        }
+      ],
+      "schemaValid": true,
+      "semanticExpectation": "requires-authored-registry"
+    },
+    {
+      "id": "SC-CONTINUE",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/safeState",
+          "value": "safe-continue"
+        }
+      ],
+      "schemaValid": true,
+      "semanticExpectation": "requires-authored-registry"
+    },
+    {
+      "id": "SC-E03-HISTORY",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/outcomeHistory",
+          "value": [
+            {
+              "id": "50000000-0000-4000-8000-000000000002",
+              "outcome": "E03",
+              "attemptId": "20000000-0000-4000-8000-000000000002",
+              "route": "copper",
+              "caveatIds": []
+            }
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "semanticExpectation": "historical-E03-allowed-after-safe-Continue; requires-authored-registry"
+    },
+    {
+      "id": "SC-NOTES-4096",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "repeat",
+          "path": "/notebook/personalNotes",
+          "text": "🧭",
+          "count": 4096
+        }
+      ],
+      "schemaValid": true,
+      "semanticExpectation": "requires-authored-registry"
+    },
+    {
+      "id": "SC-NOTES-4097",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "repeat",
+          "path": "/notebook/personalNotes",
+          "text": "🧭",
+          "count": 4097
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SC-NOTES-COMBINING-4096",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "repeat",
+          "path": "/notebook/personalNotes",
+          "text": "é",
+          "count": 2048
+        }
+      ],
+      "schemaValid": true,
+      "semanticExpectation": "requires-authored-registry"
+    },
+    {
+      "id": "SC-NOTES-COMBINING-4098",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "repeat",
+          "path": "/notebook/personalNotes",
+          "text": "é",
+          "count": 2049
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    },
+    {
+      "id": "SEM-UNKNOWN-ID",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/world/roomId",
+          "value": "spec001:fixture.unknown"
+        }
+      ],
+      "schemaValid": true,
+      "semanticExpectation": "reject-new-operation: absent from selected registry"
+    },
+    {
+      "id": "SEM-DUPLICATE-ITEM",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/world/inventory",
+          "value": [
+            {
+              "itemId": "spec001:fixture.probe",
+              "quantity": 1
+            },
+            {
+              "itemId": "spec001:fixture.probe",
+              "quantity": 1
+            }
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "semanticExpectation": "reject-new-operation: duplicate unique item under declared fixture policy"
+    },
+    {
+      "id": "SEM-ALLY-NOT-RECRUIT",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/world/activeAllyIds",
+          "value": [
+            "spec001:fixture.helper"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "semanticExpectation": "reject-new-operation: active ally absent from recruits"
+    },
+    {
+      "id": "SEM-UNSAFE-POSITION",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/world/position/safePositionId",
+          "value": "spec001:fixture.unsafe"
+        }
+      ],
+      "schemaValid": true,
+      "semanticExpectation": "reject-new-operation: position not allowlisted"
+    },
+    {
+      "id": "SEM-UNKNOWN-CONTENT",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/contentVersion",
+          "value": "98.0.0"
+        }
+      ],
+      "schemaValid": true,
+      "semanticExpectation": "reject-new-operation: unsupported content; preserve existing slot"
+    },
+    {
+      "id": "SEM-FRESHNESS",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/notebook/measurements",
+          "value": [
+            {
+              "id": "40000000-0000-4000-8000-000000000001",
+              "ruleId": "spec001:fixture.length",
+              "subjectIds": [
+                "spec001:fixture.probe"
+              ],
+              "roomId": "spec001:R01",
+              "configurationRevision": 5,
+              "attemptId": "bf3e42c3-7205-45a3-bfee-5289372bdbdb",
+              "stale": false,
+              "readings": [
+                {
+                  "name": "length",
+                  "value": 5,
+                  "unit": "m"
+                }
+              ],
+              "conclusionCode": "fixture-inspected"
+            }
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "semanticExpectation": "reject-new-operation: nonstale measurement configuration5 differs from world0"
+    },
+    {
+      "id": "SEM-WRONG-UNIT",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/notebook/measurements",
+          "value": [
+            {
+              "id": "40000000-0000-4000-8000-000000000001",
+              "ruleId": "spec001:fixture.length",
+              "subjectIds": [
+                "spec001:fixture.probe"
+              ],
+              "roomId": "spec001:R01",
+              "configurationRevision": 0,
+              "attemptId": "bf3e42c3-7205-45a3-bfee-5289372bdbdb",
+              "stale": false,
+              "readings": [
+                {
+                  "name": "length",
+                  "value": 5,
+                  "unit": "dBm"
+                }
+              ],
+              "conclusionCode": "fixture-inspected"
+            }
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "semanticExpectation": "reject-new-operation: fixture length rule requires m, not dBm"
+    },
+    {
+      "id": "SC-UNKNOWN-UNIT",
+      "sourceIds": [
+        "SCHEMA",
+        "MODEL"
+      ],
+      "base": "minimal",
+      "patches": [
+        {
+          "op": "set",
+          "path": "/notebook/measurements",
+          "value": [
+            {
+              "id": "40000000-0000-4000-8000-000000000001",
+              "ruleId": "spec001:fixture.length",
+              "subjectIds": [
+                "spec001:fixture.probe"
+              ],
+              "roomId": "spec001:R01",
+              "configurationRevision": 5,
+              "attemptId": "bf3e42c3-7205-45a3-bfee-5289372bdbdb",
+              "stale": false,
+              "readings": [
+                {
+                  "name": "length",
+                  "value": 5,
+                  "unit": "cm"
+                }
+              ],
+              "conclusionCode": "fixture-inspected"
+            }
+          ]
+        }
+      ],
+      "schemaValid": false,
+      "semanticExpectation": "reject-new-operation"
+    }
+  ],
+  "wireCases": [
+    {
+      "id": "WIRE-BOUNDARY",
+      "recipe": "exact-minimal-file-plus-ascii-space-padding",
+      "targetBytes": 262144,
+      "validUtf8": true,
+      "validJson": true,
+      "schemaValid": true,
+      "expectedGuard": "passes-byte-bound-only; semantic and conditional checks still required"
+    },
+    {
+      "id": "WIRE-OVER",
+      "recipe": "exact-minimal-file-plus-ascii-space-padding",
+      "targetBytes": 262145,
+      "validUtf8": true,
+      "validJson": true,
+      "schemaValid": true,
+      "expectedGuard": "413-before-receipt-lookup"
+    },
+    {
+      "id": "WIRE-INVALID-UTF8",
+      "recipe": "replace-note-string-with-hex",
+      "hex": "ff",
+      "validUtf8": false,
+      "validJson": false,
+      "schemaValid": false,
+      "expectedGuard": "400-malformed-JSON-no-write"
+    },
+    {
+      "id": "WIRE-TRUNCATED-JSON",
+      "recipe": "remove-final-closing-brace",
+      "validUtf8": true,
+      "validJson": false,
+      "schemaValid": false,
+      "expectedGuard": "400-malformed-JSON-no-write"
+    }
+  ],
+  "cases": [
+    {
+      "id": "SAVE01",
+      "title": "Cancel sign-in retains guest run",
+      "sourceIds": [
+        "SPEC-SAVE",
+        "GAMEPLAY",
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "prepare": [
+        "guest has prepared notes, clues, inventory and room; no account slot in memory"
+      ],
+      "actions": [
+        "open Google or GitHub window from click",
+        "cancel provider or close window; repeat with blocked popup and explicit Open Sign-in Tab"
+      ],
+      "expected": [
+        "same guest world/notebook/assistance in original tab",
+        "no saved claim, restart, provider token or browser persistent draft"
+      ],
+      "serviceCaseIds": [
+        "AUTH-GOOGLE-CANCEL",
+        "AUTH-GITHUB-CANCEL"
+      ]
+    },
+    {
+      "id": "SAVE02",
+      "title": "Provider-specific close and restore",
+      "sourceIds": [
+        "SPEC-SAVE",
+        "GAMEPLAY",
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "prepare": [
+        "two synthetic accounts plus later two separate real test-provider accounts; manual adoption needed"
+      ],
+      "actions": [
+        "sign in with Google, manually create safe save, close browser, return with Google",
+        "repeat GitHub independently; use same-email identity doubles only for isolation test"
+      ],
+      "expected": [
+        "each provider restores its own full snapshot with server revision/time",
+        "no cross-account receipt or slot read; no email merge",
+        "real-provider acceptance remains T057; synthetic transport cannot satisfy it"
+      ],
+      "serviceCaseIds": [
+        "SV-CREATE",
+        "SV-READ",
+        "SV-WRONG-OWNER",
+        "AUTH-SEPARATE-OWNERS"
+      ]
+    },
+    {
+      "id": "SAVE03",
+      "title": "Existing slot and different adventure",
+      "sourceIds": [
+        "SPEC-SAVE",
+        "GAMEPLAY",
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "prepare": [
+        "slot revision8 has adventure A; guest adventure B has unsaved notes; account autosave may already be on"
+      ],
+      "actions": [
+        "review summary with room/chapter/server-time/outcome",
+        "cancel choice; then independently test load and explicit replacement",
+        "test empty-slot first adoption manually"
+      ],
+      "expected": [
+        "cancel preserves server slot and current run",
+        "load warns and replaces entire world/journal; no inventory merge",
+        "replace binds B and reviewed ETag plus new key; later server change conflicts again",
+        "no automatic adoption or immediate autosave replacement"
+      ],
+      "serviceCaseIds": [
+        "SV-ADOPT-AUTO",
+        "SV-DIFFERENT-AUTO",
+        "SV-DIFFERENT-MANUAL",
+        "SV-CONFIRMED-REPLACE",
+        "SV-RECONSENT"
+      ]
+    },
+    {
+      "id": "SAVE04",
+      "title": "Autosave remains disabled",
+      "sourceIds": [
+        "SPEC-SAVE",
+        "GAMEPLAY",
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "prepare": [
+        "new account preferences autosaveEnabled=false; existing revision8"
+      ],
+      "actions": [
+        "arrive safely; finish objective and dismiss feedback; edit notes; reach preparation",
+        "queue automatic event then opt out before final transaction"
+      ],
+      "expected": [
+        "zero client adventure PUTs when never enabled",
+        "queued new auto write denied after opt-out; server slot unchanged",
+        "preference revision distinct from save revision"
+      ],
+      "serviceCaseIds": [
+        "SV-AUTO-OPTOUT",
+        "PREF-UPDATE"
+      ]
+    },
+    {
+      "id": "SAVE05",
+      "title": "Explicit autosave uses one slot",
+      "sourceIds": [
+        "SPEC-SAVE",
+        "GAMEPLAY",
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "prepare": [
+        "same-adventure slot revision8 and safe candidate"
+      ],
+      "actions": [
+        "explain same-slot replacement and enable preference conditionally",
+        "trigger repeated eligible safe arrivals/objective feedback dismissal/preparation; serialize/debounce"
+      ],
+      "expected": [
+        "one logical slot; revision9 after one captured batch",
+        "notes join next safe snapshot; no second slot/checkpoint persistence",
+        "only captured generation acknowledged; later edits remain dirty"
+      ],
+      "serviceCaseIds": [
+        "SV-AUTO-OPTIN",
+        "PREF-UPDATE",
+        "PREF-STALE"
+      ]
+    },
+    {
+      "id": "SAVE06",
+      "title": "Unsafe states preserve recoverable slot",
+      "sourceIds": [
+        "SPEC-SAVE",
+        "GAMEPLAY",
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "prepare": [
+        "autosave enabled; confirmed revision8; captured in-memory encounter preparation"
+      ],
+      "actions": [
+        "enter dialogue, cutscene, active encounter, transition, pending effect, fatal outcome or E03 shutdown",
+        "Retry failure or Continue E03; compare with separate Restore Save"
+      ],
+      "expected": [
+        "no writes from unsafe states; explanatory disabled manual save",
+        "Retry/Continue restore preparation world/inventory/rewards; retain learned clues/notes/hints/hypotheses/map",
+        "fresh attempt and greater configuration revision; prior measurements visibly stale",
+        "E03 history may persist after safe Continue; shutdown cannot persist",
+        "Restore Save replaces entire snapshot after unsaved warning"
+      ],
+      "serviceCaseIds": [
+        "VALIDATE-SC-E03-SAFE",
+        "VALIDATE-SC-E03-CONTINUE",
+        "VALIDATE-SC-ENCOUNTER",
+        "VALIDATE-SC-TRANSITION"
+      ]
+    },
+    {
+      "id": "SAVE07",
+      "title": "Two writers and conflict choice",
+      "sourceIds": [
+        "SPEC-SAVE",
+        "GAMEPLAY",
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "prepare": [
+        "two independent sessions/connections read revision8; distinct candidate changes"
+      ],
+      "actions": [
+        "run RACE-TWO-WRITERS with real overlap barriers",
+        "B reviews current9; choose keep playing, load or explicitly replace using new key/current ETag",
+        "advance remote slot again before confirmed replacement"
+      ],
+      "expected": [
+        "one write to9; losing B gets412/current9; no overwrite",
+        "conflict UI offers three explicit choices; no automatic merge",
+        "new remote change produces conflict again"
+      ],
+      "serviceCaseIds": [
+        "SV-STALE",
+        "SV-RECONSENT"
+      ]
+    },
+    {
+      "id": "SAVE08",
+      "title": "Lost successful response and exact retry",
+      "sourceIds": [
+        "SPEC-SAVE",
+        "GAMEPLAY",
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "prepare": [
+        "write acknowledged only on server; exact request bytes/key/precondition retained in memory"
+      ],
+      "actions": [
+        "lose response after commit then exact retry",
+        "advance slot once more; retry older committed request",
+        "change P0 to P1 write policy; retry retained operation and separately send old body/new key",
+        "run receipt-during-validation and same-key overlap schedules"
+      ],
+      "expected": [
+        "one commit per successful request key/fingerprint",
+        "ack committed8/current9 displays reconciliation and pauses autosave",
+        "receipt before current schema/content/safe-state/autosave and stale revision",
+        "authorization remains mandatory; new key old content fails422",
+        "method/path/mode/confirmation/precondition/exact bytes bound; mismatched fingerprint409"
+      ],
+      "serviceCaseIds": [
+        "SV-REPLAY",
+        "SV-REPLAY-OLDER",
+        "SV-OLD-POLICY",
+        "SV-OLD-POLICY-NEW-KEY",
+        "SV-REPLAY-AUTO-OPTOUT"
+      ]
+    },
+    {
+      "id": "SAVE09",
+      "title": "Offline, expiry and uncertain writes",
+      "sourceIds": [
+        "SPEC-SAVE",
+        "GAMEPLAY",
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "prepare": [
+        "last confirmed server revision8; later local generation dirty"
+      ],
+      "actions": [
+        "inject network loss before/after commit; session expiry during validation; storage busy",
+        "re-sign-in to same account then retry exact pending operation while receipt retained"
+      ],
+      "expected": [
+        "honest unsaved/saving/failed/unknown status; no false Saved",
+        "preserve in-memory progress; no promise closing offline tab is safe",
+        "saved label uses server time only after acknowledgement; unchanged later dirty generation",
+        "late response from earlier account generation cannot mutate current account view"
+      ],
+      "serviceCaseIds": [
+        "SV-NETWORK-ROLLBACK",
+        "SV-BUSY",
+        "SV-REVOKED",
+        "SV-REPLAY"
+      ]
+    },
+    {
+      "id": "SAVE10",
+      "title": "Structural and semantic rejection",
+      "sourceIds": [
+        "SPEC-SAVE",
+        "GAMEPLAY",
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "prepare": [
+        "schema vectors and explicit hypothetical registry cases; A and B separate slots"
+      ],
+      "actions": [
+        "run schema/wire vectors against both runtimes",
+        "reject ownership fields, unknown content/IDs, invalid references, unsafe state, byte/Unicode limits",
+        "run auth rejection cases and wrong-account receipt probes"
+      ],
+      "expected": [
+        "no inappropriate write/read or another account mutation",
+        "schema pass alone never means content membership or safe world",
+        "unknown newer stored version returned intact and protected from replacement/autosave"
+      ],
+      "serviceCaseIds": [
+        "SV-WRONG-OWNER",
+        "SV-BODY-OVER",
+        "VALIDATE-SC-UNKNOWN-ACCOUNT",
+        "VALIDATE-SEM-UNKNOWN-ID"
+      ]
+    },
+    {
+      "id": "SAVE11",
+      "title": "Hypothetical older-content migration",
+      "sourceIds": [
+        "SPEC-SAVE",
+        "GAMEPLAY",
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "prepare": [
+        "independently authored save-migration-baseline input and declared registries; no released0.9.0 claim"
+      ],
+      "actions": [
+        "read without write; migrate supported fixture through explicit rename and safe-position maps",
+        "interrupt before candidate ready; test unknown newer snapshot",
+        "conditionally save only after eligible boundary and confirmation"
+      ],
+      "expected": [
+        "exact authored expected snapshot; all preservePaths retained",
+        "explain safe relocation and stale measurements; future door grants no completion",
+        "GET/interruption/unsupported version never rewrites original slot",
+        "new content IDs require actual registry review before semantic production acceptance"
+      ],
+      "serviceCaseIds": [
+        "SV-READ",
+        "SV-UNKNOWN-STORED"
+      ]
+    },
+    {
+      "id": "SAVE12",
+      "title": "Deletion confirmation belongs to one operation",
+      "sourceIds": [
+        "SPEC-SAVE",
+        "GAMEPLAY",
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "prepare": [
+        "fresh same-account delete-reauth; explicit confirmation; 256-bit in-memory receipt"
+      ],
+      "actions": [
+        "delete with lost response; check pending/completed/unknown/expired via receipt-only POST",
+        "expire/revoke session; reload without receipt; return guest session; inject status failure",
+        "sign in to a later separate account then deliver old completed response",
+        "run ledger crash windows and isolated restore"
+      ],
+      "expected": [
+        "only DELETE204/completed confirms live removal; pending/unknown/expired/guest/network loss remain unconfirmed",
+        "status read-only with exact Origin; never automatic DELETE/login/account creation",
+        "ignore response for old operation/account generation; later account untouched",
+        "raw receipt never URLs/logs/storage/response; explain actual backup retention; longer marker survives receipt expiry"
+      ],
+      "serviceCaseIds": [
+        "DELETE-COMMIT",
+        "STATUS-PENDING",
+        "STATUS-COMPLETED",
+        "STATUS-UNKNOWN",
+        "STATUS-EXPIRED",
+        "STATUS-UNAVAILABLE"
+      ]
+    },
+    {
+      "id": "SAVE13",
+      "title": "Canceled and confirmed logout",
+      "sourceIds": [
+        "SPEC-SAVE",
+        "GAMEPLAY",
+        "MODEL"
+      ],
+      "behavioralAcceptance": "pending",
+      "prepare": [
+        "authenticated session; unsaved run and notebook/checkpoint; confirmed server revision8"
+      ],
+      "actions": [
+        "cancel unsaved-warning then confirm on separate trial",
+        "test pending save/logout overlap both winner orders and lost logout response",
+        "GET session after uncertain revocation; sign in same provider and restore"
+      ],
+      "expected": [
+        "cancel makes no logout/save/delete call; session and all memory unchanged",
+        "confirm stops queued auto/auth attempts; confirmed revocation clears world/journal/checkpoint/UI then title",
+        "no implicit save or slot deletion; no continuation as guest",
+        "already committed earlier save not rolled back; unknown in-flight result remains honest",
+        "failed logout not called successful; session recheck may confirm guest; later restore loads actual slot"
+      ],
+      "serviceCaseIds": [
+        "LOGOUT-CONFIRM",
+        "LOGOUT-EXPIRED"
+      ]
+    }
+  ],
+  "clientOnly": [
+    {
+      "id": "UI-LATE-ACK",
+      "sourceIds": [
+        "GAMEPLAY"
+      ],
+      "given": "captured generation4 saved while current memory generation5 has edits",
+      "expected": "acknowledge4 only; generation5 stays dirty"
+    },
+    {
+      "id": "UI-LATE-ACCOUNT",
+      "sourceIds": [
+        "MODEL",
+        "API-DELETE"
+      ],
+      "given": "response belongs to old account view generation1 while generation2 signs into B",
+      "expected": "ignore old save/logout/deletion-status response; never clear B memory/session"
+    },
+    {
+      "id": "UI-LOGOUT-LOST",
+      "sourceIds": [
+        "GAMEPLAY"
+      ],
+      "given": "logout response lost and session recheck also unavailable",
+      "expected": "logout unconfirmed; no implicit save; do not claim server revocation or durable progress"
+    },
+    {
+      "id": "UI-DELETE-GUEST",
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "given": "lost DELETE response then GET session returns guest",
+      "expected": "deletion unconfirmed; session absence is not deletion proof"
+    },
+    {
+      "id": "UI-DELETE-RELOAD",
+      "sourceIds": [
+        "API-DELETE"
+      ],
+      "given": "tab closed/reloaded so in-memory deletion receipt is missing",
+      "expected": "unconfirmed; no hidden receipt persistence or automatic delete/signin"
+    },
+    {
+      "id": "UI-ORIGIN-HINT",
+      "sourceIds": [
+        "API-AUTH"
+      ],
+      "given": "completion postMessage has wrong origin or source window, or contains identity/token/CSRF",
+      "expected": "ignore untrusted hint; never accept payload as authentication; valid hint only triggers GET session"
+    }
+  ],
+  "recovery": {
+    "preparation": {
+      "inventoryQuantity": 1,
+      "completedObjective": false,
+      "configurationRevision": 4,
+      "attemptId": "20000000-0000-4000-8000-000000000001"
+    },
+    "failedAttempt": {
+      "inventoryQuantity": 0,
+      "completedObjective": true,
+      "configurationRevision": 8,
+      "attemptId": "20000000-0000-4000-8000-000000000001",
+      "newFact": "spec001:fixture.power-fact",
+      "personalNotes": "Keep the power clue. Café 🧭",
+      "hintLevel": 2
+    },
+    "retryOrE03Continue": {
+      "inventoryQuantity": 1,
+      "completedObjective": false,
+      "minimumConfigurationRevision": 9,
+      "freshAttempt": true,
+      "retain": [
+        "newFact",
+        "personalNotes",
+        "hintLevel",
+        "hypotheses",
+        "mapRoomIds",
+        "outcomeHistory"
+      ],
+      "allPriorMeasurementsStale": true,
+      "implicitSaveWrites": 0
+    },
+    "restoreSave": "replace world, notebook, assistance and outcomeHistory together with validated/migrated confirmed snapshot; no carryover of unsaved journal"
+  },
+  "activation": {
+    "serviceTasks": [
+      "T037",
+      "T038",
+      "T039",
+      "T040",
+      "T041",
+      "T042",
+      "T043",
+      "T044",
+      "T045",
+      "T046",
+      "T053",
+      "T054",
+      "T055"
+    ],
+    "browserTasks": [
+      "T047",
+      "T048",
+      "T049",
+      "T050",
+      "T051",
+      "T052",
+      "T056"
+    ],
+    "realProviderTask": "T057",
+    "encounterIntegration": "T089",
+    "migrationIntegration": "T144",
+    "recoveryIntegration": "T166",
+    "instruction": "Wire real behavior assertions to these expectations; do not mark cases passed from fixture validators or replace expected results with implementation output."
+  }
+}

@@ -1,0 +1,1364 @@
+{
+  "fixtureVersion": 1,
+  "preparation": {
+    "task": "T031",
+    "loop": 33,
+    "status": "independent-expectations-only",
+    "runtimeEvaluation": "Pending T032; T033/T034 own controls and integration. No evaluator or gameplay acceptance is asserted.",
+    "sourceRegister": "content/spec001/sources.json",
+    "sourceReview": "docs/evidence/spec001/rule-source-review.md",
+    "transcribedEvidence": "tests/fixtures/physical-cases.json",
+    "requirements": [
+      "C10",
+      "FR-006",
+      "NQ-13",
+      "AC21"
+    ],
+    "license": "CC-BY-4.0"
+  },
+  "reviewedContext": {
+    "profiles": [
+      {
+        "id": "spec001:PROFILE-SYMBOLS",
+        "kind": "toy-symbol-map",
+        "sources": [
+          "S01",
+          "S12",
+          "S13"
+        ],
+        "parameters": {
+          "levels": [
+            {
+              "symbol": {
+                "value": -3,
+                "unit": "toy-level"
+              },
+              "bits": "00"
+            },
+            {
+              "symbol": {
+                "value": -1,
+                "unit": "toy-level"
+              },
+              "bits": "01"
+            },
+            {
+              "symbol": {
+                "value": 1,
+                "unit": "toy-level"
+              },
+              "bits": "10"
+            },
+            {
+              "symbol": {
+                "value": 3,
+                "unit": "toy-level"
+              },
+              "bits": "11"
+            }
+          ],
+          "bitsPerSymbol": 2
+        },
+        "assumptions": [
+          "Discrete exact samples are provided in order with explicit sample positions; player may step, pause and replay."
+        ],
+        "limits": [
+          "No analog voltage claim, complete PAM4 PHY, clock-rate/throughput inference or timing score.",
+          "Unknown authored symbols/missing sample positions are content-error; missing learner answer is invalid-input."
+        ]
+      },
+      {
+        "id": "spec001:PROFILE-PACKET",
+        "kind": "known-laboratory-pattern",
+        "sources": [
+          "S01",
+          "S02",
+          "S12"
+        ],
+        "parameters": {
+          "payloadHex": [
+            "4E",
+            "51"
+          ],
+          "payloadText": "NQ",
+          "highlightedBits": "0100111001010001",
+          "displayBitOrder": "most-significant-bit first within each highlighted byte"
+        },
+        "assumptions": [
+          "Two highlighted bytes within an opaque upper-interface frame; known sample order.",
+          "Compare recovered highlighted bits after evaluating the declared physical path."
+        ],
+        "limits": [
+          "Display bit order is a toy convention, not a claim about Ethernet serialization.",
+          "Not a whole two-byte Ethernet frame, FCS validation, universal error detector or higher-layer simulator."
+        ]
+      }
+    ],
+    "rules": [
+      {
+        "id": "PHY10",
+        "name": "toy-symbols-and-timing",
+        "kind": "technical-predicate",
+        "objectives": [
+          "O10"
+        ],
+        "sources": [
+          "S01",
+          "S12",
+          "S13"
+        ],
+        "profiles": [
+          "spec001:PROFILE-SYMBOLS"
+        ],
+        "correctCases": [
+          "T12"
+        ],
+        "incorrectCases": [
+          "C-SYMBOL-WRONG"
+        ],
+        "boundaryCases": [
+          "B-SYMBOL",
+          "B-TIMING"
+        ],
+        "invalidInputCases": [
+          "I-PHY10"
+        ],
+        "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+      },
+      {
+        "id": "PHY11",
+        "name": "packet-pattern-comparison",
+        "kind": "technical-predicate",
+        "objectives": [
+          "O01",
+          "O10",
+          "O12"
+        ],
+        "sources": [
+          "S01",
+          "S02",
+          "S12"
+        ],
+        "profiles": [
+          "spec001:PROFILE-PACKET"
+        ],
+        "correctCases": [
+          "C-PACKET"
+        ],
+        "incorrectCases": [
+          "C-PACKET-DIFF"
+        ],
+        "boundaryCases": [
+          "B-PACKET"
+        ],
+        "invalidInputCases": [
+          "I-PHY11"
+        ],
+        "authority": "SPEC.md and gameplay contract; external sources support only technical concepts"
+      }
+    ],
+    "caseRefs": [
+      "T12",
+      "C-SYMBOL-WRONG",
+      "B-SYMBOL",
+      "B-TIMING",
+      "I-PHY10",
+      "C-PACKET",
+      "C-PACKET-DIFF",
+      "B-PACKET",
+      "I-PHY11",
+      "C-ERROR-SYMBOL",
+      "T01",
+      "T02",
+      "T13",
+      "T14",
+      "B-RETRY",
+      "B-STALE-FLAG",
+      "B-REPLAY"
+    ]
+  },
+  "assumptions": {
+    "authority": "Authored fixture premises, separate from the unchanged reviewed profiles. SPEC Packet perspective, SPEC known-good higher-layer scope, PROFILE-COPPER-100 and PROFILE-PACKET bound this bench demonstration.",
+    "samplePositions": "Zero-based ordinal positions in the supplied sample array; not timestamps, seconds, voltage or on-wire Ethernet order.",
+    "packetEncoding": "Group the displayed most-significant-bit-first highlighted byte string into consecutive pairs; use exactly PROFILE-SYMBOLS. This composes two reviewed toy profiles, not a new Ethernet PHY.",
+    "completeBench": {
+      "id": "controlled-copper-bench",
+      "profileId": "spec001:PROFILE-COPPER-100",
+      "knownCompatibleEndpointsMediaTerminations": true,
+      "requiredConductorsContinuous": true,
+      "endpointPowerKnownGood": true,
+      "upperDependenciesKnownGoodForThisLab": true,
+      "otherPhysicalConditionsKnownGoodForThisLab": true,
+      "claimScope": "Only this declared laboratory path and known highlighted pattern; no branch, full route or general service proof."
+    },
+    "lengthOnlyBench": {
+      "id": "length-only",
+      "profileId": "spec001:PROFILE-COPPER-100",
+      "claimScope": "Only channel length is known. Other required path predicates are not supplied; a passing length observation cannot establish transmission success."
+    },
+    "substitution": {
+      "id": "last-toy-symbol-substitution",
+      "when": "Only when a current actual physical evaluator result is incorrect and this explicit toy impairment is supplied. Never infer this substitution from a cable length or electromagnetic formula.",
+      "position": 7,
+      "from": {
+        "value": -1,
+        "unit": "toy-level"
+      },
+      "to": {
+        "value": -3,
+        "unit": "toy-level"
+      },
+      "explanation": "The supplied toy impairment substitutes final pair 01 with 00, reproducing the reviewed one-bit known-pattern mismatch. It makes no claim about the real physical cause or error rate."
+    },
+    "physicalHandoff": "T032 must execute src/domain/copper.ts evaluateCopper on physicalChallenge/physicalAction at evaluatedVersion, then pass its actual result plus that version into the journey. Expected observations below are assertion targets, never fabricated inputs or fake return values. No source physicalPathValid boolean or renderer success flag may substitute for this call.",
+    "resultFreshness": "Check both configurationRevision and attemptId, and any explicit stale evidence flag, when beginning, stepping to a result and replaying. A stale action is invalid-input; a submitted stale proof is insufficient per T13. No stale result earns transmission success.",
+    "uiProjection": "The ordered phases below are fixture-visible checkpoints, not a mandated internal API. Pause/step/replay only change inspection position; they cannot award progress, consume inventory or change physical evidence. No timer or renderer completion grants success."
+  },
+  "encodingVectors": [
+    {
+      "id": "PJ-NQ",
+      "reviewedCaseRefs": [
+        "C-PACKET",
+        "T12"
+      ],
+      "input": {
+        "payloadHex": [
+          "4E",
+          "51"
+        ]
+      },
+      "expected": {
+        "payloadDecimal": [
+          78,
+          81
+        ],
+        "payloadText": "NQ",
+        "byteBits": [
+          "01001110",
+          "01010001"
+        ],
+        "bits": "0100111001010001",
+        "pairs": [
+          "01",
+          "00",
+          "11",
+          "10",
+          "01",
+          "01",
+          "00",
+          "01"
+        ],
+        "symbolValues": [
+          -1,
+          -3,
+          3,
+          1,
+          -1,
+          -1,
+          -3,
+          -1
+        ],
+        "samplePositions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "symbolUnit": "toy-level",
+        "representedBits": 16,
+        "symbols": 8,
+        "roundTripHex": [
+          "4E",
+          "51"
+        ]
+      },
+      "derivation": "4*16+14 = 78 = 64+8+4+2; 5*16+1 = 81 = 64+16+1. Pair order 01|00|11|10|01|01|00|01 maps to -1,-3,+3,+1,-1,-1,-3,-1. Eight pairs carry sixteen represented bits; no duration or useful rate is supplied."
+    },
+    {
+      "id": "PJ-T12",
+      "reviewedCaseRefs": [
+        "T12"
+      ],
+      "input": {
+        "symbolValues": [
+          -3,
+          1,
+          3,
+          -1
+        ],
+        "samplePositions": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "symbolUnit": "toy-level"
+      },
+      "expected": {
+        "pairs": [
+          "00",
+          "10",
+          "11",
+          "01"
+        ],
+        "bits": "00101101",
+        "representedBits": 8,
+        "symbols": 4,
+        "roundTripSymbolValues": [
+          -3,
+          1,
+          3,
+          -1
+        ]
+      },
+      "derivation": "Read the four exact supplied positions: 00|10|11|01. Four two-bit groups are eight bits, independent of any elapsed time."
+    },
+    {
+      "id": "PJ-ONE",
+      "reviewedCaseRefs": [
+        "B-SYMBOL"
+      ],
+      "input": {
+        "symbolValues": [
+          3
+        ],
+        "samplePositions": [
+          0
+        ],
+        "symbolUnit": "toy-level"
+      },
+      "expected": {
+        "pairs": [
+          "11"
+        ],
+        "bits": "11",
+        "representedBits": 2,
+        "symbols": 1,
+        "roundTripSymbolValues": [
+          3
+        ]
+      },
+      "derivation": "One supplied +3 toy level maps to the one pair 11; it is not a byte and is not padded to one."
+    },
+    {
+      "id": "PJ-ORDER",
+      "reviewedCaseRefs": [
+        "B-TIMING"
+      ],
+      "input": {
+        "symbolValues": [
+          -3,
+          1
+        ],
+        "samplePositions": [
+          0,
+          1
+        ],
+        "symbolUnit": "toy-level"
+      },
+      "expected": {
+        "pairs": [
+          "00",
+          "10"
+        ],
+        "bits": "0010",
+        "representedBits": 4,
+        "symbols": 2,
+        "roundTripSymbolValues": [
+          -3,
+          1
+        ]
+      },
+      "derivation": "The stated sample order is -3 then +1, so 00 precedes 10. Pausing never reverses samples."
+    }
+  ],
+  "comparisonCases": [
+    {
+      "id": "PJ-MATCH",
+      "reviewedCaseRefs": [
+        "C-PACKET"
+      ],
+      "input": {
+        "expectedBits": "0100111001010001",
+        "recoveredBits": "0100111001010001"
+      },
+      "expected": {
+        "status": "correct",
+        "knownPatternMatches": true,
+        "differingBits": 0,
+        "differingBitPositions": [],
+        "recoveredHex": [
+          "4E",
+          "51"
+        ],
+        "wholeFrameIsTwoBytes": false,
+        "universalPHYErrorDetection": false,
+        "ethernetFcsValidated": false,
+        "higherLayerServiceProven": false
+      },
+      "derivation": "All sixteen highlighted positions agree. This comparison still requires the actual current physical result before a journey may report successful scoped transmission."
+    },
+    {
+      "id": "PJ-DIFF",
+      "reviewedCaseRefs": [
+        "C-PACKET-DIFF"
+      ],
+      "input": {
+        "expectedBits": "0100111001010001",
+        "recoveredBits": "0100111001010000"
+      },
+      "expected": {
+        "status": "incorrect",
+        "knownPatternMatches": false,
+        "differingBits": 1,
+        "differingBitPositions": [
+          15
+        ],
+        "recoveredHex": [
+          "4E",
+          "50"
+        ],
+        "universalPHYErrorDetection": false,
+        "ethernetFcsValidated": false,
+        "higherLayerServiceProven": false
+      },
+      "derivation": "Only zero-based bit 15 changes from 1 to 0. The second highlighted byte is 01010000 = 80 = 0x50. No FCS is computed."
+    },
+    {
+      "id": "PJ-WRONG-ANSWER",
+      "reviewedCaseRefs": [
+        "C-SYMBOL-WRONG"
+      ],
+      "input": {
+        "vectorId": "PJ-T12",
+        "learnerBits": "00011011"
+      },
+      "expected": {
+        "status": "incorrect",
+        "expectedBits": "00101101"
+      },
+      "derivation": "A complete but wrong learner answer differs from the declared 00|10|11|01. It is not malformed authored content."
+    },
+    {
+      "id": "PJ-REVERSED-ANSWER",
+      "reviewedCaseRefs": [
+        "B-TIMING"
+      ],
+      "input": {
+        "vectorId": "PJ-ORDER",
+        "learnerBits": "1000"
+      },
+      "expected": {
+        "status": "incorrect",
+        "expectedBits": "0010",
+        "submittedBits": "1000"
+      },
+      "derivation": "Reversing sample order changes 00|10 into 10|00; step/pause do not change the supplied order."
+    },
+    {
+      "id": "PJ-OVERCLAIM",
+      "reviewedCaseRefs": [
+        "B-PACKET"
+      ],
+      "input": {
+        "expectedBits": "0100111001010001",
+        "recoveredBits": "0100111001010001",
+        "claim": "matching-NQ-proves-every-application"
+      },
+      "expected": {
+        "status": "incorrect",
+        "knownPatternMatches": true,
+        "claimSupported": false
+      },
+      "derivation": "Equality is a scoped known-pattern observation, never proof of every application."
+    }
+  ],
+  "validationCases": [
+    {
+      "id": "PJ-UNKNOWN-SYMBOL",
+      "category": "author",
+      "reviewedCaseRefs": [
+        "C-ERROR-SYMBOL"
+      ],
+      "input": {
+        "authoredSamples": [
+          {
+            "position": 0,
+            "value": 2,
+            "unit": "toy-level"
+          }
+        ]
+      },
+      "expected": {
+        "status": "content-error",
+        "reason": "unsupported-authored-symbol",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "derivation": "2 is absent from the four reviewed toy values."
+    },
+    {
+      "id": "PJ-MISSING-SAMPLES",
+      "category": "author",
+      "reviewedCaseRefs": [
+        "T14"
+      ],
+      "input": {
+        "authoredSamples": []
+      },
+      "expected": {
+        "status": "content-error",
+        "reason": "missing-authored-samples",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "derivation": "The authored decoding exercise supplies no samples; an empty sequence cannot silently stand in for the declared payload or earn a correct answer."
+    },
+    {
+      "id": "PJ-MISSING-POSITION",
+      "category": "author",
+      "reviewedCaseRefs": [
+        "T14"
+      ],
+      "input": {
+        "authoredSamples": [
+          {
+            "value": -3,
+            "unit": "toy-level"
+          }
+        ]
+      },
+      "expected": {
+        "status": "content-error",
+        "reason": "missing-sample-position",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "derivation": "PROFILE-SYMBOLS explicitly requires supplied sample positions; do not guess order from malformed authored data."
+    },
+    {
+      "id": "PJ-DUPLICATE-POSITION",
+      "category": "author",
+      "reviewedCaseRefs": [
+        "T14"
+      ],
+      "input": {
+        "authoredSamples": [
+          {
+            "position": 0,
+            "value": -3,
+            "unit": "toy-level"
+          },
+          {
+            "position": 0,
+            "value": 1,
+            "unit": "toy-level"
+          }
+        ]
+      },
+      "expected": {
+        "status": "content-error",
+        "reason": "ambiguous-sample-position",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "derivation": "Two different samples cannot occupy the same declared ordinal position in this exact discrete model."
+    },
+    {
+      "id": "PJ-MISSING-UNIT",
+      "category": "author",
+      "reviewedCaseRefs": [
+        "T14"
+      ],
+      "input": {
+        "authoredSamples": [
+          {
+            "position": 0,
+            "value": -3
+          }
+        ]
+      },
+      "expected": {
+        "status": "content-error",
+        "reason": "missing-symbol-unit",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "derivation": "Missing units are not guessed or treated as volts."
+    },
+    {
+      "id": "PJ-VOLT-UNIT",
+      "category": "author",
+      "reviewedCaseRefs": [
+        "T14"
+      ],
+      "input": {
+        "authoredSamples": [
+          {
+            "position": 0,
+            "value": -3,
+            "unit": "V"
+          }
+        ]
+      },
+      "expected": {
+        "status": "content-error",
+        "reason": "wrong-symbol-unit",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "derivation": "toy-level is not voltage and is not a save-v1 Reading unit."
+    },
+    {
+      "id": "PJ-MISSING-MAPPING",
+      "category": "author",
+      "reviewedCaseRefs": [
+        "T14"
+      ],
+      "input": {
+        "mapping": null
+      },
+      "expected": {
+        "status": "content-error",
+        "reason": "missing-reviewed-mapping",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "derivation": "No default coding map may be inferred for authored challenges."
+    },
+    {
+      "id": "PJ-ALTERED-MAPPING",
+      "category": "author",
+      "reviewedCaseRefs": [
+        "T12",
+        "T14"
+      ],
+      "input": {
+        "profileId": "spec001:PROFILE-SYMBOLS",
+        "mapping": [
+          {
+            "value": -3,
+            "unit": "toy-level",
+            "bits": "00"
+          },
+          {
+            "value": -1,
+            "unit": "toy-level",
+            "bits": "01"
+          },
+          {
+            "value": 1,
+            "unit": "toy-level",
+            "bits": "11"
+          },
+          {
+            "value": 3,
+            "unit": "toy-level",
+            "bits": "10"
+          }
+        ]
+      },
+      "expected": {
+        "status": "content-error",
+        "reason": "reviewed-mapping-mismatch",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "derivation": "Even a bijective alternate/Gray map is not this declared linear profile. It needs separate review, not silent substitution."
+    },
+    {
+      "id": "PJ-DUPLICATE-MAPPING",
+      "category": "author",
+      "reviewedCaseRefs": [
+        "T12",
+        "T14"
+      ],
+      "input": {
+        "profileId": "spec001:PROFILE-SYMBOLS",
+        "mapping": [
+          {
+            "value": -3,
+            "unit": "toy-level",
+            "bits": "00"
+          },
+          {
+            "value": -1,
+            "unit": "toy-level",
+            "bits": "01"
+          },
+          {
+            "value": 1,
+            "unit": "toy-level",
+            "bits": "10"
+          },
+          {
+            "value": 3,
+            "unit": "toy-level",
+            "bits": "10"
+          }
+        ]
+      },
+      "expected": {
+        "status": "content-error",
+        "reason": "ambiguous-mapping",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "derivation": "Two symbols assigned the same pair cannot round-trip all four distinct two-bit combinations."
+    },
+    {
+      "id": "PJ-UNKNOWN-MODEL",
+      "category": "author",
+      "reviewedCaseRefs": [
+        "T14"
+      ],
+      "input": {
+        "profileId": "spec001:UNKNOWN"
+      },
+      "expected": {
+        "status": "content-error",
+        "reason": "unknown-authored-profile",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "derivation": "An unknown profile is an authoring error, never an incorrect learner selection."
+    },
+    {
+      "id": "PJ-ODD-BIT-COUNT",
+      "category": "author",
+      "reviewedCaseRefs": [
+        "T12",
+        "T14"
+      ],
+      "input": {
+        "authoredBits": "010011100101000"
+      },
+      "expected": {
+        "status": "content-error",
+        "reason": "incomplete-symbol-pair",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "derivation": "Fifteen supplied bits leave an incomplete final pair; do not pad, truncate or invent a bit."
+    },
+    {
+      "id": "PJ-MISSING-SYMBOL-ANSWER",
+      "category": "learner",
+      "reviewedCaseRefs": [
+        "I-PHY10"
+      ],
+      "input": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "reason": "required-action-missing",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "derivation": "A valid symbol challenge without a learner answer is not a physical failure."
+    },
+    {
+      "id": "PJ-MISSING-PACKET-ANSWER",
+      "category": "learner",
+      "reviewedCaseRefs": [
+        "I-PHY11"
+      ],
+      "input": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "reason": "required-action-missing",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "derivation": "A valid packet comparison without learner input cannot be graded."
+    },
+    {
+      "id": "PJ-MALFORMED-ANSWER",
+      "category": "learner",
+      "reviewedCaseRefs": [
+        "I-PHY10"
+      ],
+      "input": {
+        "vectorId": "PJ-T12",
+        "learnerBits": "00102"
+      },
+      "expected": {
+        "status": "invalid-input",
+        "reason": "malformed-learner-bits",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "derivation": "A learner answer containing 2 is not a binary string; do not coerce it to the expected answer."
+    }
+  ],
+  "physicalChallenges": {
+    "passing-length": {
+      "kind": "copper-length",
+      "profileId": "spec001:PROFILE-COPPER-100",
+      "lengths": [
+        {
+          "value": 85,
+          "unit": "m"
+        },
+        {
+          "value": 10,
+          "unit": "m"
+        }
+      ]
+    },
+    "failing-length": {
+      "kind": "copper-length",
+      "profileId": "spec001:PROFILE-COPPER-100",
+      "lengths": [
+        {
+          "value": 95,
+          "unit": "m"
+        },
+        {
+          "value": 10,
+          "unit": "m"
+        }
+      ]
+    },
+    "malformed-length": {
+      "kind": "copper-length",
+      "profileId": "spec001:PROFILE-COPPER-100",
+      "lengths": [
+        {
+          "value": 85
+        },
+        {
+          "value": 10,
+          "unit": "m"
+        }
+      ]
+    }
+  },
+  "transmissionCases": [
+    {
+      "id": "PJ-TRANSMIT-PASS",
+      "reviewedCaseRefs": [
+        "T01",
+        "C-PACKET"
+      ],
+      "physicalChallenge": "passing-length",
+      "physicalAction": {
+        "kind": "measure-length"
+      },
+      "bench": "controlled-copper-bench",
+      "evaluatedVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "currentVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "stale": false,
+      "impairment": "none",
+      "expected": {
+        "physicalStatus": "correct",
+        "physicalScope": "length only",
+        "totalMetres": 95,
+        "headroomMetres": 5,
+        "journeyStatus": "correct",
+        "transmissionSucceeded": true,
+        "recoveredSymbolValues": [
+          -1,
+          -3,
+          3,
+          1,
+          -1,
+          -1,
+          -3,
+          -1
+        ],
+        "recoveredBits": "0100111001010001",
+        "knownPatternMatches": true,
+        "progressAward": 0,
+        "wholeRouteProven": false,
+        "higherLayerServiceProven": false
+      },
+      "derivation": "85+10=95; 100-95=5. Actual current length result plus the explicit complete bench premises permits only this scoped toy transmission. Symbols are unchanged."
+    },
+    {
+      "id": "PJ-TRANSMIT-IMPAIRED",
+      "reviewedCaseRefs": [
+        "T02",
+        "C-PACKET-DIFF"
+      ],
+      "physicalChallenge": "failing-length",
+      "physicalAction": {
+        "kind": "measure-length"
+      },
+      "bench": "controlled-copper-bench",
+      "evaluatedVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "currentVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "stale": false,
+      "impairment": "last-toy-symbol-substitution",
+      "expected": {
+        "physicalStatus": "incorrect",
+        "physicalScope": "length only",
+        "totalMetres": 105,
+        "excessMetres": 5,
+        "journeyStatus": "incorrect",
+        "transmissionSucceeded": false,
+        "recoveredSymbolValues": [
+          -1,
+          -3,
+          3,
+          1,
+          -1,
+          -1,
+          -3,
+          -3
+        ],
+        "recoveredBits": "0100111001010000",
+        "knownPatternMatches": false,
+        "differingBits": 1,
+        "progressAward": 0,
+        "wholeRouteProven": false,
+        "higherLayerServiceProven": false
+      },
+      "derivation": "95+10=105; 105-100=5. The separately declared toy substitution changes final 01 to 00. Cable length does not predict which real bit would fail."
+    },
+    {
+      "id": "PJ-TRANSMIT-AFTER-REPAIR",
+      "reviewedCaseRefs": [
+        "T01",
+        "C-PACKET",
+        "T13"
+      ],
+      "priorTransmissionCaseId": "PJ-TRANSMIT-IMPAIRED",
+      "physicalChallenge": "passing-length",
+      "physicalAction": {
+        "kind": "measure-length"
+      },
+      "bench": "controlled-copper-bench",
+      "evaluatedVersion": {
+        "configurationRevision": 8,
+        "attemptId": "attempt-a"
+      },
+      "currentVersion": {
+        "configurationRevision": 8,
+        "attemptId": "attempt-a"
+      },
+      "stale": false,
+      "impairment": "none",
+      "expected": {
+        "physicalStatus": "correct",
+        "physicalScope": "length only",
+        "totalMetres": 95,
+        "headroomMetres": 5,
+        "journeyStatus": "correct",
+        "transmissionSucceeded": true,
+        "recoveredSymbolValues": [
+          -1,
+          -3,
+          3,
+          1,
+          -1,
+          -1,
+          -3,
+          -1
+        ],
+        "recoveredBits": "0100111001010001",
+        "knownPatternMatches": true,
+        "progressAward": 0,
+        "wholeRouteProven": false,
+        "higherLayerServiceProven": false
+      },
+      "derivation": "After the declared length changes from 95+10 to 85+10, obtain a NEW actual evaluation at revision 8 with all other bench premises known-good. Its matching result replaces the displayed failure; never relabel the old revision-7 result or let the renderer declare repair."
+    },
+    {
+      "id": "PJ-TRANSMIT-FAIL-NO-SUBSTITUTION",
+      "reviewedCaseRefs": [
+        "T02"
+      ],
+      "physicalChallenge": "failing-length",
+      "physicalAction": {
+        "kind": "measure-length"
+      },
+      "bench": "controlled-copper-bench",
+      "evaluatedVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "currentVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "stale": false,
+      "impairment": "none",
+      "expected": {
+        "physicalStatus": "incorrect",
+        "journeyStatus": "incorrect",
+        "transmissionSucceeded": false,
+        "recoveredBits": null,
+        "knownPatternMatches": null,
+        "progressAward": 0
+      },
+      "derivation": "A failed physical result cannot be replaced by an intact animated bit stream. Without an authored impairment trace, expose the physical failure and no manufactured recovered message."
+    },
+    {
+      "id": "PJ-TRANSMIT-CONTENT-ERROR",
+      "reviewedCaseRefs": [
+        "T14"
+      ],
+      "physicalChallenge": "malformed-length",
+      "physicalAction": {
+        "kind": "measure-length"
+      },
+      "bench": "controlled-copper-bench",
+      "evaluatedVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "currentVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "stale": false,
+      "impairment": "none",
+      "expected": {
+        "physicalStatus": "content-error",
+        "journeyStatus": "content-error",
+        "transmissionSucceeded": false,
+        "recoveredBits": null,
+        "knownPatternMatches": null,
+        "progressAward": 0,
+        "attemptPenalty": 0
+      },
+      "derivation": "The actual copper evaluator rejects a missing metre unit. Journey comparison cannot hide that authoring error or award anything."
+    },
+    {
+      "id": "PJ-TRANSMIT-INVALID-ACTION",
+      "reviewedCaseRefs": [
+        "I-PHY11"
+      ],
+      "physicalChallenge": "passing-length",
+      "physicalAction": null,
+      "bench": "controlled-copper-bench",
+      "evaluatedVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "currentVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "stale": false,
+      "impairment": "none",
+      "expected": {
+        "physicalStatus": "invalid-input",
+        "journeyStatus": "invalid-input",
+        "transmissionSucceeded": false,
+        "recoveredBits": null,
+        "knownPatternMatches": null,
+        "progressAward": 0,
+        "attemptPenalty": 0
+      },
+      "derivation": "No measure action yields no valid physical observation. A malformed command is not an incorrect physical solution."
+    },
+    {
+      "id": "PJ-TRANSMIT-MISSING-RESULT",
+      "reviewedCaseRefs": [
+        "C-PACKET"
+      ],
+      "physicalChallenge": null,
+      "physicalAction": null,
+      "bench": "controlled-copper-bench",
+      "evaluatedVersion": null,
+      "currentVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "stale": false,
+      "impairment": "none",
+      "expected": {
+        "physicalStatus": null,
+        "journeyStatus": "invalid-input",
+        "transmissionSucceeded": false,
+        "recoveredBits": null,
+        "knownPatternMatches": null,
+        "progressAward": 0
+      },
+      "derivation": "No evaluator result exists. A renderer ready/success flag is not physical evidence."
+    },
+    {
+      "id": "PJ-TRANSMIT-STALE-CONFIG",
+      "reviewedCaseRefs": [
+        "T13"
+      ],
+      "physicalChallenge": "passing-length",
+      "physicalAction": {
+        "kind": "measure-length"
+      },
+      "bench": "controlled-copper-bench",
+      "evaluatedVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "currentVersion": {
+        "configurationRevision": 8,
+        "attemptId": "attempt-a"
+      },
+      "stale": false,
+      "impairment": "none",
+      "expected": {
+        "physicalStatus": "correct",
+        "journeyStatus": "invalid-input",
+        "transmissionSucceeded": false,
+        "recoveredBits": null,
+        "knownPatternMatches": null,
+        "progressAward": 0
+      },
+      "derivation": "The actual earlier result can remain correct for revision 7, but a command carrying it at revision 8 is stale. Recheck also before emitting a later decoded result."
+    },
+    {
+      "id": "PJ-TRANSMIT-STALE-ATTEMPT",
+      "reviewedCaseRefs": [
+        "B-RETRY"
+      ],
+      "physicalChallenge": "passing-length",
+      "physicalAction": {
+        "kind": "measure-length"
+      },
+      "bench": "controlled-copper-bench",
+      "evaluatedVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "currentVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-b"
+      },
+      "stale": false,
+      "impairment": "none",
+      "expected": {
+        "physicalStatus": "correct",
+        "journeyStatus": "invalid-input",
+        "transmissionSucceeded": false,
+        "recoveredBits": null,
+        "knownPatternMatches": null,
+        "progressAward": 0
+      },
+      "derivation": "Equal configuration alone does not revive evidence from a different attempt; retry cannot carry forward successful transmission proof."
+    },
+    {
+      "id": "PJ-TRANSMIT-STALE-FLAG",
+      "reviewedCaseRefs": [
+        "B-STALE-FLAG"
+      ],
+      "physicalChallenge": "passing-length",
+      "physicalAction": {
+        "kind": "measure-length"
+      },
+      "bench": "controlled-copper-bench",
+      "evaluatedVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "currentVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "stale": true,
+      "impairment": "none",
+      "expected": {
+        "physicalStatus": "correct",
+        "journeyStatus": "invalid-input",
+        "transmissionSucceeded": false,
+        "recoveredBits": null,
+        "knownPatternMatches": null,
+        "progressAward": 0
+      },
+      "derivation": "Explicitly stale evidence stays stale even if both displayed version fields match."
+    },
+    {
+      "id": "PJ-TRANSMIT-LENGTH-ONLY",
+      "reviewedCaseRefs": [
+        "T01",
+        "C-PACKET"
+      ],
+      "physicalChallenge": "passing-length",
+      "physicalAction": {
+        "kind": "measure-length"
+      },
+      "bench": "length-only",
+      "evaluatedVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "currentVersion": {
+        "configurationRevision": 7,
+        "attemptId": "attempt-a"
+      },
+      "stale": false,
+      "impairment": "none",
+      "expected": {
+        "physicalStatus": "correct",
+        "physicalScope": "length only",
+        "journeyStatus": "content-error",
+        "transmissionSucceeded": false,
+        "recoveredBits": null,
+        "knownPatternMatches": null,
+        "progressAward": 0,
+        "attemptPenalty": 0
+      },
+      "derivation": "This fixture omits required authored path premises. Reject the incomplete transmission challenge as content-error; retain the valid length observation without promoting it to full-link proof."
+    }
+  ],
+  "controlCases": [
+    {
+      "id": "PJ-PAUSE",
+      "reviewedCaseRefs": [
+        "B-TIMING"
+      ],
+      "start": {
+        "phase": "encode",
+        "paused": false
+      },
+      "actions": [
+        "pause",
+        "idle"
+      ],
+      "expected": {
+        "phase": "encode",
+        "paused": true,
+        "sampleOrderChanged": false,
+        "progressAward": 0,
+        "itemConsumption": 0
+      },
+      "derivation": "Pause preserves the checkpoint, symbol order and physical result; idle has no mandatory timer."
+    },
+    {
+      "id": "PJ-STEP",
+      "reviewedCaseRefs": [
+        "B-TIMING"
+      ],
+      "start": {
+        "phase": "encode",
+        "paused": true
+      },
+      "actions": [
+        "step"
+      ],
+      "expected": {
+        "phase": "transmit",
+        "paused": true,
+        "sampleOrderChanged": false,
+        "progressAward": 0,
+        "itemConsumption": 0
+      },
+      "derivation": "A deliberate step exposes the next checkpoint while remaining paused. It cannot itself repair or award progress."
+    },
+    {
+      "id": "PJ-REPLAY",
+      "reviewedCaseRefs": [
+        "B-REPLAY",
+        "C-PACKET"
+      ],
+      "start": {
+        "phase": "compare",
+        "paused": true,
+        "transmissionCaseId": "PJ-TRANSMIT-PASS"
+      },
+      "actions": [
+        "replay",
+        "step",
+        "step",
+        "step",
+        "step"
+      ],
+      "expected": {
+        "phaseSequence": [
+          "payload",
+          "encode",
+          "transmit",
+          "decode",
+          "compare"
+        ],
+        "recoveredBits": "0100111001010001",
+        "progressAward": 0,
+        "itemConsumption": 0,
+        "physicalVersionChanged": false
+      },
+      "derivation": "With unchanged actual evidence, replay gives the same inspected trace. Replaying cannot grant duplicate effects or consume items."
+    },
+    {
+      "id": "PJ-REPLAY-STALE",
+      "reviewedCaseRefs": [
+        "T13",
+        "B-RETRY"
+      ],
+      "start": {
+        "phase": "compare",
+        "paused": true,
+        "transmissionCaseId": "PJ-TRANSMIT-PASS"
+      },
+      "actions": [
+        "change-configuration-or-attempt",
+        "replay"
+      ],
+      "expected": {
+        "freshPhysicalEvaluationRequired": true,
+        "transmissionSucceeded": false,
+        "progressAward": 0,
+        "itemConsumption": 0
+      },
+      "derivation": "Replaying after either world identity changes must obtain current physical evidence; the old comparison cannot become current proof."
+    },
+    {
+      "id": "PJ-RENDERER-FINISHED",
+      "reviewedCaseRefs": [
+        "B-REPLAY"
+      ],
+      "start": {
+        "phase": "transmit",
+        "paused": true
+      },
+      "actions": [
+        "renderer-animation-finished"
+      ],
+      "expected": {
+        "phase": "transmit",
+        "paused": true,
+        "progressAward": 0,
+        "itemConsumption": 0,
+        "transmissionSucceeded": false
+      },
+      "derivation": "Presentation completion is not a domain step or evaluation and has no authority to repair, compare or complete objectives."
+    }
+  ],
+  "handoff": {
+    "encodingAndPhysicalTask": "T032",
+    "controlsTask": "T033",
+    "integrationTask": "T034",
+    "reviewedEvaluatorTodosRemainUnchanged": true,
+    "reasonLabels": "Fixture reason labels describe semantics; T032 may map them to a documented stable API without changing inputs, arithmetic, status or no-award boundaries.",
+    "phases": [
+      "payload",
+      "encode",
+      "transmit",
+      "decode",
+      "compare"
+    ],
+    "runtimeTests": "Replace the named TODOs only with calls to actual domain/control code. Keep integrity checks distinct. Reuse source case IDs through references without marking the shared pending PHY10/PHY11 evaluator cases passed."
+  }
+}
