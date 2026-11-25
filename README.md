@@ -133,9 +133,9 @@ secrets, fake a login, or weaken Secure cookies to make a callback appear to wor
 | `npm run dev:client` | HTTP Vite client only at the printed nested URL; no PHP/auth support |
 | `npm run typecheck` | Strict TypeScript check of client, TS tools/tests and runner configurations |
 | `npm run check` | Typecheck plus actual content schema/generated-artifact drift, references and independent route validation |
-| `npm run test:domain` | Vitest content/state cases and source-fixture checks; the 83 future evaluator TODOs remain visibly pending |
+| `npm run test:domain` | Vitest content/state/UI/presentation and source-fixture checks; 15 reviewed copper/content-error cases execute, 68 evaluator cases remain pending |
 | `npm run test:api` | PHPUnit router/security/disposable-storage and synthetic HTTPS session harness; no real accounts/providers/saves |
-| `npm run test:e2e` | Build plus Chromium/Firefox static shell checks and isolated Firefox HTTPS shell/router check |
+| `npm run test:e2e` | Build plus Chromium/Firefox shell checks and isolated Firefox HTTPS router/UI/presentation checks; 9 prepared guest cases remain explicitly pending until T030 |
 | `npm run build` | Typecheck plus static Vite build in ignored `dist/` |
 | `npm run preview:client` | HTTP static build preview on loopback; no PHP/auth support |
 

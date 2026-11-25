@@ -2,8 +2,8 @@
   "feature": "001-physical-layer-underworld",
   "authorizedAt": "2026-11-25",
   "loopCap": 200,
-  "loopsStarted": 25,
-  "activeTask": "T017",
+  "loopsStarted": 31,
+  "activeTask": "T023/T036",
   "status": "running",
   "completedTasks": [
     "T001",
@@ -19,7 +19,12 @@
     "T015",
     "T016",
     "T019",
-    "T020"
+    "T020",
+    "T017",
+    "T018",
+    "T021",
+    "T022",
+    "T024"
   ],
   "blockedTasks": [
     {
@@ -41,12 +46,17 @@
       "note": "docs/implementation/loops/007-T005.md"
     }
   ],
-  "lastLoopNote": "docs/implementation/loops/024-T020.md",
+  "lastLoopNote": "docs/implementation/loops/029-T024.md",
   "activeLoops": [
     {
-      "loop": 25,
-      "task": "T017",
-      "agent": "/root/loop025_t017"
+      "loop": 30,
+      "task": "T023",
+      "agent": "/root/loop030_t023"
+    },
+    {
+      "loop": 31,
+      "task": "T036",
+      "agent": "/root/loop031_t036"
     }
   ],
   "gates": {
@@ -59,7 +69,7 @@
     "T011",
     "T007 final reassessment"
   ],
-  "nextAction": "T017 semantic action bus/DOM shell, then T018 presentation adapters and joined T021 foundation checks; continue guest slice.",
+  "nextAction": "T023 authors scenes and verifies hotspot reachability; T036 independently prepares save/auth/deletion fixtures from accepted contracts. Start guest controllers after shared authoring contracts stabilize; no gate waiver.",
   "executionDirection": "docs/implementation/execution-direction.md",
   "publicationAuthorization": {
     "date": "2026-11-25",
@@ -69,8 +79,8 @@
   },
   "publication": {
     "branch": "001-physical-layer-underworld",
-    "lastPushedCommit": "10be6ead6e93b3b099ddb0b68bef974453f72b7a",
-    "scope": "Reviewed source foundation through T015 with 51 content regressions; active T016 excluded.",
+    "lastPushedCommit": "5e67426222eff5688692038347ee9f160cd6a6ef",
+    "scope": "Reviewed foundation source through T017/T018/T019/T020; T021 accepted with 306 JS PASS/83 evaluator TODO, 57 PHP tests and 19 combined browser checks. Guest implementation next; no live release.",
     "releaseDeployed": false
   }
 }

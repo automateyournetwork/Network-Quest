@@ -77,7 +77,20 @@ story work, enable a real account service, or pass a gate. Join T016–T020 and 
 all shared interfaces before T021; defer any discovered client-dependent wiring. T020 may
 prepare its separate test configuration/command wiring concurrently, but must join
 the actual T016/T019 interfaces before its final checks. It cannot label planned
-story tests or pending evaluator TODOs as completed application coverage.
+story tests or pending evaluator TODOs as completed application coverage. T018 may
+also start against T017's implemented and unit-verified restricted ActionDispatcher
+port while DOM/browser checks finish, with separate presentation/test files and
+an explicit final interface join. No T017 completion or gate pass is inferred.
+
+### Verified independent guest scheduling
+
+After T021 foundation acceptance, T024 may run alongside T022/T023: its pure copper/continuity/content-error evaluator depends on the accepted T006 source models and T014 independent cases, not new room prose or DOM wiring. It owns separate domain modules and physical-rule tests; T022 owns guest expectations and T023 owns authored content. Preserve tests-before-evaluation, do not alter independent expected answers, and join actual content/controller interfaces before guest integration or T030 acceptance. This scheduling does not complete any other guest task or pass G1.
+
+T036 may also prepare independent save/auth/deletion expectations using the accepted
+API/save schema, data-model and delivery contracts while guest content/controllers
+are built. It owns only synthetic fixtures and their integrity checks. This neither
+starts live provider flows nor claims G1/G2 or SAVE acceptance; actual account and
+guest-promotion integration still needs the implemented interfaces and its checks.
 
 ## Required verification and production rules
 
@@ -123,11 +136,11 @@ story tests or pending evaluator TODOs as completed application coverage.
 - [X] T014 [P] Transcribe T01–T16 and independent per-rule correct/incorrect/boundary/invalid-input expectations into `tests/fixtures/physical-cases.json` and `tests/domain/physical-cases.test.ts`; manually check units/arithmetic against source review before any evaluator implementation.
 - [X] T015 Implement schema/reference/quest-graph validation in `src/content/registry.ts` and `tools/validate-content.ts`; reject unknown IDs/units, impossible prerequisites, missing equivalents and optional/future dependencies using deliberate corruption cases in `tests/content/registry.test.ts`.
 - [X] T016 Implement the deterministic command/reducer boundary, effect IDs, atomic transitions and configuration/attempt generations in `src/state/reducer.ts`; verify idempotent effects, interrupted transitions and essential-item recoverability in `tests/state/reducer.test.ts`.
-- [ ] T017 Build the shared semantic action bus and DOM shell in `src/ui/action-bus.ts` and `src/ui/app-shell.ts`; renderer, keyboard, pointer and touch must dispatch the same typed actions and never award progress independently.
-- [ ] T018 Define room presentation/audio adapters, resource ownership, bounded prefetch and disposal in `src/presentation/room-adapter.ts`, `src/presentation/resource-pool.ts` and `src/presentation/audio.ts`; expose a semantic fallback from the beginning.
+- [X] T017 Build the shared semantic action bus and DOM shell in `src/ui/action-bus.ts` and `src/ui/app-shell.ts`; renderer, keyboard, pointer and touch must dispatch the same typed actions and never award progress independently.
+- [X] T018 Define room presentation/audio adapters, resource ownership, bounded prefetch and disposal in `src/presentation/room-adapter.ts`, `src/presentation/resource-pool.ts` and `src/presentation/audio.ts`; expose a semantic fallback from the beginning.
 - [X] T019 [P] Create the scoped PHP API entry/router and isolated test DB/TLS/session harness in `server/public/index.php`, `server/src/Router.php` and `server/tests/Support/TestEnvironment.php`; reject test-auth configuration in production and prevent destructive tests from targeting real storage.
 - [X] T020 [P] Configure browser/domain checks and honest command wiring in `playwright.config.ts`, `vitest.config.ts` and `package.json`; implement check/test:domain/test:api/test:e2e/build against real suites, leaving unfinished release/media commands explicitly unavailable rather than returning false success.
-- [ ] T021 Run available type/content/reducer/harness checks and record foundation readiness in `docs/evidence/spec001/foundation.md`; verify no website source or runtime AI dependency and no story work starts with unresolved shared contract failures.
+- [X] T021 Run available type/content/reducer/harness checks and record foundation readiness in `docs/evidence/spec001/foundation.md`; verify no website source or runtime AI dependency and no story work starts with unresolved shared contract failures.
 
 ## Phase 3: User Story 1 — Begin investigating as a guest (P1)
 
@@ -141,9 +154,9 @@ story tests or pending evaluator TODOs as completed application coverage.
 
 **Ready after**: T012–T021.
 
-- [ ] T022 [US1] Author prepared guest walkthrough expectations for O01/O02, dialogue skip/replay and evidence travel in `tests/fixtures/guest-investigation.json` and `tests/e2e/guest-introduction.spec.ts`, before wiring the interaction.
+- [X] T022 [US1] Author prepared guest walkthrough expectations for O01/O02, dialogue skip/replay and evidence travel in `tests/fixtures/guest-investigation.json` and `tests/e2e/guest-introduction.spec.ts`, before wiring the interaction.
 - [ ] T023 [US1] Author the Arrival Lift and Titan's Workshop scenes, briefings and initial observations in `content/spec001/rooms/R01.json`, `content/spec001/rooms/R02.json` and `content/spec001/dialogue/introduction.json`; distinguish power from link and permit ongoing guest play.
-- [ ] T024 [US1] Implement declared copper/continuity and content-error evaluation needed by T01/T02/T14 in `src/domain/copper.ts` and `src/domain/evaluate.ts`; run the independent fixtures including exact-limit and malformed-profile cases before integrating scores.
+- [X] T024 [US1] Implement declared copper/continuity and content-error evaluation needed by T01/T02/T14 in `src/domain/copper.ts` and `src/domain/evaluate.ts`; run the independent fixtures including exact-limit and malformed-profile cases before integrating scores.
 - [ ] T025 [US1] Implement Walk/Look/Talk/Use, helpful unsupported-action feedback, inventory selection/item combinations and visible W/L/T/U/I/N/C controls in `src/ui/verbs.ts` and `src/ui/inventory.ts`; required tools cannot be consumed irrecoverably.
 - [ ] T026 [US1] Implement skippable/replayable dialogue with effect-once completion in `src/state/dialogue.ts` and `src/ui/dialogue.ts`; skipped lines retain required clues and replays cannot duplicate items/objective rewards.
 - [ ] T027 [US1] Implement Objectives/Evidence/Hypotheses/Maps/Personal Notes with source/freshness, pinning and 4096-character plain-text notes in `src/state/notebook.ts` and `src/ui/notebook.ts`; distinguish observations, speculation and user writing.

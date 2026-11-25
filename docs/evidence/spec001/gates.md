@@ -58,6 +58,12 @@ Do not repeat unchanged SSH/CUA attempts, passed bootstrap tests or paperwork lo
 
 Exit: actual browser R01/R02 graybox with Walk/Look/Talk/Use, keyboard/text equivalents, meaningful dialogue/inventory, persistent notebook/hypothesis and power-versus-link evidence; independent T01/T02/T14 plus correct/incorrect/boundary checks; initial packet payload/toy mapping and pause/step/replay driven by shared state. T021 foundation checks and T030/T034 observations must be recorded before review. A playable opening does not pass later routes, final media, full accessibility or the episode.
 
+T021 prerequisite accepted by the coordinator on 2026-11-25: [foundation evidence](foundation.md)
+records 306 passing JavaScript checks with 83 pending evaluator cases, 57 PHP tests,
+19 combined browser checks and an independently matched 66-file input seal. No shared
+foundation failure remains. T022 guest expectations and independent T024 rule work
+now proceed; authored gameplay, packet interaction and G1 acceptance remain pending.
+
 ## G2 — identity, one save and world structure
 
 **Status: PENDING.** Decision task T058; destinations `docs/evidence/spec001/US4.md`, `docs/evidence/spec001/real-providers.md` and this ledger. Coverage: C6/C8/C12; FR-003/010–016/025; NQ-04/08/10/11/12; AC11–13/17 and authored world structure.

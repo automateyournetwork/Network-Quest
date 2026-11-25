@@ -1,0 +1,116 @@
+{
+  "fixtureVersion": 1,
+  "episode": "spec001",
+  "task": "T022",
+  "authoredAt": "2026-11-25",
+  "license": "CC-BY-4.0",
+  "preparation": {
+    "method": "Independently transcribed contract expectations before T023 guest content and T025–T029 interaction wiring; never generated from application output.",
+    "entry": "Fresh unsigned-in browser profile; real New Adventure action; no injected game state, synthetic scene, provider credentials or player API key.",
+    "pendingUntil": ["T023", "T024", "T025", "T026", "T027", "T028", "T029"],
+    "activationTask": "T030",
+    "scope": "Guest investigation expectations only. Fixture-integrity checks are not playable-story, evaluator, finished-media, G1 or episode acceptance.",
+    "changePolicy": "Preserve behavior and source references. Review semantic label bindings with authored content before T030; never replace expected outcomes with implementation output. Remove all browser fixme annotations at T030 and run every case.",
+    "openAuthoringFacts": [
+      "Story names for prepared endpoint roles known-A/known-B and declared-path components, inspection tool and introductory inventory/reward identities.",
+      "Exact Photon/Titan dialogue and the supported path-changing action; no dialogue, endpoint identity or numeric profile is invented by this fixture."
+    ]
+  },
+  "sources": [
+    { "id": "guest", "path": "SPEC.md", "anchor": "R01 and the introductory part of R02 comprise the guest introduction." },
+    { "id": "o01", "path": "SPEC.md", "anchor": "Record power indication and link indication separately; perform a valid inspection" },
+    { "id": "o02", "path": "SPEC.md", "anchor": "Identify the known-good endpoints and the physical path under test; pin a hypothesis" },
+    { "id": "dialogue", "path": "SPEC.md", "anchor": "evidence and objectives cannot disappear because a line was skipped" },
+    { "id": "notebook", "path": "SPEC.md", "anchor": "The notebook has Objectives, Evidence, Hypotheses, Maps and Personal Notes." },
+    { "id": "freshness", "path": "SPEC.md", "anchor": "A changed link marks related readings stale until measured again." },
+    { "id": "title", "path": "SPEC.md", "anchor": "The title screen offers New Adventure, Continue, Settings and Credits." },
+    { "id": "controls", "path": "SPEC.md", "anchor": "W/L/T/U select Walk/Look/Talk/Use; I opens inventory; N opens notebook; C opens compendium" },
+    { "id": "skip-replay", "path": "specs/001-physical-layer-underworld/tasks.md", "anchor": "skipped lines retain required clues and replays cannot duplicate items/objective rewards" },
+    { "id": "power", "path": ".specify/memory/constitution.md", "anchor": "A power indicator and a data link are different observations." },
+    { "id": "no-key", "path": "specs/001-physical-layer-underworld/spec.md", "anchor": "R01 begins without sign-in, an AI account or an API key" },
+    { "id": "no-durable-claim", "path": "specs/001-physical-layer-underworld/contracts/gameplay.md", "anchor": "No browser memory is described as durable." },
+    { "id": "prepared-power", "path": "tests/fixtures/physical-cases.json", "anchor": "\"id\": \"C-PWR-OBS\"" },
+    { "id": "partial-power", "path": "tests/fixtures/physical-cases.json", "anchor": "\"id\": \"B-PWR-ONLY\"" },
+    { "id": "prepared-scope", "path": "tests/fixtures/physical-cases.json", "anchor": "\"id\": \"C-SCOPE\"" }
+  ],
+  "reviewedPreparation": {
+    "power": { "caseId": "C-PWR-OBS", "powerLamp": "on", "linkLamp": "off", "powered": true, "linkIndicated": false, "serviceProven": false },
+    "partialPower": { "caseId": "B-PWR-ONLY", "objectiveComplete": false },
+    "scope": { "caseId": "C-SCOPE", "endpoints": ["known-A", "known-B"], "physicalPath": "declared-path", "hypothesisPinned": true, "investigationPrepared": true, "hypothesisIsFact": false },
+    "bindingPolicy": "Use these existing T006/T014 prepared-case facts for the authored opening. known-A/known-B and declared-path are fixture roles, not new production IDs or invented story names. UI presents their actual authored names; source correspondence is reviewed at T023/T030."
+  },
+  "world": {
+    "rooms": [
+      { "id": "spec001:R01", "name": "The Arrival Lift" },
+      { "id": "spec001:R02", "name": "The Titan's Workshop" }
+    ],
+    "characters": ["spec001:CH03", "spec001:CH02"],
+    "objectives": [
+      { "id": "spec001:O01", "name": "Read the silent link in R01", "requires": ["separate-power-observation", "separate-link-observation", "valid-inspection"] },
+      { "id": "spec001:O02", "name": "Open the investigation in R02", "requires": ["O01", "known-good-endpoints", "declared-physical-path", "pinned-hypothesis"] }
+    ]
+  },
+  "ui": {
+    "policy": "Proposed functional accessible labels for T023–T029 integration, not existing UI or new story facts. Object-specific names may be mapped here after content review; required behavior stays fixed. Notebook and Inventory are named dialogs; their sections/lists are named semantic regions/lists. Evidence entries have heading, source, condition and freshness text.",
+    "verbs": ["Walk", "Look", "Talk", "Use"],
+    "shortcuts": { "Walk": "W", "Look": "L", "Talk": "T", "Use": "U", "Inventory": "I", "Notebook": "N", "Compendium": "C" },
+    "notebookSections": ["Objectives", "Evidence", "Hypotheses", "Maps", "Personal Notes"],
+    "actions": {
+      "newAdventure": "New Adventure",
+      "power": "Look at power indication",
+      "link": "Look at link indication",
+      "photon": "Talk to Photon the Firefly",
+      "titan": "Talk to the Titan",
+      "inspect": "Inspect physical path",
+      "toWorkshop": "Walk to The Titan's Workshop",
+      "toArrival": "Walk to The Arrival Lift",
+      "endpoints": "Identify known-good endpoints",
+      "path": "Identify physical path under test",
+      "pin": "Pin hypothesis",
+      "changePath": "Change physical path",
+      "skip": "Skip dialogue",
+      "replay": "Replay dialogue",
+      "next": "Next dialogue line",
+      "finish": "Finish dialogue",
+      "closeNotebook": "Close notebook",
+      "closeInventory": "Close inventory",
+      "decline": "Continue as guest"
+    },
+    "evidence": { "power": "Power indication", "link": "Link indication", "inspection": "Physical inspection", "endpoints": "Known-good endpoints", "path": "Physical path under test", "photonClue": "Power and communication", "titanClue": "Investigation scope" },
+    "text": {
+      "powerCaveat": "Power indication does not prove a data link.",
+      "powerCondition": "Power indication: lit.",
+      "serviceNotProven": "End-to-end service is not proven.",
+      "scopeClue": "Inspect the physical path between known-good endpoints.",
+      "linkCondition": "Link indication: unlit.",
+      "validInspection": "Valid inspection recorded.",
+      "completed": "Completed",
+      "pinned": "Pinned",
+      "current": "Freshness: current",
+      "stale": "Freshness: stale",
+      "observation": "Freshness: observation",
+      "guestStatus": "Guest — progress is only in this session.",
+      "signInExplanation": "Sign in to save your adventure."
+    },
+    "endpointPolicy": "The displayed Known-good endpoints list has two distinct named entries ending in ' — known good'. The displayed Physical path under test list orders the same endpoint names first and last, with any authored intermediate components between. No endpoint or component name is guessed here.",
+    "introductoryInventoryPolicy": "T023 must bind a real introductory inventory item/effect for the replay case. Its name and award are authored content decisions; the tested baseline must be nonempty. Inventory rows expose Quantity: followed by a positive integer, so replay compares quantities as well as names. This does not prescribe an extra fictional item or count an asset as finished.",
+    "dialogueEvidencePolicy": "Power and communication / Investigation scope are functional clue labels to bind to the actual Photon/Titan clue-bearing topics. Their required meanings come from O01/O02, not newly invented dialogue. Skipping either topic retains its evidence; replay cannot duplicate it.",
+    "measurementPolicy": "A physical inspection entry exposes the observed result and source. After a real supported path change, the old entry remains stale and a new inspection adds a current entry; an old result is not silently relabeled current. Exact numeric grading remains in the separately reviewed physical cases."
+  },
+  "playerInput": {
+    "hypothesis": "The physical path may explain the silent link; I need inspection evidence.",
+    "note": "Compare power with communication. <b>my note</b> W L T U I N C",
+    "inputPolicy": "Player-authored hypothesis and plain-text note, not scored networking facts."
+  },
+  "cases": [
+    { "id": "GI01", "title": "Fresh New Adventure enters R01 as a guest", "sourceIds": ["guest", "title", "controls", "no-key"], "requirements": ["NQ-01", "FR-001", "AC01"], "expect": ["R01", "four-verbs-visible", "no-provider-navigation", "no-key-prompt"] },
+    { "id": "GI02", "title": "O01 requires separate power/link observations and valid inspection", "sourceIds": ["o01", "power", "controls", "prepared-power", "partial-power"], "requirements": ["NQ-01", "NQ-04", "FR-001", "FR-003", "AC01", "AC04"], "expect": ["power-distinct-from-link", "power-lit", "link-unlit", "O01-incomplete-before-valid-inspection", "current-inspection", "O01-complete"] },
+    { "id": "GI03", "title": "R02 O02 requires endpoints, declared path and a pinned hypothesis", "sourceIds": ["o01", "o02", "notebook", "prepared-scope"], "requirements": ["NQ-01", "NQ-04", "FR-003", "AC01", "AC04"], "expect": ["R01-to-R02", "known-good-endpoints", "declared-physical-path", "O02-incomplete-before-pin", "hypothesis-distinct-from-observation", "O02-complete"] },
+    { "id": "GI04", "title": "Evidence, pinned hypothesis and plain-text notes travel both ways", "sourceIds": ["guest", "notebook", "controls"], "requirements": ["NQ-04", "FR-003", "AC04"], "expect": ["five-notebook-sections", "source-room-preserved", "notes-as-text", "hypothesis-retained", "no-duplicate-evidence-on-return"] },
+    { "id": "GI05", "title": "Skipping clue dialogue leaves evidence and objectives obtainable", "sourceIds": ["dialogue", "skip-replay", "o01", "o02"], "requirements": ["NQ-01", "NQ-04", "FR-001", "FR-003", "AC01", "AC04"], "expect": ["skip-Photon", "skip-Titan", "required-clues-retained", "O01-complete", "O02-complete"] },
+    { "id": "GI06", "title": "Replay preserves clues without duplicate items or objective rewards", "sourceIds": ["dialogue", "skip-replay"], "requirements": ["NQ-04", "FR-003", "AC04"], "expect": ["replay-Photon", "replay-Titan", "same-inventory-quantities", "same-completed-objectives", "same-clue-counts"] },
+    { "id": "GI07", "title": "A real path change retains stale inspection until remeasurement", "sourceIds": ["freshness", "notebook"], "requirements": ["NQ-04", "FR-003", "AC04"], "expect": ["current-before-change", "stale-after-change", "old-reading-retained", "no-current-reading-before-remeasurement", "new-current-reading-after-remeasurement"] },
+    { "id": "GI08", "title": "Declining sign-in continues session play without durable saving", "sourceIds": ["guest", "no-key", "no-durable-claim", "title"], "requirements": ["NQ-01", "FR-001", "AC01"], "expect": ["dismissible-invitation", "guest-session-only-label", "continued-room-travel", "notes-retained", "no-save-write", "no-provider-navigation"] },
+    { "id": "GI09", "title": "Keyboard follows the same four-verb investigation", "sourceIds": ["controls", "o01", "o02", "notebook"], "requirements": ["NQ-01", "NQ-04", "FR-001", "FR-003", "AC01", "AC04", "AC14"], "expect": ["W-L-T-U", "I-N-C-visible", "Enter-actions", "O01-complete", "O02-complete", "note-shortcuts-do-not-fire"] }
+  ]
+}
