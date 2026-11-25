@@ -441,3 +441,16 @@ Historical access failures and no-write statements above describe their dated
 attempts. Loop019's scoped synthetic writes and verified cleanup supersede those
 statements for the current overall audit. Independent local development continues;
 missing retention evidence does not block unrelated game code.
+
+### Owner input requested after probe acceptance
+
+The coordinator requested only the displayed GoDaddy backup retention plan or
+oldest available date: My Products → Web Hosting → Manage → Backups, viewing
+settings only. [Current official navigation](https://www.godaddy.com/help/restore-a-site-using-daily-backups-41162)
+was checked on 2026-11-25. The [upgrade documentation](https://www.godaddy.com/help/upgrade-daily-backups-on-web-hosting-cpanel-42579)
+describes 7/14/30-day options; neither page establishes this account's selection,
+private-path coverage or physical erasure. No purchase or restore was requested.
+The response is pending and does not block independent local implementation.
+Existing unrelated website archives stay intact. Retention/recovery policy must
+cover copies that actually contain Network Quest data once the service exists;
+old unrelated archives are not a reason to delete website rollback history.

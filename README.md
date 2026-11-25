@@ -81,22 +81,26 @@ curl --cacert .local/tls/cert.pem --include \
   https://127.0.0.1:8443/arcade/play/network-quest/api/v1/session
 ```
 
-The shell returns 200. Every actual API route currently returns **503** with
-`service_not_implemented`, `scope: local_bootstrap`, no account/session cookie,
-and `Cache-Control: no-store`. This is deliberate startup plumbing, not an
-authentication implementation. `tools/dev-router.php` is outside the public PHP
-artifact and cannot serve static files; it will need replacement by the real
-reviewed API after its implementation tasks. PHP receives canonical HTTPS forwarding
+The shell returns 200. Contracted API operations currently return **503** with
+`service_not_implemented`, no account/session cookie, and `Cache-Control: no-store`.
+Callbacks return an inert HTML explanation that sign-in is unavailable. Unknown
+routes return 404; unsupported methods return 405. The shared
+`server/public/index.php`/`server/src/Router.php` boundary validates transport and
+routes but implements no account or save operations. `tools/dev-router.php`
+adapts local readiness and delegates to that shared entry; neither router serves
+arbitrary static files. PHP receives canonical HTTPS forwarding
 headers from the proxy, while forged forwarding fields are removed. A per-run
 random token restricts direct worker access. It is not a production proxy design.
 
-No trust store is modified. A self-signed certificate remains untrusted in a normal
-browser; browser trust/interaction are **unverified**. Use an operator-managed,
-browser-trusted development certificate before browser or future provider testing.
+No system trust store is modified. The self-signed certificate above remains
+untrusted in a normal browser. Use an operator-managed, browser-trusted development
+certificate for interactive development. The automated Firefox HTTPS check below
+uses a separate disposable CA, signed SAN leaf and private test profile; its trust
+does not extend to your normal browser or prove provider readiness.
 Do not bypass certificate errors, add insecure browser flags, use `curl -k`, or set
 `NODE_TLS_REJECT_UNAUTHORIZED=0`. The launcher does not open a browser. HMR and file
 watching are disabled in the combined bootstrap; restart after source or public-file
-edits, then reload. Browser rendering/accessibility acceptance is later work.
+edits, then reload. Gameplay/browser accessibility acceptance is later work.
 
 `NQ_DEV_PORT` may explicitly select another unprivileged port; the printed origin
 and any future provider registration must then match it exactly. Local HTTPS
@@ -124,10 +128,14 @@ secrets, fake a login, or weaken Secure cookies to make a callback appear to wor
 
 | Command | Implemented behavior |
 | --- | --- |
-| `npm run dev` | Loopback HTTPS frontend plus PHP bootstrap above; no working API |
+| `npm run dev` | Loopback HTTPS frontend plus shared PHP router; contracted operations are explicitly unavailable |
 | `npm run dev:verify` | Disposable TLS/HTTP/PHP transport checks; generates and removes private synthetic fixtures and a temporary certificate; no real login/data/browser |
 | `npm run dev:client` | HTTP Vite client only at the printed nested URL; no PHP/auth support |
-| `npm run typecheck` | Strict TypeScript check |
+| `npm run typecheck` | Strict TypeScript check of client, TS tools/tests and runner configurations |
+| `npm run check` | Typecheck plus actual content schema/generated-artifact drift, references and independent route validation |
+| `npm run test:domain` | Vitest content/state cases and source-fixture checks; the 83 future evaluator TODOs remain visibly pending |
+| `npm run test:api` | PHPUnit router/security/disposable-storage and synthetic HTTPS session harness; no real accounts/providers/saves |
+| `npm run test:e2e` | Build plus Chromium/Firefox static shell checks and isolated Firefox HTTPS shell/router check |
 | `npm run build` | Typecheck plus static Vite build in ignored `dist/` |
 | `npm run preview:client` | HTTP static build preview on loopback; no PHP/auth support |
 
@@ -135,7 +143,8 @@ secrets, fake a login, or weaken Secure cookies to make a callback appear to wor
 private-path/symlink denial, same-origin routing, header replacement, a **synthetic**
 Secure/HttpOnly/SameSite=Lax host-only cookie, port conflicts and shutdown. That
 cookie exists only in an external temporary probe router and represents no identity.
-No fixture is derived from production data. The public PHP directory remains empty.
+No fixture is derived from production data. The shared public entry implements
+the route/security boundary only.
 
 Vite retains its standard private-file deny patterns and adds project private paths.
 An early boundary also covers `public/`, symlinks, encoded paths and `/@fs`.
@@ -143,11 +152,49 @@ The TLS proxy rejects foreign Host/Origin and never logs callback queries, token
 bodies; PHP access output is suppressed. These local guards do not replace the later
 release exclusion and production-host security checks.
 
-`check`, `test:domain`, `test:api`, `test:e2e`, `assets:verify`, `package:release`
-and deployment commands are **not implemented**. The empty PHPUnit suite correctly
-fails; it is not application test coverage. Do not infer completed gameplay, media,
-provider flows or episode acceptance from a successful build or transport test.
-See [T011 evidence](docs/evidence/spec001/local-development.md).
+`test:api` requires pinned PHP through `NQ_PHP_BIN` (or a matching `php` on PATH)
+and runs with a restricted environment. Production provider/configuration values
+are not inherited. Its harness defaults to the repository's verified Node path;
+on another platform provide an absolute `NQ_TEST_NODE_BIN` for Node 26.13.1.
+See [service harness instructions](server/tests/README.md).
+
+`test:e2e` needs the pinned Playwright Chromium/Firefox binaries, PHP, OpenSSL
+with `req -addext`, and Mozilla NSS `certutil` (already available on the verified
+Mac). `NQ_OPENSSL_BIN` and `NQ_CERTUTIL_BIN` can select those tools explicitly.
+Missing tools or browsers fail the command with an error; no checks silently skip.
+Install just the matching browser binaries when needed:
+
+```sh
+PLAYWRIGHT_SKIP_BROWSER_GC=1 node node_modules/playwright/cli.js install chromium firefox
+NQ_PHP_BIN=/opt/homebrew/opt/php@8.4/bin/php npm run test:e2e
+```
+
+Static smoke uses a freshly started loopback HTTP preview of `dist/` on port 4173;
+an occupied port fails instead of reusing an unknown server. It verifies shell
+JavaScript/CSS, nested routing, private-file denial and automated text-shell
+accessibility at 390px. It is not API/session evidence. The separate Firefox test
+uses a disposable HTTPS/PHP server, one-day CA/SAN leaf and unique NSS profile,
+proves an untrusted profile rejects that certificate, then verifies the trusted
+shell and actual 503/404/405 router behavior. Certificate errors are never ignored.
+CA/key/profile/server files and processes are removed after each check. No browser
+cookie is created by the real foundation API; synthetic Secure session checks
+belong to the isolated PHP/transport harnesses.
+
+Vitest discovers `tests/**/*.test.ts`, including future UI and other foundation
+suites. Playwright currently assigns the foundation static/TLS specs under
+`tests/e2e/`; its discovery guard fails if any new browser test has no project.
+T022/T030 and later story work must register each new suite in the applicable
+browser project and use trusted HTTPS for any API/session journey.
+Both runners exclude runtime/dependency/build trees,
+fail empty runs, and report real failures. Traces/screenshots from failed local
+browser checks remain in ignored `test-results/` for diagnosis.
+
+`assets:verify`, `package:release` and deployment commands remain **unimplemented**.
+No script returns false success for those future tasks. A passing foundation run
+does not certify evaluator coverage, gameplay, real sign-in/saves, actual Safari,
+manual assistive/zoom review, media, human learning or episode acceptance.
+See [T011 evidence](docs/evidence/spec001/local-development.md) and
+[T020 command evidence](docs/implementation/loops/024-T020.md).
 
 ## Reuse and contributions
 

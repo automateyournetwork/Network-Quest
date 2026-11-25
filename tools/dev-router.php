@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
-// Local startup plumbing only, outside server/public. Never a release API/router.
+// Local proxy/readiness adapter outside server/public. The shared entry owns API routing.
 // Never returns false: the PHP built-in server must not serve arbitrary files.
 $token = getenv('NQ_DEV_PROXY_TOKEN');
 if (!is_string($token) || $token === ''
@@ -20,6 +20,4 @@ if ($_SERVER['REQUEST_URI'] === '/__nq_dev_ready') {
     return;
 }
 
-http_response_code(503);
-header('Content-Type: application/json; charset=utf-8');
-echo json_encode(['error' => 'service_not_implemented', 'scope' => 'local_bootstrap']);
+require dirname(__DIR__) . '/server/public/index.php';

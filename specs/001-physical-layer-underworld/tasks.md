@@ -66,6 +66,19 @@ flowchart TD
 
 This is a conservative valid execution order, not a claim that all stories have the same priority or are isolated codebases. Independent story tests use controlled prepared states; they do not require a player to finish every other route or optional quest. Broader parallel scheduling is allowed only when actual dependencies, gate evidence and file ownership permit it.
 
+### Verified independent foundation scheduling
+
+The coordinator may run T019's PHP-only router/disposable harness alongside T016:
+its actual inputs are the accepted T009 Composer/runtime bootstrap and existing
+API/storage contracts, not the client reducer, action bus or media adapters.
+It owns separate server files. This uses the broader independent scheduling rule
+above and the owner's continuation instruction. It does not complete T018, start
+story work, enable a real account service, or pass a gate. Join T016–T020 and verify
+all shared interfaces before T021; defer any discovered client-dependent wiring. T020 may
+prepare its separate test configuration/command wiring concurrently, but must join
+the actual T016/T019 interfaces before its final checks. It cannot label planned
+story tests or pending evaluator TODOs as completed application coverage.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -109,11 +122,11 @@ This is a conservative valid execution order, not a claim that all stories have 
 - [X] T013 [P] Create room/objective/dialogue/profile/character/item schema definitions and the exact twelve-room/branch registry in `content/schemas/content.schema.json` and `content/spec001/world.json`; retain all original R/O/CH/PR/SQ/MG IDs and future-door boundaries.
 - [X] T014 [P] Transcribe T01–T16 and independent per-rule correct/incorrect/boundary/invalid-input expectations into `tests/fixtures/physical-cases.json` and `tests/domain/physical-cases.test.ts`; manually check units/arithmetic against source review before any evaluator implementation.
 - [X] T015 Implement schema/reference/quest-graph validation in `src/content/registry.ts` and `tools/validate-content.ts`; reject unknown IDs/units, impossible prerequisites, missing equivalents and optional/future dependencies using deliberate corruption cases in `tests/content/registry.test.ts`.
-- [ ] T016 Implement the deterministic command/reducer boundary, effect IDs, atomic transitions and configuration/attempt generations in `src/state/reducer.ts`; verify idempotent effects, interrupted transitions and essential-item recoverability in `tests/state/reducer.test.ts`.
+- [X] T016 Implement the deterministic command/reducer boundary, effect IDs, atomic transitions and configuration/attempt generations in `src/state/reducer.ts`; verify idempotent effects, interrupted transitions and essential-item recoverability in `tests/state/reducer.test.ts`.
 - [ ] T017 Build the shared semantic action bus and DOM shell in `src/ui/action-bus.ts` and `src/ui/app-shell.ts`; renderer, keyboard, pointer and touch must dispatch the same typed actions and never award progress independently.
 - [ ] T018 Define room presentation/audio adapters, resource ownership, bounded prefetch and disposal in `src/presentation/room-adapter.ts`, `src/presentation/resource-pool.ts` and `src/presentation/audio.ts`; expose a semantic fallback from the beginning.
-- [ ] T019 [P] Create the scoped PHP API entry/router and isolated test DB/TLS/session harness in `server/public/index.php`, `server/src/Router.php` and `server/tests/Support/TestEnvironment.php`; reject test-auth configuration in production and prevent destructive tests from targeting real storage.
-- [ ] T020 [P] Configure browser/domain checks and honest command wiring in `playwright.config.ts`, `vitest.config.ts` and `package.json`; implement check/test:domain/test:api/test:e2e/build against real suites, leaving unfinished release/media commands explicitly unavailable rather than returning false success.
+- [X] T019 [P] Create the scoped PHP API entry/router and isolated test DB/TLS/session harness in `server/public/index.php`, `server/src/Router.php` and `server/tests/Support/TestEnvironment.php`; reject test-auth configuration in production and prevent destructive tests from targeting real storage.
+- [X] T020 [P] Configure browser/domain checks and honest command wiring in `playwright.config.ts`, `vitest.config.ts` and `package.json`; implement check/test:domain/test:api/test:e2e/build against real suites, leaving unfinished release/media commands explicitly unavailable rather than returning false success.
 - [ ] T021 Run available type/content/reducer/harness checks and record foundation readiness in `docs/evidence/spec001/foundation.md`; verify no website source or runtime AI dependency and no story work starts with unresolved shared contract failures.
 
 ## Phase 3: User Story 1 — Begin investigating as a guest (P1)

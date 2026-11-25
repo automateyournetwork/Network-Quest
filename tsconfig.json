@@ -4,6 +4,7 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
     "types": ["vite/client", "node"],
     "strict": true,
     "noUncheckedIndexedAccess": true,
@@ -20,6 +21,6 @@
     "skipLibCheck": false,
     "noEmit": true
   },
-  "include": ["src", "vite.config.ts"],
-  "exclude": ["dist", "node_modules"]
+  "include": ["src", "tools/**/*.ts", "tests/**/*.ts", "*.config.ts"],
+  "exclude": [".local", ".runtime", "dist", "build", "node_modules", "server/vendor"]
 }

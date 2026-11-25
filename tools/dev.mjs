@@ -127,7 +127,7 @@ export async function startDev({ cert, key, port = 8443, php = 'php', probeRoute
       '-d', 'session.cookie_samesite=Lax', '-d', `session.save_path=${runDirectory}`,
       '-S', `${host}:${phpPort}`, '-t', path.join(root, 'server/public'),
       probeRouter ?? path.join(root, 'tools/dev-router.php')], {
-      cwd: runDirectory, env: { ...childEnv, TMPDIR: runDirectory, NQ_DEV_PROXY_TOKEN: token },
+      cwd: runDirectory, env: { ...childEnv, TMPDIR: runDirectory, NQ_ENVIRONMENT: 'local', NQ_DEV_PROXY_TOKEN: token },
       // PHP's CLI access/error output can include raw callback URLs. Never relay it.
       stdio: 'ignore',
     });
@@ -198,7 +198,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       active = await startDev({ cert: process.env.NQ_TLS_CERT, key: process.env.NQ_TLS_KEY,
         port: Number(process.env.NQ_DEV_PORT ?? 8443), php: process.env.NQ_PHP_BIN ?? 'php' });
       if (interrupted) await active.stop();
-      else console.log(`Local: ${active.url}\nHTTPS/PHP bootstrap only; API returns 503. Ctrl+C stops both.\nUse explicit certificate trust; README.md documents verification.`);
+      else console.log(`Local: ${active.url}\nHTTPS/PHP foundation only; contracted API operations return 503. Ctrl+C stops both.\nUse explicit certificate trust; README.md documents verification.`);
     } catch (error) {
       // Deliberately omit stack/URLs/environment and child output from startup logs.
       console.error(`Local development startup failed (${code(error)}). ${error instanceof Error && !error.code ? error.message : 'Check TLS inputs and that the port is free; see README.md.'}`);

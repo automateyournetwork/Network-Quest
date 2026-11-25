@@ -1,6 +1,6 @@
 # Quickstart: Spec001 implementation
 
-**Status:** implementation initiated on 2026-11-25. Follow `docs/implementation/HANDOFF.md` for current progress. T008 verified `npm ci`, `npm run typecheck` and `npm run build` for the local bootstrap; see [client evidence](../../docs/evidence/spec001/client-bootstrap.md). T009 verified Composer install and T011 added `npm run dev`/`npm run dev:verify`; [README](../../README.md) documents real local HTTPS and the deliberately unavailable API. Other commands below remain planned until their tasks create and verify them; do not infer gameplay or provider readiness from tool installation.
+**Status:** implementation initiated on 2026-11-25. Follow `docs/implementation/HANDOFF.md` for current progress. T008 verified `npm ci`, `npm run typecheck` and `npm run build` for the local bootstrap; see [client evidence](../../docs/evidence/spec001/client-bootstrap.md). T009 verified Composer install and T011 added `npm run dev`/`npm run dev:verify`; [README](../../README.md) documents real local HTTPS and the deliberately unavailable API. T020 now verifies `check`, `test:domain`, `test:api` and `test:e2e` against actual foundation suites; see loop024 evidence. Asset/release/deployment commands remain planned. No gameplay or provider readiness follows from foundation checks.
 
 Read [spec.md](spec.md), [plan.md](plan.md), [research.md](research.md) and [constitution](../../.specify/memory/constitution.md). The working branch is `001-physical-layer-underworld`. Execute the existing task batches with one task per fresh-agent loop and persistent verification notes.
 
@@ -22,7 +22,7 @@ These commands must be implemented, fail on real errors and never deploy implici
 | --- | --- |
 | npm ci | Install pinned client/tool dependencies from committed lockfile |
 | composer install --working-dir=server | Install pinned PHP dependencies; package production without development dependencies |
-| npm run dev | Implemented loopback HTTPS/Vite/PHP bootstrap with explicit TLS inputs; actual API remains unavailable. README documents startup and limitations. |
+| npm run dev | Implemented loopback HTTPS/Vite/PHP bootstrap with explicit TLS inputs; shared router is implemented; actual account/save operations remain unavailable. README documents startup and limitations. |
 | npm run check | Type checking, schemas, content references and route/quest graph |
 | npm run test:domain | Independent physical-rule and state cases, including T01–T16 and retry invariants |
 | npm run test:api | Service/security/concurrency/migration checks against explicitly isolated test storage |

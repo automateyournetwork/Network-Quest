@@ -1,5 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
-// T011 transport verification only; no account, session, persistence or game tests.
+// T011/T020 transport verification; shared T019 router but no real account or save.
 import assert from 'node:assert/strict';
 import { spawn, spawnSync } from 'node:child_process';
 import { mkdtemp, mkdir, readFile, writeFile, chmod, rm, symlink, access } from 'node:fs/promises';
@@ -99,10 +99,27 @@ try {
     assert.equal(response.status, 503);
     assert.equal(response.headers['cache-control'], 'no-store');
     assert.equal(response.headers['set-cookie'], undefined);
-    assert.deepEqual(JSON.parse(response.body), { error: 'service_not_implemented', scope: 'local_bootstrap' });
+    assert.equal(response.headers['referrer-policy'], 'no-referrer');
+    assert.equal(response.headers['x-content-type-options'], 'nosniff');
+    assert.equal(response.headers['content-security-policy'], "default-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'");
+    if (route.startsWith('auth/')) {
+      assert.match(response.headers['content-type'], /^text\/html/);
+      assert.match(response.body, /No sign-in was completed/);
+      assert.ok(!response.body.includes('synthetic-'));
+    } else {
+      const problem = JSON.parse(response.body);
+      assert.equal(problem.code, 'service_not_implemented');
+      assert.equal(problem.message, 'This game service has not been implemented.');
+      assert.match(problem.requestId, /^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/);
+      assert.equal(response.headers['x-request-id'], problem.requestId);
+    }
   }
+  assert.equal((await request(active.url, { ca, pathname: `${base}api/v1/not-a-route` })).status, 404);
+  const wrongMethod = await request(active.url, { ca, pathname: `${base}api/v1/session`, method: 'POST' });
+  assert.equal(wrongMethod.status, 405);
+  assert.equal(wrongMethod.headers.allow, 'GET');
   assert.equal((await request(`http://127.0.0.1:${active.phpPort}`, { plain: true })).status, 404);
-  passed('real API unavailable without cookie; direct PHP cannot bypass proxy token');
+  passed('shared API router: honest 503, inert callbacks, unknown404/method405; no cookie or direct PHP bypass');
 
   assert.equal((await request(active.url, { ca, pathname: `${base}${marker}/safe.txt` })).body, 'synthetic public asset');
   const denied = ['server/config.example.php', '.local/provider-discovery.json', '.runtime/composer-2.11.3.phar',
