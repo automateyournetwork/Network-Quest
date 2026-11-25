@@ -79,6 +79,8 @@ function profile(index = 0): any {
 }
 function input(records: any[] = []): any {
   const w = structuredClone(world);
+  // These are independent metadata/negative fixtures, not the live authored slice.
+  w.documents = [];
   const documents: Record<string, unknown> = {};
   if (records.length) {
     const path = 'content/spec001/test-authored.json';
@@ -297,6 +299,64 @@ describe('authored reachability, equivalents, recovery and safe positions', () =
   });
   it('accepts a safe anchor exactly on the walk boundary', () => {
     const r = room(); r.safePositions[0].point = { x: 0, y: 5 }; expect(validateContent(input([r])).ok).toBe(true);
+  });
+});
+
+describe('room hotspot dialogue-choice reachability', () => {
+  function scene() {
+    const r = room(), d = dialogue(), o = objective();
+    d.nodes[0].effects = [setFlag('entry-ready', 'entry-ready', true)];
+    d.nodes[0].choices[0].effects = [setFlag('choice-ready', 'choice-ready', true)];
+    d.nodes[0].choices[0].condition = flag('entry-ready', true);
+    r.hotspots[0].actionIds = [d.nodes[0].choices[0].id];
+    o.alternatives[0].condition = { kind: 'all', conditions: [flag('entry-ready', true), flag('choice-ready', true)] };
+    return { r, d, o };
+  }
+  it('follows the exposed entry choice with entry effects before choice conditions', () => {
+    const { r, d, o } = scene();
+    const result = validateContent(input([r, d, o]));
+    expect(result.ok, JSON.stringify(result)).toBe(true);
+  });
+  it('cannot obtain unexposed sibling choice effects', () => {
+    const { r, d, o } = scene();
+    d.nodes[0].choices.push({ id: q('CHOICE-hidden'), text: 'Unexposed choice', condition: always(), nextNodeId: null, effects: [setFlag('hidden', 'hidden', true)] });
+    o.alternatives[0].condition = flag('hidden', true);
+    rejects(input([r, d, o]), 'route-unreachable');
+  });
+  it('does not jump from a hotspot directly into a non-entry node choice', () => {
+    const { r, d, o } = scene();
+    d.nodes[1].choices = [{ id: q('CHOICE-later'), text: 'Later choice', condition: always(), nextNodeId: null, effects: [setFlag('later', 'later', true)] }];
+    r.hotspots[0].actionIds = [q('CHOICE-later')];
+    o.alternatives[0].condition = flag('later', true);
+    rejects(input([r, d, o]), 'hotspot-dialogue-entry');
+  });
+  it('reports a corrupt cross-dialogue entry without throwing during route analysis', () => {
+    const { r, d, o } = scene();
+    const other = dialogue(); other.id = q('DIALOGUE-other');
+    other.nodes = [{ ...other.nodes[1], id: q('DIALOGUE-other-entry') }];
+    other.entryNodeId = q('DIALOGUE-other-entry');
+    d.entryNodeId = other.entryNodeId;
+    rejects(input([r, d, other, o]), 'dialogue-reference');
+  });
+  it('preserves the entry condition and checks next-node conditions after selected effects', () => {
+    let { r, d, o } = scene();
+    d.nodes[0].condition = flag('entry-ready', true);
+    rejects(input([r, d, o]), 'route-unreachable');
+    ({ r, d, o } = scene());
+    d.nodes[1].condition = flag('choice-ready', false);
+    rejects(input([r, d, o]), 'route-unreachable');
+  });
+  it('follows actual subsequent choices but cannot retain an overwritten flag', () => {
+    const { r, d, o } = scene();
+    d.nodes[1].choices = [{ id: q('CHOICE-finish'), text: 'Finish', condition: flag('choice-ready', true), nextNodeId: null, effects: [setFlag('overwrite-ready', 'choice-ready', false)] }];
+    rejects(input([r, d, o]), 'route-unreachable');
+  });
+  it('cannot replay a one-time hotspot grant into a required second item', () => {
+    const { r, d, o } = scene();
+    const i = item(); i.acquisition.condition = complete('O12');
+    d.nodes[0].choices[0].effects.push({ kind: 'grant-item', effectId: q('EFFECT-give-probe'), itemId: i.id, quantity: 1 });
+    o.alternatives[0].condition = { kind: 'item-available', itemId: i.id, quantity: 2 };
+    rejects(input([r, d, o, i]), 'route-unreachable');
   });
 });
 

@@ -1,0 +1,378 @@
+{
+  "kind": "collection",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "records": [
+    {
+      "kind": "objective",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:O01",
+      "prerequisite": {
+        "kind": "always"
+      },
+      "evidence": [
+        {
+          "id": "spec001:FACT-power",
+          "roomId": "spec001:R01",
+          "subjectIds": [
+            "spec001:PR002"
+          ],
+          "kind": "observation",
+          "text": "Power indication: lit. The call panel reports power at the lift. Power indication does not prove a data link. Source: lift call panel; observed in The Arrival Lift.",
+          "ruleIds": [
+            "spec001:PHY01"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-link",
+          "roomId": "spec001:R01",
+          "subjectIds": [
+            "spec001:PR006"
+          ],
+          "kind": "observation",
+          "text": "Link indication: unlit. The separate link lamp reports no indicated link. The lamp is not a diagnosis of the cause. End-to-end service is not proven. Source: link indicator beside the arrival tube; observed in The Arrival Lift.",
+          "ruleIds": [
+            "spec001:PHY01"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-inspection",
+          "roomId": "spec001:R01",
+          "subjectIds": [
+            "spec001:PR003",
+            "spec001:PROFILE-COPPER-100"
+          ],
+          "kind": "measurement",
+          "text": "Physical inspection. Trace Lift Sender A through the selected conduit and the 10 m workshop patch lead to Workshop Receiver B. The service-loop conduit is 95 m (105 m total); the direct conduit is 85 m (95 m total). These are the supplied T02/T01 lengths in the fictional PROFILE-COPPER-100, whose inclusive limit is 100 m. Record the selected path and measured result at the current configuration and attempt. Valid inspection recorded means the inspection was performed, even when length exceeds the profile. It does not mean the link or a service works. A changed path leaves the old result stale until a new inspection. Source: labeled training conduit and inspection kit in The Arrival Lift; PHY04; T01/T02.",
+          "ruleIds": [
+            "spec001:PHY04",
+            "spec001:STATE01"
+          ],
+          "requiresFreshMeasurement": true,
+          "readings": [
+            {
+              "name": "Channel length",
+              "unit": "m"
+            }
+          ]
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-complete-O01",
+          "label": "Record both indications and validate the inspection",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "all",
+            "conditions": [
+              {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-power-observed",
+                "value": true
+              },
+              {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-link-observed",
+                "value": true
+              },
+              {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-path-inspected",
+                "value": true
+              }
+            ]
+          },
+          "ruleIds": [
+            "spec001:PHY01"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-power",
+            "spec001:FACT-link",
+            "spec001:FACT-inspection"
+          ],
+          "effects": [],
+          "explanation": "Both indicators must have been observed separately and a valid current inspection performed. A correctly recorded over-limit result is valid inspection evidence; do not demand a passing length result or mark the link repaired."
+        }
+      ],
+      "ruleIds": [
+        "spec001:PHY01",
+        "spec001:PHY11",
+        "spec001:STATE02",
+        "spec001:STATE03"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-PACKET"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S08",
+          "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+          "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+          "limitations": [
+            "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."
+          ]
+        },
+        {
+          "sourceId": "spec001:S01",
+          "section": "7.7.2; 7.7.3.3–7.7.3.4; 7.7.4.4; printed pages 49–51, PDF pages 53–55",
+          "supportedClaim": "Physical entities transmit bits over physical media and can relay interconnected circuits; transmission may be synchronous or asynchronous.",
+          "limitations": [
+            "Conceptual architecture only. No universal medium, numeric threshold, wire header, or claim that PHYs never have their own error mechanisms."
+          ]
+        },
+        {
+          "sourceId": "spec001:S02",
+          "section": "1.1.3 Internet Protocol Suite, pages 8–11",
+          "supportedClaim": "The Internet suite distinguishes application, transport, Internet and link functions; its grouping differs from the OSI teaching realms.",
+          "limitations": [
+            "Historical architectural context, not current protocol configuration guidance; does not authorize seven invented mandatory headers."
+          ]
+        },
+        {
+          "sourceId": "spec001:S12",
+          "section": "2.1 Naming Conventions; Table 4 Linear and Gray Coding",
+          "supportedClaim": "Four amplitude levels can represent four two-bit combinations; the source distinguishes linear and Gray coding.",
+          "limitations": [
+            "T12 deliberately uses the declared linear toy labels. Do not substitute a real PHY map, count useful bitrate from symbol count, or imply the toy implements PAM4."
+          ]
+        }
+      ],
+      "model": {
+        "label": "scoped-technical-predicate",
+        "scope": "Distinguish power indication from link indication and perform an explicit physical inspection. The packet window is context for the later playable journey, not an extra completion prerequisite.",
+        "assumptions": [
+          "Reviewed C-PWR-OBS binds power on and link off.",
+          "The inspection kit is always available and never consumed.",
+          "T025/T029 accept completion only with both observed fact IDs and a current inspection matching configuration and attempt, in addition to these authored flags."
+        ],
+        "limitations": [
+          "No power-only completion (B-PWR-ONLY).",
+          "No inferred link, end-to-end service, address resolution or login result.",
+          "A changed path resets inspection status and makes the old measurement stale."
+        ]
+      },
+      "effects": [
+        {
+          "kind": "complete-objective",
+          "effectId": "spec001:EFFECT-O01",
+          "objectiveId": "spec001:O01"
+        }
+      ],
+      "hints": {
+        "method": {
+          "id": "spec001:HINT-O01-method",
+          "text": "Start with observations: which indicator reports power and which reports the link?"
+        },
+        "workedStep": {
+          "id": "spec001:HINT-O01-workedStep",
+          "text": "Look at POWER and LINK separately. Take the inspection kit from the satchel, then inspect the labeled path."
+        },
+        "solution": {
+          "id": "spec001:HINT-O01-solution",
+          "text": "Record the lit power indication and the unlit link indication, then Use Inspect physical path with the reusable kit. Keep the measured result even if it exceeds the fictional limit."
+        }
+      },
+      "observableOutcome": "The notebook holds separate power and link observations plus a sourced current physical inspection. O01 is Completed.",
+      "completionExplanation": "You distinguished two indications and inspected the actual declared path. End-to-end service is not proven. The result is evidence to carry to the workshop, not a repaired network.",
+      "requiresReflexTiming": false
+    },
+    {
+      "kind": "objective",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:O02",
+      "prerequisite": {
+        "kind": "objective-complete",
+        "objectiveId": "spec001:O01"
+      },
+      "evidence": [
+        {
+          "id": "spec001:FACT-endpoints",
+          "roomId": "spec001:R02",
+          "subjectIds": [
+            "spec001:PR012"
+          ],
+          "kind": "context",
+          "text": "Known-good endpoints: Lift Sender A — known good; Workshop Receiver B — known good. Each passed the supplied local bench check before this exercise. Their known-good status is a declared scenario premise, not proof that the connecting path or an end-to-end service works. Source: signed bench cards on the topology relief table in The Titan's Workshop; PHY02 / C-SCOPE.",
+          "ruleIds": [
+            "spec001:PHY02"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-endpoint-a",
+          "roomId": "spec001:R02",
+          "subjectIds": [
+            "spec001:PR012"
+          ],
+          "kind": "context",
+          "text": "Lift Sender A — known good. Near endpoint: the labeled sender behind the lift call panel. Bench card A declares the local sender functional for this fictional exercise.",
+          "ruleIds": [
+            "spec001:PHY02"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-endpoint-b",
+          "roomId": "spec001:R02",
+          "subjectIds": [
+            "spec001:PR012"
+          ],
+          "kind": "context",
+          "text": "Workshop Receiver B — known good. Far endpoint: the receiver in the workshop dispatch console. Bench card B declares the local receiver functional for this fictional exercise.",
+          "ruleIds": [
+            "spec001:PHY02"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-path",
+          "roomId": "spec001:R02",
+          "subjectIds": [
+            "spec001:PR012",
+            "spec001:PR003",
+            "spec001:PR014"
+          ],
+          "kind": "context",
+          "text": "Physical path under test, in order: Lift Sender A → selected training conduit → workshop patch lead → Workshop Receiver B. Initial conduit: service loop, 95 m; alternative direct conduit: 85 m. The patch lead is 10 m in either configuration. The fixture declares compatible endpoints, media and terminations; the inspection grades length only. This path is the declared-path role of C-SCOPE, not the whole Iron City network. Source: topology relief table and matching conduit labels, The Titan's Workshop.",
+          "ruleIds": [
+            "spec001:PHY02",
+            "spec001:PHY04"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-titan-clue",
+          "roomId": "spec001:R02",
+          "subjectIds": [
+            "spec001:CH02"
+          ],
+          "kind": "context",
+          "text": "Investigation scope. Inspect the physical path between known-good endpoints. Pin a testable hypothesis, keep it separate from observed evidence, and decide what observation would support or challenge it. Physical transmission represents bits; it does not select an IP route or verify an application login. Source: the Titan in The Titan's Workshop; PHY02 / S01, S02, S04.",
+          "ruleIds": [
+            "spec001:PHY02"
+          ],
+          "requiresFreshMeasurement": false
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-complete-O02",
+          "label": "Open a scoped investigation",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "all",
+            "conditions": [
+              {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-endpoints-identified",
+                "value": true
+              },
+              {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-path-declared",
+                "value": true
+              },
+              {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-hypothesis-pinned",
+                "value": true
+              }
+            ]
+          },
+          "ruleIds": [
+            "spec001:PHY02"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-endpoints",
+            "spec001:FACT-path"
+          ],
+          "effects": [],
+          "explanation": "Identify the two bench-checked endpoints and their ordered physical path; pin a nonempty testable possibility with a proposed observation. No particular fault diagnosis or wording earns completion."
+        }
+      ],
+      "ruleIds": [
+        "spec001:PHY02",
+        "spec001:STATE02",
+        "spec001:STATE03"
+      ],
+      "profileIds": [],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S01",
+          "section": "7.7.2; 7.7.3.3–7.7.3.4; 7.7.4.4; printed pages 49–51, PDF pages 53–55",
+          "supportedClaim": "Physical entities transmit bits over physical media and can relay interconnected circuits; transmission may be synchronous or asynchronous.",
+          "limitations": [
+            "Conceptual architecture only. No universal medium, numeric threshold, wire header, or claim that PHYs never have their own error mechanisms."
+          ]
+        },
+        {
+          "sourceId": "spec001:S02",
+          "section": "1.1.3 Internet Protocol Suite, pages 8–11",
+          "supportedClaim": "The Internet suite distinguishes application, transport, Internet and link functions; its grouping differs from the OSI teaching realms.",
+          "limitations": [
+            "Historical architectural context, not current protocol configuration guidance; does not authorize seven invented mandatory headers."
+          ]
+        },
+        {
+          "sourceId": "spec001:S04",
+          "section": "Failures of the Five Wiremap Tests",
+          "supportedClaim": "Wiremap examines conductor continuity and termination; an open can reflect a broken conductor, poor connection or damaged connector.",
+          "limitations": [
+            "The fixture supplies a diagnosed required-path break. An arbitrary open indication alone does not prove its location or cause; tester setup also matters."
+          ]
+        }
+      ],
+      "model": {
+        "label": "scoped-technical-predicate",
+        "scope": "Prepare a physical investigation between known-good endpoints and pin a hypothesis without promoting it into a fact.",
+        "assumptions": [
+          "O01 is already complete.",
+          "Known-good endpoints are scenario premises: Lift Sender A and Workshop Receiver B.",
+          "T027/T029 require an actual pinned notebook entry and recorded scope facts before accepting completion; a flag alone cannot invent player input."
+        ],
+        "limitations": [
+          "The player's wording is not matched to a secret phrase or graded as an observed fact.",
+          "The physical path may explain the symptom; the hypothesis is unproven.",
+          "Neither all three branches, an optional activity, a recruit, nor future content may gate this introduction."
+        ]
+      },
+      "effects": [
+        {
+          "kind": "complete-objective",
+          "effectId": "spec001:EFFECT-O02",
+          "objectiveId": "spec001:O02"
+        }
+      ],
+      "hints": {
+        "method": {
+          "id": "spec001:HINT-O02-method",
+          "text": "Bound the problem before repairing it: where does the test start and finish, and what connects those endpoints?"
+        },
+        "workedStep": {
+          "id": "spec001:HINT-O02-workedStep",
+          "text": "Read both bench cards, trace the ordered conduit and patch lead, then describe an idea and a way to test it in Hypotheses."
+        },
+        "solution": {
+          "id": "spec001:HINT-O02-solution",
+          "text": "Identify Lift Sender A and Workshop Receiver B, identify their declared physical path, and pin your own testable hypothesis. Its diagnosis need not agree with the author."
+        }
+      },
+      "observableOutcome": "O02 is Completed; the three branch leads and shared preparation are available. A dismissible sign-in invitation offers durable saving; Continue as guest preserves session play.",
+      "completionExplanation": "The endpoints, path and pinned hypothesis define the investigation. A hypothesis remains speculation until evidence supports it. Guests may continue in memory; no account save has occurred.",
+      "requiresReflexTiming": false
+    }
+  ]
+}

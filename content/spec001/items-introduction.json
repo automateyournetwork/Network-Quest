@@ -1,0 +1,42 @@
+{
+  "kind": "collection",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "records": [
+    {
+      "kind": "item",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:ITEM-inspection-kit",
+      "name": "Reusable inspection kit",
+      "description": "A trace card, ordinary inspection light and training length readout in one satchel pouch. Quantity: 1. Use it on the labeled physical path; the instrument reports only the supplied fictional exercise. It cannot certify cabling, repair a broken conductor, supply power or prove an application service. Development text/icon reference only.",
+      "propId": "spec001:PR005",
+      "assetId": "spec001:DEV-inspection-kit",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "evidence": [],
+      "essentialForRoutes": [],
+      "acquisition": {
+        "roomId": "spec001:R01",
+        "condition": {
+          "kind": "always"
+        },
+        "explanation": "Your satchel is always reachable. ACTION-take-kit or Photon's first topic applies the same EFFECT-kit + EFFECT-kit-issued batch with the same FLAG-kit-issued receipt. Either path grants exactly one; replay never adds another."
+      },
+      "consumption": "never",
+      "recovery": {
+        "policy": "not-consumed",
+        "roomId": "spec001:R01",
+        "condition": {
+          "kind": "always"
+        },
+        "explanation": "Using or changing the training path never consumes this kit. Taking it is free and always available before acquisition; no side quest, ally, account or one-way exit is required. Retry restores preparation inventory; subsequent dialogue cannot duplicate an issued kit."
+      },
+      "combinations": []
+    }
+  ]
+}

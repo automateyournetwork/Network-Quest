@@ -1,0 +1,304 @@
+{
+  "kind": "collection",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "records": [
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-arrival-actions",
+      "entryNodeId": "spec001:DIALOGUE-arrival-menu",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-arrival-menu",
+          "speakerId": "narrator",
+          "text": "Choose the object and action you want to investigate. Looking records an observation; inspection uses the reusable kit. Change physical path moves the isolated training conduit selector between service loop and direct conduit. It resets current inspection status and preserves the old measured result as stale. No selected path alone claims link recovery.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-observe-power",
+              "text": "Look at power indication",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-power",
+                  "factId": "spec001:FACT-power"
+                },
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-power-observed",
+                  "flagId": "spec001:FLAG-power-observed",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-observe-link",
+              "text": "Look at link indication",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-link",
+                  "factId": "spec001:FACT-link"
+                },
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-link-observed",
+                  "flagId": "spec001:FLAG-link-observed",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-take-kit",
+              "text": "Take inspection kit",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "grant-item",
+                  "effectId": "spec001:EFFECT-kit",
+                  "itemId": "spec001:ITEM-inspection-kit",
+                  "quantity": 1
+                },
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-kit-issued",
+                  "flagId": "spec001:FLAG-kit-issued",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-inspect-path",
+              "text": "Inspect physical path",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-inspect",
+                  "flagId": "spec001:FLAG-path-inspected",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-path-short",
+              "text": "Change physical path",
+              "condition": {
+                "kind": "not",
+                "condition": {
+                  "kind": "flag-equals",
+                  "flagId": "spec001:FLAG-path-mode",
+                  "value": "direct"
+                }
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-path-short",
+                  "flagId": "spec001:FLAG-path-mode",
+                  "value": "direct"
+                },
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-short-invalidate",
+                  "flagId": "spec001:FLAG-path-inspected",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-path-long",
+              "text": "Change physical path",
+              "condition": {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-path-mode",
+                "value": "direct"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-path-long",
+                  "flagId": "spec001:FLAG-path-mode",
+                  "value": "service-loop"
+                },
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-long-invalidate",
+                  "flagId": "spec001:FLAG-path-inspected",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-packet-context",
+              "text": "Look at message capsule",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-packet-context",
+                  "factId": "spec001:FACT-packet-context"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-talk-photon",
+              "text": "Talk to Photon the Firefly",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": []
+            }
+          ],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-workshop-actions",
+      "entryNodeId": "spec001:DIALOGUE-workshop-menu",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-workshop-menu",
+          "speakerId": "narrator",
+          "text": "Identify the bench-checked endpoints and ordered path on the relief table. The hypothesis board accepts a nonempty testable possibility in your own words: identify what may be wrong and an observation that could support or challenge it. Pinning stores speculation separately from observations. No secret phrase or agreement with the author is required.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-endpoints",
+              "text": "Identify known-good endpoints",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-endpoints",
+                  "factId": "spec001:FACT-endpoints"
+                },
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-endpoint-a",
+                  "factId": "spec001:FACT-endpoint-a"
+                },
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-endpoint-b",
+                  "factId": "spec001:FACT-endpoint-b"
+                },
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-endpoints-identified",
+                  "flagId": "spec001:FLAG-endpoints-identified",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-declare-path",
+              "text": "Identify physical path under test",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-path",
+                  "factId": "spec001:FACT-path"
+                },
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-path-declared",
+                  "flagId": "spec001:FLAG-path-declared",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-pin-hypothesis",
+              "text": "Pin hypothesis",
+              "condition": {
+                "kind": "all",
+                "conditions": [
+                  {
+                    "kind": "flag-equals",
+                    "flagId": "spec001:FLAG-endpoints-identified",
+                    "value": true
+                  },
+                  {
+                    "kind": "flag-equals",
+                    "flagId": "spec001:FLAG-path-declared",
+                    "value": true
+                  }
+                ]
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-hypothesis-pinned",
+                  "flagId": "spec001:FLAG-hypothesis-pinned",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-talk-titan",
+              "text": "Talk to the Titan",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": []
+            }
+          ],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    }
+  ]
+}

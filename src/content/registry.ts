@@ -406,7 +406,15 @@ function checkRecord(r: S.authoredRecord, w: S.world, records: S.authoredRecord[
       if (!records.some(item => item.kind === 'item' && item.id === id && item.verbs.includes('use'))) fail('equivalent', ability.id, 'Conventional equivalent must be an authored usable item');
     }
   }
-  if (r.kind === 'room') checkRoom(r, w, fail);
+  if (r.kind === 'room') {
+    checkRoom(r, w, fail);
+    for (const hotspot of r.hotspots) for (const actionId of hotspot.actionIds) {
+      for (const dialogue of records.filter(rec => rec.kind === 'dialogue')) {
+        const owner = dialogue.nodes.find(node => node.choices.some(choice => choice.id === actionId));
+        if (owner && owner.id !== dialogue.entryNodeId) fail('hotspot-dialogue-entry', hotspot.id, 'A direct hotspot choice must belong to the dialogue entry node; later choices require the authored sequence');
+      }
+    }
+  }
   if (r.kind === 'dialogue') checkDialogue(r, fail);
   if (r.kind === 'item') {
     if ((r.consumption === 'never') !== (r.recovery.policy === 'not-consumed')) fail('item-recovery', r.id, 'Consumption and recovery policy disagree');
@@ -552,6 +560,15 @@ function checkRoutes(w: S.world, records: S.authoredRecord[], fail: Fail): strin
   const objectives = new Map(records.filter(r => r.kind === 'objective').map(r => [r.id, r]));
   const items = records.filter(r => r.kind === 'item');
   const dialogues = new Map(records.filter(r => r.kind === 'dialogue').map(r => [r.id, r]));
+  const roomActions = records.filter(r => r.kind === 'room').map(room => ({ roomId: room.id,
+    choices: room.hotspots.flatMap(hotspot => hotspot.actionIds.flatMap(id => [...dialogues.values()].flatMap(dialogue => {
+      const entry = dialogue.nodes.find(node => node.id === dialogue.entryNodeId);
+      // A globally registered node can still belong to another dialogue.
+      // checkDialogue reports that local corruption; proof must not throw.
+      if (!entry) return [];
+      return entry.choices.filter(choice => choice.id === id).map(choice => ({ dialogue, entry, choice }));
+    }))),
+  }));
   const characters = records.filter(r => r.kind === 'character');
   for (const branch of w.branches) {
     const allowed = new Set([q('O01'), q('O02'), ...branch.objectiveIds, q('O09'), q('O10'), q('O11'), q('O12')]);
@@ -583,6 +600,20 @@ function checkRoutes(w: S.world, records: S.authoredRecord[], fail: Fail): strin
       if (visited.size >= MAX_PROOF_STATES) { bounded = true; return; }
       visited.add(key); queue.push(state);
     };
+    const choose = (s: ProofState, dialogue: S.dialogue, choice: S.dialogueChoice): ProofState | null => {
+      if (!evaluate(choice.condition, s)) return null;
+      let next = effectSuccessor(s, choice.effects, branch.id);
+      if (!next) return null;
+      if (choice.nextNodeId === null) next.dialogue = null;
+      else {
+        const target = dialogue.nodes.find(node => node.id === choice.nextNodeId);
+        if (!target || !evaluate(target.condition, next)) return null;
+        next = effectSuccessor(next, target.effects, branch.id);
+        if (!next) return null;
+        next.dialogue = target.choices.length ? { id: dialogue.id, nodeId: target.id } : null;
+      }
+      return next;
+    };
     for (let cursor = 0; cursor < queue.length && !bounded; cursor++) {
       const s = queue[cursor]!;
       const rooms = reachableRooms(w, s);
@@ -594,20 +625,16 @@ function checkRoutes(w: S.world, records: S.authoredRecord[], fail: Fail): strin
         const dialogue = dialogues.get(s.dialogue.id);
         const node = dialogue?.nodes.find(n => n.id === s.dialogue!.nodeId);
         if (!dialogue || !node) continue; // Reference diagnostics already explain this.
-        for (const choice of node.choices) if (evaluate(choice.condition, s)) {
-          let next = effectSuccessor(s, choice.effects, branch.id);
-          if (!next) continue;
-          if (choice.nextNodeId === null) next.dialogue = null;
-          else {
-            const target = dialogue.nodes.find(n => n.id === choice.nextNodeId);
-            if (!target || !evaluate(target.condition, next)) continue;
-            next = effectSuccessor(next, target.effects, branch.id);
-            if (!next) continue;
-            next.dialogue = target.choices.length ? { id: dialogue.id, nodeId: target.id } : null;
-          }
-          enqueue(next);
-        }
+        for (const choice of node.choices) enqueue(choose(s, dialogue, choice));
         continue;
+      }
+      // A semantic room action exposes this exact entry-node choice, not every
+      // other choice in the same narrator collection. Entering applies its real
+      // node effects first, then preserves choice/target conditions and sequence.
+      for (const room of roomActions) if (rooms.has(room.roomId)) for (const { dialogue, entry, choice } of room.choices) {
+        if (!evaluate(entry.condition, s)) continue;
+        const entered = effectSuccessor(s, entry.effects, branch.id);
+        if (entered) enqueue(choose(entered, dialogue, choice));
       }
       for (const item of items.filter(i => relevantItems.has(i.id))) {
         if (!s.acquired.has(item.id) && rooms.has(item.acquisition.roomId) && evaluate(item.acquisition.condition, s)) {

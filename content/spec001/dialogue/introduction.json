@@ -1,0 +1,199 @@
+{
+  "kind": "collection",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "records": [
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-photon-intro",
+      "entryNodeId": "spec001:DIALOGUE-photon-welcome",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-photon-welcome",
+          "speakerId": "spec001:CH03",
+          "text": "“Welcome to the Underworld! I am Photon. Small lamp, large opinions.” The firefly points out your satchel: one reusable inspection kit, with a labeled trace card and a length readout. “It belongs to you. I am merely performing the ceremonial pointing.”",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-photon-next",
+              "text": "Next dialogue line",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": "spec001:DIALOGUE-photon-clue",
+              "effects": []
+            }
+          ],
+          "effects": [
+            {
+              "kind": "record-fact",
+              "effectId": "spec001:EFFECT-photon-clue",
+              "factId": "spec001:FACT-photon-clue"
+            },
+            {
+              "kind": "grant-item",
+              "effectId": "spec001:EFFECT-kit",
+              "itemId": "spec001:ITEM-inspection-kit",
+              "quantity": 1
+            },
+            {
+              "kind": "set-flag",
+              "effectId": "spec001:EFFECT-kit-issued",
+              "flagId": "spec001:FLAG-kit-issued",
+              "value": true
+            }
+          ],
+          "evidenceIds": [
+            "spec001:FACT-photon-clue"
+          ]
+        },
+        {
+          "id": "spec001:DIALOGUE-photon-clue",
+          "speakerId": "spec001:CH03",
+          "text": "“The power lamp is lit. The link lamp is not. Two observations; please give them separate notebook entries. My glowing abdomen is excellent advertising and terrible proof that the network works.” Look at each indicator, then Use the inspection kit on the physical path. A failed length check is useful evidence, not a failed apprentice.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-photon-finish",
+              "text": "Finish dialogue",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": []
+            }
+          ],
+          "effects": [],
+          "evidenceIds": [
+            "spec001:FACT-photon-clue"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "spec001:FACT-photon-clue",
+          "roomId": "spec001:R01",
+          "subjectIds": [
+            "spec001:CH03"
+          ],
+          "kind": "context",
+          "text": "Power and communication. Power indication does not prove a data link. Look at power and link separately, then inspect the physical path. A clue can suggest a test without supplying its result. Source: Photon the Firefly in The Arrival Lift; PHY01 / S08.",
+          "ruleIds": [
+            "spec001:PHY01"
+          ],
+          "requiresFreshMeasurement": false
+        }
+      ],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-titan-intro",
+      "entryNodeId": "spec001:DIALOGUE-titan-welcome",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-titan-welcome",
+          "speakerId": "spec001:CH02",
+          "text": "The Titan lays down a wrench approximately the size of Tuesday. “An apprentice! Splendid. The Iron City beacon is silent, and the official report says ‘probably something’. Let us improve on that.”",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-titan-next",
+              "text": "Next dialogue line",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": "spec001:DIALOGUE-titan-scope",
+              "effects": []
+            }
+          ],
+          "effects": [
+            {
+              "kind": "record-fact",
+              "effectId": "spec001:EFFECT-titan-clue",
+              "factId": "spec001:FACT-titan-clue"
+            }
+          ],
+          "evidenceIds": [
+            "spec001:FACT-titan-clue"
+          ]
+        },
+        {
+          "id": "spec001:DIALOGUE-titan-scope",
+          "speakerId": "spec001:CH02",
+          "text": "“Inspect the physical path between known-good endpoints. Table cards name Lift Sender A and Workshop Receiver B; the raised line shows the conduit and patch lead between them. Identify both endpoints and that path. Then pin a testable hypothesis in your own words. A hypothesis is an idea to test, never a fact smuggled in wearing a confident hat.”",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-titan-routes",
+              "text": "Next dialogue line",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": "spec001:DIALOGUE-titan-routes",
+              "effects": []
+            }
+          ],
+          "effects": [],
+          "evidenceIds": [
+            "spec001:FACT-titan-clue"
+          ]
+        },
+        {
+          "id": "spec001:DIALOGUE-titan-routes",
+          "speakerId": "spec001:CH02",
+          "text": "“Copper, fiber and radio each offer a route onward. Choose one to investigate; you need not solve all three. The Market and Clockworks provide common preparation. No recruit, side quest or door to a future realm is required to begin.” A small sign adds: “Guest — progress is only in this session. Sign in to save your adventure.” The Titan taps it. “Declining is allowed. The workshop does not require an account to own a chair.”",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-titan-finish",
+              "text": "Finish dialogue",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": []
+            }
+          ],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [
+        {
+          "id": "spec001:FACT-titan-clue",
+          "roomId": "spec001:R02",
+          "subjectIds": [
+            "spec001:CH02"
+          ],
+          "kind": "context",
+          "text": "Investigation scope. Inspect the physical path between known-good endpoints. Pin a testable hypothesis, keep it separate from observed evidence, and decide what observation would support or challenge it. Physical transmission represents bits; it does not select an IP route or verify an application login. Source: the Titan in The Titan's Workshop; PHY02 / S01, S02, S04.",
+          "ruleIds": [
+            "spec001:PHY02"
+          ],
+          "requiresFreshMeasurement": false
+        }
+      ],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    }
+  ]
+}

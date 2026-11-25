@@ -1,0 +1,322 @@
+{
+  "kind": "room",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:R02",
+  "presentationMode": "realtime-3d",
+  "description": "The workshop smells, imaginatively, of warm iron and unfinished paperwork. The Titan has cleared a broad aisle between the bench and topology relief table. Two bench cards name the endpoints; a raised line follows their physical path. A hypothesis board waits for an idea brave enough to be tested. Five outward doors lead to the three media branches and shared preparation; the Arrival Lift doorway remains available.",
+  "walkRegions": [
+    {
+      "id": "spec001:WALK-R02",
+      "label": "Clear workshop aisle — development coordinates",
+      "vertices": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 6
+        },
+        {
+          "x": 0,
+          "y": 6
+        }
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "toRoomId": "spec001:R01",
+      "label": "Walk to The Arrival Lift",
+      "walkRegionId": "spec001:WALK-R02"
+    },
+    {
+      "toRoomId": "spec001:R03",
+      "label": "Walk to The Copper Warrens",
+      "walkRegionId": "spec001:WALK-R02"
+    },
+    {
+      "toRoomId": "spec001:R05",
+      "label": "Walk to The Photon Gardens",
+      "walkRegionId": "spec001:WALK-R02"
+    },
+    {
+      "toRoomId": "spec001:R07",
+      "label": "Walk to The Skywell",
+      "walkRegionId": "spec001:WALK-R02"
+    },
+    {
+      "toRoomId": "spec001:R09",
+      "label": "Walk to The Shell Market",
+      "walkRegionId": "spec001:WALK-R02"
+    },
+    {
+      "toRoomId": "spec001:R10",
+      "label": "Walk to The Clockworks",
+      "walkRegionId": "spec001:WALK-R02"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "spec001:HOTSPOT-titan",
+      "subjectId": "spec001:CH02",
+      "label": "The Titan",
+      "description": "An immense mentor sets aside the furnace work and makes room for your notebook.",
+      "verbs": [
+        "look",
+        "talk"
+      ],
+      "unsupportedVerbText": "The Titan is not an inventory tool. Talk for the briefing, or inspect the table yourself; his advice never replaces your observations.",
+      "evidenceIds": [
+        "spec001:FACT-titan-clue"
+      ],
+      "actionIds": [
+        "spec001:ACTION-talk-titan"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-endpoints",
+      "subjectId": "spec001:PR012",
+      "label": "Known-good endpoints",
+      "description": "Two signed bench cards identify Lift Sender A and Workshop Receiver B as known good for the supplied exercise. Their local checks do not establish the connecting path.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "That approach will not help here. Look for a description, or choose one of the listed actions; every useful action also has a labeled control.",
+      "evidenceIds": [
+        "spec001:FACT-endpoints",
+        "spec001:FACT-endpoint-a",
+        "spec001:FACT-endpoint-b"
+      ],
+      "actionIds": [
+        "spec001:ACTION-endpoints"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-declared-path",
+      "subjectId": "spec001:PR012",
+      "label": "Physical path under test",
+      "description": "Raised arrows and ordered text show Lift Sender A → selected training conduit → workshop patch lead → Workshop Receiver B. The legend retains both selectable conduit lengths.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "That approach will not help here. Look for a description, or choose one of the listed actions; every useful action also has a labeled control.",
+      "evidenceIds": [
+        "spec001:FACT-path"
+      ],
+      "actionIds": [
+        "spec001:ACTION-declare-path"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-hypothesis",
+      "subjectId": "spec001:PR018",
+      "label": "Hypothesis board",
+      "description": "Pin your own testable idea after identifying the endpoints and path. Try stating what may explain the symptom and how an inspection could challenge it. The board is for speculation, not awarded facts.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "The board cannot invent your idea. Open Hypotheses in the notebook, write a testable possibility in your own words, and use Pin hypothesis. No exact phrase is required.",
+      "evidenceIds": [],
+      "actionIds": [
+        "spec001:ACTION-pin-hypothesis"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-routes",
+      "subjectId": "spec001:PR016",
+      "label": "Investigation routes",
+      "description": "The easel has three equally sized routes: Copper Warrens and Echo Cavern; Photon Gardens and Prism Vault; Skywell and Storm Observatory. Choose any one after O02. The Shell Market and Clockworks are shared preparation. Completing other branches is optional.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "That approach will not help here. Look for a description, or choose one of the listed actions; every useful action also has a labeled control.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-golem",
+      "subjectId": "spec001:CH12",
+      "label": "Iron Golem",
+      "description": "The Iron Golem holds a stack of maintenance cards. “I am a support structure,” its placard says, “not a substitute for a test.” Team recruitment is a later workshop activity; no ally gates this introduction.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "The Golem has no introductory dialogue transaction yet. Look at its maintenance placard, then use the conventional tools and table; no recruitment is required.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-workbench",
+      "subjectId": "spec001:PR011",
+      "label": "Workshop length exercise",
+      "description": "The workbench mirrors the lift training path: compare the fictional 100 m inclusive limit with the initial 95 m + 10 m path or the direct 85 m + 10 m path. Return to the Arrival Lift to change and inspect the actual selector. A length pass proves length only; it does not finish the copper branch.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "That approach will not help here. Look for a description, or choose one of the listed actions; every useful action also has a labeled control.",
+      "evidenceIds": [],
+      "actionIds": []
+    }
+  ],
+  "characterIds": [
+    "spec001:CH02",
+    "spec001:CH12"
+  ],
+  "propInstances": [
+    {
+      "instanceId": "r02-pr011",
+      "propId": "spec001:PR011",
+      "description": "Titan workbench — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR011"
+    },
+    {
+      "instanceId": "r02-pr012",
+      "propId": "spec001:PR012",
+      "description": "topology relief table — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR012"
+    },
+    {
+      "instanceId": "r02-pr013",
+      "propId": "spec001:PR013",
+      "description": "tool cabinet — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR013"
+    },
+    {
+      "instanceId": "r02-pr014",
+      "propId": "spec001:PR014",
+      "description": "dispatch console — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR014"
+    },
+    {
+      "instanceId": "r02-pr015",
+      "propId": "spec001:PR015",
+      "description": "recruit perch — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR015"
+    },
+    {
+      "instanceId": "r02-pr016",
+      "propId": "spec001:PR016",
+      "description": "repair-plan easel — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR016"
+    },
+    {
+      "instanceId": "r02-pr017",
+      "propId": "spec001:PR017",
+      "description": "media comparison rack — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR017"
+    },
+    {
+      "instanceId": "r02-pr018",
+      "propId": "spec001:PR018",
+      "description": "hypothesis board — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR018"
+    },
+    {
+      "instanceId": "r02-pr019",
+      "propId": "spec001:PR019",
+      "description": "parts carousel — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR019"
+    },
+    {
+      "instanceId": "r02-pr020",
+      "propId": "spec001:PR020",
+      "description": "workshop furnace — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR020"
+    }
+  ],
+  "safePositions": [
+    {
+      "id": "spec001:R02.entry",
+      "walkRegionId": "spec001:WALK-R02",
+      "point": {
+        "x": 5,
+        "y": 3
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec001:FACT-endpoints",
+      "roomId": "spec001:R02",
+      "subjectIds": [
+        "spec001:PR012"
+      ],
+      "kind": "context",
+      "text": "Known-good endpoints: Lift Sender A — known good; Workshop Receiver B — known good. Each passed the supplied local bench check before this exercise. Their known-good status is a declared scenario premise, not proof that the connecting path or an end-to-end service works. Source: signed bench cards on the topology relief table in The Titan's Workshop; PHY02 / C-SCOPE.",
+      "ruleIds": [
+        "spec001:PHY02"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-endpoint-a",
+      "roomId": "spec001:R02",
+      "subjectIds": [
+        "spec001:PR012"
+      ],
+      "kind": "context",
+      "text": "Lift Sender A — known good. Near endpoint: the labeled sender behind the lift call panel. Bench card A declares the local sender functional for this fictional exercise.",
+      "ruleIds": [
+        "spec001:PHY02"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-endpoint-b",
+      "roomId": "spec001:R02",
+      "subjectIds": [
+        "spec001:PR012"
+      ],
+      "kind": "context",
+      "text": "Workshop Receiver B — known good. Far endpoint: the receiver in the workshop dispatch console. Bench card B declares the local receiver functional for this fictional exercise.",
+      "ruleIds": [
+        "spec001:PHY02"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-path",
+      "roomId": "spec001:R02",
+      "subjectIds": [
+        "spec001:PR012",
+        "spec001:PR003",
+        "spec001:PR014"
+      ],
+      "kind": "context",
+      "text": "Physical path under test, in order: Lift Sender A → selected training conduit → workshop patch lead → Workshop Receiver B. Initial conduit: service loop, 95 m; alternative direct conduit: 85 m. The patch lead is 10 m in either configuration. The fixture declares compatible endpoints, media and terminations; the inspection grades length only. This path is the declared-path role of C-SCOPE, not the whole Iron City network. Source: topology relief table and matching conduit labels, The Titan's Workshop.",
+      "ruleIds": [
+        "spec001:PHY02",
+        "spec001:PHY04"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-titan-clue",
+      "roomId": "spec001:R02",
+      "subjectIds": [
+        "spec001:CH02"
+      ],
+      "kind": "context",
+      "text": "Investigation scope. Inspect the physical path between known-good endpoints. Pin a testable hypothesis, keep it separate from observed evidence, and decide what observation would support or challenge it. Physical transmission represents bits; it does not select an IP route or verify an application login. Source: the Titan in The Titan's Workshop; PHY02 / S01, S02, S04.",
+      "ruleIds": [
+        "spec001:PHY02"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "ambience": {
+    "text": "The furnace gives a steady low rumble, described here in text. A quiet workspace preserves every clue. Text-only development ambience; no generated, voiced or finished audio is claimed.",
+    "assetIds": []
+  },
+  "futureDoorIds": []
+}

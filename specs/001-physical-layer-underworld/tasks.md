@@ -92,6 +92,12 @@ are built. It owns only synthetic fixtures and their integrity checks. This neit
 starts live provider flows nor claims G1/G2 or SAVE acceptance; actual account and
 guest-promotion integration still needs the implemented interfaces and its checks.
 
+T031's independent byte/bit/toy-symbol expectations may likewise be prepared from
+T006/T014 and SPEC while guest controllers are built. Its fixtures do not require
+the guest UI. Packet implementation and R01 integration still join the actual
+physical state and controls before T034/G1 acceptance; no animation or fixture
+can certify a working physical path.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -155,7 +161,7 @@ guest-promotion integration still needs the implemented interfaces and its check
 **Ready after**: T012–T021.
 
 - [X] T022 [US1] Author prepared guest walkthrough expectations for O01/O02, dialogue skip/replay and evidence travel in `tests/fixtures/guest-investigation.json` and `tests/e2e/guest-introduction.spec.ts`, before wiring the interaction.
-- [ ] T023 [US1] Author the Arrival Lift and Titan's Workshop scenes, briefings and initial observations in `content/spec001/rooms/R01.json`, `content/spec001/rooms/R02.json` and `content/spec001/dialogue/introduction.json`; distinguish power from link and permit ongoing guest play.
+- [X] T023 [US1] Author the Arrival Lift and Titan's Workshop scenes, briefings and initial observations in `content/spec001/rooms/R01.json`, `content/spec001/rooms/R02.json` and `content/spec001/dialogue/introduction.json`; distinguish power from link and permit ongoing guest play.
 - [X] T024 [US1] Implement declared copper/continuity and content-error evaluation needed by T01/T02/T14 in `src/domain/copper.ts` and `src/domain/evaluate.ts`; run the independent fixtures including exact-limit and malformed-profile cases before integrating scores.
 - [ ] T025 [US1] Implement Walk/Look/Talk/Use, helpful unsupported-action feedback, inventory selection/item combinations and visible W/L/T/U/I/N/C controls in `src/ui/verbs.ts` and `src/ui/inventory.ts`; required tools cannot be consumed irrecoverably.
 - [ ] T026 [US1] Implement skippable/replayable dialogue with effect-once completion in `src/state/dialogue.ts` and `src/ui/dialogue.ts`; skipped lines retain required clues and replays cannot duplicate items/objective rewards.

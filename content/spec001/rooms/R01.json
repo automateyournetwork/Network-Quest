@@ -1,0 +1,310 @@
+{
+  "kind": "room",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:R01",
+  "presentationMode": "realtime-3d",
+  "description": "The lift descends through basalt ribs and stops with the dignified cough of a machine hoping nobody heard that. Its cage opens onto a broad landing. Photon waits by the call panel: POWER lit, LINK unlit. Your satchel hangs within reach, the labeled training conduit runs toward the workshop, and a clear doorway lets you leave or return at any time.",
+  "walkRegions": [
+    {
+      "id": "spec001:WALK-R01",
+      "label": "Clear lift landing — development coordinates",
+      "vertices": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 6
+        },
+        {
+          "x": 0,
+          "y": 6
+        }
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "toRoomId": "spec001:R02",
+      "label": "Walk to The Titan's Workshop",
+      "walkRegionId": "spec001:WALK-R01"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "spec001:HOTSPOT-power",
+      "subjectId": "spec001:PR002",
+      "label": "Power indication",
+      "description": "The call panel carries a lit indicator explicitly labeled POWER. The separate LINK indicator is farther right.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "The power lamp is an indicator, not a switch or a conversationalist. Look at it to record what it says, then compare the separate link indication.",
+      "evidenceIds": [
+        "spec001:FACT-power"
+      ],
+      "actionIds": [
+        "spec001:ACTION-observe-power"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-link",
+      "subjectId": "spec001:PR006",
+      "label": "Link indication",
+      "description": "A dark indicator labeled LINK sits beside the arrival tube. Its label and state are available as text.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Talking to the lamp produces no additional illumination. Look at the link indication, then inspect the path; do not infer a cause from darkness alone.",
+      "evidenceIds": [
+        "spec001:FACT-link"
+      ],
+      "actionIds": [
+        "spec001:ACTION-observe-link"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-path",
+      "subjectId": "spec001:PR003",
+      "label": "Physical path",
+      "description": "A safely isolated training selector and labeled conduits lead toward the workshop. Service loop: 95 m; direct conduit: 85 m; shared workshop patch lead: 10 m. Use the inspection kit for a current reading. Change physical path moves the selector, so old readings become stale.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Walk along the marked floor, not into the conduit. Look at its labels or Use the inspection kit; the supported selector changes this fictional training path without consuming a tool.",
+      "evidenceIds": [
+        "spec001:FACT-inspection"
+      ],
+      "actionIds": [
+        "spec001:ACTION-inspect-path",
+        "spec001:ACTION-path-short",
+        "spec001:ACTION-path-long"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-photon",
+      "subjectId": "spec001:CH03",
+      "label": "Photon the Firefly",
+      "description": "Photon hovers beside the labels rather than covering them. An enthusiastic guide with no required magical diagnostic power.",
+      "verbs": [
+        "look",
+        "talk"
+      ],
+      "unsupportedVerbText": "Photon politely declines to be inserted into a socket. Talk for a clue, or use the ordinary inspection kit on the path.",
+      "evidenceIds": [
+        "spec001:FACT-photon-clue"
+      ],
+      "actionIds": [
+        "spec001:ACTION-talk-photon"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-satchel",
+      "subjectId": "spec001:PR005",
+      "label": "Apprentice satchel",
+      "description": "Your satchel contains one reusable inspection kit. Take it here or accept Photon's pointing-out; either route issues the same single kit. Inventory displays Quantity: 1.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "The satchel is already on your side. Use Take inspection kit; it is yours without a puzzle, purchase or recruited ally.",
+      "evidenceIds": [],
+      "actionIds": [
+        "spec001:ACTION-take-kit"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-capsule",
+      "subjectId": "spec001:PR009",
+      "label": "Message capsule",
+      "description": "A transparent window highlights two payload bytes inside a larger opaque frame. The full packet-perspective interaction is a later authored sequence.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "That approach will not help here. Look for a description, or choose one of the listed actions; every useful action also has a labeled control.",
+      "evidenceIds": [
+        "spec001:FACT-packet-context"
+      ],
+      "actionIds": [
+        "spec001:ACTION-packet-context"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-plaque",
+      "subjectId": "spec001:PR004",
+      "label": "Orientation plaque",
+      "description": "Walk moves between safe floor anchors. Look describes or records. Talk opens readable dialogue. Use applies an offered tool or action. W/L/T/U select those verbs; I opens Inventory, N Notebook, C Compendium. Tab and Enter reach the same controls. Typing in a note never triggers a shortcut.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "That approach will not help here. Look for a description, or choose one of the listed actions; every useful action also has a labeled control.",
+      "evidenceIds": [],
+      "actionIds": []
+    }
+  ],
+  "characterIds": [
+    "spec001:CH01",
+    "spec001:CH03"
+  ],
+  "propInstances": [
+    {
+      "instanceId": "r01-pr001",
+      "propId": "spec001:PR001",
+      "description": "Lift cage — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR001"
+    },
+    {
+      "instanceId": "r01-pr002",
+      "propId": "spec001:PR002",
+      "description": "lift call panel — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR002"
+    },
+    {
+      "instanceId": "r01-pr003",
+      "propId": "spec001:PR003",
+      "description": "signal arrival tube — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR003"
+    },
+    {
+      "instanceId": "r01-pr004",
+      "propId": "spec001:PR004",
+      "description": "orientation plaque — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR004"
+    },
+    {
+      "instanceId": "r01-pr005",
+      "propId": "spec001:PR005",
+      "description": "apprentice satchel — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR005"
+    },
+    {
+      "instanceId": "r01-pr006",
+      "propId": "spec001:PR006",
+      "description": "broken link lamp — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR006"
+    },
+    {
+      "instanceId": "r01-pr007",
+      "propId": "spec001:PR007",
+      "description": "insulated handrail — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR007"
+    },
+    {
+      "instanceId": "r01-pr008",
+      "propId": "spec001:PR008",
+      "description": "entry turnstile — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR008"
+    },
+    {
+      "instanceId": "r01-pr009",
+      "propId": "spec001:PR009",
+      "description": "message capsule — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR009"
+    },
+    {
+      "instanceId": "r01-pr010",
+      "propId": "spec001:PR010",
+      "description": "welcome automaton pedestal — semantic development placement only; no finished model or asset acceptance.",
+      "assetId": "spec001:DEV-PR010"
+    }
+  ],
+  "safePositions": [
+    {
+      "id": "spec001:R01.entry",
+      "walkRegionId": "spec001:WALK-R01",
+      "point": {
+        "x": 5,
+        "y": 3
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec001:FACT-power",
+      "roomId": "spec001:R01",
+      "subjectIds": [
+        "spec001:PR002"
+      ],
+      "kind": "observation",
+      "text": "Power indication: lit. The call panel reports power at the lift. Power indication does not prove a data link. Source: lift call panel; observed in The Arrival Lift.",
+      "ruleIds": [
+        "spec001:PHY01"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-link",
+      "roomId": "spec001:R01",
+      "subjectIds": [
+        "spec001:PR006"
+      ],
+      "kind": "observation",
+      "text": "Link indication: unlit. The separate link lamp reports no indicated link. The lamp is not a diagnosis of the cause. End-to-end service is not proven. Source: link indicator beside the arrival tube; observed in The Arrival Lift.",
+      "ruleIds": [
+        "spec001:PHY01"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-inspection",
+      "roomId": "spec001:R01",
+      "subjectIds": [
+        "spec001:PR003",
+        "spec001:PROFILE-COPPER-100"
+      ],
+      "kind": "measurement",
+      "text": "Physical inspection. Trace Lift Sender A through the selected conduit and the 10 m workshop patch lead to Workshop Receiver B. The service-loop conduit is 95 m (105 m total); the direct conduit is 85 m (95 m total). These are the supplied T02/T01 lengths in the fictional PROFILE-COPPER-100, whose inclusive limit is 100 m. Record the selected path and measured result at the current configuration and attempt. Valid inspection recorded means the inspection was performed, even when length exceeds the profile. It does not mean the link or a service works. A changed path leaves the old result stale until a new inspection. Source: labeled training conduit and inspection kit in The Arrival Lift; PHY04; T01/T02.",
+      "ruleIds": [
+        "spec001:PHY04",
+        "spec001:STATE01"
+      ],
+      "requiresFreshMeasurement": true,
+      "readings": [
+        {
+          "name": "Channel length",
+          "unit": "m"
+        }
+      ]
+    },
+    {
+      "id": "spec001:FACT-photon-clue",
+      "roomId": "spec001:R01",
+      "subjectIds": [
+        "spec001:CH03"
+      ],
+      "kind": "context",
+      "text": "Power and communication. Power indication does not prove a data link. Look at power and link separately, then inspect the physical path. A clue can suggest a test without supplying its result. Source: Photon the Firefly in The Arrival Lift; PHY01 / S08.",
+      "ruleIds": [
+        "spec001:PHY01"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-packet-context",
+      "roomId": "spec001:R01",
+      "subjectIds": [
+        "spec001:PR009",
+        "spec001:PROFILE-PACKET"
+      ],
+      "kind": "context",
+      "text": "The capsule window highlights payload bytes 0x4E 0x51: 01001110 01010001 (NQ), inside an opaque upper-interface frame. These highlighted bytes are not the whole frame. The packet journey will compare a supplied known pattern after the physical path is evaluated; that toy comparison is not universal error detection or a simulation of higher-layer service. Source: PROFILE-PACKET; PHY11 / S01, S02, S12.",
+      "ruleIds": [
+        "spec001:PHY11"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "ambience": {
+    "text": "The lift motor settles to a hum; the link lamp remains dark. Nothing essential depends on hearing the motor. Text-only development ambience; no generated, voiced or finished audio is claimed.",
+    "assetIds": []
+  },
+  "futureDoorIds": []
+}
