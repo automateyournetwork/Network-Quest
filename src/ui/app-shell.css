@@ -1,0 +1,51 @@
+/* Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0 */
+.nq-shell {
+  box-sizing: border-box;
+  color-scheme: dark;
+  color: #edf1f8;
+  background: #111927;
+  font: 1rem/1.6 system-ui, sans-serif;
+  padding: clamp(1rem, 3vw, 2rem);
+  max-width: 90rem;
+  margin-inline: auto;
+  overflow-wrap: anywhere;
+}
+.nq-shell *, .nq-shell *::before, .nq-shell *::after { box-sizing: border-box; }
+.nq-shell [hidden] { display: none !important; }
+.nq-shell h1, .nq-shell h2, .nq-shell h3 { line-height: 1.25; }
+.nq-shell h1 { margin: 0; font-size: 2rem; }
+.nq-shell h2 { font-size: 1.35rem; }
+.nq-shell h3 { font-size: 1.1rem; margin-block: 0 0.5rem; }
+.nq-shell p { margin-block: 0.5rem 1rem; }
+.nq-shell button {
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid #8399b8;
+  border-radius: 0.35rem;
+  background: #213048;
+  color: #fff;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  white-space: normal;
+}
+.nq-shell button[aria-pressed="true"] { border-color: #91e5e0; background: #16444b; }
+.nq-shell button[aria-disabled="true"] { color: #ced5df; background: #242a34; cursor: default; }
+.nq-shell :focus-visible { outline: 3px solid #ffd77b; outline-offset: 4px; }
+.nq-shell-controls, .nq-shell-object-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.nq-shell-control { min-width: 0; max-width: 100%; }
+.nq-shell kbd { display: inline-block; margin-left: 0.65rem; font: inherit; font-size: 0.875em; color: #aeeae4; }
+.nq-shell-unavailable { display: block; margin-top: 0.35rem; max-width: 28rem; color: #f4d6a1; }
+.nq-shell-help, .nq-shell-source, .nq-shell-presentation-status { color: #c4d0e1; }
+.nq-shell-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.45fr); gap: 1.5rem; }
+.nq-shell-layout > * { min-width: 0; }
+.nq-shell ul, .nq-shell ol { list-style: none; margin: 0; padding: 0; }
+.nq-shell li { border-top: 1px solid #43536c; padding-block: 1rem; }
+.nq-shell-freshness[data-freshness="stale"] { color: #ffd77b; }
+.nq-shell-presentation:empty, .nq-shell-panels:empty { display: none; }
+.nq-shell-presentation { max-width: 100%; }
+.nq-shell-presentation > canvas, .nq-shell-presentation > img { display: block; width: 100%; height: auto; }
+.nq-shell-status { min-height: 1.6em; padding: 0.5rem 0; border-top: 1px solid #43536c; }
+.nq-shell-captions { margin-top: 1.5rem; }
+@media (max-width: 52rem) { .nq-shell-layout { grid-template-columns: minmax(0, 1fr); } }
