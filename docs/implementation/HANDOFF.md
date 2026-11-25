@@ -11,15 +11,29 @@ The owner initiated implementation on 2026-11-25: one task per fresh-agent loop,
 
 ## Current position
 
-- Loops started: 21 of 200. Verified tasks: T001/T002/T006/T008/T009/T010/T011/T012/T013/T014 (10/170). Active loop020 T015 content validator. Loops019 host probes and021 scaffold licensing completed and reviewed; separate evidence below.
+- Loops started: 22 of 200. Verified tasks: T001/T002/T006/T008/T009/T010/T011/T012/T013/T014/T015 (11/170). Loop020 T015 accepted after correction; loops019 host probes and021 scaffold licensing completed and reviewed. Active loop022 T016 reducer.
 - The owner instructed “proceed only stop if its urgent” and challenged the blanket halt after loop014. Coordinator corrected execution scheduling in [execution-direction.md](execution-direction.md), plans/tasks/gates/AGENTS/README. Continue independent local work on actual verified prerequisites. Do not repeat the old blanket G0/foundation stop. Aggregate gate acceptance and capability-specific integration/media requirements remain open and unchanged.
 - T001 evidence index, T002 local runtime, T006 reviewed sources/cases, T008 client locks/build/secret exclusion, T009 Composer/platform/production install, T010 licenses/inventory/OpenAI terms, T011 HTTPS/PHP bootstrap all passed their scoped checks. Read respective evidence and loop notes as needed, not every historical report each loop.
 - T005 technical Blender/audio feasibility passes; actual listening remains pending. No production assets are accepted by those smoke checks. Production Audacity4 native and per-asset acceptance remain later.
 - T007 assessments in loops009/014 recorded G0 BLOCKED. Their blanket scheduling restriction is superseded; their observations and unverified evidence remain valid. T007 stays unchecked until full G0 clearance. No overall gate passed.
-- T013 accepted: modular65-definition schema and complete world metadata;28positive/22negative probes,exactSPEC IDs/names/graph/counts. T014 accepted:83 reviewed cases,165transcription checks and83 honest unimplemented-domainTODOs. No evaluator/gameplay acceptance claimed.
+- T013 accepted: modular 65-definition schema and complete world metadata;28 positive/22 negative probes, exact SPEC IDs/names/graph/counts. T014 accepted: 83 reviewed cases, 165 transcription checks and 83 honest evaluator TODOs. No evaluator/gameplay acceptance claimed.
 - Loop021 preserved the exact Spec Kit MIT notice and 54-file scaffold provenance before publication. Original operator-specific notes were preserved privately; public notes retain sanitized capability evidence.
-- Next local sequence: T015 -> T016–T021 -> guest/packet slice. Maintain source-before-evaluator and tests-before-corresponding-implementation requirements, real shared-code dependencies, and one task per fresh worker with durable notes.
+- T015 accepted: 51 content tests; combined 216 PASS/83 evaluator TODO; CLI validates 12 room identities / 0 authored / 3 routes. Concrete choice/order/recovery proof fails closed above 4,096 states per branch; generated validators are CSP-safe and deterministic. Future authored complexity may need reviewed optimization.
+- Next local sequence: T016–T021 -> guest/packet slice. Maintain source-before-evaluator and tests-before-corresponding-implementation requirements, real shared-code dependencies, and one task per fresh worker with durable notes.
 - No new secret/provider/SSH input is needed for local state types or guest gameplay. Resume external audits when input changes. Do not request already-confirmed production registrations/callbacks/pairs again. Pending question asks only remaining non-secret provider controls; existing listening question also remains pending.
+
+## Reviewed Git checkpoint
+
+Commit `9c3f2478ee64cfdd8774d1f48aa2c3fe8e563513` was pushed to
+`001-physical-layer-underworld` and independently matched the remote branch.
+It contains the 399 reviewed stable paths through T014 plus completed hosting and
+scaffold-rights evidence. Active T015 work was explicitly excluded. The exact staged
+snapshot typechecked/built independently, and its fixture suite passed 165 checks
+with 83 honest evaluator TODOs. All 54 scaffold provenance hashes and 41 media-source
+hashes matched. No private path/credential/runtime/player/backup material was staged.
+Required upstream license/scaffold whitespace remains byte-preserved; original
+source/docs scoped whitespace checks pass. This is source progress, not an accepted
+playable episode or deployment. Continue from the working tree and current state.
 
 ## Toolchain and repository safeguards
 
