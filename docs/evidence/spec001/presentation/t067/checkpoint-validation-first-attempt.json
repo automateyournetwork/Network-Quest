@@ -1,0 +1,9 @@
+{
+  "recordedAt": "2026-11-26T21:19:32.033581+00:00",
+  "kind": "Offline checkpoint assertion failure, not browser failure",
+  "attempt": "First offline checkpoint validation after owner feedback",
+  "observedOutput": "Traceback (most recent call last):\n  File \"<stdin>\", line 59, in <module>\nAssertionError",
+  "incorrectAssertion": "Every recorded asset response status must equal 200",
+  "finding": "Each Firefox pair includes valid MP3 HTTP206 byte-range responses. All assets are 200 or 206 with aborted=false; frozen manifests and cache observations match.",
+  "correction": "Accept successful 2xx asset responses and retain exact recorded statuses; no raw record or runtime edit."
+}

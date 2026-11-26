@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-26T20:10:47Z",
+  "scope": "Read-only preparation before reviewed T066 handoff",
+  "hardware": { "model": "Mac16,7", "cpu": "Apple M4 Pro", "logicalCpus": 14, "memoryBytes": 51539607552 },
+  "os": { "name": "macOS", "version": "26.6.2", "build": "25G83" },
+  "safari": { "version": "27.2", "build": "21625.2.8.18.4", "bundleIdentifier": "com.apple.Safari" },
+  "observations": [
+    { "method": "Read /Applications/Safari.app/Contents/Info.plist", "result": "CFBundleShortVersionString 27.2; CFBundleVersion 21625.2.8.18.4" },
+    { "command": "/usr/bin/sw_vers", "exitCode": 0, "result": "macOS 26.6.2; 25G83" },
+    { "command": "/usr/sbin/sysctl -n hw.model hw.memsize hw.logicalcpu machdep.cpu.brand_string", "exitCode": 0, "result": "Mac16,7; 51539607552; 14; Apple M4 Pro" },
+    { "command": "/usr/bin/safaridriver --version", "exitCode": 0, "result": "Included with Safari 27.2 (21625.2.8.18.4)" },
+    { "command": "/usr/bin/defaults read com.apple.Safari AllowRemoteAutomation", "exitCode": 1, "result": "Domain/default pair does not exist", "interpretation": "Absent preference; session capability unknown" },
+    { "command": "System Events: {UI elements enabled, exists process Safari}", "exitCode": 0, "result": [true, false] }
+  ],
+  "mutations": [],
+  "browserSessionsStarted": 0,
+  "limitations": ["No Safari runtime page or WebDriver session tested yet", "No settings or trust-store changes", "Installed Safari is not Playwright WebKit"]
+}

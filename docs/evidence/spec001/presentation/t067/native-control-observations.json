@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "scope": "Actual Safari control and surface observations; no accepted native performance result",
+  "observationIntervalUtc": "2026-11-26 20:38\u201320:48",
+  "safariVersion": "27.2 (21625.2.8.18.4)",
+  "failedRuns": [
+    {
+      "path": "safari-2026-11-26T20-38-09-727Z",
+      "samplesCompleted": 0,
+      "failures": [
+        "System Events cannot get Safari window 1; invalid index -1719",
+        "Native navigation/loaded-report timeout"
+      ]
+    },
+    {
+      "path": "safari-2026-11-26T20-43-09-902Z",
+      "samplesCompleted": 0,
+      "failures": [
+        "1280x720 cold sample timeout",
+        "1440x900 cold sample timeout"
+      ],
+      "exactContentViewportsObserved": [
+        [
+          1280,
+          720
+        ],
+        [
+          1440,
+          900
+        ]
+      ],
+      "allSceneResourcesFetched": true
+    }
+  ],
+  "nativeProperties": {
+    "method": "Safari normal AppleScript dictionary, documented by installed Safari.sdef; System Events queried separately",
+    "frontmost": false,
+    "tabVisible": true,
+    "windowVisible": true,
+    "windowMiniaturized": false,
+    "systemEventsSafariWindowCount": 0,
+    "tabTextIncludes": [
+      "The Arrival Lift",
+      "Visual presentation ready. Equivalent text and actions remain available."
+    ]
+  },
+  "activationAttempts": [
+    "Safari activate",
+    "Safari window index 1 plus System Events frontmost=true",
+    "Dock Safari AXPress"
+  ],
+  "activationResult": "Safari continued to report frontmost=false; no usable painted page capture",
+  "javascriptCapability": {
+    "operation": "Read-only do JavaScript for document visibility and measurement state",
+    "result": "Denied: You must enable Allow JavaScript from Apple Events in Safari Settings",
+    "settingChanged": false
+  },
+  "images": [
+    "safari-first-control-window.png",
+    "safari-background-room.png"
+  ],
+  "interpretation": "Tab text/visible metadata does not prove DOM visibility, painted rendering, frame rate or native background-tab behavior. Those remain unverified.",
+  "securityOrGlobalDisplayChanges": [],
+  "ownerActionRequestedByRoot": "Bring the concrete Safari preview window to the foreground while reviewing the room; leave it open for subsequent checks",
+  "laterOwnerReview": {
+    "path": "owner-review.json",
+    "date": "2026-11-26",
+    "result": "Positive visual feedback; substantial interface correction requested. Does not establish native foreground/timing or final acceptance."
+  }
+}

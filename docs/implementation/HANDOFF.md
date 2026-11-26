@@ -568,3 +568,16 @@ voice evidence binds every declared TTS event and rejects contradictory duplicat
 Both follow-ups are accepted without counting T065/T061 twice: 60 tasks accepted
 across 77 loops. Loop 073 preserves the earlier candidate evidence; loop 077 owns
 the requested interface correction. No release is deployed.
+
+Reviewed provenance checkpoint `ff570631221e7e2b0b053de08cdc6605caaed882` pushed
+and matched to the feature branch remote. All 40 explicit paths passed staged
+hashes, private-value/key scans and whitespace. Includes the owner interface
+refinement in SPEC/PLAN; loop 077 runtime changes remain separate. No deployment.
+
+Loop 073 historical candidate checkpoint is reviewed for preservation: all 95
+stable artifact seals match (partial seal f64def79aa56259cf5cd824d83ea90d4ff512d6d756fd25b8a8686b73bb38445).
+Root inspected reports/tools, independently checked 12 raw Firefox samples and
+six origin logs, and viewed the failed native Safari capture. Its visible browser
+chrome/flat page cannot prove game rendering. The growing preview request log
+is excluded. T067 remains pending; resume the same worker after loop 077's reviewed
+freeze. Current game-screen correction has sole runtime/build/browser ownership.

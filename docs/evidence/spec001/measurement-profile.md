@@ -271,3 +271,43 @@ the later cycle-label-only correction changes the final tool hash, sealed in loo
 The recorded options and default five-cycle sample arrays remain authoritative.
 
 Copyright 2026 John Capobianco. SPDX-License-Identifier: CC-BY-4.0.
+
+## T067 finished-room profile — historical candidate results
+
+2026-11-26, loop073. This appended section preserves all T059 observations above.
+The frozen build/results are tracked in [representative-room.md](representative-room.md).
+Twelve Firefox samples meet the representative numerical budgets for that frozen
+interface. The owner's 2026-11-26 review was positive about the visuals and requested
+a substantial correction to one contained adventure screen with in-frame controls.
+Root owns the revision; the earlier measurements do not certify its future build.
+Native Safari performance and final owner acceptance remain pending; G3 is not
+accepted. Prior results and failures remain unchanged.
+
+Actual reference laptop discovery matches the earlier device: Mac16,7, Apple M4
+Pro, 14 logical CPUs, 48 GiB RAM, macOS26.6.2 build25G83. Built-in Liquid Retina
+XDR display reports3456×2234 physical pixels and1728×1117 logical at120Hz. Safari
+27.2 build21625.2.8.18.4 and matching system safaridriver are installed. System
+Events accessibility is enabled. An absent AllowRemoteAutomation preference leaves
+WebDriver capability unknown; no browser setting was changed.
+
+Executed Firefox profile:1280×720 and1440×900, three cold/warm pairs each, exact
+browser version/DPR and raw request/frame records. Root accepted the T066 freeze
+and reserved an exclusive slot. The fixture serves frozen build/media bytes and
+adds separately hashed local measurement instrumentation to HTML. Original versus
+served instrumented HTML hashes remain distinct. The actual owner preview serves
+the original HTML with no probe.
+
+The bounded local scheduler emulates aggregate20Mb/s downstream body delivery and
+50ms response latency, calibrated through actual local HTTP requests. This is
+application response scheduling: DNS, upload, TCP/TLS handshake latency and physical
+WAN round-trip behavior are not emulated. Firefox uses disposable strictly verified
+HTTPS trust; Safari's authorized guest-only fixture uses a fresh HTTP loopback
+origin with no auth/provider/private data and no security/trust-store changes.
+Safari results will not establish HTTPS or account-service acceptance.
+
+Initial calibration at20:17:15UTC failed:8MiB single-stream body17.83735Mb/s;
+concurrent aggregate19.95966Mb/s. Per-chunk timer drift caused the single-stream
+undershoot. The retained second calibration at20:17:52UTC uses an absolute shared
+byte clock: single19.99259Mb/s; four concurrent2MiB bodies aggregate19.99539Mb/s.
+Observed header delays54.42–59.38ms include fixture overhead. Both raw attempts
+remain under `presentation/t067/calibration-*`; final runs require a fresh control.

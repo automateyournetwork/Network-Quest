@@ -13,7 +13,7 @@ Authority: [constitution](../../../.specify/memory/constitution.md#development-w
 | G0 | W01 / T007 | T001–T006 evidence and T008–T011 local preparation | BLOCKED | Codex `/root/loop014_t007`, 2026-11-25: local preparation accepted; host capabilities, remaining provider controls and listening remain open. Production registration existence/environment/callback inputs are owner-confirmed. [Reassessment](../../implementation/loops/014-T007.md) |
 | G1 | W02 / T035 | T001–T011, T012–T021, T022–T030, T031–T034; G0 | PENDING | Codex `/root/loop043_t035`, 2026-11-26: actual guest/packet text investigation reviewed; independent browser exact-limit gap closed. Visual graybox remains a local unmet exit criterion; G0 also remains blocked. [Review](../../implementation/loops/043-T035.md), [US1](US1.md#t035-independent-review--2026-11-26). T035 remains incomplete. |
 | G2 | W03 / T058 | T036–T057 after G1 | PENDING | Not executed; reviewer not assigned; no runtime evidence |
-| G3 | W04 / T067 | T059 measurement harness, T060–T066 after G2 | PENDING | Not executed; owner review pending; no runtime/media evidence |
+| G3 | W04 / T067 | T059 measurement harness, T060–T066 after G2 | PENDING | 2026-11-26: historical R01 candidate has real sources/media and 12 passing Firefox budget samples. Actual Safari timing remains unverified; owner requests a contained game-screen correction before final acceptance. [Representative review](representative-room.md). No aggregate gate passed. |
 | G4 | W05/W06 / T105 | T068–T104 after G3, including first route, outcomes, R12 and optional activities | PENDING | Not executed; reviewer not assigned; no runtime evidence |
 | G5 | W07 / T141 | T106–T140 after G4 | PENDING | Not executed; visual/listening review pending; no accepted inventory |
 | G6 | W08 / T163 | T142–T158 then T159–T162; G0–G5 | PENDING | Not executed; beginner/technical/owner reviews pending |
@@ -241,3 +241,20 @@ original review dates; their media-listening blocker is now superseded. No liste
 to old smoke files is invented. G0 still needs T003/T004 retention/package/provider
 evidence; G1–G7 remain pending. T063/T064 production is accepted for bounded source
 scope, while T066/T067 runtime/performance/owner room review remains in progress.
+
+## Representative room candidate follow-up — 2026-11-26
+
+Root reviewed loop 073's partial evidence: all 95 stable artifact seals match.
+Independent raw-data checks confirm 12 completed Firefox samples on six distinct
+cold/warm origins, 2.099–2.126 second cold readiness and 119.75–120.25 submitted
+frames/second in the measured windows. Exact limits, shaped-response calibration,
+cache behavior, retained failures and source/tool hashes are in the representative
+review. No Safari timing sample completed; foreground/painted-surface limitations
+remain explicit. Native source checks carry forward unchanged audio approval.
+
+The owner liked the visuals and requested one contained Sierra Quest-style game
+screen with contextual controls. Loop 077 implements that correction. The old
+measurements are historical candidate evidence, not acceptance of the revised
+interface. Revised browser/accessibility evidence, actual Safari and final owner
+review remain pending, alongside earlier aggregate prerequisites. T066/T067 stay
+unchecked and G3 stays PENDING. No full episode or release is accepted.
