@@ -14,6 +14,7 @@ import { createPacketJourneyPanel } from '../ui/packet-journey';
 import { createNavigationPlanner, createSceneObjectProjection } from '../ui/scene-objects';
 import { createTitleController, createTitlePanel } from '../ui/title';
 import { createSaveDialogsController, createSaveDialogsPanel } from '../ui/save-dialogs';
+import { createAccountSettingsController, createAccountSettingsPanel, createAutosaveSettingsPanel } from '../ui/account-settings';
 import { AccountService, browserAccountWindowPort } from '../services/account';
 import { GameApi } from '../services/game-api';
 import { SaveCoordinator } from '../services/save-coordinator';
@@ -52,7 +53,7 @@ export function createIntroductionApplication(host: HTMLElement) {
   const sceneBindings = bindings.hotspots.filter(binding => !(binding.roomId === q('R01') && binding.hotspotId === q('HOTSPOT-capsule') && binding.actionId === q('ACTION-packet-context')));
   const verbs = createVerbController({ registry, store, bus, bindings: [...sceneBindings, ...notebook.hotspotBindings, ...dialogue.hotspotBindings, ...packet.hotspotBindings],
     walk: createNavigationPlanner({ navigation, store }), sceneObjects: createSceneObjectProjection({ registry, navigation }), panels: notebook.panels });
-  const menuHost = host.ownerDocument.createElement('div'), saveHost = host.ownerDocument.createElement('div'), adventureHost = host.ownerDocument.createElement('div'); host.replaceChildren(menuHost, saveHost, adventureHost);
+  const menuHost = host.ownerDocument.createElement('div'), saveHost = host.ownerDocument.createElement('div'), settingsHost = host.ownerDocument.createElement('div'), adventureHost = host.ownerDocument.createElement('div'); host.replaceChildren(menuHost, saveHost, settingsHost, adventureHost);
   const dismissedCompletions = new Set<string>();
   const createPanels = () => {
     const shell = createAppShell(adventureHost, bus);
@@ -107,7 +108,11 @@ export function createIntroductionApplication(host: HTMLElement) {
   const account = api ? new AccountService(api, browserAccountWindowPort(window)) : null;
   const coordinator = api ? new SaveCoordinator({ api, store, validator, reader }) : null;
   const autosave = api && coordinator ? new AutosaveController({ api, coordinator, store }) : null;
+  let accountScope: object = {}, settingsInstallation = false;
+  let accountSettings: ReturnType<typeof createAccountSettingsController> | null = null;
   const invalidateGameplay = () => {
+    accountScope = {};
+    if (!settingsInstallation) accountSettings?.invalidateView();
     autosave?.invalidateView(); dismissedCompletions.clear();
     packet.invalidate(); dialogue.invalidate(); notebook.invalidate(); bus.invalidate();
     disposePanels(); panels = createPanels(); projectedGame = null; capture = bus.captureScope(contextFromRuntime(state.runtime));
@@ -123,15 +128,49 @@ export function createIntroductionApplication(host: HTMLElement) {
     },
   });
   const title = createTitleController({ getState: store.getState, changed: () => render(), start: before => {
-    if (state !== before) return false;
+    if (state !== before || accountSettings?.busy) return false;
     const next = createReducerState(startIntroduction(before.runtime, registry));
     installing = true; saves.invalidateView(); invalidateGameplay(); state = next; focusRoom = true;
     saves.bindCurrentSession({ knownSlot: before.runtime.persistence.knownSlot, autosaveOff: true });
     installing = false;
     return true;
   }, services: { available: !!api, save: () => { void saves.save(); }, continue: () => { void saves.continue(); }, signIn: provider => { void saves.signIn(provider); } } });
-  const menu = createTitlePanel(menuHost, action => title.act(action));
-  const saveDialogs = createSaveDialogsPanel(saveHost, action => { void saves.act(action); });
+  const deletionAccount = api ? new AccountService(api, browserAccountWindowPort(window)) : null;
+  accountSettings = api && deletionAccount ? createAccountSettingsController({ api, account: deletionAccount, getState: store.getState, changed: () => render(),
+    lifecycle: {
+      capture: () => accountScope, isCurrent: view => !disposed && accountScope === view,
+      stopCompetingWork: view => {
+        if (disposed || accountScope !== view) return null;
+        installing = true; settingsInstallation = true;
+        try { saves.invalidateView(); autosave?.invalidateView(); accountScope = {}; return accountScope; }
+        finally { settingsInstallation = false; installing = false; }
+      },
+      adoptDeletionSession: (view, session, generation) => {
+        if (disposed || accountScope !== view || !api.isCurrent(generation) || api.session !== session) return null;
+        installing = true; settingsInstallation = true;
+        try { return saves.adoptVerifiedSession(session, generation) ? { runtime: accountScope, generation: api.capture() } : null; }
+        finally { settingsInstallation = false; installing = false; }
+      },
+      clearToTitle: (view, generation) => {
+        if (disposed || accountScope !== view || !api.isCurrent(generation)) return false;
+        installing = true; settingsInstallation = true;
+        try {
+          if (api.forgetSession(generation) === null) return false;
+          saves.invalidateView(); deletionAccount?.invalidateView(); autosave?.invalidateView(); state = createReducerState(createIntroductionRuntime());
+          invalidateGameplay(); title.invalidate(); focusRoom = false; return true;
+        } finally { settingsInstallation = false; installing = false; }
+      },
+    },
+  }) : null;
+  const settingsPanel = accountSettings ? createAccountSettingsPanel(settingsHost, action => { void accountSettings?.act(action); }) : null;
+  const autosavePanel = settingsPanel && autosave ? createAutosaveSettingsPanel(settingsPanel.element, autosave) : null;
+  const menu = createTitlePanel(menuHost, action => {
+    if (action === 'settings' && accountSettings) { title.act('cancel'); void accountSettings.act('open'); return; }
+    if (accountSettings?.busy) return;
+    if (accountSettings?.project().open) void accountSettings.act('close');
+    title.act(action);
+  });
+  const saveDialogs = createSaveDialogsPanel(saveHost, action => { if (!accountSettings?.busy) void saves.act(action); });
   function render() {
     if (disposed || installing) return;
     const game = state.runtime.game;
@@ -157,6 +196,13 @@ export function createIntroductionApplication(host: HTMLElement) {
     menu.render(title.project());
     // Coordinator events and ordinary reducer edits both update save status.
     saveDialogs.render(saves.project());
+    if (accountSettings && settingsPanel) {
+      const settings = accountSettings.project(); settingsPanel.render(settings); autosavePanel?.render(settings.open, settings.busy);
+      // Busy account operations cannot race another title/save choice. Gameplay
+      // memory remains intact until the confirmed lifecycle CAS above.
+      for (const control of menu.element.querySelectorAll('button')) control.disabled = settings.busy && control.textContent !== 'Settings';
+      saveHost.inert = settings.busy;
+    }
     if (focusRoom) { panels.shell.element.querySelector('h1')?.focus(); focusRoom = false; }
     autosave?.observe();
   }
@@ -164,6 +210,6 @@ export function createIntroductionApplication(host: HTMLElement) {
   const unsubscribe = bus.subscribe(() => render()), unsubscribeAutosave = autosave?.subscribe(() => render()); render(); void saves.bootstrap();
   return { dispose() {
     if (disposed) return; disposed = true; unsubscribe(); packet.dispose(); dialogue.dispose(); notebook.dispose(); inventory.dispose(); verbs.dispose();
-    unsubscribeAutosave?.(); autosave?.dispose(); saves.dispose(); saveDialogs.dispose(); menu.dispose(); disposePanels(); bus.dispose();
+    unsubscribeAutosave?.(); accountSettings?.dispose(); autosavePanel?.dispose(); settingsPanel?.dispose(); autosave?.dispose(); saves.dispose(); saveDialogs.dispose(); menu.dispose(); disposePanels(); bus.dispose();
   } };
 }

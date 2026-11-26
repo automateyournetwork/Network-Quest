@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-26
 
-**64 loops started; 49 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
+**65 loops started; 51 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
 Current active ownership is in state.json:
 
 - Loop046/T035 local correction reviewed: real Three.js R01/R02 graybox, shared
@@ -123,25 +123,34 @@ Current active ownership is in state.json:
  verified; historical failures preserved in hosting-header-admission.md.
 - Loop064/T060: independent asset-manifest negative fixtures before implementation;
  no asset count or review acceptance inferred.
-- Next local sequence: review these results and integrate explicit save/account UI,
-  opt-in autosave and independent deletion recovery checks. Preserve owner/gate
-  reviews and actual provider requirements.
+- T052 accepted after full controller/application/test review and15sealed artifacts;
+ 41focused and15native casesPASS. Actual canceled/confirmed logout, direct/lost
+ deletion, opt-in autosave and narrow settings verified. Production policy unverified.
+- T060 accepted:122independent vectors;125schema/fixturePASS,123semanticTODO
+ awaiting T061. Full client1402PASS/191TODO (68physical+123asset),39suitesPASS.
+- Root fixed bounded empty204stream handling and disappearing SQLite journal
+ metadata checks. FullPHP908tests/19138assertionsPASS; actual20-way260request
+ baseline has0errors,savep95134.020ms locally. No host or causal proof claim.
+- Loop065/T056: independent actual native prepared SAVE01–13 journeys; coordinate
+ fixture/config/build ownership. Next T061 follows measurement report acceptance.
+ Preserve owner/gate reviews and actual provider requirements.
 
 Accepted implementation now includes domain/state/content foundations, accessible
 controls and presentation lifecycle adapters; actual guest title, R01/R02
 investigation, O01/O02, dialogue skip/replay, inventory, five notebook sections,
 fresh/stale readings and the initial packet activity. **Finished media count0.**
 The unconfigured service entry remains unavailable. Private configured entry
-composition is locally accepted; actual provider login and browser saves remain
-unaccepted. No production account service is deployed.
+composition and prepared browser saves are locally accepted; actual provider login
+and the independent full SAVE01–13 browser matrix remain unaccepted. No production account service is deployed.
 
-Latest published checkpoint: `8962bcf9a9df9a83acaef4b4ee1f208d7a9ee137` on
-`001-physical-layer-underworld`, independently verified at origin. All9 staged
+Latest published checkpoint: `48ab7dfd1d60b4bbf83dfffcbd4c86489f07ef3c` on
+`001-physical-layer-underworld`, independently verified at origin. All17 staged
 paths matched reviewed hashes; four private OAuth values and private-key markers
-were absent. Includes T051 autosave, native API transport/local forgetting and resumed hosting
-evidence. Prior `f3b12e9` contains T049 save coordination; `0e41ad7` contains independent
-concurrency/recovery and final deletion-proof time correction; `a83eee5` contains
-T047/T048/T053. This is not a deployment.
+were absent. The staged application used the exact sealed T050 blob while keeping
+subsequent T052 working edits intact. Includes T050 actual save/restore UI.
+Prior `8962bcf` contains T051 autosave/API/hosting evidence; `f3b12e9` T049;
+`0e41ad7` concurrency/recovery and proof timing; `a83eee5` client/security.
+This is not a deployment.
 
 Recent evidence:
 
@@ -247,7 +256,7 @@ Do not fabricate listening. Production Audacity4 .aup4/native review remains lat
 
 ## Publication and release
 
-Latest pushed and independently remote-verified commit:
+Historical joined-server checkpoint (superseded by the current publication above):
 `ae97fb3cc27cb53e2ab10e6649c62288ef9b433b` (joined T041/T044/T045/T046 account,
 save, recovery, private configuration and native entry;41 accepted tasks).
 All58 staged paths were explicitly inspected/hash-matched;4 private OAuth values

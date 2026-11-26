@@ -1,0 +1,4728 @@
+{
+  "contractVersion": 1,
+  "provenance": "SYNTHETIC T060 independent oracle. Virtual bytes, reviewers, generation events and placements are invented test data, never production evidence. Baseline constructors in assets.test.ts mechanically expand these fixed cases; expected answers are authored from SPEC.md and delivery.md before T061 exists.",
+  "minimums": {
+    "characterModels": 25,
+    "props": 150,
+    "interactiveProps": 50,
+    "roomsWithImageSet": 12,
+    "sceneLayers": 36,
+    "portraits": 25,
+    "illustrations": 24,
+    "music": 8,
+    "ambience": 12,
+    "effects": 40,
+    "voices": 60
+  },
+  "cases": [
+    {
+      "id": "P01",
+      "title": "honest empty inventory counts nothing",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "empty",
+      "mode": "inventory",
+      "patches": [],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "characterModels": 0,
+          "props": 0,
+          "interactiveProps": 0,
+          "roomsWithImageSet": 0,
+          "sceneLayers": 0,
+          "portraits": 0,
+          "illustrations": 0,
+          "music": 0,
+          "ambience": 0,
+          "effects": 0,
+          "voices": 0
+        }
+      }
+    },
+    {
+      "id": "P02",
+      "title": "planned allocation counts nothing without pretending media exists",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "planned",
+      "mode": "inventory",
+      "patches": [],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "characterModels": 0,
+          "props": 0,
+          "interactiveProps": 0,
+          "roomsWithImageSet": 0,
+          "sceneLayers": 0,
+          "portraits": 0,
+          "illustrations": 0,
+          "music": 0,
+          "ambience": 0,
+          "effects": 0,
+          "voices": 0
+        }
+      }
+    },
+    {
+      "id": "P03",
+      "title": "one fully evidenced prop counts once",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "characterModels": 0,
+          "props": 1,
+          "interactiveProps": 1,
+          "roomsWithImageSet": 0,
+          "sceneLayers": 0,
+          "portraits": 0,
+          "illustrations": 0,
+          "music": 0,
+          "ambience": 0,
+          "effects": 0,
+          "voices": 0
+        }
+      }
+    },
+    {
+      "id": "P04",
+      "title": "same prop placed in two rooms counts once",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "shared-use",
+      "mode": "inventory",
+      "patches": [],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "props": 1,
+          "interactiveProps": 1
+        }
+      }
+    },
+    {
+      "id": "P05",
+      "title": "distinct object sets in one reopened Blender source count separately",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "shared-blend",
+      "mode": "inventory",
+      "patches": [],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "props": 2,
+          "interactiveProps": 2
+        }
+      }
+    },
+    {
+      "id": "P06",
+      "title": "one real parent generation yields three honest independently usable layers",
+      "requirement": "C5; C11; FR-018; AC09",
+      "baseline": "derived-layers",
+      "mode": "inventory",
+      "patches": [],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "sceneLayers": 3,
+          "roomsWithImageSet": 1
+        }
+      }
+    },
+    {
+      "id": "P07",
+      "title": "character model and its portrait are different asset kinds",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "character",
+      "mode": "inventory",
+      "patches": [],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "characterModels": 1,
+          "portraits": 1
+        }
+      }
+    },
+    {
+      "id": "P08",
+      "title": "reviewed music preserves native project raw source master and export",
+      "requirement": "C5; C11; FR-018; AC10",
+      "baseline": "music",
+      "mode": "inventory",
+      "patches": [],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "music": 1
+        }
+      }
+    },
+    {
+      "id": "P09",
+      "title": "selected voice line has exact text linkage and listening testimony",
+      "requirement": "C5; C14; FR-018; AC10",
+      "baseline": "voice",
+      "mode": "inventory",
+      "patches": [],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "voices": 1
+        }
+      }
+    },
+    {
+      "id": "P10",
+      "title": "all synthetic media minima and exact allocations satisfy the audit contract only",
+      "requirement": "C3; C5; C11; FR-017; FR-018; AC08; AC09; AC10",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "characterModels": 25,
+          "props": 150,
+          "interactiveProps": 50,
+          "roomsWithImageSet": 12,
+          "sceneLayers": 36,
+          "portraits": 25,
+          "illustrations": 24,
+          "music": 8,
+          "ambience": 12,
+          "effects": 40,
+          "voices": 60
+        }
+      }
+    },
+    {
+      "id": "P11",
+      "title": "accepted but intentionally nonquota asset remains usable and counts zero",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "countsTowardQuota"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "characterModels": 0,
+          "props": 0,
+          "interactiveProps": 0,
+          "roomsWithImageSet": 0,
+          "sceneLayers": 0,
+          "portraits": 0,
+          "illustrations": 0,
+          "music": 0,
+          "ambience": 0,
+          "effects": 0,
+          "voices": 0
+        }
+      }
+    },
+    {
+      "id": "P12",
+      "title": "unknown unexposed model metadata remains honest rather than fabricated",
+      "requirement": "C5; C11; FR-018; AC09",
+      "baseline": "image",
+      "mode": "inventory",
+      "patches": [],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "sceneLayers": 1,
+          "roomsWithImageSet": 0
+        }
+      }
+    },
+    {
+      "id": "S01",
+      "title": "accepted model requires source entries",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources"
+          ],
+          "value": []
+        }
+      ],
+      "schemaValid": false,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SCHEMA_INVALID"
+        ]
+      }
+    },
+    {
+      "id": "S02",
+      "title": "accepted asset requires an export",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "exports"
+          ],
+          "value": []
+        }
+      ],
+      "schemaValid": false,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SCHEMA_INVALID"
+        ]
+      }
+    },
+    {
+      "id": "S03",
+      "title": "accepted asset requires manifest use",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "usedBy"
+          ],
+          "value": []
+        }
+      ],
+      "schemaValid": false,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SCHEMA_INVALID"
+        ]
+      }
+    },
+    {
+      "id": "S04",
+      "title": "accepted asset cannot have pending rights",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "rights",
+            "reviewStatus"
+          ],
+          "value": "pending"
+        }
+      ],
+      "schemaValid": false,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SCHEMA_INVALID"
+        ]
+      }
+    },
+    {
+      "id": "S05",
+      "title": "accepted character or prop needs model metadata",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "model"
+          ]
+        }
+      ],
+      "schemaValid": false,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SCHEMA_INVALID"
+        ]
+      }
+    },
+    {
+      "id": "S06",
+      "title": "source traversal is schema-invalid",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            0,
+            "file",
+            "path"
+          ],
+          "value": "../private/source.blend"
+        }
+      ],
+      "schemaValid": false,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SCHEMA_INVALID"
+        ]
+      }
+    },
+    {
+      "id": "S07",
+      "title": "absolute source path is schema-invalid",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            0,
+            "file",
+            "path"
+          ],
+          "value": "/private/source.blend"
+        }
+      ],
+      "schemaValid": false,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SCHEMA_INVALID"
+        ]
+      }
+    },
+    {
+      "id": "S08",
+      "title": "digest must be lowercase SHA256",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            0,
+            "file",
+            "sha256"
+          ],
+          "value": "not-a-hash"
+        }
+      ],
+      "schemaValid": false,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SCHEMA_INVALID"
+        ]
+      }
+    },
+    {
+      "id": "S09",
+      "title": "planned items cannot claim quota",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "planned",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "countsTowardQuota"
+          ],
+          "value": true
+        }
+      ],
+      "schemaValid": false,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SCHEMA_INVALID"
+        ]
+      }
+    },
+    {
+      "id": "I01",
+      "title": "duplicate asset ID is rejected",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "copy",
+          "path": [
+            "manifest",
+            "assets"
+          ],
+          "from": [
+            "manifest",
+            "assets",
+            0
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "DUPLICATE_ASSET_ID"
+        ]
+      }
+    },
+    {
+      "id": "I02",
+      "title": "new asset ID cannot relabel the same semantic identity",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "shared-blend",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            1,
+            "semanticIdentity"
+          ],
+          "value": "spec001:PR001"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "DUPLICATE_SEMANTIC_IDENTITY"
+        ]
+      }
+    },
+    {
+      "id": "I03",
+      "title": "two IDs referencing the same source objects are aliases",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "shared-blend",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            1,
+            "model",
+            "objectIds"
+          ],
+          "value": [
+            "PR001-mesh",
+            "shared-rig"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "DUPLICATE_MODEL_OBJECTS"
+        ]
+      }
+    },
+    {
+      "id": "I04",
+      "title": "declared recolor variant cannot inflate the prop quota",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "shared-blend",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            1,
+            "variantOf"
+          ],
+          "value": "spec001:ASSET-PR001"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "VARIANT_QUOTA"
+        ]
+      }
+    },
+    {
+      "id": "I05",
+      "title": "counted semantic identity must be the exact registered prop",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "semanticIdentity"
+          ],
+          "value": "spec001:PR999"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "IDENTITY_UNRESOLVED"
+        ],
+        "counts": {
+          "props": 0
+        }
+      }
+    },
+    {
+      "id": "I06",
+      "title": "character identity cannot be counted as prop",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "semanticIdentity"
+          ],
+          "value": "spec001:CH01"
+        },
+        {
+          "op": "append",
+          "path": [
+            "evidence",
+            "content",
+            "entities"
+          ],
+          "value": {
+            "id": "spec001:CH01",
+            "kind": "character"
+          }
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "IDENTITY_KIND_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "I07",
+      "title": "unqualified semantic IDs do not silently resolve",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "semanticIdentity"
+          ],
+          "value": "PR001"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "IDENTITY_UNRESOLVED"
+        ]
+      }
+    },
+    {
+      "id": "I08",
+      "title": "an empty model object set does not establish a distinct mesh",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "model",
+            "objectIds"
+          ],
+          "value": []
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "MODEL_OBJECTS_MISSING"
+        ]
+      }
+    },
+    {
+      "id": "F01",
+      "title": "missing native source bytes fail without any implied public retrieval",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "evidence",
+            "files",
+            "assets-src/test-synthetic/PR001/source.blend"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "FILE_MISSING"
+        ],
+        "counts": {
+          "props": 0
+        }
+      }
+    },
+    {
+      "id": "F02",
+      "title": "changed source bytes invalidate its recorded digest",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "files",
+            "assets-src/test-synthetic/PR001/source.blend"
+          ],
+          "value": "SYNTHETIC corrupted source\n"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "FILE_HASH_MISMATCH"
+        ],
+        "counts": {
+          "props": 0
+        }
+      }
+    },
+    {
+      "id": "F03",
+      "title": "declared source byte length must match actual bytes",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            0,
+            "file",
+            "bytes"
+          ],
+          "value": 1
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "FILE_SIZE_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "F04",
+      "title": "missing optimized export cannot count",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "evidence",
+            "files",
+            "public/assets/test-synthetic/PR001.glb"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "FILE_MISSING"
+        ],
+        "counts": {
+          "props": 0
+        }
+      }
+    },
+    {
+      "id": "F05",
+      "title": "changed export bytes invalidate their digest",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "files",
+            "public/assets/test-synthetic/PR001.glb"
+          ],
+          "value": "SYNTHETIC broken export"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "FILE_HASH_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "F06",
+      "title": "Blender script is not a saved reopened model",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            0,
+            "role"
+          ],
+          "value": "script"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            0,
+            "application"
+          ],
+          "value": "Python"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            0,
+            "file",
+            "format"
+          ],
+          "value": "py"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "BLENDER_SOURCE_REQUIRED"
+        ]
+      }
+    },
+    {
+      "id": "F07",
+      "title": "model native source cannot claim a non-Blender application",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            0,
+            "application"
+          ],
+          "value": "Image editor"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "BLENDER_SOURCE_REQUIRED"
+        ]
+      }
+    },
+    {
+      "id": "F08",
+      "title": "model pointer must identify the actual native source",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "model",
+            "blendSourcePath"
+          ],
+          "value": "assets-src/test-synthetic/other.blend"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "NATIVE_SOURCE_LINK"
+        ]
+      }
+    },
+    {
+      "id": "F09",
+      "title": "source-reopen evidence must exist independently",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/source-reopen.json"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "REVIEW_EVIDENCE_MISSING"
+        ]
+      }
+    },
+    {
+      "id": "F10",
+      "title": "private-only source retrieval fails independent reuse",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            0,
+            "file",
+            "path"
+          ],
+          "value": ".local/private/source.blend"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "model",
+            "blendSourcePath"
+          ],
+          "value": ".local/private/source.blend"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SOURCE_NOT_PUBLIC"
+        ]
+      }
+    },
+    {
+      "id": "R01",
+      "title": "license label alone cannot replace independent rights review",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/rights.json"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RIGHTS_EVIDENCE_MISSING"
+        ]
+      }
+    },
+    {
+      "id": "R02",
+      "title": "an accepted rights label with no license fails",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "rights",
+            "licenseIds"
+          ],
+          "value": []
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RIGHTS_INCOMPLETE"
+        ]
+      }
+    },
+    {
+      "id": "R03",
+      "title": "credits require the actual notice file",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "evidence",
+            "files",
+            "assets-src/test-synthetic/PR001/NOTICE.txt"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RIGHTS_INCOMPLETE"
+        ]
+      }
+    },
+    {
+      "id": "R04",
+      "title": "noncommercial terms are incompatible with project reuse",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "rights",
+            "licenseIds"
+          ],
+          "value": [
+            "CC-BY-NC-4.0"
+          ]
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/rights.json",
+            "details",
+            "licenseIds"
+          ],
+          "value": [
+            "CC-BY-NC-4.0"
+          ]
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/rights.json",
+            "details",
+            "permitsCommercialReuse"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RIGHTS_INCOMPATIBLE"
+        ]
+      }
+    },
+    {
+      "id": "R05",
+      "title": "manifest accepted cannot override failed rights review",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/rights.json",
+            "status"
+          ],
+          "value": "failed"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RIGHTS_REVIEW_NOT_PASSED"
+        ]
+      }
+    },
+    {
+      "id": "R06",
+      "title": "AI imagery must retain actual applicable terms",
+      "requirement": "C5; C13; FR-018; AC09",
+      "baseline": "image",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "evidence",
+            "files",
+            "assets-src/test-synthetic/LAYER-R01-background/terms.txt"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RIGHTS_INCOMPLETE"
+        ]
+      }
+    },
+    {
+      "id": "R07",
+      "title": "generation reference needs permission evidence",
+      "requirement": "C5; C13; FR-018; AC09",
+      "baseline": "image",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "production",
+            0,
+            "referenceHashes"
+          ],
+          "value": [
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ]
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "rights",
+            "inputPermissionPaths"
+          ],
+          "value": []
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "REFERENCE_RIGHTS_MISSING"
+        ]
+      }
+    },
+    {
+      "id": "R08",
+      "title": "changed terms invalidate accepted rights testimony",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "files",
+            "assets-src/test-synthetic/PR001/terms.txt"
+          ],
+          "value": "SYNTHETIC changed restrictive terms"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RIGHTS_HASH_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "V01",
+      "title": "structure-only checks do not imply human visual/source/browser acceptance",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "verification"
+          ],
+          "value": []
+        }
+      ],
+      "schemaValid": false,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SCHEMA_INVALID"
+        ]
+      }
+    },
+    {
+      "id": "V02",
+      "title": "passing structure review cannot substitute visual review",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "verification",
+            2,
+            "check"
+          ],
+          "value": "structure"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "REVIEW_REQUIRED"
+        ]
+      }
+    },
+    {
+      "id": "V03",
+      "title": "human visual review is a separate evidence file",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "evidence",
+            "files",
+            "docs/evidence/test-synthetic/PR001/visual.json"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "REVIEW_EVIDENCE_MISSING"
+        ]
+      }
+    },
+    {
+      "id": "V04",
+      "title": "pending external visual review cannot count as passed",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/visual.json",
+            "status"
+          ],
+          "value": "pending"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "REVIEW_NOT_PASSED"
+        ],
+        "counts": {
+          "props": 0
+        }
+      }
+    },
+    {
+      "id": "V05",
+      "title": "automated structure checks do not establish an actual visual inspection",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/visual.json",
+            "actor"
+          ],
+          "value": "tool"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/visual.json",
+            "details",
+            "methods"
+          ],
+          "value": [
+            "structure"
+          ]
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/visual.json",
+            "details",
+            "tool"
+          ],
+          "value": "synthetic-schema-validator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/visual.json",
+            "details",
+            "findings"
+          ],
+          "value": "Automated schema check passed"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "REVIEW_OBSERVATION_REQUIRED"
+        ]
+      }
+    },
+    {
+      "id": "V06",
+      "title": "stale visual review bound to different bytes is rejected",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/visual.json",
+            "hashes"
+          ],
+          "value": [
+            "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "REVIEW_HASH_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "V07",
+      "title": "a different asset reviewer record cannot be borrowed",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/visual.json",
+            "assetId"
+          ],
+          "value": "spec001:ASSET-PR002"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "REVIEW_ASSET_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "V08",
+      "title": "failed current browser comparison cannot be hidden by accepted status",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "verification",
+            3,
+            "status"
+          ],
+          "value": "failed"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "REVIEW_NOT_PASSED"
+        ]
+      }
+    },
+    {
+      "id": "V09",
+      "title": "normalized testimony must correspond to the evidence bytes",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "files",
+            "docs/evidence/test-synthetic/PR001/visual.json"
+          ],
+          "value": "{\"type\":\"forged\"}"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "EVIDENCE_BYTES_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "V10",
+      "title": "native reopen may not be inferred from file existence",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/source-reopen.json",
+            "status"
+          ],
+          "value": "pending"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "REVIEW_NOT_PASSED"
+        ]
+      }
+    },
+    {
+      "id": "U01",
+      "title": "invented room ID does not establish placement",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R99"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "USE_TARGET_UNRESOLVED"
+        ]
+      }
+    },
+    {
+      "id": "U02",
+      "title": "usage verbs must match asset and target kind",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "usedBy",
+            0,
+            "use"
+          ],
+          "value": "voice-line"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "USE_KIND_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "U03",
+      "title": "manifest-only reference has no runtime usage",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "uses"
+          ],
+          "value": []
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RUNTIME_USE_MISSING"
+        ],
+        "counts": {
+          "props": 0
+        }
+      }
+    },
+    {
+      "id": "U04",
+      "title": "usage must point to the exact exported path",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "uses",
+            0,
+            "exportPath"
+          ],
+          "value": "public/assets/test-synthetic/wrong.glb"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RUNTIME_EXPORT_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "U05",
+      "title": "placement observation cannot belong to another asset",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/usage-0.json",
+            "assetId"
+          ],
+          "value": "spec001:ASSET-PR002"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "USE_EVIDENCE_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "U06",
+      "title": "invisible padding is not meaningful placement",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/usage-0.json",
+            "details",
+            "visible"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "USE_NOT_MEANINGFUL"
+        ],
+        "counts": {
+          "props": 0
+        }
+      }
+    },
+    {
+      "id": "U07",
+      "title": "interactive quota requires actual interaction or readable evidence",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "uses",
+            0,
+            "interactiveOrEvidence"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "INTERACTION_UNVERIFIED"
+        ],
+        "counts": {
+          "interactiveProps": 0
+        }
+      }
+    },
+    {
+      "id": "U08",
+      "title": "portrait must target a character rather than room",
+      "requirement": "C11; FR-018; AC09",
+      "baseline": "character",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            1,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "USE_KIND_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "L01",
+      "title": "missing derivation parent is rejected",
+      "requirement": "C5; C11; FR-018; AC09",
+      "baseline": "image",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "derivedFrom"
+          ],
+          "value": [
+            "spec001:ASSET-missing"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "DERIVATION_UNRESOLVED"
+        ]
+      }
+    },
+    {
+      "id": "L02",
+      "title": "self derivation is a cycle",
+      "requirement": "C5; C11; FR-018; AC09",
+      "baseline": "image",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "derivedFrom"
+          ],
+          "value": [
+            "spec001:ASSET-LAYER-R01-background"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "DERIVATION_CYCLE"
+        ]
+      }
+    },
+    {
+      "id": "L03",
+      "title": "multi-node derivative cycle is rejected",
+      "requirement": "C5; C11; FR-018; AC09",
+      "baseline": "derived-layers",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "derivedFrom"
+          ],
+          "value": [
+            "spec001:ASSET-LAYER-R01-foreground"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "DERIVATION_CYCLE"
+        ]
+      }
+    },
+    {
+      "id": "L04",
+      "title": "export provenance must name actual source hashes",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "exports",
+            0,
+            "sourceHashes"
+          ],
+          "value": [
+            "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "EXPORT_SOURCE_HASH"
+        ]
+      }
+    },
+    {
+      "id": "L05",
+      "title": "export with empty source hashes has no lineage",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "exports",
+            0,
+            "sourceHashes"
+          ],
+          "value": []
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "EXPORT_SOURCE_HASH"
+        ]
+      }
+    },
+    {
+      "id": "L06",
+      "title": "production output hashes must identify preserved source output",
+      "requirement": "C5; C11; FR-018; AC09",
+      "baseline": "image",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "production",
+            0,
+            "outputHashes"
+          ],
+          "value": [
+            "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "PRODUCTION_OUTPUT_HASH"
+        ]
+      }
+    },
+    {
+      "id": "L07",
+      "title": "OpenAI method cannot relabel a Blender render",
+      "requirement": "C5; C11; FR-018; AC09",
+      "baseline": "image",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "production",
+            0,
+            "tool"
+          ],
+          "value": "Blender"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "PRODUCTION_METHOD_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "L08",
+      "title": "a named OpenAI event without independent invocation record fails",
+      "requirement": "C5; C11; FR-018; AC09",
+      "baseline": "image",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/LAYER-R01-background/production.json"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "PRODUCTION_EVIDENCE_MISSING"
+        ]
+      }
+    },
+    {
+      "id": "L09",
+      "title": "original OpenAI output must be preserved",
+      "requirement": "C5; C11; FR-018; AC09",
+      "baseline": "image",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            1
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RAW_GENERATION_REQUIRED"
+        ]
+      }
+    },
+    {
+      "id": "L10",
+      "title": "generation prompt path requires actual prompt bytes",
+      "requirement": "C5; C11; FR-018; AC09",
+      "baseline": "image",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "evidence",
+            "files",
+            "assets-src/test-synthetic/LAYER-R01-background/prompt-or-script.txt"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "PRODUCTION_INPUT_MISSING"
+        ]
+      }
+    },
+    {
+      "id": "L11",
+      "title": "manual derivative cannot invent a fresh OpenAI call",
+      "requirement": "C5; C11; FR-018; AC09",
+      "baseline": "derived-layers",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            1,
+            "production",
+            0,
+            "method"
+          ],
+          "value": "openai-generated"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "PRODUCTION_METHOD_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "L12",
+      "title": "variant parent must resolve",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "variantOf"
+          ],
+          "value": "spec001:ASSET-missing"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "countsTowardQuota"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "VARIANT_UNRESOLVED"
+        ]
+      }
+    },
+    {
+      "id": "A01",
+      "title": "Audacity 4 native project cannot masquerade as legacy aup3",
+      "requirement": "C5; C11; FR-018; AC10",
+      "baseline": "music",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            0,
+            "file",
+            "format"
+          ],
+          "value": "aup3"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "AUDACITY4_SOURCE_REQUIRED"
+        ]
+      }
+    },
+    {
+      "id": "A02",
+      "title": "audio native project cannot be a WAV master",
+      "requirement": "C5; C11; FR-018; AC10",
+      "baseline": "music",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "audio",
+            "nativeProjectPath"
+          ],
+          "value": "assets-src/test-synthetic/MUSIC-title/master.wav"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "AUDACITY4_SOURCE_REQUIRED"
+        ]
+      }
+    },
+    {
+      "id": "A03",
+      "title": "generated audio must retain the actual raw generation",
+      "requirement": "C5; C11; FR-018; AC10",
+      "baseline": "music",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            1
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RAW_GENERATION_REQUIRED"
+        ]
+      }
+    },
+    {
+      "id": "A04",
+      "title": "lossless master must exist separately from web export",
+      "requirement": "C5; C11; FR-018; AC10",
+      "baseline": "music",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "evidence",
+            "files",
+            "assets-src/test-synthetic/MUSIC-title/master.wav"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "FILE_MISSING"
+        ]
+      }
+    },
+    {
+      "id": "A05",
+      "title": "waveform checks are not an audible review",
+      "requirement": "C5; C11; FR-018; AC10",
+      "baseline": "music",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/MUSIC-title/listening.json",
+            "actor"
+          ],
+          "value": "tool"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/MUSIC-title/listening.json",
+            "details",
+            "methods"
+          ],
+          "value": [
+            "waveform"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "REVIEW_HUMAN_REQUIRED"
+        ]
+      }
+    },
+    {
+      "id": "A06",
+      "title": "listening needs headphones and ordinary speakers",
+      "requirement": "C5; C11; FR-018; AC10",
+      "baseline": "music",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/MUSIC-title/listening.json",
+            "details",
+            "methods"
+          ],
+          "value": [
+            "headphones"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "LISTENING_METHODS_REQUIRED"
+        ]
+      }
+    },
+    {
+      "id": "A07",
+      "title": "pending listening cannot be promoted by a passed manifest label",
+      "requirement": "C5; C11; FR-018; AC10",
+      "baseline": "voice",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/VOICE-001/listening.json",
+            "status"
+          ],
+          "value": "pending"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "REVIEW_NOT_PASSED"
+        ],
+        "counts": {
+          "voices": 0
+        }
+      }
+    },
+    {
+      "id": "A08",
+      "title": "voice must link exact spoken text caption",
+      "requirement": "C5; C14; FR-018; AC10",
+      "baseline": "voice",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "audio",
+            "captionId"
+          ],
+          "value": "spec001:DIALOGUE-999"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "VOICE_TEXT_LINK"
+        ]
+      }
+    },
+    {
+      "id": "A09",
+      "title": "empty text cannot stand in for selected essential speech",
+      "requirement": "C5; C14; FR-018; AC10",
+      "baseline": "voice",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            1,
+            "text"
+          ],
+          "value": ""
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "VOICE_TEXT_LINK"
+        ]
+      }
+    },
+    {
+      "id": "A10",
+      "title": "voice/model identity source must be retained",
+      "requirement": "C5; C13; FR-018; AC10",
+      "baseline": "voice",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "evidence",
+            "files",
+            "assets-src/test-synthetic/VOICE-001/voice.json"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "VOICE_RECORD_MISSING"
+        ]
+      }
+    },
+    {
+      "id": "A11",
+      "title": "source-linked loop endpoint cannot exceed recorded duration",
+      "requirement": "C5; C11; FR-018; AC10",
+      "baseline": "music",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "audio",
+            "loopEndSample"
+          ],
+          "value": 192001
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "AUDIO_LOOP_RANGE"
+        ]
+      }
+    },
+    {
+      "id": "A12",
+      "title": "a model name in the audio filename does not prove generation",
+      "requirement": "C5; C11; FR-018; AC10",
+      "baseline": "music",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/MUSIC-title/production.json"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "PRODUCTION_EVIDENCE_MISSING"
+        ]
+      }
+    },
+    {
+      "id": "Q00",
+      "title": "empty release inventory fails every media minimum",
+      "requirement": "C3; C5; FR-017; FR-018; AC08; AC09; AC10",
+      "baseline": "empty",
+      "mode": "release",
+      "patches": [],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "QUOTA_MINIMUM"
+        ],
+        "counts": {
+          "characterModels": 0,
+          "props": 0,
+          "interactiveProps": 0,
+          "roomsWithImageSet": 0,
+          "sceneLayers": 0,
+          "portraits": 0,
+          "illustrations": 0,
+          "music": 0,
+          "ambience": 0,
+          "effects": 0,
+          "voices": 0
+        }
+      }
+    },
+    {
+      "id": "Q01",
+      "title": "24 characters cannot meet 25",
+      "requirement": "C3; C5; FR-017; FR-018; AC08; AC09; AC10",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            24,
+            "countsTowardQuota"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "QUOTA_MINIMUM"
+        ],
+        "counts": {
+          "characterModels": 24
+        }
+      }
+    },
+    {
+      "id": "Q02",
+      "title": "149 props cannot meet 150",
+      "requirement": "C3; C5; FR-017; FR-018; AC08; AC09; AC10",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            174,
+            "countsTowardQuota"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "QUOTA_MINIMUM"
+        ],
+        "counts": {
+          "props": 149
+        }
+      }
+    },
+    {
+      "id": "Q03",
+      "title": "35 layers cannot meet 36",
+      "requirement": "C3; C5; FR-017; FR-018; AC08; AC09; AC10",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            210,
+            "countsTowardQuota"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "QUOTA_MINIMUM"
+        ],
+        "counts": {
+          "sceneLayers": 35
+        }
+      }
+    },
+    {
+      "id": "Q04",
+      "title": "24 portraits cannot meet 25",
+      "requirement": "C3; C5; FR-017; FR-018; AC08; AC09; AC10",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            235,
+            "countsTowardQuota"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "QUOTA_MINIMUM"
+        ],
+        "counts": {
+          "portraits": 24
+        }
+      }
+    },
+    {
+      "id": "Q05",
+      "title": "23 illustrations cannot meet 24",
+      "requirement": "C3; C5; FR-017; FR-018; AC08; AC09; AC10",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            259,
+            "countsTowardQuota"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "QUOTA_MINIMUM"
+        ],
+        "counts": {
+          "illustrations": 23
+        }
+      }
+    },
+    {
+      "id": "Q06",
+      "title": "7 music cues cannot meet 8",
+      "requirement": "C3; C5; FR-017; FR-018; AC08; AC09; AC10",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            267,
+            "countsTowardQuota"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "QUOTA_MINIMUM"
+        ],
+        "counts": {
+          "music": 7
+        }
+      }
+    },
+    {
+      "id": "Q07",
+      "title": "11 ambience profiles cannot meet 12",
+      "requirement": "C3; C5; FR-017; FR-018; AC08; AC09; AC10",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            279,
+            "countsTowardQuota"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "QUOTA_MINIMUM"
+        ],
+        "counts": {
+          "ambience": 11
+        }
+      }
+    },
+    {
+      "id": "Q08",
+      "title": "39 effects cannot meet 40",
+      "requirement": "C3; C5; FR-017; FR-018; AC08; AC09; AC10",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            319,
+            "countsTowardQuota"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "QUOTA_MINIMUM"
+        ],
+        "counts": {
+          "effects": 39
+        }
+      }
+    },
+    {
+      "id": "Q09",
+      "title": "59 selected voices cannot meet 60",
+      "requirement": "C3; C5; FR-017; FR-018; AC08; AC09; AC10",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            379,
+            "countsTowardQuota"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "QUOTA_MINIMUM"
+        ],
+        "counts": {
+          "voices": 59
+        }
+      }
+    },
+    {
+      "id": "Q10",
+      "title": "49 interactive props cannot meet 50",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            25,
+            "interactiveOrEvidence"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "QUOTA_MINIMUM"
+        ],
+        "counts": {
+          "interactiveProps": 49
+        }
+      }
+    },
+    {
+      "id": "Q11",
+      "title": "three background layers are not a background plus two usable roles",
+      "requirement": "C3; C5; FR-018; AC09",
+      "baseline": "derived-layers",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            1,
+            "image",
+            "layerRole"
+          ],
+          "value": "background"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            1,
+            "usedBy",
+            0,
+            "use"
+          ],
+          "value": "background"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            2,
+            "image",
+            "layerRole"
+          ],
+          "value": "background"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            2,
+            "usedBy",
+            0,
+            "use"
+          ],
+          "value": "background"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "ROOM_IMAGE_SET_INCOMPLETE"
+        ],
+        "counts": {
+          "roomsWithImageSet": 0
+        }
+      }
+    },
+    {
+      "id": "Q12",
+      "title": "feasibility source cannot become counted production by relabeling status",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            0,
+            "file",
+            "path"
+          ],
+          "value": "assets-src/feasibility/smoke.blend"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "model",
+            "blendSourcePath"
+          ],
+          "value": "assets-src/feasibility/smoke.blend"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "FEASIBILITY_NOT_PRODUCTION"
+        ],
+        "counts": {
+          "props": 0
+        }
+      }
+    },
+    {
+      "id": "Q13",
+      "title": "unintegrated production is honest but does not count",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "status"
+          ],
+          "value": "produced"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "countsTowardQuota"
+          ],
+          "value": false
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "usedBy"
+          ],
+          "value": []
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "characterModels": 0,
+          "props": 0,
+          "interactiveProps": 0,
+          "roomsWithImageSet": 0,
+          "sceneLayers": 0,
+          "portraits": 0,
+          "illustrations": 0,
+          "music": 0,
+          "ambience": 0,
+          "effects": 0,
+          "voices": 0
+        }
+      }
+    },
+    {
+      "id": "Q14",
+      "title": "relabeled layer export digest does not establish a distinct usable asset",
+      "requirement": "C5; C11; FR-018; AC09",
+      "baseline": "derived-layers",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            2,
+            "exports",
+            0,
+            "file",
+            "sha256"
+          ],
+          "value": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "FILE_HASH_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "Q15",
+      "title": "25 models cannot replace the required CH25 with a made-up identity",
+      "requirement": "C11; FR-017; AC08",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            24,
+            "semanticIdentity"
+          ],
+          "value": "spec001:CH26"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "REQUIRED_IDENTITY_MISSING"
+        ]
+      }
+    },
+    {
+      "id": "Q16",
+      "title": "eight cues still need the specified title/workshop/branch/finale uses",
+      "requirement": "C5; FR-018; AC10",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            267,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R02"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "MUSIC_COVERAGE"
+        ]
+      }
+    },
+    {
+      "id": "Q17",
+      "title": "twelve ambience assets must cover twelve different rooms",
+      "requirement": "C5; FR-018; AC10",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            279,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "AMBIENCE_COVERAGE"
+        ]
+      }
+    },
+    {
+      "id": "A13",
+      "title": "selected voices cannot substitute an unrelated character",
+      "requirement": "C5; FR-018; AC10",
+      "baseline": "voice",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            0,
+            "id"
+          ],
+          "value": "spec001:CH04"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            0,
+            "kind"
+          ],
+          "value": "character"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            1,
+            "speakerId"
+          ],
+          "value": "spec001:CH04"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "VOICE_SPEAKER_UNSUPPORTED"
+        ]
+      }
+    },
+    {
+      "id": "P13",
+      "title": "hash-verified public versioned retrieval with checked member remains a legitimate source",
+      "requirement": "C11; C13; FR-017; AC08; AC16",
+      "baseline": "public-source",
+      "mode": "inventory",
+      "patches": [],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "props": 1
+        }
+      }
+    },
+    {
+      "id": "F12",
+      "title": "retrieval URL alone does not prove public source availability",
+      "requirement": "C11; C13; FR-017; AC08; AC16",
+      "baseline": "public-source",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/retrieval.json"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RETRIEVAL_UNVERIFIED"
+        ]
+      }
+    },
+    {
+      "id": "F13",
+      "title": "authenticated private archive cannot satisfy independent source reuse",
+      "requirement": "C11; C13; FR-017; AC08; AC16",
+      "baseline": "public-source",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/retrieval.json",
+            "details",
+            "requiresAuthentication"
+          ],
+          "value": true
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/retrieval.json",
+            "details",
+            "publiclyAvailable"
+          ],
+          "value": false
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SOURCE_NOT_PUBLIC"
+        ]
+      }
+    },
+    {
+      "id": "F14",
+      "title": "retrieval archive digest must match actual observed archive bytes",
+      "requirement": "C11; C13; FR-017; AC08; AC16",
+      "baseline": "public-source",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            0,
+            "retrieval",
+            "archiveSha256"
+          ],
+          "value": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RETRIEVAL_HASH_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "F15",
+      "title": "retrieval requires reproducible instructions",
+      "requirement": "C11; C13; FR-017; AC08; AC16",
+      "baseline": "public-source",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "evidence",
+            "files",
+            "assets-src/test-synthetic/PR001/retrieval.txt"
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RETRIEVAL_INSTRUCTIONS_MISSING"
+        ]
+      }
+    },
+    {
+      "id": "F16",
+      "title": "retrieved archive member must be the exact declared source",
+      "requirement": "C11; C13; FR-017; AC08; AC16",
+      "baseline": "public-source",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "sources",
+            0,
+            "retrieval",
+            "memberPath"
+          ],
+          "value": "PR002/other.blend"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "RETRIEVAL_MEMBER_MISMATCH"
+        ]
+      }
+    },
+    {
+      "id": "Q18",
+      "title": "36 layers pooled into one room cannot satisfy 12 room image sets",
+      "requirement": "C3; C5; FR-018; AC09",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            178,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            179,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            180,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            181,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            182,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            183,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            184,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            185,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            186,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            187,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            188,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            189,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            190,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            191,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            192,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            193,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            194,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            195,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            196,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            197,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            198,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            199,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            200,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            201,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            202,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            203,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            204,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            205,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            206,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            207,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            208,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            209,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            210,
+            "usedBy",
+            0,
+            "contentId"
+          ],
+          "value": "spec001:R01"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "ROOM_IMAGE_SET_INCOMPLETE"
+        ],
+        "counts": {
+          "roomsWithImageSet": 1
+        }
+      }
+    },
+    {
+      "id": "Q19",
+      "title": "60 voices all assigned to narrator do not cover Titan Photon and Hermit",
+      "requirement": "C5; FR-018; AC10",
+      "baseline": "release",
+      "mode": "release",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-001"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-002"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-003"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-004"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-005"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-006"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-007"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-008"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-009"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-010"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-011"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-012"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-013"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-014"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-015"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-016"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-017"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-018"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-019"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-020"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-021"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-022"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-023"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-024"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-025"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-026"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-027"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-028"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-029"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-030"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-031"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-032"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-033"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-034"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-035"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-036"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-037"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-038"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-039"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-040"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-041"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-042"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-043"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-044"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-045"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-046"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-047"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-048"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-049"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-050"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-051"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-052"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-053"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-054"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-055"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-056"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-057"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-058"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-059"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "content",
+            "entities",
+            {
+              "id": "spec001:DIALOGUE-060"
+            },
+            "speakerId"
+          ],
+          "value": "narrator"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "VOICE_SPEAKER_COVERAGE"
+        ]
+      }
+    },
+    {
+      "id": "Q20",
+      "title": "two layer labels sharing one export are padded aliases",
+      "requirement": "C5; C11; FR-018; AC09",
+      "baseline": "derived-layers",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            2,
+            "exports"
+          ],
+          "value": []
+        },
+        {
+          "op": "copy",
+          "path": [
+            "manifest",
+            "assets",
+            2,
+            "exports"
+          ],
+          "from": [
+            "manifest",
+            "assets",
+            1,
+            "exports",
+            0
+          ]
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "DUPLICATE_LAYER_EXPORT"
+        ]
+      }
+    },
+    {
+      "id": "Q21",
+      "title": "one portrait reused under a second character identity cannot pad the portrait count",
+      "requirement": "C5; C11; FR-018; AC09",
+      "baseline": "character",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "copy",
+          "path": [
+            "manifest",
+            "assets"
+          ],
+          "from": [
+            "manifest",
+            "assets",
+            1
+          ]
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            2,
+            "assetId"
+          ],
+          "value": "spec001:ASSET-PORTRAIT-CH02"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            2,
+            "semanticIdentity"
+          ],
+          "value": "spec001:PORTRAIT-CH02"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "DUPLICATE_IMAGE_EXPORT"
+        ]
+      }
+    },
+    {
+      "id": "S10",
+      "title": "unknown asset kind is not silently added to a quota",
+      "requirement": "C11; C13; FR-017; AC08; AC16",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "kind"
+          ],
+          "value": "room-model"
+        }
+      ],
+      "schemaValid": false,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SCHEMA_INVALID"
+        ]
+      }
+    },
+    {
+      "id": "S11",
+      "title": "an accepted audio asset needs audio metadata",
+      "requirement": "C5; FR-018; AC10",
+      "baseline": "music",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "audio"
+          ]
+        }
+      ],
+      "schemaValid": false,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SCHEMA_INVALID"
+        ]
+      }
+    },
+    {
+      "id": "S12",
+      "title": "an accepted image asset needs image metadata",
+      "requirement": "C5; FR-018; AC09",
+      "baseline": "image",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "remove",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "image"
+          ]
+        }
+      ],
+      "schemaValid": false,
+      "expected": {
+        "valid": false,
+        "issueCodes": [
+          "SCHEMA_INVALID"
+        ]
+      }
+    },
+    {
+      "id": "P14",
+      "title": "agent image inspection with bound paths hashes identity and substantive findings is legitimate visual evidence, not owner acceptance",
+      "requirement": "C11; C14; C15; FR-017; AC08",
+      "baseline": "prop",
+      "mode": "inventory",
+      "patches": [
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/visual.json",
+            "actor"
+          ],
+          "value": "agent"
+        },
+        {
+          "op": "set",
+          "path": [
+            "evidence",
+            "records",
+            "docs/evidence/test-synthetic/PR001/visual.json",
+            "reviewer"
+          ],
+          "value": "SYNTHETIC agent observer"
+        },
+        {
+          "op": "set",
+          "path": [
+            "manifest",
+            "assets",
+            0,
+            "verification",
+            2,
+            "reviewer"
+          ],
+          "value": "SYNTHETIC agent observer"
+        }
+      ],
+      "schemaValid": true,
+      "expected": {
+        "valid": true,
+        "issueCodes": [],
+        "counts": {
+          "props": 1,
+          "interactiveProps": 1
+        }
+      }
+    }
+  ]
+}

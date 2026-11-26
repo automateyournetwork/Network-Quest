@@ -18,6 +18,12 @@ function rig(responses: Response[]) {
   return { api: new GameApi({ origin, apiBase, fetch }), fetch };
 }
 function deferred<T>() { let resolve!: (value: T) => void; const promise = new Promise<T>(r => { resolve = r; }); return { promise, resolve }; }
+// Native browsers may expose an empty stream for HTTP 204 even though the
+// Response constructor requires null. Model that observed transport separately.
+function streamedNoContent(body: ReadableStream<Uint8Array>, headers: Record<string, string> = {}) {
+  const result = new Response(null, { status: 204, headers: { 'Cache-Control': 'no-store', ...headers } });
+  Object.defineProperty(result, 'body', { value: body }); return result;
+}
 
 describe('GameApi contract transport (synthetic)', () => {
   it('bootstraps only GET session with credentialed no-store exact-origin transport', async () => {
@@ -299,6 +305,38 @@ describe('GameApi contract transport (synthetic)', () => {
     expect(await read).toMatchObject({ ok: false, kind: 'stale' });
     expect(await api.getSession()).toMatchObject({ ok: true, data: { state: 'guest' } });
     expect(fetch).toHaveBeenCalledTimes(3);
+  });
+
+  it.each(['logout', 'delete'] as const)('accepts %s 204 only after an exposed stream proves empty', async action => {
+    const empty = streamedNoContent(new ReadableStream<Uint8Array>({ start(c) { c.close(); } }));
+    const { api } = rig([json(account()), empty]); await api.getSession();
+    expect(await (action === 'logout' ? api.logout() : api.deleteAccount('A'.repeat(43)))).toMatchObject({ ok: true, status: 204 });
+    expect(api.session).toBe(null);
+  });
+
+  it('rejects and cancels any bytes in a 204 stream even when advertised length is zero', async () => {
+    const cancel = vi.fn();
+    const body = new ReadableStream<Uint8Array>({ start(c) { c.enqueue(new Uint8Array([32])); }, cancel });
+    const { api } = rig([json(account()), streamedNoContent(body, { 'Content-Length': '0' })]); await api.getSession();
+    expect(await api.logout()).toMatchObject({ ok: false, kind: 'invalid-response' });
+    expect(cancel).toHaveBeenCalledTimes(1); expect(api.session).toEqual(account());
+  });
+
+  it('does not accept a 204 with contradictory nonzero advertised length', async () => {
+    const { api } = rig([json(account()), new Response(null, { status: 204, headers: { 'Cache-Control': 'no-store', 'Content-Length': '1' } })]);
+    await api.getSession(); expect(await api.logout()).toMatchObject({ ok: false, kind: 'invalid-response' }); expect(api.session).toEqual(account());
+  });
+
+  it('bounds an exposed empty 204 stream that never ends and keeps the outcome unconfirmed', async () => {
+    vi.useFakeTimers();
+    try {
+      const cancel = vi.fn(), fetch = vi.fn<typeof globalThis.fetch>().mockResolvedValueOnce(json(account()))
+        .mockResolvedValueOnce(streamedNoContent(new ReadableStream<Uint8Array>({ cancel })));
+      const api = new GameApi({ origin, apiBase, fetch, timeoutMs: 20 }); await api.getSession();
+      const pending = api.logout(); await vi.advanceTimersByTimeAsync(20);
+      expect(await pending).toMatchObject({ ok: false, kind: 'timeout' }); expect(cancel).toHaveBeenCalledTimes(1);
+      expect(api.session).toEqual(account()); expect(vi.getTimerCount()).toBe(0);
+    } finally { vi.useRealTimers(); }
   });
 
   it('refuses stale or disposed local forgetting without affecting a later account or sending requests', async () => {

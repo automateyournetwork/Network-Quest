@@ -129,3 +129,15 @@ Additional private record seals:
 | SSH recheck | `437b8443808e4c2198172d5e5295e3fb5b4b15ac4c8d4fb2ffe30c6f548803f7` |
 | Independent cleanup | `569209a1bae652c739c2fe23d02a0fb48a6f0db4f7bb089208ac4e57165d0e57` |
 | Sixth probe result | `a4a6c5cb9e5f9e257b6bb9f3a9a79e0e8e946af2f99e5992638d32a7cf2857c5` |
+
+## Fresh own-account quota observation — 18:38 UTC
+
+Read-only SFTP inspection found the account quota cache updated at17:52:33UTC
+on2026-11-26:6,419,795,968 of107,374,182,400 bytes used, with130,857 of250,000
+inodes used. The six numeric fields were mapped using the previously inspected
+installed Quota.pm constants. No quota refresh or remote write was performed.
+The optional MySQL/PostgreSQL/mailman adjustment caches were absent; absence is
+not evidence of zero usage. This is newer dated cache evidence, not a verified
+adjusted billing quota or package CPU/I/O limit. Backup coverage/longest retention
+and those package details remain open. Private record SHA-256:
+`d009074f978641941965ee5f5a4a62ba7e54e6ba942968cd2e7774cb0707bec0`.

@@ -299,7 +299,10 @@ export class GameApi {
         const invalid = (): ApiFailure => { void response.body?.cancel().catch(() => {}); return failure('invalid-response'); };
         if (response.redirected || !/(?:^|,)\s*no-store\s*(?:,|$)/i.test(response.headers.get('Cache-Control') ?? '') || (!statuses.includes(response.status) && !errors.includes(response.status))) return invalid();
         if (response.status === 204) {
-          if (response.body !== null) return invalid();
+          // Native fetch can expose a stream for an empty 204. Prove it is
+          // empty with a zero-byte limit and the same abort/deadline guards.
+          if (await this.readBody(response, controller.signal, 0) !== '') return invalid();
+          if (!this.isCurrent(generation) || controller.signal.aborted) return failure(timedOut ? 'timeout' : 'stale');
           return { ok: true, data: null as T, generation, status: 204 };
         }
         if (!/^application\/json(?:\s*;\s*charset=utf-8)?$/i.test(response.headers.get('Content-Type') ?? '')) return invalid();
@@ -335,10 +338,10 @@ export class GameApi {
       return this.isCurrent(generation) ? result : failure('stale');
     } finally { clearTimeout(timer); this.requests.delete(controller); }
   }
-  private async readBody(response: Response, signal: AbortSignal): Promise<string | null> {
+  private async readBody(response: Response, signal: AbortSignal, maxBytes = MAX_RESPONSE_BYTES): Promise<string | null> {
     const length = response.headers.get('Content-Length');
-    if (length !== null && (!/^\d+$/.test(length) || Number(length) > MAX_RESPONSE_BYTES)) { void response.body?.cancel().catch(() => {}); return null; }
-    if (!response.body) return null;
+    if (length !== null && (!/^\d+$/.test(length) || Number(length) > maxBytes)) { void response.body?.cancel().catch(() => {}); return null; }
+    if (!response.body) return maxBytes === 0 ? '' : null;
     const reader = response.body.getReader(), chunks: Uint8Array[] = []; let size = 0;
     const cancel = () => { void reader.cancel().catch(() => {}); };
     signal.addEventListener('abort', cancel, { once: true });
@@ -348,7 +351,7 @@ export class GameApi {
         if (signal.aborted) return null;
         if (chunk.done) break;
         size += chunk.value.byteLength;
-        if (size > MAX_RESPONSE_BYTES) { cancel(); return null; }
+        if (size > maxBytes) { cancel(); return null; }
         chunks.push(chunk.value);
       }
       const bytes = new Uint8Array(size); let offset = 0;

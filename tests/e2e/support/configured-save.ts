@@ -54,6 +54,19 @@ try {
     }elseif($command['kind']==='unsupported'){
       $raw='{"saveSchemaVersion":99,"opaque":9007199254740993}';
       $pdo->prepare('UPDATE saves SET schema_version=99,payload_json=?,payload_hash=?')->execute([$raw,hash('sha256',$raw)]); echo "{}\n";
+    }elseif($command['kind']==='inspect-account'){
+      $counts=[];foreach(['accounts','identities','sessions','preferences','saves'] as $table)$counts[$table]=(int)$pdo->query('SELECT COUNT(*) FROM '.$table)->fetchColumn();
+      $preference=$pdo->query('SELECT revision,autosave_enabled FROM preferences')->fetch();$counts['preference']=$preference===false?null:$preference;
+      echo json_encode($counts,JSON_THROW_ON_ERROR)."\n";
+    }elseif($command['kind']==='deletion-reauth'){
+      // Private fixture-only same-account rotation/proof. This is NOT an OAuth
+      // callback/provider test and creates no public request bypass or identity selector.
+      $prior=$sessions->require($command['cookie']);if($prior->accountId!==$id)throw new RuntimeException('Wrong isolated account');
+      $issued=$database->immediate(function(PDO $p)use($sessions,$prior,$id){
+        $issued=$sessions->rotateWithin($p,$prior,$id);$now=time();
+        $p->prepare('INSERT INTO delete_reauth_proofs(session_hash,account_id,confirmed_at,expires_at) VALUES(?,?,?,?)')->execute([$issued['context']->idHash,$id,$now,$now+300]);
+        return $issued;
+      });echo json_encode(['cookie'=>explode(';',$issued['setCookie'],2)[0]],JSON_THROW_ON_ERROR)."\n";
     }else throw new RuntimeException('Unknown test command');
     fflush(STDOUT);
   }
@@ -91,7 +104,10 @@ export async function configuredSave() {
       /** Send the intercepted native request to the real service, trusting only
        * this fixture's disposable CA, then let the test drop its response. */
       commitAndLoseResponse: async (native: Request): Promise<number> => {
-        if (native.url() !== local!.origin + '/arcade/play/network-quest/api/v1/save' || native.method() !== 'PUT') throw new Error('Expected this fixture save mutation');
+        const path = native.url().slice(local!.origin.length);
+        if (!native.url().startsWith(local!.origin + '/') || ![
+          ['PUT', '/arcade/play/network-quest/api/v1/save'], ['DELETE', '/arcade/play/network-quest/api/v1/account'], ['POST', '/arcade/play/network-quest/api/v1/logout'],
+        ].some(([method, route]) => native.method() === method && path === route)) throw new Error('Expected this fixture save/account mutation');
         const ca = await readFile(local!.directory + '/ca.pem'), headers = await native.allHeaders();
         return new Promise((resolve, reject) => {
           const upstream = request(native.url(), { method: native.method(), headers, ca, rejectUnauthorized: true }, reply => {
@@ -103,6 +119,9 @@ export async function configuredSave() {
       },
       inspect: () => command({ kind: 'inspect' }) as Promise<null | { revision: number; snapshot: { adventureId: string; notebook: { personalNotes: string } } }>,
       unsupported: () => command({ kind: 'unsupported' }),
+      inspectAccount: () => command({ kind: 'inspect-account' }) as Promise<{ accounts: number; identities: number; sessions: number; preferences: number; saves: number;
+        preference: null | { revision: number; autosave_enabled: number } }>,
+      completeDeletionReauth: (cookie: string) => command({ kind: 'deletion-reauth', cookie }) as Promise<{ cookie: string }>,
     };
   } catch (error) { await stop(); throw error; }
 }
