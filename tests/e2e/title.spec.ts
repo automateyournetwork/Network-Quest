@@ -38,25 +38,25 @@ test.describe('T029 real title and memory-only introduction bootstrap', () => {
     await button('Close notebook').click();
   }
 
-  test('native title choices, readable unavailable Continue and genuine R01 controls at narrow width', async () => {
+  test('native title choices, readable sign-in Continue and genuine R01 controls at narrow width', async () => {
     await page.setViewportSize({ width: 390, height: 844 });
     for (const name of ['New Adventure', 'Continue', 'Settings', 'Credits']) await expect(button(name)).toBeVisible();
-    await button('Continue').press('Enter'); await expect(page.getByText('No confirmed account save is available to continue. Choose New Adventure to play as a guest.', { exact: true })).toBeVisible();
-    await button('Settings').click(); await expect(page.getByRole('dialog', { name: 'Settings', exact: true })).toContainText('Autosave: off'); await button('Close settings').press('Enter');
+    await button('Continue').press('Enter'); await expect(page.getByRole('dialog', { name: 'Sign in to save', exact: true })).toBeVisible(); await button('Cancel sign-in').press('Enter');
+    await button('Settings').click(); await expect(page.getByRole('dialog', { name: 'Settings', exact: true })).toContainText('Autosave is off'); await button('Close settings').press('Enter');
     await button('Credits').click(); await expect(page.getByRole('dialog', { name: 'Credits', exact: true })).toContainText('John Capobianco'); await button('Close credits').click();
     await start(); await expect(page.getByRole('heading', { name: 'The Arrival Lift', exact: true })).toBeFocused();
     for (const name of ['Walk', 'Look', 'Talk', 'Use', 'Inventory', 'Notebook', 'Compendium']) await expect(button(name)).toBeVisible();
     await expect(page.getByText('Guest — progress is only in this session.', { exact: true })).toBeVisible();
     await expect(page.getByRole('textbox', { name: /API key|email|password/i })).toHaveCount(0);
-    const accessibility = await new AxeBuilder({ page }).analyze(); expect(accessibility.violations).toEqual([]);
     await page.screenshot({ path: '.local/T029-title-arrival-390px.png', fullPage: true });
+    const accessibility = await new AxeBuilder({ page }).analyze(); expect(accessibility.violations).toEqual([]);
   });
 
   test('real tutorial invites sign-in once, decline retains play and literal notes without a write or provider navigation', async () => {
     await start(); await finishIntroduction();
     const invitation = page.getByRole('dialog', { name: 'Sign in to save', exact: true });
     await expect(invitation).toBeVisible(); await expect(invitation).toContainText('Sign in to save your adventure.');
-    await expect(invitation.getByRole('button', { name: 'Google', exact: true })).toHaveAttribute('aria-disabled', 'true');
+    await expect(invitation.getByRole('button', { name: 'Google', exact: true })).toHaveAttribute('aria-disabled', 'false');
     await button('Continue as guest').press('Enter'); await expect(invitation).toBeHidden();
     await button('Notebook').click(); await notebook().getByRole('textbox', { name: 'Personal notes', exact: true }).fill('Keep <b>my notes</b> W L T U'); await button('Close notebook').click();
     await walk('Walk to The Arrival Lift'); await walk("Walk to The Titan's Workshop"); await button('Notebook').click();

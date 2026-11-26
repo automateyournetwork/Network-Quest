@@ -19,7 +19,7 @@ async function freePort(): Promise<number> {
 }
 
 /** A disposable CA, SAN leaf and Firefox NSS profile; no OS/browser trust mutation. */
-export async function localTls() {
+export async function localTls(options: { probeRouter?: string } = {}) {
   const directory = await mkdtemp(path.join(os.tmpdir(), 'network-quest-browser-'));
   let server: Awaited<ReturnType<typeof startDev>> | undefined;
   const stop = async () => {
@@ -62,7 +62,7 @@ export async function localTls() {
     run(certutil, ['-N', '-d', `sql:${profile}`, '--empty-password'], 'NSS isolated profile creation');
     run(certutil, ['-A', '-d', `sql:${profile}`, '-n', 'Network Quest disposable browser CA',
       '-t', 'C,,', '-i', ca], 'NSS isolated CA trust');
-    server = await startDev({ cert, key, port: await freePort(), php: process.env['NQ_PHP_BIN'] ?? 'php' });
+    server = await startDev({ cert, key, port: await freePort(), php: process.env['NQ_PHP_BIN'] ?? 'php', ...options });
     return { ...server, directory, profile, untrustedProfile, stop };
   } catch (error) {
     await stop();

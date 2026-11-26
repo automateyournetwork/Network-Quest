@@ -7,11 +7,12 @@ export type TitleAction = 'new' | 'confirm-new' | 'cancel' | 'continue' | 'setti
 type TitlePanel = 'none' | 'confirm-new' | 'settings' | 'credits' | 'invitation';
 export interface TitleView {
   readonly hasAdventure: boolean; readonly guest: boolean; readonly identity: string; readonly panel: TitlePanel;
-  readonly slot: SaveSummary | null | undefined; readonly continueAvailable: false; readonly message: string;
+  readonly slot: SaveSummary | null | undefined; readonly continueAvailable: boolean; readonly providersAvailable: boolean; readonly message: string;
 }
 /** Lifecycle operations are closed application intents, never renderer state patches. */
 export function createTitleController(options: {
   readonly getState: () => ReducerState; readonly start: (expected: ReducerState) => boolean; readonly changed: () => void;
+  readonly services?: { readonly available: boolean; save(): void; continue(): void; signIn(provider: 'google' | 'github'): void };
 }) {
   let panel: TitlePanel = 'none', confirmation: ReducerState | null = null, declined: AdventureId | null = null, message = '';
   const project = (): TitleView => {
@@ -19,7 +20,8 @@ export function createTitleController(options: {
     const offer = guest && !!game && game.adventureId !== declined && game.world.completedObjectiveIds.includes('spec001:O02' as ObjectiveId)
       && runtime.ui?.panel === 'none' && runtime.activity?.kind === 'stable-exploration';
     return { hasAdventure: !!game, guest, identity: runtime.auth.status === 'authenticated' ? `${runtime.auth.displayName} (${runtime.auth.provider})` : 'Guest',
-      panel: panel === 'none' && offer ? 'invitation' : panel, slot: runtime.persistence.knownSlot, continueAvailable: false, message };
+      panel: panel === 'none' && offer ? 'invitation' : panel, slot: runtime.persistence.knownSlot,
+      continueAvailable: !!options.services?.available && runtime.auth.status === 'authenticated', providersAvailable: !!options.services?.available, message };
   };
   return { project,
     act(action: TitleAction) {
@@ -41,16 +43,23 @@ export function createTitleController(options: {
           else start();
           break;
         case 'cancel': panel = 'none'; confirmation = null; message = ''; break;
-        case 'continue': message = runtime.persistence.knownSlot ? 'Account restore is unavailable in this build. Your confirmed save remains unchanged.' : 'No confirmed account save is available to continue. Choose New Adventure to play as a guest.'; break;
+        case 'continue':
+          if (options.services?.available) { panel = 'none'; options.services.continue(); }
+          else message = 'No confirmed account save is available to continue. Choose New Adventure to play as a guest.';
+          break;
         case 'settings': case 'credits': panel = action; message = ''; break;
         case 'save':
           if (!runtime.game) { message = 'Start an adventure first.'; break; }
           if (before.control.pending || !['stable-exploration', 'safe-preparation', 'safe-continue'].includes(runtime.activity?.kind ?? '')) { message = 'Finish the current activity before saving.'; break; }
           if (runtime.auth.status === 'guest') { panel = 'invitation'; message = ''; }
-          else message = 'Account saving is unavailable in this build. This adventure remains in memory.';
+          else if (options.services?.available) { panel = 'none'; options.services.save(); }
+          else message = 'Account saving is unavailable on this connection. This adventure remains in memory.';
           break;
         case 'decline': declined = runtime.game?.adventureId ?? null; panel = 'none'; message = ''; break;
-        case 'google': case 'github': message = 'Provider sign-in is unavailable in this build. Continue as guest to keep playing in this session.'; break;
+        case 'google': case 'github':
+          if (options.services?.available) { declined = runtime.game?.adventureId ?? null; panel = 'none'; options.services.signIn(action); }
+          else message = 'Provider sign-in is unavailable on this connection. Continue as guest to keep playing in this session.';
+          break;
       }
       options.changed();
     },
@@ -70,7 +79,7 @@ export function createTitlePanel(host: HTMLElement, act: (action: TitleAction) =
   const button = (label: string, action: TitleAction) => { const b = doc.createElement('button'); b.type = 'button'; b.textContent = label; b.addEventListener('click', () => act(action), { signal: abort.signal }); return b; };
   const newAdventure = button('New Adventure', 'new'), continueButton = button('Continue', 'continue'), save = button('Save', 'save');
   continueButton.setAttribute('aria-disabled', 'true'); continueButton.setAttribute('aria-describedby', 'continue-unavailable');
-  const continueReason = doc.createElement('p'); continueReason.id = 'continue-unavailable'; continueReason.textContent = 'Continue requires a confirmed account save and the account restore service, which is unavailable in this build.';
+  const continueReason = doc.createElement('p'); continueReason.id = 'continue-unavailable';
   controls.append(newAdventure, continueButton, button('Settings', 'settings'), button('Credits', 'credits'), save);
   element.append(heading, subtitle, identity, controls, continueReason, message);
   const panels = new Map<Exclude<TitlePanel, 'none'>, { element: HTMLElement; heading: HTMLHeadingElement }>();
@@ -86,11 +95,12 @@ export function createTitlePanel(host: HTMLElement, act: (action: TitleAction) =
   ]);
   const summary = doc.createElement('p'); warning.append(summary, button('Start new adventure', 'confirm-new'), button('Cancel', 'cancel'));
   const invitation = makePanel('invitation', 'Sign in to save', [
-    'Sign in to save your adventure.', 'Google and GitHub sign-in are unavailable in this build. You can continue playing in this session. Closing or reloading this tab loses guest progress.',
+    'Sign in to save your adventure.', 'Google and GitHub are separate accounts. Your adventure stays in this tab while you sign in. Closing or reloading this tab loses unsaved guest progress.',
   ]);
-  for (const [label, action] of [['Google', 'google'], ['GitHub', 'github']] as const) { const control = button(label, action); control.setAttribute('aria-disabled', 'true'); invitation.append(control); }
+  const providers: HTMLButtonElement[] = [];
+  for (const [label, action] of [['Google', 'google'], ['GitHub', 'github']] as const) { const control = button(label, action); providers.push(control); invitation.append(control); }
   invitation.append(button('Continue as guest', 'decline'));
-  const settings = makePanel('settings', 'Settings', ['Autosave: off. Progress in this build remains in memory.',
+  const settings = makePanel('settings', 'Settings', ['Autosave is off until explicitly enabled for your account. Manual saves use one account slot.',
     'All dialogue is readable as text. Native keyboard controls and the browser’s text zoom are available. Audio, additional presentation settings and account controls are not yet available.']);
   settings.append(button('Close settings', 'cancel'));
   const credits = makePanel('credits', 'Credits', ['Network Quest — John Capobianco.', 'Original code: Apache-2.0. Original writing and project materials: CC BY 4.0.',
@@ -103,8 +113,12 @@ export function createTitlePanel(host: HTMLElement, act: (action: TitleAction) =
     }
   }, { signal: abort.signal });
   return { element, render(view: TitleView) {
-    heading.hidden = view.hasAdventure; subtitle.hidden = view.hasAdventure; save.hidden = !view.hasAdventure; continueButton.hidden = view.hasAdventure; continueReason.hidden = view.hasAdventure;
-    identity.textContent = view.guest ? 'Guest — progress is only in this session.' : `${view.identity} — this adventure is only in memory.`;
+    heading.hidden = view.hasAdventure; subtitle.hidden = view.hasAdventure; save.hidden = !view.hasAdventure;
+    continueButton.textContent = view.hasAdventure ? 'Restore Save' : 'Continue';
+    continueButton.setAttribute('aria-disabled', String(!view.continueAvailable));
+    continueReason.textContent = view.continueAvailable ? 'Continue reads your one account save. Loading warns before discarding the current adventure.' : 'Sign in to review your account save. Guest progress exists only in this tab.';
+    for (const control of providers) control.setAttribute('aria-disabled', String(!view.providersAvailable));
+    identity.textContent = view.guest ? 'Guest — progress is only in this session.' : view.identity;
     message.textContent = view.message;
     summary.textContent = view.slot ? `Confirmed account save: ${view.slot.episodeId}; ${view.slot.roomId}; ${view.slot.savedAt}; outcome: ${view.slot.outcome ?? 'in progress'}.` : 'No account save has been loaded or replaced.';
     const previous = shown; shown = view.panel;

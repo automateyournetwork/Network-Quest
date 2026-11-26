@@ -1,7 +1,7 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import type { ContentRegistry } from '../content/registry';
 import type { AdventureId, AttemptId, ConfigurationRevision, ContentVersion, QualifiedId } from '../domain/types';
-import type { RuntimeState } from '../state/types';
+import type { RuntimeState, SaveSnapshotV1 } from '../state/types';
 
 const q = <T extends string = string>(id: string) => `spec001:${id}` as QualifiedId<T>;
 export function createIntroductionRuntime(): RuntimeState {
@@ -9,6 +9,16 @@ export function createIntroductionRuntime(): RuntimeState {
     auth: { status: 'guest', csrfToken: null, clientGeneration: 0 as RuntimeState['auth']['clientGeneration'] },
     persistence: { status: 'unsaved', dirtyGeneration: 0 as RuntimeState['persistence']['dirtyGeneration'], lastAcknowledgedGeneration: null,
       knownSlot: undefined, pendingRequest: null, replacementAuthorization: null, lastAcknowledgement: null, autosaveEnabled: false } };
+}
+
+/** Only the validated reader's ready snapshot reaches this lifecycle installer.
+ * Restore is exact replacement, never the retry journal/attempt merge. */
+export function restoreIntroduction(previous: RuntimeState, snapshot: SaveSnapshotV1): RuntimeState {
+  const { saveSchemaVersion: _schema, safeState, ...game } = snapshot;
+  return { ...previous, game, checkpoint: null, activity: { kind: safeState },
+    ui: { panel: 'none', focusedObject: null, selectedVerb: 'walk', selectedItem: null, feedback: null,
+      presentation: previous.ui?.presentation ?? { musicVolume: 1, effectsVolume: 1, voiceVolume: 1, captions: true, reducedMotion: 'system', textScale: 1 } },
+    persistence: { ...createIntroductionRuntime().persistence } };
 }
 
 /** A new memory run is never a slot replacement, restoration or implicit save. */

@@ -239,6 +239,13 @@ shared instrumentation through root. Record current graybox samples as developme
 baselines only. This does not freeze G3 hardware/budgets, certify production load,
 waive G2, or permit production credentials/data in test environments.
 
+T060 may author independent asset-manifest fixtures and negative semantic expectations
+from the accepted specification/schema while T059 builds measurement tools. These
+are tests before T061 implementation, in disjoint paths; preserve expected RED or
+explicit pending semantic cases until that implementation exists. This preparation
+cannot accept media, count feasibility files, waive listening/benchmark review, or
+start bulk production before G3. T059 remains required for measured benchmark use.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -405,7 +412,7 @@ waive G2, or permit production credentials/data in test environments.
 - [X] T047 [US4] Implement credentialed no-store API calls and account-generation response guards in `src/services/game-api.ts` and `src/services/account.ts`; retain the gameplay tab during popup/tab login and confirm identity using GET session, not postMessage contents.
 - [X] T048 [US4] Implement stable safe-snapshot construction, dirty generations and supported-version read/migration dispatch with the independently authored older-content baseline mapping in `src/state/snapshot.ts` and `src/state/save-migrations.ts`; never persist active encounters, E03/failure or partial transitions and preserve unsupported newer data.
 - [X] T049 [US4] Implement serialized conditional saves and exact-byte/idempotency retries in `src/services/save-coordinator.ts`; replay frozen pending requests without treating a changed new-write policy as proof of failure, acknowledge only the captured generation, reconcile older receipts against current slot and preserve memory on network/session failure.
-- [ ] T050 [US4] Implement sign-in adoption, Continue/New Adventure warnings and explicit load/replace/cancel/conflict dialogs in `src/ui/save-dialogs.ts`; replacement binds the reviewed ETag and adventure, uses a new request ID and never merges or silently overwrites.
+- [X] T050 [US4] Implement sign-in adoption, Continue/New Adventure warnings and explicit load/replace/cancel/conflict dialogs in `src/ui/save-dialogs.ts`; replacement binds the reviewed ETag and adventure, uses a new request ID and never merges or silently overwrites.
 - [X] T051 [US4] Implement opt-in account autosave and safe-boundary debounce in `src/state/autosave.ts`; first adoption is manual, opt-out suppresses queued writes, successful E01/E02 require safe Continue and no failed/E03 transition can write.
 - [ ] T052 [US4] Implement provider display, plain saved-data/backup policy, deletion and clarified logout in `src/ui/account-settings.ts`; canceled logout changes nothing and confirmed revocation clears memory/title without saving. Retain the deletion receipt only in memory, show unconfirmed after response loss, poll read-only status with bounded backoff and confirm only DELETE 204/completed. Guest/unknown/expired status never proves deletion; do not automatically sign in or repeat deletion, and ignore results belonging to an earlier account view.
 - [X] T053 [P] [US4] Exercise malformed/oversized/Unicode/schema/ownership/CSRF and forged/expired/replayed state/nonce/signature/audience cases in `server/tests/IdentitySecurityTest.php` and `server/tests/SaveValidationTest.php`, and check all nine API operations/headers/status/body shapes in `server/tests/ApiContractTest.php`; prove isolation and absence of private data/receipt tokens in errors/logs.
