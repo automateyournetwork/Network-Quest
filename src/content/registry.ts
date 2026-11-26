@@ -408,6 +408,19 @@ function checkRecord(r: S.authoredRecord, w: S.world, records: S.authoredRecord[
   }
   if (r.kind === 'room') {
     checkRoom(r, w, fail);
+    const bindings = r.mediaBindings ?? [];
+    if (new Set(bindings.map(b => b.assetId)).size !== bindings.length) fail('media-binding', r.id, 'A room asset has more than one runtime binding');
+    for (const binding of bindings) {
+      const local = ['room-architecture', 'prop-placement', 'character-placement', 'background', 'midground', 'foreground'].includes(binding.use);
+      if (local && binding.contentId !== r.id) fail('media-binding', binding.assetId, 'Room placement must name its actual room');
+      if (binding.use === 'prop-placement' && !r.propInstances.some(p => p.assetId === binding.assetId)) fail('media-binding', binding.assetId, 'Prop export must match an authored room instance');
+      if (binding.use === 'voice-line' && !records.some(rec => rec.kind === 'dialogue' && rec.nodes.some(n => n.id === binding.contentId))) fail('media-binding', binding.assetId, 'Voice export must name an actual authored line');
+      if (binding.use === 'effect' && !r.hotspots.some(h => h.actionIds.includes(binding.contentId))) fail('media-binding', binding.assetId, 'Effect must name an exposed authored room action');
+      if (binding.use === 'music' && binding.contentId !== r.id && binding.contentId !== 'spec001:TITLE') fail('media-binding', binding.assetId, 'Music must name its actual room or title surface');
+      const suffix = ['room-architecture', 'prop-placement', 'character-placement'].includes(binding.use) ? '.glb' : ['background', 'midground', 'foreground'].includes(binding.use) ? '.png' : '.mp3';
+      if (!binding.exportPath.endsWith(suffix)) fail('media-binding', binding.assetId, 'Export format differs from its authored use');
+      if (binding.interactiveOrEvidence && binding.use !== 'prop-placement') fail('media-binding', binding.assetId, 'Interactive prop evidence is not a decorative media claim');
+    }
     for (const hotspot of r.hotspots) for (const actionId of hotspot.actionIds) {
       for (const dialogue of records.filter(rec => rec.kind === 'dialogue')) {
         const owner = dialogue.nodes.find(node => node.choices.some(choice => choice.id === actionId));

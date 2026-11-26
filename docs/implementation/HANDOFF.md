@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-26
 
-**73 loops started; 59 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
+**74 loops started; 59 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
 Current active ownership is in state.json: loop071/T066 integrates the actual R01
 media; loop072/T061 nonquota architecture auditing is accepted. T063–T065 sources and
 auditions are accepted. Root owns the shared manifest, tracking and publication.
@@ -371,3 +371,67 @@ Loop073/T067 starts bounded benchmark preparation onacceptedT059/T063–T065:
 record profile, inspectactualSafari capability andprepare sourcechecks.071retains
 browser/build ownership; nofinalbenchmark onchangingapp andnoG3decision before
 T066rootreview/actualownerroomreview. This advances independentwork only.
+
+Reviewed media source checkpoint published: `40e35ac7348c5efa08abaa6c54040bb11ccbae88`. All452explicit
+staged paths matched reviewedbytes; privateOAuthvalues/keymarkers scan clear.
+315assetchecks and381entryinventoryPASS; noacceptedquota orG3claim. Four exact
+thirdpartyterms snapshots preserveupstreamwhitespace; allauthoredchanges pass
+whitespacecheck. Actualremotehead verified. T066integration remainsuncommitted;
+loop073benchmarkpreparation continues. No deployment.
+
+## T066 root join review — 2026-11-26, before layout correction
+
+Root read renderer/resource/audio/preference/adapter/content changes and meaningful
+native tests. Review findings fixed: preference etags alone are not account
+identity; real412 needs explicit read/review before retry; repeated lighting LUT
+initialization must not allocate again. Native11room/media and25guest/save/logout
+cases pass. Full default axe checks pass in a separate owned Firefox process,
+with zero violations/incomplete items; runner-only native SIGSEGV remains recorded,
+internal cause unproven. No rule exclusions or text-only substitution.
+
+Root `npm run check` PASS. Full client1599PASS/68physicalTODO across42suites18.54s;
+first attempt omitted the documented NQ_PHP_BIN, producing two tool-selection
+failures (1597passed). That failed run is retained as
+`.local/T066-root-client-missing-php.log`; rerun uses pinned PHP8.4.28. Full API
+908tests/19138assertions PASS35.737s/34MiB. Final logs are
+`.local/T066-root-{check,client,php}.log`.
+
+Root inspected actual1440room, full desktop and390px captures. Artwork is cohesive
+and controls readable, but the scene begins around y900 under excessive header/
+settings space. Loop073 independently noted it. Loop071 is making a bounded
+presentation correction so scene/verbs are visible on desktop entry, preserving
+semantic content, keyboard order and200% readability. It owns the browser/build
+slot for focused layout/a11y retests;073 holds final freeze/measurements until root
+reviews the correction. This is coordinator review within existing loops, not a
+new loop or accepted T066/G3.59tasks/73loops remain.
+
+Loop074/T068 starts independent physical-route fixture preparation on unchanged
+reviewed T006/T014/source/model contracts. It owns only fixture/tests/review note;
+no evaluator, gameplay, media or shared tracking edits. Task schedule records the
+bounded independent-work exception. Final room performance stays CPU-exclusive;
+T069 onward implementation retains representative G3 review prerequisites.
+
+## Frozen R01 runtime handoff to loop073 — 2026-11-26
+
+Root accepted the bounded layout correction after viewing both actual entry
+captures: stage y300.6,88.5% visible at1280×720 and100% at1440×900, all four verbs
+visible, scrollY0. Final room/media/a11y12/12 and title3/3 pass; root's additional
+shared-shell native10/10 PASS11.1s and final `npm run check` PASS. The prior full
+client1599PASS/68TODO and PHP908/19138PASS are retained; layout-only changes did
+not alter server/domain policy. Root matched all110 final source/export/evidence
+seals against the T066 packet and reviewed all production changes.
+
+Canonical manifest now records21 integrated,7 exported and353 planned assets;
+all quota counts remain zero. Only status/usedBy changed from the reviewed source
+candidates. Root verified21 usage/export hashes and canonical inventory PASS.
+Loop073 has exclusive timing/browser ownership for the frozen runtime;074 may
+write independent fixtures but defers CPU tests. T066's final task acceptance
+still awaits the required owner room review; this handoff is verified implementation,
+not G3 or release approval.59tasks/74loops remain.
+
+Forward media-audit note: T065 exported candidates use descriptive lossless-format
+strings and an aggregate voice-run record. Before later accepted-quota promotion,
+normalize file-format metadata to the existing validator's canonical wav/aiff/flac
+values (keep subtype in provenance), and supply exact per-line voice records from
+the preserved actual runs. Do not weaken the validator or change approved audio
+bytes. These are currently nonquota candidates, not false accepted inventory.

@@ -1,0 +1,60 @@
+[WebServer] (node:33223) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:33230) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   1 [firefox-local-https] › tests/e2e/finished-room.spec.ts:11:3 › T066 finished R01 › desktop entry shows primary verbs and most of the composed room before scrolling (3.7s)
+(node:33306) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   2 [firefox-local-https] › tests/e2e/finished-room.spec.ts:34:3 › T066 finished R01 › loads exact source exports, preserves same-room residency and pauses/reclaims real animation (5.4s)
+  ✓   3 [firefox-local-https] › tests/e2e/finished-room.spec.ts:68:3 › T066 finished R01 › reviewed audio has text, replay, skip, explicit trigger and account preferences survive reload without a save (4.2s)
+  ✓   4 [firefox-local-https] › tests/e2e/finished-room.spec.ts:101:3 › T066 finished R01 › conflicting account preferences require an explicit read and fresh choice without replacing either adventure (3.6s)
+  ✓   5 [firefox-local-https] › tests/e2e/finished-room.spec.ts:119:3 › T066 finished R01 › a later synthetic account with the same preference etag gets its own values after explicit session adoption (3.9s)
+  ✓   6 [firefox-local-https] › tests/e2e/finished-room.spec.ts:140:3 › T066 finished R01 › missing image/model and media decode failures keep actionable text and permit explicit retry (3.2s)
+  ✓   7 [firefox-local-https] › tests/e2e/introduction-graybox.spec.ts:42:3 › T035/T066 actual playable R01 media and R02 graybox › visual pointer and semantic keyboard share evidence, O01/O02, movement and actual packet state (4.7s)
+  ✓   8 [firefox-local-https] › tests/e2e/introduction-graybox.spec.ts:87:3 › T035/T066 actual playable R01 media and R02 graybox › canceled and stale visual presses cannot affect a new adventure; repeated room swaps keep one canvas (3.7s)
+  ✓   9 [firefox-local-https] › tests/e2e/introduction-graybox.spec.ts:107:3 › T035/T066 actual playable R01 media and R02 graybox › real WebGL loss preserves text actions and retry restores the same state (3.2s)
+  ✓  10 [firefox-local-https] › tests/e2e/introduction-graybox.spec.ts:123:3 › T035/T066 actual playable R01 media and R02 graybox › 390 px, touch, 200% text and reduced motion retain readable controls without a render loop (7.9s)
+  ✓  11 [firefox-local-https] › tests/e2e/introduction-graybox.spec.ts:141:3 › T035/T066 actual playable R01 media and R02 graybox › visual pointer observations equal a fresh keyboard investigation (3.3s)
+  ✓  12 [firefox-local-https] › tests/e2e/introduction-graybox.spec.ts:171:3 › T035/T066 actual playable R01 media and R02 graybox › simulated visibility input pauses the actual renderer and resumes without changing evidence (3.0s)
+
+
+  1) [firefox-local-https] › tests/e2e/finished-room.spec.ts:11:3 › T066 finished R01 › desktop entry shows primary verbs and most of the composed room before scrolling 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 324
+    Received:   377.79998779296875
+
+      17 |       const scrollY = await j.page.evaluate(()=>window.scrollY);
+      18 |       expect(scrollY).toBe(0);
+    > 19 |       expect(stage.y).toBeLessThan(viewport.height * 0.45);
+         |                       ^
+      20 |       expect(Math.min(viewport.height-stage.y,stage.height)/stage.height).toBeGreaterThan(0.65);
+      21 |       for (const name of ['Walk','Look','Talk','Use']) {
+      22 |         const control=(await button(j.page,name).boundingBox())!;
+        at /Users/john.capobianco/Network-Quest/tests/e2e/finished-room.spec.ts:19:23
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/finished-room-T066-finishe-9f3ef-posed-room-before-scrolling-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/finished-room-T066-finishe-9f3ef-posed-room-before-scrolling-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/finished-room-T066-finishe-9f3ef-posed-room-before-scrolling-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/finished-room-T066-finishe-9f3ef-posed-room-before-scrolling-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/finished-room-T066-finishe-9f3ef-posed-room-before-scrolling-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [firefox-local-https] › tests/e2e/finished-room.spec.ts:11:3 › T066 finished R01 › desktop entry shows primary verbs and most of the composed room before scrolling 
+  11 passed (50.7s)

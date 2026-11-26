@@ -277,6 +277,14 @@ not task/gate acceptance: the final join still requires completed T063/T065
 source/rights/browser evidence, unchanged approved audio and the T067 owner room
 review. Root owns the canonical manifest; workers coordinate disjoint evidence.
 
+T068 may prepare independent O03–O12/T03–T16 boundary fixtures from accepted
+T006/T014 and unchanged source/model contracts while the representative room
+review finishes. Those expected answers cannot depend on forthcoming evaluators.
+This is test-oracle preparation only; T069 onward evaluator/gameplay implementation
+and bulk media scaling retain their representative G3 review prerequisite. Keep
+all unimplemented behavior honestly RED/TODO and serialize CPU-heavy checks with
+the finished-room performance benchmark. Aggregate gates remain pending.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.

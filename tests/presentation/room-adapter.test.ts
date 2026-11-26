@@ -16,7 +16,7 @@ function deferred<T>() {
   const promise = new Promise<T>((yes, no) => { resolve = yes; reject = no; }); return { promise, resolve, reject };
 }
 const tick = async () => { await Promise.resolve(); await Promise.resolve(); await Promise.resolve(); };
-function fixture() {
+function fixture(reuseView = false) {
   const bus = createActionBus({ getContext: () => context });
   const handler = vi.fn(() => ({ status: 'handled' as const })); bus.register('select-verb', handler);
   const render = vi.fn<(view: AppShellView | null, capture?: ActionCapture) => void>();
@@ -24,12 +24,34 @@ function fixture() {
   const preparations: ReturnType<typeof deferred<PreparedRoom>>[] = [];
   const requests: RoomRenderRequest<string>[] = [];
   const prepare = vi.fn((request: RoomRenderRequest<string>) => { requests.push(request); const pending = deferred<PreparedRoom>(); preparations.push(pending); return pending.promise; });
-  const adapter = createRoomAdapter({ pool, dispatcher: bus, onView: render, renderers: { three: { prepare } } });
+  const adapter = createRoomAdapter({ pool, dispatcher: bus, onView: render, renderers: { three: { prepare, reuseView } } });
   const session = () => ({ attach: vi.fn(), setPaused: vi.fn(), dispose: vi.fn() });
   return { adapter, bus, handler, pool, render, preparations, requests, prepare, session };
 }
 
 describe('room presentation boundary', () => {
+  it('keeps one decode in flight through rapid same-room changes and attaches the latest view', async () => {
+    const f = fixture(true); f.adapter.show(view(), { mode: 'three', detail: 'default', reducedMotion: false });
+    const request = f.requests[0]!;
+    for (const title of ['Second', 'Third', 'Latest']) f.adapter.show(view(title));
+    expect(f.prepare).toHaveBeenCalledTimes(1); expect(request.signal.aborted).toBe(false);
+    const session = { ...f.session(), updateView: vi.fn() }; f.preparations[0]!.resolve(session); await tick();
+    expect(session.updateView.mock.lastCall?.[0].title).toBe('Latest'); expect(session.attach).toHaveBeenCalledTimes(1);
+    f.adapter.dispose(); f.bus.dispose(); f.pool.dispose();
+  });
+  it('refreshes reusable rooms without releasing media, cancels prior input and uses the new semantic controls', async () => {
+    const f = fixture(); f.adapter.show(view(), { mode: 'three', detail: 'default', reducedMotion: false });
+    const updateView = vi.fn(), session = { ...f.session(), updateView };
+    f.preparations[0]!.resolve(session); await tick();
+    const request = f.requests[0]!, old = request.capture('look');
+    f.adapter.show({ ...view(), controls: [{ id: 'talk', label: 'Talk', action: { kind: 'select-verb', verb: 'talk' } }] });
+    expect(f.prepare).toHaveBeenCalledTimes(1); expect(request.signal.aborted).toBe(false); expect(updateView).toHaveBeenCalledTimes(1);
+    expect(old.dispatch().status).toBe('rejected'); expect(() => request.capture('look')).toThrow();
+    expect(request.capture('talk').dispatch().status).toBe('handled'); expect(f.handler).toHaveBeenCalledTimes(1);
+    f.adapter.hide(); expect(session.dispose).toHaveBeenCalledTimes(1); expect(request.signal.aborted).toBe(true); expect(() => request.capture('talk')).toThrow();
+    f.adapter.dispose(); f.bus.dispose(); f.pool.dispose();
+  });
+
   it('exposes every semantic action/evidence before art and keeps them on missing renderer/failure', async () => {
     const f = fixture(); const snapshot = view(); f.adapter.show(snapshot, { mode: 'three', detail: 'default', reducedMotion: true });
     expect(f.render.mock.lastCall?.[0]).toMatchObject({ controls: snapshot.controls, evidence: snapshot.evidence, presentationStatus: expect.stringMatching(/loading/i) });

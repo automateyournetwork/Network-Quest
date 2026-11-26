@@ -43,7 +43,10 @@ describe('T023 authored introduction and retained independent requirements', () 
       expect(room.exits.some(e => e.toRoomId === q(id === 'R01' ? 'R02' : 'R01'))).toBe(true);
       expect(room.hotspots.every(h => h.unsupportedVerbText.trim().length > 20)).toBe(true);
       expect(room.ambience.assetIds).toEqual([]);
-      expect(room.propInstances.every(p => p.assetId.startsWith(q('DEV-')))).toBe(true);
+      if (id === 'R01') for (const prop of room.propInstances) {
+        expect(prop.assetId).toBe(prop.propId.replace('spec001:', 'spec001:ASSET-'));
+        expect(room.mediaBindings).toContainEqual({ assetId: prop.assetId, contentId: room.id, use: 'prop-placement', exportPath: `public/assets/models/R01-${prop.propId.slice(8)}.glb`, interactiveOrEvidence: ['PR002', 'PR003', 'PR004', 'PR005', 'PR006', 'PR009'].includes(prop.propId.slice(8)) });
+      } else expect(room.propInstances.every(p => p.assetId.startsWith(q('DEV-')))).toBe(true);
     }
   });
   it('keeps prepared lit power and unlit link distinct, with no service inference', () => {

@@ -2021,6 +2021,15 @@
           "minItems": 0,
           "maxItems": 16,
           "uniqueItems": true
+        },
+        "mediaBindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/mediaBinding"
+          },
+          "minItems": 1,
+          "maxItems": 128,
+          "uniqueItems": true
         }
       },
       "required": [
@@ -3261,6 +3270,47 @@
         "records"
       ],
       "description": "Envelope for plural files such as profiles.json/objectives.json/characters.json. Every listed document reference resolves by kind and id inside this file; no empty authored collection."
+    },
+    "mediaBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "assetId": {
+          "$ref": "#/$defs/id"
+        },
+        "contentId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96
+        },
+        "use": {
+          "enum": [
+            "room-architecture",
+            "prop-placement",
+            "character-placement",
+            "background",
+            "midground",
+            "foreground",
+            "voice-line",
+            "music",
+            "effect"
+          ]
+        },
+        "exportPath": {
+          "type": "string",
+          "pattern": "^public/assets/(?:models/[A-Za-z0-9_-]+\\.glb|images/R01/(?:background|midground|foreground)\\.png|audio/auditions/[A-Za-z0-9_-]+\\.mp3)$"
+        },
+        "interactiveOrEvidence": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "assetId",
+        "contentId",
+        "use",
+        "exportPath",
+        "interactiveOrEvidence"
+      ]
     }
   }
 }

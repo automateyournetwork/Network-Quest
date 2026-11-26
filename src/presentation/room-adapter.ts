@@ -20,6 +20,8 @@ export interface PreparedRoom {
   attach(): void;
   /** Presentation only: no timers may mutate gameplay. */
   setPaused(paused: boolean): void;
+  /** Refresh the semantic projection without rebuilding the same room's media. */
+  updateView?(view: RoomView): void;
   /** Remove owned surfaces/listeners/animation callbacks. Shared resources use leases. */
   dispose(): void;
 }
@@ -33,7 +35,11 @@ export interface RoomRenderRequest<T> {
   /** Wire WebGL context loss/media failure here, removing that listener in dispose. */
   contextLost(): void;
 }
-export interface RoomRenderer<T> { prepare(request: RoomRenderRequest<T>): Promise<PreparedRoom> }
+export interface RoomRenderer<T> {
+  /** Same-room changes can arrive while media is decoding; prepared sessions must implement updateView. */
+  readonly reuseView?: boolean;
+  prepare(request: RoomRenderRequest<T>): Promise<PreparedRoom>;
+}
 export interface RoomStatus {
   readonly kind: 'empty' | 'loading' | 'ready' | 'text' | 'unavailable' | 'disposed';
   readonly mode: RoomMode;
@@ -103,16 +109,15 @@ export function createRoomAdapter<T>(options: RoomAdapterOptions<T>) {
     const current = { scope: createResourceScope(options.pool), actions: new Set<CapturedAction>(), session: null as PreparedRoom | null };
     active = current;
     const currentView = view;
-    const capture = captureView!;
-    const controls = new Map([...currentView.controls, ...currentView.objects.flatMap(object => object.actions),
-      ...currentView.evidence.flatMap(evidence => evidence.action ? [evidence.action] : [])].map(control => [control.id, control]));
     const isCurrent = () => !disposed && active === current && !current.scope.signal.aborted;
     const request: RoomRenderRequest<T> = Object.freeze({ view: currentView, settings, resources: current.scope, signal: current.scope.signal,
       capture(controlId: string) {
         if (!isCurrent()) throw new Error('Room presentation is inactive');
+        const controls = new Map([...view!.controls, ...view!.objects.flatMap(object => object.actions),
+          ...view!.evidence.flatMap(evidence => evidence.action ? [evidence.action] : [])].map(control => [control.id, control]));
         const control = controls.get(controlId);
         if (!control || control.unavailableReason !== undefined) throw new Error('Semantic control is unknown or unavailable');
-        const captured = capture(control.action);
+        const captured = captureView!(control.action);
         current.actions.add(captured);
         return Object.freeze({
           dispatch() {
@@ -135,6 +140,10 @@ export function createRoomAdapter<T>(options: RoomAdapterOptions<T>) {
       if (!isCurrent()) { safely(() => session.dispose()); return; }
       current.session = session;
       try {
+        if (renderer.reuseView && view) {
+          if (!session.updateView) throw new Error('Reusable renderer must refresh its semantic projection');
+          session.updateView(view);
+        }
         // Set pause before attach so a hidden-tab render never starts its animation loop.
         session.setPaused(paused);
         if (!isCurrent()) return;
@@ -147,7 +156,20 @@ export function createRoomAdapter<T>(options: RoomAdapterOptions<T>) {
     show(next: RoomView, nextSettings: RoomSettings = settings) {
       if (disposed) throw new Error('Room adapter disposed');
       const copied = snapshot(next); // reject malformed projection without tearing down the current view
+      const reusable = view?.roomId === copied.roomId && settings.mode === nextSettings.mode && settings.detail === nextSettings.detail
+        && settings.reducedMotion === nextSettings.reducedMotion && active && (active.session?.updateView
+          || (settings.mode !== 'text' && options.renderers?.[settings.mode]?.reuseView));
       view = copied; captureView = options.dispatcher.captureScope(copied.context);
+      if (reusable && active) {
+        for (const action of active.actions) options.dispatcher.cancel(action);
+        active.actions.clear();
+        try {
+          if (active.session) { active.session.updateView!(copied); announce('ready', 'Visual presentation ready. Equivalent text and actions remain available.'); }
+          else announce('loading', 'Visual presentation loading. Scene descriptions, evidence and actions are available.');
+        }
+        catch (error) { report(error); unavailable('prepare-failed'); }
+        return;
+      }
       settings = Object.freeze({ ...nextSettings }); start();
     },
     setMode(mode: RoomMode, detail: RoomSettings['detail'] = settings.detail) {
@@ -155,6 +177,7 @@ export function createRoomAdapter<T>(options: RoomAdapterOptions<T>) {
       settings = Object.freeze({ ...settings, mode, detail }); start();
     },
     retry() { start(); },
+    hide() { if (disposed) return; stop(); view = null; state = Object.freeze({ kind: 'empty', mode: settings.mode, message: 'No room presentation.' }); },
     setPaused(value: boolean) {
       if (disposed) return;
       paused = value;

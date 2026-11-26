@@ -1,0 +1,35 @@
+{
+  "type": "usage",
+  "assetId": "spec001:ASSET-MUSIC-title",
+  "hashes": [
+    "9bfa196a51c64f6b716da508d6f76b09a2284cb7f0edec310fa793342c58d408"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop071_t066",
+  "date": "2026-11-26",
+  "environment": "macOS 26.6.2 arm64 Mac16,7; Node26.13.1; Three0.187.0; Playwright1.65.1 native Firefox159 strict local TLS; synthetic test accounts only",
+  "details": {
+    "bindings": [
+      {
+        "assetId": "spec001:ASSET-MUSIC-title",
+        "contentId": "spec001:TITLE",
+        "use": "music",
+        "exportPath": "public/assets/audio/auditions/music-title.mp3",
+        "interactiveOrEvidence": false
+      }
+    ],
+    "visible": true,
+    "meaningful": true,
+    "findings": "Frozen reviewed 20-second title excerpt plays only by user choice; explicit authored ending and loop=false.",
+    "tool": "Actual application, native Firefox159 via Playwright1.65.1; response-body SHA-256 equality; screenshot inspection; semantic interaction regressions",
+    "observedPaths": [
+      "public/assets/audio/auditions/music-title.mp3",
+      "content/spec001/rooms/R01.json",
+      "content/spec001/presentation/R01.json"
+    ],
+    "runtimeEvidencePath": "docs/evidence/spec001/presentation/t066/t066-audio-runtime.json",
+    "browserCapturePath": "docs/evidence/spec001/assets/t066/t066-audio-transcripts.png",
+    "scope": "Actual runtime use and source/export binding only. Existing T063/T064/T065 native source and owner listening audits remain separate. No owner room acceptance, G3 pass or quota credit."
+  }
+}

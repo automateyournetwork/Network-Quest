@@ -71,7 +71,7 @@ export function createTitleController(options: {
 /** Native controls preserve their nodes and focus through status-only redraws. */
 export function createTitlePanel(host: HTMLElement, act: (action: TitleAction) => void) {
   const doc = host.ownerDocument, abort = new AbortController(), element = doc.createElement('section');
-  element.className = 'nq-shell'; element.setAttribute('aria-label', 'Adventure menu');
+  element.className = 'nq-shell nq-menu'; element.setAttribute('aria-label', 'Adventure menu');
   const heading = doc.createElement('h1'); heading.textContent = 'Network Quest';
   const subtitle = doc.createElement('p'); subtitle.textContent = 'The Underworld — begin a physical investigation.';
   const identity = doc.createElement('p'), controls = doc.createElement('div'), message = doc.createElement('p'); controls.className = 'nq-shell-controls';
@@ -101,10 +101,10 @@ export function createTitlePanel(host: HTMLElement, act: (action: TitleAction) =
   for (const [label, action] of [['Google', 'google'], ['GitHub', 'github']] as const) { const control = button(label, action); providers.push(control); invitation.append(control); }
   invitation.append(button('Continue as guest', 'decline'));
   const settings = makePanel('settings', 'Settings', ['Autosave is off until explicitly enabled for your account. Manual saves use one account slot.',
-    'All dialogue is readable as text. Native keyboard controls and the browser’s text zoom are available. Audio, additional presentation settings and account controls are not yet available.']);
+    'All dialogue is readable as text. Open Sound and reading for audio levels, replay, captions, text size and reduced motion. Native keyboard controls and browser zoom remain available.']);
   settings.append(button('Close settings', 'cancel'));
   const credits = makePanel('credits', 'Credits', ['Network Quest — John Capobianco.', 'Original code: Apache-2.0. Original writing and project materials: CC BY 4.0.',
-    'This development build contains the authored opening investigation. Finished art, music, voice and the complete episode remain in production.']);
+    'This development build contains the opening investigation and the Arrival Lift’s produced media. The complete episode remains in production; room and release reviews are separate.']);
   const source = doc.createElement('a'); source.href = 'https://github.com/automateyournetwork/Network-Quest'; source.textContent = 'Source and attribution notices'; credits.append(source, button('Close credits', 'cancel'));
   host.append(element); let shown: TitlePanel = 'none', returnFocus: HTMLElement | null = null;
   element.addEventListener('keydown', event => {
@@ -113,6 +113,7 @@ export function createTitlePanel(host: HTMLElement, act: (action: TitleAction) =
     }
   }, { signal: abort.signal });
   return { element, render(view: TitleView) {
+    element.dataset['adventure'] = String(view.hasAdventure);
     heading.hidden = view.hasAdventure; subtitle.hidden = view.hasAdventure; save.hidden = !view.hasAdventure;
     continueButton.textContent = view.hasAdventure ? 'Restore Save' : 'Continue';
     continueButton.setAttribute('aria-disabled', String(!view.continueAvailable));

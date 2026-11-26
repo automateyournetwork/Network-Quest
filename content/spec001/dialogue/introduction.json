@@ -15,7 +15,7 @@
         {
           "id": "spec001:DIALOGUE-photon-welcome",
           "speakerId": "spec001:CH03",
-          "text": "“Welcome to the Underworld! I am Photon. Small lamp, large opinions.” The firefly points out your satchel: one reusable inspection kit, with a labeled trace card and a length readout. “It belongs to you. I am merely performing the ceremonial pointing.”",
+          "text": "\u201cWelcome to the Underworld! I am Photon. Small lamp, large opinions.\u201d The firefly points out your satchel: one reusable inspection kit, with a labeled trace card and a length readout. \u201cIt belongs to you. I am merely performing the ceremonial pointing.\u201d",
           "condition": {
             "kind": "always"
           },
@@ -56,7 +56,7 @@
         {
           "id": "spec001:DIALOGUE-photon-clue",
           "speakerId": "spec001:CH03",
-          "text": "“The power lamp is lit. The link lamp is not. Two observations; please give them separate notebook entries. My glowing abdomen is excellent advertising and terrible proof that the network works.” Look at each indicator, then Use the inspection kit on the physical path. A failed length check is useful evidence, not a failed apprentice.",
+          "text": "\u201cThe power lamp is lit. The link lamp is not. Two observations; please give them separate notebook entries. My glowing abdomen is excellent advertising and terrible proof that the network works.\u201d Look at each indicator, then Use the inspection kit on the physical path. A failed length check is useful evidence, not a failed apprentice.",
           "condition": {
             "kind": "always"
           },
@@ -106,7 +106,7 @@
         {
           "id": "spec001:DIALOGUE-titan-welcome",
           "speakerId": "spec001:CH02",
-          "text": "The Titan lays down a wrench approximately the size of Tuesday. “An apprentice! Splendid. The Iron City beacon is silent, and the official report says ‘probably something’. Let us improve on that.”",
+          "text": "The Titan lays down a wrench approximately the size of Tuesday. \u201cAn apprentice! Splendid. The Iron City beacon is silent, and the official report says \u2018probably something\u2019. Let us improve on that.\u201d",
           "condition": {
             "kind": "always"
           },
@@ -135,7 +135,7 @@
         {
           "id": "spec001:DIALOGUE-titan-scope",
           "speakerId": "spec001:CH02",
-          "text": "“Inspect the physical path between known-good endpoints. Table cards name Lift Sender A and Workshop Receiver B; the raised line shows the conduit and patch lead between them. Identify both endpoints and that path. Then pin a testable hypothesis in your own words. A hypothesis is an idea to test, never a fact smuggled in wearing a confident hat.”",
+          "text": "\u201cInspect the physical path between known-good endpoints. Table cards name Lift Sender A and Workshop Receiver B; the raised line shows the conduit and patch lead between them. Identify both endpoints and that path. Then pin a testable hypothesis in your own words. A hypothesis is an idea to test, never a fact smuggled in wearing a confident hat.\u201d",
           "condition": {
             "kind": "always"
           },
@@ -158,7 +158,7 @@
         {
           "id": "spec001:DIALOGUE-titan-routes",
           "speakerId": "spec001:CH02",
-          "text": "“Copper, fiber and radio each offer a route onward. Choose one to investigate; you need not solve all three. The Market and Clockworks provide common preparation. No recruit, side quest or door to a future realm is required to begin.” A small sign adds: “Guest — progress is only in this session. Sign in to save your adventure.” The Titan taps it. “Declining is allowed. The workshop does not require an account to own a chair.”",
+          "text": "\u201cCopper, fiber and radio each offer a route onward. Choose one to investigate; you need not solve all three. The Market and Clockworks provide common preparation. No recruit, side quest or door to a future realm is required to begin.\u201d A small sign adds: \u201cGuest \u2014 progress is only in this session. Sign in to save your adventure.\u201d The Titan taps it. \u201cDeclining is allowed. The workshop does not require an account to own a chair.\u201d",
           "condition": {
             "kind": "always"
           },
@@ -192,6 +192,54 @@
           "requiresFreshMeasurement": false
         }
       ],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-media-001",
+      "entryNodeId": "spec001:DIALOGUE-VOICE-001",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-VOICE-001",
+          "speakerId": "narrator",
+          "text": "The lift stops with the dignity of a machine hoping nobody heard that. Welcome to the Underworld.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-media-035",
+      "entryNodeId": "spec001:DIALOGUE-VOICE-035",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-VOICE-035",
+          "speakerId": "spec001:CH03",
+          "text": "I am Photon. I carry light and an unreasonable amount of optimism. Shall we inspect that dark link lamp?",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
       "skipPolicy": "retain-required-evidence",
       "replayPolicy": "no-duplicate-effects"
     }

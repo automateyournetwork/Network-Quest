@@ -1,11 +1,12 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import { expect, firefox, test, type BrowserContext, type Page } from '@playwright/test';
-import AxeBuilder from '@axe-core/playwright';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { writeFile } from 'node:fs/promises';
 import { localTls } from './support/local-tls';
 
 /** Actual app acceptance: no replacement main, injected gameplay or mocked evaluator. */
-test.describe('T035 actual playable graybox', () => {
+test.describe('T035/T066 actual playable R01 media and R02 graybox', () => {
   test.describe.configure({ mode: 'default' });
   let local: Awaited<ReturnType<typeof localTls>>, context: BrowserContext, page: Page;
   let errors: string[], writes: string[], external: string[];
@@ -44,11 +45,14 @@ test.describe('T035 actual playable graybox', () => {
       const sample = await visual().evaluate(element => { const data = (element as HTMLElement).dataset, canvas = element.querySelector('canvas')!;
         return { room: data['roomId'], triangles: Number(data['triangles']), drawCalls: Number(data['drawCalls']), geometries: Number(data['geometries']), textures: Number(data['textures']),
           canvasPixels: [canvas.width, canvas.height], viewport: [innerWidth, innerHeight], devicePixelRatio, userAgent: navigator.userAgent }; });
-      expect(sample.triangles).toBeGreaterThan(0); expect(sample.triangles).toBeLessThan(2_000); expect(sample.drawCalls).toBeLessThan(100);
-      expect(sample.geometries).toBe(2);
-      // No authored image textures are loaded; Three may allocate an internal
-      // texture. Record its actual count rather than reporting that as zero.
-      expect(sample.textures).toBeLessThanOrEqual(2); budgets.push(sample);
+      expect(sample.triangles).toBeGreaterThan(0);
+      if (sample.room === 'spec001:R01') {
+        expect(sample.triangles).toBe(70_716); expect(sample.drawCalls).toBeLessThan(600); expect(sample.geometries).toBeGreaterThan(100); expect(sample.geometries).toBeLessThan(600);
+        expect(await visual().locator('img')).toHaveCount(3);
+      } else { expect(sample.triangles).toBeLessThan(2_000); expect(sample.drawCalls).toBeLessThan(100); expect(sample.geometries).toBe(2); }
+      // R01's three image planes live in DOM memory (measured separately).
+      // Three's RectAreaLight lookup textures and internal texture are counted here.
+      expect(sample.textures).toBeLessThanOrEqual(sample.room === 'spec001:R01' ? 3 : 2); budgets.push(sample);
     }
     await budget();
     await act('Look', 'spec001:HOTSPOT-power');
@@ -116,7 +120,7 @@ test.describe('T035 actual playable graybox', () => {
     await button('Low detail scene').press('Enter'); await ready('spec001:R01');
     await expect(visual()).toHaveAttribute('data-detail', 'low');
   });
-  test('390 px, touch, 200% text and reduced motion retain readable controls without a render loop', async () => {
+  test('390 px, touch, 200% text and reduced motion retain readable controls without a render loop', async ({}, info) => {
     await page.setViewportSize({ width: 390, height: 844 }); await button('Look').tap(); await target('spec001:HOTSPOT-power').tap();
     await expect(page.locator('.nq-shell-evidence')).toContainText('Power indication');
     expect(await visual().locator('button, a, input, [tabindex]').count()).toBe(0);
@@ -127,7 +131,12 @@ test.describe('T035 actual playable graybox', () => {
     await page.screenshot({ path: 'test-results/T035-graybox-200percent.png', fullPage: true });
     await visual().locator('.nq-graybox-stage').screenshot({ path: 'test-results/T035-graybox-200percent-stage.png' });
     const count = await visual().getAttribute('data-render-count'); await page.waitForTimeout(150); expect(await visual().getAttribute('data-render-count')).toBe(count);
-    expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+    // Native Firefox SIGSEGV is reproducible only inside the test runner's
+    // process. A separate owned Firefox repeats this exact journey and audits
+    // the entire real page + expanded media controls with all default axe rules.
+    // No scene/action/state is injected. The original failure is preserved in T066.
+    const audit = await promisify(execFile)(process.execPath, ['tools/verify-room-accessibility.ts', info.outputPath('t066-accessibility')], { env: { PATH: process.env['PATH'] ?? '', NQ_PHP_BIN: process.env['NQ_PHP_BIN'] ?? '/opt/homebrew/opt/php@8.4/bin/php', LANG: 'C', LC_ALL: 'C' }, timeout: 20_000 });
+    expect(JSON.parse(audit.stdout)).toMatchObject({ valid: true, violations: 0 });
   });
   test('visual pointer observations equal a fresh keyboard investigation', async () => {
     const observations: string[][] = [];

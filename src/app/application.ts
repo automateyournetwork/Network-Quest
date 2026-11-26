@@ -3,6 +3,7 @@ import type { ActionId, QualifiedId } from '../domain/types';
 import { createNavigation } from '../state/navigation';
 import { createReducer, createReducerState } from '../state/reducer';
 import type { ReducerState } from '../state/reducer';
+import type { PresentationSettings } from '../state/types';
 import { createTutorialReducer } from '../state/tutorial';
 import { createPacketActivityController } from '../state/packet-activity';
 import { contextFromRuntime, createActionBus } from '../ui/action-bus';
@@ -26,6 +27,9 @@ import { createVerbController } from '../ui/verbs';
 import { createIntroductionGraybox, type GrayboxGeometry, type IntroductionGrayboxView } from '../presentation/introduction-graybox';
 import { createRoomAdapter, type RoomSettings } from '../presentation/room-adapter';
 import { createResourcePool } from '../presentation/resource-pool';
+import { createThreeRoom, type RoomResource } from '../presentation/three-room';
+import { resolveRoomMedia } from '../presentation/room-media';
+import { createRoomAudioPanel } from '../presentation/room-audio';
 import { createIntroductionRuntime, restoreIntroduction, startIntroduction } from './adventure';
 import { loadIntroductionContent } from './content';
 import { introductionBindings } from './introduction';
@@ -34,7 +38,10 @@ import { introductionSavePolicy } from './save-policy';
 const q = <T extends string = string>(id: string) => `spec001:${id}` as QualifiedId<T>;
 /** Actual browser composition. No public state hook, browser storage or provider simulation. */
 export function createIntroductionApplication(host: HTMLElement) {
-  const { registry, world } = loadIntroductionContent(), bindings = introductionBindings(registry);
+  const { registry, world } = loadIntroductionContent(), bindings = introductionBindings(registry), media = resolveRoomMedia(registry);
+  const defaultPresentation: PresentationSettings = { musicVolume: 1, effectsVolume: 1, voiceVolume: 1, captions: true, reducedMotion: 'system', textScale: 1 };
+  let loadedApiGeneration: ReturnType<GameApi['capture']> | null = null, loadedAuthGeneration: number | null = null, preferenceReviewRequired = false;
+  let presentation = defaultPresentation, preferenceMessage = 'Guest preferences last for this tab.', preferenceRevision = '', preferenceOperation: object | null = null;
   const navigation = createNavigation({ registry, world, entries: [
     { roomId: q('R01'), safePositionId: q('R01.entry'), activity: 'stable-exploration' },
     { roomId: q('R02'), safePositionId: q('R02.entry'), activity: 'stable-exploration' },
@@ -53,31 +60,38 @@ export function createIntroductionApplication(host: HTMLElement) {
   const sceneBindings = bindings.hotspots.filter(binding => !(binding.roomId === q('R01') && binding.hotspotId === q('HOTSPOT-capsule') && binding.actionId === q('ACTION-packet-context')));
   const verbs = createVerbController({ registry, store, bus, bindings: [...sceneBindings, ...notebook.hotspotBindings, ...dialogue.hotspotBindings, ...packet.hotspotBindings],
     walk: createNavigationPlanner({ navigation, store }), sceneObjects: createSceneObjectProjection({ registry, navigation }), panels: notebook.panels });
-  const menuHost = host.ownerDocument.createElement('div'), saveHost = host.ownerDocument.createElement('div'), settingsHost = host.ownerDocument.createElement('div'), adventureHost = host.ownerDocument.createElement('div'); host.replaceChildren(menuHost, saveHost, settingsHost, adventureHost);
+  const mediaHost = host.ownerDocument.createElement('div');
+  const menuHost = host.ownerDocument.createElement('div'), saveHost = host.ownerDocument.createElement('div'), settingsHost = host.ownerDocument.createElement('div'), adventureHost = host.ownerDocument.createElement('div'); host.replaceChildren(menuHost, mediaHost, saveHost, settingsHost, adventureHost);
+  adventureHost.className = 'nq-adventure-host';
   const dismissedCompletions = new Set<string>();
   const createPanels = () => {
     const shell = createAppShell(adventureHost, bus);
     const pool = createResourcePool<GrayboxGeometry>({ maxEntries: 2, maxInFlight: 1, maxPrefetch: 0, maxLeases: 2, maxBytes: 32_768 });
     const graybox = createIntroductionGraybox(shell.presentationHost);
+    const mediaPool = createResourcePool<RoomResource>({ maxEntries: 16, maxInFlight: 4, maxPrefetch: 0, maxLeases: 32, maxBytes: 244_000_000 });
+    const finished = createThreeRoom(shell.presentationHost, media, publicPaths.gameBase);
+    const sound = createRoomAudioPanel(mediaHost, media, publicPaths.gameBase, next => { void changePresentation(next); }, () => { void refreshPresentation(); });
     let mode: RoomSettings['mode'] = 'three', detail: RoomSettings['detail'] = 'default';
     const reducedMotion = () => {
-      const preference = state.runtime.ui?.presentation.reducedMotion ?? 'system';
+      const preference = presentation.reducedMotion;
       return preference === 'on' || (preference === 'system' && host.ownerDocument.defaultView?.matchMedia('(prefers-reduced-motion: reduce)').matches === true);
     };
-    const adapter = createRoomAdapter({ pool, dispatcher: bus, renderers: { three: graybox }, onView: (view, originalCapture) => {
+    const onView = (view: Parameters<typeof shell.render>[0] | null, originalCapture?: Parameters<typeof shell.render>[1]) => {
       if (view) shell.render(view, originalCapture);
-      // Recovery is explicit. Subsequent semantic actions remain in text mode
-      // after failure rather than repeatedly rebuilding an unavailable context.
-      if (adapter.status().kind === 'unavailable') mode = 'text';
-    } });
+      if (view?.presentationStatus.startsWith('Visual presentation unavailable')) mode = 'text';
+    };
+    const grayAdapter = createRoomAdapter({ pool, dispatcher: bus, renderers: { three: graybox }, onView });
+    const finishedAdapter = createRoomAdapter({ pool: mediaPool, dispatcher: bus, renderers: { three: finished }, onView });
+    let roomId: string | null = null;
+    const activeAdapter = () => roomId === 'spec001:R01' ? finishedAdapter : grayAdapter;
     const visualControls = host.ownerDocument.createElement('div'); visualControls.className = 'nq-graybox-controls';
     visualControls.setAttribute('role', 'group'); visualControls.setAttribute('aria-label', 'Scene presentation');
     const events = new AbortController();
     for (const [label, nextMode, nextDetail] of [['Retry visual scene', 'three', 'default'], ['Text scene', 'text', 'default'], ['Low detail scene', 'three', 'low']] as const) {
       const button = host.ownerDocument.createElement('button'); button.type = 'button'; button.textContent = label;
-      button.addEventListener('click', () => { mode = nextMode; detail = nextDetail; adapter.setMode(mode, detail); }, { signal: events.signal }); visualControls.append(button);
+      button.addEventListener('click', () => { mode = nextMode; detail = nextDetail; activeAdapter().setMode(mode, detail); }, { signal: events.signal }); visualControls.append(button);
     }
-    shell.presentationHost.before(visualControls);
+    shell.element.querySelector('.nq-shell-controls')!.after(visualControls);
     const dismissProgress = host.ownerDocument.createElement('button'); dismissProgress.type = 'button'; dismissProgress.textContent = 'Dismiss investigation progress'; dismissProgress.hidden = true;
     shell.element.append(dismissProgress);
     let progressGame = state.runtime.game;
@@ -86,14 +100,17 @@ export function createIntroductionApplication(host: HTMLElement) {
       progressGame.world.completedObjectiveIds.forEach(id => dismissedCompletions.add(id));
       autosave?.objectiveFeedbackDismissed(); render();
     }, { signal: events.signal });
-    const pause = () => adapter.setPaused(host.ownerDocument.hidden);
+    const pause = () => { grayAdapter.setPaused(host.ownerDocument.hidden); finishedAdapter.setPaused(host.ownerDocument.hidden); };
     host.ownerDocument.addEventListener('visibilitychange', pause, { signal: events.signal }); pause();
-    return { shell, show: (view: IntroductionGrayboxView) => adapter.show(view, { mode, detail, reducedMotion: reducedMotion() }),
+    return { shell, sound, react: finished.react, show: (view: IntroductionGrayboxView) => {
+      if (roomId !== view.roomId) { activeAdapter().hide(); roomId = view.roomId; }
+      activeAdapter().show(view, { mode, detail, reducedMotion: reducedMotion() });
+    },
       progress: (visible: boolean) => { progressGame = state.runtime.game; dismissProgress.hidden = !visible; },
-      disposeScene: () => { events.abort(); adapter.dispose(); graybox.dispose(); pool.dispose(); visualControls.remove(); },
+      disposeScene: () => { events.abort(); grayAdapter.dispose(); finishedAdapter.dispose(); graybox.dispose(); finished.dispose(); pool.dispose(); mediaPool.dispose(); sound.dispose(); visualControls.remove(); },
       notebook: createNotebookPanel(shell.panelHost, bus), dialogue: createDialoguePanel(shell.panelHost, bus), inventory: createInventoryPanel(shell.panelHost, bus),
       packet: createPacketJourneyPanel(shell.panelHost, bus, { reducedMotion: () => {
-        const preference = state.runtime.ui?.presentation.reducedMotion ?? 'system';
+        const preference = presentation.reducedMotion;
         return preference === 'on' || (preference === 'system' && host.ownerDocument.defaultView?.matchMedia('(prefers-reduced-motion: reduce)').matches === true);
       } }) };
   };
@@ -111,7 +128,7 @@ export function createIntroductionApplication(host: HTMLElement) {
   let accountScope: object = {}, settingsInstallation = false;
   let accountSettings: ReturnType<typeof createAccountSettingsController> | null = null;
   const invalidateGameplay = () => {
-    accountScope = {};
+    accountScope = {}; if (preferenceOperation) preferenceMessage = 'Preferences apply in this tab. Account confirmation was interrupted.'; preferenceOperation = null;
     if (!settingsInstallation) accountSettings?.invalidateView();
     autosave?.invalidateView(); dismissedCompletions.clear();
     packet.invalidate(); dialogue.invalidate(); notebook.invalidate(); bus.invalidate();
@@ -156,7 +173,7 @@ export function createIntroductionApplication(host: HTMLElement) {
         installing = true; settingsInstallation = true;
         try {
           if (api.forgetSession(generation) === null) return false;
-          saves.invalidateView(); deletionAccount?.invalidateView(); autosave?.invalidateView(); state = createReducerState(createIntroductionRuntime());
+          saves.invalidateView(); deletionAccount?.invalidateView(); autosave?.invalidateView(); state = createReducerState(createIntroductionRuntime()); presentation = defaultPresentation; preferenceRevision = ''; loadedApiGeneration = null; loadedAuthGeneration = null; preferenceReviewRequired = false; preferenceMessage = 'Guest preferences last for this tab.';
           invalidateGameplay(); title.invalidate(); focusRoom = false; return true;
         } finally { settingsInstallation = false; installing = false; }
       },
@@ -171,9 +188,78 @@ export function createIntroductionApplication(host: HTMLElement) {
     title.act(action);
   });
   const saveDialogs = createSaveDialogsPanel(saveHost, action => { if (!accountSettings?.busy) void saves.act(action); });
+  const matchingPreferenceSession = () => {
+    const session = api?.session, auth = state.runtime.auth;
+    return !!api && session?.state === 'authenticated' && auth.status === 'authenticated' && session.csrfToken === auth.csrfToken;
+  };
+  const installPresentation = (next: PresentationSettings) => {
+    presentation = Object.freeze({ ...next });
+    if (state.runtime.ui) state = { ...state, runtime: { ...state.runtime, ui: { ...state.runtime.ui, presentation } } };
+  };
+  async function refreshPresentation() {
+    if (disposed || !api || !matchingPreferenceSession() || accountSettings?.busy || preferenceOperation) return;
+    const operation = {}, scope = accountScope, generation = api.capture(), authGeneration = state.runtime.auth.clientGeneration;
+    preferenceOperation = operation; preferenceMessage = 'Reading account presentation preferences…'; render();
+    const result = await api.getSession();
+    if (disposed || preferenceOperation !== operation || accountScope !== scope || state.runtime.auth.clientGeneration !== authGeneration) return;
+    preferenceOperation = null;
+    if (!api.isCurrent(generation) || !matchingPreferenceSession()) {
+      preferenceReviewRequired = true; preferenceMessage = 'The account session changed. Sign in again before updating account preferences.'; render(); return;
+    }
+    if (!result.ok || result.data.state !== 'authenticated') {
+      preferenceReviewRequired = true; preferenceMessage = 'Account preferences could not be read. Your current tab settings remain; use Reload to try again.'; render(); return;
+    }
+    const { autosaveEnabled: _autosave, ...values } = result.data.preferences.values;
+    installPresentation(values); preferenceRevision = result.data.preferences.etag; loadedApiGeneration = generation; loadedAuthGeneration = authGeneration;
+    preferenceReviewRequired = false; preferenceMessage = 'Current account preferences loaded for review. Choose a setting to change it.'; render();
+  }
+  async function changePresentation(next: PresentationSettings) {
+    if (disposed || accountSettings?.busy || preferenceOperation || preferenceReviewRequired) return;
+    const session = api?.session;
+    if (session?.state === 'authenticated' && !matchingPreferenceSession()) { preferenceReviewRequired = true; preferenceMessage = 'Sign in again before updating account preferences.'; render(); return; }
+    installPresentation(next);
+    const operation = {}, scope = accountScope, generation = api?.capture(), authGeneration = state.runtime.auth.clientGeneration;
+    preferenceOperation = operation;
+    if (!api || session?.state !== 'authenticated' || generation === undefined) {
+      preferenceOperation = null; preferenceMessage = 'Guest preferences last for this tab.'; render(); return;
+    }
+    preferenceMessage = 'Saving account presentation preferences…'; render();
+    const ownsScope = () => !disposed && preferenceOperation === operation && accountScope === scope && state.runtime.auth.clientGeneration === authGeneration;
+    const result = await api.patchPreferences(next, session.preferences.etag);
+    if (!ownsScope()) return;
+    if (!api.isCurrent(generation) || !matchingPreferenceSession()) {
+      preferenceOperation = null; preferenceReviewRequired = true; preferenceMessage = 'The account session changed. Sign in again before updating account preferences.'; render(); return;
+    }
+    if (!result.ok) {
+      preferenceOperation = null; preferenceReviewRequired = true;
+      preferenceMessage = result.status === 412 ? 'Account preferences changed in another tab. Reload account presentation preferences to review them before changing a setting.'
+        : 'Preferences apply in this tab. Account update was not confirmed; reload account presentation preferences before retrying.';
+      render(); return;
+    }
+    const refreshed = await api.getSession();
+    if (!ownsScope()) return;
+    preferenceOperation = null;
+    if (api.isCurrent(generation) && matchingPreferenceSession() && refreshed.ok && refreshed.data.state === 'authenticated'
+      && refreshed.data.preferences.revision >= result.data.revision
+      && Object.entries(next).every(([key, value]) => refreshed.data.state === 'authenticated' && refreshed.data.preferences.values[key as keyof PresentationSettings] === value)) {
+      preferenceRevision = refreshed.data.preferences.etag; loadedApiGeneration = generation; loadedAuthGeneration = authGeneration;
+      preferenceReviewRequired = false; preferenceMessage = 'Presentation preferences saved to your account.';
+    } else { preferenceReviewRequired = true; preferenceMessage = 'Preferences apply in this tab. Reload account presentation preferences to confirm the account setting.'; }
+    render();
+  }
   function render() {
     if (disposed || installing) return;
+    const session = api?.session;
+    const identityChanged = loadedApiGeneration !== api?.capture() || loadedAuthGeneration !== state.runtime.auth.clientGeneration;
+    if (!preferenceOperation && matchingPreferenceSession() && session?.state === 'authenticated'
+      && (identityChanged || (!preferenceReviewRequired && session.preferences.etag !== preferenceRevision))) {
+      const { autosaveEnabled: _autosave, ...values } = session.preferences.values;
+      installPresentation(values); preferenceRevision = session.preferences.etag; loadedApiGeneration = api!.capture(); loadedAuthGeneration = state.runtime.auth.clientGeneration;
+      preferenceReviewRequired = false; preferenceMessage = 'Account presentation preferences loaded.';
+    }
     const game = state.runtime.game;
+    panels.sound.show(game?.world.roomId ?? null, presentation, preferenceMessage, { authenticated: matchingPreferenceSession(), busy: !!preferenceOperation || accountSettings?.busy === true, reviewRequired: preferenceReviewRequired });
+    panels.shell.element.style.fontSize = `${presentation.textScale}rem`;
     adventureHost.hidden = game === null;
     if (game !== projectedGame) { projectedGame = game; capture = bus.captureScope(contextFromRuntime(state.runtime)); }
     const notebookView = notebook.project();
@@ -207,7 +293,18 @@ export function createIntroductionApplication(host: HTMLElement) {
     autosave?.observe();
   }
   // Every controller subscriber was registered before this final render observer.
-  const unsubscribe = bus.subscribe(() => render()), unsubscribeAutosave = autosave?.subscribe(() => render()); render(); void saves.bootstrap();
+  const unsubscribe = bus.subscribe((action, result) => {
+    render();
+    if (result.status !== 'handled' || state.runtime.game?.world.roomId !== q('R01')) return;
+    const input = action.input;
+    if (input.kind === 'interact' || input.kind === 'choose-hotspot-action') {
+      panels.react(input.verb === 'walk' ? 'walk' : 'reaction');
+      if (input.verb === 'look' && input.targetId === 'spec001:HOTSPOT-power') panels.sound.trigger('control');
+      if (input.verb === 'talk' && input.targetId === 'spec001:HOTSPOT-photon') panels.sound.trigger('photon');
+    }
+    if (input.kind === 'skip-dialogue' || input.kind === 'close-dialogue') panels.sound.stopVoice();
+    if (input.kind === 'replay-dialogue' && input.dialogueId === q('DIALOGUE-photon-intro')) panels.sound.trigger('photon');
+  }), unsubscribeAutosave = autosave?.subscribe(() => render()); render(); void saves.bootstrap();
   return { dispose() {
     if (disposed) return; disposed = true; unsubscribe(); packet.dispose(); dialogue.dispose(); notebook.dispose(); inventory.dispose(); verbs.dispose();
     unsubscribeAutosave?.(); accountSettings?.dispose(); autosavePanel?.dispose(); settingsPanel?.dispose(); autosave?.dispose(); saves.dispose(); saveDialogs.dispose(); menu.dispose(); disposePanels(); bus.dispose();

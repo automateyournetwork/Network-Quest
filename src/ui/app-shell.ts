@@ -101,7 +101,9 @@ export function createAppShell(host: HTMLElement, bus: Pick<ActionBus, 'captureS
   const objects = node('ul', 'nq-shell-objects');
   const noObjects = node('p');
   noObjects.textContent = 'No scene objects are available.';
-  scene.append(sceneTitle, presentationHost, presentationStatus, noObjects, objects);
+  // The artwork and primary verbs lead the live room; the complete reading view
+  // follows in the same visual/DOM order, including every text action and help.
+  scene.append(presentationHost, presentationStatus, sceneTitle, description, help, noObjects, objects);
   const evidenceSection = node('section', 'nq-shell-evidence');
   const evidenceTitle = node('h2');
   evidenceTitle.id = `${prefix}-evidence`;
@@ -125,7 +127,7 @@ export function createAppShell(host: HTMLElement, bus: Pick<ActionBus, 'captureS
   status.setAttribute('role', 'status');
   status.setAttribute('aria-live', 'polite');
   status.setAttribute('aria-atomic', 'true');
-  shell.append(title, description, controls, help, layout, panelHost, captionSection, status);
+  shell.append(title, controls, layout, panelHost, captionSection, status);
   host.append(shell);
 
   interface ControlNodes { wrapper: HTMLDivElement; button: HTMLButtonElement; label: HTMLSpanElement; key: HTMLElement; reason: HTMLSpanElement; model: SemanticControl }

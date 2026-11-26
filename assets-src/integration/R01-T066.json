@@ -1,0 +1,4003 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "assets": [
+    {
+      "assetId": "spec001:ASSET-ARCH-R01",
+      "semanticIdentity": "spec001:R01",
+      "kind": "room-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t072-ARCH-R01-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-architecture.glb",
+            "sha256": "8258c783ea5ca6e92353b5fc7b14b13979188ba2077cd93a3f6d9703f90fef37",
+            "bytes": 634168,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 architecture-only Y-up GLB; ten PR hierarchies and collision proxies excluded",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t072-ARCH-R01-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-shared-room-model-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Historical T063 shared R01 native modeling event, now indexed for its architecture object subset. The same actual source production also produced PR001-PR010. T072 performs no new modeling/export invocation and creates no prop or character identity."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "room-architecture",
+          "evidencePath": "docs/evidence/spec001/assets/t066/ARCH-R01-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop072_t061_architecture",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "8258c783ea5ca6e92353b5fc7b14b13979188ba2077cd93a3f6d9703f90fef37"
+          ],
+          "environment": "macOS26.6.2 arm64; T072 preserved-evidence and image inspection; historical T063 Blender5.2.1/Firefox159 strict TLS execution, no new native run",
+          "evidencePath": "docs/evidence/spec001/assets/t072-ARCH-R01-source-reopen.json",
+          "findings": "Reviewed actual preserved T063 source-reopen evidence: R01.blend was reopened in Blender5.2.1 and its SHA matches current bytes. Its architecture subset was exported and separately imported into fresh Blender. This record indexes that historical run; no T072 reopen is claimed."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop072_t061_architecture",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "8258c783ea5ca6e92353b5fc7b14b13979188ba2077cd93a3f6d9703f90fef37"
+          ],
+          "environment": "macOS26.6.2 arm64; T072 preserved-evidence and image inspection; historical T063 Blender5.2.1/Firefox159 strict TLS execution, no new native run",
+          "evidencePath": "docs/evidence/spec001/assets/t072-ARCH-R01-structure.json",
+          "findings": "Reviewed bound T063 fresh-import, parity and browser observations: 79 architecture meshes, all79 with UVs, 9856 triangles, no clips, zero external references and zero texture bytes. Architecture object IDs are disjoint from all ten PR subsets; no character or prop quota is claimed."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop072_t061_architecture",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "8258c783ea5ca6e92353b5fc7b14b13979188ba2077cd93a3f6d9703f90fef37"
+          ],
+          "environment": "macOS26.6.2 arm64; T072 preserved-evidence and image inspection; historical T063 Blender5.2.1/Firefox159 strict TLS execution, no new native run",
+          "evidencePath": "docs/evidence/spec001/assets/t072-ARCH-R01-visual.json",
+          "findings": "T072 directly inspected the preserved native-source render and composed Firefox capture: tiled basalt landing, copper edge and workshop arch retain matching geometry and clear central staging. Browser lighting differs from Cycles GI/contact shadows. Current review concerns the architecture visible in the composed scene; no owner acceptance or new native run."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop072_t061_architecture",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "8258c783ea5ca6e92353b5fc7b14b13979188ba2077cd93a3f6d9703f90fef37"
+          ],
+          "environment": "macOS26.6.2 arm64; T072 preserved-evidence and image inspection; historical T063 Blender5.2.1/Firefox159 strict TLS execution, no new native run",
+          "evidencePath": "docs/evidence/spec001/assets/t072-ARCH-R01-browser-comparison.json",
+          "findings": "T072 inspected the preserved T063 composed Firefox159 capture and its hash-bound inspection record. The recorded actual browser loaded the architecture GLB separately beside ten prop GLBs and two characters, reports79 architecture meshes/9856 triangles and zero page errors. Source and captured browser geometry match; no new browser execution or actual gameplay usage is asserted."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "R01_arch_band",
+          "R01_arch_band.001",
+          "R01_arch_band.002",
+          "R01_arch_band.003",
+          "R01_arch_band.004",
+          "R01_arch_band.005",
+          "R01_arch_band.006",
+          "R01_arch_band.007",
+          "R01_exit_practical",
+          "R01_exit_practical.001",
+          "R01_floor_00_00",
+          "R01_floor_00_01",
+          "R01_floor_00_02",
+          "R01_floor_00_03",
+          "R01_floor_00_04",
+          "R01_floor_00_05",
+          "R01_floor_01_00",
+          "R01_floor_01_01",
+          "R01_floor_01_02",
+          "R01_floor_01_03",
+          "R01_floor_01_04",
+          "R01_floor_01_05",
+          "R01_floor_02_00",
+          "R01_floor_02_01",
+          "R01_floor_02_02",
+          "R01_floor_02_03",
+          "R01_floor_02_04",
+          "R01_floor_02_05",
+          "R01_floor_03_00",
+          "R01_floor_03_01",
+          "R01_floor_03_02",
+          "R01_floor_03_03",
+          "R01_floor_03_04",
+          "R01_floor_03_05",
+          "R01_floor_04_00",
+          "R01_floor_04_01",
+          "R01_floor_04_02",
+          "R01_floor_04_03",
+          "R01_floor_04_04",
+          "R01_floor_04_05",
+          "R01_floor_05_00",
+          "R01_floor_05_01",
+          "R01_floor_05_02",
+          "R01_floor_05_03",
+          "R01_floor_05_04",
+          "R01_floor_05_05",
+          "R01_floor_06_00",
+          "R01_floor_06_01",
+          "R01_floor_06_02",
+          "R01_floor_06_03",
+          "R01_floor_06_04",
+          "R01_floor_06_05",
+          "R01_floor_07_00",
+          "R01_floor_07_01",
+          "R01_floor_07_02",
+          "R01_floor_07_03",
+          "R01_floor_07_04",
+          "R01_floor_07_05",
+          "R01_floor_08_00",
+          "R01_floor_08_01",
+          "R01_floor_08_02",
+          "R01_floor_08_03",
+          "R01_floor_08_04",
+          "R01_floor_08_05",
+          "R01_floor_09_00",
+          "R01_floor_09_01",
+          "R01_floor_09_02",
+          "R01_floor_09_03",
+          "R01_floor_09_04",
+          "R01_floor_09_05",
+          "R01_floor_edge",
+          "R01_floor_edge.001",
+          "R01_floor_edge.002",
+          "R01_floor_edge.003",
+          "R01_landing_foundation",
+          "R01_workshop_crown",
+          "R01_workshop_jamb",
+          "R01_workshop_jamb.001",
+          "R01_workshop_threshold"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "R01_Arrival_Lift room origin (0,0,0); scene-space architecture",
+        "collisionProxy": "COLLISION_R01_floor in native source only; excluded from visual GLB; logical navigation authoritative",
+        "animationClips": [],
+        "triangles": 9856,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR001",
+      "semanticIdentity": "spec001:PR001",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR001-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR001.glb",
+            "sha256": "58f01f47d9a39b01ba5aef7bb9e08b9b94f2789a13bc0d82cd0f320980abef09",
+            "bytes": 196108,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR001-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR001-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR001-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "58f01f47d9a39b01ba5aef7bb9e08b9b94f2789a13bc0d82cd0f320980abef09"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR001-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "58f01f47d9a39b01ba5aef7bb9e08b9b94f2789a13bc0d82cd0f320980abef09"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR001-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "58f01f47d9a39b01ba5aef7bb9e08b9b94f2789a13bc0d82cd0f320980abef09"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR001-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "58f01f47d9a39b01ba5aef7bb9e08b9b94f2789a13bc0d82cd0f320980abef09"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR001-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR001_base",
+          "PR001_upright",
+          "PR001_brace",
+          "PR001_brace.001",
+          "PR001_brace.002",
+          "PR001_brace.003",
+          "PR001_upright.001",
+          "PR001_brace.004",
+          "PR001_brace.005",
+          "PR001_brace.006",
+          "PR001_brace.007",
+          "PR001_gate_bar",
+          "PR001_gate_bar.001",
+          "PR001_gate_bar.002",
+          "PR001_gate_bar.003",
+          "PR001_gate_bar.004",
+          "PR001_crown",
+          "PR001_header",
+          "PR001_header_rivet",
+          "PR001_header_rivet.001",
+          "PR001_header_rivet.002"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR001 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 4804,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR002",
+      "semanticIdentity": "spec001:PR002",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR002-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR002.glb",
+            "sha256": "eaf272a73ab3130714412a7a186061c59cbf793d512d87d004cd0c27fa9cc53a",
+            "bytes": 109540,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR002-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR002-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR002-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "eaf272a73ab3130714412a7a186061c59cbf793d512d87d004cd0c27fa9cc53a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR002-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "eaf272a73ab3130714412a7a186061c59cbf793d512d87d004cd0c27fa9cc53a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR002-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "eaf272a73ab3130714412a7a186061c59cbf793d512d87d004cd0c27fa9cc53a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR002-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "eaf272a73ab3130714412a7a186061c59cbf793d512d87d004cd0c27fa9cc53a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR002-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR002_flanged_foot",
+          "PR002_stem",
+          "PR002_cabinet",
+          "PR002_face",
+          "PR002_power_bezel",
+          "PR002_power_lens",
+          "PR002_call_button",
+          "PR002_face_bolt",
+          "PR002_face_bolt.001",
+          "PR002_face_bolt.002",
+          "PR002_face_bolt.003",
+          "PR002_power_feed"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR002 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 2884,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR006",
+      "semanticIdentity": "spec001:PR006",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR006-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR006.glb",
+            "sha256": "89987342205c4e651fc354e6b7cee7ff096c2475241750f479a03502b4595f65",
+            "bytes": 101756,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR006-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR006-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR006-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "89987342205c4e651fc354e6b7cee7ff096c2475241750f479a03502b4595f65"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR006-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "89987342205c4e651fc354e6b7cee7ff096c2475241750f479a03502b4595f65"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR006-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "89987342205c4e651fc354e6b7cee7ff096c2475241750f479a03502b4595f65"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR006-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "89987342205c4e651fc354e6b7cee7ff096c2475241750f479a03502b4595f65"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR006-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR006_base",
+          "PR006_column",
+          "PR006_body",
+          "PR006_bezel",
+          "PR006_unlit_lens",
+          "PR006_lens_grille",
+          "PR006_lens_grille.001",
+          "PR006_lens_grille.002",
+          "PR006_lower_slot",
+          "PR006_bolt",
+          "PR006_bolt.001"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR006 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 2388,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR003",
+      "semanticIdentity": "spec001:PR003",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR003-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR003.glb",
+            "sha256": "c188b411dd0449f7e21c8f49d1df88f4ae36a131524ff38d1c06aa5869e4373f",
+            "bytes": 148116,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR003-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR003-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR003-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "c188b411dd0449f7e21c8f49d1df88f4ae36a131524ff38d1c06aa5869e4373f"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR003-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "c188b411dd0449f7e21c8f49d1df88f4ae36a131524ff38d1c06aa5869e4373f"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR003-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "c188b411dd0449f7e21c8f49d1df88f4ae36a131524ff38d1c06aa5869e4373f"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR003-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "c188b411dd0449f7e21c8f49d1df88f4ae36a131524ff38d1c06aa5869e4373f"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR003-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR003_foot",
+          "PR003_stanchion",
+          "PR003_foot.001",
+          "PR003_stanchion.001",
+          "PR003_tube",
+          "PR003_clamp",
+          "PR003_clamp.001",
+          "PR003_clamp.002",
+          "PR003_clamp.003",
+          "PR003_socket",
+          "PR003_socket_lip",
+          "PR003_cable"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR003 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 4136,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR004",
+      "semanticIdentity": "spec001:PR004",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR004-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR004.glb",
+            "sha256": "79245fd56f3ad483cbbe2b4a11320a551bb9f582e1e636dc8ce472ce0c7486c2",
+            "bytes": 106188,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR004-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR004-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR004-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "79245fd56f3ad483cbbe2b4a11320a551bb9f582e1e636dc8ce472ce0c7486c2"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR004-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "79245fd56f3ad483cbbe2b4a11320a551bb9f582e1e636dc8ce472ce0c7486c2"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR004-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "79245fd56f3ad483cbbe2b4a11320a551bb9f582e1e636dc8ce472ce0c7486c2"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR004-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "79245fd56f3ad483cbbe2b4a11320a551bb9f582e1e636dc8ce472ce0c7486c2"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR004-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR004_plinth",
+          "PR004_stem",
+          "PR004_frame",
+          "PR004_inset",
+          "PR004_verb_icon",
+          "PR004_verb_icon.001",
+          "PR004_verb_icon.002",
+          "PR004_verb_icon.003",
+          "PR004_decorative_rule",
+          "PR004_decorative_rule.001"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR004 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 2696,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR005",
+      "semanticIdentity": "spec001:PR005",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR005-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR005.glb",
+            "sha256": "e3d21e1e42c10f046203213980d6901a5d71b8ba58d1b1fd669c0360fe63094d",
+            "bytes": 91088,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR005-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR005-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR005-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "e3d21e1e42c10f046203213980d6901a5d71b8ba58d1b1fd669c0360fe63094d"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR005-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "e3d21e1e42c10f046203213980d6901a5d71b8ba58d1b1fd669c0360fe63094d"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR005-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "e3d21e1e42c10f046203213980d6901a5d71b8ba58d1b1fd669c0360fe63094d"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR005-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "e3d21e1e42c10f046203213980d6901a5d71b8ba58d1b1fd669c0360fe63094d"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR005-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR005_bag",
+          "PR005_fold",
+          "PR005_strap",
+          "PR005_buckle",
+          "PR005_strap.001",
+          "PR005_buckle.001",
+          "PR005_handle",
+          "PR005_notebook"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR005 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 2140,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR007",
+      "semanticIdentity": "spec001:PR007",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR007-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR007.glb",
+            "sha256": "7a0f826c5fc0204affc1577540d5a5176a9ba90da7bc5920b81bfeb8bb66777b",
+            "bytes": 88184,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR007-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR007-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR007-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "7a0f826c5fc0204affc1577540d5a5176a9ba90da7bc5920b81bfeb8bb66777b"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR007-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "7a0f826c5fc0204affc1577540d5a5176a9ba90da7bc5920b81bfeb8bb66777b"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR007-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "7a0f826c5fc0204affc1577540d5a5176a9ba90da7bc5920b81bfeb8bb66777b"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR007-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "7a0f826c5fc0204affc1577540d5a5176a9ba90da7bc5920b81bfeb8bb66777b"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR007-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR007_post",
+          "PR007_foot",
+          "PR007_post.001",
+          "PR007_foot.001",
+          "PR007_grip",
+          "PR007_insulation",
+          "PR007_insulation.001",
+          "PR007_insulation.002"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR007 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 2956,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR008",
+      "semanticIdentity": "spec001:PR008",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR008-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR008.glb",
+            "sha256": "f8bfe1b487e13f18eb577f8e294334a90cad75d3b69e8ffe98a8f9ff0d8f5c0a",
+            "bytes": 45256,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR008-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR008-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR008-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "f8bfe1b487e13f18eb577f8e294334a90cad75d3b69e8ffe98a8f9ff0d8f5c0a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR008-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "f8bfe1b487e13f18eb577f8e294334a90cad75d3b69e8ffe98a8f9ff0d8f5c0a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR008-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "f8bfe1b487e13f18eb577f8e294334a90cad75d3b69e8ffe98a8f9ff0d8f5c0a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR008-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "f8bfe1b487e13f18eb577f8e294334a90cad75d3b69e8ffe98a8f9ff0d8f5c0a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR008-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR008_pillar",
+          "PR008_hub",
+          "PR008_arm",
+          "PR008_arm.001",
+          "PR008_arm.002"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR008 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 1252,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR009",
+      "semanticIdentity": "spec001:PR009",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR009-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR009.glb",
+            "sha256": "6b90e1885348224b50c5cc388d9c3b53824cfbcb5069eb885abb2b70d314889c",
+            "bytes": 78968,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR009-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR009-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR009-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "6b90e1885348224b50c5cc388d9c3b53824cfbcb5069eb885abb2b70d314889c"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR009-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "6b90e1885348224b50c5cc388d9c3b53824cfbcb5069eb885abb2b70d314889c"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR009-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "6b90e1885348224b50c5cc388d9c3b53824cfbcb5069eb885abb2b70d314889c"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR009-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "6b90e1885348224b50c5cc388d9c3b53824cfbcb5069eb885abb2b70d314889c"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR009-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR009_cradle_leg",
+          "PR009_cradle_leg.001",
+          "PR009_cradle_leg.002",
+          "PR009_vessel",
+          "PR009_ring",
+          "PR009_ring.001",
+          "PR009_handle",
+          "PR009_seal"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR009 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 2052,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR010",
+      "semanticIdentity": "spec001:PR010",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR010-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR010.glb",
+            "sha256": "589a1e5b5373b7e1935b1ef5591b2fe501308de9e317f40a30c39835671c01d5",
+            "bytes": 89384,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR010-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR010-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR010-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "589a1e5b5373b7e1935b1ef5591b2fe501308de9e317f40a30c39835671c01d5"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR010-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "589a1e5b5373b7e1935b1ef5591b2fe501308de9e317f40a30c39835671c01d5"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR010-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "589a1e5b5373b7e1935b1ef5591b2fe501308de9e317f40a30c39835671c01d5"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR010-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "589a1e5b5373b7e1935b1ef5591b2fe501308de9e317f40a30c39835671c01d5"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR010-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR010_stone",
+          "PR010_reader",
+          "PR010_eye_rim",
+          "PR010_eye",
+          "PR010_eye_rim.001",
+          "PR010_eye.001",
+          "PR010_neck"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR010 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 2632,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH01",
+      "semanticIdentity": "spec001:CH01",
+      "kind": "character-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/characters/CH01.blend",
+            "sha256": "85236060e9cfcb199c318496c80d750d04ef7798bdf5cd9626eefce8dbb89903",
+            "bytes": 325618,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-CH01-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/CH01.glb",
+            "sha256": "96dcd62c617a019b29728afa5dc8839568eaa43cd101ccfabc53c37da3f504c9",
+            "bytes": 725672,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "85236060e9cfcb199c318496c80d750d04ef7798bdf5cd9626eefce8dbb89903"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-CH01-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-CH01-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "85236060e9cfcb199c318496c80d750d04ef7798bdf5cd9626eefce8dbb89903"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "character-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/CH01-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "85236060e9cfcb199c318496c80d750d04ef7798bdf5cd9626eefce8dbb89903",
+            "96dcd62c617a019b29728afa5dc8839568eaa43cd101ccfabc53c37da3f504c9"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-CH01-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "85236060e9cfcb199c318496c80d750d04ef7798bdf5cd9626eefce8dbb89903",
+            "96dcd62c617a019b29728afa5dc8839568eaa43cd101ccfabc53c37da3f504c9"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-CH01-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "85236060e9cfcb199c318496c80d750d04ef7798bdf5cd9626eefce8dbb89903",
+            "96dcd62c617a019b29728afa5dc8839568eaa43cd101ccfabc53c37da3f504c9"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-CH01-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "85236060e9cfcb199c318496c80d750d04ef7798bdf5cd9626eefce8dbb89903",
+            "96dcd62c617a019b29728afa5dc8839568eaa43cd101ccfabc53c37da3f504c9"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-CH01-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/characters/CH01.blend",
+        "objectIds": [
+          "CH01_coat",
+          "CH01_coat_placket",
+          "CH01_button",
+          "CH01_button.001",
+          "CH01_button.002",
+          "CH01_button.003",
+          "CH01_belt",
+          "CH01_buckle",
+          "CH01_collar",
+          "CH01_scarf_tail",
+          "CH01_neck",
+          "CH01_face",
+          "CH01_hair_cap",
+          "CH01_swept_lock",
+          "CH01_swept_lock.001",
+          "CH01_swept_lock.002",
+          "CH01_swept_lock.003",
+          "CH01_swept_lock.004",
+          "CH01_eye_white",
+          "CH01_pupil",
+          "CH01_brow",
+          "CH01_ear",
+          "CH01_eye_white.001",
+          "CH01_pupil.001",
+          "CH01_brow.001",
+          "CH01_ear.001",
+          "CH01_nose",
+          "CH01_mouth",
+          "CH01_goggle_rim",
+          "CH01_goggle_lens",
+          "CH01_goggle_rim.001",
+          "CH01_goggle_lens.001",
+          "CH01_hip_joint",
+          "CH01_shoulder_L",
+          "CH01_sleeve_L",
+          "CH01_cuff_L",
+          "CH01_glove_L",
+          "CH01_thumb_L",
+          "CH01_trouser_L",
+          "CH01_knee_joint_L",
+          "CH01_shin_L",
+          "CH01_boot_L",
+          "CH01_boot_sole_L",
+          "CH01_boot_cuff_L",
+          "CH01_boot_lace_L",
+          "CH01_boot_lace_L.001",
+          "CH01_shoulder_R",
+          "CH01_sleeve_R",
+          "CH01_cuff_R",
+          "CH01_glove_R",
+          "CH01_thumb_R",
+          "CH01_trouser_R",
+          "CH01_knee_joint_R",
+          "CH01_shin_R",
+          "CH01_boot_R",
+          "CH01_boot_sole_R",
+          "CH01_boot_cuff_R",
+          "CH01_boot_lace_R",
+          "CH01_boot_lace_R.001",
+          "CH01_costume_bag",
+          "CH01_bag_flap",
+          "CH01_shoulder_strap",
+          "CH01_notebook",
+          "CH01_tool_handle",
+          "CH01_tool_handle.001"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "character base/root at ground zero; Photon visual hover child 1.15m",
+        "collisionProxy": "COLLISION_CH01 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [
+          "walk",
+          "idle",
+          "reaction"
+        ],
+        "triangles": 22412,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH03",
+      "semanticIdentity": "spec001:CH03",
+      "kind": "character-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/characters/CH03.blend",
+            "sha256": "70e1897cf9e18b245804745bf7a25bbeb900a8113762bd4113229bd239df50c3",
+            "bytes": 259251,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-CH03-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/CH03.glb",
+            "sha256": "12c7d7d0d65e444211899b227de54a461f4bf790e8996747673bac369bcefc36",
+            "bytes": 358864,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "70e1897cf9e18b245804745bf7a25bbeb900a8113762bd4113229bd239df50c3"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-CH03-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-CH03-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "70e1897cf9e18b245804745bf7a25bbeb900a8113762bd4113229bd239df50c3"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "character-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/CH03-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "70e1897cf9e18b245804745bf7a25bbeb900a8113762bd4113229bd239df50c3",
+            "12c7d7d0d65e444211899b227de54a461f4bf790e8996747673bac369bcefc36"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-CH03-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "70e1897cf9e18b245804745bf7a25bbeb900a8113762bd4113229bd239df50c3",
+            "12c7d7d0d65e444211899b227de54a461f4bf790e8996747673bac369bcefc36"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-CH03-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "70e1897cf9e18b245804745bf7a25bbeb900a8113762bd4113229bd239df50c3",
+            "12c7d7d0d65e444211899b227de54a461f4bf790e8996747673bac369bcefc36"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-CH03-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "70e1897cf9e18b245804745bf7a25bbeb900a8113762bd4113229bd239df50c3",
+            "12c7d7d0d65e444211899b227de54a461f4bf790e8996747673bac369bcefc36"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-CH03-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/characters/CH03.blend",
+        "objectIds": [
+          "CH03_luminous_abdomen",
+          "CH03_abdomen_band",
+          "CH03_abdomen_band.001",
+          "CH03_abdomen_band.002",
+          "CH03_thorax",
+          "CH03_dark_face",
+          "CH03_eye",
+          "CH03_pupil",
+          "CH03_antenna",
+          "CH03_antenna_tip",
+          "CH03_eye.001",
+          "CH03_pupil.001",
+          "CH03_antenna.001",
+          "CH03_antenna_tip.001",
+          "CH03_smile",
+          "CH03_wing_membrane_L",
+          "CH03_wing_leading_vein_L",
+          "CH03_wing_vein_L",
+          "CH03_wing_vein_L.001",
+          "CH03_leg_L0",
+          "CH03_leg_L1",
+          "CH03_leg_L2",
+          "CH03_wing_membrane_R",
+          "CH03_wing_leading_vein_R",
+          "CH03_wing_vein_R",
+          "CH03_wing_vein_R.001",
+          "CH03_leg_R0",
+          "CH03_leg_R1",
+          "CH03_leg_R2"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "character base/root at ground zero; Photon visual hover child 1.15m",
+        "collisionProxy": "COLLISION_CH03 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [
+          "idle",
+          "fly",
+          "reaction"
+        ],
+        "triangles": 10508,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R01-background",
+      "semanticIdentity": "spec001:LAYER-R01-background",
+      "kind": "scene-layer",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R01/originals/background-v1.png",
+            "sha256": "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "bytes": 1762191,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t064-R01-background-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R01/reference-inputs/blender-staging-v1.png",
+            "sha256": "52eb36b40f4fdc965c1ed32a567a557126b954432c24b327fc66b0adc3fb7a10",
+            "bytes": 721295,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t064-R01-background-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R01/background.png",
+            "sha256": "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "bytes": 1762191,
+            "format": "png"
+          },
+          "mimeType": "image/png",
+          "sourceHashes": [
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284"
+          ],
+          "tool": "Python shutil.copyfile",
+          "preset": "byte-for-byte original PNG; no pixel edits/crop/resampling",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t064-R01-background-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "t064-R01-background-v1",
+          "settingsPath": "assets-src/images/R01/background-v1.settings.json",
+          "promptOrScriptPath": "assets-src/images/R01/background-v1.prompt.txt",
+          "referenceHashes": [
+            "52eb36b40f4fdc965c1ed32a567a557126b954432c24b327fc66b0adc3fb7a10"
+          ],
+          "outputHashes": [
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284"
+          ],
+          "notes": "Actual built-in imagegen invocation; output displayed with generatedImage, copied from the reported Codex generated_images artifact. Originals retained. Unknown model/seed remain not-exposed; exact original PNG exported unchanged. Alpha layers are separate own-background-derived generations. No pixel edits."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project direction and original reference work)",
+          "OpenAI image generation; Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/R01/NOTICE.md",
+          "assets-src/images/R01/CC-BY-4.0.txt"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/R01/terms-review-2026-11-26.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/R01/input-permissions.md"
+        ],
+        "aiDisclosure": "Image pixels generated by the actual OpenAI built-in image tool. Project-controlled rights only; no exclusive copyright or third-party clearance guarantee. Exact model revision not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "background",
+          "evidencePath": "docs/evidence/spec001/assets/t066/LAYER-R01-background-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop069/T064",
+          "date": "2026-11-26",
+          "hashes": [
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "52eb36b40f4fdc965c1ed32a567a557126b954432c24b327fc66b0adc3fb7a10"
+          ],
+          "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+          "evidencePath": "docs/evidence/spec001/assets/t064-R01-background-structure.json",
+          "findings": "Actual PNG decoding, dimensions, channels, alpha statistics and exact source/export SHA-256 equality passed."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop069/T064",
+          "date": "2026-11-26",
+          "hashes": [
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "52eb36b40f4fdc965c1ed32a567a557126b954432c24b327fc66b0adc3fb7a10"
+          ],
+          "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+          "evidencePath": "docs/evidence/spec001/assets/t064-R01-background-source-reopen.json",
+          "findings": "Fresh Pillow process decoded original sources and references/exports; actual image inspection and Firefox re-opened the exported files."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop069/T064",
+          "date": "2026-11-26",
+          "hashes": [
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "52eb36b40f4fdc965c1ed32a567a557126b954432c24b327fc66b0adc3fb7a10"
+          ],
+          "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+          "evidencePath": "docs/evidence/spec001/assets/t064-R01-background-visual.json",
+          "findings": "Opaque painterly basalt/copper shaft with cool teal depth and calm staging center; no duplicated foreground props or baked text. Standalone native composition and light/dark matte captures inspected by agent. T066 game and T067 owner reviews remain pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop069/T064",
+          "date": "2026-11-26",
+          "hashes": [
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "52eb36b40f4fdc965c1ed32a567a557126b954432c24b327fc66b0adc3fb7a10"
+          ],
+          "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+          "evidencePath": "docs/evidence/spec001/assets/t064-R01-background-integration-pending.json",
+          "findings": "Actual game integration deferred to T066; standalone composition is not runtime acceptance."
+        }
+      ],
+      "image": {
+        "width": 1672,
+        "height": 941,
+        "colorSpace": "sRGB browser interpretation; no embedded profile",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/images/R01/camera.json",
+        "layerRole": "background",
+        "registrationPath": "assets-src/images/R01/registration.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R01-midground",
+      "semanticIdentity": "spec001:LAYER-R01-midground",
+      "kind": "scene-layer",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-LAYER-R01-background"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R01/originals/midground-v1.png",
+            "sha256": "a732c01a5fce987f541fcd75ee5dbf6b9c16b06152dec4bba72ace4c30a14e99",
+            "bytes": 251532,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t064-R01-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R01/originals/background-v1.png",
+            "sha256": "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "bytes": 1762191,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t064-R01-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R01/reference-inputs/blender-staging-v2.png",
+            "sha256": "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61",
+            "bytes": 852508,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t064-R01-midground-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R01/midground.png",
+            "sha256": "a732c01a5fce987f541fcd75ee5dbf6b9c16b06152dec4bba72ace4c30a14e99",
+            "bytes": 251532,
+            "format": "png"
+          },
+          "mimeType": "image/png",
+          "sourceHashes": [
+            "a732c01a5fce987f541fcd75ee5dbf6b9c16b06152dec4bba72ace4c30a14e99"
+          ],
+          "tool": "Python shutil.copyfile",
+          "preset": "byte-for-byte original PNG; no pixel edits/crop/resampling",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t064-R01-midground-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "t064-R01-midground-v1",
+          "settingsPath": "assets-src/images/R01/midground-v1.settings.json",
+          "promptOrScriptPath": "assets-src/images/R01/midground-v1.prompt.txt",
+          "referenceHashes": [
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61"
+          ],
+          "outputHashes": [
+            "a732c01a5fce987f541fcd75ee5dbf6b9c16b06152dec4bba72ace4c30a14e99"
+          ],
+          "notes": "Actual built-in imagegen invocation; output displayed with generatedImage, copied from the reported Codex generated_images artifact. Originals retained. Unknown model/seed remain not-exposed; exact original PNG exported unchanged. Alpha layers are separate own-background-derived generations. No pixel edits."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project direction and original reference work)",
+          "OpenAI image generation; Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/R01/NOTICE.md",
+          "assets-src/images/R01/CC-BY-4.0.txt"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/R01/terms-review-2026-11-26.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/R01/input-permissions.md"
+        ],
+        "aiDisclosure": "Image pixels generated by the actual OpenAI built-in image tool. Project-controlled rights only; no exclusive copyright or third-party clearance guarantee. Exact model revision not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "midground",
+          "evidencePath": "docs/evidence/spec001/assets/t066/LAYER-R01-midground-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop069/T064",
+          "date": "2026-11-26",
+          "hashes": [
+            "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61",
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "a732c01a5fce987f541fcd75ee5dbf6b9c16b06152dec4bba72ace4c30a14e99"
+          ],
+          "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+          "evidencePath": "docs/evidence/spec001/assets/t064-R01-midground-structure.json",
+          "findings": "Actual PNG decoding, dimensions, channels, alpha statistics and exact source/export SHA-256 equality passed."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop069/T064",
+          "date": "2026-11-26",
+          "hashes": [
+            "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61",
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "a732c01a5fce987f541fcd75ee5dbf6b9c16b06152dec4bba72ace4c30a14e99"
+          ],
+          "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+          "evidencePath": "docs/evidence/spec001/assets/t064-R01-midground-source-reopen.json",
+          "findings": "Fresh Pillow process decoded original sources and references/exports; actual image inspection and Firefox re-opened the exported files."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop069/T064",
+          "date": "2026-11-26",
+          "hashes": [
+            "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61",
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "a732c01a5fce987f541fcd75ee5dbf6b9c16b06152dec4bba72ace4c30a14e99"
+          ],
+          "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+          "evidencePath": "docs/evidence/spec001/assets/t064-R01-midground-visual.json",
+          "findings": "Sparse copper/insulated upper arches; genuine alpha, clear central stage. Fifteen central-region pixels retain alpha 1/255; no cleanup claimed. Standalone native composition and light/dark matte captures inspected by agent. T066 game and T067 owner reviews remain pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop069/T064",
+          "date": "2026-11-26",
+          "hashes": [
+            "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61",
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "a732c01a5fce987f541fcd75ee5dbf6b9c16b06152dec4bba72ace4c30a14e99"
+          ],
+          "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+          "evidencePath": "docs/evidence/spec001/assets/t064-R01-midground-integration-pending.json",
+          "findings": "Actual game integration deferred to T066; standalone composition is not runtime acceptance."
+        }
+      ],
+      "image": {
+        "width": 1672,
+        "height": 941,
+        "colorSpace": "sRGB browser interpretation; no embedded profile",
+        "alpha": true,
+        "cameraRecordPath": "assets-src/images/R01/camera.json",
+        "layerRole": "midground",
+        "registrationPath": "assets-src/images/R01/registration.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R01-foreground",
+      "semanticIdentity": "spec001:LAYER-R01-foreground",
+      "kind": "scene-layer",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-LAYER-R01-background"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R01/originals/foreground-v1.png",
+            "sha256": "5cc443c7e32914b684551582d7ee42a4664dc794ec93a5a2b5e2ebf96da99c6b",
+            "bytes": 131698,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t064-R01-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R01/originals/background-v1.png",
+            "sha256": "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "bytes": 1762191,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t064-R01-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R01/reference-inputs/blender-staging-v2.png",
+            "sha256": "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61",
+            "bytes": 852508,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t064-R01-foreground-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R01/foreground.png",
+            "sha256": "5cc443c7e32914b684551582d7ee42a4664dc794ec93a5a2b5e2ebf96da99c6b",
+            "bytes": 131698,
+            "format": "png"
+          },
+          "mimeType": "image/png",
+          "sourceHashes": [
+            "5cc443c7e32914b684551582d7ee42a4664dc794ec93a5a2b5e2ebf96da99c6b"
+          ],
+          "tool": "Python shutil.copyfile",
+          "preset": "byte-for-byte original PNG; no pixel edits/crop/resampling",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t064-R01-foreground-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "t064-R01-foreground-v1",
+          "settingsPath": "assets-src/images/R01/foreground-v1.settings.json",
+          "promptOrScriptPath": "assets-src/images/R01/foreground-v1.prompt.txt",
+          "referenceHashes": [
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61"
+          ],
+          "outputHashes": [
+            "5cc443c7e32914b684551582d7ee42a4664dc794ec93a5a2b5e2ebf96da99c6b"
+          ],
+          "notes": "Actual built-in imagegen invocation; output displayed with generatedImage, copied from the reported Codex generated_images artifact. Originals retained. Unknown model/seed remain not-exposed; exact original PNG exported unchanged. Alpha layers are separate own-background-derived generations. No pixel edits."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project direction and original reference work)",
+          "OpenAI image generation; Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/R01/NOTICE.md",
+          "assets-src/images/R01/CC-BY-4.0.txt"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/R01/terms-review-2026-11-26.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/R01/input-permissions.md"
+        ],
+        "aiDisclosure": "Image pixels generated by the actual OpenAI built-in image tool. Project-controlled rights only; no exclusive copyright or third-party clearance guarantee. Exact model revision not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "foreground",
+          "evidencePath": "docs/evidence/spec001/assets/t066/LAYER-R01-foreground-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop069/T064",
+          "date": "2026-11-26",
+          "hashes": [
+            "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61",
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "5cc443c7e32914b684551582d7ee42a4664dc794ec93a5a2b5e2ebf96da99c6b"
+          ],
+          "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+          "evidencePath": "docs/evidence/spec001/assets/t064-R01-foreground-structure.json",
+          "findings": "Actual PNG decoding, dimensions, channels, alpha statistics and exact source/export SHA-256 equality passed."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop069/T064",
+          "date": "2026-11-26",
+          "hashes": [
+            "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61",
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "5cc443c7e32914b684551582d7ee42a4664dc794ec93a5a2b5e2ebf96da99c6b"
+          ],
+          "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+          "evidencePath": "docs/evidence/spec001/assets/t064-R01-foreground-source-reopen.json",
+          "findings": "Fresh Pillow process decoded original sources and references/exports; actual image inspection and Firefox re-opened the exported files."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop069/T064",
+          "date": "2026-11-26",
+          "hashes": [
+            "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61",
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "5cc443c7e32914b684551582d7ee42a4664dc794ec93a5a2b5e2ebf96da99c6b"
+          ],
+          "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+          "evidencePath": "docs/evidence/spec001/assets/t064-R01-foreground-visual.json",
+          "findings": "Sparse insulated rail ends in bottom corners; genuine alpha leaves landing/exit visible. Thirty-four central-region pixels retain alpha 1/255; no cleanup claimed. Standalone native composition and light/dark matte captures inspected by agent. T066 game and T067 owner reviews remain pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop069/T064",
+          "date": "2026-11-26",
+          "hashes": [
+            "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61",
+            "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+            "5cc443c7e32914b684551582d7ee42a4664dc794ec93a5a2b5e2ebf96da99c6b"
+          ],
+          "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+          "evidencePath": "docs/evidence/spec001/assets/t064-R01-foreground-integration-pending.json",
+          "findings": "Actual game integration deferred to T066; standalone composition is not runtime acceptance."
+        }
+      ],
+      "image": {
+        "width": 1672,
+        "height": 941,
+        "colorSpace": "sRGB browser interpretation; no embedded profile",
+        "alpha": true,
+        "cameraRecordPath": "assets-src/images/R01/camera.json",
+        "layerRole": "foreground",
+        "registrationPath": "assets-src/images/R01/registration.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-001",
+      "semanticIdentity": "spec001:VOICE-001",
+      "kind": "voice",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/raw/narrator-001.wav",
+            "sha256": "908ed2ecd4d3967df4fb206cf1531d64976d27a64316aa59eeed3d0a8516b26e",
+            "bytes": 667280,
+            "format": "WAV FLOAT"
+          },
+          "role": "raw-generation",
+          "application": "Kokoro",
+          "version": "0.9.4"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/scripts/narrator-001.txt",
+            "sha256": "0b1bc1e17026f594f0e1adc0ef68602ba5a3b420c3d0c8c0e7e476d90558cc37",
+            "bytes": 97,
+            "format": "text/plain"
+          },
+          "role": "script",
+          "application": "Original Network Quest",
+          "version": "2026-11-26"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/mix-inputs/narrator-001.wav",
+            "sha256": "0be204d5dfeb09d27738e338cea2f4ccda04e17e51fd0d8d690ac26b9a6d5987",
+            "bytes": 1334492,
+            "format": "WAV FLOAT"
+          },
+          "role": "master",
+          "application": "FFmpeg",
+          "version": "9.0.1"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/projects/audition-bank.aup4",
+            "sha256": "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "bytes": 21823488,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t065-narrator-001-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/masters/narrator-001.wav",
+            "sha256": "34316f0433eb4181df20f1b4c1fb94380631ad77d9ce2fb0f904df13bb756ded",
+            "bytes": 1001014,
+            "format": "WAV PCM24"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/auditions/narrator-001.mp3",
+            "sha256": "98ab38826861c145eb1ad0c2e39beb1fc8046f5974205ac11082df4ac94f2bea",
+            "bytes": 112172,
+            "format": "MP3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "0be204d5dfeb09d27738e338cea2f4ccda04e17e51fd0d8d690ac26b9a6d5987"
+          ],
+          "tool": "FFmpeg9.0.1/libmp3lame",
+          "preset": "128kbps mono",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t065-narrator-001-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "tts-generated",
+          "tool": "Kokoro",
+          "version": "0.9.4",
+          "modelRevision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
+          "eventId": "t065-narrator-001-kokoro-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/voice-requests.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/scripts/narrator-001.txt",
+          "referenceHashes": [],
+          "outputHashes": [
+            "908ed2ecd4d3967df4fb206cf1531d64976d27a64316aa59eeed3d0a8516b26e"
+          ],
+          "notes": "Actual local production; original project input, no reference audio or impersonation."
+        },
+        {
+          "method": "mixed",
+          "tool": "FFmpeg",
+          "version": "9.0.1",
+          "modelRevision": "not-applicable-local-audio-processing",
+          "eventId": "t065-narrator-001-mix-preparation-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/mix-preparation.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/prepare-mix.py",
+          "referenceHashes": [
+            "908ed2ecd4d3967df4fb206cf1531d64976d27a64316aa59eeed3d0a8516b26e"
+          ],
+          "outputHashes": [
+            "0be204d5dfeb09d27738e338cea2f4ccda04e17e51fd0d8d690ac26b9a6d5987"
+          ],
+          "notes": "Exact two-pass level normalization/resampling; title also has0.2s/0.8s fades. Frozen MP3 derives from this actual prepared input."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "not-applicable-native-editor",
+          "eventId": "t065-native-bank-roundtrip-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/native-roundtrip.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/native-bank.py",
+          "referenceHashes": [
+            "0be204d5dfeb09d27738e338cea2f4ccda04e17e51fd0d8d690ac26b9a6d5987"
+          ],
+          "outputHashes": [
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "34316f0433eb4181df20f1b4c1fb94380631ad77d9ce2fb0f904df13bb756ded"
+          ],
+          "notes": "One shared actual twelve-track native bank event, with this asset track; separate-track fresh-session export, no combined mix. All twelve input hashes in settings. Sample comparison preserved."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest; Codex-assisted original production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/auditions/rights/NOTICE.md",
+          "assets-src/audio/auditions/rights/CC-BY-4.0.txt",
+          "LICENSE"
+        ],
+        "sourceUrls": [
+          "https://huggingface.co/hexgrad/Kokoro-82M/tree/f3ff3571791e39611d31c381e3a41a3af07b4987",
+          "https://github.com/hexgrad/kokoro"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/audio/auditions/rights/kokoro-model-card.md",
+          "assets-src/audio/auditions/rights/kokoro-voices.md",
+          "assets-src/audio/auditions/rights/kokoro-code-license.txt"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/auditions/rights/input-permission.md"
+        ],
+        "aiDisclosure": "Actual local tts-generated; original project text/direction and inputs. Publisher model/training representations retained; no exclusive copyright or individual speaker-consent claim. Native bank and edits are separately identified."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:DIALOGUE-VOICE-001",
+          "use": "voice-line",
+          "evidencePath": "docs/evidence/spec001/assets/t066/VOICE-001-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "908ed2ecd4d3967df4fb206cf1531d64976d27a64316aa59eeed3d0a8516b26e",
+            "0b1bc1e17026f594f0e1adc0ef68602ba5a3b420c3d0c8c0e7e476d90558cc37",
+            "0be204d5dfeb09d27738e338cea2f4ccda04e17e51fd0d8d690ac26b9a6d5987",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "34316f0433eb4181df20f1b4c1fb94380631ad77d9ce2fb0f904df13bb756ded",
+            "98ab38826861c145eb1ad0c2e39beb1fc8046f5974205ac11082df4ac94f2bea"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-narrator-001-rights.json",
+          "findings": "Inspected primary model/code/voice terms and original-input basis permit the scoped reuse; preserve publisher representations, attribution and voice-rights/copyright limitations in NOTICE.md."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "908ed2ecd4d3967df4fb206cf1531d64976d27a64316aa59eeed3d0a8516b26e",
+            "0b1bc1e17026f594f0e1adc0ef68602ba5a3b420c3d0c8c0e7e476d90558cc37",
+            "0be204d5dfeb09d27738e338cea2f4ccda04e17e51fd0d8d690ac26b9a6d5987",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "34316f0433eb4181df20f1b4c1fb94380631ad77d9ce2fb0f904df13bb756ded",
+            "98ab38826861c145eb1ad0c2e39beb1fc8046f5974205ac11082df4ac94f2bea"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-narrator-001-source-reopen.json",
+          "findings": "Actual native Audacity4.0.2 save/close/fresh-process reopen/export. This exact track retained; decoded master samples match the correct prepared candidate within2e-6 and at most one trailing sample difference."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "908ed2ecd4d3967df4fb206cf1531d64976d27a64316aa59eeed3d0a8516b26e",
+            "0b1bc1e17026f594f0e1adc0ef68602ba5a3b420c3d0c8c0e7e476d90558cc37",
+            "0be204d5dfeb09d27738e338cea2f4ccda04e17e51fd0d8d690ac26b9a6d5987",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "34316f0433eb4181df20f1b4c1fb94380631ad77d9ce2fb0f904df13bb756ded",
+            "98ab38826861c145eb1ad0c2e39beb1fc8046f5974205ac11082df4ac94f2bea"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-narrator-001-structure.json",
+          "findings": "Raw/prepared/native master/web all decode finite, nonzero and below full scale. Native master48kPCM24, intended channel count; exact frozen preview hash preserved. File checks are not listening."
+        },
+        {
+          "check": "listening",
+          "status": "passed",
+          "reviewer": "John Capobianco (owner)",
+          "date": "2026-11-26",
+          "hashes": [
+            "908ed2ecd4d3967df4fb206cf1531d64976d27a64316aa59eeed3d0a8516b26e",
+            "0b1bc1e17026f594f0e1adc0ef68602ba5a3b420c3d0c8c0e7e476d90558cc37",
+            "0be204d5dfeb09d27738e338cea2f4ccda04e17e51fd0d8d690ac26b9a6d5987",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "34316f0433eb4181df20f1b4c1fb94380631ad77d9ce2fb0f904df13bb756ded",
+            "98ab38826861c145eb1ad0c2e39beb1fc8046f5974205ac11082df4ac94f2bea"
+          ],
+          "environment": "User-reported listening: built-in Mac speakers and earbuds/headphones; brand/model and playback volume not provided.",
+          "evidencePath": "docs/evidence/spec001/assets/t065-narrator-001-listening.json",
+          "findings": "Owner accepted all12 sealed candidates, then confirmed built-inMacspeakers andearbuds/headphones. No per-item defect was reported. These exact MP3bytes remain unchanged; native source/master lineage checks are separate."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/auditions/projects/audition-bank.aup4",
+        "masterPath": "assets-src/audio/auditions/masters/narrator-001.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 1,
+        "durationSeconds": 6.95,
+        "loopStartSample": null,
+        "loopEndSample": null,
+        "loudnessLufs": -18.53,
+        "peakDbfs": -1.4488182078714922,
+        "captionId": "spec001:DIALOGUE-VOICE-001",
+        "voiceRecordPath": "assets-src/audio/auditions/provenance/voice-run.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-035",
+      "semanticIdentity": "spec001:VOICE-035",
+      "kind": "voice",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/raw/photon-035.wav",
+            "sha256": "71c661c2bf5a2a85b89999268cca5db09f60c3cc09f18b26322684a0bc416770",
+            "bytes": 777680,
+            "format": "WAV FLOAT"
+          },
+          "role": "raw-generation",
+          "application": "Kokoro",
+          "version": "0.9.4"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/scripts/photon-035.txt",
+            "sha256": "d172eb8952f4b123ce510e7a237228cc4312796b13f41a38923249f476e788d9",
+            "bytes": 104,
+            "format": "text/plain"
+          },
+          "role": "script",
+          "application": "Original Network Quest",
+          "version": "2026-11-26"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/mix-inputs/photon-035.wav",
+            "sha256": "9c7174232cef3e2d58e0b22d46ac87e2600625e7752ff0851b7a8efe8bea55bc",
+            "bytes": 1555292,
+            "format": "WAV FLOAT"
+          },
+          "role": "master",
+          "application": "FFmpeg",
+          "version": "9.0.1"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/projects/audition-bank.aup4",
+            "sha256": "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "bytes": 21823488,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t065-photon-035-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/masters/photon-035.wav",
+            "sha256": "735d39e718b693eb881b044e392251021df2441230ec903b422bd2c170948d36",
+            "bytes": 1166608,
+            "format": "WAV PCM24"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/auditions/photon-035.mp3",
+            "sha256": "ceae39615cdf3a5274e2e39617be9967222a8c95d279a9e66c94a9b63febdbfb",
+            "bytes": 130604,
+            "format": "MP3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "9c7174232cef3e2d58e0b22d46ac87e2600625e7752ff0851b7a8efe8bea55bc"
+          ],
+          "tool": "FFmpeg9.0.1/libmp3lame",
+          "preset": "128kbps mono",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t065-photon-035-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "tts-generated",
+          "tool": "Kokoro",
+          "version": "0.9.4",
+          "modelRevision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
+          "eventId": "t065-photon-035-kokoro-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/voice-requests.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/scripts/photon-035.txt",
+          "referenceHashes": [],
+          "outputHashes": [
+            "71c661c2bf5a2a85b89999268cca5db09f60c3cc09f18b26322684a0bc416770"
+          ],
+          "notes": "Actual local production; original project input, no reference audio or impersonation."
+        },
+        {
+          "method": "mixed",
+          "tool": "FFmpeg",
+          "version": "9.0.1",
+          "modelRevision": "not-applicable-local-audio-processing",
+          "eventId": "t065-photon-035-mix-preparation-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/mix-preparation.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/prepare-mix.py",
+          "referenceHashes": [
+            "71c661c2bf5a2a85b89999268cca5db09f60c3cc09f18b26322684a0bc416770"
+          ],
+          "outputHashes": [
+            "9c7174232cef3e2d58e0b22d46ac87e2600625e7752ff0851b7a8efe8bea55bc"
+          ],
+          "notes": "Exact two-pass level normalization/resampling; title also has0.2s/0.8s fades. Frozen MP3 derives from this actual prepared input."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "not-applicable-native-editor",
+          "eventId": "t065-native-bank-roundtrip-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/native-roundtrip.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/native-bank.py",
+          "referenceHashes": [
+            "9c7174232cef3e2d58e0b22d46ac87e2600625e7752ff0851b7a8efe8bea55bc"
+          ],
+          "outputHashes": [
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "735d39e718b693eb881b044e392251021df2441230ec903b422bd2c170948d36"
+          ],
+          "notes": "One shared actual twelve-track native bank event, with this asset track; separate-track fresh-session export, no combined mix. All twelve input hashes in settings. Sample comparison preserved."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest; Codex-assisted original production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/auditions/rights/NOTICE.md",
+          "assets-src/audio/auditions/rights/CC-BY-4.0.txt",
+          "LICENSE"
+        ],
+        "sourceUrls": [
+          "https://huggingface.co/hexgrad/Kokoro-82M/tree/f3ff3571791e39611d31c381e3a41a3af07b4987",
+          "https://github.com/hexgrad/kokoro"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/audio/auditions/rights/kokoro-model-card.md",
+          "assets-src/audio/auditions/rights/kokoro-voices.md",
+          "assets-src/audio/auditions/rights/kokoro-code-license.txt"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/auditions/rights/input-permission.md"
+        ],
+        "aiDisclosure": "Actual local tts-generated; original project text/direction and inputs. Publisher model/training representations retained; no exclusive copyright or individual speaker-consent claim. Native bank and edits are separately identified."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:DIALOGUE-VOICE-035",
+          "use": "voice-line",
+          "evidencePath": "docs/evidence/spec001/assets/t066/VOICE-035-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "71c661c2bf5a2a85b89999268cca5db09f60c3cc09f18b26322684a0bc416770",
+            "d172eb8952f4b123ce510e7a237228cc4312796b13f41a38923249f476e788d9",
+            "9c7174232cef3e2d58e0b22d46ac87e2600625e7752ff0851b7a8efe8bea55bc",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "735d39e718b693eb881b044e392251021df2441230ec903b422bd2c170948d36",
+            "ceae39615cdf3a5274e2e39617be9967222a8c95d279a9e66c94a9b63febdbfb"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-photon-035-rights.json",
+          "findings": "Inspected primary model/code/voice terms and original-input basis permit the scoped reuse; preserve publisher representations, attribution and voice-rights/copyright limitations in NOTICE.md."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "71c661c2bf5a2a85b89999268cca5db09f60c3cc09f18b26322684a0bc416770",
+            "d172eb8952f4b123ce510e7a237228cc4312796b13f41a38923249f476e788d9",
+            "9c7174232cef3e2d58e0b22d46ac87e2600625e7752ff0851b7a8efe8bea55bc",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "735d39e718b693eb881b044e392251021df2441230ec903b422bd2c170948d36",
+            "ceae39615cdf3a5274e2e39617be9967222a8c95d279a9e66c94a9b63febdbfb"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-photon-035-source-reopen.json",
+          "findings": "Actual native Audacity4.0.2 save/close/fresh-process reopen/export. This exact track retained; decoded master samples match the correct prepared candidate within2e-6 and at most one trailing sample difference."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "71c661c2bf5a2a85b89999268cca5db09f60c3cc09f18b26322684a0bc416770",
+            "d172eb8952f4b123ce510e7a237228cc4312796b13f41a38923249f476e788d9",
+            "9c7174232cef3e2d58e0b22d46ac87e2600625e7752ff0851b7a8efe8bea55bc",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "735d39e718b693eb881b044e392251021df2441230ec903b422bd2c170948d36",
+            "ceae39615cdf3a5274e2e39617be9967222a8c95d279a9e66c94a9b63febdbfb"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-photon-035-structure.json",
+          "findings": "Raw/prepared/native master/web all decode finite, nonzero and below full scale. Native master48kPCM24, intended channel count; exact frozen preview hash preserved. File checks are not listening."
+        },
+        {
+          "check": "listening",
+          "status": "passed",
+          "reviewer": "John Capobianco (owner)",
+          "date": "2026-11-26",
+          "hashes": [
+            "71c661c2bf5a2a85b89999268cca5db09f60c3cc09f18b26322684a0bc416770",
+            "d172eb8952f4b123ce510e7a237228cc4312796b13f41a38923249f476e788d9",
+            "9c7174232cef3e2d58e0b22d46ac87e2600625e7752ff0851b7a8efe8bea55bc",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "735d39e718b693eb881b044e392251021df2441230ec903b422bd2c170948d36",
+            "ceae39615cdf3a5274e2e39617be9967222a8c95d279a9e66c94a9b63febdbfb"
+          ],
+          "environment": "User-reported listening: built-in Mac speakers and earbuds/headphones; brand/model and playback volume not provided.",
+          "evidencePath": "docs/evidence/spec001/assets/t065-photon-035-listening.json",
+          "findings": "Owner accepted all12 sealed candidates, then confirmed built-inMacspeakers andearbuds/headphones. No per-item defect was reported. These exact MP3bytes remain unchanged; native source/master lineage checks are separate."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/auditions/projects/audition-bank.aup4",
+        "masterPath": "assets-src/audio/auditions/masters/photon-035.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 1,
+        "durationSeconds": 8.1,
+        "loopStartSample": null,
+        "loopEndSample": null,
+        "loudnessLufs": -18.68,
+        "peakDbfs": -1.4325623273855865,
+        "captionId": "spec001:DIALOGUE-VOICE-035",
+        "voiceRecordPath": "assets-src/audio/auditions/provenance/voice-run.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-MUSIC-title",
+      "semanticIdentity": "spec001:MUSIC-title",
+      "kind": "music",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/raw/ace-output/876f7bbe-2a61-de9b-69be-a48e24db3bb1.wav",
+            "sha256": "0c76a8ebd5cce49e7b991249f41d1bf233dc8fd0728094f8aff171913f5566ff",
+            "bytes": 7680088,
+            "format": "WAV FLOAT"
+          },
+          "role": "raw-generation",
+          "application": "ACE-Step",
+          "version": "1.5.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/provenance/ace-request.json",
+            "sha256": "f18e9273623c5d9411c491b990d7d9954ecd3f1a6cbc88e4f06f708b4fedc333",
+            "bytes": 2938,
+            "format": "json"
+          },
+          "role": "prompt",
+          "application": "Original Network Quest",
+          "version": "2026-11-26"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/mix-inputs/music-title.wav",
+            "sha256": "0259e360ca19d9e61a57be7500691fbfc21e2c85bda9f75502e09ea121450018",
+            "bytes": 7680092,
+            "format": "WAV FLOAT"
+          },
+          "role": "master",
+          "application": "FFmpeg",
+          "version": "9.0.1"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/projects/audition-bank.aup4",
+            "sha256": "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "bytes": 21823488,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t065-music-title-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/masters/music-title.wav",
+            "sha256": "b1d21043c4446a056965b2ae73ab685e725d112603e7da85277349d8d2e1ff8a",
+            "bytes": 5760210,
+            "format": "WAV PCM24"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/auditions/music-title.mp3",
+            "sha256": "9bfa196a51c64f6b716da508d6f76b09a2284cb7f0edec310fa793342c58d408",
+            "bytes": 481580,
+            "format": "MP3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "0259e360ca19d9e61a57be7500691fbfc21e2c85bda9f75502e09ea121450018"
+          ],
+          "tool": "FFmpeg9.0.1/libmp3lame",
+          "preset": "192kbps stereo",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t065-music-title-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "music-generated",
+          "tool": "ACE-Step",
+          "version": "1.5.0",
+          "modelRevision": "19671f406d603126926c1b7e2adc169acbcade22",
+          "eventId": "t065-title-ace-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/ace-request.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/provenance/ace-request.json",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0c76a8ebd5cce49e7b991249f41d1bf233dc8fd0728094f8aff171913f5566ff"
+          ],
+          "notes": "Actual local production; original project input, no reference audio or impersonation."
+        },
+        {
+          "method": "mixed",
+          "tool": "FFmpeg",
+          "version": "9.0.1",
+          "modelRevision": "not-applicable-local-audio-processing",
+          "eventId": "t065-music-title-mix-preparation-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/mix-preparation.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/prepare-mix.py",
+          "referenceHashes": [
+            "0c76a8ebd5cce49e7b991249f41d1bf233dc8fd0728094f8aff171913f5566ff"
+          ],
+          "outputHashes": [
+            "0259e360ca19d9e61a57be7500691fbfc21e2c85bda9f75502e09ea121450018"
+          ],
+          "notes": "Exact two-pass level normalization/resampling; title also has0.2s/0.8s fades. Frozen MP3 derives from this actual prepared input."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "not-applicable-native-editor",
+          "eventId": "t065-native-bank-roundtrip-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/native-roundtrip.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/native-bank.py",
+          "referenceHashes": [
+            "0259e360ca19d9e61a57be7500691fbfc21e2c85bda9f75502e09ea121450018"
+          ],
+          "outputHashes": [
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "b1d21043c4446a056965b2ae73ab685e725d112603e7da85277349d8d2e1ff8a"
+          ],
+          "notes": "One shared actual twelve-track native bank event, with this asset track; separate-track fresh-session export, no combined mix. All twelve input hashes in settings. Sample comparison preserved."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest; Codex-assisted original production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "MIT"
+        ],
+        "noticePaths": [
+          "assets-src/audio/auditions/rights/NOTICE.md",
+          "assets-src/audio/auditions/rights/CC-BY-4.0.txt",
+          "LICENSE"
+        ],
+        "sourceUrls": [
+          "https://huggingface.co/ACE-Step/Ace-Step1.5/tree/19671f406d603126926c1b7e2adc169acbcade22",
+          "https://github.com/ace-step/ACE-Step-1.5/tree/ca1e85fe9430179831e6bc6be790c332190a3866"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/audio/auditions/rights/ace-model-card.md",
+          "assets-src/audio/auditions/rights/ace-license.txt"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/auditions/rights/input-permission.md"
+        ],
+        "aiDisclosure": "Actual local music-generated; original project text/direction and inputs. Publisher model/training representations retained; no exclusive copyright or individual speaker-consent claim. Native bank and edits are separately identified."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:TITLE",
+          "use": "music",
+          "evidencePath": "docs/evidence/spec001/assets/t066/MUSIC-title-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "0c76a8ebd5cce49e7b991249f41d1bf233dc8fd0728094f8aff171913f5566ff",
+            "f18e9273623c5d9411c491b990d7d9954ecd3f1a6cbc88e4f06f708b4fedc333",
+            "0259e360ca19d9e61a57be7500691fbfc21e2c85bda9f75502e09ea121450018",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "b1d21043c4446a056965b2ae73ab685e725d112603e7da85277349d8d2e1ff8a",
+            "9bfa196a51c64f6b716da508d6f76b09a2284cb7f0edec310fa793342c58d408"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-music-title-rights.json",
+          "findings": "Inspected primary model/code/voice terms and original-input basis permit the scoped reuse; preserve publisher representations, attribution and voice-rights/copyright limitations in NOTICE.md."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "0c76a8ebd5cce49e7b991249f41d1bf233dc8fd0728094f8aff171913f5566ff",
+            "f18e9273623c5d9411c491b990d7d9954ecd3f1a6cbc88e4f06f708b4fedc333",
+            "0259e360ca19d9e61a57be7500691fbfc21e2c85bda9f75502e09ea121450018",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "b1d21043c4446a056965b2ae73ab685e725d112603e7da85277349d8d2e1ff8a",
+            "9bfa196a51c64f6b716da508d6f76b09a2284cb7f0edec310fa793342c58d408"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-music-title-source-reopen.json",
+          "findings": "Actual native Audacity4.0.2 save/close/fresh-process reopen/export. This exact track retained; decoded master samples match the correct prepared candidate within2e-6 and at most one trailing sample difference."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "0c76a8ebd5cce49e7b991249f41d1bf233dc8fd0728094f8aff171913f5566ff",
+            "f18e9273623c5d9411c491b990d7d9954ecd3f1a6cbc88e4f06f708b4fedc333",
+            "0259e360ca19d9e61a57be7500691fbfc21e2c85bda9f75502e09ea121450018",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "b1d21043c4446a056965b2ae73ab685e725d112603e7da85277349d8d2e1ff8a",
+            "9bfa196a51c64f6b716da508d6f76b09a2284cb7f0edec310fa793342c58d408"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-music-title-structure.json",
+          "findings": "Raw/prepared/native master/web all decode finite, nonzero and below full scale. Native master48kPCM24, intended channel count; exact frozen preview hash preserved. File checks are not listening."
+        },
+        {
+          "check": "listening",
+          "status": "passed",
+          "reviewer": "John Capobianco (owner)",
+          "date": "2026-11-26",
+          "hashes": [
+            "0c76a8ebd5cce49e7b991249f41d1bf233dc8fd0728094f8aff171913f5566ff",
+            "f18e9273623c5d9411c491b990d7d9954ecd3f1a6cbc88e4f06f708b4fedc333",
+            "0259e360ca19d9e61a57be7500691fbfc21e2c85bda9f75502e09ea121450018",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "b1d21043c4446a056965b2ae73ab685e725d112603e7da85277349d8d2e1ff8a",
+            "9bfa196a51c64f6b716da508d6f76b09a2284cb7f0edec310fa793342c58d408"
+          ],
+          "environment": "User-reported listening: built-in Mac speakers and earbuds/headphones; brand/model and playback volume not provided.",
+          "evidencePath": "docs/evidence/spec001/assets/t065-music-title-listening.json",
+          "findings": "Owner accepted all12 sealed candidates, then confirmed built-inMacspeakers andearbuds/headphones. No per-item defect was reported. These exact MP3bytes remain unchanged; native source/master lineage checks are separate."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/auditions/projects/audition-bank.aup4",
+        "masterPath": "assets-src/audio/auditions/masters/music-title.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 20.0,
+        "loopStartSample": null,
+        "loopEndSample": null,
+        "loudnessLufs": -23.24,
+        "peakDbfs": -9.372306879941277,
+        "captionId": null
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-001",
+      "semanticIdentity": "spec001:EFFECT-001",
+      "kind": "effect",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/raw/effect-001.wav",
+            "sha256": "662bd71a03c0779c45f9ce9216dfff00b0b254573a18a23c1db0e363a5da690a",
+            "bytes": 30800,
+            "format": "WAV FLOAT"
+          },
+          "role": "archive",
+          "application": "NumPy/SoundFile",
+          "version": "2.5.5 / 0.14.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/synthesize-effects.py",
+            "sha256": "0145216e478f0a2361a553617efa61efa42fb49d68f470351ecf33d31205345a",
+            "bytes": 3114,
+            "format": "python"
+          },
+          "role": "script",
+          "application": "Original Network Quest",
+          "version": "2026-11-26"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/mix-inputs/effect-001.wav",
+            "sha256": "58d93f12924ac5df8b5c64d9900abdf9380e7b6a0242c7ec62010375f7f7ee75",
+            "bytes": 30812,
+            "format": "WAV FLOAT"
+          },
+          "role": "master",
+          "application": "FFmpeg",
+          "version": "9.0.1"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/projects/audition-bank.aup4",
+            "sha256": "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "bytes": 21823488,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t065-effect-001-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/masters/effect-001.wav",
+            "sha256": "5766cbff625dca0281556d7368d3f2622969bd2728836e16aea27e08a6432738",
+            "bytes": 23250,
+            "format": "WAV PCM24"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/auditions/effect-001.mp3",
+            "sha256": "09077c9119bd1edf0d360f680d849a9ba6c914e7ab48e4d911b6f0d42cea5f58",
+            "bytes": 3500,
+            "format": "MP3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "58d93f12924ac5df8b5c64d9900abdf9380e7b6a0242c7ec62010375f7f7ee75"
+          ],
+          "tool": "FFmpeg9.0.1/libmp3lame",
+          "preset": "128kbps mono",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t065-effect-001-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "synthesized",
+          "tool": "NumPy/SoundFile",
+          "version": "2.5.5 / 0.14.0",
+          "modelRevision": "not-applicable-original-synthesis",
+          "eventId": "t065-effect-001-synthesis-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/effects-run.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/synthesize-effects.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "662bd71a03c0779c45f9ce9216dfff00b0b254573a18a23c1db0e363a5da690a"
+          ],
+          "notes": "Actual local production; original project input, no reference audio or impersonation."
+        },
+        {
+          "method": "mixed",
+          "tool": "FFmpeg",
+          "version": "9.0.1",
+          "modelRevision": "not-applicable-local-audio-processing",
+          "eventId": "t065-effect-001-mix-preparation-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/mix-preparation.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/prepare-mix.py",
+          "referenceHashes": [
+            "662bd71a03c0779c45f9ce9216dfff00b0b254573a18a23c1db0e363a5da690a"
+          ],
+          "outputHashes": [
+            "58d93f12924ac5df8b5c64d9900abdf9380e7b6a0242c7ec62010375f7f7ee75"
+          ],
+          "notes": "Exact two-pass level normalization/resampling; title also has0.2s/0.8s fades. Frozen MP3 derives from this actual prepared input."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "not-applicable-native-editor",
+          "eventId": "t065-native-bank-roundtrip-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/native-roundtrip.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/native-bank.py",
+          "referenceHashes": [
+            "58d93f12924ac5df8b5c64d9900abdf9380e7b6a0242c7ec62010375f7f7ee75"
+          ],
+          "outputHashes": [
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "5766cbff625dca0281556d7368d3f2622969bd2728836e16aea27e08a6432738"
+          ],
+          "notes": "One shared actual twelve-track native bank event, with this asset track; separate-track fresh-session export, no combined mix. All twelve input hashes in settings. Sample comparison preserved."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest; Codex-assisted original production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/auditions/rights/NOTICE.md",
+          "assets-src/audio/auditions/rights/CC-BY-4.0.txt",
+          "LICENSE"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "assets-src/audio/auditions/rights/NOTICE.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/auditions/rights/input-permission.md"
+        ],
+        "aiDisclosure": "Actual local synthesized; original project text/direction and inputs. Publisher model/training representations retained; no exclusive copyright or individual speaker-consent claim. Native bank and edits are separately identified."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:ACTION-observe-power",
+          "use": "effect",
+          "evidencePath": "docs/evidence/spec001/assets/t066/EFFECT-001-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "662bd71a03c0779c45f9ce9216dfff00b0b254573a18a23c1db0e363a5da690a",
+            "0145216e478f0a2361a553617efa61efa42fb49d68f470351ecf33d31205345a",
+            "58d93f12924ac5df8b5c64d9900abdf9380e7b6a0242c7ec62010375f7f7ee75",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "5766cbff625dca0281556d7368d3f2622969bd2728836e16aea27e08a6432738",
+            "09077c9119bd1edf0d360f680d849a9ba6c914e7ab48e4d911b6f0d42cea5f58"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-effect-001-rights.json",
+          "findings": "Inspected primary model/code/voice terms and original-input basis permit the scoped reuse; preserve publisher representations, attribution and voice-rights/copyright limitations in NOTICE.md."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "662bd71a03c0779c45f9ce9216dfff00b0b254573a18a23c1db0e363a5da690a",
+            "0145216e478f0a2361a553617efa61efa42fb49d68f470351ecf33d31205345a",
+            "58d93f12924ac5df8b5c64d9900abdf9380e7b6a0242c7ec62010375f7f7ee75",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "5766cbff625dca0281556d7368d3f2622969bd2728836e16aea27e08a6432738",
+            "09077c9119bd1edf0d360f680d849a9ba6c914e7ab48e4d911b6f0d42cea5f58"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-effect-001-source-reopen.json",
+          "findings": "Actual native Audacity4.0.2 save/close/fresh-process reopen/export. This exact track retained; decoded master samples match the correct prepared candidate within2e-6 and at most one trailing sample difference."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "662bd71a03c0779c45f9ce9216dfff00b0b254573a18a23c1db0e363a5da690a",
+            "0145216e478f0a2361a553617efa61efa42fb49d68f470351ecf33d31205345a",
+            "58d93f12924ac5df8b5c64d9900abdf9380e7b6a0242c7ec62010375f7f7ee75",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "5766cbff625dca0281556d7368d3f2622969bd2728836e16aea27e08a6432738",
+            "09077c9119bd1edf0d360f680d849a9ba6c914e7ab48e4d911b6f0d42cea5f58"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-effect-001-structure.json",
+          "findings": "Raw/prepared/native master/web all decode finite, nonzero and below full scale. Native master48kPCM24, intended channel count; exact frozen preview hash preserved. File checks are not listening."
+        },
+        {
+          "check": "listening",
+          "status": "passed",
+          "reviewer": "John Capobianco (owner)",
+          "date": "2026-11-26",
+          "hashes": [
+            "662bd71a03c0779c45f9ce9216dfff00b0b254573a18a23c1db0e363a5da690a",
+            "0145216e478f0a2361a553617efa61efa42fb49d68f470351ecf33d31205345a",
+            "58d93f12924ac5df8b5c64d9900abdf9380e7b6a0242c7ec62010375f7f7ee75",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "5766cbff625dca0281556d7368d3f2622969bd2728836e16aea27e08a6432738",
+            "09077c9119bd1edf0d360f680d849a9ba6c914e7ab48e4d911b6f0d42cea5f58"
+          ],
+          "environment": "User-reported listening: built-in Mac speakers and earbuds/headphones; brand/model and playback volume not provided.",
+          "evidencePath": "docs/evidence/spec001/assets/t065-effect-001-listening.json",
+          "findings": "Owner accepted all12 sealed candidates, then confirmed built-inMacspeakers andearbuds/headphones. No per-item defect was reported. These exact MP3bytes remain unchanged; native source/master lineage checks are separate."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/auditions/projects/audition-bank.aup4",
+        "masterPath": "assets-src/audio/auditions/masters/effect-001.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 1,
+        "durationSeconds": 0.16,
+        "loopStartSample": null,
+        "loopEndSample": null,
+        "loudnessLufs": null,
+        "peakDbfs": -16.644716686177837,
+        "captionId": null
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-023",
+      "semanticIdentity": "spec001:EFFECT-023",
+      "kind": "effect",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/raw/effect-023.wav",
+            "sha256": "280668f06de8debd52ca91d634b914c920305904e02cc83df97c6fb97f405511",
+            "bytes": 345680,
+            "format": "WAV FLOAT"
+          },
+          "role": "archive",
+          "application": "NumPy/SoundFile",
+          "version": "2.5.5 / 0.14.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/synthesize-effects.py",
+            "sha256": "0145216e478f0a2361a553617efa61efa42fb49d68f470351ecf33d31205345a",
+            "bytes": 3114,
+            "format": "python"
+          },
+          "role": "script",
+          "application": "Original Network Quest",
+          "version": "2026-11-26"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/mix-inputs/effect-023.wav",
+            "sha256": "761935fcbf1960758c218e3333b014bc883b9af0ad2e6719a0e7ddd77eea256d",
+            "bytes": 345692,
+            "format": "WAV FLOAT"
+          },
+          "role": "master",
+          "application": "FFmpeg",
+          "version": "9.0.1"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/projects/audition-bank.aup4",
+            "sha256": "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "bytes": 21823488,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t065-effect-023-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/auditions/masters/effect-023.wav",
+            "sha256": "8346c67c8b126002d77cdad6669e447010b262d910ea9d7f966faa1b46fd22c7",
+            "bytes": 259410,
+            "format": "WAV PCM24"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/auditions/effect-023.mp3",
+            "sha256": "ad19178c063e42f9a2ef0ad83afc66fbb5516293b8c5d1a1e96d5f6a51160383",
+            "bytes": 29612,
+            "format": "MP3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "761935fcbf1960758c218e3333b014bc883b9af0ad2e6719a0e7ddd77eea256d"
+          ],
+          "tool": "FFmpeg9.0.1/libmp3lame",
+          "preset": "128kbps mono",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t065-effect-023-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "synthesized",
+          "tool": "NumPy/SoundFile",
+          "version": "2.5.5 / 0.14.0",
+          "modelRevision": "not-applicable-original-synthesis",
+          "eventId": "t065-effect-023-synthesis-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/effects-run.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/synthesize-effects.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "280668f06de8debd52ca91d634b914c920305904e02cc83df97c6fb97f405511"
+          ],
+          "notes": "Actual local production; original project input, no reference audio or impersonation."
+        },
+        {
+          "method": "mixed",
+          "tool": "FFmpeg",
+          "version": "9.0.1",
+          "modelRevision": "not-applicable-local-audio-processing",
+          "eventId": "t065-effect-023-mix-preparation-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/mix-preparation.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/prepare-mix.py",
+          "referenceHashes": [
+            "280668f06de8debd52ca91d634b914c920305904e02cc83df97c6fb97f405511"
+          ],
+          "outputHashes": [
+            "761935fcbf1960758c218e3333b014bc883b9af0ad2e6719a0e7ddd77eea256d"
+          ],
+          "notes": "Exact two-pass level normalization/resampling; title also has0.2s/0.8s fades. Frozen MP3 derives from this actual prepared input."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "not-applicable-native-editor",
+          "eventId": "t065-native-bank-roundtrip-20261126-a",
+          "settingsPath": "assets-src/audio/auditions/provenance/native-roundtrip.json",
+          "promptOrScriptPath": "assets-src/audio/auditions/native-bank.py",
+          "referenceHashes": [
+            "761935fcbf1960758c218e3333b014bc883b9af0ad2e6719a0e7ddd77eea256d"
+          ],
+          "outputHashes": [
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "8346c67c8b126002d77cdad6669e447010b262d910ea9d7f966faa1b46fd22c7"
+          ],
+          "notes": "One shared actual twelve-track native bank event, with this asset track; separate-track fresh-session export, no combined mix. All twelve input hashes in settings. Sample comparison preserved."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest; Codex-assisted original production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/auditions/rights/NOTICE.md",
+          "assets-src/audio/auditions/rights/CC-BY-4.0.txt",
+          "LICENSE"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "assets-src/audio/auditions/rights/NOTICE.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/auditions/rights/input-permission.md"
+        ],
+        "aiDisclosure": "Actual local synthesized; original project text/direction and inputs. Publisher model/training representations retained; no exclusive copyright or individual speaker-consent claim. Native bank and edits are separately identified."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:ACTION-talk-photon",
+          "use": "effect",
+          "evidencePath": "docs/evidence/spec001/assets/t066/EFFECT-023-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "280668f06de8debd52ca91d634b914c920305904e02cc83df97c6fb97f405511",
+            "0145216e478f0a2361a553617efa61efa42fb49d68f470351ecf33d31205345a",
+            "761935fcbf1960758c218e3333b014bc883b9af0ad2e6719a0e7ddd77eea256d",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "8346c67c8b126002d77cdad6669e447010b262d910ea9d7f966faa1b46fd22c7",
+            "ad19178c063e42f9a2ef0ad83afc66fbb5516293b8c5d1a1e96d5f6a51160383"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-effect-023-rights.json",
+          "findings": "Inspected primary model/code/voice terms and original-input basis permit the scoped reuse; preserve publisher representations, attribution and voice-rights/copyright limitations in NOTICE.md."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "280668f06de8debd52ca91d634b914c920305904e02cc83df97c6fb97f405511",
+            "0145216e478f0a2361a553617efa61efa42fb49d68f470351ecf33d31205345a",
+            "761935fcbf1960758c218e3333b014bc883b9af0ad2e6719a0e7ddd77eea256d",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "8346c67c8b126002d77cdad6669e447010b262d910ea9d7f966faa1b46fd22c7",
+            "ad19178c063e42f9a2ef0ad83afc66fbb5516293b8c5d1a1e96d5f6a51160383"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-effect-023-source-reopen.json",
+          "findings": "Actual native Audacity4.0.2 save/close/fresh-process reopen/export. This exact track retained; decoded master samples match the correct prepared candidate within2e-6 and at most one trailing sample difference."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop070/T065",
+          "date": "2026-11-26",
+          "hashes": [
+            "280668f06de8debd52ca91d634b914c920305904e02cc83df97c6fb97f405511",
+            "0145216e478f0a2361a553617efa61efa42fb49d68f470351ecf33d31205345a",
+            "761935fcbf1960758c218e3333b014bc883b9af0ad2e6719a0e7ddd77eea256d",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "8346c67c8b126002d77cdad6669e447010b262d910ea9d7f966faa1b46fd22c7",
+            "ad19178c063e42f9a2ef0ad83afc66fbb5516293b8c5d1a1e96d5f6a51160383"
+          ],
+          "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+          "evidencePath": "docs/evidence/spec001/assets/t065-effect-023-structure.json",
+          "findings": "Raw/prepared/native master/web all decode finite, nonzero and below full scale. Native master48kPCM24, intended channel count; exact frozen preview hash preserved. File checks are not listening."
+        },
+        {
+          "check": "listening",
+          "status": "passed",
+          "reviewer": "John Capobianco (owner)",
+          "date": "2026-11-26",
+          "hashes": [
+            "280668f06de8debd52ca91d634b914c920305904e02cc83df97c6fb97f405511",
+            "0145216e478f0a2361a553617efa61efa42fb49d68f470351ecf33d31205345a",
+            "761935fcbf1960758c218e3333b014bc883b9af0ad2e6719a0e7ddd77eea256d",
+            "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+            "8346c67c8b126002d77cdad6669e447010b262d910ea9d7f966faa1b46fd22c7",
+            "ad19178c063e42f9a2ef0ad83afc66fbb5516293b8c5d1a1e96d5f6a51160383"
+          ],
+          "environment": "User-reported listening: built-in Mac speakers and earbuds/headphones; brand/model and playback volume not provided.",
+          "evidencePath": "docs/evidence/spec001/assets/t065-effect-023-listening.json",
+          "findings": "Owner accepted all12 sealed candidates, then confirmed built-inMacspeakers andearbuds/headphones. No per-item defect was reported. These exact MP3bytes remain unchanged; native source/master lineage checks are separate."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/auditions/projects/audition-bank.aup4",
+        "masterPath": "assets-src/audio/auditions/masters/effect-023.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 1,
+        "durationSeconds": 1.8,
+        "loopStartSample": null,
+        "loopEndSample": null,
+        "loudnessLufs": -28.85,
+        "peakDbfs": -15.444807405461056,
+        "captionId": null
+      }
+    }
+  ]
+}

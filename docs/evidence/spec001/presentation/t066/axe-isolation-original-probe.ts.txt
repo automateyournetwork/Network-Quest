@@ -1,0 +1,11 @@
+import { firefox, devices } from '@playwright/test';
+import { createRequire } from 'node:module';
+const AxeBuilder = createRequire(import.meta.url)('@axe-core/playwright').default;
+import { localTls } from '../tests/e2e/support/local-tls.ts';
+for (const scenario of ['exact']) {
+ const local=await localTls(); const context=await firefox.launchPersistentContext(local.profile,{...devices['Desktop Firefox'],headless:true,ignoreHTTPSErrors:false,reducedMotion:'reduce',hasTouch:true});
+ try { const page=await context.newPage();await page.setViewportSize({width:1440,height:900});await page.goto(local.url);await page.getByRole('button',{name:'New Adventure',exact:true}).click();await page.locator('.nq-room[data-rendered=true]').waitFor();await page.setViewportSize({width:390,height:844});await page.getByRole('button',{name:'Look',exact:true}).tap();await page.locator('[data-graybox-object="spec001:HOTSPOT-power"]').first().tap();await page.screenshot({path:'.local/t066-probe390.png',fullPage:true});await page.evaluate(()=>{document.documentElement.style.fontSize='200%'});await page.getByRole('button',{name:'Link indication',exact:true}).press('Enter');await page.screenshot({path:'.local/t066-probe200.png',fullPage:true});await page.locator('.nq-graybox-stage').screenshot({path:'.local/t066-probestage.png'});await page.waitForTimeout(150);
+ await page.evaluate((mode)=>{document.documentElement.style.fontSize='200%';if(mode==='remove-media')document.querySelector('.nq-media')?.remove();if(mode==='open-details')document.querySelector('details')?.setAttribute('open','');if(mode==='blur-focus')(document.activeElement as HTMLElement)?.blur();},scenario);
+ if(scenario==='text-scene')await page.getByRole('button',{name:'Text scene',exact:true}).click();const results=await new AxeBuilder({page}).analyze();console.log(JSON.stringify({scenario,violations:results.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)}))}));
+ } catch(error){console.log(JSON.stringify({scenario,error:String(error)}));}finally{await context.close();await local.stop();}
+}
