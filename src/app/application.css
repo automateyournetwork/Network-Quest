@@ -5,3 +5,21 @@ main { max-width: 90rem; margin: 1rem auto; padding: 0; }
 .nq-shell [role="dialog"] > button { margin: 0.25rem; }
 .nq-shell a { color: #aeeae4; }
 .nq-shell textarea { max-width: 100%; color: #edf1f8; background: #172338; border: 1px solid #8399b8; border-radius: 0.25rem; padding: 0.5rem; font: inherit; }
+.nq-graybox-controls { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block: 0.75rem; }
+.nq-graybox { border: 1px solid #8399b8; border-radius: 0.4rem; overflow: hidden; background: #172332; }
+.nq-graybox > p { padding: 0.5rem 0.75rem; margin: 0; }
+.nq-graybox-stage { position: relative; width: 100%; height: 23rem; overflow: hidden; }
+.nq-graybox-stage canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; }
+.nq-graybox-pins { position: absolute; inset: 0; pointer-events: none; }
+.nq-graybox-pin, .nq-graybox-position { position: absolute; transform: translate(-50%, -50%); border-radius: 50%; padding: 0.1rem 0.35rem; background: #172332; border: 1px solid #d5e3ec; color: #fff; line-height: 1.3; }
+/* These redundant diagram markers scale with geometry; the full object labels
+   and every semantic control below remain scalable text. */
+.nq-graybox-pin { pointer-events: auto; cursor: pointer; font-size: 13px; min-width: 22px; padding: 2px 5px; text-align: center; }
+.nq-graybox-position { background: #f5d78c; color: #172332; border-radius: 4px; font-size: 13px; padding: 2px 5px; }
+.nq-graybox-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem; padding: 0.75rem; }
+.nq-graybox-label, .nq-graybox-choice { display: flex; align-items: center; min-height: 2.75rem; padding: 0.4rem 0.6rem; border: 1px solid #8399b8; border-radius: 0.3rem; cursor: pointer; background: #213048; overflow-wrap: anywhere; }
+.nq-graybox-label:hover, .nq-graybox-choice:hover, .nq-graybox-pin:hover { background: #16444b; border-color: #91e5e0; }
+.nq-graybox [data-unavailable] { border-style: dashed; color: #d2c5b4; cursor: default; }
+.nq-graybox-choices { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0 0.75rem 0.75rem; }
+.nq-graybox-feedback:empty { display: none; }
+@media (max-width: 30rem) { .nq-graybox-legend { grid-template-columns: minmax(0, 1fr); } }

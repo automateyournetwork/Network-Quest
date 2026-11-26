@@ -263,3 +263,49 @@ the exact local review driver and screenshot identities are recorded in the
 host/provider changes, publication or deployment were used.
 
 Copyright 2026 John Capobianco. SPDX-License-Identifier: CC-BY-4.0.
+
+## T035 graybox correction — 2026-11-26
+
+Fresh worker `/root/loop046_t035_graybox` corrected **G1-LOCAL-01** from the
+preceding independent review. The earlier text-only finding remains historical
+evidence. R01 now has an original temporary lift/floor/door composition with
+panel, path, character, satchel and capsule masses; R02 has a workshop floor,
+benches, Titan/Golem masses, boards and all six actual exits. The current safe
+position is marked from the actual world projection. The strict, typed placement
+map contains no rule, reward, asset URL or action payload. These are original
+DEV prototypes, not finished media: accepted finished-asset count remains zero.
+
+The renderer uses the existing adapter and resource ownership; its actions come
+only from the same `verbs.controls()`/`verbs.objects()` projection as the native
+shell. It captures on pointerdown, cancels drag/cancel/teardown, and dispatches the
+same intent on click. Numbered geometry and full visual labels are nonfocusable
+inside the visual-only host; every action remains in the existing semantic UI.
+Retry/Text/Low detail controls sit outside that host. New Adventure disposes the
+previous WebGL context; ordinary projections/room swaps reuse one canvas.
+
+Observed local browser evidence:
+
+| Check | Result and limits |
+| --- | --- |
+| Visual mesh/pin actions versus keyboard | Actual raycast mesh click and numbered controls produce the same power/link/105 m measurement evidence as a fresh keyboard run. Complete strings agree apart from the independently checked new attempt UUID. |
+| Four verbs, O01/O02 and packet | Visual Photon/Titan skip retains clues/kit; actual inspection completes O01; R02 endpoint/path observations plus player hypothesis complete O02. Visual path change changes the actual packet result from 105 m to 95 m, with recovered `01001110 01010001`. |
+| Lifecycle and recovery | Canceled/stale detached clicks leave zero evidence rows; New Adventure loses/disposes the old context; three R01/R02 round trips retain one canvas. Real `WEBGL_lose_context` leaves keyboard evidence available; explicit retry restores the same state, with Text/Low detail also working. |
+| Layout/access | Real rendered screenshots inspected at desktop/390 px and 200% text; redundant numeric map markers remain compact while full labels/semantic text scale. Touch and keyboard actions work, no page-width overflow, no focusable descendants in the hidden visual host, automated axe zero violations. Human/assistive/device acceptance remains pending. |
+| Pause/reduced motion | No animation loop; render count settles. Explicit simulated visibility input pauses resize rendering and resumes with unchanged evidence. Actual browser tab visibility could not be induced by installed Firefox automation and remains unverified. |
+
+Final new browser suite **6 PASS**, 21.0 seconds, plus a stronger stale/cancel
+assertion rerun **1 PASS**. Existing T030 nine guest cases and T034 five packet
+cases all pass in the preceding joined run; no existing independent fixture was
+edited. The joined run was 18/20 before two new-test assertions were corrected;
+all 20 now have passing evidence across the runs, not one all-20 execution.
+No page error was filtered; successful cases assert zero page errors, external
+requests and API writes. Strict build/content validation pass; full local client
+suite reports **943 PASS / 68 TODO**, including concurrent T042 tests, and the
+new placement/input suite reports **11 PASS**. No PHP service change was made.
+
+**T035 remains incomplete and aggregate G1 PENDING** because G0's separate
+prerequisites remain blocked. Real sign-in/save, later rooms/routes, full AC21,
+production media, actual Safari/full browser/performance/visibility matrix,
+human reviews and owner satisfaction are not certified by this increment.
+See [loop046](../../implementation/loops/046-T035.md) for exact commands, retained
+failure history, measured graybox budgets and artifact seals.

@@ -14,6 +14,9 @@ import { createPacketJourneyPanel } from '../ui/packet-journey';
 import { createNavigationPlanner, createSceneObjectProjection } from '../ui/scene-objects';
 import { createTitleController, createTitlePanel } from '../ui/title';
 import { createVerbController } from '../ui/verbs';
+import { createIntroductionGraybox, type GrayboxGeometry, type IntroductionGrayboxView } from '../presentation/introduction-graybox';
+import { createRoomAdapter, type RoomSettings } from '../presentation/room-adapter';
+import { createResourcePool } from '../presentation/resource-pool';
 import { createIntroductionRuntime, startIntroduction } from './adventure';
 import { loadIntroductionContent } from './content';
 import { introductionBindings } from './introduction';
@@ -43,13 +46,38 @@ export function createIntroductionApplication(host: HTMLElement) {
   const menuHost = host.ownerDocument.createElement('div'), adventureHost = host.ownerDocument.createElement('div'); host.replaceChildren(menuHost, adventureHost);
   const createPanels = () => {
     const shell = createAppShell(adventureHost, bus);
-    return { shell, notebook: createNotebookPanel(shell.panelHost, bus), dialogue: createDialoguePanel(shell.panelHost, bus), inventory: createInventoryPanel(shell.panelHost, bus),
+    const pool = createResourcePool<GrayboxGeometry>({ maxEntries: 2, maxInFlight: 1, maxPrefetch: 0, maxLeases: 2, maxBytes: 32_768 });
+    const graybox = createIntroductionGraybox(shell.presentationHost);
+    let mode: RoomSettings['mode'] = 'three', detail: RoomSettings['detail'] = 'default';
+    const reducedMotion = () => {
+      const preference = state.runtime.ui?.presentation.reducedMotion ?? 'system';
+      return preference === 'on' || (preference === 'system' && host.ownerDocument.defaultView?.matchMedia('(prefers-reduced-motion: reduce)').matches === true);
+    };
+    const adapter = createRoomAdapter({ pool, dispatcher: bus, renderers: { three: graybox }, onView: (view, originalCapture) => {
+      if (view) shell.render(view, originalCapture);
+      // Recovery is explicit. Subsequent semantic actions remain in text mode
+      // after failure rather than repeatedly rebuilding an unavailable context.
+      if (adapter.status().kind === 'unavailable') mode = 'text';
+    } });
+    const visualControls = host.ownerDocument.createElement('div'); visualControls.className = 'nq-graybox-controls';
+    visualControls.setAttribute('role', 'group'); visualControls.setAttribute('aria-label', 'Scene presentation');
+    const events = new AbortController();
+    for (const [label, nextMode, nextDetail] of [['Retry visual scene', 'three', 'default'], ['Text scene', 'text', 'default'], ['Low detail scene', 'three', 'low']] as const) {
+      const button = host.ownerDocument.createElement('button'); button.type = 'button'; button.textContent = label;
+      button.addEventListener('click', () => { mode = nextMode; detail = nextDetail; adapter.setMode(mode, detail); }, { signal: events.signal }); visualControls.append(button);
+    }
+    shell.presentationHost.before(visualControls);
+    const pause = () => adapter.setPaused(host.ownerDocument.hidden);
+    host.ownerDocument.addEventListener('visibilitychange', pause, { signal: events.signal }); pause();
+    return { shell, show: (view: IntroductionGrayboxView) => adapter.show(view, { mode, detail, reducedMotion: reducedMotion() }),
+      disposeScene: () => { events.abort(); adapter.dispose(); graybox.dispose(); pool.dispose(); visualControls.remove(); },
+      notebook: createNotebookPanel(shell.panelHost, bus), dialogue: createDialoguePanel(shell.panelHost, bus), inventory: createInventoryPanel(shell.panelHost, bus),
       packet: createPacketJourneyPanel(shell.panelHost, bus, { reducedMotion: () => {
         const preference = state.runtime.ui?.presentation.reducedMotion ?? 'system';
         return preference === 'on' || (preference === 'system' && host.ownerDocument.defaultView?.matchMedia('(prefers-reduced-motion: reduce)').matches === true);
       } }) };
   };
-  const disposePanels = () => { panels.packet.dispose(); panels.inventory.dispose(); panels.dialogue.dispose(); panels.notebook.dispose(); panels.shell.dispose(); };
+  const disposePanels = () => { panels.disposeScene(); panels.packet.dispose(); panels.inventory.dispose(); panels.dialogue.dispose(); panels.notebook.dispose(); panels.shell.dispose(); };
   let panels = createPanels();
   let projectedGame = state.runtime.game, capture = bus.captureScope(contextFromRuntime(state.runtime)), disposed = false, focusRoom = false;
   const title = createTitleController({ getState: store.getState, changed: () => render(), start: before => {
@@ -73,9 +101,10 @@ export function createIntroductionApplication(host: HTMLElement) {
       if (room?.kind !== 'room' || !name) throw new Error('The current room is unavailable.');
       const completions = game.world.completedObjectiveIds.flatMap(id => { const objective = registry.record(id); return objective?.kind === 'objective'
         ? [{ id: `completion:${id}`, speaker: 'Investigation progress', text: objective.completionExplanation }] : []; });
-      panels.shell.render({ context: contextFromRuntime(state.runtime), title: name, description: room.description, controls: verbs.controls(), objects: verbs.objects(),
+      panels.show({ roomId: game.world.roomId, safePositionId: game.world.position.safePositionId,
+        context: contextFromRuntime(state.runtime), title: name, description: room.description, controls: verbs.controls(), objects: verbs.objects(),
         evidence: notebookView.view.evidence.map(entry => ({ id: entry.id, label: entry.heading, text: entry.text, source: `${entry.sourceRoom} · ${entry.kind}`, freshness: entry.freshness })),
-        captions: [{ id: `ambience:${room.id}`, text: room.ambience.text }, ...completions], presentationStatus: 'Text scene. Finished room art and audio are not yet available.' }, capture);
+        captions: [{ id: `ambience:${room.id}`, text: room.ambience.text }, ...completions] });
     }
     panels.inventory.render(inventoryView(registry, state, [q('ITEM-inspection-kit')]), capture);
     panels.notebook.render(notebookView.view, notebookView.capture);

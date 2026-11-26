@@ -26,29 +26,41 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-26
 
-**48 loops started; 34 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
+**51 loops started; 36 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
 Current active ownership is in state.json:
 
-- Loop046/T035: corrective visual graybox integration after loop043's independent
-  review found G1-LOCAL-01. Root matched all32 review seals and inspected the actual
-  text scene. The exact100m browser-boundary gap is closed. Use the existing
-  RoomAdapter/resource pool and shared captured semantic actions; no finished
-  asset counts or aggregate G1 acceptance follow. Loop043 history remains intact.
+- Loop046/T035 local correction reviewed: real Three.js R01/R02 graybox, shared
+  captured actions, recovery and resource disposal. Six new browser cases PASS,
+  previous guest9/packet5 PASS; full client943 PASS/68 TODO. Root reviewed code,
+  all30 seals and actual lift/workshop/200%-text screenshots. G1-LOCAL-01 is closed
+  locally; native hidden-tab evidence remains unverified, no finished media or
+  aggregate T035/G1 acceptance. Historical loop043 finding is preserved.
 - T038 accepted in loop044:28 focused tests/225 assertions; root reviewed all
   source/tests and20 seals. Actual HTTP/auth route composition remains T041.
-- Loop047/T039: Google identity adapter and synthetic cryptographic/HTTP tests.
-  No real provider registration or login is implied; one-use transaction and
-  route composition must join actual session ports before integration acceptance.
+- T039 accepted in loop047: Google real-SDK RSA verification and shared one-use
+  transactions/bounded transport;57 focused tests/650 assertions PASS. Root read
+  all six source/test files and matched27 seals. Synthetic HTTP/keys only;
+  actual provider behavior and route composition remain pending. Delete reauth
+  confirms a new same-account provider roundtrip, not fresh password entry.
 - T042 accepted in loop045:188 focused JS checks and150 PHP tests/1199 assertions
   PASS,362 differential candidates match; root reviewed source and21 seals. Root
   joined full check PASS and pre-T039 PHP253 tests/1856 assertions PASS. Results
   stay provisional for T043; actual HTTP/client saving is not implemented yet.
-- Loop048/T043: isolated single-slot repository with authorization and receipt
-  rechecks, provisional validation outside the lock and atomic conditional writes.
-  Uses actual T037/T038/T042 ports; HTTP/client/provider acceptance remains later.
-- Next local sequence: correct and review the G1 graybox while independent local
-  session/validator work continues; then provider adapters and actual service
-  integration on verified interfaces. Do not waive the required owner/gate reviews.
+- T043 accepted in loop048:47 focused tests/284assertions, six-interface-suite
+  join243/1861 PASS. Root reviewed source/tests and23 seals. Root all12stablePHP
+  suite join357/2790 PASS at migration1; newT040/T041 tests excluded. Exact-byte
+  receipts/current-summary/conditional writes verified locally; actual HTTP,
+  deletion-ledger barrier and full simultaneous races still join later.
+- Loop049/T040: GitHub identity adapter on actual shared auth/session ports,
+  synthetic HTTP tests only; common files remain loop047-owned until reviewed.
+- Loop050/T041: auth/session routes, private configuration and final account/session
+  commit; joins actual T040 before final verification. No production credentials
+  in tests and no external deletion-ledger acceptance before T045.
+- Loop051/T045: durable external deletion intents/receipt hashes/account deletion
+  and actual AccountAccess barrier; joins T041 purpose-proof forward migration.
+- Next local sequence: review provider adapters and single-slot repository, then
+  actual service integration on verified interfaces. Do not waive required
+  owner/gate reviews or infer real provider acceptance from synthetic tests.
 
 Accepted implementation now includes domain/state/content foundations, accessible
 controls and presentation lifecycle adapters; actual guest title, R01/R02
@@ -158,11 +170,12 @@ Do not fabricate listening. Production Audacity4 .aup4/native review remains lat
 ## Publication and release
 
 Latest pushed and independently remote-verified commit:
-`a8626ba355a8d61ef9a85265d3f724e22635c9ea` (T037 database).
-Previous `a252a092b442465c2e94562bb6ec5a454c7a7e6b` publishes actual guest/packet
-controllers and joined layout correction. Explicit staging, reviewed hash matches
-and scans excluding all4 production OAuth values/private material passed for both.
-Current active work stays uncommitted until root review. **No release deployed.**
+`4df0c0884afb9f5d44791ad965573004d7e1a3cd` (T038 sessions/security, T042
+provisional validation, uppercase external UUID parity and preserved history).
+All26 staged paths were explicitly inspected/hash-matched and production-value/
+private scans passed. Previous T037 checkpoint: `a8626ba355a8d61ef9a85265d3f724e22635c9ea`;
+guest/packet checkpoint: `a252a092b442465c2e94562bb6ec5a454c7a7e6b`.
+Active work stays uncommitted until root review. **No release deployed.**
 
 Owner authorization covers scoped reviewed pushes to automateyournetwork/Network-Quest
 and finished accepted release deployment at

@@ -181,3 +181,45 @@ supersede the earlier SSH-access blocker. Loop019 now verifies remaining host
 capabilities with scoped temporary probes. The owner also expressly authorizes
 reviewed GitHub commits/pushes and accepted-release deployment; required reviews
 and acceptance evidence remain unchanged.
+
+## T035 corrective follow-up, loop 046 — 2026-11-26
+
+Executor/reviewer: Codex `/root/loop046_t035_graybox`. This appends to, and does
+not replace, the loop043 finding above. **G1-LOCAL-01 is corrected within its
+local graybox scope. G0 remains BLOCKED, G1–G7 remain PENDING, and T035 remains
+unchecked.** External retention/provider-control/listening prerequisites are
+unchanged; root retains final review and tracking ownership.
+
+The actual application now mounts original Three.js R01/R02 grayboxes through
+the existing RoomAdapter/resource pool/shell boundary. Authored presentation-only
+placements cover the actual objects, exits, floor and safe-position marker.
+Mesh/number/label pointer input captures the canonical controller control at
+pointerdown and dispatches that exact intent. Keyboard controls, notebook,
+dialogue, O01/O02 and packet evaluation remain the same actual application.
+
+- Six new real-app browser cases PASS; one case's visibility input is explicitly
+  simulated, while scene rendering, raycasting and WebGL context loss are real.
+  Visual/keyboard evidence agrees across fresh adventures, excluding their
+  separately verified distinct attempt UUIDs. O01/O02 and the 105/95 m packet
+  results pass. Detached/canceled input, New Adventure disposal, room swaps,
+  text fallback/retry, 390 px touch layout, 200% text and automated axe pass.
+- All nine prior guest and five prior packet browser cases PASS in the joined
+  regression run. That run was 18/20, followed by the corrected six-case PASS;
+  it is not reported as a single all-20 pass. A strengthened zero-evidence-row
+  stale/cancel assertion also passes separately. Unit suite: 943 PASS, 68 TODO,
+  including concurrent local T042 work; new graybox unit cases: 11 PASS.
+- Agent visual inspection confirms distinct lift/workshop compositions and
+  legible numbered objects/full labels. Measured graybox samples: R01 492
+  triangles/26 draw calls; R02 720/45; each two geometries and one renderer
+  texture. No authored images load. This is not the full AC15 benchmark.
+
+Native background-tab visibility remains **UNVERIFIED**: installed automated
+Firefox kept `document.hidden` false in both headless and headed probes. The
+explicit simulated visibility test verifies application pause/resume wiring,
+not native browser behavior. Actual Safari/browser matrix, human access/learning
+review, finished Blender/OpenAI/audio assets and owner satisfaction remain later
+requirements. These original DEV shapes count as **zero finished assets**.
+See [loop046](../../implementation/loops/046-T035.md) for failures, final commands,
+screenshots, exact hashes and remaining limits; [US1 follow-up](US1.md#t035-graybox-correction--2026-11-26)
+records the joined investigation scope. No installation, provider action,
+credential access, commit, push, deployment or publication occurred.
