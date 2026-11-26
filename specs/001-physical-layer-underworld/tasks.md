@@ -434,7 +434,7 @@ start bulk production before G3. T059 remains required for measured benchmark us
 
 **Ready after**: T036–T058.
 
-- [ ] T059 [US5] Implement cold/warm-load, frame/resource/disposal and 20-session save measurement harnesses in `tools/measure-browser.ts` and `tools/measure-save-load.php`; record exact device/browser/network profiles and every failed sample in `docs/evidence/spec001/measurement-profile.md`.
+- [X] T059 [US5] Implement cold/warm-load, frame/resource/disposal and 20-session save measurement harnesses in `tools/measure-browser.ts` and `tools/measure-save-load.php`; record exact device/browser/network profiles and every failed sample in `docs/evidence/spec001/measurement-profile.md`.
 
 ### Complete accessible play, recovery and measured compatibility
 

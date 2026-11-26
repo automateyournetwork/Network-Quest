@@ -264,11 +264,17 @@ final class Database
         foreach (['-journal', '-wal', '-shm'] as $suffix) {
             $path = $file . $suffix;
             clearstatcache(true, $path);
-            if (file_exists($path) || is_link($path)) {
-                self::privateFile($path, $owner);
-                if ($suffix !== '-journal') {
-                    throw new RuntimeException('WAL storage requires a separately reviewed migration.');
-                }
+            // Another connection may remove its DELETE journal immediately
+            // after stat. Validate one observed metadata snapshot; subsequent
+            // path existence/access checks would mistake normal commit for a
+            // permissions failure. Stable database files retain privateFile().
+            $metadata = @lstat($path);
+            if ($metadata === false) continue;
+            if (($metadata['mode'] & 0177777) !== 0100600 || $metadata['nlink'] !== 1 || $metadata['uid'] !== $owner) {
+                throw new RuntimeException('Game sidecars must be private regular files with consistent ownership.');
+            }
+            if ($suffix !== '-journal') {
+                throw new RuntimeException('WAL storage requires a separately reviewed migration.');
             }
         }
     }

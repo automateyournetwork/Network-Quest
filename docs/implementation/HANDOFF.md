@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-26
 
-**65 loops started; 51 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
+**66 loops started; 52 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
 Current active ownership is in state.json:
 
 - Loop046/T035 local correction reviewed: real Three.js R01/R02 graybox, shared
@@ -132,7 +132,9 @@ Current active ownership is in state.json:
  metadata checks. FullPHP908tests/19138assertionsPASS; actual20-way260request
  baseline has0errors,savep95134.020ms locally. No host or causal proof claim.
 - Loop065/T056: independent actual native prepared SAVE01–13 journeys; coordinate
- fixture/config/build ownership. Next T061 follows measurement report acceptance.
+ fixture/config/build ownership. Loop066/T061 now implements the asset validator/planned allocations.
+- T059 accepted after full tool/test/report review and21seals; measured results
+ are local development evidence only, with all failed samples retained.
  Preserve owner/gate reviews and actual provider requirements.
 
 Accepted implementation now includes domain/state/content foundations, accessible
@@ -143,11 +145,12 @@ The unconfigured service entry remains unavailable. Private configured entry
 composition and prepared browser saves are locally accepted; actual provider login
 and the independent full SAVE01–13 browser matrix remain unaccepted. No production account service is deployed.
 
-Latest published checkpoint: `48ab7dfd1d60b4bbf83dfffcbd4c86489f07ef3c` on
-`001-physical-layer-underworld`, independently verified at origin. All17 staged
+Latest published checkpoint: `3b932ec7d4fc788cae54a12325e798d477dbf153` on
+`001-physical-layer-underworld`, independently verified at origin. All16 staged
 paths matched reviewed hashes; four private OAuth values and private-key markers
-were absent. The staged application used the exact sealed T050 blob while keeping
-subsequent T052 working edits intact. Includes T050 actual save/restore UI.
+were absent. Includes T052 account UI/native tests and T060 independent asset
+oracle. Prior48ab7df contains T050 using its exact reviewed application blob
+while preserving subsequent working edits.
 Prior `8962bcf` contains T051 autosave/API/hosting evidence; `f3b12e9` T049;
 `0e41ad7` concurrency/recovery and proof timing; `a83eee5` client/security.
 This is not a deployment.
