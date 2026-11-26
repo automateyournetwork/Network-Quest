@@ -196,6 +196,12 @@ export class GameApi {
     for (const request of this.requests) request.abort();
     return this.capture();
   }
+  /** Clear local credentials after the caller confirms its owned operation. Makes no server claim. */
+  forgetSession(expectedGeneration: ClientGeneration): ClientGeneration | null {
+    if (!this.isCurrent(expectedGeneration)) return null;
+    this.current = null;
+    return this.invalidate();
+  }
   dispose(): void { this.invalidate(); this.disposed = true; this.current = null; }
 
   async getSession(): Promise<ApiResult<Session>> {
@@ -284,7 +290,9 @@ export class GameApi {
     const run = async (): Promise<ApiResult<T>> => {
       try {
         const response = await this.fetcher(this.base + route, { method, headers: { Accept: 'application/json', ...headers, ...(body === undefined ? {} : { 'Content-Type': 'application/json' }) },
-          credentials: 'include', cache: 'no-store', mode: 'same-origin', redirect: 'error', referrerPolicy: 'no-referrer', signal: controller.signal,
+          // no-referrer serializes Origin:null for same-origin mutations. Keep the exact
+          // browser-owned Origin while disclosing no document path or query in Referer.
+          credentials: 'include', cache: 'no-store', mode: 'same-origin', redirect: 'error', referrerPolicy: 'strict-origin', signal: controller.signal,
           // An explicit zero-byte mutation permits browser-owned Content-Length:0 on HTTP/1.1.
           ...(method === 'GET' ? {} : { body: body ?? '' }) });
         if (!this.isCurrent(generation) || controller.signal.aborted) { void response.body?.cancel().catch(() => {}); return failure(timedOut ? 'timeout' : 'stale'); }

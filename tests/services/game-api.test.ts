@@ -24,7 +24,7 @@ describe('GameApi contract transport (synthetic)', () => {
     const { api, fetch } = rig([json({ state: 'guest', csrfToken: csrf })]);
     const result = await api.getSession();
     expect(result).toMatchObject({ ok: true, data: { state: 'guest', csrfToken: csrf } });
-    expect(fetch).toHaveBeenCalledWith(origin + apiBase + '/session', expect.objectContaining({ method: 'GET', credentials: 'include', cache: 'no-store', mode: 'same-origin', redirect: 'error', referrerPolicy: 'no-referrer' }));
+    expect(fetch).toHaveBeenCalledWith(origin + apiBase + '/session', expect.objectContaining({ method: 'GET', credentials: 'include', cache: 'no-store', mode: 'same-origin', redirect: 'error', referrerPolicy: 'strict-origin' }));
     expect(new Headers(fetch.mock.calls[0]![1]!.headers).has('Authorization')).toBe(false);
     expect(new Headers(fetch.mock.calls[0]![1]!.headers).has('Origin')).toBe(false);
   });
@@ -282,6 +282,35 @@ describe('GameApi contract transport (synthetic)', () => {
     expect(await api.getSession()).toMatchObject({ ok: false, kind: 'disposed' });
     expect(await api.getDeletionStatus('A'.repeat(43))).toMatchObject({ ok: false, kind: 'disposed' });
     expect(fetch).toHaveBeenCalledTimes(1); expect(api.session).toBe(null);
+  });
+
+  it('forgets only the owned session locally, aborts old work and permits a later bootstrap', async () => {
+    const pending = deferred<Response>();
+    const fetch = vi.fn<typeof globalThis.fetch>().mockResolvedValueOnce(json(account()))
+      .mockImplementationOnce(() => pending.promise).mockResolvedValueOnce(json(guestForResponse()));
+    const api = new GameApi({ origin, apiBase, fetch });
+    await api.getSession(); const owned = api.capture(); const read = api.getSave();
+    const next = api.forgetSession(owned);
+    expect(next).not.toBe(null); expect(api.isCurrent(next!)).toBe(true);
+    expect(api.isCurrent(owned)).toBe(false); expect(api.session).toBe(null);
+    expect(fetch).toHaveBeenCalledTimes(2);
+    expect(fetch.mock.calls[1]![1]!.signal!.aborted).toBe(true);
+    pending.resolve(json({ summary, snapshot: {} }, 200, { ETag: summary.etag }));
+    expect(await read).toMatchObject({ ok: false, kind: 'stale' });
+    expect(await api.getSession()).toMatchObject({ ok: true, data: { state: 'guest' } });
+    expect(fetch).toHaveBeenCalledTimes(3);
+  });
+
+  it('refuses stale or disposed local forgetting without affecting a later account or sending requests', async () => {
+    const later = { ...account(), csrfToken: 'd'.repeat(43), displayName: 'Later synthetic player' };
+    const { api, fetch } = rig([json(account()), json(later)]);
+    await api.getSession(); const old = api.capture(); await api.getSession();
+    const current = api.capture();
+    expect(api.forgetSession(old)).toBe(null); expect(api.session).toEqual(later);
+    expect(api.capture()).toBe(current); expect(fetch).toHaveBeenCalledTimes(2);
+    api.dispose(); const disposed = api.capture();
+    expect(api.forgetSession(disposed)).toBe(null); expect(api.capture()).toBe(disposed);
+    expect(fetch).toHaveBeenCalledTimes(2);
   });
 
   it.each([1, 2, 3, 4, 5, 6, 7, 8].flatMap(delay => (['logout', 'delete'] as const).map(operation => ({ delay, operation }))))('does not apply $operation across an account invalidation at microtask boundary $delay', async ({ delay, operation }) => {

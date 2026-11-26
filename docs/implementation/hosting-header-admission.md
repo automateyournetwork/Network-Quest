@@ -87,3 +87,45 @@ Private record seals (contents remain private):
 | 777e4126e318bb778f7a78d7 | yes; removed | `c85ea2642838694dd2bd8f36f81b270e6dec45ff3c4f4dfdd3a693beff5bb6b6` |
 | 9a187d1a6ed5ac138650d497 | yes; removed | `6eaf0caf52d6b402844df569785424f21dc25cdc35c01ca722f42ccabac22fbf` |
 | ff83250581de17a6cc59bfbc | no; connection timeout | `74beb23beca95edeaada009bb6ffe23512379cc8ed20d21d66bdb80175f0242f` |
+
+## Resumed verification — 18:13–18:18 UTC
+
+The earlier failures above remain historical evidence. After a cooldown, a normal
+certificate-verified `/arcade/` request returned the actual arcade page with no
+challenge. Existing-agent SSH with strict pinned host verification executed
+`id -un` successfully and matched the configured identity; SFTP also worked.
+The shell emitted 45 bytes on stderr, retained privately without treating stderr
+as a failed exit or publishing its contents. Independent fresh SFTP checks found
+all seven previously planned probe files and directories absent; their HTTPS
+URLs each returned404. This resolves the earlier independent-cleanup uncertainty.
+
+After inspecting the historical script, a sixth uploaded probe used a new random
+identifier, guard and ten-minute expiry. It retained the same narrow observation
+scope, checksum verification and strict TLS, and spaced requests one second apart.
+Its unauthorized guard returned404. All fourteen remaining HTTP/2 observations
+returned200 with curl negotiatingHTTP/2 and PHP reportingHTTP/2.0:
+
+| Header | Method | Single field | Mixed-case duplicate |
+| --- | --- | --- | --- |
+| X-Save-Mode | PUT | unchanged | comma-coalesced |
+| X-Confirm-Adventure-Replacement | PUT | unchanged | comma-coalesced |
+| If-Match | PUT | unchanged | comma-coalesced |
+| If-None-Match | PUT | unchanged | comma-coalesced |
+| X-Deletion-Receipt | POST | unchanged | comma-coalesced |
+| X-Confirm-Account-Deletion | DELETE | unchanged | comma-coalesced |
+| Content-Encoding | PUT | unchanged | comma-coalesced |
+
+The probe was removed after digest verification. Its directory was removed;
+parent ownership/mode remained unchanged, SFTP confirmed absence and HTTPS
+returned404. No existing website files or configuration changed. This completes
+the previously missing singleton observations, not production endpoint, OAuth,
+backup-retention, HTTP/3 or deployment acceptance.
+
+Additional private record seals:
+
+| Record | SHA-256 |
+| --- | --- |
+| Normal arcade baseline | `820f7437f1edd90561ee7cb52b21e11b07f9c1a4fd66bf2f36ab3f703bc700db` |
+| SSH recheck | `437b8443808e4c2198172d5e5295e3fb5b4b15ac4c8d4fb2ffe30c6f548803f7` |
+| Independent cleanup | `569209a1bae652c739c2fe23d02a0fb48a6f0db4f7bb089208ac4e57165d0e57` |
+| Sixth probe result | `a4a6c5cb9e5f9e257b6bb9f3a9a79e0e8e946af2f99e5992638d32a7cf2857c5` |

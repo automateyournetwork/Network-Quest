@@ -224,6 +224,21 @@ application composition until handoff. Final acceptance joins actual coordinator
 ports, and full browser/provider/autosave acceptance remains T056/T057. No autosave
 first adoption, failed/E03 write or implicit replacement is permitted.
 
+T052 may build its separate accountsettings/controller/panel on accepted T047–T049
+and the actual T046/T055 server contracts while T050/T051 implement disjoint UI and
+autosave. Coordinate flow ownership and lifecycle/settings hooks; shared application
+edits remain with T050 until explicit handoff. Final task verification joins actual
+interfaces. Unverified host backup retention cannot become a fabricated disclosure;
+production policy and real provider/browser acceptance remain release prerequisites.
+
+T059 may implement measurement tooling on the accepted local presentation/resource
+adapters and T037–T049 service contracts while T050/T052 finish UI integration and
+T056/T057 retain their separate browser/provider obligations. Use isolated synthetic
+storage for the 20-session harness; coordinate browser/build ownership and any
+shared instrumentation through root. Record current graybox samples as development
+baselines only. This does not freeze G3 hardware/budgets, certify production load,
+waive G2, or permit production credentials/data in test environments.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -391,7 +406,7 @@ first adoption, failed/E03 write or implicit replacement is permitted.
 - [X] T048 [US4] Implement stable safe-snapshot construction, dirty generations and supported-version read/migration dispatch with the independently authored older-content baseline mapping in `src/state/snapshot.ts` and `src/state/save-migrations.ts`; never persist active encounters, E03/failure or partial transitions and preserve unsupported newer data.
 - [X] T049 [US4] Implement serialized conditional saves and exact-byte/idempotency retries in `src/services/save-coordinator.ts`; replay frozen pending requests without treating a changed new-write policy as proof of failure, acknowledge only the captured generation, reconcile older receipts against current slot and preserve memory on network/session failure.
 - [ ] T050 [US4] Implement sign-in adoption, Continue/New Adventure warnings and explicit load/replace/cancel/conflict dialogs in `src/ui/save-dialogs.ts`; replacement binds the reviewed ETag and adventure, uses a new request ID and never merges or silently overwrites.
-- [ ] T051 [US4] Implement opt-in account autosave and safe-boundary debounce in `src/state/autosave.ts`; first adoption is manual, opt-out suppresses queued writes, successful E01/E02 require safe Continue and no failed/E03 transition can write.
+- [X] T051 [US4] Implement opt-in account autosave and safe-boundary debounce in `src/state/autosave.ts`; first adoption is manual, opt-out suppresses queued writes, successful E01/E02 require safe Continue and no failed/E03 transition can write.
 - [ ] T052 [US4] Implement provider display, plain saved-data/backup policy, deletion and clarified logout in `src/ui/account-settings.ts`; canceled logout changes nothing and confirmed revocation clears memory/title without saving. Retain the deletion receipt only in memory, show unconfirmed after response loss, poll read-only status with bounded backoff and confirm only DELETE 204/completed. Guest/unknown/expired status never proves deletion; do not automatically sign in or repeat deletion, and ignore results belonging to an earlier account view.
 - [X] T053 [P] [US4] Exercise malformed/oversized/Unicode/schema/ownership/CSRF and forged/expired/replayed state/nonce/signature/audience cases in `server/tests/IdentitySecurityTest.php` and `server/tests/SaveValidationTest.php`, and check all nine API operations/headers/status/body shapes in `server/tests/ApiContractTest.php`; prove isolation and absence of private data/receipt tokens in errors/logs.
 - [X] T054 [P] [US4] Use independent sessions/DB connections for conditional races, lost responses, key reuse/expiry, replay after a later revision and save-vs-logout/deletion in `server/tests/SaveConcurrencyTest.php`. Also commit/lose response/change schema-content write policy/retry: retained receipt succeeds once while the same old payload under a new key is rejected. Cover a receipt appearing during provisional validation and ensure revoked/wrong-account requests never read it.

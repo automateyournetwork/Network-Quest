@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-26
 
-**61 loops started; 47 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
+**63 loops started; 48 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
 Current active ownership is in state.json:
 
 - Loop046/T035 local correction reviewed: real Three.js R01/R02 graybox, shared
@@ -103,7 +103,20 @@ Current active ownership is in state.json:
   both independent suites and the timing correction. Synthetic provider replies
   and isolated backups do not establish actual provider/host/retention acceptance.
 - Loop060/T050: actual save/adoption/load/replace/conflict UI and shared application.
-- Loop061/T051: disjoint opt-in autosave scheduler/preference flow; coordinate hooks.
+- T051 accepted in loop061: root reviewed all source/tests and corrected seals;
+ 236 joined checks PASS. Earlier unsaved notes join the next actual safe-preparation
+ entry; no first adoption, unsafe/E03 or implicit retry writes. Native UI follows.
+- Loop062/T052: disjoint accountsettings/logout/deletion controller+panel; T050
+  retains sharedapplication ownership until coordinated integrationhandoff.
+- Loop063/T059: isolated browser/save measurement tools; coordinate shared
+ instrumentation and browser reservation. Development baselines do not pass G3.
+- Root native transport correction uses strict-origin so browser mutations carry
+ exact Origin with origin-only Referer; focused API RED3→GREEN81. Guarded local
+ forgetSession prevents completed receipts retaining cached credentials.
+- Hosting recheck at18:13–18:18UTC restored normal arcade/SSH/SFTP evidence,
+ independently confirmed all seven old probe locations absent, and completed14
+ remaining HTTP/2 singleton observations. New helper removed, SFTP/HTTPS404
+ verified; historical failures preserved in hosting-header-admission.md.
 - Next local sequence: review these results and integrate explicit save/account UI,
   opt-in autosave and independent deletion recovery checks. Preserve owner/gate
   reviews and actual provider requirements.
@@ -116,11 +129,12 @@ The unconfigured service entry remains unavailable. Private configured entry
 composition is locally accepted; actual provider login and browser saves remain
 unaccepted. No production account service is deployed.
 
-Latest published checkpoint: `0e41ad75fd854fa7c7b9bca3ce83e5c4b3a2512f` on
-`001-physical-layer-underworld`, independently verified at origin. All8 staged
+Latest published checkpoint: `f3b12e98bb55f1f5886bae303407de69d1368be0` on
+`001-physical-layer-underworld`, independently verified at origin. All6 staged
 paths matched reviewed hashes; four private OAuth values and private-key markers
-were absent. Includes T054/T055 and final proof-time correction. Prior `a83eee5`
-contains T047/T048/T053 and parsed proxy errors. This is not a deployment.
+were absent. Includes T049 save coordination. Prior `0e41ad7` contains independent
+concurrency/recovery and final deletion-proof time correction; `a83eee5` contains
+T047/T048/T053. This is not a deployment.
 
 Recent evidence:
 
