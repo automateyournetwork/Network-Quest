@@ -217,6 +217,13 @@ Each test worker owns isolated storage and its reserved suite; production defect
 are coordinated through root before dependent acceptance. These tests do not
 require unbuilt client UI and cannot establish real-provider or host readiness.
 
+T051 may implement its pure safe-boundary scheduler and conditional opt-in preference
+flow on accepted T047–T049 while T050 owns separate save-dialog/application UI.
+Coordinate the explicit state-change/lifecycle hooks through root; T050 owns shared
+application composition until handoff. Final acceptance joins actual coordinator
+ports, and full browser/provider/autosave acceptance remains T056/T057. No autosave
+first adoption, failed/E03 write or implicit replacement is permitted.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -382,7 +389,7 @@ require unbuilt client UI and cannot establish real-provider or host readiness.
 - [X] T046 [US4] Implement POST logout, DELETE account and read-only POST account/deletion-status in `server/src/Routes/Account.php` and `server/src/Routes/DeletionStatus.php`; deletion needs fresh same-account auth/CSRF/confirmation and a 256-bit receipt. Status needs exact Origin plus only that narrow receipt, returns pending/completed/expiry or indistinguishable unknown/expired 404, exposes no account/progress and cannot delete or create an account. Logout remains slot-preserving.
 - [X] T047 [US4] Implement credentialed no-store API calls and account-generation response guards in `src/services/game-api.ts` and `src/services/account.ts`; retain the gameplay tab during popup/tab login and confirm identity using GET session, not postMessage contents.
 - [X] T048 [US4] Implement stable safe-snapshot construction, dirty generations and supported-version read/migration dispatch with the independently authored older-content baseline mapping in `src/state/snapshot.ts` and `src/state/save-migrations.ts`; never persist active encounters, E03/failure or partial transitions and preserve unsupported newer data.
-- [ ] T049 [US4] Implement serialized conditional saves and exact-byte/idempotency retries in `src/services/save-coordinator.ts`; replay frozen pending requests without treating a changed new-write policy as proof of failure, acknowledge only the captured generation, reconcile older receipts against current slot and preserve memory on network/session failure.
+- [X] T049 [US4] Implement serialized conditional saves and exact-byte/idempotency retries in `src/services/save-coordinator.ts`; replay frozen pending requests without treating a changed new-write policy as proof of failure, acknowledge only the captured generation, reconcile older receipts against current slot and preserve memory on network/session failure.
 - [ ] T050 [US4] Implement sign-in adoption, Continue/New Adventure warnings and explicit load/replace/cancel/conflict dialogs in `src/ui/save-dialogs.ts`; replacement binds the reviewed ETag and adventure, uses a new request ID and never merges or silently overwrites.
 - [ ] T051 [US4] Implement opt-in account autosave and safe-boundary debounce in `src/state/autosave.ts`; first adoption is manual, opt-out suppresses queued writes, successful E01/E02 require safe Continue and no failed/E03 transition can write.
 - [ ] T052 [US4] Implement provider display, plain saved-data/backup policy, deletion and clarified logout in `src/ui/account-settings.ts`; canceled logout changes nothing and confirmed revocation clears memory/title without saving. Retain the deletion receipt only in memory, show unconfirmed after response loss, poll read-only status with bounded backoff and confirm only DELETE 204/completed. Guest/unknown/expired status never proves deletion; do not automatically sign in or repeat deletion, and ignore results belonging to an earlier account view.
