@@ -140,6 +140,20 @@ synthetic private temporary databases. This does not enable auth/save routes,
 start live provider flows, run a host migration, or pass G1/G2. Client/account
 integration still joins the actual guest interfaces and required acceptance gates.
 
+With T037 accepted, T038 may implement isolated session/security services against
+that database and the existing T036 expectations while T035/G0 review remains
+open. Its synthetic tests cannot authenticate real users or enable provider/save
+routes. T041 owns route composition. Continue only on actual verified local
+inputs; provider controls, human reviews and aggregate G1/G2 acceptance remain
+required and cannot be inferred from these service tests.
+
+T042's pure new-save validation may run independently of T038–T041 against
+accepted T013/T015 schemas and content registry plus T036's prepared conformance
+fixtures. It must keep client/server parity, distinguish current semantic policy
+from stored-version reading, and return provisional results without HTTP writes
+or bypassing T043's authorization/receipt-first transaction. It owns separate
+validator/test files; real auth/save route composition and G2 still join later.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -293,7 +307,7 @@ integration still joins the actual guest interfaces and required acceptance gate
 **Ready after**: T035.
 
 - [X] T036 [US4] Author SAVE01–13, auth rejection, concurrency, schema and logout expectations in `server/tests/Fixtures/save-cases.json` and `tests/fixtures/save-conformance.json`; include committed-save retry after changed write policy, a receipt appearing during validation, and lost deletion responses with pending/completed/unknown/expired status. Retain the hypothetical older-content baseline in `tests/fixtures/save-migration-baseline.json`, unsafe/E03 states and clarified cancel/confirm behavior.
-- [ ] T037 [US4] Implement dedicated accounts/identities/sessions/auth_transactions/preferences/saves/receipts/migrations tables in `server/migrations/001_game.sql` and `server/src/Database.php`; enforce one slot/account, provider-subject uniqueness and private rollback-journal storage.
+- [X] T037 [US4] Implement dedicated accounts/identities/sessions/auth_transactions/preferences/saves/receipts/migrations tables in `server/migrations/001_game.sql` and `server/src/Database.php`; enforce one slot/account, provider-subject uniqueness and private rollback-journal storage.
 - [ ] T038 [US4] Implement opaque Secure/HttpOnly/Lax host-only sessions, rotation, idle/absolute expiry, same-origin CSRF and redacted/rate-limited requests in `server/src/Sessions.php` and `server/src/Security.php`; GET session bootstraps guest CSRF without granting identity.
 - [ ] T039 [P] [US4] Implement Google authorization-code/S256 and verified required iss/aud/sub/exp/iat/nonce checks in `server/src/Identity/Google.php`; request openid profile only, validate one-use session-bound state and discard provider tokens after identification.
 - [ ] T040 [P] [US4] Implement GitHub GenericProvider/S256 with explicit empty scopes and GET /user stable numeric ID in `server/src/Identity/GitHub.php`; avoid email/repository access, implicit account merging and token persistence.
