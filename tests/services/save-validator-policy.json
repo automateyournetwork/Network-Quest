@@ -1,0 +1,71 @@
+{
+  "scope": "Synthetic T042 policy and independently declared semantic expectations. Never production membership; original T036 fixtures remain unchanged.",
+  "policy": {
+    "contentVersion": "1.0.0",
+    "members": {
+      "room": ["spec001:R01", "spec001:R02"],
+      "objective": ["spec001:O01", "spec001:O02"],
+      "quest": ["spec001:fixture.quest"],
+      "achievement": ["spec001:fixture.achievement"],
+      "effect": ["spec001:fixture.effect"],
+      "item": ["spec001:fixture.probe"],
+      "character": ["spec001:fixture.helper"],
+      "ability": ["spec001:fixture.measure"],
+      "flag": ["spec001:fixture.unsafe-state", "spec001:fixture.progress"],
+      "compendium": ["spec001:fixture.compendium"],
+      "fact": ["spec001:fixture.fact"],
+      "hint": ["spec001:fixture.hint"],
+      "rule": ["spec001:fixture.length"],
+      "subject": ["spec001:R01", "spec001:R02", "spec001:fixture.probe", "spec001:fixture.helper"],
+      "caveat": ["spec001:fixture.caveat"]
+    },
+    "safePositions": {
+      "spec001:R01.entry": {"roomId": "spec001:R01", "eligibleStates": ["stable-exploration", "safe-preparation", "safe-continue"]},
+      "spec001:R02.entry": {"roomId": "spec001:R02", "eligibleStates": ["stable-exploration"]}
+    },
+    "itemMaxQuantities": {"spec001:fixture.probe": 1},
+    "recruits": {"spec001:fixture.helper": {"maxLevel": 2, "abilityIds": ["spec001:fixture.measure"], "progressFlagIds": ["spec001:fixture.progress"]}},
+    "hints": {"spec001:fixture.hint": {"objectiveId": "spec001:O01", "level": 1}},
+    "objectivePrerequisites": {"spec001:O01": {"kind": "always"}, "spec001:O02": {"kind": "objective-complete", "objectiveId": "spec001:O01"}},
+    "measurementRules": {"spec001:fixture.length": {"readings": {"length": "m"}, "conclusionCodes": ["fixture-inspected"]}},
+    "unsafeFlags": {"spec001:fixture.unsafe-state": ["open-dialogue-transaction", "pending-effect", "room-transition", "cutscene", "active-encounter", "terminal-failure", "E03-shutdown"]}
+  },
+  "semanticCases": [
+    {"id": "uuid-identity-duplicates-ignore-case", "patches": [{"op": "set", "path": "/notebook/hypotheses", "value": [{"id": "aaaaaaaa-0000-4000-8000-000000000001", "text": "First", "subjectIds": [], "status": "open"}, {"id": "AAAAAAAA-0000-4000-8000-000000000001", "text": "Second", "subjectIds": [], "status": "open"}]}], "code": "relationship"},
+    {"id": "uuid-urn-not-bare-uuid", "patches": [{"op": "set", "path": "/adventureId", "value": "urn:uuid:8d189c08-9d3e-41ba-b044-b6c9e2c0d409"}], "code": "schema"},
+    {"id": "uuid-trailing-newline", "patches": [{"op": "set", "path": "/adventureId", "value": "8d189c08-9d3e-41ba-b044-b6c9e2c0d409\n"}], "code": "schema"},
+    {"id": "uuid-case-insensitive", "patches": [{"op": "set", "path": "/adventureId", "value": "8D189C08-9D3E-41BA-B044-B6C9E2C0D409"}], "code": null},
+    {"id": "same-room-anchor-required", "patches": [{"op": "set", "path": "/world/position/safePositionId", "value": "spec001:R02.entry"}], "code": "safe-state"},
+    {"id": "eligible-anchor-state-required", "patches": [{"op": "set", "path": "/world/roomId", "value": "spec001:R02"}, {"op": "set", "path": "/world/position/safePositionId", "value": "spec001:R02.entry"}, {"op": "set", "path": "/safeState", "value": "safe-preparation"}], "code": "safe-state"},
+    {"id": "continue-outcome-needs-continue", "patches": [{"op": "set", "path": "/world/continueOutcome", "value": "E01"}], "code": "safe-state"},
+    {"id": "E02-safe-continue", "patches": [{"op": "set", "path": "/safeState", "value": "safe-continue"}, {"op": "set", "path": "/world/continueOutcome", "value": "E02"}], "code": null},
+    {"id": "objective-requires-previous", "patches": [{"op": "set", "path": "/world/completedObjectiveIds", "value": ["spec001:O02"]}], "code": "objective"},
+    {"id": "objective-valid-chain", "patches": [{"op": "set", "path": "/world/completedObjectiveIds", "value": ["spec001:O01", "spec001:O02"]}], "code": null},
+    {"id": "legal-unique-quantity", "patches": [{"op": "set", "path": "/world/inventory", "value": [{"itemId": "spec001:fixture.probe", "quantity": 2}]}], "code": "relationship"},
+    {"id": "legal-single-item", "patches": [{"op": "set", "path": "/world/inventory", "value": [{"itemId": "spec001:fixture.probe", "quantity": 1}]}], "code": null},
+    {"id": "valid-party", "patches": [{"op": "set", "path": "/world/recruits", "value": [{"characterId": "spec001:fixture.helper", "level": 2, "abilityIds": ["spec001:fixture.measure"], "progressFlags": ["spec001:fixture.progress"]}]}, {"op": "set", "path": "/world/activeAllyIds", "value": ["spec001:fixture.helper"]}], "code": null},
+    {"id": "invalid-recruit-level", "patches": [{"op": "set", "path": "/world/recruits", "value": [{"characterId": "spec001:fixture.helper", "level": 3, "abilityIds": [], "progressFlags": []}]}], "code": "relationship"},
+    {"id": "duplicate-recruit", "patches": [{"op": "set", "path": "/world/recruits", "value": [{"characterId": "spec001:fixture.helper", "level": 1, "abilityIds": [], "progressFlags": []}, {"characterId": "spec001:fixture.helper", "level": 1, "abilityIds": [], "progressFlags": []}]}], "code": "relationship"},
+    {"id": "wrong-hint-objective", "patches": [{"op": "set", "path": "/assistance", "value": [{"objectiveId": "spec001:O02", "hintId": "spec001:fixture.hint", "level": 1, "attemptId": "bf3e42c3-7205-45a3-bfee-5289372bdbdb"}]}], "code": "relationship"},
+    {"id": "wrong-hint-level", "patches": [{"op": "set", "path": "/assistance", "value": [{"objectiveId": "spec001:O01", "hintId": "spec001:fixture.hint", "level": 2, "attemptId": "bf3e42c3-7205-45a3-bfee-5289372bdbdb"}]}], "code": "relationship"},
+    {"id": "same-hint-different-attempt-retained", "patches": [{"op": "set", "path": "/assistance", "value": [{"objectiveId": "spec001:O01", "hintId": "spec001:fixture.hint", "level": 1, "attemptId": "bf3e42c3-7205-45a3-bfee-5289372bdbdb"}, {"objectiveId": "spec001:O01", "hintId": "spec001:fixture.hint", "level": 1, "attemptId": "20000000-0000-4000-8000-000000000001"}]}], "code": null},
+    {"id": "notes-plain-text-preserved", "patches": [{"op": "set", "path": "/notebook/personalNotes", "value": "<script>alert('plain text')</script> Café 🧭\nNo HTML evaluation or normalization."}], "code": null},
+    {"id": "unknown-flag", "patches": [{"op": "set", "path": "/world/flags/spec001:fixture.unlisted", "value": true}], "code": "reference"},
+    {"id": "unknown-fact", "patches": [{"op": "set", "path": "/notebook/factIds", "value": ["spec001:fixture.unlisted"]}], "code": "reference"},
+    {"id": "unknown-quest", "patches": [{"op": "set", "path": "/world/completedQuestIds", "value": ["spec001:fixture.unlisted"]}], "code": "reference"},
+    {"id": "unknown-achievement", "patches": [{"op": "set", "path": "/world/achievementIds", "value": ["spec001:fixture.unlisted"]}], "code": "reference"},
+    {"id": "unknown-effect", "patches": [{"op": "set", "path": "/world/dialogueEffectIds", "value": ["spec001:fixture.unlisted"]}], "code": "reference"},
+    {"id": "unknown-compendium", "patches": [{"op": "set", "path": "/world/compendiumIds", "value": ["spec001:fixture.unlisted"]}], "code": "reference"},
+    {"id": "prototype-key-not-membership", "patches": [{"op": "set", "path": "/world/roomId", "value": "spec001:constructor"}], "code": "reference"}
+  ],
+  "rawCases": [
+    {"id": "leading-nul-object-key", "raw": "{\"\\u0000\":true}", "code": "json"},
+    {"id": "array-is-not-object", "raw": "[]", "code": "schema"},
+    {"id": "scalar-is-not-object", "raw": "null", "code": "schema"},
+    {"id": "malformed-json", "raw": "{", "code": "json"},
+    {"id": "unpaired-high-surrogate", "notesJson": "\"\\ud800\"", "code": "json"},
+    {"id": "unpaired-low-surrogate", "notesJson": "\"\\udfff\"", "code": "json"},
+    {"id": "paired-surrogate", "notesJson": "\"\\ud83e\\udded\"", "code": null},
+    {"id": "escaped-nul-is-plain-text", "notesJson": "\"\\u0000\"", "code": null}
+  ]
+}

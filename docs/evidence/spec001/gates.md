@@ -1,6 +1,6 @@
 # Spec001 G0–G7 evidence ledger
 
-Created 2026-11-25 for T001; reassessed 2026-11-25 at T007, loop 014. **G0 BLOCKED; G1–G7 PENDING.** T008–T011 local preparation has passed; no gate has passed.
+Created 2026-11-25 for T001; G0 reassessed 2026-11-25 at T007, loop 014; G1 reviewed 2026-11-26 at T035, loop 043. **G0 BLOCKED; G1–G7 PENDING.** T008–T011 local preparation has passed; no gate has passed.
 
 Copyright 2026 John Capobianco. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). SPDX-License-Identifier: CC-BY-4.0.
 
@@ -11,7 +11,7 @@ Authority: [constitution](../../../.specify/memory/constitution.md#development-w
 | Gate | Work package / decision task | Required preceding work | Current status | Observed result / reviewer / evidence |
 | --- | --- | --- | --- | --- |
 | G0 | W01 / T007 | T001–T006 evidence and T008–T011 local preparation | BLOCKED | Codex `/root/loop014_t007`, 2026-11-25: local preparation accepted; host capabilities, remaining provider controls and listening remain open. Production registration existence/environment/callback inputs are owner-confirmed. [Reassessment](../../implementation/loops/014-T007.md) |
-| G1 | W02 / T035 | T001–T011, T012–T021, T022–T030, T031–T034; G0 | PENDING | Not executed; reviewer not assigned; no runtime evidence |
+| G1 | W02 / T035 | T001–T011, T012–T021, T022–T030, T031–T034; G0 | PENDING | Codex `/root/loop043_t035`, 2026-11-26: actual guest/packet text investigation reviewed; independent browser exact-limit gap closed. Visual graybox remains a local unmet exit criterion; G0 also remains blocked. [Review](../../implementation/loops/043-T035.md), [US1](US1.md#t035-independent-review--2026-11-26). T035 remains incomplete. |
 | G2 | W03 / T058 | T036–T057 after G1 | PENDING | Not executed; reviewer not assigned; no runtime evidence |
 | G3 | W04 / T067 | T059 measurement harness, T060–T066 after G2 | PENDING | Not executed; owner review pending; no runtime/media evidence |
 | G4 | W05/W06 / T105 | T068–T104 after G3, including first route, outcomes, R12 and optional activities | PENDING | Not executed; reviewer not assigned; no runtime evidence |
@@ -63,6 +63,43 @@ records 306 passing JavaScript checks with 83 pending evaluator cases, 57 PHP te
 19 combined browser checks and an independently matched 66-file input seal. No shared
 foundation failure remains. T022 guest expectations and independent T024 rule work
 now proceed; authored gameplay, packet interaction and G1 acceptance remain pending.
+
+### T035 review, loop 043 — 2026-11-26
+
+Reviewer: Codex `/root/loop043_t035`; agent code/browser/visual review, not human
+learning, assistive-technology or owner acceptance. Reviewed source checkpoint
+`a252a092b442465c2e94562bb6ec5a454c7a7e6b`, with the separately registered T035
+test-only browser bench. The prior foundation statement above is retained as
+history; T025–T030 and T031–T034 are now accepted within their task scopes.
+
+| G1 criterion | Observed evidence | Review result |
+| --- | --- | --- |
+| Actual unsigned-in R01/R02 four-verb investigation, meaningful dialogue/inventory, notebook and hypothesis | T030's nine real guest cases and four joined state cases pass. Independent T035 fresh guest completed O01/O02, skipped both clue dialogues, retained literal notes and traveled back to R01 using actual main/content/controllers. | PASS for the semantic text investigation; not full FR-001/003/AC04 across the episode. |
+| Independent correct/incorrect/boundary and T14 rules | T024's reviewed evaluator evidence; actual guest/packet 95 m and 105 m outcomes. T035 adds one trusted-HTTPS browser test containing seven real evaluator checks: T01, T02, B-COPPER-100, B-COPPER-OVER and all three T14 variants. | PASS for this rule slice. The 100 m case is a labeled test-only bench, not an invented player path. |
+| Initial packet payload, mapping, pause/step/replay and shared physical state | T034's five actual-app cases; T035 independently observed 105 m / recovered 4E50 / bit 15 mismatch, then actual path change to 95 m / 4E51 match. Older notebook measurement stayed stale until explicit reinspection. | PASS for R01. R12/full AC21 remain T090/T091. |
+| Visual playable graybox | PLAN.md's G1 build-order row requires “Playable graybox”; W02 requires “one R01/R02 graybox”. Actual application mounts the semantic shell only, leaves `presentationHost` empty and never creates a RoomAdapter. Fresh screenshots show a text scene. | **NOT MET — G1-LOCAL-01.** Text controls do not waive the visual graybox criterion. |
+| G0 prerequisite | Existing host coverage/retention/resource-limit evidence, remaining provider controls and genuine listening remain outstanding as listed above. | **BLOCKED externally.** No new credential request or unchanged audit retry. |
+
+Smallest local correction: use one original temporary renderer and explicit R01/R02
+presentation layouts for simple floor/object/character/exit geometry and a safe
+position marker. Join `createRoomAdapter`, `createResourcePool` and the existing
+shell `presentationHost`; reuse `verbs.objects()` / `createSceneObjectProjection`
+and `RoomRenderRequest.capture(controlId)` for visual actions. Forward the original
+adapter capture to the shell. No renderer may mutate game state or award progress.
+Existing walk regions/safe positions give the logical floor; camera/hotspot
+placement belongs in a narrow presentation-only mapping because it is not yet
+authored. Verify real visual/semantic parity, room changes, old-input invalidation,
+fallback/recovery, resizing and disposal in a fresh corrective T035 loop. Temporary
+DEV geometry counts as **zero finished assets**.
+
+The missing graybox and external G0 inputs keep T035 incomplete and aggregate G1
+PENDING. Full hint controls/assistance tracking (T074), later rooms/routes,
+finished media, real OAuth/save, actual Safari/full browser and access matrices,
+human technical/beginner/assistive review and owner acceptance remain separate
+unaccepted scope. Existing objective hint data is not an implemented hint UI.
+See [US1 review](US1.md#t035-independent-review--2026-11-26) and the
+[sealed loop note](../../implementation/loops/043-T035.md) for exact results,
+failure history and artifacts. No deployment or complete-episode claim follows.
 
 ## G2 — identity, one save and world structure
 
@@ -127,6 +164,7 @@ If publication is not initiated, retain prepared artifacts and PENDING publicati
 | 2026-11-25 | T002 | Verified selected local Node/PHP/Composer runtimes and PHP extension primitives; G0 remains PENDING | [Runtime audit](runtime.md), [loop note](../../implementation/loops/002-T002.md); local tool checks do not establish host or application readiness |
 | 2026-11-25 | T007 | Codex `/root/loop009_t007` reviewed actual feasibility evidence and recorded G0 BLOCKED; G1–G7 remain PENDING | [Loop note](../../implementation/loops/009-T007.md); local runtime/source and technical media subchecks accepted within scope; host/provider/listening/dependency/terms work remains open. Local setup reorder proposed, not adopted by this task. |
 | 2026-11-25 | T007 reassessment | Codex `/root/loop014_t007` accepted T008–T011 evidence and owner-confirmed production registration inputs; G0 remains BLOCKED, G1–G7 PENDING | [Loop note](../../implementation/loops/014-T007.md); host H01–H04, remaining basic P01/P02 controls/P04 and human listening remain open. No independent G0 work is ready without changed input. Later provider testing, production media and publication requirements retain their own gates. |
+| 2026-11-26 | T035 review | Codex `/root/loop043_t035` reviewed actual guest/packet play and closed the browser exact-limit evidence gap; G1 remains PENDING and T035 incomplete | [Loop note](../../implementation/loops/043-T035.md); local visual graybox missing, external G0 prerequisite blocked. Existing scoped passes remain valid; no media/human/episode acceptance. |
 
 T006 source/arithmetic evidence was accepted after loop008: [technical review](rule-source-review.md), 13 primary sources and 387 worksheet checks. This satisfies the scoped pre-implementation review task; it does not close G0 or human/application acceptance.
 

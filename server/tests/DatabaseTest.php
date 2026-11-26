@@ -166,6 +166,28 @@ final class DatabaseTest extends TestCase
         $this->rejected(fn () => $statement->execute(['{"x":"' . str_repeat('a', 262144) . '"}']));
     }
 
+    public function testExternalUuidCasePreservesExactPayloadAndAcknowledgement(): void
+    {
+        // Shared format:uuid accepts uppercase. Storage must not turn a valid
+        // validator candidate into an internal error or rewrite snapshot bytes.
+        $pdo = $this->ready();
+        $this->account($pdo);
+        $this->save($pdo);
+        $uuid = 'ABCDEFAB-CDEF-4ABC-8DEF-ABCDEFABCDEF';
+        $payload = "{\"adventureId\":\"" . $uuid . "\", \"future\":true}\n";
+        $pdo->prepare('UPDATE saves SET adventure_id=?, payload_json=?, payload_hash=?')
+            ->execute([$uuid, $payload, hash('sha256', $payload)]);
+        $this->receipt($pdo, self::A, $uuid);
+        self::assertSame($uuid, $pdo->query('SELECT adventure_id FROM saves')->fetchColumn());
+        self::assertSame($payload, $pdo->query('SELECT payload_json FROM saves')->fetchColumn());
+        $ack = json_decode($pdo->query('SELECT acknowledgement_json FROM write_receipts')->fetchColumn(), true, flags: JSON_THROW_ON_ERROR);
+        self::assertSame($uuid, $ack['requestId']);
+        foreach (['GBCDEFAB-CDEF-4ABC-8DEF-ABCDEFABCDEF', $uuid . "\n", 'urn:uuid:' . $uuid] as $invalid) {
+            $this->rejected(fn () => $pdo->prepare('UPDATE saves SET adventure_id=?')->execute([$invalid]));
+            $this->rejected(fn () => $this->receipt($pdo, self::A, $invalid));
+        }
+    }
+
     public function testSessionsAttemptsAndAccountRemovalHaveRealForeignKeys(): void
     {
         $pdo = $this->ready();

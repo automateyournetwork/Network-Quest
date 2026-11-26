@@ -154,6 +154,20 @@ from stored-version reading, and return provisional results without HTTP writes
 or bypassing T043's authorization/receipt-first transaction. It owns separate
 validator/test files; real auth/save route composition and G2 still join later.
 
+After T038 acceptance, T039/T040 may implement provider adapters with synthetic
+HTTP/signature/identity tests against the verified local session/storage ports.
+This does not start real provider flows or certify registrations/branding/grants.
+T041 joins one-use transactions and route/session composition; the existing G0
+provider controls and G2 separate-environment/actual-provider acceptance remain
+mandatory. Keep external tokens out of persistence and all public/log outputs.
+
+With T037/T038/T042 accepted, T043 may implement the isolated single-slot
+repository on those actual database/session/provisional-validator interfaces and
+T036 expectations while provider adapters and G1 review continue independently.
+It must exercise receipt-first final authorization/atomicity in synthetic private
+storage, without enabling HTTP routes or claiming real provider/client SAVE
+acceptance. T044/T048–T057 still join routing, UI and actual provider evidence.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -308,11 +322,11 @@ validator/test files; real auth/save route composition and G2 still join later.
 
 - [X] T036 [US4] Author SAVE01–13, auth rejection, concurrency, schema and logout expectations in `server/tests/Fixtures/save-cases.json` and `tests/fixtures/save-conformance.json`; include committed-save retry after changed write policy, a receipt appearing during validation, and lost deletion responses with pending/completed/unknown/expired status. Retain the hypothetical older-content baseline in `tests/fixtures/save-migration-baseline.json`, unsafe/E03 states and clarified cancel/confirm behavior.
 - [X] T037 [US4] Implement dedicated accounts/identities/sessions/auth_transactions/preferences/saves/receipts/migrations tables in `server/migrations/001_game.sql` and `server/src/Database.php`; enforce one slot/account, provider-subject uniqueness and private rollback-journal storage.
-- [ ] T038 [US4] Implement opaque Secure/HttpOnly/Lax host-only sessions, rotation, idle/absolute expiry, same-origin CSRF and redacted/rate-limited requests in `server/src/Sessions.php` and `server/src/Security.php`; GET session bootstraps guest CSRF without granting identity.
+- [X] T038 [US4] Implement opaque Secure/HttpOnly/Lax host-only sessions, rotation, idle/absolute expiry, same-origin CSRF and redacted/rate-limited requests in `server/src/Sessions.php` and `server/src/Security.php`; GET session bootstraps guest CSRF without granting identity.
 - [ ] T039 [P] [US4] Implement Google authorization-code/S256 and verified required iss/aud/sub/exp/iat/nonce checks in `server/src/Identity/Google.php`; request openid profile only, validate one-use session-bound state and discard provider tokens after identification.
 - [ ] T040 [P] [US4] Implement GitHub GenericProvider/S256 with explicit empty scopes and GET /user stable numeric ID in `server/src/Identity/GitHub.php`; avoid email/repository access, implicit account merging and token persistence.
 - [ ] T041 [US4] Implement POST auth start, GET callback and GET session in `server/src/Routes/Auth.php`; bind fixed callbacks, ten-minute one-use transactions and deletion reauth purpose, rotate sessions and emit only an origin-safe completion hint to the retained game tab.
-- [ ] T042 [US4] Implement strict Draft2020-12/format/registry/safe-state validation in `server/src/SaveValidator.php` and `src/services/save-validator.ts`; enforce 262144 UTF-8 bytes, 4096 Unicode note characters and bounded/known fields for new writes. Return provisional semantic errors to the coordinator; do not bypass receipt-first replay resolution.
+- [X] T042 [US4] Implement strict Draft2020-12/format/registry/safe-state validation in `server/src/SaveValidator.php` and `src/services/save-validator.ts`; enforce 262144 UTF-8 bytes, 4096 Unicode note characters and bounded/known fields for new writes. Return provisional semantic errors to the coordinator; do not bypass receipt-first replay resolution.
 - [ ] T043 [US4] Implement single-slot writes in `server/src/SaveRepository.php`: authenticate/bound requests, resolve retained account/key receipts before current semantic policy, validate still-new candidates outside the lock, then BEGIN IMMEDIATE and recheck authorization/receipt before returning a cached validation error or comparing revision. Fingerprint mode/confirmation/precondition/exact bytes; atomically write snapshot/revision/receipt and report committed versus current revision separately.
 - [ ] T044 [US4] Implement GET/PUT save and conditional PATCH preferences in `server/src/Routes/Save.php` and `server/src/Routes/Preferences.php`; enforce create/replace headers, manual adoption, automatic opt-in/same-adventure checks and specified 401/403/409/412/413/422/428/429/503 responses.
 - [ ] T045 [US4] Implement durable private deletion intents and 24-hour hashed receipt bindings outside DB rollback sets in `server/src/DeletionLedger.php`, `server/src/DeletionReceipts.php` and `server/src/AccountDeletion.php`; serialize with saves, mark completed only after live-data/session removal commits, reconcile both crash windows and retain longer-lived deletion markers independently of receipt expiry.

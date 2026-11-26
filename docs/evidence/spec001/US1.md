@@ -1,4 +1,4 @@
-# US1 guest investigation — T030 evidence
+# US1 guest investigation — T030 evidence and T035 review
 
 Date: 2026-11-26. Worker: `/root/loop041_t030`, loop 41/200.
 **Scoped result: all nine independent guest browser journeys PASS; four joined
@@ -144,5 +144,122 @@ finished art/audio and owner satisfaction remain separate evidence. OAuth and
 durable saving remain unimplemented integrations; unavailable provider buttons
 are not sign-in acceptance. G0 external blockers, G1–G7 and the full episode are
 not passed here. No host/provider change, publication or deployment occurred.
+
+## T035 independent review — 2026-11-26
+
+Reviewer: Codex `/root/loop043_t035`, loop 43/200. **The actual R01/R02 text
+investigation satisfies the four US1 scenarios within this opening. Aggregate
+G1 remains PENDING and T035 remains incomplete:** the required visual graybox is
+missing, and G0's external prerequisites remain blocked. This addendum preserves
+the T030 run and failure history above; it does not turn a useful text opening
+into a finished room, full FR-001/003 acceptance or a completed episode.
+
+The review covered the actual main/application composition, authored R01/R02 and
+dialogue/objective data, canonical tutorial candidate composition, measurement
+creation/freshness and packet activity lock. O01 requires both distinct observed
+facts plus a current actual inspection; an over-limit reading can complete the
+inspection lesson without becoming a repair. O02 requires retained endpoint/path
+facts and nonempty player writing. Neither a render nor a dialogue skip can invent
+physical success. Packet and notebook share `introductionCopperChallenge` and
+`evaluateCopper`; the separate toy substitution is explicitly declared, not
+predicted from the cable length. Source/profile review remains the accepted T006
+record, not a newly claimed human content review.
+
+The reviewer independently matched all 13 loop040 seals and 35 of 36 loop041
+seals before editing this report. The only then-changed loop041 input was
+`playwright.config.ts`, where root explicitly registered the new T035 bench.
+The post-T030 textarea fix matched the joined checkpoint's stylesheet hash.
+No actual application, rule, source registry, content or independent expectation
+file changed during T035. The historical report hashes remain historical.
+
+### Fresh actual application observation
+
+A new unsigned-in Firefox 159.0 profile loaded the real `src/main.ts` via the
+disposable trusted HTTPS harness on the verified Mac/Node/PHP environment above.
+There was no routing replacement, prepared save, installed guest state, runtime
+test hook or fake evaluation in this journey. Native keyboard and pointer controls
+performed New Adventure → power/link observations → Photon/Skip → actual
+inspection → Walk to R02 → Titan/Skip → endpoint/path inspection → hypothesis.
+Both objectives displayed Completed. A literal `<b>literal note</b>` note and
+typed `wltuinc` remained text with focus retained. Declining the invitation left
+the honest session-only label and allowed return travel.
+
+Back in R01, keyboard steps displayed 105 m / 5 m excess, recovered 4E50 and bit
+15 mismatch. Changing the actual physical path and stepping again displayed 95 m /
+5 m headroom and the original 4E51 pattern. The prior notebook result stayed
+105 m/stale until an explicit inspection added 95 m/current. No API write,
+external request or pageerror occurred; every pageerror remained fatal.
+
+The independent driver completed successfully after correcting one reviewer
+locator error: `Completed` is part of each objective paragraph, not a standalone
+text node. The final assertions check both named objective rows. No application
+change or relaxed completion expectation was needed. Five fresh screenshots were
+visually inspected: arrival, Photon dialogue, completed Workshop notebook, 390 px
+packet failure and desktop packet success. Text, focus, skip/return controls,
+source/freshness and hypothesis separation were visible. Narrow packet tables
+use the documented horizontal scroll; page width did not overflow. The notebook
+and packet panels are long text views, so these observations do not establish
+beginner usability or manual assistive acceptance.
+
+### Exact-limit browser evidence added
+
+The actual player path offers 95 m and 105 m only. Earlier browser suites did not
+exercise the exact 100 m limit; domain tests alone did not meet PLAN.md's explicit
+browser boundary requirement. With coordinator-approved ownership, T035 added
+`tests/e2e/physical-boundaries.spec.ts`. It leaves the independent fixture unchanged
+and uses a visibly labeled test-only rule bench importing the real copper/evaluate
+modules. Only this isolated bench suppresses `src/main.ts`; it never installs an
+adventure, measurement, objective, receipt or save. Expected answers stay in the
+test process, separate from the browser code under test.
+
+| Prepared case | Browser result | Scope |
+| --- | --- | --- |
+| T01 | 85 + 10 = 95 m; correct; headroom 5 m | Length only; no effects or whole-route proof |
+| T02 | 95 + 10 = 105 m; incorrect; excess 5 m | Same limited scope |
+| B-COPPER-100 | 90 + 10 = 100 m; correct; headroom 0 m | Inclusive exact boundary, activated with Enter |
+| B-COPPER-OVER | 90 + 10.01 = 100.01 m; incorrect; excess 0.01 m | No rounding into success |
+| T14, all three variants | Missing unit, negative passive loss and unknown profile each return content-error | Zero attempt penalty, zero progress award, no effects |
+
+Command:
+
+```sh
+PATH="$PWD/.runtime/node-v26.13.1-darwin-arm64/bin:$PATH" \
+NQ_PHP_BIN=/opt/homebrew/opt/php@8.4/bin/php \
+node node_modules/@playwright/test/cli.js test tests/e2e/physical-boundaries.spec.ts \
+  --project=firefox-local-https --workers=1 --output=test-results/t035-boundary
+```
+
+Result: **1 browser test PASS containing 7 evaluator checks**, 3.5 seconds,
+0 skips. `npm run typecheck` also passed. TLS verification was enabled; context,
+private trust/profile and servers were cleaned. Port 4173 had no listener after
+the checks. The full existing suites were not rerun; their exact combined
+58/59 run plus three affected-case passes remain in the
+[joined checkpoint](../../implementation/joined-guest-packet-checkpoint.md).
+
+### Local defect and next action
+
+**G1-LOCAL-01 — visual graybox absent.** PLAN.md's G1 exit requires “Playable
+graybox”, W02 requires “one R01/R02 graybox”, and the gate ledger requires an
+actual browser R01/R02 graybox. The current application renders a text scene,
+leaves `AppShell.presentationHost` empty and does not instantiate `createRoomAdapter`.
+The existing T018 adapter tests prove a boundary, not actual room presentation.
+The semantic investigation passes above cannot close this criterion.
+
+Root will assign a fresh corrective T035 loop to join the existing RoomAdapter,
+resource pool, shell surface and shared scene projection with original temporary
+R01/R02 geometry and presentation-only placements. Visual controls must capture
+the same semantic actions, retain text fallback and survive room/new-run lifecycle
+changes without stale effects. Targeted visual/keyboard parity and recovery checks
+must pass, then T035 can reassess the local criterion. This needs no finished
+Blender/OpenAI/audio assets; temporary geometry still counts as zero finished media.
+
+G0 retention/provider-control/listening evidence remains separately outstanding.
+Real OAuth/durable save, interactive hints/assistance tracking (T074), later rooms,
+R12/full AC21, complete media, real Safari/full accessibility/performance,
+human learning/technical/assistive review and owner satisfaction remain pending.
+This review does not claim full AC01–21 acceptance. Sealed input/artifact hashes,
+the exact local review driver and screenshot identities are recorded in the
+[loop043 note](../../implementation/loops/043-T035.md). No credentials, production
+host/provider changes, publication or deployment were used.
 
 Copyright 2026 John Capobianco. SPDX-License-Identifier: CC-BY-4.0.

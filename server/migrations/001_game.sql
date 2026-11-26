@@ -81,8 +81,9 @@ CREATE TABLE saves (
     saved_at INTEGER NOT NULL CHECK (saved_at BETWEEN 0 AND 253402300799),
     schema_version INTEGER NOT NULL CHECK (schema_version BETWEEN 1 AND 9007199254740991),
     content_version TEXT NOT NULL CHECK (length(content_version) BETWEEN 1 AND 32 AND instr(content_version, char(0)) = 0),
+    -- External UUID text follows format:uuid, including uppercase hex; payload bytes stay exact.
     adventure_id TEXT NOT NULL CHECK (length(adventure_id) = 36 AND adventure_id GLOB '????????-????-????-????-????????????'
-        AND length(replace(adventure_id, '-', '')) = 32 AND replace(adventure_id, '-', '') NOT GLOB '*[^0-9a-f]*'),
+        AND length(replace(adventure_id, '-', '')) = 32 AND replace(adventure_id, '-', '') NOT GLOB '*[^0-9a-fA-F]*'),
     payload_json TEXT NOT NULL CHECK (length(CAST(payload_json AS BLOB)) BETWEEN 2 AND 262144 AND json_valid(payload_json) AND json_type(payload_json) = 'object'),
     payload_hash TEXT NOT NULL CHECK (length(payload_hash) = 64 AND payload_hash NOT GLOB '*[^0-9a-f]*'),
     summary_json TEXT NOT NULL CHECK (length(CAST(summary_json AS BLOB)) BETWEEN 2 AND 4096 AND json_valid(summary_json) AND json_type(summary_json) = 'object')
@@ -91,7 +92,7 @@ CREATE TABLE saves (
 CREATE TABLE write_receipts (
     account_id TEXT NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
     request_id TEXT NOT NULL COLLATE BINARY CHECK (length(request_id) = 36 AND request_id GLOB '????????-????-????-????-????????????'
-        AND length(replace(request_id, '-', '')) = 32 AND replace(request_id, '-', '') NOT GLOB '*[^0-9a-f]*'),
+        AND length(replace(request_id, '-', '')) = 32 AND replace(request_id, '-', '') NOT GLOB '*[^0-9a-fA-F]*'),
     fingerprint TEXT NOT NULL CHECK (length(fingerprint) = 64 AND fingerprint NOT GLOB '*[^0-9a-f]*'),
     committed_revision INTEGER NOT NULL CHECK (committed_revision BETWEEN 1 AND 9007199254740991),
     committed_at INTEGER NOT NULL CHECK (committed_at BETWEEN 0 AND 253401695999),

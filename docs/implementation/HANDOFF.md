@@ -1,119 +1,182 @@
 # Network Quest implementation handoff
 
-The owner initiated implementation on 2026-11-25: one task per fresh-agent loop, durable notes, a 200-loop cap, and continuation through routine issues. Current task/loop state is authoritative in `docs/implementation/state.json`; full attempts remain in `docs/implementation/loops/`.
+The owner initiated implementation on 2026-11-25 and authorized continuous work
+through Spec001 acceptance, reviewed GitHub publication and accepted arcade
+release. Use one task per fresh worker, durable notes and the existing 200-loop
+cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Resume procedure
 
-1. Read `AGENTS.md`, `.specify/memory/constitution.md`, and the implementation skill. The coordinator already ran prerequisite and checklist checks: requirements 16/16 complete, remediation no unchecked items. Repeat only if inputs change.
-2. Read state.json, this handoff, and relevant recent loop notes. Use one fresh worker (`fork_turns: none`) per task iteration; coordinator review is not another loop. Independent [P] tasks may overlap in separate workers with disjoint files. Join required work and respect the task execution table before dependent tasks.
-3. Record actual scoped evidence. Check a task only after its required work is verified; preserve partial attempts and unmet gates. Do not retry an unchanged external blocker repeatedly.
-4. Preserve existing uncommitted planning and implementation changes. The owner now explicitly authorizes reviewed scoped GitHub commits/pushes and deployment/arcade integration of the accepted release after required reviews. Inspect staged changes; never publish private website/operator/runtime/player data. Optional automatic hooks stay disabled; root coordinates commits. External messages and later episodes remain outside scope.
+1. Read AGENTS.md, the constitution, SPEC.md/PLAN.md and the implementation skill.
+   Prerequisite/checklist setup already passed (requirements16/16, remediation
+   complete); repeat only when its inputs change.
+2. Read [state.json](state.json), the current feature documents/task schedule and
+   relevant recent loop notes. State is authoritative for counters and ownership.
+   Use one fresh worker (`fork_turns: none`) per task iteration. Coordinator review
+   is not another loop. Independent tasks may overlap only on verified inputs and
+   disjoint files; explicit local scheduling exceptions are in tasks.md.
+3. Keep genuine failures and partial attempts. Check a task only after verified
+   completion. Source preparation and task counts never pass an aggregate gate.
+4. Continue independent work while external capabilities remain unresolved. The
+   blanket stop from loop014 was superseded by the owner's direction; see
+   [execution-direction.md](execution-direction.md). Do not repeat unchanged
+   external probes or ask for already-confirmed credentials/registration details.
+5. Root owns tracking, staging, review, commits and pushes. Optional automatic Git
+   hooks remain disabled. Workers do not change counters, publish or spawn workers.
 
-## Current position
+## Current position — 2026-11-26
 
-- Loops started: 42 of 200. Verified tasks: T001/T002/T006/T008/T009/T010/T011/T012/T013/T014/T015/T016/T017/T018/T019/T020/T021/T022/T023/T024/T025/T026/T027/T028/T029/T031/T032/T033/T034/T036 (30/170). Loop020 T015 accepted after correction; loops019 host probes and021 scaffold licensing completed and reviewed. Loop022 T016 and loop023 T019 accepted. Loop024 T020 accepted. Loop025 T017 accepted: 25 action tests and 10 trusted-HTTPS browser checks; capture scopes prevent stale same-version inputs. Loop026 T018 accepted: 27 presentation tests, 2 native browser checks; joined 306 PASS / 83 TODO and check/build PASS. Loop027 T021 accepted: independent seal matched, 19 combined browser checks and 57 PHP tests pass. Loop028 T022 accepted: 20 fixture checks and scoped types pass; genuine GI01 RED, all9 guest browser cases visibly pending. Loop029 T024 accepted:53 evaluator/regression tests plus165 transcription checks pass,15 reviewed cases activated and68 remain TODO. Loop030 T023 accepted:11 authored records,89 focused content checks and strict check pass; exact hotspot-choice graph proof and malformed-entry regression fixed. Loop033 T031 accepted:81 preparation checks/strict types pass,39 runtime cases remain TODO; root matched all11 source/artifact hashes. Loop032 T025 accepted:85 focused/4 native browser checks pass,19 code/input seals match root review, scoped strictcompile/content validation pass; loop034 T026 accepted:105 joined focused/4 native checks and scopedtypes pass; root matched12 seals. Open dialogue owns an empty reducer dialogue-transaction lock; skip/replay/lifecycle corrections verified. Loop031 T036 accepted:79 JS checks and53 PHP tests/901 assertions pass; all13 source/artifact hashes match root review,151 service expectations/13 SAVE rows/11 overlap schedules remain behavioral-pending; scheduling is recorded in tasks.md. Loop036 T027 starts notebook/measurement against accepted T025/T024 ports. Loop035 T032 accepted:90 actualpacket tests/81 preparation checks/strict types pass,12 seals matched;5 controlcases/68 sharedphysical cases remain TODO. Loop037 T028 accepted:88 focused/3 nativechecks and scopedtypes pass,18 seals matched; rootinspected390px screenshot; loop039 T029 starts actualguestcomposition using implemented T027ports; loop038 T033 starts packet controls using accepted T032; guest/R01 integration remains pending. Disjoint ownership; final wiring joins actual interfaces.
-- The owner instructed “proceed only stop if its urgent” and challenged the blanket halt after loop014. Coordinator corrected execution scheduling in [execution-direction.md](execution-direction.md), plans/tasks/gates/AGENTS/README. Continue independent local work on actual verified prerequisites. Do not repeat the old blanket G0/foundation stop. Aggregate gate acceptance and capability-specific integration/media requirements remain open and unchanged.
-- T001 evidence index, T002 local runtime, T006 reviewed sources/cases, T008 client locks/build/secret exclusion, T009 Composer/platform/production install, T010 licenses/inventory/OpenAI terms, T011 HTTPS/PHP bootstrap all passed their scoped checks. Read respective evidence and loop notes as needed, not every historical report each loop.
-- T005 technical Blender/audio feasibility passes; actual listening remains pending. No production assets are accepted by those smoke checks. Production Audacity4 native and per-asset acceptance remain later.
-- T007 assessments in loops009/014 recorded G0 BLOCKED. Their blanket scheduling restriction is superseded; their observations and unverified evidence remain valid. T007 stays unchecked until full G0 clearance. No overall gate passed.
-- T013 accepted: modular 65-definition schema and complete world metadata;28 positive/22 negative probes, exact SPEC IDs/names/graph/counts. T014 accepted: 83 reviewed cases, 165 transcription checks and 83 honest evaluator TODOs. No evaluator/gameplay acceptance claimed.
-- Loop021 preserved the exact Spec Kit MIT notice and 54-file scaffold provenance before publication. Original operator-specific notes were preserved privately; public notes retain sanitized capability evidence.
-- T015 accepted: 51 content tests; combined 216 PASS/83 evaluator TODO; CLI validates 12 room identities / 0 authored / 3 routes. Concrete choice/order/recovery proof fails closed above 4,096 states per branch; generated validators are CSP-safe and deterministic. Future authored complexity may need reviewed optimization.
-- Independent foundation scheduling: PHP-only T019 can overlap T016 on accepted T009/runtime/API inputs and disjoint server files. Its scoped readiness is documented in tasks.md; join all foundation tasks before T021/story work.
-- T019 accepted: 57 PHP tests / 279 assertions; exact inert API routes and isolated SQLite/TLS/native-session harness. No real identity/save/account service. T020 uses finalized PHP entry and explicit local proxy token; production rejects test configuration.
-- T016 accepted: 38 reducer tests; combined 254 PASS / 83 evaluator TODO. Atomic alternative batches, stable durable receipts, explicit consumed-tool recovery and fresh retry primitive preserve save v1. Navigation/binding integration and minigame predicate mapping remain named later dependencies in loop022.
-- T020 accepted: actual check/test:domain/test:api/test:e2e commands; 254 JS PASS / 83 evaluator TODO, 57 PHP tests / 279 assertions, 7 browser checks including isolated trusted Firefox HTTPS, 10 transport groups. Future UI tests discovered; browser specs must be explicitly assigned or discovery fails. All temporary trust/server state cleaned.
-- T017 accepted: native DOM controls, preserved focus/text/captions, and bus-owned projection capture scopes; pointer/keyboard/touch parity and late-status invalidation regressions pass. Root inspected desktop/390px screenshots. Synthetic shell evidence does not certify gameplay or manual assistive-technology acceptance.
-- T018 accepted: bounded leases/resources/preparations, scope-preserving room fallback and optional native audio. Review regressions prevent late attach/play after cancellation. Root independently matched code and interface fingerprints in loop026. No finished renderer, media quality or performance acceptance claimed.
-- T021 accepted: foundation.md records matched unchanged checks, 306 JS PASS / 83 evaluator TODO, 57 PHP tests and 19 browser checks, independent boundary review and cleanup. No shared failure remains; G0/G1 acceptance stays open.
-- T022 accepted: independent prepared power/link/scope facts and functional UI vocabulary; actual bootstrap RED and9 explicit pending browser cases, no gameplay pass. T030 must remove pending guard and pass every case.
-- T024 accepted: scoped fictional copper length/continuity and authored-unit guards; exact decimal comparison, no full-link claim or effects. Richer world state is projected to the two freshness fields only. Root matched all7 note hashes, including unchanged source/fixtures.
-- T023 accepted: original R01/R02 prose,10 facts,1 nonconsumable kit, O01/O02 flag conditions and exact reviewed profiles. Root matched15 seals and unchanged world metadata. Read loop030 controller/receipt handoff before wiring; static markers cannot invent measurements or player hypotheses. Development references count as0 finished assets.
-- T036 accepted: independent schema/auth/save/deletion/concurrency/migration expectations; no service/provider acceptance. Root reviewed receipt-first/error recheck ordering, true-overlap schedules, deletion receipt isolation/expiry and hypothetical migration preservation. API auth-start now explicitly declares400 for malformed bodies using the existing BadRequest response. Read loop031 before implementing T037–T058.
-- Root visual review during T025 removed development-status prose from R01/R02 walk labels, prop descriptions, ambience, packet-window description and inspection-kit description. IDs/effects/conditions/facts/DEV asset references/empty audio are unchanged; finished media count remains0.31 focused introduction/guest checks pass. Historical T023/T031 content hashes describe their original verified snapshots; record current input hashes for subsequent integrations.
-- T025 accepted; read loop032 stable controller/store interfaces and native keyboard/pointer/touch evidence. Root inspected desktop/390px screenshots. Full repository check joins in-progress T026/T032;9 guest journeys remain pending.
-- T027 integration caution: T016 conservatively advances configuration for flag/inventory/room changes. Measurement creation must be atomic with its trusted interaction: prepare canonical inspection effects, evaluate actual copper against the resulting candidate world/version, then commit that exact observation and notebook together. Never evaluate an older version and relabel its measurement current. More precise physical-dependency policy, if needed, requires meaningful regression checks.
-- T026 integration: composecontroller listeners beforeapplicationrenderlistener; store CAS swapsstateonly, no renderingmidcommit. Pair dialogue.invalidate withbusinvalidations onrestore/logout/newrun. Finalbootstrapjoinsallports beforeguestacceptance.
-- Root fixed development authoredJSON imports in vite.config.ts during notebook nativeintegration: only canonical content/spec001 JSON is allowed, private/symlink guards retained, preview remainsdistonly. Actual404 RED followed by11 transportverificationgroupsPASS; see docs/implementation/dev-content-boundary.md.
-- Loop038 T033 accepted:361 scoped checks/68 existing TODOs,7 native Firefox cases plus3 affected motion cases pass; root matched11 seals and reviewed timer/session/context boundaries. Loop040 T034 now integrates real R01 activity on disjoint state/tests; T029 retains app composition until handoff. T027 focus crash remains under native diagnostic; no task/gate acceptance inferred.
-- Loop036 T027 accepted:98 scoped/shared checks, stricttypes and5 nativeFirefox checks PASS; root matched14 seals and independently viewed mobile image. Recursive Playwright role/label queries caused nativeFirefox SIGSEGV; equivalent native label.control and sectionheading associations preserve all behavior/axe checks, limitation recorded. Shared reducer/bus released.
-- Loop039 T029 accepted:14 actualjoined/controller cases and3 realbootstrap nativecases pass, unfiltered pageerrors absent after roottransportfix; check/build PASS,30 seals matched and rootviewed390px screenshot. Actualguesttitle/O01/O02/cancelnewrun/declineinvitation are implemented; independent9guest acceptance remainsT030. App composition released toT034 for packet integration.
-- Loop040 T034 accepted after rootfinishedappwiring:28adaptercases/286dependencies and5 actualbootstrapnativecases PASS; rootvisualfix adds keyboardscrollabletables (affectedcasePASS). Joined819clientPASS/68TODO and110PHPtests1180assertions PASS. Loop041 T030 now runs9guestcases. Earlierworkercrediterror did notpreventfreshT030workerstarting; no persistentcapacityblocker inferred.
-- Loop042 T037 begins independent isolated PHP database/migration implementation on accepted T009/T019/T036 inputs, with separate server files. No auth/save route, provider flow, host migration or G1/G2 acceptance follows; explicit scheduling rationale is in tasks.md.
-- Loop041 T030 accepted: nine actual guest browser journeys and four joined state cases PASS; 53 focused checks/check PASS, root matched all36 seals. Full joined browser run passed58/59 with one200%-text textarea overflow; root constrained textarea width and all3 affected cases passed. See joined-guest-packet-checkpoint.md. T035 review is next; no aggregate gate accepted.
-- Loop043 T035 starts independent guest/packet diagnostic review. G0 remains blocked; record local criteria separately and preserve any unmet gate requirement. Browser exact-limit evidence is explicitly under review.
-- Loop042 T037 accepted:17 focused tests/144 assertions and127 total PHP tests/1324 assertions PASS; root reviewed code/tests and matched13 seals. Dedicated private rollback-journal schema, atomic migrations and real overlapping connection checks are implemented. T038 local session/security services can proceed; routes/provider/save acceptance stays separate.
-- Loop044 T038 starts isolated session/security implementation. Root accepted T037 first; service tests use only disposable private storage. T041 will compose real routes.
-- Loop045 T042 starts pure client/server save validation on accepted schemas/content registry and independent T036 cases. It returns provisional results for receipt-first T043 coordination, with no route/identity/save writes. Scope is disjoint from T038; actual service integration remains later.
-- Next local sequence: T025–T030 guest controllers/integration -> packet slice; independent T036 fixtures stay separate. Maintain source-before-evaluator and tests-before-corresponding-implementation requirements, real shared-code dependencies, and one task per fresh worker with durable notes.
-- No new secret/provider/SSH input is needed for local state types or guest gameplay. Resume external audits when input changes. Do not request already-confirmed production registrations/callbacks/pairs again. Pending question asks only remaining non-secret provider controls; existing listening question also remains pending.
+**48 loops started; 34 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
+Current active ownership is in state.json:
 
-## Reviewed Git checkpoint
+- Loop046/T035: corrective visual graybox integration after loop043's independent
+  review found G1-LOCAL-01. Root matched all32 review seals and inspected the actual
+  text scene. The exact100m browser-boundary gap is closed. Use the existing
+  RoomAdapter/resource pool and shared captured semantic actions; no finished
+  asset counts or aggregate G1 acceptance follow. Loop043 history remains intact.
+- T038 accepted in loop044:28 focused tests/225 assertions; root reviewed all
+  source/tests and20 seals. Actual HTTP/auth route composition remains T041.
+- Loop047/T039: Google identity adapter and synthetic cryptographic/HTTP tests.
+  No real provider registration or login is implied; one-use transaction and
+  route composition must join actual session ports before integration acceptance.
+- T042 accepted in loop045:188 focused JS checks and150 PHP tests/1199 assertions
+  PASS,362 differential candidates match; root reviewed source and21 seals. Root
+  joined full check PASS and pre-T039 PHP253 tests/1856 assertions PASS. Results
+  stay provisional for T043; actual HTTP/client saving is not implemented yet.
+- Loop048/T043: isolated single-slot repository with authorization and receipt
+  rechecks, provisional validation outside the lock and atomic conditional writes.
+  Uses actual T037/T038/T042 ports; HTTP/client/provider acceptance remains later.
+- Next local sequence: correct and review the G1 graybox while independent local
+  session/validator work continues; then provider adapters and actual service
+  integration on verified interfaces. Do not waive the required owner/gate reviews.
 
-Commit `9c3f2478ee64cfdd8774d1f48aa2c3fe8e563513` was pushed to
-`001-physical-layer-underworld` and independently matched the remote branch.
-It contains the 399 reviewed stable paths through T014 plus completed hosting and
-scaffold-rights evidence. Active T015 work was explicitly excluded. The exact staged
-snapshot typechecked/built independently, and its fixture suite passed 165 checks
-with 83 honest evaluator TODOs. All 54 scaffold provenance hashes and 41 media-source
-hashes matched. No private path/credential/runtime/player/backup material was staged.
-Required upstream license/scaffold whitespace remains byte-preserved; original
-source/docs scoped whitespace checks pass. This is source progress, not an accepted
-playable episode or deployment. Continue from the working tree and current state.
+Accepted implementation now includes domain/state/content foundations, accessible
+controls and presentation lifecycle adapters; actual guest title, R01/R02
+investigation, O01/O02, dialogue skip/replay, inventory, five notebook sections,
+fresh/stale readings and the initial packet activity. **Finished media count0.**
+The real service entry still returns honest unavailable responses; database
+primitives are implemented but provider login and durable saves are not joined.
 
-Latest reviewed source checkpoint `5e67426222eff5688692038347ee9f160cd6a6ef` adds T017/T018 controls and presentation adapters. The scoped 16-path staged snapshot matched the reviewed files and contained no production credential values or private operator records; push independently matched the remote branch. Joined browser/API checks pass; T021 independently accepted foundation readiness; its report is ready for the next documentation checkpoint. No game was deployed.
+Recent evidence:
 
-Checkpoint `e1dc5c21b2c8edb13d424dccd761236337a2879b` now publishes the reviewed T021 report, T022 guest expectations and T024 copper/content-error evaluator, plus accepted tracking through19 tasks. Its19 staged paths were explicitly inspected and scanned; the remote hash matched after push. Nine guest browser cases and68 other evaluator cases remain pending. Active T023/T036 files were excluded, and no live release occurred.
+| Work | Accepted result and handoff |
+| --- | --- |
+| T030 guest acceptance | Loop041: all9 actual guest browser journeys;4 joined state cases;53 focused checks/check PASS. Root matched36 seals. |
+| T034 actual packet introduction | Loop040:28 adapter cases,286 dependencies and5 actual browser cases PASS; root inspected desktop/mobile and fixed keyboard-scrollable tables. |
+| Joined guest/packet checkpoint | 819 client PASS/68 physical TODO before T030's4 new cases;110 PHP tests/1180 assertions before T037. Browser58/59 initially; actual200%-text textarea overflow fixed, all3 affected cases PASS. Final build PASS. See joined-guest-packet-checkpoint.md. |
+| T037 private database | Loop042:17 focused tests/144 assertions;127 total PHP tests/1324 assertions PASS. Root reviewed code/tests and matched13 seals. Short atomic migrations, real overlapping connections and private rollback-journal storage; no auth/save service claim. |
+| T038 sessions/security | Loop044:28 tests/225 assertions PASS; root joined with corrected database tests:46/378 PASS. See storage-uuid-parity.md for the uppercase external-UUID CHECK correction and unreleased checksum limitation. |
 
-Checkpoint `44ca8b2e680c5d05e95e6afcadf641348ea7a7c1` publishes accepted T023 authoring and narrow graph fixes (11 records,89 focused checks), with reviewed tracking through20 tasks. All15 staged paths matched inspected files, credential/operator scans were clear and the remote hash matched. Active T025/T031/T036 work and the pending auth-contract clarification were excluded. No deployment occurred.
+Older verified work and every failed/blocked attempt remain in `loops/`, task
+checkboxes and [the preserved cumulative handoff](HANDOFF-history-through-loop045.md).
+Do not reread all historical reports each loop; use the relevant interface notes.
 
-Checkpoint `572ccab0ecf56f1e1f891b6ba385b381f44c3521` publishes the reviewed T031/T036 expectations and auth-start400 contract clarification (13 explicitly inspected paths, all staged hashes matched, credential/operator scan clear). Remote hash independently matched.22 tasks verified; all service/provider/browser behavior remains pending where noted. No deployment.
+## Interfaces and contracts to preserve
 
-Checkpoint `1b8e839fd6d17e93fefd0c3aa1bc3a8dd780b5b3` publishes accepted T032 pure packet behavior (90 actualtests; independentanswers unchanged) and root player-text cleanup.7 stagedpaths explicitly inspected, hashes matched and private scans clear; remote hash independently matched. T025/T026 accepted locally, controller checkpoint awaits sharedactivechanges; no deployment.
+- Canonical authored effects and reducer receipts own progress. UI and renderers
+  dispatch immutable intent through the shared captured action bus. Never recapture
+  stale views against newer state. Store compareAndSet swaps state only; controller
+  subscribers finish before the final application render observer.
+- T027 inspection prepares canonical effects, evaluates the resulting actual
+  candidate world/version, and commits that exact observation atomically. Never
+  relabel a measurement from an older world as current. O01 means valid inspection,
+  not successful repair. Packet viewing cannot repair/award progress.
+- Invalidate packet/dialogue/notebook and bus captures on new run, restore or
+  account changes. Dialogue and packet activities own matching unsafe locks.
+  Captured old callbacks must not release a new activity/account's lock.
+- Canceled logout changes nothing. Confirmed logout clears memory/title without
+  implicit saving. Retry/E03 Continue rewinds preparation/inventory but retains
+  clues, notes and hint history, advances attempt generation and stales readings.
+- T036/loop031's independent151 service expectations,13 SAVE cases and11 overlap
+  schedules remain behavioral-pending where no actual service exists. Preserve
+  fixtures and their independent expected answers.
+- Save authentication/bounds precede account-scoped receipt lookup. Resolve a
+  retained receipt before current semantic policy/stale revisions; recheck both
+  authorization and receipt inside the final transaction before returning any
+  provisional error. A revision8 acknowledgement may coexist with current slot9.
+- T037 APIs: explicit private canonical path/all document roots to Database::open;
+  connection() is trusted internal PDO; immediate(callback) owns short transactions;
+  migrate() is explicit, never automatic on GET/open. See loop042 for schema and
+  service obligations, generated metadata-only acknowledgement_json and limits.
+- Deletion receipts are operation-specific256-bit tokens. Read-only status requires
+  exact Origin and the narrow receipt; guest session status never proves deletion.
+  Unknown/expired remains unconfirmed; a late status cannot clear a later account.
+  Recovery ledger/receipt hashes stay outside database rollback sets.
 
-Checkpoint `a252a092b442465c2e94562bb6ec5a454c7a7e6b` publishes the accepted guest/packet controllers through T030/T034 and the joined browser correction. All73 staged paths were explicitly inspected, matched the reviewed hashes and passed credential/private-material scans. Remote branch independently matched.31 tasks accepted locally; loop043 diagnostic review and loop042 isolated database work continue. No deployment or aggregate gate pass.
+## Toolchain and verification
 
-## Toolchain and repository safeguards
+Use command-scoped PATH `.runtime/node-v26.13.1-darwin-arm64/bin`, PHP
+`/opt/homebrew/opt/php@8.4/bin/php` and Composer `.runtime/composer-2.11.3.phar`.
+Actual scripts are in package.json. Planned asset/package/deploy commands must be
+implemented before use. No dependency installation is needed for current tasks.
 
-Use `.runtime/node-v26.13.1-darwin-arm64/bin` in a command-scoped PATH, `/opt/homebrew/opt/php@8.4/bin/php`, and `.runtime/composer-2.11.3.phar`. Read `docs/evidence/spec001/runtime.md` for exact versions, paths, constraints and Homebrew footprint. Default PATH remains unchanged. `.gitignore` excludes local credentials/runtime data, dependencies/builds and tool environments; authored media sources remain trackable.
+Playwright1.65.1/Firefox159 works with disposable NSS trust and
+`ignoreHTTPSErrors:false`. Root serializes native browser runs using preview4173;
+ask root to reserve it. CUA failed with `CUA_REPL_ENABLED_SURFACES is required`;
+do not retry that unavailable surface. Preserve installed browser versions.
+Recursive Firefox role/name queries for nested notebook regions/lists crashed;
+asserted native label.control and section aria-labelledby associations retain the
+same semantic expectations. Do not filter pageerrors or weaken requirements.
 
-## Host: T003 remains partial
+`dev-content-boundary.md` records actual authoredJSON and same-origin development
+WebSocket fixes,12 transport groups PASS and strict private-path/Host/Origin/token
+denials. Production preview remains dist-only. Whole-episode performance, actual
+Safari and manual assistive/beginner review remain later evidence.
 
-The owner explicitly asked to use the existing GoDaddy box and inspect `<private-website-workspace>` setup. Its private operator connection/known-host metadata works with SSH-agent authentication and strict known-host validation; read ignored `.local/operator-records/README.md` for local pointers. Use configuration programmatically without printing values or copying private website code into Network Quest. Do not open analytics/player databases or change global site settings.
+Coordinate full PHP/JS suites while another worker's new tests are intentionally
+RED. Run meaningful scoped tests first; root joins final checks when sources are
+stable. Do not repeatedly broaden testing after a pass without a new concern.
 
-Loop003 verified SFTP/public HTTPS and absent game routes. Loop005 diagnosed disabled account shell. Owner then enabled SSH, but loop006's fresh PTY response and filtered own-account entry still show `/usr/local/cpanel/bin/noshell`. The owner received exact GoDaddy support text to provision supported shell/jailshell and demonstrate command execution. The owner requested a new retry: loop016 verified real execution at21:19UTC, PHP8.4.28/PDO SQLite3.54.1/modules. The old effective-shell blocker is superseded; historical noshell metadata does not override actual success. Continue host verification rather than asking for credentials/activation again. Loop019 now verifies actual web PHP8.4.28/PDO SQLite3.54.1, private storage, two-process locking/rollback, consistent snapshot, outbound TLS and actual cron execution. All temporary helpers/data/cron were removed and cleanup independently verified. See host-probes.md. Dated account quota cache is recorded; current adjusted limits and actual provider/manual-copy coverage/retention remain open. No game was deployed. CUA inventory failed with `CUA_REPL_ENABLED_SURFACES is required`; do not repeat that unavailable surface.
+## External capabilities still pending
 
-## Providers: T004 remains partial
+**Hosting:** loops016/019 supersede historical noshell attempts. Actual agent/key
+SSH with pinned verification and web/CLI PHP8.4.28/PDO SQLite3.54.1 passed. Private
+permissions, two-process locking/rollback/interruption, consistent snapshot,
+outbound provider TLS and actual cron passed. All temporary helpers/data/cron
+were removed; cleanup and original crontab/modes independently verified. See
+host-probes.md. Dated disk/inode quota cache is recorded; actual longest provider/
+manual-copy backup retention and fresh adjusted package limits remain open.
+The existing pending owner question asks only the Backups plan/oldest displayed
+date under GoDaddy My Products → Web Hosting → Manage → Backups. No credentials,
+SSH activation, restoration or purchase is needed. Do not resend that question.
 
-`docs/setup/oauth.md` is the owner guide; `provider-preflight.md` records the current-doc registration contract and access limits. Owner requested a Google credential search across other project `.env` files: 65 files checked; only Google AI/API keys found, not web OAuth pairs. Paths/key names/types only are in ignored `<ignored-private-discovery-record>`; no secret values copied from those projects.
+**Providers:** dedicated production Google/GitHub registrations, exact callbacks
+and private pair readiness are confirmed. Callback paths are the game api/v1
+`auth/google/callback` and `auth/github/callback` under the production target below.
+No real login/token exchange has passed. Existing pending question covers only
+Google Web/External/basic-identity Data Access and GitHub wildcard/device-flow/
+token-expiry controls. Separate development/test registrations are due before real
+provider testing, not this credential-free local implementation. Do not confuse
+GitHub CLI authentication with OAuth app administration.
 
-Owner showed an unrelated existing application web OAuth client with a YouTube callback; explained internal client label versus project Branding and recommended a dedicated Network Quest project/client. Owner then supplied a different Google OAuth client ID and unmasked secret through project `.env`. Presence and ID shape were checked without disclosure. Mapped `Google_OAuth_Client_ID`/`Google_OAuth_Client_Secret` into `NQ_GOOGLE_CLIENT_ID`/`NQ_GOOGLE_CLIENT_SECRET` in `<private-runtime-configuration>/oauth.env`, outside this repository. Both files mode0600; project .env is ignored. Parse as data, never source as shell code or print values. Actual Google sign-in, project branding/environment and registered callback remain untested.
+**Media:** T005 genuine Blender5.2.1 and actual Kokoro/ACE-Step/Audacity3.7.9 fallback
+technical smoke checks pass, with41 source hashes; no production asset accepted.
+The existing listening question asks for headphone/ordinary-speaker accept/reject
+feedback on `assets-src/feasibility/audio/narrator-web.mp3` and `ace-web.mp3`.
+Do not fabricate listening. Production Audacity4 .aup4/native review remains later.
 
-Owner was given empty Authorized JavaScript origins, the exact Google callback below and unchecked AI-agent option. GitHub setup link/fields were also supplied; Owner subsequently saved GitHub_OAuth_Client_ID/GitHub_OAuth_Client_Secret in project .env; coordinator mapped them to external NQ_GITHUB_CLIENT_ID/NQ_GITHUB_CLIENT_SECRET and verified without disclosure, preserving Google values. Both pairs are now privately present. Owner explicitly confirmed dedicated Network Quest production registrations using the exact guide callbacks. Label these pairs production-only; do not load into local bootstrap. This is owner confirmation, not console inspection or actual sign-in. Least-privilege controls and separate test environment mapping remain open. Do not confuse GitHub CLI auth with OAuth app administration.
+## Publication and release
 
-- Homepage: `https://automateyournetwork.com/arcade/play/network-quest/`
-- Google callback: `https://automateyournetwork.com/arcade/play/network-quest/api/v1/auth/google/callback`
-- GitHub callback: `https://automateyournetwork.com/arcade/play/network-quest/api/v1/auth/github/callback`
+Latest pushed and independently remote-verified commit:
+`a8626ba355a8d61ef9a85265d3f724e22635c9ea` (T037 database).
+Previous `a252a092b442465c2e94562bb6ec5a454c7a7e6b` publishes actual guest/packet
+controllers and joined layout correction. Explicit staging, reviewed hash matches
+and scans excluding all4 production OAuth values/private material passed for both.
+Current active work stays uncommitted until root review. **No release deployed.**
 
-No provider registration was created/changed by the agent, no token exchange/login was tested, and no secrets were deployed. No emails or support messages were sent by the agent.
+Owner authorization covers scoped reviewed pushes to automateyournetwork/Network-Quest
+and finished accepted release deployment at
+https://automateyournetwork.com/arcade/play/network-quest/ with its arcade listing.
+Git push and host activation are separate operations. Never call a scaffold or
+text-only increment the completed episode. Preserve required owner reviews.
 
-## Publication and hosting continuation authorization — 2026-11-25
-
-The owner explicitly directed completion of Spec001, GitHub publication to
-https://github.com/automateyournetwork/Network-Quest and deployment of the finished,
-accepted release at https://automateyournetwork.com/arcade/play/network-quest/ with
-its arcade listing. Required owner reviews/AC evidence remain mandatory. Git push
-and GoDaddy activation are separate operations; no scaffold may be called release.
-Inspect explicit staging before commits. Keep private website source/operator
-records, credentials, runtime/player data and backups outside public Git/artifacts.
-
-The owner supplied corroborating Nov25 SSH `id -un` and PHP8.4.28/module evidence
-with no changed server files. Loop016 independently verifies command execution.
-Owner-specific operator resource locations and preserved original notes are in
-ignored `.local/operator-records/README.md` on the operator's machine; read that
-private note when performing hosting/release work. Never print secrets or execute
-historical manifests. Preserve owner/group,
-certificate paths, unrelated Apache rules, games and analytics. Future activation
-needs scoped checksums, affected-file/consistent-DB backups, tested rollback, live
-game/assets/providers/save/isolation/navigation checks and probe cleanup. Record
-actual private rollback location for final handoff.
+Read ignored `.local/operator-records/README.md` for existing private website and
+operator resource pointers. Production OAuth is external private data: parse it,
+never source/print it or load it into local tests/browser bundles. Use existing
+SSH agent/key and strict pinned host verification. Inspect historical release
+scripts before adapting; never execute an old manifest. Future deployment needs
+scoped checksums, affected-file/consistent-DB backups, private game DB/secrets,
+staging/migrations, tested rollback and actual live providers/save/isolation/game/
+assets/navigation checks. Preserve other games, analytics, ownership, certificates
+and unrelated Apache/content. Remove probes and record private rollback location.
+No external messages or later episodes are authorized by this work.
