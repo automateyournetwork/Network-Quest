@@ -1,0 +1,88 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH01",
+  "hashes": [
+    "85236060e9cfcb199c318496c80d750d04ef7798bdf5cd9626eefce8dbb89903",
+    "96dcd62c617a019b29728afa5dc8839568eaa43cd101ccfabc53c37da3f504c9"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop068_t063",
+  "date": "2026-11-26",
+  "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+  "check": "browser-comparison",
+  "details": {
+    "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed.",
+    "tool": "Playwright1.65.1 Firefox159 GLTFLoader and functions.view_image",
+    "observedPaths": [
+      "assets-src/characters/CH01.blend",
+      "public/assets/models/CH01.glb"
+    ],
+    "methods": [
+      "browser-inspection"
+    ],
+    "sourceInspectionPath": "assets-src/rooms/CH01-source-inspection.json",
+    "sourceRenderPath": "docs/evidence/spec001/assets/t063-CH01-source.png",
+    "browserCapturePath": "docs/evidence/spec001/assets/t063-CH01-browser.png",
+    "comparisonPath": "assets-src/rooms/R01-animation-parity.json",
+    "browserInspectionPath": "assets-src/rooms/R01-browser-inspection.json",
+    "scope": "Asset source/export usability only; T066 runtime binding, owner review and accepted media quotas pending",
+    "triangles": 22412,
+    "meshes": 65,
+    "clipParity": {
+      "walk-quarter": {
+        "maxWorldMatrixComponentError": 1.7549790126404332e-07,
+        "worstNode": "CH01_goggle_rim.001",
+        "comparedMeshes": 65,
+        "sourceFrame": 6.0
+      },
+      "walk-half": {
+        "maxWorldMatrixComponentError": 1.7549790126404332e-07,
+        "worstNode": "CH01_goggle_rim.001",
+        "comparedMeshes": 65,
+        "sourceFrame": 12.0
+      },
+      "idle-quarter": {
+        "maxWorldMatrixComponentError": 1.7640387167384687e-07,
+        "worstNode": "CH01_goggle_rim.001",
+        "comparedMeshes": 65,
+        "sourceFrame": 24.0
+      },
+      "idle-half": {
+        "maxWorldMatrixComponentError": 1.7549790126404332e-07,
+        "worstNode": "CH01_goggle_rim.001",
+        "comparedMeshes": 65,
+        "sourceFrame": 48.0
+      },
+      "reaction-quarter": {
+        "maxWorldMatrixComponentError": 2.3712630271843782e-07,
+        "worstNode": "CH01_goggle_rim.001",
+        "comparedMeshes": 65,
+        "sourceFrame": 6.0
+      },
+      "reaction-half": {
+        "maxWorldMatrixComponentError": 2.3008689879755462e-07,
+        "worstNode": "CH01_goggle_rim.001",
+        "comparedMeshes": 65,
+        "sourceFrame": 12.0
+      }
+    },
+    "clipDurations": [
+      {
+        "name": "walk",
+        "seconds": 1,
+        "changedMeshCount": 64
+      },
+      {
+        "name": "idle",
+        "seconds": 4,
+        "changedMeshCount": 48
+      },
+      {
+        "name": "reaction",
+        "seconds": 1,
+        "changedMeshCount": 48
+      }
+    ]
+  }
+}

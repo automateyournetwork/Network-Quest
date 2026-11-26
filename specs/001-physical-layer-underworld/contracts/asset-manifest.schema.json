@@ -42,6 +42,7 @@
           "enum": [
             "character-model",
             "prop-model",
+            "room-model",
             "scene-layer",
             "portrait",
             "illustration",
@@ -766,6 +767,25 @@
         {
           "if": {
             "properties": {
+              "kind": {
+                "const": "room-model"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "semanticIdentity": {
+                "pattern": "^spec001:R[0-9]{2}$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
               "status": {
                 "const": "accepted"
               }
@@ -848,7 +868,8 @@
               "kind": {
                 "enum": [
                   "character-model",
-                  "prop-model"
+                  "prop-model",
+                  "room-model"
                 ]
               }
             },

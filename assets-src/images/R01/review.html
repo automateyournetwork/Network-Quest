@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>R01 candidate layer review</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#182532;color:#eee1be;font:16px system-ui}
+#stage{position:relative;width:100%;height:100%;overflow:hidden;background:#182532}
+.plate{position:absolute;display:block;pointer-events:none;max-width:none}
+#background{z-index:0}#midground{z-index:1}#source{z-index:2}#foreground{z-index:3}
+#caption{position:fixed;bottom:8px;left:8px;padding:5px 9px;background:#182532e8;z-index:4;font-size:12px}
+body.capture #caption{display:none}
+</style>
+<main id="stage" aria-label="R01 candidate composition: generated layers around an actual Blender source render, not the integrated game">
+  <img class="plate" id="background" src="../../../public/assets/images/R01/background.png" alt="">
+  <img class="plate" id="midground" src="../../../public/assets/images/R01/midground.png" alt="">
+  <img class="plate" id="source" src="reference-inputs/blender-staging-v2.png" alt="">
+  <img class="plate" id="foreground" src="../../../public/assets/images/R01/foreground.png" alt="">
+</main>
+<p id="caption">R01 source composition candidate · actual image layers + Blender render · owner review and gameplay integration pending</p>
+<script>
+const params=new URLSearchParams(location.search);
+if(params.has('capture')) document.body.classList.add('capture');
+const selected=params.get('layer');
+if(selected){
+  document.querySelectorAll('.plate').forEach(el=>el.hidden=el.id!==selected);
+  document.querySelectorAll('.plate[hidden]').forEach(el=>el.style.display='none');
+  document.getElementById('stage').style.background=params.get('matte')==='light'?'#f2eadb':'#182532';
+}
+function register(){
+  const width=innerWidth,height=innerHeight,aspect=width/height;
+  const heightSpan=Math.max(9,13/aspect),widthSpan=heightSpan*aspect;
+  const plateWidth=width*16/widthSpan,plateHeight=height*9/heightSpan;
+  const left=(width-plateWidth)/2,top=(height-plateHeight)/2;
+  document.querySelectorAll('.plate').forEach(el=>Object.assign(el.style,{width:`${plateWidth}px`,height:`${plateHeight}px`,left:`${left}px`,top:`${top}px`}));
+  window.registration={viewport:[width,height],heightSpan,widthSpan,plateRect:{left,top,width:plateWidth,height:plateHeight},cropOrLetterbox:'camera-registered centered plane; no source pixel crop or image rewrite'};
+}
+addEventListener('resize',register);register();
+window.reviewReady=Promise.all([...document.images].map(image=>image.decode()));
+</script>
+</html>

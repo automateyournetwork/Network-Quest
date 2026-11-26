@@ -197,16 +197,24 @@ CA/key/profile/server files and processes are removed after each check. No brows
 cookie is created by the real foundation API; synthetic Secure session checks
 belong to the isolated PHP/transport harnesses.
 
-Vitest discovers `tests/**/*.test.ts`, including future UI and other foundation
-suites. Playwright currently assigns the foundation static/TLS specs under
-`tests/e2e/`; its discovery guard fails if any new browser test has no project.
-T022/T030 and later story work must register each new suite in the applicable
-browser project and use trusted HTTPS for any API/session journey.
+Vitest discovers `tests/**/*.test.ts`. Playwright explicitly assigns each suite
+under `tests/e2e/` to its static or trusted-HTTPS project; its discovery guard
+fails if a new browser test has no project. Current HTTPS suites cover the guest
+investigation, packet view, save/restore, settings, logout and deletion. Configured
+service journeys use isolated synthetic accounts, never production credentials
+or a substitute for actual provider acceptance.
 Both runners exclude runtime/dependency/build trees,
 fail empty runs, and report real failures. Traces/screenshots from failed local
 browser checks remain in ignored `test-results/` for diagnosis.
 
-`assets:verify`, `package:release` and deployment commands remain **unimplemented**.
+`npm run assets:verify` audits the planned and produced inventory against source,
+hash, lineage, rights, review and actual-use records. Only accepted, evidenced
+assets count. `npm run assets:verify -- --mode release` also enforces the episode's
+media quantities and distribution; it currently fails because finished media is
+not yet accepted. The audit does not perform human listening or owner review.
+See [T061 evidence](docs/implementation/loops/066-T061.md) for limits and records.
+
+`package:release` and deployment commands remain **unimplemented**.
 No script returns false success for those future tasks. A passing foundation run
 does not certify evaluator coverage, gameplay, real sign-in/saves, actual Safari,
 manual assistive/zoom review, media, human learning or episode acceptance.

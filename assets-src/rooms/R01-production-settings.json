@@ -1,0 +1,118 @@
+{
+  "task": "T063",
+  "status": "exported benchmark candidates; no accepted media quota",
+  "application": "Blender",
+  "version": "5.2.1 LTS",
+  "build": "9e2066aef7ef",
+  "sourceCommand": "Blender --factory-startup --background --threads 4 --python-exit-code 1 --python assets-src/rooms/R01-build.py -- room|CH01|CH03",
+  "nativeVerification": "Open each saved .blend in a separate fresh Blender process with R01-verify.py -- reopen; then fresh glTF import for each of 14 exports",
+  "sourceUnits": "metres, Z up; character forward -Y; mesh scale applied",
+  "runtimeAxes": "Y up; Blender (x,y,z) becomes runtime (x,z,-y)",
+  "characterRig": "Rigid articulated transform hierarchy, no armature/skin deformation. Editable torso/head/arm/leg/knee nodes and separate Photon hover/head/wing nodes.",
+  "sourceCamera": "assets-src/rooms/R01-camera.json",
+  "roomRegistration": "assets-src/rooms/R01-registration.json",
+  "animation": {
+    "fps": 24,
+    "sourceInterpolation": "Blender authored transform keys; export samples every frame",
+    "exportInterpolation": "glTF continuous linear/quaternion tracks",
+    "NlaStartFrame": 0,
+    "idle": {
+      "frames": [
+        0,
+        96
+      ],
+      "seconds": 4,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        0,
+        24
+      ],
+      "seconds": 1,
+      "loop": true,
+      "nominalStrideMetres": 0.9
+    },
+    "fly": {
+      "frames": [
+        0,
+        30
+      ],
+      "seconds": 1.25,
+      "loop": true,
+      "nominalTravelSpeedMetresPerSecond": 0.65
+    },
+    "reaction": {
+      "frames": [
+        0,
+        24
+      ],
+      "seconds": 1,
+      "loop": false
+    },
+    "rootMotion": false,
+    "photonHoverRootHeightMetres": 1.15,
+    "runtimeTravelAndFootPlantAcceptance": "Pending T066; this source authoring test does not drive authoritative movement"
+  },
+  "export": {
+    "format": "GLB",
+    "selectedOnly": true,
+    "axes": "Y up",
+    "extras": true,
+    "cameras": false,
+    "lights": false,
+    "applyModifiers": true,
+    "animationMode": "NLA_TRACKS",
+    "sampleEveryFrame": true,
+    "textures": "none; UVs preserved for future hand-painted refinement",
+    "collision": "named source-only bounding proxies excluded from visual exports"
+  },
+  "render": {
+    "engine": "Cycles CPU",
+    "samples": 16,
+    "denoising": true,
+    "dimensions": [
+      1280,
+      720
+    ],
+    "viewTransform": "Standard",
+    "look": "None",
+    "exposure": 0,
+    "gamma": 1,
+    "output": "sRGB PNG, transparent"
+  },
+  "browser": {
+    "engine": "actual Playwright Firefox159",
+    "three": "0.187.0",
+    "TLS": "disposable CA and SAN leaf, isolated NSS trust, ignoreHTTPSErrors false",
+    "toneMapping": "NoToneMapping",
+    "outputColorSpace": "SRGBColorSpace",
+    "devicePixelRatio": 1,
+    "lightingDifference": "Three rectangular area plus hemisphere fill; no Cycles indirect/shadow parity asserted",
+    "viewports": [
+      [
+        1280,
+        720
+      ],
+      [
+        1440,
+        900
+      ],
+      [
+        768,
+        720
+      ],
+      [
+        390,
+        720
+      ]
+    ]
+  },
+  "rights": "Original agent-authored geometry/materials and original construction scripts; no imported meshes/textures or image generation in this task. Native media CC BY 4.0 to extent controlled; scripts Apache-2.0. Owner/art acceptance and final manifest rights acceptance remain pending.",
+  "runtimeComposition": {
+    "architecture": "public/assets/models/R01-architecture.glb",
+    "placements": "assets-src/rooms/R01-placements.json",
+    "components": "architecture plus ten local prop GLBs plus CH01/CH03; full R01.glb is reference only",
+    "sourceParentScale": "Already retained inside each prop GLB; runtime outer scale stays one"
+  }
+}

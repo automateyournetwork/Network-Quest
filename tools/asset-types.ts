@@ -1,6 +1,6 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 /** Data contract for the offline audit. Test fixtures never supply production types. */
-export type AssetKind = 'character-model' | 'prop-model' | 'scene-layer' | 'portrait' | 'illustration' | 'sprite-sheet' | 'music' | 'ambience' | 'effect' | 'voice';
+export type AssetKind = 'character-model' | 'prop-model' | 'room-model' | 'scene-layer' | 'portrait' | 'illustration' | 'sprite-sheet' | 'music' | 'ambience' | 'effect' | 'voice';
 export type AssetCounts = { characterModels: number; props: number; interactiveProps: number; roomsWithImageSet: number; sceneLayers: number; portraits: number; illustrations: number; music: number; ambience: number; effects: number; voices: number };
 export type AssetIssue = { code: string; assetId?: string; path?: string };
 export type AssetValidationResult = { valid: boolean; issues: AssetIssue[]; counts: AssetCounts };

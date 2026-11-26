@@ -1,0 +1,98 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-LAYER-R01-background",
+  "hashes": [
+    "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+    "52eb36b40f4fdc965c1ed32a567a557126b954432c24b327fc66b0adc3fb7a10"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex agent loop069/T064",
+  "date": "2026-11-26",
+  "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+  "details": {
+    "findings": "Actual PNG decoding, dimensions, channels, alpha statistics and exact source/export SHA-256 equality passed.",
+    "pixels": {
+      "path": "assets-src/images/R01/originals/background-v1.png",
+      "sha256": "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+      "bytes": 1762191,
+      "format": "PNG",
+      "mode": "RGB",
+      "width": 1672,
+      "height": 941,
+      "metadataKeys": [],
+      "iccProfileBytes": 0,
+      "hasAlphaChannel": false,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonzeroAlphaBounds": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "alphaAbove1Bounds": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "alphaAbove127Bounds": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "transparentPixels": 0,
+      "opaquePixels": 1573352,
+      "partialAlphaPixels": 0,
+      "transparentFraction": 0.0,
+      "decodedRgbaBytes": 6293408,
+      "regions": {
+        "central_stage": {
+          "normalizedBox": [
+            0.2,
+            0.25,
+            0.8,
+            0.85
+          ],
+          "pixels": 567260,
+          "nonzeroAlphaPixels": 567260,
+          "maxAlpha": 255
+        },
+        "top_middle": {
+          "normalizedBox": [
+            0.3,
+            0.0,
+            0.7,
+            0.25
+          ],
+          "pixels": 156980,
+          "nonzeroAlphaPixels": 156980,
+          "maxAlpha": 255
+        },
+        "bottom_middle": {
+          "normalizedBox": [
+            0.2,
+            0.85,
+            0.8,
+            1.0
+          ],
+          "pixels": 141564,
+          "nonzeroAlphaPixels": 141564,
+          "maxAlpha": 255
+        }
+      }
+    },
+    "export": {
+      "path": "public/assets/images/R01/background.png",
+      "sha256": "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+      "bytes": 1762191,
+      "format": "png"
+    },
+    "scope": "image structure, not whole-room performance"
+  },
+  "check": "structure"
+}

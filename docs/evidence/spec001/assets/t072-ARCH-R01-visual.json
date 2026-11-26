@@ -1,0 +1,85 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-ARCH-R01",
+  "hashes": [
+    "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+    "8258c783ea5ca6e92353b5fc7b14b13979188ba2077cd93a3f6d9703f90fef37"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop072_t061_architecture",
+  "date": "2026-11-26",
+  "environment": "macOS26.6.2 arm64; T072 preserved-evidence and image inspection; historical T063 Blender5.2.1/Firefox159 strict TLS execution, no new native run",
+  "check": "visual",
+  "details": {
+    "findings": "T072 directly inspected the preserved native-source render and composed Firefox capture: tiled basalt landing, copper edge and workshop arch retain matching geometry and clear central staging. Browser lighting differs from Cycles GI/contact shadows. Current review concerns the architecture visible in the composed scene; no owner acceptance or new native run.",
+    "tool": "functions.view_image; Python SHA-256/JSON inspection of preserved T063 records",
+    "observedPaths": [
+      "assets-src/rooms/R01.blend",
+      "public/assets/models/R01-architecture.glb"
+    ],
+    "methods": [
+      "image-inspection"
+    ],
+    "historicalExecutor": "/root/loop068_t063",
+    "historicalEvidence": [
+      {
+        "path": "assets-src/rooms/R01-source-inspection.json",
+        "sha256": "d407770e099feede68897322beaca94d8d2433ffd8b1a449a2e5f8ee8cb68432",
+        "bytes": 11770,
+        "format": "json"
+      },
+      {
+        "path": "assets-src/rooms/R01-architecture-import-inspection.json",
+        "sha256": "e6e95ba516697dabfef2a9c0f5b430b323214074719ec62192867cd02451bad6",
+        "bytes": 2489,
+        "format": "json"
+      },
+      {
+        "path": "assets-src/rooms/R01-browser-inspection.json",
+        "sha256": "a6bb4f31cec9809ba48ba1b81f3f02759a96de5aa3095ee20786dbba98c1e405",
+        "bytes": 697770,
+        "format": "json"
+      },
+      {
+        "path": "assets-src/rooms/R01-animation-parity.json",
+        "sha256": "8692e26c48fe6b0613205b052f4f0566116d7e75f6edaac01de195f397e1c12c",
+        "bytes": 8688,
+        "format": "json"
+      },
+      {
+        "path": "docs/evidence/spec001/assets/t063-R01-source.png",
+        "sha256": "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+        "bytes": 852447,
+        "format": "png"
+      },
+      {
+        "path": "docs/evidence/spec001/assets/t063-R01-composite-1280x720.png",
+        "sha256": "d9c60485388c26ef1b67eefae2865893b722431b4f086d2224b94cc22a92b28d",
+        "bytes": 325803,
+        "format": "png"
+      },
+      {
+        "path": "assets-src/rooms/R01-build.py",
+        "sha256": "7c13d7707a384e9898df1142590f2bb8b4c5c45062e8f0320534cbebfea0c816",
+        "bytes": 22850,
+        "format": "py"
+      },
+      {
+        "path": "assets-src/rooms/R01-production-settings.json",
+        "sha256": "1ede433fcaf23ece581c7a9ac1d2ad391cbbec9278757afd4185bc6f6be9a5e9",
+        "bytes": 3759,
+        "format": "json"
+      }
+    ],
+    "sourceInspectionPath": "assets-src/rooms/R01-source-inspection.json",
+    "importInspectionPath": "assets-src/rooms/R01-architecture-import-inspection.json",
+    "sourceRenderPath": "docs/evidence/spec001/assets/t063-R01-source.png",
+    "browserCapturePath": "docs/evidence/spec001/assets/t063-R01-composite-1280x720.png",
+    "comparisonPath": "assets-src/rooms/R01-animation-parity.json",
+    "browserInspectionPath": "assets-src/rooms/R01-browser-inspection.json",
+    "triangles": 9856,
+    "meshes": 79,
+    "scope": "Exported nonquota architecture candidate only; rights, integrated runtime use, owner/G3 and whole-room budget acceptance remain pending."
+  }
+}

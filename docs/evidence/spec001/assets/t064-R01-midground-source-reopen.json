@@ -1,0 +1,28 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-LAYER-R01-midground",
+  "hashes": [
+    "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61",
+    "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+    "a732c01a5fce987f541fcd75ee5dbf6b9c16b06152dec4bba72ace4c30a14e99"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex agent loop069/T064",
+  "date": "2026-11-26",
+  "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+  "details": {
+    "findings": "Fresh Pillow process decoded original sources and references/exports; actual image inspection and Firefox re-opened the exported files.",
+    "commands": [
+      ".runtime/media/ACE-Step-1.5/.venv/bin/python assets-src/images/R01/inspect-pixels.py [original PNG paths]",
+      ".runtime/media/ACE-Step-1.5/.venv/bin/python assets-src/images/R01/inspect-pixels.py [reference and public PNG paths]",
+      ".runtime/node-v26.13.1-darwin-arm64/bin/node assets-src/images/R01/review-native.mjs"
+    ],
+    "reports": [
+      "assets-src/images/R01/pixel-inspection.json",
+      "assets-src/images/R01/source-export-reopen.json",
+      "assets-src/images/R01/native-review-observations.json"
+    ]
+  },
+  "check": "source-reopen"
+}

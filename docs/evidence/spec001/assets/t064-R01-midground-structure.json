@@ -1,0 +1,99 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-LAYER-R01-midground",
+  "hashes": [
+    "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61",
+    "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+    "a732c01a5fce987f541fcd75ee5dbf6b9c16b06152dec4bba72ace4c30a14e99"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex agent loop069/T064",
+  "date": "2026-11-26",
+  "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+  "details": {
+    "findings": "Actual PNG decoding, dimensions, channels, alpha statistics and exact source/export SHA-256 equality passed.",
+    "pixels": {
+      "path": "assets-src/images/R01/originals/midground-v1.png",
+      "sha256": "a732c01a5fce987f541fcd75ee5dbf6b9c16b06152dec4bba72ace4c30a14e99",
+      "bytes": 251532,
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 1672,
+      "height": 941,
+      "metadataKeys": [],
+      "iccProfileBytes": 0,
+      "hasAlphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "nonzeroAlphaBounds": [
+        0,
+        0,
+        1672,
+        908
+      ],
+      "alphaAbove1Bounds": [
+        0,
+        0,
+        1672,
+        229
+      ],
+      "alphaAbove127Bounds": [
+        0,
+        0,
+        1672,
+        228
+      ],
+      "transparentPixels": 1478446,
+      "opaquePixels": 386,
+      "partialAlphaPixels": 94520,
+      "transparentFraction": 0.9396791055021381,
+      "decodedRgbaBytes": 6293408,
+      "regions": {
+        "central_stage": {
+          "normalizedBox": [
+            0.2,
+            0.25,
+            0.8,
+            0.85
+          ],
+          "pixels": 567260,
+          "nonzeroAlphaPixels": 15,
+          "maxAlpha": 1
+        },
+        "top_middle": {
+          "normalizedBox": [
+            0.3,
+            0.0,
+            0.7,
+            0.25
+          ],
+          "pixels": 156980,
+          "nonzeroAlphaPixels": 9304,
+          "maxAlpha": 255
+        },
+        "bottom_middle": {
+          "normalizedBox": [
+            0.2,
+            0.85,
+            0.8,
+            1.0
+          ],
+          "pixels": 141564,
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        }
+      }
+    },
+    "export": {
+      "path": "public/assets/images/R01/midground.png",
+      "sha256": "a732c01a5fce987f541fcd75ee5dbf6b9c16b06152dec4bba72ace4c30a14e99",
+      "bytes": 251532,
+      "format": "png"
+    },
+    "scope": "image structure, not whole-room performance"
+  },
+  "check": "structure"
+}

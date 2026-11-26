@@ -1,0 +1,22 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-VOICE-005",
+  "hashes": [
+    "8d05f6d084c01a7220a06e89f1cfa863b70dfdec12e5855fe33fb7d3a23ee8a4",
+    "5af51989f82283b6c6b88da3c3fe0f56bc8c60ce419b1be6626dba1b5e6073cf",
+    "2171492d9dffb0b610c4386a029d5980a572247ebdfcd9ac40692b0220e8770b",
+    "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+    "43a505696761d73fc9cd12ec09364f0cced7bf34dcf14f65527827b636cda50a",
+    "1e7d5db8425391ab2847fae3ef52cc626c58674df00188ef5e81ea8915e5c514"
+  ],
+  "status": "passed",
+  "actor": "tool",
+  "reviewer": "Codex loop070/T065",
+  "date": "2026-11-26",
+  "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+  "details": {
+    "signalRecordPath": "assets-src/audio/auditions/provenance/signal-checks.json",
+    "findings": "Raw/prepared/native master/web all decode finite, nonzero and below full scale. Native master48kPCM24, intended channel count; exact frozen preview hash preserved. File checks are not listening."
+  },
+  "check": "structure"
+}

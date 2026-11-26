@@ -1,8 +1,9 @@
 # T005 — local media feasibility
 
 Observed 2026-11-25 on the owner's Mac by Codex, loop 007. Scope: C5/C11/C13,
-FR-017/018/021, NQ-09 and the media part of W01/G0. **Technical smoke checks pass
-with the documented Audacity 3.x fallback; human listening remains pending.**
+FR-017/018/021, NQ-09 and the media part of W01/G0. **T005 accepted on 2026-11-26
+after stronger T063/T065 native4 and actual human-listening evidence.** The original
+2026-11-25 observations below are retained, including their then-pending checks.
 This does not pass G0/G3/G5, approve a production voice/music choice, or contribute
 any finished room, character, prop, image, music, effect or voice-line count.
 
@@ -131,3 +132,37 @@ Before production, obtain an available native UI/human operator and test a suppo
 4.x patch with real `.aup4` reopen/export. A broader 3.x production choice would
 require an explicit synchronized plan/provenance change; this smoke fallback does
 not make that choice. No OpenAI image-generation audition was part of T005.
+
+## Coordinator reassessment — 2026-11-26
+
+T005 is accepted for media feasibility using the original technical smoke plus
+stronger actual representative production evidence. The original two smoke clips
+were not reported heard and are not retroactively marked approved. The original
+sources and failure history remain unchanged and do not count as finished assets.
+
+[T063](../../implementation/loops/068-T063.md) exercised real Blender5.2.1 sources,
+14 fresh GLB imports and native Firefox/source pose comparison. [T065](audio-auditions.md)
+then exercised genuine Audacity4.0.2 save, close, fresh-process reopen and twelve
+PCM24 exports from its 21,823,488-byte `.aup4`. Root independently checked the
+project's immutable SQLite integrity, its unchanged SHA256 and all207 sealed files;
+reran48-file signal decoding and twelve correct-input/native-master comparisons.
+All pass. Three one-sample-short masters and export dither remain disclosed.
+
+The actual four-voice Kokoro batch and twenty-second ACE-Step excerpt have exact
+versions, pinned model/voice terms and measured runtime/memory, preserving the
+prior disk/environment inventories. This is a bounded feasibility result, not a
+full-song or parallel-production capacity guarantee. The official isolated4.0.2
+patch and three small voice embeddings are documented in T065, with existing apps
+and model environments preserved.
+
+John Capobianco accepted all twelve frozen production auditions: “it all sounds
+good to me yes”, then “built in mac speakers” and “headphones were good too earbuds”.
+The [sealed listening record](../../../assets-src/audio/auditions/provenance/owner-listening.json)
+binds the exact preview bytes and user-reported equipment. Brand/model and volume
+were not supplied. No source-project listening, older smoke audition or detailed
+per-clip scoring is invented. This real representative listening resolves the
+previous missing feasibility capability; the old pending question is superseded.
+
+G0 remains blocked by host retention/package and provider configuration evidence.
+Full R01 owner review, final media counts and whole-episode listening remain later
+requirements. No aggregate gate or production release passes by accepting T005.

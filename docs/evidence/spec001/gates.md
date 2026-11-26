@@ -230,3 +230,14 @@ See [loop046](../../implementation/loops/046-T035.md) for failures, final comman
 screenshots, exact hashes and remaining limits; [US1 follow-up](US1.md#t035-graybox-correction--2026-11-26)
 records the joined investigation scope. No installation, provider action,
 credential access, commit, push, deployment or publication occurred.
+
+## Media feasibility follow-up — 2026-11-26
+
+T005 and T065 are accepted after root verification of genuine Audacity4.0.2 native
+reopen/export, preserved actual Kokoro/ACE/effect sources and the owner's sealed
+speaker/headphone audition approval. See [dated feasibility reassessment](media-feasibility.md#coordinator-reassessment--2026-11-26)
+and [auditions](audio-auditions.md). Historical table entries above describe their
+original review dates; their media-listening blocker is now superseded. No listening
+to old smoke files is invented. G0 still needs T003/T004 retention/package/provider
+evidence; G1–G7 remain pending. T063/T064 production is accepted for bounded source
+scope, while T066/T067 runtime/performance/owner room review remains in progress.

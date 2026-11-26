@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "assets": [
+    {
+      "assetId": "spec001:ASSET-ARCH-R01",
+      "semanticIdentity": "spec001:R01",
+      "kind": "room-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t072-ARCH-R01-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-architecture.glb",
+            "sha256": "8258c783ea5ca6e92353b5fc7b14b13979188ba2077cd93a3f6d9703f90fef37",
+            "bytes": 634168,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 architecture-only Y-up GLB; ten PR hierarchies and collision proxies excluded",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t072-ARCH-R01-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-shared-room-model-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Historical T063 shared R01 native modeling event, now indexed for its architecture object subset. The same actual source production also produced PR001-PR010. T072 performs no new modeling/export invocation and creates no prop or character identity."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop072_t061_architecture",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "8258c783ea5ca6e92353b5fc7b14b13979188ba2077cd93a3f6d9703f90fef37"
+          ],
+          "environment": "macOS26.6.2 arm64; T072 preserved-evidence and image inspection; historical T063 Blender5.2.1/Firefox159 strict TLS execution, no new native run",
+          "evidencePath": "docs/evidence/spec001/assets/t072-ARCH-R01-source-reopen.json",
+          "findings": "Reviewed actual preserved T063 source-reopen evidence: R01.blend was reopened in Blender5.2.1 and its SHA matches current bytes. Its architecture subset was exported and separately imported into fresh Blender. This record indexes that historical run; no T072 reopen is claimed."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop072_t061_architecture",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "8258c783ea5ca6e92353b5fc7b14b13979188ba2077cd93a3f6d9703f90fef37"
+          ],
+          "environment": "macOS26.6.2 arm64; T072 preserved-evidence and image inspection; historical T063 Blender5.2.1/Firefox159 strict TLS execution, no new native run",
+          "evidencePath": "docs/evidence/spec001/assets/t072-ARCH-R01-structure.json",
+          "findings": "Reviewed bound T063 fresh-import, parity and browser observations: 79 architecture meshes, all79 with UVs, 9856 triangles, no clips, zero external references and zero texture bytes. Architecture object IDs are disjoint from all ten PR subsets; no character or prop quota is claimed."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop072_t061_architecture",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "8258c783ea5ca6e92353b5fc7b14b13979188ba2077cd93a3f6d9703f90fef37"
+          ],
+          "environment": "macOS26.6.2 arm64; T072 preserved-evidence and image inspection; historical T063 Blender5.2.1/Firefox159 strict TLS execution, no new native run",
+          "evidencePath": "docs/evidence/spec001/assets/t072-ARCH-R01-visual.json",
+          "findings": "T072 directly inspected the preserved native-source render and composed Firefox capture: tiled basalt landing, copper edge and workshop arch retain matching geometry and clear central staging. Browser lighting differs from Cycles GI/contact shadows. Current review concerns the architecture visible in the composed scene; no owner acceptance or new native run."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop072_t061_architecture",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "8258c783ea5ca6e92353b5fc7b14b13979188ba2077cd93a3f6d9703f90fef37"
+          ],
+          "environment": "macOS26.6.2 arm64; T072 preserved-evidence and image inspection; historical T063 Blender5.2.1/Firefox159 strict TLS execution, no new native run",
+          "evidencePath": "docs/evidence/spec001/assets/t072-ARCH-R01-browser-comparison.json",
+          "findings": "T072 inspected the preserved T063 composed Firefox159 capture and its hash-bound inspection record. The recorded actual browser loaded the architecture GLB separately beside ten prop GLBs and two characters, reports79 architecture meshes/9856 triangles and zero page errors. Source and captured browser geometry match; no new browser execution or actual gameplay usage is asserted."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "R01_arch_band",
+          "R01_arch_band.001",
+          "R01_arch_band.002",
+          "R01_arch_band.003",
+          "R01_arch_band.004",
+          "R01_arch_band.005",
+          "R01_arch_band.006",
+          "R01_arch_band.007",
+          "R01_exit_practical",
+          "R01_exit_practical.001",
+          "R01_floor_00_00",
+          "R01_floor_00_01",
+          "R01_floor_00_02",
+          "R01_floor_00_03",
+          "R01_floor_00_04",
+          "R01_floor_00_05",
+          "R01_floor_01_00",
+          "R01_floor_01_01",
+          "R01_floor_01_02",
+          "R01_floor_01_03",
+          "R01_floor_01_04",
+          "R01_floor_01_05",
+          "R01_floor_02_00",
+          "R01_floor_02_01",
+          "R01_floor_02_02",
+          "R01_floor_02_03",
+          "R01_floor_02_04",
+          "R01_floor_02_05",
+          "R01_floor_03_00",
+          "R01_floor_03_01",
+          "R01_floor_03_02",
+          "R01_floor_03_03",
+          "R01_floor_03_04",
+          "R01_floor_03_05",
+          "R01_floor_04_00",
+          "R01_floor_04_01",
+          "R01_floor_04_02",
+          "R01_floor_04_03",
+          "R01_floor_04_04",
+          "R01_floor_04_05",
+          "R01_floor_05_00",
+          "R01_floor_05_01",
+          "R01_floor_05_02",
+          "R01_floor_05_03",
+          "R01_floor_05_04",
+          "R01_floor_05_05",
+          "R01_floor_06_00",
+          "R01_floor_06_01",
+          "R01_floor_06_02",
+          "R01_floor_06_03",
+          "R01_floor_06_04",
+          "R01_floor_06_05",
+          "R01_floor_07_00",
+          "R01_floor_07_01",
+          "R01_floor_07_02",
+          "R01_floor_07_03",
+          "R01_floor_07_04",
+          "R01_floor_07_05",
+          "R01_floor_08_00",
+          "R01_floor_08_01",
+          "R01_floor_08_02",
+          "R01_floor_08_03",
+          "R01_floor_08_04",
+          "R01_floor_08_05",
+          "R01_floor_09_00",
+          "R01_floor_09_01",
+          "R01_floor_09_02",
+          "R01_floor_09_03",
+          "R01_floor_09_04",
+          "R01_floor_09_05",
+          "R01_floor_edge",
+          "R01_floor_edge.001",
+          "R01_floor_edge.002",
+          "R01_floor_edge.003",
+          "R01_landing_foundation",
+          "R01_workshop_crown",
+          "R01_workshop_jamb",
+          "R01_workshop_jamb.001",
+          "R01_workshop_threshold"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "R01_Arrival_Lift room origin (0,0,0); scene-space architecture",
+        "collisionProxy": "COLLISION_R01_floor in native source only; excluded from visual GLB; logical navigation authoritative",
+        "animationClips": [],
+        "triangles": 9856,
+        "textureBytes": 0
+      }
+    }
+  ]
+}

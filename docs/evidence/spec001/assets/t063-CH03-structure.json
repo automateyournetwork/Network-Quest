@@ -1,0 +1,89 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH03",
+  "hashes": [
+    "70e1897cf9e18b245804745bf7a25bbeb900a8113762bd4113229bd239df50c3",
+    "12c7d7d0d65e444211899b227de54a461f4bf790e8996747673bac369bcefc36"
+  ],
+  "status": "passed",
+  "actor": "tool",
+  "reviewer": "/root/loop068_t063",
+  "date": "2026-11-26",
+  "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+  "check": "structure",
+  "details": {
+    "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots.",
+    "tool": "Blender5.2.1 and functions.view_image",
+    "observedPaths": [
+      "assets-src/characters/CH03.blend",
+      "public/assets/models/CH03.glb"
+    ],
+    "methods": [
+      "fresh-glb-import",
+      "binary-structure-check"
+    ],
+    "sourceInspectionPath": "assets-src/rooms/CH03-source-inspection.json",
+    "sourceRenderPath": "docs/evidence/spec001/assets/t063-CH03-source.png",
+    "browserCapturePath": "docs/evidence/spec001/assets/t063-CH03-browser.png",
+    "comparisonPath": "assets-src/rooms/R01-animation-parity.json",
+    "browserInspectionPath": "assets-src/rooms/R01-browser-inspection.json",
+    "scope": "Asset source/export usability only; T066 runtime binding, owner review and accepted media quotas pending",
+    "triangles": 10508,
+    "meshes": 29,
+    "clipParity": {
+      "idle-quarter": {
+        "maxWorldMatrixComponentError": 1.124237061222999e-07,
+        "worstNode": "CH03_abdomen_band.002",
+        "comparedMeshes": 29,
+        "sourceFrame": 24.0
+      },
+      "idle-half": {
+        "maxWorldMatrixComponentError": 4.768371586472142e-08,
+        "worstNode": "CH03_antenna_tip.001",
+        "comparedMeshes": 29,
+        "sourceFrame": 48.0
+      },
+      "fly-quarter": {
+        "maxWorldMatrixComponentError": 6.938781749177281e-08,
+        "worstNode": "CH03_wing_vein_R.001",
+        "comparedMeshes": 29,
+        "sourceFrame": 7.5
+      },
+      "fly-half": {
+        "maxWorldMatrixComponentError": 4.768371586472142e-08,
+        "worstNode": "CH03_antenna_tip.001",
+        "comparedMeshes": 29,
+        "sourceFrame": 15.0
+      },
+      "reaction-quarter": {
+        "maxWorldMatrixComponentError": 7.890281678024635e-08,
+        "worstNode": "CH03_wing_vein_R.001",
+        "comparedMeshes": 29,
+        "sourceFrame": 6.0
+      },
+      "reaction-half": {
+        "maxWorldMatrixComponentError": 2.858283996154398e-07,
+        "worstNode": "CH03_wing_vein_R.001",
+        "comparedMeshes": 29,
+        "sourceFrame": 12.0
+      }
+    },
+    "clipDurations": [
+      {
+        "name": "idle",
+        "seconds": 4,
+        "changedMeshCount": 29
+      },
+      {
+        "name": "fly",
+        "seconds": 1.25,
+        "changedMeshCount": 29
+      },
+      {
+        "name": "reaction",
+        "seconds": 1,
+        "changedMeshCount": 29
+      }
+    ]
+  }
+}

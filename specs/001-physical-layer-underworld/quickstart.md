@@ -1,6 +1,6 @@
 # Quickstart: Spec001 implementation
 
-**Status:** implementation initiated on 2026-11-25. Follow `docs/implementation/HANDOFF.md` for current progress. T008 verified `npm ci`, `npm run typecheck` and `npm run build` for the local bootstrap; see [client evidence](../../docs/evidence/spec001/client-bootstrap.md). T009 verified Composer install and T011 added `npm run dev`/`npm run dev:verify`; [README](../../README.md) documents real local HTTPS and the deliberately unavailable API. T020 now verifies `check`, `test:domain`, `test:api` and `test:e2e` against actual foundation suites; see loop024 evidence. Asset/release/deployment commands remain planned. No gameplay or provider readiness follows from foundation checks.
+**Status:** implementation initiated on 2026-11-25. Follow [HANDOFF](../../docs/implementation/HANDOFF.md) for current progress. The pinned client/PHP toolchain, local HTTPS, content checks and test commands are implemented. Configured local service tests cover synthetic account/save/logout/deletion journeys; the default unconfigured server deliberately remains unavailable. [README](../../README.md) documents commands and boundaries. T061 implements `assets:verify`: inventory auditing passes with planned assets; `-- --mode release` correctly fails until finished media has evidence. Release packaging/deployment commands remain planned. Local checks do not certify actual provider behavior or episode acceptance.
 
 Read [spec.md](spec.md), [plan.md](plan.md), [research.md](research.md) and [constitution](../../.specify/memory/constitution.md). The working branch is `001-physical-layer-underworld`. Execute the existing task batches with one task per fresh-agent loop and persistent verification notes.
 
@@ -22,7 +22,7 @@ These commands must be implemented, fail on real errors and never deploy implici
 | --- | --- |
 | npm ci | Install pinned client/tool dependencies from committed lockfile |
 | composer install --working-dir=server | Install pinned PHP dependencies; package production without development dependencies |
-| npm run dev | Implemented loopback HTTPS/Vite/PHP bootstrap with explicit TLS inputs; shared router is implemented; actual account/save operations remain unavailable. README documents startup and limitations. |
+| npm run dev | Loopback HTTPS/Vite/PHP with explicit TLS inputs. The default unconfigured service reports unavailable; isolated configured test services execute account/save routes. README documents startup and limitations. |
 | npm run check | Type checking, schemas, content references and route/quest graph |
 | npm run test:domain | Independent physical-rule and state cases, including T01–T16 and retry invariants |
 | npm run test:api | Service/security/concurrency/migration checks against explicitly isolated test storage |

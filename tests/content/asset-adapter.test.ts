@@ -224,16 +224,25 @@ describe('bounded rooted asset filesystem adapter', () => {
 });
 
 describe('planned catalog source reconciliation', () => {
-  it('preserves exact ordered SPEC character and prop names and all 380 planned identities', async () => {
+  it('preserves exact ordered SPEC character and prop names and all 380 allocated identities as production progresses', async () => {
     const spec = await readFile(resolve(project, 'SPEC.md'), 'utf8');
     const characters = [...spec.matchAll(/^\| (CH\d\d) \| (.*?) \|/gm)].map(m => [m[1], m[2]]);
     const props = [...spec.split('### Prop allocation: 150 distinct assets')[1]!.split('### Imagery')[0]!.matchAll(/^\| (?:R\d\d|Shared) \| \d+ \| (.*?) \|$/gm)].flatMap(m => m[1]!.split('; '));
     expect(assetAllocations.filter(a => a.kind === 'character-model').map(a => [a.semanticIdentity.slice(8), a.name])).toEqual(characters);
     expect(assetAllocations.filter(a => a.kind === 'prop-model').map(a => a.name)).toEqual(props);
     const plannedManifest = JSON.parse(await readFile(resolve(project, 'assets-src/manifest.json'), 'utf8')) as AssetManifest;
-    expect(plannedManifest.assets).toHaveLength(380); expect(assetAllocations).toHaveLength(380);
+    expect(assetAllocations).toHaveLength(380);
     expect(new Set(assetAllocations.map(a => a.assetId)).size).toBe(380);
-    expect(plannedManifest.assets.map(a => a.assetId)).toEqual(assetAllocations.map(a => a.assetId));
-    for (const a of plannedManifest.assets) { expect(a.status).toBe('planned'); expect(a.countsTowardQuota).toBe(false); expect(a.sources).toEqual([]); expect(a.exports).toEqual([]); expect(a.usedBy).toEqual([]); expect(a.verification).toEqual([]); expect(a.rights.reviewStatus).toBe('pending'); }
+    const allocatedIds = new Set(assetAllocations.map(a => a.assetId));
+    const allocated = plannedManifest.assets.filter(a => allocatedIds.has(a.assetId));
+    expect(allocated).toHaveLength(380);
+    expect(allocated.map(a => a.assetId)).toEqual(assetAllocations.map(a => a.assetId));
+    const additional = plannedManifest.assets.filter(a => !allocatedIds.has(a.assetId));
+    for (const a of additional) { expect(a.kind).toBe('room-model'); expect(a.countsTowardQuota).toBe(false); }
+    expect(new Set(plannedManifest.assets.map(a => a.assetId)).size).toBe(plannedManifest.assets.length);
+    // T061 established the empty plan. Later production may advance individual
+    // rows; the independent oracle still tests planned/partial quota exclusion.
+    // Rows that remain planned must continue to make no production claims.
+    for (const a of plannedManifest.assets.filter(a => a.status === 'planned')) { expect(a.countsTowardQuota).toBe(false); expect(a.sources).toEqual([]); expect(a.exports).toEqual([]); expect(a.usedBy).toEqual([]); expect(a.verification).toEqual([]); expect(a.rights.reviewStatus).toBe('pending'); }
   });
 });

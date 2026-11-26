@@ -2,8 +2,8 @@
   "feature": "001-physical-layer-underworld",
   "authorizedAt": "2026-11-25",
   "loopCap": 200,
-  "loopsStarted": 70,
-  "activeTask": "T063/T064/T065",
+  "loopsStarted": 73,
+  "activeTask": "T066 integration / T067 benchmark preparation",
   "status": "running",
   "completedTasks": [
     "T001",
@@ -60,7 +60,11 @@
     "T059",
     "T056",
     "T061",
-    "T062"
+    "T062",
+    "T064",
+    "T063",
+    "T065",
+    "T005"
   ],
   "blockedTasks": [
     {
@@ -74,30 +78,20 @@
       "reason": "Production app existence/environment/callback inputs and private pair readiness are resolved by owner confirmation and private checks. Remaining Google basic identity and GitHub wildcard/device-flow/token-expiry controls need sanitized confirmation; host TLS shares T003. Separate test registrations are due before G2.",
       "requiredInput": "Answer pending remaining-settings question; do not resend production IDs/secrets/callbacks. Future test configuration is separate G2 preparation.",
       "note": "docs/implementation/loops/004-T004.md"
-    },
-    {
-      "task": "T005",
-      "reason": "Technical media smoke checks pass; genuine headphone/speaker listening is pending. Production Audacity4 native acceptance remains later work.",
-      "requiredInput": "Actual listener feedback on existing voice/music samples, equipment used and accept/reject observations; no duplicate generation needed.",
-      "note": "docs/implementation/loops/007-T005.md"
     }
   ],
-  "lastLoopNote": "docs/implementation/loops/067-T062.md",
+  "lastLoopNote": "docs/implementation/loops/072-T061.md",
   "activeLoops": [
     {
-      "loop": 68,
-      "task": "T063",
-      "agent": "/root/loop068_t063"
+      "loop": 71,
+      "task": "T066",
+      "agent": "/root/loop071_t066"
     },
     {
-      "loop": 69,
-      "task": "T064",
-      "agent": "/root/loop069_t064"
-    },
-    {
-      "loop": 70,
-      "task": "T065",
-      "agent": "/root/loop070_t065"
+      "loop": 73,
+      "task": "T067",
+      "agent": "/root/loop073_t067",
+      "scope": "Prepare measurement profile and actual Safari capability on accepted stable media; final runtime measurements and owner review wait for reviewed T066 handoff."
     }
   ],
   "gates": {
@@ -110,7 +104,7 @@
     "T011",
     "T007 final reassessment"
   ],
-  "nextAction": "Produce and review bounded R01 Blender sources/models, actual OpenAI layers, and four-speaker/music/effects auditions. Coordinate camera/CPU/shared manifest through root. No bulk production before G3 owner acceptance.",
+  "nextAction": "Finish T066 corrections and root review; T067 prepares browser/profile/source checks in parallel without running the changing app. Then measure the frozen actual room and obtain owner review before scaling.",
   "executionDirection": "docs/implementation/execution-direction.md",
   "publicationAuthorization": {
     "date": "2026-11-25",
@@ -120,8 +114,28 @@
   },
   "publication": {
     "branch": "001-physical-layer-underworld",
-    "lastPushedCommit": "6d24e250cd87715cea84364556947e491bc55212",
-    "scope": "Reviewed measurement tools and journal race correction;14stagedpaths hashmatched/private-value scan clear,remoteverified. FullPHP908/19138PASS,client1402PASS191TODO,checkPASS;12browser samples retain503/404limits;260native20-wayrequests0errors,savep95134.020ms. Prior3b932ec accountsettings+assetoracle. No deployment.",
+    "lastPushedCommit": "e524ce4623defde19cac9e53658a37a55c2190b3",
+    "scope": "Reviewed T056 native journeys, early deletion timer correction, T060 fixture path invariant, T061 asset audit and T062 direction.29stagedpaths hashmatched/private-value scan clear;remoteverified.37nativePASS,1568clientPASS/68physicalTODO,checkPASS;380planned/0accepted media. No deployment.",
     "releaseDeployed": false
-  }
+  },
+  "pendingReviews": [
+    {
+      "kind": "human-audio-audition",
+      "task": "T065",
+      "packetId": "t065-listening-20261126-a",
+      "path": "assets-src/audio/auditions/review.html",
+      "sealPath": "assets-src/audio/auditions/provenance/review-packet-seal.json",
+      "sealSha256": "89e98ccf375c685164ba63b046a9c8daf17286cb8e0fa171d3a74e7900e6f3e0",
+      "status": "listening review complete: all12 accepted on Macspeakers andearbuds",
+      "scope": "Owner-reported actual listening to fixed12candidate packet on ordinarybuilt-in Macspeakers andearbuds/headphones; allaccepted.33 file seals match;88.885seconds. No additional listening approvalneeded for unchangedpacket. Nativeproject/export/browser verification and G3ownerroomreview remain separate.",
+      "ownerResponse": "it all sounds good to me yes",
+      "responseDate": "2026-11-26",
+      "speakerEquipment": "built-in Mac speakers",
+      "headphoneEquipment": "earbuds; brand/model not specified",
+      "equipmentResponses": [
+        "built in mac speakers",
+        "headphones were good too earbuds"
+      ]
+    }
+  ]
 }

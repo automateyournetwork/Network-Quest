@@ -1,0 +1,39 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-LAYER-R01-midground",
+  "hashes": [
+    "07c35393ecb390a4b0241cfce9f6e9c4365ea15fa85d89a7badd1f45a092ad61",
+    "4fdfeb508c9ddb35d5422fc7e6e598efbe3620bd44298087ce022fb05fe3e284",
+    "a732c01a5fce987f541fcd75ee5dbf6b9c16b06152dec4bba72ace4c30a14e99"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex agent loop069/T064",
+  "date": "2026-11-26",
+  "environment": "macOS 26.6.2 arm64; built-in OpenAI imagegen; Pillow 12.1.0; Firefox 159.0 via Playwright 1.65.1",
+  "details": {
+    "findings": "Sparse copper/insulated upper arches; genuine alpha, clear central stage. Fifteen central-region pixels retain alpha 1/255; no cleanup claimed. Standalone native composition and light/dark matte captures inspected by agent. T066 game and T067 owner reviews remain pending.",
+    "methods": [
+      "image-inspection"
+    ],
+    "tool": "view_image and native Firefox screenshots via Playwright",
+    "observedPaths": [
+      "assets-src/images/R01/originals/midground-v1.png",
+      "assets-src/images/R01/originals/background-v1.png",
+      "assets-src/images/R01/reference-inputs/blender-staging-v2.png",
+      "public/assets/images/R01/midground.png"
+    ],
+    "captures": [
+      "docs/evidence/spec001/assets/t064-composition-1280.png",
+      "docs/evidence/spec001/assets/t064-composition-1440.png",
+      "docs/evidence/spec001/assets/t064-composition-768.png",
+      "docs/evidence/spec001/assets/t064-composition-390.png",
+      "docs/evidence/spec001/assets/t064-midground-light.png",
+      "docs/evidence/spec001/assets/t064-midground-dark.png",
+      "docs/evidence/spec001/assets/t064-foreground-light.png",
+      "docs/evidence/spec001/assets/t064-foreground-dark.png"
+    ],
+    "projectionScope": "Frame transform is registered; no invented exact generated geometry landmarks."
+  },
+  "check": "visual"
+}

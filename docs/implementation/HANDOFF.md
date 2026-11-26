@@ -26,10 +26,10 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-26
 
-**70 loops started; 55 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
-Current active ownership is in state.json: loops068/T063 Blender benchmark,
-069/T064 actual OpenAI R01 layers,070/T065 audio auditions. Shared manifest,
-content/runtime integration and publication remain root-owned.
+**73 loops started; 59 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
+Current active ownership is in state.json: loop071/T066 integrates the actual R01
+media; loop072/T061 nonquota architecture auditing is accepted. T063–T065 sources and
+auditions are accepted. Root owns the shared manifest, tracking and publication.
 
 - Loop046/T035 local correction reviewed: real Three.js R01/R02 graybox, shared
   captured actions, recovery and resource disposal. Six new browser cases PASS,
@@ -247,10 +247,14 @@ outbound provider TLS and actual cron passed. All temporary helpers/data/cron
 were removed; cleanup and original crontab/modes independently verified. See
 host-probes.md. Dated disk/inode quota cache is recorded; actual longest provider/
 manual-copy backup retention and fresh adjusted package limits remain open.
-New scoped header evidence is in hosting-header-admission.md:5 uploaded helpers
-removed with SFTPabsence/parent-metadata checks; nativeH1framing correction and
-partialH2 observations. Later requests show a challenge page and2SSHconnection
-timeouts, so remaining host checks are deferred; do not bypass the challenge.
+Historical header attempts in hosting-header-admission.md include5 uploaded
+helpers removed with SFTPabsence/parent-metadata checks, a challenge page and2SSH
+timeouts. The 2026-11-26 18:13–18:18UTC recheck supersedes that connectivity block:
+normal arcade200, strict pinned SSH/SFTP, all7 old probes absent, and14 remaining
+HTTP/2 singleton observations completed. Its sixth helper was removed and absence
+verified. NativeH1 admission constraints and unverifiedHTTP/3 remain recorded;
+the old failures are retained. Backup coverage/retention and package limits remain
+the outstanding hosting inputs, not SSH activation.
 The existing pending owner question asks only the Backups plan/oldest displayed
 date under GoDaddy My Products → Web Hosting → Manage → Backups. No credentials,
 SSH activation, restoration or purchase is needed. Do not resend that question.
@@ -264,11 +268,11 @@ token-expiry controls. Separate development/test registrations are due before re
 provider testing, not this credential-free local implementation. Do not confuse
 GitHub CLI authentication with OAuth app administration.
 
-**Media:** T005 genuine Blender5.2.1 and actual Kokoro/ACE-Step/Audacity3.7.9 fallback
-technical smoke checks pass, with41 source hashes; no production asset accepted.
-The existing listening question asks for headphone/ordinary-speaker accept/reject
-feedback on `assets-src/feasibility/audio/narrator-web.mp3` and `ace-web.mp3`.
-Do not fabricate listening. Production Audacity4 .aup4/native review remains later.
+**Media:** T005 accepted after T063/T065 supplied stronger genuine Blender/native
+Audacity4 roundtrips and owner-approved Kokoro/ACE/effect auditions on both Mac
+speakers and earbuds. Historical smoke files/attempts stay unchanged; no listening
+to the older two smoke clips is claimed. No further unchanged audition question is
+needed. Full room, library and release reviews remain pending.
 
 ## Publication and release
 
@@ -298,3 +302,72 @@ staging/migrations, tested rollback and actual live providers/save/isolation/gam
 assets/navigation checks. Preserve other games, analytics, ownership, certificates
 and unrelated Apache/content. Remove probes and record private rollback location.
 No external messages or later episodes are authorized by this work.
+
+Latest reviewed source checkpoint: `e524ce4623defde19cac9e53658a37a55c2190b3`,
+pushed and independently matched to the feature branch remote.29 explicit paths
+passed staged-byte hashes, private-value/key-marker scanning and whitespace
+checks. Includes accepted T056/T061/T062 and root corrections; no deployment.
+README/quickstart command availability is reconciled after T061 acceptance.
+
+Production audition review requested for frozen packet `t065-listening-20261126-a`
+at `assets-src/audio/auditions/review.html`:12clips/88.885seconds,33 source/web/script/
+HTML seals independently matched and36 links resolved. Exact seal file and hash
+are in state.pendingReviews. No response or listening is inferred; native Audacity
+work and model/image production continue. Do not repeat the pending question.
+
+Owner answered the frozen production audition review: “it all sounds good to me
+yes” (2026-11-26). Record acceptance of all12 candidates, not a release/G3 decision.
+Only headphone/speaker equipment/method details were omitted; a focused follow-up
+is pending. Do not ask for audition approval again or invent playback equipment.
+Native project verification continues.
+
+Owner completed the equipment/method record: “built in mac speakers”, followed
+by “headphones were good too earbuds”. Both listening methods now have actual
+user-reported positive feedback for the unchanged frozen12clip packet. Record
+built-in Macspeakers andearbuds (brand/model unspecified). Listening review is
+complete; do not ask again. Native source checks and G3 room review remain separate.
+
+T064 accepted after full source/production/review-script inspection, all68 artifact
+seals matched, all3 originals independently matched to actual tool cache artifacts,
+and root candidate CLI auditPASS/zeroquotas. Root inspected composition1280 plus
+midground-light/foreground-dark mattes and background original; 8native captures
+report0pageerrors and≤0.000219CSSpx numeric anchor error (not painted accuracy).
+Models/nativeaudio sources remain active; canonical media acceptance and G3pending.
+
+Loop071/T066 begins actual R01 presentation/media integration on stable asset
+interfaces under the explicit task scheduling exception. T063/T065 source audits
+continue; T064 is accepted. Root owns canonicalmanifest/tracking/publication;071
+owns shared application/presentation/content integration until handoff. Final
+acceptance still depends on both source tasks and laterT067actualroomownerreview.
+
+T063 accepted after full source/tool review,153original seals matched and root
+visual comparison. Architecture+10 actual local prop exports prevent duplicated
+geometry;12exported candidates/0acceptedquotas. Root tightened comparison-tool
+clip/mesh/pose assertions and reran14GLB/12posepair checksPASS, candidateauditPASS.
+Finalsource/mediaunchanged; correctedtoolhashrecorded inloop068. Loop071owns
+actualR01integration;070nativeaudiohandoff stillfinishing.
+
+Loop072/T061 follow-up supplies required nonquota `room-model` architecture
+source/evidence support forT066 (the original380 quotaallocations remain). It
+must add independent boundarycases beforeimplementation, preserving frozenoracle
+and allminima. OriginalT061acceptance remains historical; T066 finaljoin depends
+on this additive contract. Loop070/T065 is readyforrootreview; no acceptanceyet.
+
+T065 accepted by root: all207 seals matched; actual native4 SQLite integrity/hash
+verified, source/provenance/rights/scripts inspected and independent48-file decode/
+12-track sample comparisons rerunPASS. Frozen33-file listening packet unchanged,
+owner approval covers Macspeakers andearbuds. Canonicalmanifest now27exported/
+353planned/0accepted among380 allocations. T005 feasibility accepted using this
+stronger actual production-tool/listening evidence, preserving the oldsmoke and
+all limitations. G0 stillblocked by T003/T004; G3 ownerroomreview remains pending.
+
+Loop072 additiveT061 architecture audit accepted: ten sealsmatched,315focused
+checks andcanonicalinventoryPASS.381entries retain all380orderedquotaallocations
+plus1nonquota room-model;28exported/353planned/0quotaaccepted. Root changedonly
+temporalallocation assertions toallow additionalnonquota architecture, keeping
+frozenT060oracle andallminima unchanged. Loop071remainsactive;59tasksaccepted.
+
+Loop073/T067 starts bounded benchmark preparation onacceptedT059/T063–T065:
+record profile, inspectactualSafari capability andprepare sourcechecks.071retains
+browser/build ownership; nofinalbenchmark onchangingapp andnoG3decision before
+T066rootreview/actualownerroomreview. This advances independentwork only.

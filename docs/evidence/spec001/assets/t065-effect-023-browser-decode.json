@@ -1,0 +1,21 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-EFFECT-023",
+  "hashes": [
+    "ad19178c063e42f9a2ef0ad83afc66fbb5516293b8c5d1a1e96d5f6a51160383"
+  ],
+  "status": "passed",
+  "actor": "tool",
+  "reviewer": "Codex loop070/T065",
+  "date": "2026-11-26",
+  "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+  "details": {
+    "browserRecordPath": "assets-src/audio/auditions/provenance/browser-decode.json",
+    "methods": [
+      "WebAudio decodeAudioData",
+      "HTMLMediaElement loadedmetadata"
+    ],
+    "findings": "Firefox159 strict trusted localHTTPS fetched exact sealed MP3bytes and decoded them. No Safari/Chrome or in-game lifecycle acceptance."
+  },
+  "check": "browser-decode"
+}

@@ -117,10 +117,12 @@ export function validateAssetManifest(manifest: unknown, evidence: AssetEvidence
     for (const parent of a.derivedFrom) if (!byId.has(parent)) add('DERIVATION_UNRESOLVED', a.assetId);
     if (a.variantOf !== null && !byId.has(a.variantOf)) add('VARIANT_UNRESOLVED', a.assetId);
     if (a.variantOf !== null && a.countsTowardQuota) add('VARIANT_QUOTA', a.assetId);
+    // Architecture is audited as a model, never a prop, character or image quota.
+    if (a.kind === 'room-model' && a.countsTowardQuota) add('ROOM_MODEL_QUOTA', a.assetId);
     // Iterative ancestry avoids stack overflow and includes variant relationships.
     const pending = [...a.derivedFrom, ...(a.variantOf ? [a.variantOf] : [])], visited = new Set<string>();
     while (pending.length) { if (++graphSteps > 2_000_000) { add('GRAPH_LIMIT'); return result; } const id = pending.pop()!; if (id === a.assetId) { add('DERIVATION_CYCLE', a.assetId); break; } if (visited.has(id)) continue; visited.add(id); const parent = byId.get(id); if (parent) pending.push(...parent.derivedFrom, ...(parent.variantOf ? [parent.variantOf] : [])); }
-    const accepted = a.status === 'accepted', model = a.kind === 'character-model' || a.kind === 'prop-model', audio = audioKind(a.kind);
+    const accepted = a.status === 'accepted', model = a.kind === 'character-model' || a.kind === 'prop-model' || a.kind === 'room-model', audio = audioKind(a.kind);
     const hashes = [...a.sources.map(s => s.file.sha256), ...a.exports.map(e => e.file.sha256)];
     const sourceHashes = a.sources.map(s => s.file.sha256);
     for (const entry of [...a.sources, ...a.exports]) {
@@ -132,7 +134,7 @@ export function validateAssetManifest(manifest: unknown, evidence: AssetEvidence
       else { if (hashAt(f.path) !== f.sha256) add('FILE_HASH_MISMATCH', a.assetId, f.path); if (bytes.byteLength !== f.bytes) add('FILE_SIZE_MISMATCH', a.assetId, f.path); }
     }
     if (accepted && model) {
-      const identity = entities.get(a.semanticIdentity), expected = a.kind === 'character-model' ? 'character' : 'prop';
+      const identity = entities.get(a.semanticIdentity), expected = a.kind === 'character-model' ? 'character' : a.kind === 'room-model' ? 'room' : 'prop';
       if (!identity) add('IDENTITY_UNRESOLVED', a.assetId);
       else if (identity.kind !== expected) add('IDENTITY_KIND_MISMATCH', a.assetId);
       const native = a.sources.find(s => s.role === 'native' && s.file.format === 'blend' && s.application === 'Blender' && s.file.path.endsWith('.blend'));
@@ -236,6 +238,7 @@ export function validateAssetManifest(manifest: unknown, evidence: AssetEvidence
       if (!target) add('USE_TARGET_UNRESOLVED', a.assetId);
       const allowed: Record<string, [string[], string[]]> = {
         'character-model': [['character-placement'], ['room']], 'prop-model': [['prop-placement'], ['room']],
+        'room-model': [['room-architecture'], ['room']],
         'scene-layer': [['background', 'midground', 'foreground', 'atmosphere'], ['room']],
         'portrait': [['compendium-portrait'], ['character']], 'illustration': [['inventory-illustration', 'diagnostic-illustration'], ['item', 'evidence', 'diagnostic', 'objective']],
         'sprite-sheet': [['sprite-animation'], ['room', 'character']], music: [['music'], ['room', 'title']], ambience: [['ambience'], ['room']], effect: [['effect'], ['action']], voice: [['voice-line'], ['dialogue-line']],

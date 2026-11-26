@@ -1,0 +1,36 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-VOICE-025",
+  "hashes": [
+    "b743b0c6381dc4ca5d023d7bf6d06a478af49850d9ce2b6e02b7d8478566f9b5",
+    "b20b211f91ffd7f0813af946b3aabbb7d3c9af8ef9c9f22abbbc543bbecf9863",
+    "8ea5f202f46a11e4180886d75e740025b211791586385f8b1247fbca03b9021a",
+    "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+    "4bf95b4ffbe8e871b45ed23e4b46bb23fe9b73fe9b447cf9be334363f06c1d1b",
+    "ec5c0d11fdf39936bf4b209087f0fa0555757ece3aec63778e119f6b057113bd"
+  ],
+  "status": "passed",
+  "actor": "tool",
+  "reviewer": "Codex loop070/T065",
+  "date": "2026-11-26",
+  "environment": "macOS26.6.2 arm64 / Mac16,7; local Kokoro0.9.4, ACE-Step1.5.0, FFmpeg9.0.1 and native Audacity4.0.2",
+  "details": {
+    "nativeProjectPath": "assets-src/audio/auditions/projects/audition-bank.aup4",
+    "nativeProjectSha256": "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+    "freshProcess": true,
+    "track": "titan-025",
+    "trackCount": 12,
+    "sqliteIntegrity": "ok",
+    "sourceUnchangedAfterRoundtrip": true,
+    "roundtripRecordPath": "assets-src/audio/auditions/provenance/native-roundtrip.json",
+    "sampleComparison": {
+      "inputFrames": 391200,
+      "masterFrames": 391200,
+      "frameDifference": 0,
+      "maximumAbsoluteSampleDifference": 1.039355993270874e-06,
+      "interpretation": "Native PCM24 export includes quantization/dither. Three speech masters lose one trailing 48k sample (20.83 microseconds); no bit-identical or audible-equivalence claim. Frozen preview bytes remain unchanged."
+    },
+    "findings": "Actual native Audacity4.0.2 save/close/fresh-process reopen/export. This exact track retained; decoded master samples match the correct prepared candidate within2e-6 and at most one trailing sample difference."
+  },
+  "check": "source-reopen"
+}

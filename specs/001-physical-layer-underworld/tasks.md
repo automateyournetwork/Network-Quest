@@ -269,6 +269,14 @@ Keep shared camera/asset IDs consistent and candidate manifests disjoint until
 root joins them. Actual review, native source reopening and T066 browser use
 remain required; this exception neither passes G2/G3 nor permits bulk production.
 
+T066 may prepare the R01 presentation and actual-media bindings once T064 is
+accepted and T063/T065 provide reviewed, stable export interfaces, while their
+remaining source audits finish. The owner has accepted the frozen12 audio
+auditions on Macspeakers andearbuds. This permits independent integration work,
+not task/gate acceptance: the final join still requires completed T063/T065
+source/rights/browser evidence, unchanged approved audio and the T067 owner room
+review. Root owns the canonical manifest; workers coordinate disjoint evidence.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -292,7 +300,7 @@ remain required; this exception neither passes G2/G3 nor permits bulk production
 - [X] T002 [P] Verify supported Node/PHP and candidate client/Composer versions from research.md, record actual platform/extension constraints and selected patches in `docs/evidence/spec001/runtime.md`; do not treat installed Node25 or package metadata as a successful build.
 - [ ] T003 [P] Audit the existing GoDaddy game-only HTTPS routes, web/CLI PHP, PDO SQLite/library/filesystem locks, quotas, private paths, cron and actual backup retention in `docs/evidence/spec001/host.md`; document a same-host alternative if needed without touching analytics.
 - [ ] T004 [P] Verify owner-controlled Google/GitHub registration prerequisites, exact callback routes and least-privilege settings in `docs/evidence/spec001/provider-preflight.md`; keep secrets outside source and mark unavailable real access explicitly.
-- [ ] T005 [P] Run Blender/Audacity reopen-export smoke checks and local Kokoro/ACE-Step1.5 feasibility auditions, recording exact versions, memory/disk/runtime and inspected component/output rights in `docs/evidence/spec001/media-feasibility.md`; preserve actual smoke sources under `assets-src/feasibility/` without counting them as finished assets.
+- [X] T005 [P] Run Blender/Audacity reopen-export smoke checks and local Kokoro/ACE-Step1.5 feasibility auditions, recording exact versions, memory/disk/runtime and inspected component/output rights in `docs/evidence/spec001/media-feasibility.md`; preserve actual smoke sources under `assets-src/feasibility/` without counting them as finished assets.
 - [X] T006 [P] Create reviewed physical-profile source records in `content/spec001/sources.json` with title/URL/section/date/claim, fictional thresholds and model limits; attach independently calculated correct/incorrect/boundary expectations for every proposed scored rule in `docs/evidence/spec001/rule-source-review.md`.
 - [ ] T007 Evaluate runtime/host/provider/media/source evidence and record G0 pass or specific blocked capabilities in `docs/evidence/spec001/gates.md`; resolve critical failures before dependent work and never fabricate readiness. Reassess after local setup supplies working locks; an interim BLOCKED decision is not final setup clearance.
 - [X] T008 Initialize the planned TypeScript/Vite client and test dependencies with exact locks in `package.json`, `package-lock.json`, `tsconfig.json` and `vite.config.ts`; configure the nested game base, public API base and independent static build.
@@ -531,14 +539,21 @@ remain required; this exception neither passes G2/G3 nor permits bulk production
 
 ### Shared media benchmark and G3 before full production
 
+T067 may prepare its recorded measurement profile, source reopening procedure and
+actual Safari capability on accepted T059/T063–T065 while T066 corrections finish.
+Serialize native-browser/build work; final runtime measurements and the concrete
+owner review wait for the reviewed T066 handoff. This preparation does not pass
+T066/T067/G3 or authorize full gameplay/media scaling before the required review.
+
+
 **Ready after**: T059.
 
 - [X] T060 [US8] Author semantic manifest negative cases for duplicate identities, missing sources/rights/use, false acceptance, broken lineage and padded quotas in `tests/fixtures/asset-manifests.json` and `tests/content/assets.test.ts`; schema checks alone cannot certify review.
 - [X] T061 [US8] Implement source/hash/rights/lineage/usage/count validation and assets:verify in `tools/validate-assets.ts`; create the planned CH01–CH25, PR001–PR150 and image/audio identity allocations in `assets-src/manifest.json` without claiming any planned item accepted.
 - [X] T062 [US8] Define camera/palette/scale/animation/voice conventions and exact production/review records in `assets-src/art-direction.md` and `assets-src/audio/production-plan.json`; allocate 36 room layers, 25 portraits, 24 illustrations, 8 cues, 12 ambiences, 40 effects and 60 selected lines.
-- [ ] T063 [P] [US8] Produce and reopen real R01 scene and Apprentice/Photon .blend sources with locomotion/idle/reaction clips, meaningful props and usable GLB exports in `assets-src/rooms/R01.blend`, `assets-src/characters/CH01.blend`, `assets-src/characters/CH03.blend` and `public/assets/models/`; record actual source/browser comparison.
-- [ ] T064 [P] [US8] Generate actual OpenAI R01 background and two usable layers, preserve original prompts/references/output metadata and honest edits in `assets-src/images/R01/`, then export registered layers under `public/assets/images/R01/`; no fabricated invocation or private temporary references.
-- [ ] T065 [P] [US8] Audition project dialogue for narrator/Titan/Photon/Hermit and representative AI-assisted music/effects in `assets-src/audio/auditions/`; retain raw generations, exact voice/model terms, Audacity4 .aup4/lossless masters and actual headphone/speaker listening records in `docs/evidence/spec001/audio-auditions.md`.
+- [X] T063 [P] [US8] Produce and reopen real R01 scene and Apprentice/Photon .blend sources with locomotion/idle/reaction clips, meaningful props and usable GLB exports in `assets-src/rooms/R01.blend`, `assets-src/characters/CH01.blend`, `assets-src/characters/CH03.blend` and `public/assets/models/`; record actual source/browser comparison.
+- [X] T064 [P] [US8] Generate actual OpenAI R01 background and two usable layers, preserve original prompts/references/output metadata and honest edits in `assets-src/images/R01/`, then export registered layers under `public/assets/images/R01/`; no fabricated invocation or private temporary references.
+- [X] T065 [P] [US8] Audition project dialogue for narrator/Titan/Photon/Hermit and representative AI-assisted music/effects in `assets-src/audio/auditions/`; retain raw generations, exact voice/model terms, Audacity4 .aup4/lossless masters and actual headphone/speaker listening records in `docs/evidence/spec001/audio-auditions.md`.
 - [ ] T066 [US8] Finish R01 using real assets and shared interaction state in `src/presentation/three-room.ts` and `content/spec001/presentation/R01.json`; integrate music/voice/text/captions without changing diagnostic results or counting unaccepted smoke assets.
 - [ ] T067 [US8] Measure the finished R01 reference room, reopen its sources, inspect actual browser rendering/listen and obtain owner review in `docs/evidence/spec001/representative-room.md`; record G3 in `docs/evidence/spec001/gates.md` before full gameplay/media scaling.
 
