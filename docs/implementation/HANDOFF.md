@@ -435,3 +435,24 @@ normalize file-format metadata to the existing validator's canonical wav/aiff/fl
 values (keep subtype in provenance), and supply exact per-line voice records from
 the preserved actual runs. Do not weaken the validator or change approved audio
 bytes. These are currently nonquota candidates, not false accepted inventory.
+
+## R01 implementation checkpoint published — 2026-11-26
+
+Commit `7660735f3b5889a95783042d09f21e81b2a2ae7d` was pushed and independently
+matched to the feature branch remote. All95 explicit staged paths matched the
+reviewed byte manifest; private OAuth values/key markers scanned clear. Six
+exact command-output files preserve original whitespace; authored changes pass.
+T066 source/export/evidence110 seals still match. No owner room acceptance, G3
+or deployment is inferred. T067 Firefox12 samples pass; native Safari loads
+assets but foreground control is unresolved. T068 can run its scoped tests now
+that the timing slot is released.59 accepted tasks/74 loops remain.
+
+## T068 independent oracle accepted — 2026-11-26
+
+Root reviewed all52 added input/expected cases, source rationale, exact arithmetic
+and final test assertions; all4 final artifact hashes match. Focused verification
+reports316PASS/120TODO across3suites (98 new fixture checks/52 new application
+TODO,165 original fixture checks/68 evaluator TODO,53 copper tests), typecheckPASS.
+Original83 cases, source data and protected assertions remain unchanged. This
+accepts independent fixture preparation only. Actual evaluators/routes and human
+technical review remain pending.60 tasks accepted/74 loops;073 remains active.

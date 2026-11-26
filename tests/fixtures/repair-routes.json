@@ -1,0 +1,2615 @@
+{
+  "fixtureVersion": 1,
+  "task": "T068",
+  "review": {
+    "date": "2026-11-26",
+    "reviewer": "Codex loop074; agent technical review, not human sign-off",
+    "status": "hand-calculated-and-contract-reviewed",
+    "applicationExecution": "todo; no route/evaluator execution is claimed"
+  },
+  "authority": [
+    ".specify/memory/constitution.md C9/C10/C12",
+    "SPEC.md Objectives and branching quest contract; T03-T16",
+    "specs/001-physical-layer-underworld/contracts/gameplay.md",
+    "specs/001-physical-layer-underworld/data-model.md",
+    "docs/evidence/spec001/rule-source-review.md"
+  ],
+  "frozenArtifacts": {
+    "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
+    "tests/fixtures/physical-cases.json": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1"
+  },
+  "requiredReferenceCases": [
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07",
+    "T08",
+    "T09",
+    "T10",
+    "T11",
+    "T12",
+    "T13",
+    "T14",
+    "T15",
+    "T16"
+  ],
+  "objectiveCoverage": [
+    {
+      "objective": "O03",
+      "frozenCaseIds": [
+        "T01",
+        "T02",
+        "B-COPPER-100",
+        "B-COPPER-OVER",
+        "C-COMPAT",
+        "C-CONTINUITY",
+        "B-CONTINUITY",
+        "C-ALT-INVALID"
+      ],
+      "addedCaseIds": [
+        "RR-O03-ALTERNATIVES",
+        "RR-O03-LAST-CONDUCTOR",
+        "RR-O03-COMPATIBILITY",
+        "RR-REPLAY",
+        "RR-INTERRUPTION",
+        "RR-MISSING-ACTION"
+      ]
+    },
+    {
+      "objective": "O04",
+      "frozenCaseIds": [
+        "T03",
+        "C-CONTINUITY",
+        "B-CONTINUITY",
+        "B-REGEN-UNREVIEWED",
+        "T13"
+      ],
+      "addedCaseIds": [
+        "RR-O04-ALTERNATIVES",
+        "RR-O04-REPEATER",
+        "RR-O04-UNREVIEWED-REGEN",
+        "RR-FRESH-REVISION",
+        "RR-FRESH-ATTEMPT",
+        "RR-FRESH-FLAG",
+        "RR-FRESH-CURRENT",
+        "RR-REPLAY",
+        "RR-INTERRUPTION",
+        "RR-MISSING-ACTION"
+      ]
+    },
+    {
+      "objective": "O05",
+      "frozenCaseIds": [
+        "C-COMPAT",
+        "T07",
+        "B-COMPAT",
+        "B-INSPECTION"
+      ],
+      "addedCaseIds": [
+        "RR-O05-ALTERNATIVES",
+        "RR-O05-NO-INSPECTION",
+        "RR-O05-WAVELENGTH",
+        "RR-REPLAY",
+        "RR-INTERRUPTION",
+        "RR-MISSING-ACTION"
+      ]
+    },
+    {
+      "objective": "O06",
+      "frozenCaseIds": [
+        "T04",
+        "T05",
+        "T06",
+        "T07",
+        "T15",
+        "B-OPT-MAX",
+        "B-OPT-OVER",
+        "B-OPT-RESERVE",
+        "B-LOSS-ZERO",
+        "C-ERROR-UNIT",
+        "C-ERROR-LOSS",
+        "C-ERROR-PROFILE",
+        "C-ERROR-UNIT-KIND",
+        "C-ERROR-INCONSISTENT"
+      ],
+      "addedCaseIds": [
+        "RR-O06-ALTERNATIVES",
+        "RR-O06-RESERVE-NEIGHBOR",
+        "RR-O06-SENSITIVITY",
+        "RR-O06-OBSERVED-MAX",
+        "RR-FRESH-REVISION",
+        "RR-FRESH-ATTEMPT",
+        "RR-FRESH-FLAG",
+        "RR-FRESH-CURRENT",
+        "RR-REPLAY",
+        "RR-INTERRUPTION",
+        "RR-MISSING-ACTION",
+        "RR-MALFORMED-PRECEDENCE",
+        "RR-OPTICAL-IMPOSSIBLE"
+      ]
+    },
+    {
+      "objective": "O07",
+      "frozenCaseIds": [
+        "C-COMPAT",
+        "B-RADIO-PATH"
+      ],
+      "addedCaseIds": [
+        "RR-O07-ALTERNATIVES",
+        "RR-O07-BLOCKED-PATH",
+        "RR-O07-MISSING-PATH",
+        "RR-REPLAY",
+        "RR-INTERRUPTION",
+        "RR-MISSING-ACTION"
+      ]
+    },
+    {
+      "objective": "O08",
+      "frozenCaseIds": [
+        "T08",
+        "T09",
+        "B-RADIO-20",
+        "B-RADIO-BELOW",
+        "B-RADIO-PATH",
+        "T13"
+      ],
+      "addedCaseIds": [
+        "RR-O08-ALTERNATIVES",
+        "RR-O08-BELOW",
+        "RR-O08-MITIGATION-NOT-MEASUREMENT",
+        "RR-FRESH-REVISION",
+        "RR-FRESH-ATTEMPT",
+        "RR-FRESH-FLAG",
+        "RR-FRESH-CURRENT",
+        "RR-REPLAY",
+        "RR-INTERRUPTION",
+        "RR-MISSING-ACTION"
+      ]
+    },
+    {
+      "objective": "O09",
+      "frozenCaseIds": [
+        "T10",
+        "T11",
+        "C-POWER",
+        "B-POWER-30",
+        "B-POWER-OVER",
+        "B-POWER-COMPAT",
+        "C-NEG-WRONG",
+        "B-NEG-NONE"
+      ],
+      "addedCaseIds": [
+        "RR-O09-ALTERNATIVES",
+        "RR-O09-FORM-FACTOR-ONLY",
+        "RR-O09-PER-PORT",
+        "RR-O09-POWER-BOUNDARY",
+        "RR-REPLAY",
+        "RR-INTERRUPTION",
+        "RR-MISSING-ACTION"
+      ]
+    },
+    {
+      "objective": "O10",
+      "frozenCaseIds": [
+        "T11",
+        "T12",
+        "C-SYMBOL-WRONG",
+        "B-SYMBOL",
+        "B-TIMING",
+        "C-SCOPE-WRONG",
+        "C-ERROR-SYMBOL"
+      ],
+      "addedCaseIds": [
+        "RR-O10-ALTERNATIVES",
+        "RR-O10-ROLE",
+        "RR-O10-MISSING-SAMPLES",
+        "RR-REPLAY",
+        "RR-INTERRUPTION",
+        "RR-MISSING-ACTION"
+      ]
+    },
+    {
+      "objective": "O11",
+      "frozenCaseIds": [
+        "T13",
+        "T14",
+        "T16",
+        "B-REPLAY",
+        "B-INTERRUPT",
+        "B-RETRY",
+        "C-E03"
+      ],
+      "addedCaseIds": [
+        "RR-O11-COPPER",
+        "RR-O11-FIBER",
+        "RR-O11-RADIO",
+        "RR-O11-SHUTDOWN",
+        "RR-O11-MISSING-SHARED",
+        "RR-O11-MIXED-BRANCH",
+        "RR-O11-PRECOMMIT-RETURN",
+        "RR-FRESH-REVISION",
+        "RR-FRESH-ATTEMPT",
+        "RR-FRESH-FLAG",
+        "RR-FRESH-CURRENT",
+        "RR-RETRY",
+        "RR-E03-CONTINUE",
+        "RR-REPLAY",
+        "RR-INTERRUPTION",
+        "RR-MISSING-ACTION"
+      ]
+    },
+    {
+      "objective": "O12",
+      "frozenCaseIds": [
+        "T13",
+        "T16",
+        "C-E01",
+        "C-E02",
+        "C-E03",
+        "C-END-WRONG",
+        "B-ENDPOINT",
+        "B-PACKET",
+        "C-PACKET",
+        "C-PACKET-DIFF"
+      ],
+      "addedCaseIds": [
+        "RR-O12-PERMANENT",
+        "RR-O12-TEMPORARY",
+        "RR-O12-SHUTDOWN",
+        "RR-O12-ARRIVAL-ONLY",
+        "RR-O12-FAILED-ENDPOINT",
+        "RR-O12-TEMP-AS-PERMANENT",
+        "RR-O12-MISSING-FOLLOWUP",
+        "RR-O12-UNINTENTIONAL-OUTAGE",
+        "RR-FRESH-REVISION",
+        "RR-FRESH-ATTEMPT",
+        "RR-FRESH-FLAG",
+        "RR-FRESH-CURRENT",
+        "RR-RETRY",
+        "RR-E03-CONTINUE",
+        "RR-REPLAY",
+        "RR-INTERRUPTION",
+        "RR-MISSING-ACTION"
+      ]
+    }
+  ],
+  "limitations": [
+    "Fictional thresholds and exact measurements inherit only the seven reviewed T006 profiles; no new product or regulatory claims.",
+    "Candidate names, route steps and field names are independent oracle vocabulary, not authored runtime content or a promised production API.",
+    "Compatibility/path/defect facts are supplied premises, not inferred from power, connector shape, budget, pictures or ally choice.",
+    "Each expected correct result is scoped to its objective or predicate. Final endpoint proof, current evidence, and ending classification remain separate.",
+    "All added application cases are explicit TODO. Existing 83 frozen cases and 68 pending evaluator cases remain unchanged.",
+    "Production save units Mbps differ from reviewed capability unit Mb/s; toy-level is not a saved measurement unit. Adapt explicitly later without rewriting this oracle."
+  ],
+  "cases": [
+    {
+      "id": "RR-O03-ALTERNATIVES",
+      "objectives": [
+        "O03"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "T01",
+        "B-COPPER-100",
+        "T16"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-COPPER-100"
+      ],
+      "inputs": {
+        "candidates": [
+          {
+            "id": "section-replacement",
+            "lengths": [
+              {
+                "value": 85,
+                "unit": "m"
+              },
+              {
+                "value": 10,
+                "unit": "m"
+              }
+            ],
+            "compatible": true,
+            "defectRemoved": true,
+            "allRequiredConductorsIntact": true
+          },
+          {
+            "id": "alternate-passive-path",
+            "lengths": [
+              {
+                "value": 90,
+                "unit": "m"
+              },
+              {
+                "value": 10,
+                "unit": "m"
+              }
+            ],
+            "compatible": true,
+            "defectRemoved": true,
+            "allRequiredConductorsIntact": true
+          }
+        ],
+        "requiredToolsRecoverable": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "accepted": [
+            "section-replacement",
+            "alternate-passive-path"
+          ],
+          "totalLengths": [
+            {
+              "value": 95,
+              "unit": "m"
+            },
+            {
+              "value": 100,
+              "unit": "m"
+            }
+          ],
+          "headrooms": [
+            {
+              "value": 5,
+              "unit": "m"
+            },
+            {
+              "value": 0,
+              "unit": "m"
+            }
+          ],
+          "wholeRouteProven": false
+        }
+      },
+      "independentReasoning": "85+10=95 and 90+10=100; both are <= the fictional inclusive 100 m maximum and remove the stated defect. Neither alone proves O04 or service.",
+      "execution": {
+        "status": "todo",
+        "task": "T070/T074/T075"
+      }
+    },
+    {
+      "id": "RR-O03-LAST-CONDUCTOR",
+      "objectives": [
+        "O03"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "B-CONTINUITY"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-COPPER-100"
+      ],
+      "inputs": {
+        "lengths": [
+          {
+            "value": 85,
+            "unit": "m"
+          },
+          {
+            "value": 10,
+            "unit": "m"
+          }
+        ],
+        "compatible": true,
+        "requiredConductors": [
+          true,
+          true,
+          false,
+          true
+        ]
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "preparationComplete": false,
+          "reason": "required-path-open"
+        }
+      },
+      "independentReasoning": "A passing 95 m length and three intact required conductors cannot override the fourth open conductor.",
+      "execution": {
+        "status": "todo",
+        "task": "T070/T074"
+      }
+    },
+    {
+      "id": "RR-O03-COMPATIBILITY",
+      "objectives": [
+        "O03"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "C-ALT-INVALID",
+        "B-COMPAT"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-COPPER-100"
+      ],
+      "inputs": {
+        "lengths": [
+          {
+            "value": 85,
+            "unit": "m"
+          },
+          {
+            "value": 10,
+            "unit": "m"
+          }
+        ],
+        "allRequiredConductorsIntact": true,
+        "chosenTerminationCompatible": false
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "preparationComplete": false,
+          "reason": "incompatible-termination"
+        }
+      },
+      "independentReasoning": "Intact and within length does not establish compatibility of the selected termination.",
+      "execution": {
+        "status": "todo",
+        "task": "T070/T074"
+      }
+    },
+    {
+      "id": "RR-O04-ALTERNATIVES",
+      "objectives": [
+        "O04"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "C-CONTINUITY",
+        "T03",
+        "T16"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-COPPER-100"
+      ],
+      "inputs": {
+        "before": {
+          "requiredPathOpen": true
+        },
+        "after": {
+          "allRequiredConductorsIntact": true,
+          "length": {
+            "value": 95,
+            "unit": "m"
+          },
+          "compatible": true,
+          "fresh": true
+        },
+        "comparisonMethods": [
+          "conventional-continuity-tool",
+          "equivalent-ally-inspection"
+        ],
+        "bothExposeBeforeAndAfter": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "accepted": [
+            "conventional-continuity-tool",
+            "equivalent-ally-inspection"
+          ],
+          "continuityEstablished": true,
+          "serviceProven": false
+        }
+      },
+      "independentReasoning": "Both methods reveal the same open-before/intact-after physical evidence; presentation or ally collection does not change the conclusion. O12 remains separate.",
+      "execution": {
+        "status": "todo",
+        "task": "T070/T074/T075"
+      }
+    },
+    {
+      "id": "RR-O04-REPEATER",
+      "objectives": [
+        "O04"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "T03",
+        "B-CONTINUITY"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-COPPER-100"
+      ],
+      "inputs": {
+        "before": {
+          "requiredPathOpen": true
+        },
+        "action": "add-powered-repeater",
+        "after": {
+          "requiredPathOpen": true,
+          "alternatePath": false
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "connectedPath": false,
+          "reason": "open-remains"
+        }
+      },
+      "independentReasoning": "The supplied action never restores the required circuit. Regeneration is not a substitute for continuity.",
+      "execution": {
+        "status": "todo",
+        "task": "T070"
+      }
+    },
+    {
+      "id": "RR-O04-UNREVIEWED-REGEN",
+      "objectives": [
+        "O04"
+      ],
+      "category": "content-error",
+      "sourceCaseIds": [
+        "B-REGEN-UNREVIEWED"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-COPPER-100"
+      ],
+      "inputs": {
+        "topology": "two-passive-segments-with-regenerator",
+        "segmentLengths": [
+          {
+            "value": 90,
+            "unit": "m"
+          },
+          {
+            "value": 90,
+            "unit": "m"
+          }
+        ],
+        "reviewedSegmentProfiles": null
+      },
+      "expected": {
+        "status": "content-error",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0,
+          "reason": "unsupported-regeneration-model"
+        }
+      },
+      "independentReasoning": "The single passive-channel profile cannot authorize a 180 m regenerative topology. No new segment limit or repeater count is invented.",
+      "execution": {
+        "status": "todo",
+        "task": "T070"
+      }
+    },
+    {
+      "id": "RR-O05-ALTERNATIVES",
+      "objectives": [
+        "O05"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "C-COMPAT",
+        "B-INSPECTION",
+        "T16"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "inputs": {
+        "candidates": [
+          {
+            "id": "inspected-connector-cleaning",
+            "inspectedBeforeChange": true,
+            "connectionDefectRemoved": true,
+            "mediaMatch": true,
+            "wavelengthDirectionMatch": true,
+            "rateMatch": true,
+            "connectorPolarityMatch": true,
+            "hostSupport": true
+          },
+          {
+            "id": "inspected-connector-replacement",
+            "inspectedBeforeChange": true,
+            "connectionDefectRemoved": true,
+            "mediaMatch": true,
+            "wavelengthDirectionMatch": true,
+            "rateMatch": true,
+            "connectorPolarityMatch": true,
+            "hostSupport": true
+          }
+        ]
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "accepted": [
+            "inspected-connector-cleaning",
+            "inspected-connector-replacement"
+          ],
+          "powerBudgetProven": false
+        }
+      },
+      "independentReasoning": "Both supplied interventions remove the inspected connection defect with all stated compatibility predicates true. Neither inspection nor matching alone awards O06.",
+      "execution": {
+        "status": "todo",
+        "task": "T071/T074/T079"
+      }
+    },
+    {
+      "id": "RR-O05-NO-INSPECTION",
+      "objectives": [
+        "O05"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "B-INSPECTION"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "inputs": {
+        "everyRequiredCompatibilityCheck": true,
+        "requiredInspectionComplete": false,
+        "action": "replace-connection"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "preparationComplete": false,
+          "reason": "inspect-before-changing"
+        }
+      },
+      "independentReasoning": "A correct module selection cannot replace the required pre-change inspection.",
+      "execution": {
+        "status": "todo",
+        "task": "T071/T074"
+      }
+    },
+    {
+      "id": "RR-O05-WAVELENGTH",
+      "objectives": [
+        "O05"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "T07",
+        "B-COMPAT"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "inputs": {
+        "sameConnectorShape": true,
+        "mediaMatch": true,
+        "rateMatch": true,
+        "hostSupport": true,
+        "requiredWavelengthDirectionMatches": false,
+        "loss": {
+          "value": 8,
+          "unit": "dB"
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "usableLink": false,
+          "reason": "incompatible-profiles",
+          "arithmeticCannotOverride": true
+        }
+      },
+      "independentReasoning": "One required wavelength direction mismatch defeats compatibility even with an otherwise sufficient nominal budget; no blanket SMF/MMF rule is invented.",
+      "execution": {
+        "status": "todo",
+        "task": "T071"
+      }
+    },
+    {
+      "id": "RR-O06-ALTERNATIVES",
+      "objectives": [
+        "O06"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "T04",
+        "T15",
+        "T16"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "inputs": {
+        "candidates": [
+          {
+            "id": "passive-path-A",
+            "loss": {
+              "value": 8,
+              "unit": "dB"
+            },
+            "compatible": true,
+            "inspectionComplete": true,
+            "fresh": true
+          },
+          {
+            "id": "passive-path-B",
+            "loss": {
+              "value": 9,
+              "unit": "dB"
+            },
+            "compatible": true,
+            "inspectionComplete": true,
+            "fresh": true
+          }
+        ]
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "accepted": [
+            "passive-path-A",
+            "passive-path-B"
+          ],
+          "receive": [
+            {
+              "value": -11,
+              "unit": "dBm"
+            },
+            {
+              "value": -12,
+              "unit": "dBm"
+            }
+          ],
+          "margin": [
+            {
+              "value": 3,
+              "unit": "dB"
+            },
+            {
+              "value": 2,
+              "unit": "dB"
+            }
+          ],
+          "serviceProven": false
+        }
+      },
+      "independentReasoning": "-3-8=-11 and -3-9=-12; subtract -14 to get 3 and 2 dB. Both meet the inclusive 2 dB reserve and are <= -1 dBm.",
+      "execution": {
+        "status": "todo",
+        "task": "T071/T074"
+      }
+    },
+    {
+      "id": "RR-O06-RESERVE-NEIGHBOR",
+      "objectives": [
+        "O06"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "B-OPT-RESERVE"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "inputs": {
+        "loss": {
+          "value": 9.01,
+          "unit": "dB"
+        },
+        "compatible": true,
+        "fresh": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "receive": {
+            "value": -12.01,
+            "unit": "dBm"
+          },
+          "margin": {
+            "value": 1.99,
+            "unit": "dB"
+          },
+          "reserveMet": false
+        }
+      },
+      "independentReasoning": "-3-9.01=-12.01; -12.01-(-14)=1.99<2. Display rounding must not turn failure into equality.",
+      "execution": {
+        "status": "todo",
+        "task": "T071"
+      }
+    },
+    {
+      "id": "RR-O06-SENSITIVITY",
+      "objectives": [
+        "O06"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "T05",
+        "T15"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "inputs": {
+        "loss": {
+          "value": 11,
+          "unit": "dB"
+        },
+        "compatible": true,
+        "fresh": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "receive": {
+            "value": -14,
+            "unit": "dBm"
+          },
+          "margin": {
+            "value": 0,
+            "unit": "dB"
+          },
+          "sensitivityMet": true,
+          "reserveMet": false
+        }
+      },
+      "independentReasoning": "-3-11=-14 is exactly sensitivity; reserve is zero, below the independently required 2 dB.",
+      "execution": {
+        "status": "todo",
+        "task": "T071"
+      }
+    },
+    {
+      "id": "RR-O06-OBSERVED-MAX",
+      "objectives": [
+        "O06"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "B-OPT-MAX",
+        "T06"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "receive": {
+          "value": -1,
+          "unit": "dBm"
+        },
+        "sensitivity": {
+          "value": -14,
+          "unit": "dBm"
+        },
+        "maximumReceive": {
+          "value": -1,
+          "unit": "dBm"
+        },
+        "requiredMargin": {
+          "value": 2,
+          "unit": "dB"
+        },
+        "compatible": true,
+        "observationOnly": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "margin": {
+            "value": 13,
+            "unit": "dB"
+          },
+          "overload": false
+        }
+      },
+      "independentReasoning": "-1-(-14)=13 dB and equality to the -1 dBm maximum is allowed. This supplied observation does not inherit the -3 dBm transmitter.",
+      "execution": {
+        "status": "todo",
+        "task": "T071"
+      }
+    },
+    {
+      "id": "RR-O07-ALTERNATIVES",
+      "objectives": [
+        "O07"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "C-COMPAT",
+        "T08",
+        "T16"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-RADIO"
+      ],
+      "inputs": {
+        "candidates": [
+          {
+            "id": "align-existing-path",
+            "viablePath": true,
+            "settingsCompatible": true
+          },
+          {
+            "id": "choose-alternate-path",
+            "viablePath": true,
+            "settingsCompatible": true
+          }
+        ],
+        "pathOutcomesSupplied": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "accepted": [
+            "align-existing-path",
+            "choose-alternate-path"
+          ],
+          "snrProven": false
+        }
+      },
+      "independentReasoning": "Two declared viable paths with compatible settings may prepare the radio route. No propagation calculation, channel ranking or SNR is inferred from alignment.",
+      "execution": {
+        "status": "todo",
+        "task": "T072/T074/T080"
+      }
+    },
+    {
+      "id": "RR-O07-BLOCKED-PATH",
+      "objectives": [
+        "O07"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "B-RADIO-PATH"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-RADIO"
+      ],
+      "inputs": {
+        "viablePath": false,
+        "settingsCompatible": true,
+        "signal": {
+          "value": -65,
+          "unit": "dBm"
+        },
+        "noise": {
+          "value": -90,
+          "unit": "dBm"
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "usableLink": false,
+          "reason": "path-prerequisite-fails"
+        }
+      },
+      "independentReasoning": "Even a nominal 25 dB observation cannot override the independently supplied failed path prerequisite.",
+      "execution": {
+        "status": "todo",
+        "task": "T072"
+      }
+    },
+    {
+      "id": "RR-O07-MISSING-PATH",
+      "objectives": [
+        "O07"
+      ],
+      "category": "content-error",
+      "sourceCaseIds": [
+        "T14"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-RADIO"
+      ],
+      "inputs": {
+        "settingsCompatible": true,
+        "signal": {
+          "value": -65,
+          "unit": "dBm"
+        },
+        "noise": {
+          "value": -90,
+          "unit": "dBm"
+        }
+      },
+      "expected": {
+        "status": "content-error",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0,
+          "reason": "missing-authored-path-fact"
+        }
+      },
+      "independentReasoning": "PROFILE-RADIO requires an explicitly supplied viable-path fact. Omission is author error, unlike an explicit false chosen-path fact.",
+      "execution": {
+        "status": "todo",
+        "task": "T072"
+      }
+    },
+    {
+      "id": "RR-O08-ALTERNATIVES",
+      "objectives": [
+        "O08"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "T08",
+        "B-RADIO-20",
+        "T16"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-RADIO"
+      ],
+      "inputs": {
+        "candidates": [
+          {
+            "id": "scenario-channel-A",
+            "signal": {
+              "value": -65,
+              "unit": "dBm"
+            },
+            "noise": {
+              "value": -90,
+              "unit": "dBm"
+            },
+            "viablePath": true,
+            "settingsCompatible": true,
+            "fresh": true
+          },
+          {
+            "id": "scenario-channel-B",
+            "signal": {
+              "value": -65,
+              "unit": "dBm"
+            },
+            "noise": {
+              "value": -85,
+              "unit": "dBm"
+            },
+            "viablePath": true,
+            "settingsCompatible": true,
+            "fresh": true
+          }
+        ]
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "accepted": [
+            "scenario-channel-A",
+            "scenario-channel-B"
+          ],
+          "snr": [
+            {
+              "value": 25,
+              "unit": "dB"
+            },
+            {
+              "value": 20,
+              "unit": "dB"
+            }
+          ],
+          "throughputProven": false
+        }
+      },
+      "independentReasoning": "-65-(-90)=25 and -65-(-85)=20 dB; both satisfy this fictional inclusive 20 dB minimum. Candidate labels imply no real channel recommendation.",
+      "execution": {
+        "status": "todo",
+        "task": "T072/T074"
+      }
+    },
+    {
+      "id": "RR-O08-BELOW",
+      "objectives": [
+        "O08"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "B-RADIO-BELOW"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-RADIO"
+      ],
+      "inputs": {
+        "signal": {
+          "value": -65,
+          "unit": "dBm"
+        },
+        "noise": {
+          "value": -84.99,
+          "unit": "dBm"
+        },
+        "viablePath": true,
+        "settingsCompatible": true,
+        "fresh": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "snr": {
+            "value": 19.99,
+            "unit": "dB"
+          },
+          "thresholdMet": false
+        }
+      },
+      "independentReasoning": "-65-(-84.99)=19.99<20 dB, even if presentation rounds to 20.",
+      "execution": {
+        "status": "todo",
+        "task": "T072"
+      }
+    },
+    {
+      "id": "RR-O08-MITIGATION-NOT-MEASUREMENT",
+      "objectives": [
+        "O08"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "T09",
+        "T13"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-RADIO"
+      ],
+      "inputs": {
+        "before": {
+          "signal": {
+            "value": -65,
+            "unit": "dBm"
+          },
+          "noise": {
+            "value": -78,
+            "unit": "dBm"
+          },
+          "revision": 7
+        },
+        "action": "change-channel",
+        "currentRevision": 8,
+        "newObservation": null
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "priorSnr": {
+            "value": 13,
+            "unit": "dB"
+          },
+          "freshValidation": false,
+          "reason": "remeasure-after-change"
+        }
+      },
+      "independentReasoning": "The prior 13 dB reading describes revision 7. Selecting another channel at revision 8 supplies no new signal/noise observation.",
+      "execution": {
+        "status": "todo",
+        "task": "T072/T074"
+      }
+    },
+    {
+      "id": "RR-O09-ALTERNATIVES",
+      "objectives": [
+        "O09"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "C-POWER",
+        "B-POWER-30",
+        "T11",
+        "T16"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-POWER",
+        "spec001:PROFILE-CAPABILITIES"
+      ],
+      "inputs": {
+        "candidates": [
+          {
+            "id": "compatible-kit-A",
+            "demands": [
+              {
+                "value": 12,
+                "unit": "W"
+              },
+              {
+                "value": 11,
+                "unit": "W"
+              }
+            ],
+            "formFactorMatch": true,
+            "phyAndMediaMatch": true,
+            "hostSupport": true,
+            "portPowerCompatible": true,
+            "perPortConstraintsMet": true
+          },
+          {
+            "id": "compatible-kit-B",
+            "demands": [
+              {
+                "value": 12,
+                "unit": "W"
+              },
+              {
+                "value": 11,
+                "unit": "W"
+              },
+              {
+                "value": 7,
+                "unit": "W"
+              }
+            ],
+            "formFactorMatch": true,
+            "phyAndMediaMatch": true,
+            "hostSupport": true,
+            "portPowerCompatible": true,
+            "perPortConstraintsMet": true
+          }
+        ],
+        "accountingBoundary": "delivered-after-losses",
+        "selectedCapability": {
+          "rate": {
+            "value": 100,
+            "unit": "Mb/s"
+          },
+          "duplex": "full"
+        },
+        "bothNegotiate": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "accepted": [
+            "compatible-kit-A",
+            "compatible-kit-B"
+          ],
+          "totalDemand": [
+            {
+              "value": 23,
+              "unit": "W"
+            },
+            {
+              "value": 30,
+              "unit": "W"
+            }
+          ],
+          "headroom": [
+            {
+              "value": 7,
+              "unit": "W"
+            },
+            {
+              "value": 0,
+              "unit": "W"
+            }
+          ],
+          "serviceProven": false
+        }
+      },
+      "independentReasoning": "12+11=23 and 12+11+7=30 W at the same delivered boundary. Both fit the 30 W budget; 100/full is the sole supplied common mode.",
+      "execution": {
+        "status": "todo",
+        "task": "T073/T074/T076"
+      }
+    },
+    {
+      "id": "RR-O09-FORM-FACTOR-ONLY",
+      "objectives": [
+        "O09"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "B-POWER-COMPAT",
+        "T07"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-POWER"
+      ],
+      "inputs": {
+        "sameFormFactor": true,
+        "totalDemand": {
+          "value": 23,
+          "unit": "W"
+        },
+        "phyAndMediaMatch": false,
+        "hostSupport": true,
+        "portPowerCompatible": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "equipmentReady": false,
+          "reason": "physical-profile-mismatch",
+          "budgetCannotOverride": true
+        }
+      },
+      "independentReasoning": "A matching module shell and 7 W budget headroom cannot establish PHY/media compatibility.",
+      "execution": {
+        "status": "todo",
+        "task": "T073/T074"
+      }
+    },
+    {
+      "id": "RR-O09-PER-PORT",
+      "objectives": [
+        "O09"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "B-POWER-COMPAT"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-POWER"
+      ],
+      "inputs": {
+        "totalDemand": {
+          "value": 23,
+          "unit": "W"
+        },
+        "portPowerCompatible": true,
+        "perPortConstraintsMet": false
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "equipmentReady": false,
+          "reason": "per-port-constraint-fails"
+        }
+      },
+      "independentReasoning": "Aggregate headroom cannot override a declared failed per-port constraint. No new numeric per-port limit is invented.",
+      "execution": {
+        "status": "todo",
+        "task": "T073"
+      }
+    },
+    {
+      "id": "RR-O09-POWER-BOUNDARY",
+      "objectives": [
+        "O09"
+      ],
+      "category": "content-error",
+      "sourceCaseIds": [
+        "T14"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-POWER"
+      ],
+      "inputs": {
+        "budget": {
+          "value": 30,
+          "unit": "W"
+        },
+        "budgetBoundary": "PSE-output",
+        "demands": [
+          {
+            "value": 12,
+            "unit": "W"
+          },
+          {
+            "value": 11,
+            "unit": "W"
+          }
+        ],
+        "demandBoundary": "delivered-after-losses",
+        "conversionLossModel": null
+      },
+      "expected": {
+        "status": "content-error",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0,
+          "reason": "incomparable-power-boundaries"
+        }
+      },
+      "independentReasoning": "The reviewed 30 W profile is delivered capacity. A source-output label with no loss model cannot silently be substituted.",
+      "execution": {
+        "status": "todo",
+        "task": "T073"
+      }
+    },
+    {
+      "id": "RR-O10-ALTERNATIVES",
+      "objectives": [
+        "O10"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "T11",
+        "T12",
+        "T16",
+        "B-TIMING"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-SYMBOLS",
+        "spec001:PROFILE-CAPABILITIES"
+      ],
+      "inputs": {
+        "symbols": [
+          {
+            "value": -3,
+            "unit": "toy-level"
+          },
+          {
+            "value": 1,
+            "unit": "toy-level"
+          },
+          {
+            "value": 3,
+            "unit": "toy-level"
+          },
+          {
+            "value": -1,
+            "unit": "toy-level"
+          }
+        ],
+        "samplePositions": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "candidates": [
+          {
+            "id": "step-and-decode",
+            "bits": "00101101"
+          },
+          {
+            "id": "notebook-and-replay",
+            "bits": "00101101"
+          }
+        ],
+        "selectedCapability": {
+          "rate": {
+            "value": 100,
+            "unit": "Mb/s"
+          },
+          "duplex": "full"
+        },
+        "bothNegotiate": true,
+        "roleClaim": "physical-sampling-not-address-discovery",
+        "timingScoreRequired": false
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "accepted": [
+            "step-and-decode",
+            "notebook-and-replay"
+          ],
+          "representedBits": 8,
+          "symbols": 4,
+          "throughputProven": false
+        }
+      },
+      "independentReasoning": "00|10|11|01 gives 00101101 in either untimed method. Both choose the one common mode and correctly distinguish sampling from address resolution.",
+      "execution": {
+        "status": "todo",
+        "task": "T074/T076"
+      }
+    },
+    {
+      "id": "RR-O10-ROLE",
+      "objectives": [
+        "O10"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "C-SCOPE-WRONG",
+        "T12"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-SYMBOLS"
+      ],
+      "inputs": {
+        "bits": "00101101",
+        "roleClaim": "physical-repeater-resolves-IP-address"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "calibrationComplete": false,
+          "reason": "outside-physical-role"
+        }
+      },
+      "independentReasoning": "Correct toy bits cannot make address discovery a physical repeater function.",
+      "execution": {
+        "status": "todo",
+        "task": "T074/T076"
+      }
+    },
+    {
+      "id": "RR-O10-MISSING-SAMPLES",
+      "objectives": [
+        "O10"
+      ],
+      "category": "content-error",
+      "sourceCaseIds": [
+        "C-ERROR-SYMBOL",
+        "T14"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-SYMBOLS"
+      ],
+      "inputs": {
+        "symbols": [
+          {
+            "value": -3,
+            "unit": "toy-level"
+          },
+          {
+            "value": 1,
+            "unit": "toy-level"
+          }
+        ],
+        "samplePositions": null
+      },
+      "expected": {
+        "status": "content-error",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0,
+          "reason": "missing-authored-sample-positions"
+        }
+      },
+      "independentReasoning": "The scoped toy model needs sample order/positions; absence is author error, not a wrong learner decode.",
+      "execution": {
+        "status": "todo",
+        "task": "T074/T076"
+      }
+    },
+    {
+      "id": "RR-O11-COPPER",
+      "objectives": [
+        "O11"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "T16",
+        "C-E01"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "selectedRoute": "copper",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "reviewedPlan": true,
+        "physicalChecksPass": true,
+        "warningAcknowledged": true,
+        "executionCompleted": true,
+        "temporaryDependency": false
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "interventionAccepted": true,
+          "route": "copper",
+          "finalValidationRequired": true
+        }
+      },
+      "independentReasoning": "The selected two-objective branch plus O09/O10 is sufficient after O01/O02. Other branches, side quests and Spec002 are not prerequisites; O12 is still needed.",
+      "execution": {
+        "status": "todo",
+        "task": "T074/T077"
+      }
+    },
+    {
+      "id": "RR-O11-FIBER",
+      "objectives": [
+        "O11"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "T16",
+        "C-E01"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "selectedRoute": "fiber",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O05",
+          "O06",
+          "O09",
+          "O10"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "reviewedPlan": true,
+        "physicalChecksPass": true,
+        "warningAcknowledged": true,
+        "executionCompleted": true,
+        "temporaryDependency": false
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "interventionAccepted": true,
+          "route": "fiber",
+          "finalValidationRequired": true
+        }
+      },
+      "independentReasoning": "The selected two-objective branch plus O09/O10 is sufficient after O01/O02. Other branches, side quests and Spec002 are not prerequisites; O12 is still needed.",
+      "execution": {
+        "status": "todo",
+        "task": "T074/T077"
+      }
+    },
+    {
+      "id": "RR-O11-RADIO",
+      "objectives": [
+        "O11"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "T16",
+        "C-E01"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "selectedRoute": "radio",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O07",
+          "O08",
+          "O09",
+          "O10"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "reviewedPlan": true,
+        "physicalChecksPass": true,
+        "warningAcknowledged": true,
+        "executionCompleted": true,
+        "temporaryDependency": false
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "interventionAccepted": true,
+          "route": "radio",
+          "finalValidationRequired": true
+        }
+      },
+      "independentReasoning": "The selected two-objective branch plus O09/O10 is sufficient after O01/O02. Other branches, side quests and Spec002 are not prerequisites; O12 is still needed.",
+      "execution": {
+        "status": "todo",
+        "task": "T074/T077"
+      }
+    },
+    {
+      "id": "RR-O11-SHUTDOWN",
+      "objectives": [
+        "O11"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "C-E03"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "unresolvedDefectIdentified": true,
+        "deliberateIsolation": true,
+        "recoveryPlanRecorded": true,
+        "warningAcknowledged": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "interventionAccepted": true,
+          "restoredService": false,
+          "finalClassification": "E03"
+        }
+      },
+      "independentReasoning": "Intentional isolation with a named unresolved defect and recovery plan is a valid story resolution, never a repaired physical path.",
+      "execution": {
+        "status": "todo",
+        "task": "T077/T086"
+      }
+    },
+    {
+      "id": "RR-O11-MISSING-SHARED",
+      "objectives": [
+        "O11"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "C-ALT-INVALID"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "selectedRoute": "fiber",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O05",
+          "O06",
+          "O09"
+        ],
+        "reviewedPlan": true,
+        "physicalChecksPass": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "interventionAccepted": false,
+          "missingObjectives": [
+            "O10"
+          ]
+        }
+      },
+      "independentReasoning": "Finishing fiber and equipment cannot waive the common Clockworks briefing.",
+      "execution": {
+        "status": "todo",
+        "task": "T074/T077"
+      }
+    },
+    {
+      "id": "RR-O11-MIXED-BRANCH",
+      "objectives": [
+        "O11"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "C-ALT-INVALID"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "selectedRoute": "copper",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O06",
+          "O09",
+          "O10"
+        ]
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "interventionAccepted": false,
+          "missingObjectives": [
+            "O04"
+          ]
+        }
+      },
+      "independentReasoning": "Copper preparation plus fiber proof does not constitute any complete selected branch.",
+      "execution": {
+        "status": "todo",
+        "task": "T074/T077"
+      }
+    },
+    {
+      "id": "RR-O11-PRECOMMIT-RETURN",
+      "objectives": [
+        "O11"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "B-INTERRUPT"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "encounterPhase": "precommit",
+        "action": "return-to-preparation",
+        "routeClosingWarningShown": true,
+        "inventoryBefore": [
+          "tool",
+          "replacement"
+        ],
+        "uncommittedConsumption": [
+          "replacement"
+        ]
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "safePreparationReachable": true,
+          "inventoryAfter": [
+            "tool",
+            "replacement"
+          ],
+          "partialRewards": 0,
+          "implicitSaveWrites": 0
+        }
+      },
+      "independentReasoning": "Before commitment, return remains possible; unaccepted consumption/reward is not applied and returning does not save.",
+      "execution": {
+        "status": "todo",
+        "task": "T077/T085"
+      }
+    },
+    {
+      "id": "RR-O12-PERMANENT",
+      "objectives": [
+        "O12"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "C-E01",
+        "T16"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "selection": "permanent",
+        "allScopedPhysicalChecks": true,
+        "freshLinkMeasurements": true,
+        "endpointServiceTest": true,
+        "defectRemoved": true,
+        "temporaryDependency": false,
+        "hintLevelsUsed": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "classification": "E01",
+          "restoredService": true,
+          "assistanceRecorded": true,
+          "assistanceDowngradesEnding": false
+        }
+      },
+      "independentReasoning": "All required fresh checks pass with the defect removed and no temporary dependency. Hint use remains recorded without downgrading a valid ending.",
+      "execution": {
+        "status": "todo",
+        "task": "T074/T077/T086"
+      }
+    },
+    {
+      "id": "RR-O12-TEMPORARY",
+      "objectives": [
+        "O12"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "C-E02",
+        "T16"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "selection": "temporary",
+        "allScopedPhysicalChecks": true,
+        "freshLinkMeasurements": true,
+        "endpointServiceTest": true,
+        "temporaryDependency": true,
+        "limitationAndFollowupRecorded": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "classification": "E02",
+          "restoredService": true,
+          "permanentRepair": false
+        }
+      },
+      "independentReasoning": "A documented temporary dependency with all service checks passing is successful temporary restoration, distinct from E01.",
+      "execution": {
+        "status": "todo",
+        "task": "T077/T086"
+      }
+    },
+    {
+      "id": "RR-O12-SHUTDOWN",
+      "objectives": [
+        "O12"
+      ],
+      "category": "alternative",
+      "sourceCaseIds": [
+        "C-E03"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "selection": "shutdown",
+        "unresolvedDefectIdentified": true,
+        "deliberateIsolation": true,
+        "recoveryPlanRecorded": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "classification": "E03",
+          "restoredService": false
+        }
+      },
+      "independentReasoning": "Intentional safe isolation closes the story honestly while service remains unresolved.",
+      "execution": {
+        "status": "todo",
+        "task": "T077/T086"
+      }
+    },
+    {
+      "id": "RR-O12-ARRIVAL-ONLY",
+      "objectives": [
+        "O12"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "B-ENDPOINT"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "atBalcony": true,
+        "O11Resolved": true,
+        "linkUp": true,
+        "endpointServiceTest": "not-run",
+        "selection": "permanent"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "endingAward": false,
+          "reason": "final-proof-missing"
+        }
+      },
+      "independentReasoning": "Reaching R12 and seeing link-up are insufficient without the independent endpoint test.",
+      "execution": {
+        "status": "todo",
+        "task": "T077"
+      }
+    },
+    {
+      "id": "RR-O12-FAILED-ENDPOINT",
+      "objectives": [
+        "O12"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "C-END-WRONG"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "allScopedPhysicalChecks": true,
+        "freshLinkMeasurements": true,
+        "endpointServiceTest": false,
+        "selection": "permanent"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "classification": "unresolved",
+          "restoredService": false
+        }
+      },
+      "independentReasoning": "Failed endpoint evidence cannot be relabeled a restored service even if physical checks passed.",
+      "execution": {
+        "status": "todo",
+        "task": "T077/T086"
+      }
+    },
+    {
+      "id": "RR-O12-TEMP-AS-PERMANENT",
+      "objectives": [
+        "O12"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "C-E02",
+        "C-END-WRONG"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "allScopedPhysicalChecks": true,
+        "freshLinkMeasurements": true,
+        "endpointServiceTest": true,
+        "temporaryDependency": true,
+        "limitationAndFollowupRecorded": true,
+        "selection": "permanent"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "permanentRepair": false,
+          "correctClassification": "E02"
+        }
+      },
+      "independentReasoning": "The temporary dependency prevents a permanent-restoration claim, even though its documented temporary service works.",
+      "execution": {
+        "status": "todo",
+        "task": "T077/T086"
+      }
+    },
+    {
+      "id": "RR-O12-MISSING-FOLLOWUP",
+      "objectives": [
+        "O12"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "C-E02",
+        "C-ALT-INVALID"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "allScopedPhysicalChecks": true,
+        "freshLinkMeasurements": true,
+        "endpointServiceTest": true,
+        "temporaryDependency": true,
+        "limitationAndFollowupRecorded": false,
+        "selection": "temporary"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "endingAward": false,
+          "reason": "temporary-followup-missing"
+        }
+      },
+      "independentReasoning": "E02 requires both the limitation and follow-up record; success checks alone do not supply them.",
+      "execution": {
+        "status": "todo",
+        "task": "T077/T086"
+      }
+    },
+    {
+      "id": "RR-O12-UNINTENTIONAL-OUTAGE",
+      "objectives": [
+        "O12"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "C-E03",
+        "C-END-WRONG"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "selection": "shutdown",
+        "unresolvedDefectIdentified": true,
+        "deliberateIsolation": false,
+        "recoveryPlanRecorded": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "endingAward": false,
+          "restoredService": false,
+          "reason": "shutdown-not-deliberate"
+        }
+      },
+      "independentReasoning": "An unresolved outage does not become the intentional isolation ending merely because the player names it shutdown.",
+      "execution": {
+        "status": "todo",
+        "task": "T077/T086"
+      }
+    },
+    {
+      "id": "RR-FRESH-REVISION",
+      "objectives": [
+        "O04",
+        "O06",
+        "O08",
+        "O11",
+        "O12"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "measurement": {
+          "revision": 7,
+          "attempt": "attempt-a"
+        },
+        "current": {
+          "revision": 8,
+          "attempt": "attempt-a"
+        },
+        "explicitlyStale": false,
+        "priorResult": "passing"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "fresh": false,
+          "currentValidationAward": false,
+          "observationRemainsVisible": true
+        }
+      },
+      "independentReasoning": "The path revision changed from 7 to 8. The old observation remains inspectable but cannot certify current state.",
+      "execution": {
+        "status": "todo",
+        "task": "T074"
+      }
+    },
+    {
+      "id": "RR-FRESH-ATTEMPT",
+      "objectives": [
+        "O04",
+        "O06",
+        "O08",
+        "O11",
+        "O12"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "measurement": {
+          "revision": 8,
+          "attempt": "attempt-a"
+        },
+        "current": {
+          "revision": 8,
+          "attempt": "attempt-b"
+        },
+        "explicitlyStale": false,
+        "priorResult": "passing"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "fresh": false,
+          "currentValidationAward": false,
+          "observationRemainsVisible": true
+        }
+      },
+      "independentReasoning": "Attempt identity alone differs; matching revision cannot revive old proof. The old observation remains inspectable but cannot certify current state.",
+      "execution": {
+        "status": "todo",
+        "task": "T074"
+      }
+    },
+    {
+      "id": "RR-FRESH-FLAG",
+      "objectives": [
+        "O04",
+        "O06",
+        "O08",
+        "O11",
+        "O12"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "measurement": {
+          "revision": 8,
+          "attempt": "attempt-b"
+        },
+        "current": {
+          "revision": 8,
+          "attempt": "attempt-b"
+        },
+        "explicitlyStale": true,
+        "priorResult": "passing"
+      },
+      "expected": {
+        "status": "incorrect",
+        "observation": {
+          "fresh": false,
+          "currentValidationAward": false,
+          "observationRemainsVisible": true
+        }
+      },
+      "independentReasoning": "An explicit stale flag blocks use even when both identities match. The old observation remains inspectable but cannot certify current state.",
+      "execution": {
+        "status": "todo",
+        "task": "T074"
+      }
+    },
+    {
+      "id": "RR-FRESH-CURRENT",
+      "objectives": [
+        "O04",
+        "O06",
+        "O08",
+        "O11",
+        "O12"
+      ],
+      "category": "correct",
+      "sourceCaseIds": [
+        "C-FRESH"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "measurement": {
+          "revision": 8,
+          "attempt": "attempt-b"
+        },
+        "current": {
+          "revision": 8,
+          "attempt": "attempt-b"
+        },
+        "explicitlyStale": false
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "fresh": true,
+          "physicalPassInferred": false
+        }
+      },
+      "independentReasoning": "Matching revision/attempt and no stale flag establish freshness only; the measured physical result still needs checking.",
+      "execution": {
+        "status": "todo",
+        "task": "T074"
+      }
+    },
+    {
+      "id": "RR-RETRY",
+      "objectives": [
+        "O11",
+        "O12"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "B-RETRY"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "action": "RETRY",
+        "preparation": {
+          "revision": 4,
+          "attempt": "attempt-a",
+          "inventory": [
+            "tool",
+            "replacement"
+          ],
+          "completedObjectives": [
+            "O01",
+            "O02",
+            "O03",
+            "O04",
+            "O09",
+            "O10"
+          ]
+        },
+        "attemptEnd": {
+          "revision": 8,
+          "attempt": "attempt-a",
+          "inventory": [
+            "tool"
+          ],
+          "newFacts": [
+            "open-found"
+          ],
+          "personalNotes": "check connector",
+          "hintUse": [
+            "O11-level-2"
+          ],
+          "measurements": [
+            {
+              "revision": 8,
+              "attempt": "attempt-a",
+              "value": {
+                "value": -11,
+                "unit": "dBm"
+              },
+              "passing": true
+            }
+          ]
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "inventory": [
+            "tool",
+            "replacement"
+          ],
+          "completedObjectives": [
+            "O01",
+            "O02",
+            "O03",
+            "O04",
+            "O09",
+            "O10"
+          ],
+          "retainedFacts": [
+            "open-found"
+          ],
+          "personalNotes": "check connector",
+          "hintUse": [
+            "O11-level-2"
+          ],
+          "allPriorMeasurementsStale": true,
+          "newAttemptRequired": true,
+          "revisionMustExceed": 8,
+          "implicitSaveWrites": 0,
+          "newPersistentSlots": 0
+        }
+      },
+      "independentReasoning": "Restore world/inventory preparation but keep new learning. Fresh attempt and revision beyond 8 prevent evidence revival; this is in-memory recovery, not Restore Save.",
+      "execution": {
+        "status": "todo",
+        "task": "T084/T088"
+      }
+    },
+    {
+      "id": "RR-E03-CONTINUE",
+      "objectives": [
+        "O11",
+        "O12"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "B-RETRY"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "action": "E03-CONTINUE",
+        "preparation": {
+          "revision": 4,
+          "attempt": "attempt-a",
+          "inventory": [
+            "tool",
+            "replacement"
+          ],
+          "completedObjectives": [
+            "O01",
+            "O02",
+            "O03",
+            "O04",
+            "O09",
+            "O10"
+          ]
+        },
+        "attemptEnd": {
+          "revision": 8,
+          "attempt": "attempt-a",
+          "inventory": [
+            "tool"
+          ],
+          "newFacts": [
+            "open-found"
+          ],
+          "personalNotes": "check connector",
+          "hintUse": [
+            "O11-level-2"
+          ],
+          "measurements": [
+            {
+              "revision": 8,
+              "attempt": "attempt-a",
+              "value": {
+                "value": -11,
+                "unit": "dBm"
+              },
+              "passing": true
+            }
+          ]
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "inventory": [
+            "tool",
+            "replacement"
+          ],
+          "completedObjectives": [
+            "O01",
+            "O02",
+            "O03",
+            "O04",
+            "O09",
+            "O10"
+          ],
+          "retainedFacts": [
+            "open-found"
+          ],
+          "personalNotes": "check connector",
+          "hintUse": [
+            "O11-level-2"
+          ],
+          "allPriorMeasurementsStale": true,
+          "newAttemptRequired": true,
+          "revisionMustExceed": 8,
+          "implicitSaveWrites": 0,
+          "newPersistentSlots": 0
+        }
+      },
+      "independentReasoning": "Restore world/inventory preparation but keep new learning. Fresh attempt and revision beyond 8 prevent evidence revival; this is in-memory recovery, not Restore Save.",
+      "execution": {
+        "status": "todo",
+        "task": "T084/T088"
+      }
+    },
+    {
+      "id": "RR-REPLAY",
+      "objectives": [
+        "O03",
+        "O04",
+        "O05",
+        "O06",
+        "O07",
+        "O08",
+        "O09",
+        "O10",
+        "O11",
+        "O12"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "actionId": "already-accepted-action",
+        "alreadyApplied": true,
+        "sameAcceptedEffectsDeliveredAgain": true
+      },
+      "expected": {
+        "status": "correct",
+        "observation": {
+          "additionalProgressAwards": 0,
+          "additionalItemConsumption": 0
+        }
+      },
+      "independentReasoning": "Delivering the same accepted effects again cannot duplicate rewards or consume the item again.",
+      "execution": {
+        "status": "todo",
+        "task": "T074/T077"
+      }
+    },
+    {
+      "id": "RR-INTERRUPTION",
+      "objectives": [
+        "O03",
+        "O04",
+        "O05",
+        "O06",
+        "O07",
+        "O08",
+        "O09",
+        "O10",
+        "O11",
+        "O12"
+      ],
+      "category": "boundary",
+      "sourceCaseIds": [
+        "B-INTERRUPT"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "transitionInterruptedBeforeAtomicAcceptance": true
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "partialRewards": 0,
+          "partialConsumption": 0,
+          "attemptPenalty": 0
+        }
+      },
+      "independentReasoning": "No complete command was accepted; preserve pre-transition state rather than grade a physical answer.",
+      "execution": {
+        "status": "todo",
+        "task": "T074/T077"
+      }
+    },
+    {
+      "id": "RR-MISSING-ACTION",
+      "objectives": [
+        "O03",
+        "O04",
+        "O05",
+        "O06",
+        "O07",
+        "O08",
+        "O09",
+        "O10",
+        "O11",
+        "O12"
+      ],
+      "category": "invalid-input",
+      "sourceCaseIds": [
+        "I-STATE02"
+      ],
+      "profileIds": [],
+      "inputs": {
+        "authoredChallengeValid": true,
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0,
+          "itemConsumption": 0
+        }
+      },
+      "independentReasoning": "Missing learner action is distinct from malformed author content and from an incorrect engineering choice.",
+      "execution": {
+        "status": "todo",
+        "task": "T070/T071/T072/T073/T074"
+      }
+    },
+    {
+      "id": "RR-MALFORMED-PRECEDENCE",
+      "objectives": [
+        "O06"
+      ],
+      "category": "content-error",
+      "sourceCaseIds": [
+        "T14",
+        "C-ERROR-UNIT"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "inputs": {
+        "loss": {
+          "value": 8
+        },
+        "learnerAction": null
+      },
+      "expected": {
+        "status": "content-error",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0,
+          "itemConsumption": 0
+        }
+      },
+      "independentReasoning": "Malformed authored loss lacks dB. Report the content defect before attempting to grade missing learner input.",
+      "execution": {
+        "status": "todo",
+        "task": "T071/T074"
+      }
+    },
+    {
+      "id": "RR-OPTICAL-IMPOSSIBLE",
+      "objectives": [
+        "O06"
+      ],
+      "category": "content-error",
+      "sourceCaseIds": [
+        "C-ERROR-INCONSISTENT",
+        "T06"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "inputs": {
+        "transmit": {
+          "value": -3,
+          "unit": "dBm"
+        },
+        "passiveLoss": {
+          "value": 0,
+          "unit": "dB"
+        },
+        "authoredReceive": {
+          "value": 0,
+          "unit": "dBm"
+        }
+      },
+      "expected": {
+        "status": "content-error",
+        "observation": {
+          "attemptPenalty": 0,
+          "progressAward": 0,
+          "reason": "inconsistent-passive-model"
+        }
+      },
+      "independentReasoning": "-3-0=-3 dBm, not 0 dBm. Unlike independent T06, this author claims both contradictory values in one passive model.",
+      "execution": {
+        "status": "todo",
+        "task": "T071"
+      }
+    }
+  ]
+}

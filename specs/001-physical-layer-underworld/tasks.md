@@ -375,7 +375,7 @@ the finished-room performance benchmark. Aggregate gates remain pending.
 
 **Ready after**: T060–T067.
 
-- [ ] T068 [US2] Extend reviewed independent fixtures for every O03–O12 alternative/boundary and T03–T16 in `tests/fixtures/repair-routes.json` and `tests/domain/repair-routes.test.ts`; verify optical −11dBm/3dB, −13dBm/1dB, inclusive −12dBm/2dB and radio 25dB/13dB expectations before implementation.
+- [X] T068 [US2] Extend reviewed independent fixtures for every O03–O12 alternative/boundary and T03–T16 in `tests/fixtures/repair-routes.json` and `tests/domain/repair-routes.test.ts`; verify optical −11dBm/3dB, −13dBm/1dB, inclusive −12dBm/2dB and radio 25dB/13dB expectations before implementation.
 - [ ] T069 [US2] Author bounded copper/fiber/radio/power/capability profiles with units, source references and fictional-threshold labels in `content/spec001/profiles.json` and `content/spec001/objectives.json`; every mandatory objective needs evidence, alternatives, effects and its method/worked/solution hint ladder.
 - [ ] T070 [P] [US2] Complete copper compatibility/length/continuity/regeneration evaluation in `src/domain/copper.ts` against T01–T03 and boundary fixtures; a repeater cannot bridge the declared physical break.
 - [ ] T071 [P] [US2] Implement optical profile compatibility, receive power/sensitivity/overload and reserve margin in `src/domain/optics.ts` against T04–T07/T15; retain dBm versus dB and reject incompatible optics before a passing numerical budget.
