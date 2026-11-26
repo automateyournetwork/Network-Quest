@@ -14,12 +14,14 @@
     "dev:verify": "node tools/verify-dev.mjs",
     "dev:client": "vite --host 127.0.0.1",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && node tools/validate-content.ts",
+    "check": "npm run typecheck && node tools/validate-content.ts && npm run save-policy:check",
     "test:domain": "vitest run",
     "test:api": "node tools/test-api.mjs",
     "test:e2e": "npm run build && playwright test",
-    "build": "npm run typecheck && vite build",
-    "preview:client": "vite preview --host 127.0.0.1"
+    "build": "npm run typecheck && npm run save-policy:check && vite build",
+    "preview:client": "vite preview --host 127.0.0.1",
+    "save-policy:generate": "node tools/generate-save-content-policy.ts --generate",
+    "save-policy:check": "node tools/generate-save-content-policy.ts"
   },
   "dependencies": {
     "ajv": "8.20.0",

@@ -7,8 +7,13 @@ declare(strict_types=1);
 namespace NetworkQuest;
 
 use InvalidArgumentException;
+use NetworkQuest\Routes\Auth;
+use NetworkQuest\Routes\Save;
+use NetworkQuest\Routes\Preferences;
+use NetworkQuest\Routes\Account;
+use NetworkQuest\Routes\DeletionStatus;
 
-/** Transport and route boundary only. No identity, session, configuration file or DB access. */
+/** Transport/routing boundary. Unconfigured deployments stay unavailable; handlers are trusted injection. */
 final class Router
 {
     public const GAME_BASE = '/arcade/play/network-quest/';
@@ -31,7 +36,9 @@ final class Router
     private readonly ?string $proxyToken;
 
     /** Narrow public routing options, NOT the future private service configuration. */
-    public function __construct(array $options = [])
+    public function __construct(array $options = [], private readonly ?Auth $auth = null, private readonly ?Save $save = null,
+        private readonly ?Preferences $preferences = null, private readonly ?Account $account = null,
+        private readonly ?DeletionStatus $deletionStatus = null)
     {
         if (array_diff(array_keys($options), ['environment', 'game_base', 'api_base', 'proxy_token']) !== []) {
             throw new InvalidArgumentException('Unsupported routing configuration.');
@@ -73,7 +80,7 @@ final class Router
     }
 
     /** Incoming forwarding headers are trusted ONLY behind the explicit local token. */
-    public function handleServer(array $server): array
+    public function handleServer(array $server, ?array $rawHeaders = null, mixed $body = null): array
     {
         $method = is_string($server['REQUEST_METHOD'] ?? null) ? $server['REQUEST_METHOD'] : '';
         $target = is_string($server['REQUEST_URI'] ?? null) ? $server['REQUEST_URI'] : '';
@@ -90,10 +97,21 @@ final class Router
         } elseif (!in_array($server['HTTPS'] ?? '', ['on', '1'], true)) {
             return self::problem(400, 'https_required', 'The game API requires HTTPS.', $method);
         }
-        return $this->dispatch($method, $target);
+        if ($this->auth !== null) {
+            if ($rawHeaders === null || !is_resource($body)) return self::unavailableConfiguration($method);
+            try {
+                $headers = Security::headers($rawHeaders);
+                $expectedHost = substr($this->auth->origin(), strlen('https://'));
+                if (($headers['host'] ?? null) !== $expectedHost || ($server['HTTP_HOST'] ?? null) !== $expectedHost) {
+                    return Security::problem(new RequestRejected('invalid-request'));
+                }
+                $peer = Security::peerAddress($server);
+            } catch (\Throwable $error) { return Security::problem($error); }
+        }
+        return $this->dispatch($method, $target, $rawHeaders, $body, $peer ?? null);
     }
 
-    public function dispatch(string $method, string $target): array
+    public function dispatch(string $method, string $target, ?array $rawHeaders = null, mixed $body = null, ?string $peerAddress = null): array
     {
         $path = explode('?', $target, 2)[0];
         if (!preg_match('/^[A-Z]{1,16}$/D', $method) || strlen($target) > 8192
@@ -112,6 +130,21 @@ final class Router
             $response['headers']['Allow'] = implode(', ', $allowed);
             return $response;
         }
+        if ($this->auth !== null && ($route === '/session' || str_starts_with($route, '/auth/'))) {
+            if ($rawHeaders === null || !is_resource($body) || $peerAddress === null) return self::unavailableConfiguration($method);
+            return $this->auth->handle($method, $route, explode('?', $target, 2)[1] ?? '', $rawHeaders, $body, $peerAddress);
+        }
+        $handler = match ($route) {
+            '/save' => $this->save,
+            '/preferences' => $this->preferences,
+            '/logout', '/account' => $this->account,
+            '/account/deletion-status' => $this->deletionStatus,
+            default => null,
+        };
+        if ($handler !== null) {
+            if ($rawHeaders === null || !is_resource($body) || $peerAddress === null) return self::unavailableConfiguration($method);
+            return $handler->handle($method, $route, explode('?', $target, 2)[1] ?? '', $rawHeaders, $body, $peerAddress);
+        }
         if (str_ends_with($route, '/callback')) {
             return ['status' => 503, 'headers' => self::headers() + ['Content-Type' => 'text/html; charset=utf-8'],
                 'body' => '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width">'
@@ -123,9 +156,14 @@ final class Router
     }
 
     /** Safe fixed messages only; never accept exception, request, callback or body text here. */
-    public static function unavailableConfiguration(string $method): array
+    public static function unavailableConfiguration(string $method, string $target = ''): array
     {
-        return self::problem(503, 'configuration_unavailable', 'The game API configuration is unavailable.', $method);
+        $response = self::problem(503, 'configuration_unavailable', 'The game API configuration is unavailable.', $method);
+        if ($method === 'GET' && preg_match('~/auth/(google|github)/callback$~D', explode('?', $target, 2)[0])) {
+            $response['headers']['Content-Type'] = 'text/html; charset=utf-8';
+            $response['body'] = '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sign-in unavailable — Network Quest</title><main><h1>Sign-in could not be completed</h1><p>Return to your game tab to check your account status.</p></main></html>';
+        }
+        return $response;
     }
 
     private static function headers(): array

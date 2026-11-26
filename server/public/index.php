@@ -13,11 +13,20 @@ header_remove('X-Powered-By');
 require_once dirname(__DIR__) . '/src/Router.php';
 
 try {
-    // No .env, private config, provider credential, body, DB or session is loaded.
-    $response = Router::fromEnvironment(getenv())->handleServer($_SERVER);
+    $environment = getenv();
+    if (!array_key_exists('NQ_CONFIG_FILE', $environment)) {
+        // Public checkout remains inert until an operator supplies explicit private inputs.
+        $response = Router::fromEnvironment($environment)->handleServer($_SERVER);
+    } else {
+        require_once dirname(__DIR__) . '/src/Application.php';
+        $application = \NetworkQuest\Application::fromEnvironment($environment);
+        $input = fopen('php://input', 'rb');
+        try { $response = $application->handleSapi($_SERVER, getallheaders(), $input, PHP_SAPI); }
+        finally { if (is_resource($input)) fclose($input); }
+    }
 } catch (Throwable) {
     // Exception details and raw request data never enter a response or application log.
-    $response = Router::unavailableConfiguration($_SERVER['REQUEST_METHOD'] ?? '');
+    $response = Router::unavailableConfiguration($_SERVER['REQUEST_METHOD'] ?? '', $_SERVER['REQUEST_URI'] ?? '');
 }
 http_response_code($response['status']);
 foreach ($response['headers'] as $name => $value) {

@@ -5,6 +5,10 @@ declare(strict_types=1);
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 
 use NetworkQuest\Database;
+use NetworkQuest\AccountAccess;
+use NetworkQuest\DeletionLedger;
+use NetworkQuest\DeletionRetentionPolicy;
+use NetworkQuest\RecoveryAccountAccess;
 use NetworkQuest\RequestRejected;
 use NetworkQuest\SaveRepository;
 use NetworkQuest\SaveValidator;
@@ -12,11 +16,13 @@ use NetworkQuest\SaveWriteResult;
 use NetworkQuest\Security;
 use NetworkQuest\Sessions;
 use NetworkQuest\Tests\Support\TestEnvironment;
+use NetworkQuest\Tests\Support\DirectAccountAccess;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/Support/TestEnvironment.php';
-foreach (['Database', 'Security', 'Sessions', 'SaveValidator'] as $file) {
+require_once __DIR__ . '/Support/DirectAccountAccess.php';
+foreach (['Database', 'Security', 'Sessions', 'SaveValidator', 'DeletionLedger', 'RecoveryAccountAccess'] as $file) {
     require_once __DIR__ . '/../src/' . $file . '.php';
 }
 require_once __DIR__ . '/../src/SaveRepository.php';
@@ -24,6 +30,8 @@ require_once __DIR__ . '/../src/SaveRepository.php';
 final class SaveRepositoryTest extends TestCase
 {
     private TestEnvironment $environment;
+    private ?TestEnvironment $recoveryEnvironment = null;
+    private ?DeletionLedger $ledger = null;
     private Database $database;
     private Sessions $sessions;
     private Security $security;
@@ -52,6 +60,8 @@ final class SaveRepositoryTest extends TestCase
     protected function tearDown(): void
     {
         unset($this->security, $this->sessions, $this->database);
+        unset($this->ledger);
+        $this->recoveryEnvironment?->close();
         $this->environment->close();
     }
 
@@ -84,11 +94,22 @@ final class SaveRepositoryTest extends TestCase
         return json_decode(file_get_contents(__DIR__ . '/../../tests/services/save-validator-policy.json'))->policy;
     }
 
-    private function repository(?callable $observer = null, ?array $policies = null, ?array $versions = null): SaveRepository
+    private function repository(?callable $observer = null, ?array $policies = null, ?array $versions = null, ?AccountAccess $access = null): SaveRepository
     {
         return new SaveRepository($this->database, $this->sessions, $this->security,
-            new SaveValidator($policies ?? [self::policy()]), $versions ?? self::VERSIONS,
+            new SaveValidator($policies ?? [self::policy()]), $versions ?? self::VERSIONS, $access ?? new DirectAccountAccess(),
             fn (): int => $this->now, $observer);
+    }
+
+    private function actualAccess(): RecoveryAccountAccess
+    {
+        $this->recoveryEnvironment = TestEnvironment::create();
+        $this->recoveryEnvironment->connect();
+        $this->recoveryEnvironment->writeFile('synthetic.sqlite.lock', '');
+        $this->ledger = DeletionLedger::initialize($this->recoveryEnvironment->directory() . '/synthetic.sqlite',
+            [realpath(__DIR__ . '/../..')], [$this->environment->directory()],
+            new DeletionRetentionPolicy(2592000, 604800, 'synthetic-save-join'));
+        return new RecoveryAccountAccess($this->database, $this->ledger, fn () => $this->now);
     }
 
     private function headers(array $changes = [], ?array $auth = null): array
@@ -351,7 +372,7 @@ final class SaveRepositoryTest extends TestCase
         $other = $this->open();
         $sessions = new Sessions($other, fn (): int => $this->now);
         $security = new Security($other, self::ORIGIN, str_repeat('synthetic-rate-key', 3), fn (): int => $this->now);
-        $writer = new SaveRepository($other, $sessions, $security, new SaveValidator([self::policy()]), self::VERSIONS, fn (): int => $this->now);
+        $writer = new SaveRepository($other, $sessions, $security, new SaveValidator([self::policy()]), self::VERSIONS, new DirectAccountAccess(), fn (): int => $this->now);
         $repo = $this->repository(function (string $phase) use ($writer): void {
             if ($phase !== 'validated') { return; }
             self::assertFalse($this->database->connection()->inTransaction());
@@ -368,7 +389,7 @@ final class SaveRepositoryTest extends TestCase
     {
         $other = $this->open();
         $writer = new SaveRepository($other, new Sessions($other, fn (): int => $this->now),
-            new Security($other, self::ORIGIN, str_repeat('synthetic-rate-key', 3)), new SaveValidator([self::policy()]), self::VERSIONS, fn (): int => $this->now);
+            new Security($other, self::ORIGIN, str_repeat('synthetic-rate-key', 3)), new SaveValidator([self::policy()]), self::VERSIONS, new DirectAccountAccess(), fn (): int => $this->now);
         $repo = $this->repository(function (string $phase) use ($writer): void {
             if ($phase === 'validated') { $writer->write('127.0.0.1', $this->headers(), self::body() . ' '); }
         }, []);
@@ -484,7 +505,7 @@ final class SaveRepositoryTest extends TestCase
         $secondSession = $this->authenticate();
         $writer = new SaveRepository($otherDb, new Sessions($otherDb, fn (): int => $this->now),
             new Security($otherDb, self::ORIGIN, str_repeat('synthetic-rate-key', 3), fn (): int => $this->now),
-            new SaveValidator([self::policy()]), self::VERSIONS, fn (): int => $this->now);
+            new SaveValidator([self::policy()]), self::VERSIONS, new DirectAccountAccess(), fn (): int => $this->now);
         $repo = $this->repository(function (string $phase) use ($writer, $secondSession): void {
             if ($phase === 'validated') {
                 self::assertSame(200, $writer->write('127.0.0.1', $this->replacement(['Idempotency-Key' => '70000000-0000-4000-8000-000000000003'], 1, $secondSession), self::body() . ' ')->status);
@@ -535,7 +556,7 @@ final class SaveRepositoryTest extends TestCase
             if ($phase === 'validated') { throw new RuntimeException('Synthetic observer failure.'); }
         });
         try { $failing->write('127.0.0.1', $this->replacement(), self::body()); self::fail('Expected observer exception.'); }
-        catch (RuntimeException $error) { self::assertSame('Synthetic observer failure.', $error->getMessage()); }
+        catch (\PHPUnit\Framework\AssertionFailedError $failure) { throw $failure; } catch (RuntimeException $error) { self::assertSame('Synthetic observer failure.', $error->getMessage()); }
         self::assertSame($before, [$this->slot(), $this->receipts()]);
     }
 
@@ -579,5 +600,53 @@ final class SaveRepositoryTest extends TestCase
         self::assertSame($case->expected->status, $result->status);
         self::assertSame($before, [$this->slot(), $this->receipts()]);
         self::assertNull($result->acknowledgement);
+    }
+
+    public function testActualRecoveryBarrierReconcilesBeforeSaveAdmission(): void
+    {
+        $access = $this->actualAccess();
+        self::assertSame(201, $this->repository(access: $access)->write('127.0.0.1', $this->headers(), self::body())->status);
+        $this->ledger->exclusive(fn () => $this->ledger->accept(self::ACCOUNT, str_repeat('e', 64), $this->now));
+        $this->rejected(fn () => $this->repository(access: $access)->write('127.0.0.1', $this->headers(), self::body()), 401);
+        self::assertSame([], $this->rows('accounts')); self::assertSame([], $this->rows('saves')); self::assertSame([], $this->rows('write_receipts'));
+        self::assertSame('completed', $this->ledger->exclusive(fn () => $this->ledger->receipt(str_repeat('e', 64), $this->now))['state']);
+    }
+
+    public function testActualBarrierRechecksIntentBeforeInitialReceiptReplay(): void
+    {
+        $access = $this->actualAccess();
+        self::assertSame(201, $this->repository(access: $access)->write('127.0.0.1', $this->headers(), self::body())->status);
+        $repository = $this->repository(function (string $phase): void {
+            if ($phase === 'admitted') {
+                // Real second acquisition proves the observer is outside the external barrier.
+                $this->ledger->exclusive(fn () => $this->ledger->accept(self::ACCOUNT, str_repeat('f', 64), $this->now));
+            }
+        }, access: $access);
+        $this->rejected(fn () => $repository->write('127.0.0.1', $this->headers(), self::body()), 401);
+        self::assertSame([], $this->receipts()); self::assertSame([], $this->rows('saves'));
+    }
+
+    public function testActualBarrierRechecksIntentBeforeFinalProvisionalError(): void
+    {
+        $access = $this->actualAccess();
+        $repository = $this->repository(function (string $phase): void {
+            if ($phase === 'validated') { $this->ledger->exclusive(fn () => $this->ledger->accept(self::ACCOUNT, str_repeat('a', 64), $this->now)); }
+        }, [], access: $access);
+        $this->rejected(fn () => $repository->write('127.0.0.1', $this->headers(), self::body()), 401);
+        self::assertSame([], $this->rows('accounts')); self::assertSame([], $this->receipts());
+    }
+
+    public function testActualHeldBarrierBlocksAdmissionWithoutTouchingSession(): void
+    {
+        $access = $this->actualAccess();
+        $other = DeletionLedger::open($this->recoveryEnvironment->directory() . '/synthetic.sqlite', [realpath(__DIR__ . '/../..')],
+            [$this->environment->directory()], new DeletionRetentionPolicy(2592000, 604800, 'synthetic-save-join'));
+        $before = $this->rows('sessions'); $this->now++;
+        $other->exclusive(function () use ($access): void {
+            try { $this->repository(access: $access)->write('127.0.0.1', $this->headers(), self::body()); self::fail('Expected held barrier.'); }
+            catch (\PHPUnit\Framework\AssertionFailedError $failure) { throw $failure; } catch (RuntimeException $error) { self::assertSame(503, Security::problem($error)['status']); }
+        });
+        self::assertSame($before, $this->rows('sessions')); self::assertSame([], $this->receipts());
+        self::assertSame(201, $this->repository(access: $access)->write('127.0.0.1', $this->headers(), self::body())->status);
     }
 }

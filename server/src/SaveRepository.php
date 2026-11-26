@@ -53,9 +53,9 @@ final readonly class SaveWriteResult
  * Authenticated conditional writes to one account slot. No routes, provider IO, config
  * discovery, account creation or migration. T044 must supply reviewed policy/config and
  * bounded transport; no production policy is implied by the synthetic service tests.
- * T045 MUST additionally honor/reconcile external deletion markers under its shared
- * write barrier before account access, including both receipt paths. Active DB status
- * and FKs alone cannot protect a restored DB against an outstanding external intent.
+ * Mandatory AccountAccess reconciles deletion markers before admission and BOTH receipt
+ * transactions. Validation and fixed-phase observers stay outside the shared barrier.
+ * T044 must call write outside any outer AccountAccess::run to avoid recursive locking.
  */
 final class SaveRepository
 {
@@ -79,6 +79,7 @@ final class SaveRepository
         private readonly Security $security,
         private readonly SaveValidator $validator,
         private readonly array $replaceableVersions,
+        private readonly AccountAccess $access,
         ?callable $clock = null,
         ?callable $phaseObserver = null,
         private readonly string $route = '/arcade/play/network-quest/api/v1/save',
@@ -110,45 +111,21 @@ final class SaveRepository
      */
     public function write(string $peerAddress, array $fields, string $rawBody): SaveWriteResult
     {
-        $headers = Security::headers($fields);
-        $prior = $this->security->mutation($headers, $this->sessions);
-        if (strlen($rawBody) > SaveValidator::MAX_BYTES) { throw new RequestRejected('body-too-large'); }
-        $key = $headers['idempotency-key'] ?? '';
-        $mode = $headers['x-save-mode'] ?? '';
-        $confirmation = $headers['x-confirm-adventure-replacement'] ?? null;
-        if (!preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/iD', $key)
-            || !in_array($mode, ['manual', 'automatic'], true) || ($confirmation !== null && $confirmation !== 'true')) {
-            throw new RequestRejected('invalid-request');
-        }
-        $match = $headers['if-match'] ?? null;
-        $none = $headers['if-none-match'] ?? null;
-        if ($match !== null && $none !== null) { throw new RequestRejected('invalid-request'); }
-        if ($match === null && $none === null) { return SaveWriteResult::problem('precondition-required'); }
-        $reviewedRevision = null;
-        if ($none !== null) {
-            if ($none !== '*') { throw new RequestRejected('invalid-request'); }
-        } else {
-            if (!preg_match('/^"save-([1-9][0-9]{0,15})"$/D', $match, $capture)
-                || strlen($capture[1]) > 16 || (strlen($capture[1]) === 16 && strcmp($capture[1], (string) self::MAX_REVISION) > 0)) {
-                throw new RequestRejected('invalid-request');
-            }
-            $reviewedRevision = (int) $capture[1];
-        }
-        $this->security->limit('save', $prior, $peerAddress);
-        $fingerprint = self::fingerprint('PUT', $this->route, $mode, $confirmation,
-            $none === null ? 'if-match' : 'if-none-match', $match ?? $none, $rawBody);
+        $admission = $this->access->run(fn () => $this->admit($peerAddress, $fields, $rawBody));
+        if ($admission instanceof SaveWriteResult) { return $admission; }
+        [$prior, $key, $mode, $confirmation, $reviewedRevision, $fingerprint] = $admission;
         $this->observe('admitted');
         // Initial lookup is itself under CURRENT authorization, not just the admission snapshot.
-        $replay = $this->database->immediate(fn (PDO $pdo): ?SaveWriteResult =>
+        $replay = $this->access->run(fn () => $this->database->immediate(fn (PDO $pdo): ?SaveWriteResult =>
             $this->sessions->within($pdo, $prior, fn (SessionContext $current): ?SaveWriteResult =>
-                $this->receipt($pdo, $current->accountId, $key, $fingerprint, $this->now())));
+                $this->receipt($pdo, $current->accountId, $key, $fingerprint, $this->now()))));
         if ($replay !== null) { return $replay; }
 
         // Expensive parsing/schema/semantic work occurs only here, outside the write lock.
         $validation = $this->validator->validateNewWrite($rawBody);
         $candidate = $validation->candidate();
         $this->observe('validated');
-        return $this->database->immediate(function (PDO $pdo) use ($prior, $key, $mode, $confirmation,
+        return $this->access->run(fn () => $this->database->immediate(function (PDO $pdo) use ($prior, $key, $mode, $confirmation,
             $reviewedRevision, $fingerprint, $rawBody, $validation, $candidate): SaveWriteResult {
             return $this->sessions->within($pdo, $prior, function (SessionContext $current) use ($pdo,
                 $key, $mode, $confirmation, $reviewedRevision, $fingerprint, $rawBody, $validation, $candidate): SaveWriteResult {
@@ -202,7 +179,40 @@ final class SaveRepository
                 return SaveWriteResult::acknowledged($slot === null ? 201 : 200,
                     ['requestId' => $key, 'committedRevision' => $revision, 'committedAt' => self::date($now)], false, $summary);
             });
-        }); // Database commits before the result can reach the caller; any failure rolls back both.
+        })); // Both receipt paths hold the recovery barrier until Database commits/rolls back.
+    }
+
+    /** Admission owns only short DB work under the external barrier, never validation. */
+    private function admit(string $peerAddress, array $fields, string $rawBody): array|SaveWriteResult
+    {
+        $headers = Security::headers($fields);
+        $prior = $this->security->mutation($headers, $this->sessions);
+        if (strlen($rawBody) > SaveValidator::MAX_BYTES) { throw new RequestRejected('body-too-large'); }
+        $key = $headers['idempotency-key'] ?? '';
+        $mode = $headers['x-save-mode'] ?? '';
+        $confirmation = $headers['x-confirm-adventure-replacement'] ?? null;
+        if (!preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/iD', $key)
+            || !in_array($mode, ['manual', 'automatic'], true) || ($confirmation !== null && $confirmation !== 'true')) {
+            throw new RequestRejected('invalid-request');
+        }
+        $match = $headers['if-match'] ?? null;
+        $none = $headers['if-none-match'] ?? null;
+        if ($match !== null && $none !== null) { throw new RequestRejected('invalid-request'); }
+        if ($match === null && $none === null) { return SaveWriteResult::problem('precondition-required'); }
+        $reviewedRevision = null;
+        if ($none !== null) {
+            if ($none !== '*') { throw new RequestRejected('invalid-request'); }
+        } else {
+            if (!preg_match('/^"save-([1-9][0-9]{0,15})"$/D', $match, $capture)
+                || strlen($capture[1]) > 16 || (strlen($capture[1]) === 16 && strcmp($capture[1], (string) self::MAX_REVISION) > 0)) {
+                throw new RequestRejected('invalid-request');
+            }
+            $reviewedRevision = (int) $capture[1];
+        }
+        $this->security->limit('save', $prior, $peerAddress);
+        $fingerprint = self::fingerprint('PUT', $this->route, $mode, $confirmation,
+            $none === null ? 'if-match' : 'if-none-match', $match ?? $none, $rawBody);
+        return [$prior, $key, $mode, $confirmation, $reviewedRevision, $fingerprint];
     }
 
     /**

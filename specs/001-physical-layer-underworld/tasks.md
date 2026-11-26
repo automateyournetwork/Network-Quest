@@ -188,6 +188,29 @@ composition. Root coordinates configuration/Router ownership; final service
 checks must join the actual barrier and transport. No synthetic policy or pending
 provider/HTTP acceptance becomes production readiness through this scheduling.
 
+T046 may prepare separate account/logout/status handlers on T045's stable, scoped-
+verified service ports while coordinator review completes; final acceptance waits
+for that review and the actual shared routing join. T047 may build its separate
+client HTTP/account-generation adapter against the established API contract and
+implemented auth completion hint while server composition finishes. Mock fetch
+checks do not certify HTTP/provider/browser behavior; final integration still joins
+actual services before G2. Root retains shared Router/config/application ownership.
+
+T048 may build pure safe-snapshot/dirty-generation/migration dispatch on accepted
+state/content/schema/T036 independent fixtures and T042 validation while T041/T046
+complete final native-entry review and T047 completes its disjoint client API.
+It must preserve the older-content baseline, unsupported newer data and unsafe
+transition exclusions. This does not require provider HTTP or UI composition and
+passes no aggregate G2/provider/owner gate. Final save-coordinator/UI integration
+still follows actual verified interfaces.
+
+T053 independent PHP security/contract verification may run on accepted T037–T046
+and the joined actual application while T047/T048 and later client/UI tasks
+proceed in disjoint files. It must use isolated stores, actual entry/SDK paths
+and independent T036 cases, and cannot count synthetic identity as real provider
+acceptance. T054/T055 concurrency/recovery and T056/T057 browser/provider evidence
+remain distinct obligations.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -345,12 +368,12 @@ provider/HTTP acceptance becomes production readiness through this scheduling.
 - [X] T038 [US4] Implement opaque Secure/HttpOnly/Lax host-only sessions, rotation, idle/absolute expiry, same-origin CSRF and redacted/rate-limited requests in `server/src/Sessions.php` and `server/src/Security.php`; GET session bootstraps guest CSRF without granting identity.
 - [X] T039 [P] [US4] Implement Google authorization-code/S256 and verified required iss/aud/sub/exp/iat/nonce checks in `server/src/Identity/Google.php`; request openid profile only, validate one-use session-bound state and discard provider tokens after identification.
 - [X] T040 [P] [US4] Implement GitHub GenericProvider/S256 with explicit empty scopes and GET /user stable numeric ID in `server/src/Identity/GitHub.php`; avoid email/repository access, implicit account merging and token persistence.
-- [ ] T041 [US4] Implement POST auth start, GET callback and GET session in `server/src/Routes/Auth.php`; bind fixed callbacks, ten-minute one-use transactions and deletion reauth purpose, rotate sessions and emit only an origin-safe completion hint to the retained game tab.
+- [X] T041 [US4] Implement POST auth start, GET callback and GET session in `server/src/Routes/Auth.php`; bind fixed callbacks, ten-minute one-use transactions and deletion reauth purpose, rotate sessions and emit only an origin-safe completion hint to the retained game tab.
 - [X] T042 [US4] Implement strict Draft2020-12/format/registry/safe-state validation in `server/src/SaveValidator.php` and `src/services/save-validator.ts`; enforce 262144 UTF-8 bytes, 4096 Unicode note characters and bounded/known fields for new writes. Return provisional semantic errors to the coordinator; do not bypass receipt-first replay resolution.
 - [X] T043 [US4] Implement single-slot writes in `server/src/SaveRepository.php`: authenticate/bound requests, resolve retained account/key receipts before current semantic policy, validate still-new candidates outside the lock, then BEGIN IMMEDIATE and recheck authorization/receipt before returning a cached validation error or comparing revision. Fingerprint mode/confirmation/precondition/exact bytes; atomically write snapshot/revision/receipt and report committed versus current revision separately.
-- [ ] T044 [US4] Implement GET/PUT save and conditional PATCH preferences in `server/src/Routes/Save.php` and `server/src/Routes/Preferences.php`; enforce create/replace headers, manual adoption, automatic opt-in/same-adventure checks and specified 401/403/409/412/413/422/428/429/503 responses.
-- [ ] T045 [US4] Implement durable private deletion intents and 24-hour hashed receipt bindings outside DB rollback sets in `server/src/DeletionLedger.php`, `server/src/DeletionReceipts.php` and `server/src/AccountDeletion.php`; serialize with saves, mark completed only after live-data/session removal commits, reconcile both crash windows and retain longer-lived deletion markers independently of receipt expiry.
-- [ ] T046 [US4] Implement POST logout, DELETE account and read-only POST account/deletion-status in `server/src/Routes/Account.php` and `server/src/Routes/DeletionStatus.php`; deletion needs fresh same-account auth/CSRF/confirmation and a 256-bit receipt. Status needs exact Origin plus only that narrow receipt, returns pending/completed/expiry or indistinguishable unknown/expired 404, exposes no account/progress and cannot delete or create an account. Logout remains slot-preserving.
+- [X] T044 [US4] Implement GET/PUT save and conditional PATCH preferences in `server/src/Routes/Save.php` and `server/src/Routes/Preferences.php`; enforce create/replace headers, manual adoption, automatic opt-in/same-adventure checks and specified 401/403/409/412/413/422/428/429/503 responses.
+- [X] T045 [US4] Implement durable private deletion intents and 24-hour hashed receipt bindings outside DB rollback sets in `server/src/DeletionLedger.php`, `server/src/DeletionReceipts.php` and `server/src/AccountDeletion.php`; serialize with saves, mark completed only after live-data/session removal commits, reconcile both crash windows and retain longer-lived deletion markers independently of receipt expiry.
+- [X] T046 [US4] Implement POST logout, DELETE account and read-only POST account/deletion-status in `server/src/Routes/Account.php` and `server/src/Routes/DeletionStatus.php`; deletion needs fresh same-account auth/CSRF/confirmation and a 256-bit receipt. Status needs exact Origin plus only that narrow receipt, returns pending/completed/expiry or indistinguishable unknown/expired 404, exposes no account/progress and cannot delete or create an account. Logout remains slot-preserving.
 - [ ] T047 [US4] Implement credentialed no-store API calls and account-generation response guards in `src/services/game-api.ts` and `src/services/account.ts`; retain the gameplay tab during popup/tab login and confirm identity using GET session, not postMessage contents.
 - [ ] T048 [US4] Implement stable safe-snapshot construction, dirty generations and supported-version read/migration dispatch with the independently authored older-content baseline mapping in `src/state/snapshot.ts` and `src/state/save-migrations.ts`; never persist active encounters, E03/failure or partial transitions and preserve unsupported newer data.
 - [ ] T049 [US4] Implement serialized conditional saves and exact-byte/idempotency retries in `src/services/save-coordinator.ts`; replay frozen pending requests without treating a changed new-write policy as proof of failure, acknowledge only the captured generation, reconcile older receipts against current slot and preserve memory on network/session failure.

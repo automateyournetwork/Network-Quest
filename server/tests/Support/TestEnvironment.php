@@ -135,6 +135,19 @@ final class TestEnvironment
         return $this->start(dirname(__DIR__, 2) . '/public/index.php', $environmentOverrides);
     }
 
+    /** Explicit owned synthetic JSON only; exercises the actual entry, never a test-auth switch. */
+    public function startConfiguredApi(string $configuration): string
+    {
+        $this->assertOwned();
+        if (dirname($configuration) !== $this->root || !isset($this->files[basename($configuration)])) {
+            throw new InvalidArgumentException('Configured tests require an owned private file.');
+        }
+        return $this->start(dirname(__DIR__, 2) . '/public/index.php', [
+            'NQ_CONFIG_FILE' => $configuration,
+            'NQ_DOCUMENT_ROOTS_JSON' => json_encode([realpath(dirname(__DIR__, 3)), realpath(dirname(__DIR__, 2) . '/public')], JSON_THROW_ON_ERROR),
+        ]);
+    }
+
     public function startFixtureServer(): string
     {
         if ($this->sessionToken === null) {

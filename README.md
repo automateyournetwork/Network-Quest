@@ -5,8 +5,9 @@ Copyright 2026 John Capobianco. SPDX-License-Identifier: CC-BY-4.0.
 An original browser adventure through the OSI realms, beginning with the Physical
 Layer Underworld. **Current state: the R01/R02 guest introduction is playable in
 memory, with four verbs, dialogue, inventory, a notebook, physical measurements
-and the initial packet journey. Authentication, server saves, finished media and
-the complete episode remain in development. No release has been deployed.**
+and the initial packet journey. The PHP account/save service passes isolated
+integration tests; browser integration, real providers, finished media and the
+complete episode remain in development. No release has been deployed.**
 See [implementation status](docs/implementation/HANDOFF.md),
 [governing constitution](.specify/memory/constitution.md), [SPEC.md](SPEC.md) and
 [PLAN.md](PLAN.md). The public project builds independently of the owner's website.
@@ -83,16 +84,26 @@ curl --cacert .local/tls/cert.pem --include \
   https://127.0.0.1:8443/arcade/play/network-quest/api/v1/session
 ```
 
-The shell returns 200. Contracted API operations currently return **503** with
+The shell returns 200. This unconfigured development launcher returns **503** with
 `service_not_implemented`, no account/session cookie, and `Cache-Control: no-store`.
 Callbacks return an inert HTML explanation that sign-in is unavailable. Unknown
 routes return 404; unsupported methods return 405. The shared
-`server/public/index.php`/`server/src/Router.php` boundary validates transport and
-routes but implements no account or save operations. `tools/dev-router.php`
+`server/public/index.php` entry can compose the implemented account/save service
+when explicitly configured. The launcher above deliberately supplies no private
+configuration. `tools/dev-router.php`
 adapts local readiness and delegates to that shared entry; neither router serves
 arbitrary static files. PHP receives canonical HTTPS forwarding
 headers from the proxy, while forged forwarding fields are removed. A per-run
 random token restricts direct worker access. It is not a production proxy design.
+
+Configured service integration tests use an owned private JSON file shaped like
+`server/config.example.json`, supplied through `NQ_CONFIG_FILE`, plus an explicit
+`NQ_DOCUMENT_ROOTS_JSON` list. The entry requires already initialized, separate
+game and recovery stores outside every document root and reviewed retention
+inputs. Requests never provision or migrate storage. The historical PHP template
+is not executed. See [service harness instructions](server/tests/README.md) and
+[hosting observations](docs/implementation/hosting-header-admission.md) for the
+verified scope and remaining production requirements.
 
 No system trust store is modified. The self-signed certificate above remains
 untrusted in a normal browser. Use an operator-managed, browser-trusted development
@@ -136,12 +147,14 @@ secrets, fake a login, or weaken Secure cookies to make a callback appear to wor
 | `npm run dev:verify` | Disposable TLS/HTTP/PHP transport checks; generates and removes private synthetic fixtures and a temporary certificate; no real login/data/browser |
 | `npm run dev:client` | HTTP Vite client only at the printed nested URL; no PHP/auth support |
 | `npm run typecheck` | Strict TypeScript check of client, TS tools/tests and runner configurations |
-| `npm run check` | Typecheck plus actual content schema/generated-artifact drift, references and independent route validation |
+| `npm run check` | Typecheck, content/reference validation and generated save-policy drift check |
 | `npm run test:domain` | Vitest content/state/UI/presentation and source-fixture checks; 15 reviewed copper/content-error cases execute, 68 evaluator cases remain pending |
-| `npm run test:api` | PHPUnit router/security/disposable-storage and synthetic HTTPS session harness; no real accounts/providers/saves |
+| `npm run test:api` | Actual PHP auth/save/recovery/account services and local HTTPS entry using isolated synthetic accounts; no real providers or production data |
 | `npm run test:e2e` | Build plus Chromium/Firefox title checks and isolated Firefox HTTPS router, controllers, guest and packet journeys; see the implementation handoff for actual passing and pending evidence |
-| `npm run build` | Typecheck plus static Vite build in ignored `dist/` |
+| `npm run build` | Typecheck and save-policy drift check, then static Vite build in ignored `dist/` |
 | `npm run preview:client` | HTTP static build preview on loopback; no PHP/auth support |
+| `npm run save-policy:generate` | Regenerate the PHP new-write policy from actual authored introduction content |
+| `npm run save-policy:check` | Fail if the checked-in policy differs from its actual source inputs |
 
 `dev:verify` needs the same pinned Node/PHP and OpenSSL. It verifies trust rejection,
 private-path/symlink denial, same-origin routing, header replacement, a **synthetic**

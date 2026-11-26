@@ -14,10 +14,12 @@ use NetworkQuest\RequestRejected;
 use NetworkQuest\Security;
 use NetworkQuest\Sessions;
 use NetworkQuest\Tests\Support\TestEnvironment;
+use NetworkQuest\Tests\Support\DirectAccountAccess;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/Support/TestEnvironment.php';
+require_once __DIR__ . '/Support/DirectAccountAccess.php';
 require_once __DIR__ . '/../src/Database.php';
 require_once __DIR__ . '/../src/Security.php';
 require_once __DIR__ . '/../src/Sessions.php';
@@ -74,7 +76,7 @@ final class GoogleIdentityTest extends TestCase
             [realpath(__DIR__ . '/../..'), realpath(__DIR__ . '/../public')]);
         $this->database->migrate();
         $this->sessions = new Sessions($this->database, fn () => $this->now);
-        $this->transactions = new AuthTransactions($this->database, $this->sessions, fn () => $this->now);
+        $this->transactions = new AuthTransactions($this->database, $this->sessions, new DirectAccountAccess(), fn () => $this->now);
         $this->google = new Google($this->transactions, self::CLIENT, self::SECRET, self::CALLBACK, fn () => $this->now,
             function ($request, $options) {
                 self::assertFalse($this->database->connection()->inTransaction(), 'Never hold SQLite write lock during provider IO.');

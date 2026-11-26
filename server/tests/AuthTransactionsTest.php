@@ -10,9 +10,11 @@ use NetworkQuest\RequestRejected;
 use NetworkQuest\Security;
 use NetworkQuest\Sessions;
 use NetworkQuest\Tests\Support\TestEnvironment;
+use NetworkQuest\Tests\Support\DirectAccountAccess;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/Support/TestEnvironment.php';
+require_once __DIR__ . '/Support/DirectAccountAccess.php';
 require_once __DIR__ . '/../src/Database.php';
 require_once __DIR__ . '/../src/Security.php';
 require_once __DIR__ . '/../src/Sessions.php';
@@ -34,7 +36,7 @@ final class AuthTransactionsTest extends TestCase
             [realpath(__DIR__ . '/../..'), realpath(__DIR__ . '/../public')]);
         $this->database->migrate();
         $this->sessions = new Sessions($this->database, fn () => $this->now);
-        $this->transactions = new AuthTransactions($this->database, $this->sessions, fn () => $this->now);
+        $this->transactions = new AuthTransactions($this->database, $this->sessions, new DirectAccountAccess(), fn () => $this->now);
     }
 
     protected function tearDown(): void
@@ -50,6 +52,21 @@ final class AuthTransactionsTest extends TestCase
             return;
         }
         self::fail('Expected rejected auth transaction.');
+    }
+
+
+    public function testMandatoryExternalGateDeniesBeginAndConsumeBeforeDatabaseWork(): void
+    {
+        $session=$this->sessions->bootstrap(null)['context'];
+        $start=$this->transactions->begin($session,'google');
+        $gate=new class implements \NetworkQuest\AccountAccess {
+            public function run(callable $operation): mixed { throw new RequestRejected('unavailable'); }
+        };
+        $guarded=new AuthTransactions($this->database,$this->sessions,$gate,fn ()=>$this->now);
+        $this->rejected(fn ()=>$guarded->begin($session,'google'),503);
+        $this->rejected(fn ()=>$guarded->consume($session,'google',$start['state']),503);
+        self::assertSame(1,$this->database->connection()->query('SELECT count(*) FROM auth_transactions')->fetchColumn());
+        self::assertNull($this->database->connection()->query('SELECT consumed_at FROM auth_transactions')->fetchColumn());
     }
 
     public function testStartStoresOnlyHashedStateAndNonceAndServerPrivateVerifier(): void
@@ -85,7 +102,7 @@ final class AuthTransactionsTest extends TestCase
         self::assertSame('login', $attempt['purpose']);
         self::assertSame(hash('sha256', $start['nonce']), $attempt['nonceHash']);
         self::assertSame($this->now, $this->database->connection()->query('SELECT consumed_at FROM auth_transactions')->fetchColumn());
-        $otherInstance = new AuthTransactions($this->database, $this->sessions, fn () => $this->now);
+        $otherInstance = new AuthTransactions($this->database, $this->sessions, new DirectAccountAccess(), fn () => $this->now);
         $this->rejected(fn () => $otherInstance->consume($session, 'google', $start['state']));
     }
 

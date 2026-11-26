@@ -94,15 +94,17 @@ final class DatabaseTest extends TestCase
         self::assertSame(0700, fileperms($this->environment->directory()) & 0777);
         self::assertSame(0600, fileperms($this->path()) & 0777);
         $tables = $pdo->query("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name")->fetchAll(PDO::FETCH_COLUMN);
-        self::assertSame(['accounts', 'auth_transactions', 'identities', 'operational_counters', 'preferences', 'saves', 'schema_migrations', 'sessions', 'write_receipts'], $tables);
+        self::assertSame(['accounts', 'auth_transactions', 'delete_reauth_proofs', 'identities', 'operational_counters', 'preferences', 'saves', 'schema_migrations', 'sessions', 'write_receipts'], $tables);
         $this->account($pdo);
         $this->save($pdo);
         $before = $pdo->query('SELECT * FROM saves')->fetch();
-        $migration = $pdo->query('SELECT * FROM schema_migrations')->fetch();
+        $migrations = $pdo->query('SELECT * FROM schema_migrations ORDER BY version')->fetchAll();
         $this->database->migrate();
         self::assertSame($before, $pdo->query('SELECT * FROM saves')->fetch());
-        self::assertSame($migration, $pdo->query('SELECT * FROM schema_migrations')->fetch());
-        self::assertSame(hash_file('sha256', __DIR__ . '/../migrations/001_game.sql'), $migration['checksum']);
+        self::assertSame($migrations, $pdo->query('SELECT * FROM schema_migrations ORDER BY version')->fetchAll());
+        self::assertCount(2, $migrations);
+        self::assertSame(hash_file('sha256', __DIR__ . '/../migrations/001_game.sql'), $migrations[0]['checksum']);
+        self::assertSame(hash_file('sha256', __DIR__ . '/../migrations/002_delete_reauth.sql'), $migrations[1]['checksum']);
         self::assertSame('ok', $pdo->query('PRAGMA integrity_check')->fetchColumn());
         self::assertSame([], $pdo->query('PRAGMA foreign_key_check')->fetchAll());
     }
@@ -278,8 +280,11 @@ final class DatabaseTest extends TestCase
 
     public function testMigrationFailureIsAtomicAndChecksumUnknownVersionAndTransactionControlFailClosed(): void
     {
-        $pdo = $this->ready();
+        // Explicit alternate migration history; independent of packaged forward additions.
+        $this->database = $this->open();
+        $pdo = $this->database->connection();
         $base = file_get_contents(__DIR__ . '/../migrations/001_game.sql');
+        $this->database->migrate([1 => $base]);
         $this->account($pdo);
         $this->save($pdo);
         $this->rejected(fn () => $this->database->migrate([1 => $base, 2 => 'CREATE TABLE candidate(value INTEGER); INSERT INTO missing_table VALUES(1);']));
@@ -292,9 +297,10 @@ final class DatabaseTest extends TestCase
             $this->rejected(fn () => $this->database->migrate([1 => $base, 2 => 'CREATE TABLE partial(value INTEGER); ' . $unsafe]), InvalidArgumentException::class);
         }
         self::assertSame(0, $pdo->query("SELECT count(*) FROM sqlite_master WHERE name='partial'")->fetchColumn());
-        $this->database->migrate([1 => $base, 2 => 'CREATE TABLE future(value INTEGER);']);
+        $this->database->migrate([1 => $base, 2 => file_get_contents(__DIR__ . '/../migrations/002_delete_reauth.sql'),
+            3 => 'CREATE TABLE future(value INTEGER);']);
         $this->rejected(fn () => $this->database->migrate(), RuntimeException::class);
-        self::assertSame(2, $pdo->query('SELECT count(*) FROM schema_migrations')->fetchColumn());
+        self::assertSame(3, $pdo->query('SELECT count(*) FROM schema_migrations')->fetchColumn());
     }
 
     public function testFreshMigrationFailureLeavesNoPartialTablesAndForeignDatabaseIsNeverAdopted(): void
@@ -312,8 +318,11 @@ final class DatabaseTest extends TestCase
 
     public function testFailureInLaterMigrationRollsBackEntireUnappliedBatch(): void
     {
-        $pdo = $this->ready();
+        // Explicit alternate migration history; independent of packaged forward additions.
+        $this->database = $this->open();
+        $pdo = $this->database->connection();
         $base = file_get_contents(__DIR__ . '/../migrations/001_game.sql');
+        $this->database->migrate([1 => $base]);
         $this->rejected(fn () => $this->database->migrate([1 => $base,
             2 => 'CREATE TABLE second(value INTEGER); INSERT INTO second VALUES(1);',
             3 => 'INSERT INTO does_not_exist VALUES(2);']));
@@ -379,7 +388,7 @@ final class DatabaseTest extends TestCase
         });
         $other->migrate();
         self::assertSame(1, $pdo->query('SELECT count(*) FROM accounts')->fetchColumn());
-        self::assertSame(1, $pdo->query('SELECT count(*) FROM schema_migrations')->fetchColumn());
+        self::assertSame(2, $pdo->query('SELECT count(*) FROM schema_migrations')->fetchColumn());
     }
 
     public function testPrivatePathsPermissionsLinksAndUnexpectedSidecarsFailBeforeOpening(): void

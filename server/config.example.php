@@ -5,19 +5,21 @@ declare(strict_types=1);
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 
 /*
- * INERT TEMPLATE: there is no application configuration loader yet.
- * Copy to a private, owner-readable file outside the repository and every web
- * document root. The future launcher supplies that absolute file path explicitly
- * as NQ_CONFIG_FILE; it must never fall back to this example or a repository .env.
- * Empty required values mean unconfigured and MUST prevent service startup.
- *
- * All paths below must be operator-supplied absolute paths. The future loader
- * must resolve symlinks/parents, reject paths inside ANY public document root,
- * reject shared website/analytics stores, and check file/directory permissions.
+ * HISTORICAL INERT PLANNING TEMPLATE; never execute this as runtime configuration.
+ * T041 Configuration::load accepts only config.example.json shaped private JSON.
+ * Supply its explicit canonical path and every docroot from trusted composition;
+ * mode0600 file/mode0700 parent, dedicated DB outside all roots, exact HTTPS origin
+ * and callbacks, and a canonical base64url256-bit private rateKey are required.
+ * Empty values deliberately fail. The entry stays inert without explicit private
+ * JSON and already initialized game/recovery stores; it never migrates requests.
+ * Active JSON also requires ledgerFile, rollbackRoots and explicit reviewed
+ * backupSeconds/restorationSeconds/retentionEvidence; there is no host-retention default.
+ * The remaining historical fields below are not accepted JSON keys.
+ * Runtime inputs are NQ_CONFIG_FILE (private JSON absolute path) and
+ * NQ_DOCUMENT_ROOTS_JSON (explicit list of every canonical public root).
  * No path is derived from __DIR__, the working directory, or the public URL.
- * Local tests use separate disposable storage and separate provider apps.
- * This file reads no environment, loads no secret, opens no DB, starts no session,
- * and offers no test-auth mode. Runtime validation belongs to later tasks.
+ * Local tests use separate disposable storage. This historical file loads no
+ * environment/secret/DB/session and offers no test-auth mode.
  */
 return [
     'environment' => '', // Explicitly choose local, staging, or production.

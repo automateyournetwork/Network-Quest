@@ -9,6 +9,7 @@ namespace NetworkQuest\Identity;
 use Closure;
 use InvalidArgumentException;
 use LogicException;
+use NetworkQuest\AccountAccess;
 use NetworkQuest\Database;
 use NetworkQuest\RequestRejected;
 use NetworkQuest\Security;
@@ -16,12 +17,12 @@ use NetworkQuest\SessionContext;
 use NetworkQuest\Sessions;
 use PDO;
 
-/** Shared private OAuth state storage. Route admission/limits precede begin; no provider IO here. */
+/** Shared private OAuth state storage. Mandatory external barrier precedes each short DB transaction. */
 final class AuthTransactions
 {
     private readonly Closure $clock;
 
-    public function __construct(private readonly Database $database, private readonly Sessions $sessions, ?callable $clock = null)
+    public function __construct(private readonly Database $database, private readonly Sessions $sessions, private readonly AccountAccess $accounts, ?callable $clock = null)
     {
         $this->clock = Closure::fromCallable($clock ?? time(...));
     }
@@ -33,7 +34,7 @@ final class AuthTransactions
         if (!in_array($purpose, ['login', 'delete-reauth'], true)) {
             throw new RequestRejected('invalid-request');
         }
-        return $this->database->immediate(fn (PDO $pdo): array => $this->sessions->within($pdo, $session,
+        return $this->accounts->run(fn (): array => $this->database->immediate(fn (PDO $pdo): array => $this->sessions->within($pdo, $session,
             function (SessionContext $current) use ($pdo, $provider, $purpose): array {
                 $now = $this->now();
                 $expected = null;
@@ -60,7 +61,7 @@ final class AuthTransactions
                 return ['state' => $state, 'nonce' => $nonce,
                     'codeChallenge' => rtrim(strtr(base64_encode(hash('sha256', $verifier, true)), '+/', '-_'), '='),
                     'expiresAt' => $now + 600];
-            }, false));
+            }, false)));
     }
 
     /**
@@ -73,7 +74,7 @@ final class AuthTransactions
         self::provider($provider);
         if (!Security::isToken($state)) throw new RequestRejected('invalid-request');
         try {
-            return $this->database->immediate(fn (PDO $pdo): array => $this->sessions->within($pdo, $session,
+            return $this->accounts->run(fn (): array => $this->database->immediate(fn (PDO $pdo): array => $this->sessions->within($pdo, $session,
                 function (SessionContext $current) use ($pdo, $provider, $state): array {
                     $now = $this->now();
                     $query = $pdo->prepare('SELECT * FROM auth_transactions WHERE state_hash=? AND session_hash=? AND provider=?');
@@ -88,7 +89,7 @@ final class AuthTransactions
                     return ['purpose' => $row['purpose'], 'expectedAccountId' => $row['expected_account_id'],
                         'nonceHash' => $row['nonce_hash'], 'verifier' => $row['pkce_verifier'],
                         'createdAt' => $row['created_at'], 'expiresAt' => $row['expires_at']];
-                }, false));
+                }, false)));
         } catch (RequestRejected $error) {
             // Callback contract is400 for missing/expired initiating session as well as state.
             if ($error->status === 401) throw new RequestRejected('invalid-request');

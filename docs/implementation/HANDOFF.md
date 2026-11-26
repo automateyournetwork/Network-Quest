@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-26
 
-**52 loops started; 37 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
+**56 loops started; 41 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
 Current active ownership is in state.json:
 
 - Loop046/T035 local correction reviewed: real Three.js R01/R02 graybox, shared
@@ -55,23 +55,40 @@ Current active ownership is in state.json:
   providers107/2278 PASS with actual GenericProvider/S256 and fixed empty scopes.
   Root reviewed source/tests and27 seals; current Database default migration2
   was still T041-review-pending, not accepted by that provider result.
-- Loop050/T041: auth/session routes, private configuration and final account/session
-  commit; joins actual T040 before final verification. No production credentials
-  in tests and no external deletion-ledger acceptance before T045.
+- T041 accepted in loop050 after all59 seals matched and source/test review;
+  actual private configured factory joins auth/save/preferences/account services.
+  Root full current PHP suite706tests/8356assertions PASS (19.524s/30MiB). No real
+  providers or public accounts; native host remaining limits are recorded.
 - Loop051/T045: durable external deletion intents/receipt hashes/account deletion
   and actual AccountAccess barrier; joins T041 purpose-proof forward migration.
 - Loop052/T044: save/preferences HTTP handlers on accepted repository/validators,
   joining actual T045 barrier; shared Router/config remain T041-owned.
-- Next local sequence: review GitHub and join actual auth/save/recovery services
-  on verified interfaces. Do not waive required
+- T045 accepted after full coordinator review and assertion-catch correction;
+  actual four-suite rerun83tests/472assertions PASS. T044 accepted after full
+  handler/generator/test review and all24 seals matched. Scoped74routecases/1811
+  assertions and four process races PASS; root check/build with stale-policy
+  enforcement PASS. Production transport/provider/recovery acceptance stays open.
+- T046 accepted in loop053 after full source/test review and final shared-entry
+  join;100 scopedtests/1332assertions including71nativeTLS assertions, plus root
+  fullPHP706/8356PASS. Receipt status does not reconcile/delete; logout preserves
+  slots. Actual browser/provider/response-loss journeys remain later.
+- Loop054/T047: credentialed client API/account-generation guards and popup hints;
+  mocked fetch tests alone cannot certify actual provider/HTTP/browser acceptance.
+- Loop055/T048: pure safe snapshots, dirty generations and explicit supported
+  read/migration dispatch against independent baseline fixtures; no API/UI edits.
+- Loop056/T053: independent PHP identity/security/save/API-contract verification
+  on accepted joined services; owns only its three reserved test files and note.
+- Next local sequence: review final native auth/account composition, then
+  snapshot/migration and client save coordination on verified interfaces. Do not waive required
   owner/gate reviews or infer real provider acceptance from synthetic tests.
 
 Accepted implementation now includes domain/state/content foundations, accessible
 controls and presentation lifecycle adapters; actual guest title, R01/R02
 investigation, O01/O02, dialogue skip/replay, inventory, five notebook sections,
 fresh/stale readings and the initial packet activity. **Finished media count0.**
-The real service entry still returns honest unavailable responses; database
-primitives are implemented but provider login and durable saves are not joined.
+The unconfigured service entry remains unavailable. Private configured entry
+composition is under review; actual provider login and browser saves remain
+unaccepted. No production account service is deployed.
 
 Recent evidence:
 
@@ -152,6 +169,10 @@ outbound provider TLS and actual cron passed. All temporary helpers/data/cron
 were removed; cleanup and original crontab/modes independently verified. See
 host-probes.md. Dated disk/inode quota cache is recorded; actual longest provider/
 manual-copy backup retention and fresh adjusted package limits remain open.
+New scoped header evidence is in hosting-header-admission.md:5 uploaded helpers
+removed with SFTPabsence/parent-metadata checks; nativeH1framing correction and
+partialH2 observations. Later requests show a challenge page and2SSHconnection
+timeouts, so remaining host checks are deferred; do not bypass the challenge.
 The existing pending owner question asks only the Backups plan/oldest displayed
 date under GoDaddy My Products → Web Hosting → Manage → Backups. No credentials,
 SSH activation, restoration or purchase is needed. Do not resend that question.
@@ -174,13 +195,13 @@ Do not fabricate listening. Production Audacity4 .aup4/native review remains lat
 ## Publication and release
 
 Latest pushed and independently remote-verified commit:
-`11129bdaae56cffa398fd92736518537d14e37a0` (T035 local playable graybox,
-T039 Google/shared auth and T043 single-slot writes). All23 staged paths were
-explicitly inspected/hash-matched and private scans passed. Root stable PHP
-357tests/2790assertions PASS at migration1. Previous service checkpoint:
-`4df0c0884afb9f5d44791ad965573004d7e1a3cd`; guest/packet checkpoint:
-`a252a092b442465c2e94562bb6ec5a454c7a7e6b`. Current route/recovery/migration2
-work remains uncommitted until reviewed. **No release deployed.**
+`85c4a03fd5200f734f6ac5885807059680f834d2` (T040 GitHub adapter and tracking
+through37 accepted tasks). All6 staged paths were explicitly inspected/hash-matched
+and private scans passed. Previous `11129bdaae56cffa398fd92736518537d14e37a0`
+contains the playable graybox, Google/shared auth and single-slot repository;
+root stable PHP357tests/2790assertions passed at migration1. Current routes,
+recovery/barrier and migration2 work remain uncommitted until reviewed.
+**No release deployed.**
 
 Owner authorization covers scoped reviewed pushes to automateyournetwork/Network-Quest
 and finished accepted release deployment at

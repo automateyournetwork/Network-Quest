@@ -10,6 +10,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { setTimeout as delay } from 'node:timers/promises';
 import { createServer as createViteServer } from 'vite';
+import { admitRawHeaders, readBoundedBody, rejectRequest, installParserErrors } from './http-admission.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const host = '127.0.0.1';
@@ -93,12 +94,15 @@ export async function startDev({ cert, key, port = 8443, php = 'php', probeRoute
   let vite, phpChild, runDirectory, stopping;
   const sockets = new Set();
   const upstreams = new Set();
-  const server = https.createServer({ cert: certificate, key: privateKey, minVersion: 'TLSv1.2' });
+  const server = https.createServer({ cert: certificate, key: privateKey, minVersion: 'TLSv1.2',
+    maxHeaderSize: 16384, connectionsCheckingInterval: 250 });
   // This unbound surface only receives validated upgrades from the TLS listener;
   // it never listens on a port. Vite retains its own connection-token check.
   const socketSurface = http.createServer();
   server.on('upgrade', (req, socket, head) => {
     socket.on('error', () => {});
+    const denied = admitRawHeaders(req.rawHeaders);
+    if (denied !== null) { socket.end(`HTTP/1.1 ${denied} Bad Request\r\nConnection: close\r\nContent-Length: 0\r\n\r\n`); return; }
     const sameOrigin = req.headers.host === new URL(origin).host && req.headers.origin === origin;
     const socketPath = (req.url ?? '').split('?')[0] === gameBase;
     if (!sameOrigin || !socketPath) {
@@ -108,6 +112,7 @@ export async function startDev({ cert, key, port = 8443, php = 'php', probeRoute
     if (req.headers['sec-websocket-protocol'] !== 'vite-hmr' || !socketSurface.emit('upgrade', req, socket, head)) socket.destroy();
   });
   server.on('connection', (socket) => { sockets.add(socket); socket.on('close', () => sockets.delete(socket)); });
+  installParserErrors(server);
   server.requestTimeout = 30_000;
   server.headersTimeout = 15_000;
   const stop = () => stopping ??= (async () => {
@@ -164,26 +169,30 @@ export async function startDev({ cert, key, port = 8443, php = 'php', probeRoute
     server.on('request', (req, res) => {
       res.setHeader('X-Content-Type-Options', 'nosniff');
       res.setHeader('Cache-Control', 'no-store');
+      const denied = admitRawHeaders(req.rawHeaders);
+      if (denied !== null) { rejectRequest(req, res, denied); return; }
       if (req.headers.host !== new URL(origin).host || (req.headers.origin && req.headers.origin !== origin)) {
         res.writeHead(403).end(); return;
       }
       const pathname = (req.url ?? '').split('?')[0];
       if (pathname === apiBase || pathname.startsWith(`${apiBase}/`)) {
-        const upstream = http.request({ host, port: phpPort, path: req.url, method: req.method,
-          headers: proxyHeaders(req.headers, origin, token) }, (response) => {
-          res.writeHead(response.statusCode ?? 502, { ...response.headers, 'cache-control': 'no-store' });
-          response.pipe(res);
-          response.on('error', () => res.destroy());
+        readBoundedBody(req, res, (body) => {
+          const upstream = http.request({ host, port: phpPort, path: req.url, method: req.method,
+            headers: { ...proxyHeaders(req.headers, origin, token), 'content-length': String(body.length) } }, (response) => {
+            res.writeHead(response.statusCode ?? 502, { ...response.headers, 'cache-control': 'no-store' });
+            response.pipe(res);
+            response.on('error', () => res.destroy());
+          });
+          upstreams.add(upstream);
+          upstream.once('close', () => upstreams.delete(upstream));
+          upstream.setTimeout(15_000, () => upstream.destroy());
+          upstream.on('error', () => {
+            if (!res.headersSent) res.writeHead(502, { 'Content-Type': 'application/json' }).end('{"error":"local_php_unavailable"}');
+            else res.destroy();
+          });
+          res.on('close', () => { if (!res.writableFinished) upstream.destroy(); });
+          upstream.end(body);
         });
-        upstreams.add(upstream);
-        upstream.once('close', () => upstreams.delete(upstream));
-        upstream.setTimeout(15_000, () => upstream.destroy());
-        upstream.on('error', () => {
-          if (!res.headersSent) res.writeHead(502, { 'Content-Type': 'application/json' }).end('{"error":"local_php_unavailable"}');
-          else res.destroy();
-        });
-        res.on('close', () => { if (!res.writableFinished) upstream.destroy(); });
-        req.pipe(upstream);
       } else {
         vite.middlewares(req, res, () => res.writeHead(404).end());
       }

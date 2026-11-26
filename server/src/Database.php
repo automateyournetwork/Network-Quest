@@ -173,11 +173,14 @@ final class Database
     public function migrate(?array $migrations = null): void
     {
         if ($migrations === null) {
-            $sql = file_get_contents(__DIR__ . '/../migrations/001_game.sql');
-            if ($sql === false) {
-                throw new RuntimeException('Packaged game migration is unavailable.');
+            $migrations = [];
+            foreach ([1 => '001_game.sql', 2 => '002_delete_reauth.sql'] as $version => $name) {
+                $sql = file_get_contents(__DIR__ . '/../migrations/' . $name);
+                if ($sql === false) {
+                    throw new RuntimeException('Packaged game migration is unavailable.');
+                }
+                $migrations[$version] = $sql;
             }
-            $migrations = [1 => $sql];
         }
         if ($migrations === [] || array_keys($migrations) !== range(1, count($migrations))) {
             throw new InvalidArgumentException('Migrations must be a consecutive ordered sequence.');
