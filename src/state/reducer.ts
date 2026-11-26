@@ -7,6 +7,9 @@ import type {
   QuestId, RoomId, SafePositionId, WorldVersion,
 } from '../domain/types';
 import type { ActivityState, DirtyGeneration, GameState, Measurement, RuntimeState, SafeState, WorldState } from './types';
+import { conditionSupported as supportedCondition, conditionSatisfied as conditionMet } from './conditions';
+import { prepareNotebookChange } from './notebook';
+import type { NotebookOperation } from './notebook';
 
 /** Authored effects only. Evaluators select them; the reducer never scores physics. */
 export type StateEffect = S.effect & IdentifiedEffect;
@@ -39,6 +42,7 @@ interface EffectRequest {
   readonly destination?: Destination;
 }
 export type ReducerInput =
+  | { readonly kind: 'notebook'; readonly operation: NotebookOperation }
   | (EffectRequest & { readonly kind: 'apply' })
   | (EffectRequest & { readonly kind: 'begin'; readonly activity: 'pending-effect' | 'room-transition' | 'dialogue-transaction' })
   | { readonly kind: 'commit'; readonly transitionActionId: ActionId }
@@ -136,28 +140,6 @@ function receiptApplied(world: WorldState, receipt: CompletionReceipt): boolean 
     case 'flag': return world.flags[receipt.id] === true;
   }
 }
-function supportedCondition(condition: S.condition): boolean {
-  if (condition.kind === 'minigame-complete') return false;
-  if (condition.kind === 'all' || condition.kind === 'any') return condition.conditions.every(supportedCondition);
-  return condition.kind !== 'not' || supportedCondition(condition.condition);
-}
-function conditionMet(condition: S.condition, world: WorldState): boolean {
-  switch (condition.kind) {
-    case 'always': return true;
-    case 'all': return condition.conditions.every(c => conditionMet(c, world));
-    case 'any': return condition.conditions.some(c => conditionMet(c, world));
-    case 'not': return !conditionMet(condition.condition, world);
-    case 'objective-complete': return world.completedObjectiveIds.includes(condition.objectiveId as ObjectiveId);
-    case 'quest-complete': return world.completedQuestIds.includes(condition.questId as QuestId);
-    // No minigame completion field exists in save v1; future adapter must map an
-    // authored completion flag before this condition can be enabled at runtime.
-    case 'minigame-complete': case 'future-door-open': return false;
-    case 'item-available': return (world.inventory.find(i => i.itemId === condition.itemId)?.quantity ?? 0) >= condition.quantity;
-    case 'flag-equals': return Object.hasOwn(world.flags, condition.flagId) && world.flags[condition.flagId as FlagId] === condition.value;
-    case 'character-recruited': return world.recruits.some(r => r.characterId === condition.characterId);
-  }
-}
-
 /** Resolve actual authored definitions and their ancestor conditions, not caller-supplied payloads. */
 function findEffects(record: Readonly<S.authoredRecord>, effectId: EffectId): { effect: StateEffect; conditions: S.condition[] }[] {
   const found: { effect: StateEffect; conditions: S.condition[] }[] = [];
@@ -361,7 +343,11 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
     for (const { binding } of selected) if (binding.mode === 'once' && binding.receipt.kind === 'dialogue-effect') {
       world = { ...world, dialogueEffectIds: [...new Set([...world.dialogueEffectIds, binding.receipt.id])] };
     }
-    if (request.destination) world = { ...world, roomId: request.destination.roomId, position: { safePositionId: request.destination.safePositionId } };
+    if (request.destination) {
+      world = { ...world, roomId: request.destination.roomId, position: { safePositionId: request.destination.safePositionId } };
+      notebook = { ...notebook, mapRoomIds: [...new Set([...notebook.mapRoomIds, game.world.roomId, request.destination.roomId])] };
+      if (notebook.mapRoomIds.length > 128) return failure('invalid-state');
+    }
     if (!legalWorld(world) || notebook.factIds.length > 1024) return failure('invalid-state');
     for (const itemId of debits.keys()) {
       const item = registry.record(itemId);
@@ -428,6 +414,16 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
       return accept(state, command.actionId, { ...result.value, activity: pending.request.destination ? result.value.activity : pending.previousActivity }, true);
     }
     if (pending) return reject('transition-pending');
+    if (input.kind === 'notebook') {
+      if (!safeKinds.has(state.runtime.activity.kind)) return reject('invalid-state');
+      const notebook = prepareNotebookChange(registry, game, input.operation);
+      if (!notebook.ok) return reject(notebook.reason);
+      const prepared = prepare(state, { evaluation: notebook.evaluation });
+      if (!prepared.ok) return reject(prepared.reason);
+      const final = notebook.finalize(prepared.value.game);
+      if (!final.ok) return reject(final.reason);
+      return accept(state, command.actionId, { ...prepared.value, game: final.game, changed: canonical(final.game) !== canonical(game) });
+    }
     if (input.kind === 'rewind-preparation') {
       const checkpoint = state.runtime.checkpoint;
       if (!['terminal-failure', 'shutdown'].includes(state.runtime.activity.kind) || !checkpoint || checkpoint.adventureId !== game.adventureId

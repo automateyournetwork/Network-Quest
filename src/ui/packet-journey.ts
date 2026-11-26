@@ -1,0 +1,244 @@
+// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import { evaluatePacketJourney } from '../domain/packet-journey';
+import type { JourneyObservation, JourneyPhase, PacketJourneyChallenge, PacketJourneyWorld, PacketResult } from '../domain/packet-journey';
+import type { ActionId } from '../domain/types';
+import type { ActionBus, ActionCapture, ActionContext, ActionDispatcher, ActionPlan, ActionResult, CapturedAction } from './action-bus';
+import type { SemanticControl } from './app-shell';
+
+export interface PacketContext {
+  readonly version: 1; readonly id: 'spec001:PACKET-CONTEXT'; readonly title: string;
+  readonly payload: string; readonly model: string; readonly comparison: string;
+  readonly impairment: string; readonly premises: string; readonly overview: string;
+  readonly realms: readonly { readonly layer: number; readonly name: string; readonly role: string; readonly available: boolean }[];
+  readonly sources: readonly { readonly id: string; readonly title: string; readonly claim: string }[];
+}
+const record = (v: unknown): v is Record<string, unknown> => v !== null && typeof v === 'object' && !Array.isArray(v);
+const text = (v: unknown): v is string => typeof v === 'string' && v.trim().length > 0 && v.length <= 2000 && !/[\uD800-\uDFFF]/u.test(v) && !/[\u0000-\u0008\u000B-\u001F\u007F]/u.test(v);
+const exact = (v: Record<string, unknown>, keys: readonly string[]) => Object.keys(v).length === keys.length && Object.keys(v).every(k => keys.includes(k));
+function frozen<T>(value: T): T { if (value && typeof value === 'object') { for (const child of Object.values(value)) frozen(child); Object.freeze(value); } return value; }
+/** A small typed boundary for this original prose; not a save/world schema change. */
+export function validatePacketContext(input: unknown): PacketContext {
+  const prose = ['title', 'payload', 'model', 'comparison', 'impairment', 'premises', 'overview'];
+  if (!record(input) || !exact(input, ['version', 'id', ...prose, 'realms', 'sources']) || input['version'] !== 1 || input['id'] !== 'spec001:PACKET-CONTEXT'
+    || prose.some(k => !text(input[k])) || !Array.isArray(input['realms']) || input['realms'].length !== 7 || !Array.isArray(input['sources']) || input['sources'].length !== 3) throw new TypeError('Invalid packet context.');
+  for (const [index, realm] of input['realms'].entries()) {
+    if (!record(realm) || !exact(realm, ['layer', 'name', 'role', 'available']) || realm['layer'] !== 7 - index || realm['available'] !== (index === 6) || !text(realm['name']) || !text(realm['role'])) throw new TypeError('Invalid packet realm context.');
+  }
+  for (const [index, source] of input['sources'].entries()) {
+    if (!record(source) || !exact(source, ['id', 'title', 'claim']) || source['id'] !== ['S01', 'S02', 'S13'][index] || !text(source['title']) || !text(source['claim'])) throw new TypeError('Invalid packet source context.');
+  }
+  return frozen(structuredClone(input)) as unknown as PacketContext;
+}
+
+/** Trusted activity adapter: identity changes on restore, logout, exit or new activity. */
+export interface PacketJourneyBinding {
+  readonly identity: object; readonly context: ActionContext;
+  readonly challenge: PacketJourneyChallenge; readonly world: PacketJourneyWorld;
+}
+export interface PacketJourneyView {
+  readonly open: boolean; readonly phase: JourneyPhase; readonly paused: boolean;
+  readonly context: PacketContext; readonly result: PacketResult<JourneyObservation> | null;
+  readonly message: string; readonly controls: readonly SemanticControl[];
+}
+export interface PacketJourneyOptions {
+  readonly bus: ActionBus; readonly context: unknown;
+  /** Must return null unless this exact trusted activity remains eligible. */
+  readonly read: () => PacketJourneyBinding | null;
+  /** T034 releases only the matching owned activity; this controller never writes game state. */
+  readonly onClose?: (reason: 'close' | 'invalidated' | 'disposed', identity: object) => void;
+}
+const phases: readonly JourneyPhase[] = ['payload', 'encode', 'transmit', 'decode', 'compare'];
+const sameContext = (a: ActionContext, b: ActionContext) => a.adventureId === b.adventureId && a.configurationRevision === b.configurationRevision && a.attemptId === b.attemptId;
+const reject = (reason: string, message: string): ActionResult => ({ status: 'rejected', reason, message });
+interface Session { readonly id: string; readonly identity: object; readonly context: ActionContext; readonly capture: ActionCapture; readonly phase: JourneyPhase; readonly paused: boolean }
+/** No persistence, game effects, physical repairs, timers or renderer-completion authority. */
+export function createPacketJourneyController(options: PacketJourneyOptions) {
+  const context = validatePacketContext(options.context), { bus, read } = options;
+  let session: Session | null = null, disposed = false, message = '';
+  const emptyCapture = bus.captureScope(null);
+  const finish = (reason: 'close' | 'invalidated' | 'disposed') => {
+    const previous = session; session = null;
+    if (previous) { message = reason === 'close' ? 'Returned to the investigation.' : 'The journey changed. Open it again with current evidence.'; options.onClose?.(reason, previous.identity); }
+  };
+  const current = () => {
+    const binding = read();
+    if (session && (!binding || binding.identity !== session.identity || !sameContext(binding.context, session.context))) finish('invalidated');
+    return session && binding ? { session, binding } : null;
+  };
+  const evaluate = (s: Session, binding: PacketJourneyBinding, phase = s.phase) => evaluatePacketJourney(binding.challenge,
+    { actionId: crypto.randomUUID() as ActionId, expectedVersion: s.context, input: { kind: 'inspect', phase } }, binding.world);
+  const handle = (action: CapturedAction): ActionPlan => {
+    const input = action.input;
+    if (input.kind !== 'step-packet' && input.kind !== 'pause-packet' && input.kind !== 'resume-packet' && input.kind !== 'replay-packet' && input.kind !== 'close-packet') return reject('packet-intent', 'That control does not belong to this journey.');
+    const found = current();
+    if (!found || !('sessionId' in input) || input.sessionId !== found.session.id) return reject('packet-stale', 'This journey has changed. Use its current controls.');
+    return { status: 'ready', commit: () => {
+      const now = current();
+      if (disposed || !now || now.session !== found.session) return reject('packet-stale', 'This journey has changed. Use its current controls.');
+      if (input.kind === 'close-packet') { finish('close'); return { status: 'handled', message }; }
+      let phase = now.session.phase, paused = now.session.paused;
+      if (input.kind === 'step-packet') phase = phases[Math.min(phases.indexOf(phase) + 1, phases.length - 1)]!;
+      else if (input.kind === 'replay-packet') { phase = 'payload'; paused = true; }
+      else if (input.kind === 'pause-packet') paused = true;
+      else if (input.kind === 'resume-packet') paused = false;
+      else return reject('packet-intent', 'That control does not belong to this journey.');
+      const result = evaluate(now.session, now.binding, phase);
+      if (result.status === 'content-error' || result.status === 'invalid-input' || phase === 'compare') paused = true;
+      session = { ...now.session, id: crypto.randomUUID(), phase, paused };
+      message = result.status === 'content-error' ? 'The demonstration content needs correction. No learner result was awarded.'
+        : result.status === 'invalid-input' ? 'Current physical evidence is unavailable or stale. Return to the investigation and measure again.'
+          : paused ? 'Paused. Step through the evidence at your own pace.' : 'Preview playing. Pause or step at any time.';
+      return { status: 'handled', message };
+    } };
+  };
+  const off: (() => void)[] = [];
+  try { for (const kind of ['step-packet', 'pause-packet', 'resume-packet', 'replay-packet', 'close-packet'] as const) off.push(bus.register(kind, handle)); }
+  catch (error) { off.forEach(remove => remove()); throw error; }
+  return {
+    /** Call after the trusted integration has acquired its unsafe cutscene/activity lock. */
+    open(): ActionResult {
+      if (disposed) return reject('packet-disposed', 'This journey is closed.');
+      if (current()) return reject('packet-open', 'The journey is already open.');
+      const binding = read(); if (!binding) return reject('packet-unavailable', 'This journey is not available here.');
+      session = { id: crypto.randomUUID(), identity: binding.identity, context: Object.freeze({ ...binding.context }), capture: bus.captureScope(binding.context), phase: 'payload', paused: true };
+      evaluate(session, binding); message = 'Paused. Step through the evidence at your own pace.';
+      return { status: 'handled', message };
+    },
+    project(): { readonly view: PacketJourneyView; readonly capture: ActionCapture } {
+      const found = current();
+      if (!found) return { view: { open: false, phase: 'payload', paused: true, context, result: null, message, controls: [] }, capture: emptyCapture };
+      const result = evaluate(found.session, found.binding), valid = result.status === 'correct' || result.status === 'incorrect';
+      // Invalid evidence cancels playback, even if fresh evidence later reappears.
+      if (!valid && !found.session.paused) session = { ...found.session, id: crypto.randomUUID(), paused: true };
+      const active = session!;
+      const { phase, id: sessionId } = active, paused = active.paused || !valid || phase === 'compare';
+      const controls: SemanticControl[] = [];
+      if (valid && phase !== 'compare') {
+        controls.push({ id: 'packet-step', label: 'Step journey', action: { kind: 'step-packet', sessionId } });
+        controls.push({ id: 'packet-play-pause', label: paused ? 'Play preview' : 'Pause journey', action: { kind: paused ? 'resume-packet' : 'pause-packet', sessionId } });
+      }
+      controls.push({ id: 'packet-replay', label: 'Replay journey', action: { kind: 'replay-packet', sessionId } },
+        { id: 'packet-close', label: 'Return to investigation', action: { kind: 'close-packet', sessionId } });
+      const status = result.status === 'content-error' ? 'The demonstration content needs correction. No learner result was awarded.'
+        : result.status === 'invalid-input' ? 'Current physical evidence is unavailable or stale. Return to the investigation and measure again.' : message;
+      return { view: frozen({ open: true, phase, paused, context, result, message: status, controls }), capture: found.session.capture };
+    },
+    invalidate() { finish('invalidated'); },
+    dispose() { if (disposed) return; disposed = true; finish('disposed'); off.forEach(remove => remove()); },
+  };
+}
+
+const level = (n: number) => n > 0 ? `+${n}` : String(n).replace('-', '−');
+const groupedBits = (bits: string) => bits.match(/.{1,8}/g)?.join(' ') ?? bits;
+/** Native text-first view. Optional timed preview dispatches the SAME captured Step intent. */
+export function createPacketJourneyPanel(host: HTMLElement, bus: Pick<ActionDispatcher, 'dispatch' | 'cancel'>, options: { readonly reducedMotion?: () => boolean } = {}) {
+  const doc = host.ownerDocument, win = doc.defaultView;
+  if (!win) throw new Error('Packet controls require a document window.');
+  const abort = new AbortController(), element = doc.createElement('section');
+  element.setAttribute('role', 'dialog'); element.setAttribute('aria-label', 'Packet journey'); element.hidden = true;
+  const heading = doc.createElement('h2'), status = doc.createElement('p'), controlsHost = doc.createElement('div'), body = doc.createElement('div');
+  heading.tabIndex = -1; status.setAttribute('role', 'status');
+  controlsHost.style.cssText = 'display:flex;flex-wrap:wrap;gap:0.5rem'; body.style.cssText = 'overflow-wrap:anywhere;min-width:0';
+  element.append(heading, status, controlsHost, body); host.append(element);
+  const media = win.matchMedia('(prefers-reduced-motion: reduce)');
+  // A supplied preference is already resolved from the game's on/off/system setting.
+  const motionBlocked = () => options.reducedMotion ? options.reducedMotion() : media.matches;
+  let disposed = false, returnFocus: HTMLElement | null = null;
+  let current: { view: PacketJourneyView; capture: ActionCapture } | null = null;
+  let timer: number | null = null, timed: CapturedAction | null = null, timerEpoch = {};
+  const buttons = new Map<string, { button: HTMLButtonElement; model: SemanticControl; capture: ActionCapture }>();
+  const cancelPreview = () => { timerEpoch = {}; if (timer !== null) win.clearTimeout(timer); timer = null; if (timed) bus.cancel(timed); timed = null; };
+  const dispatch = (model: SemanticControl, capture: ActionCapture) => bus.dispatch(capture(model.action));
+  const pauseForEnvironment = () => {
+    cancelPreview();
+    if (current?.view.open && !current.view.paused) {
+      const control = current.view.controls.find(c => c.action.kind === 'pause-packet'); if (control) dispatch(control, current.capture);
+    }
+  };
+  const updateAvailability = () => { for (const entry of buttons.values()) if (entry.model.action.kind === 'resume-packet') entry.button.disabled = motionBlocked() || doc.hidden; };
+  doc.addEventListener('visibilitychange', () => { if (doc.hidden) pauseForEnvironment(); updateAvailability(); }, { signal: abort.signal });
+  media.addEventListener('change', () => { if (motionBlocked()) pauseForEnvironment(); updateAvailability(); }, { signal: abort.signal });
+  element.addEventListener('keydown', event => {
+    if (event.key !== 'Escape' || event.repeat || event.isComposing || event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || !current?.view.open) return;
+    const close = current.view.controls.find(c => c.action.kind === 'close-packet');
+    if (close) { event.preventDefault(); event.stopPropagation(); cancelPreview(); dispatch(close, current.capture); }
+  }, { signal: abort.signal });
+  const paragraph = (value: string) => { const p = doc.createElement('p'); p.textContent = value; body.append(p); };
+  const table = (caption: string, headers: string[], rows: string[][]) => {
+    const wrapper = doc.createElement('div'); wrapper.style.overflowX = 'auto';
+    wrapper.tabIndex = 0; wrapper.setAttribute('role', 'region'); wrapper.setAttribute('aria-label', `${caption} — scrollable table`);
+    const table = doc.createElement('table'), cap = doc.createElement('caption'), head = doc.createElement('thead'), tr = doc.createElement('tr'), tbody = doc.createElement('tbody');
+    table.style.cssText = 'border-collapse:collapse;max-width:100%;min-width:28rem;overflow-wrap:normal'; cap.textContent = caption; table.append(cap, head, tbody); head.append(tr);
+    for (const title of headers) { const th = doc.createElement('th'); th.scope = 'col'; th.textContent = title; th.style.padding = '0.5rem'; tr.append(th); }
+    for (const row of rows) { const tr = doc.createElement('tr'); for (const cell of row) { const td = doc.createElement('td'); td.textContent = cell; td.style.padding = '0.5rem'; tr.append(td); } tbody.append(tr); }
+    wrapper.append(table); body.append(wrapper);
+  };
+  const renderEvidence = (view: PacketJourneyView) => {
+    body.replaceChildren(); const c = view.context;
+    paragraph(c.payload); paragraph(c.model);
+    paragraph('On narrow screens, tables scroll sideways. Focus a table and use the arrow keys to see every column.');
+    const observation = view.result?.observations[0];
+    if (observation?.kind === 'packet-journey') {
+      const physical = observation.physicalObservation;
+      paragraph(physical.kind === 'copper-length' ? `Current physical result: ${observation.physicalStatus}. Length only: ${physical.total.value} m; declared fictional maximum ${physical.maximum.value} m. ${'headroom' in physical ? `Headroom ${physical.headroom.value} m.` : `Excess ${physical.excess.value} m.`}` : 'Physical result: unsupported scope.');
+      table('Highlighted payload bytes', ['Hex', 'Letter', 'Bits'], [['0x4E', 'N', '01001110'], ['0x51', 'Q', '01010001']]);
+      if (observation.encoded) table('Declared toy encoding in supplied order', ['Position (zero-based)', 'Bits', 'Sent toy level', 'Received toy level'], observation.encoded.samples.map((sample, i) => [String(sample.position), observation.encoded!.pairs[i]!, level(sample.value), observation.recoveredSymbolValues ? level(observation.recoveredSymbolValues[i]!) : 'Not available']));
+      paragraph(observation.recoveredBits === null ? 'Recovered bits: not available at this checkpoint.' : `Recovered bits: ${groupedBits(observation.recoveredBits)}.`);
+      if (observation.impairmentApplied) paragraph('Declared toy substitution applied at position 7: −1 → −3. This trace is supplied separately; length does not predict it.');
+      if (observation.phase === 'compare') {
+        if (observation.comparison) {
+          paragraph(observation.transmissionSucceeded ? 'Known highlighted pattern matches on this current controlled path.' : 'Known highlighted pattern does not establish transmission success. Return to the investigation.');
+          paragraph(`Recovered highlighted bytes: ${observation.comparison.recoveredHex.map(h => `0x${h}`).join(' ')}. Differing bits: ${observation.comparison.differingBits}. Zero-based mismatch positions: ${observation.comparison.differingBitPositions.join(', ') || 'none'}.`);
+        } else paragraph('No received trace is available. The failed physical result cannot supply recovered bits or a successful comparison. Return to the investigation.');
+      }
+    } else if (observation?.kind === 'packet-error') paragraph(`Evidence unavailable: ${observation.reason}. No transmission success or progress is awarded.`);
+    paragraph(c.comparison); paragraph(c.impairment); paragraph(c.premises); paragraph(c.overview);
+    table('Seven-realm context', ['Layer', 'Realm', 'Role', 'Availability'], c.realms.map(r => [String(r.layer), r.name, r.role, r.available ? 'Current scoped physical activity' : 'Future content — context only']));
+    table('Reviewed sources and model scope', ['Source', 'Reference', 'Supported scope'], c.sources.map(s => [s.id, s.title, s.claim]));
+  };
+  return { element,
+    render(view: PacketJourneyView, capture: ActionCapture) {
+      if (disposed) throw new Error('Packet panel is disposed.');
+      cancelPreview(); const model = structuredClone(view), wasOpen = !element.hidden, focused = doc.activeElement;
+      current = { view: model, capture }; element.hidden = !model.open;
+      heading.textContent = `${model.context.title} — ${model.phase} (${phases.indexOf(model.phase) + 1} of 5)`;
+      status.textContent = model.message || (model.paused ? 'Paused.' : 'Preview playing.');
+      const nodes = model.controls.map(control => {
+        let entry = buttons.get(control.id);
+        if (!entry) {
+          const button = doc.createElement('button'); button.type = 'button'; button.style.cssText = 'min-width:44px;min-height:44px;white-space:normal';
+          entry = { button, model: control, capture }; buttons.set(control.id, entry);
+          button.addEventListener('click', () => { const active = buttons.get(control.id); if (!disposed && active?.button === button) { cancelPreview(); dispatch(active.model, active.capture); } }, { signal: abort.signal });
+        }
+        entry.model = control; entry.capture = capture; entry.button.textContent = control.label;
+        // Reduced motion preserves manual Step. Explicit play is available again when preference changes.
+        entry.button.disabled = control.action.kind === 'resume-packet' && (motionBlocked() || doc.hidden);
+        if (control.action.kind === 'close-packet') entry.button.setAttribute('aria-keyshortcuts', 'Escape');
+        return entry.button;
+      });
+      nodes.forEach((node, index) => { if (controlsHost.children[index] !== node) controlsHost.insertBefore(node, controlsHost.children[index] ?? null); });
+      while (controlsHost.children.length > nodes.length) controlsHost.lastElementChild!.remove();
+      for (const id of buttons.keys()) if (!model.controls.some(c => c.id === id)) buttons.delete(id);
+      renderEvidence(model);
+      if (model.open && !wasOpen) { if (focused instanceof HTMLElement && !element.contains(focused)) returnFocus = focused; heading.focus(); }
+      else if (!model.open && wasOpen && focused instanceof Node && (element.contains(focused) || !focused.isConnected)) { if (returnFocus?.isConnected) returnFocus.focus(); }
+      else if (model.open && focused instanceof HTMLElement && !focused.isConnected) heading.focus();
+      if (model.open && !model.paused && !doc.hidden && !motionBlocked() && model.phase !== 'compare') {
+        const step = model.controls.find(c => c.action.kind === 'step-packet');
+        if (step) {
+          timed = capture(step.action); const action = timed, epoch = timerEpoch;
+          timer = win.setTimeout(() => {
+            if (disposed || epoch !== timerEpoch) return;
+            if (doc.hidden || motionBlocked() || !element.isConnected) { pauseForEnvironment(); return; }
+            timer = null; timed = null; bus.dispatch(action);
+          }, 1500);
+        }
+      }
+      if (model.open && !model.paused && (doc.hidden || motionBlocked())) {
+        // A render subscriber may run inside dispatch; pause on the next microtask.
+        const projected = current; queueMicrotask(() => { if (!disposed && current === projected && (doc.hidden || motionBlocked())) pauseForEnvironment(); });
+      }
+    },
+    dispose() { if (disposed) return; disposed = true; cancelPreview(); abort.abort(); buttons.clear(); current = null; element.remove(); },
+  };
+}

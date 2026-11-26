@@ -1,5 +1,6 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
-import type { ActionId, AdventureId, FactId, InstanceId, ItemId, MeasurementId, QualifiedId, Verb, WorldVersion } from '../domain/types';
+import type { ActionId, AdventureId, FactId, InstanceId, ItemId, MeasurementId, ObjectiveId, QualifiedId, RoomId, Verb, WorldVersion } from '../domain/types';
+import { validNotebookText } from '../state/notebook';
 import type { ReducerCommand, ReducerInput, ReducerState, Reduction } from '../state/reducer';
 import type { RuntimeState, UiState } from '../state/types';
 
@@ -9,6 +10,17 @@ export type SemanticAction =
   | { readonly kind: 'open-panel'; readonly panel: Exclude<UiState['panel'], 'none'> }
   | { readonly kind: 'close-panel' }
   | { readonly kind: 'interact'; readonly targetId: QualifiedId | InstanceId; readonly verb: Verb; readonly itemId: ItemId | null }
+  | { readonly kind: 'choose-hotspot-action'; readonly targetId: QualifiedId; readonly verb: Verb; readonly itemId: ItemId | null; readonly choiceId: QualifiedId }
+  | { readonly kind: 'select-item'; readonly itemId: ItemId | null }
+  | { readonly kind: 'combine-items'; readonly itemId: ItemId; readonly targetItemId: ItemId; readonly combinationId: QualifiedId | null }
+  | { readonly kind: 'recover-item'; readonly itemId: ItemId }
+  | { readonly kind: 'choose-dialogue'; readonly dialogueId: QualifiedId; readonly nodeId: QualifiedId; readonly choiceId: QualifiedId; readonly sessionId: string }
+  | { readonly kind: 'skip-dialogue'; readonly dialogueId: QualifiedId; readonly nodeId: QualifiedId; readonly sessionId: string }
+  | { readonly kind: 'replay-dialogue' | 'close-dialogue'; readonly dialogueId: QualifiedId; readonly sessionId: string }
+  | { readonly kind: 'edit-personal-notes' | 'pin-hypothesis'; readonly text: string }
+  | { readonly kind: 'pin-objective'; readonly objectiveId: ObjectiveId }
+  | { readonly kind: 'highlight-map-room'; readonly roomId: RoomId }
+  | { readonly kind: 'step-packet' | 'pause-packet' | 'resume-packet' | 'replay-packet' | 'close-packet'; readonly sessionId: string }
   | { readonly kind: 'inspect-evidence'; readonly evidenceId: FactId | MeasurementId };
 
 export interface ActionContext extends WorldVersion { readonly adventureId: AdventureId }
@@ -69,9 +81,20 @@ function sameContext(a: ActionContext | null, b: ActionContext | null): boolean 
 const verbs = new Set<string>(['walk', 'look', 'talk', 'use']);
 const panels = new Set<string>(['inventory', 'notebook', 'compendium', 'settings', 'save']);
 const fields: Record<SemanticAction['kind'], readonly string[]> = {
+  'edit-personal-notes': ['kind', 'text'], 'pin-hypothesis': ['kind', 'text'],
+  'pin-objective': ['kind', 'objectiveId'], 'highlight-map-room': ['kind', 'roomId'],
+  'step-packet': ['kind', 'sessionId'], 'pause-packet': ['kind', 'sessionId'], 'resume-packet': ['kind', 'sessionId'],
+  'replay-packet': ['kind', 'sessionId'], 'close-packet': ['kind', 'sessionId'],
+  'choose-dialogue': ['kind', 'dialogueId', 'nodeId', 'choiceId', 'sessionId'],
+  'skip-dialogue': ['kind', 'dialogueId', 'nodeId', 'sessionId'],
+  'replay-dialogue': ['kind', 'dialogueId', 'sessionId'], 'close-dialogue': ['kind', 'dialogueId', 'sessionId'],
   'select-verb': ['kind', 'verb'], 'open-panel': ['kind', 'panel'], 'close-panel': ['kind'],
   interact: ['kind', 'targetId', 'verb', 'itemId'], 'inspect-evidence': ['kind', 'evidenceId'],
+  'choose-hotspot-action': ['kind', 'targetId', 'verb', 'itemId', 'choiceId'],
+  'select-item': ['kind', 'itemId'], 'combine-items': ['kind', 'itemId', 'targetItemId', 'combinationId'], 'recover-item': ['kind', 'itemId'],
 };
+const qualifiedIdentity = (value: unknown) => typeof value === 'string' && /^spec[0-9]{3}:[A-Za-z0-9][A-Za-z0-9._-]{0,55}$/.test(value);
+const dialogueSession = (value: unknown) => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
 const identity = (value: unknown) => typeof value === 'string' && value.trim().length > 0 && value.length <= 128;
 
 /** Shape guard only. Registry membership and action eligibility remain domain checks. */
@@ -80,10 +103,24 @@ export function copySemanticAction(input: SemanticAction): SemanticAction {
   const keys = fields[input.kind];
   if (Object.keys(input).length !== keys.length || Object.keys(input).some(key => !keys.includes(key))) throw new TypeError('Semantic actions contain intent only.');
   switch (input.kind) {
+    case 'edit-personal-notes': if (!validNotebookText(input.text, 4096)) throw new TypeError('Notes require valid Unicode text of at most 4096 characters.'); break;
+    case 'pin-hypothesis': if (!validNotebookText(input.text, 512, true)) throw new TypeError('A hypothesis requires 1–512 Unicode characters.'); break;
+    case 'pin-objective': if (!qualifiedIdentity(input.objectiveId)) throw new TypeError('Invalid objective identity.'); break;
+    case 'highlight-map-room': if (!qualifiedIdentity(input.roomId)) throw new TypeError('Invalid map room identity.'); break;
+    case 'step-packet': case 'pause-packet': case 'resume-packet': case 'replay-packet': case 'close-packet':
+      if (!dialogueSession(input.sessionId)) throw new TypeError('Invalid packet session.'); break;
     case 'select-verb': if (!verbs.has(input.verb)) throw new TypeError('Unknown verb.'); break;
     case 'open-panel': if (!panels.has(input.panel)) throw new TypeError('Unknown panel.'); break;
     case 'interact': if (!verbs.has(input.verb) || !identity(input.targetId) || (input.itemId !== null && !identity(input.itemId))) throw new TypeError('Invalid interaction intent.'); break;
+    case 'choose-hotspot-action': if (!verbs.has(input.verb) || !identity(input.targetId) || !identity(input.choiceId) || (input.itemId !== null && !identity(input.itemId))) throw new TypeError('Invalid hotspot choice.'); break;
+    case 'select-item': if (input.itemId !== null && !identity(input.itemId)) throw new TypeError('Invalid item selection.'); break;
+    case 'combine-items': if (!identity(input.itemId) || !identity(input.targetItemId) || (input.combinationId !== null && !identity(input.combinationId))) throw new TypeError('Invalid combination intent.'); break;
+    case 'recover-item': if (!identity(input.itemId)) throw new TypeError('Invalid recovery intent.'); break;
     case 'inspect-evidence': if (!identity(input.evidenceId)) throw new TypeError('Invalid evidence identity.'); break;
+    case 'choose-dialogue': case 'skip-dialogue': case 'replay-dialogue': case 'close-dialogue':
+      if (!qualifiedIdentity(input.dialogueId) || !dialogueSession(input.sessionId)
+        || ('nodeId' in input && !qualifiedIdentity(input.nodeId)) || ('choiceId' in input && !qualifiedIdentity(input.choiceId))) throw new TypeError('Invalid dialogue intent.');
+      break;
     case 'close-panel': break;
   }
   return Object.freeze({ ...input });

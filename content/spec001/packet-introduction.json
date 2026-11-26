@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "id": "spec001:PACKET-R01",
+  "symbolProfile": {
+    "id": "spec001:PROFILE-SYMBOLS",
+    "parameters": {
+      "bitsPerSymbol": 2,
+      "levels": [
+        { "symbol": { "value": -3, "unit": "toy-level" }, "bits": "00" },
+        { "symbol": { "value": -1, "unit": "toy-level" }, "bits": "01" },
+        { "symbol": { "value": 1, "unit": "toy-level" }, "bits": "10" },
+        { "symbol": { "value": 3, "unit": "toy-level" }, "bits": "11" }
+      ]
+    }
+  },
+  "bench": {
+    "id": "controlled-copper-bench",
+    "profileId": "spec001:PROFILE-COPPER-100",
+    "knownCompatibleEndpointsMediaTerminations": true,
+    "requiredConductorsContinuous": true,
+    "endpointPowerKnownGood": true,
+    "upperDependenciesKnownGoodForThisLab": true,
+    "otherPhysicalConditionsKnownGoodForThisLab": true,
+    "claimScope": "Only this controlled laboratory path and known highlighted pattern. The current selected conduit supplies the length check. Compatibility, continuity, power, other physical conditions and upper dependencies are separately supplied known-good bench premises, not conclusions from the length check. No branch, full route or general service proof."
+  },
+  "impairment": {
+    "id": "last-toy-symbol-substitution",
+    "position": 7,
+    "from": { "value": -1, "unit": "toy-level" },
+    "to": { "value": -3, "unit": "toy-level" }
+  }
+}

@@ -94,6 +94,19 @@ export async function startDev({ cert, key, port = 8443, php = 'php', probeRoute
   const sockets = new Set();
   const upstreams = new Set();
   const server = https.createServer({ cert: certificate, key: privateKey, minVersion: 'TLSv1.2' });
+  // This unbound surface only receives validated upgrades from the TLS listener;
+  // it never listens on a port. Vite retains its own connection-token check.
+  const socketSurface = http.createServer();
+  server.on('upgrade', (req, socket, head) => {
+    socket.on('error', () => {});
+    const sameOrigin = req.headers.host === new URL(origin).host && req.headers.origin === origin;
+    const socketPath = (req.url ?? '').split('?')[0] === gameBase;
+    if (!sameOrigin || !socketPath) {
+      socket.end(`HTTP/1.1 ${sameOrigin ? '404 Not Found' : '403 Forbidden'}\r\nConnection: close\r\nContent-Length: 0\r\n\r\n`);
+      return;
+    }
+    if (req.headers['sec-websocket-protocol'] !== 'vite-hmr' || !socketSurface.emit('upgrade', req, socket, head)) socket.destroy();
+  });
   server.on('connection', (socket) => { sockets.add(socket); socket.on('close', () => sockets.delete(socket)); });
   server.requestTimeout = 30_000;
   server.headersTimeout = 15_000;
@@ -140,11 +153,13 @@ export async function startDev({ cert, key, port = 8443, php = 'php', probeRoute
     }
     if (!ready) throw new Error('PHP worker could not start; check the binary and local port availability.');
     // Vite runs in this process, with no second public port or Vite child.
-    // Disable HMR until interactive preview verification; normal reload works.
+    // Vite 8's client still connects with HMR disabled. Keep that development
+    // transport on our verified TLS origin; no second listener or file watcher.
     const quietLogger = { info() {}, warn() {}, warnOnce() {}, error() {}, clearScreen() {},
       hasErrorLogged: () => false, hasWarned: false };
     vite = await createViteServer({ root, configFile: path.join(root, 'vite.config.ts'),
-      customLogger: quietLogger, server: { middlewareMode: true, hmr: false, watch: null } });
+      customLogger: quietLogger, server: { middlewareMode: true, hmr: false,
+        ws: { server: socketSurface, protocol: 'wss', host, clientPort: port }, watch: null, forwardConsole: false } });
     server.removeAllListeners('request');
     server.on('request', (req, res) => {
       res.setHeader('X-Content-Type-Options', 'nosniff');

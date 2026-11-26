@@ -3,8 +3,10 @@
 Copyright 2026 John Capobianco. SPDX-License-Identifier: CC-BY-4.0.
 
 An original browser adventure through the OSI realms, beginning with the Physical
-Layer Underworld. **Current state: local setup and shared foundation in progress. Play, authentication and saves
-are not implemented. External G0 evidence is pending; independent local foundation work is continuing under the owner-directed execution order.**
+Layer Underworld. **Current state: the R01/R02 guest introduction is playable in
+memory, with four verbs, dialogue, inventory, a notebook, physical measurements
+and the initial packet journey. Authentication, server saves, finished media and
+the complete episode remain in development. No release has been deployed.**
 See [implementation status](docs/implementation/HANDOFF.md),
 [governing constitution](.specify/memory/constitution.md), [SPEC.md](SPEC.md) and
 [PLAN.md](PLAN.md). The public project builds independently of the owner's website.
@@ -100,7 +102,9 @@ does not extend to your normal browser or prove provider readiness.
 Do not bypass certificate errors, add insecure browser flags, use `curl -k`, or set
 `NODE_TLS_REJECT_UNAUTHORIZED=0`. The launcher does not open a browser. HMR and file
 watching are disabled in the combined bootstrap; restart after source or public-file
-edits, then reload. Gameplay/browser accessibility acceptance is later work.
+edits, then reload. Vite's development connection shares the verified TLS port and
+requires the exact Host, Origin, game path and its connection token. Human
+accessibility, actual Safari and complete-episode acceptance remain separate checks.
 
 `NQ_DEV_PORT` may explicitly select another unprivileged port; the printed origin
 and any future provider registration must then match it exactly. Local HTTPS
@@ -135,7 +139,7 @@ secrets, fake a login, or weaken Secure cookies to make a callback appear to wor
 | `npm run check` | Typecheck plus actual content schema/generated-artifact drift, references and independent route validation |
 | `npm run test:domain` | Vitest content/state/UI/presentation and source-fixture checks; 15 reviewed copper/content-error cases execute, 68 evaluator cases remain pending |
 | `npm run test:api` | PHPUnit router/security/disposable-storage and synthetic HTTPS session harness; no real accounts/providers/saves |
-| `npm run test:e2e` | Build plus Chromium/Firefox shell checks and isolated Firefox HTTPS router/UI/presentation checks; 9 prepared guest cases remain explicitly pending until T030 |
+| `npm run test:e2e` | Build plus Chromium/Firefox title checks and isolated Firefox HTTPS router, controllers, guest and packet journeys; see the implementation handoff for actual passing and pending evidence |
 | `npm run build` | Typecheck plus static Vite build in ignored `dist/` |
 | `npm run preview:client` | HTTP static build preview on loopback; no PHP/auth support |
 

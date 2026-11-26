@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const origin = 'http://127.0.0.1:4173';
 const staticSpecs = ['foundation.spec.ts'];
-const httpsSpecs = ['foundation-tls.spec.ts', 'ui-shell.spec.ts', 'presentation.spec.ts', 'guest-introduction.spec.ts'];
+const httpsSpecs = ['foundation-tls.spec.ts', 'ui-shell.spec.ts', 'presentation.spec.ts', 'guest-introduction.spec.ts', 'verbs-inventory.spec.ts', 'dialogue.spec.ts', 'notebook.spec.ts', 'navigation.spec.ts', 'packet-controls.spec.ts', 'title.spec.ts', 'packet-introduction.spec.ts'];
 const assigned = new Set([...staticSpecs, ...httpsSpecs]);
 const browserTests = fileURLToPath(new URL('./tests/e2e', import.meta.url));
 // T022/T030 and later journeys must choose an appropriate project explicitly.

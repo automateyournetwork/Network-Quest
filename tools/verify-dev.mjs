@@ -22,6 +22,7 @@ const cert = path.join(work, 'cert.pem');
 const key = path.join(work, 'key.pem');
 const marker = `t011-${path.basename(work)}`;
 const fixture = path.join(root, 'public', marker);
+const authoredFixture = path.join(root, 'content/spec001', marker);
 const outside = path.join(work, 'private.txt');
 let active, child;
 let publicCreated = false;
@@ -54,6 +55,21 @@ async function unusedPort() {
   return port;
 }
 
+function upgrade(url, ca, { pathname, headers = {} } = {}) {
+  return new Promise((resolve, reject) => {
+    const target = new URL(url);
+    const req = https.request({ hostname: '127.0.0.1', port: target.port, path: pathname ?? target.pathname,
+      ca, agent: false, checkServerIdentity: (_name, certificate) => checkServerIdentity('127.0.0.1', certificate),
+      headers: { connection: 'Upgrade', upgrade: 'websocket', 'sec-websocket-version': '13',
+        'sec-websocket-key': 'MDEyMzQ1Njc4OWFiY2RlZg==', 'sec-websocket-protocol': 'vite-hmr', origin: target.origin, ...headers } });
+    req.on('upgrade', (response, socket) => { socket.destroy(); resolve(response.statusCode); });
+    req.on('response', response => { response.resume(); resolve(response.statusCode); });
+    req.on('error', reject);
+    req.setTimeout(3000, () => req.destroy(new Error('upgrade timeout')));
+    req.end();
+  });
+}
+
 async function assertStopped(handle) {
   assert.throws(() => process.kill(handle.phpPid, 0), { code: 'ESRCH' });
   await assert.rejects(access(handle.runDirectory), { code: 'ENOENT' });
@@ -69,7 +85,13 @@ try {
   const ca = await readFile(cert);
   try { await access(path.join(root, 'public')); } catch { publicCreated = true; }
   await mkdir(fixture, { recursive: true });
+  await mkdir(authoredFixture);
   await writeFile(outside, marker);
+  await writeFile(path.join(authoredFixture, 'safe.json'), JSON.stringify({ label: 'synthetic authored content' }));
+  await writeFile(path.join(authoredFixture, 'notes.txt'), marker);
+  await writeFile(path.join(authoredFixture, 'config.local.json'), marker);
+  await symlink(outside, path.join(authoredFixture, 'alias.json'));
+  await symlink(path.join(root, 'server/config.example.php'), path.join(authoredFixture, 'server-alias.json'));
   for (const name of ['.env', 'secret.key', 'record.sqlite', 'record.db-wal', 'config.local.json']) {
     await writeFile(path.join(fixture, name), marker);
   }
@@ -92,6 +114,18 @@ try {
   assert.equal(badHost.status, 403);
   assert.equal((await request(active.url, { ca, headers: { origin: 'https://untrusted.invalid' } })).status, 403);
   passed('untrusted certificate, plaintext, foreign Host and Origin rejected');
+
+  const client = await request(active.url, { ca, pathname: `${base}@vite/client` });
+  assert.equal(client.status, 200);
+  const socketToken = /const wsToken = "([^"]+)"/.exec(client.body)?.[1];
+  assert.ok(socketToken, 'Vite client must supply its generated connection token');
+  const socketPath = `${base}?token=${encodeURIComponent(socketToken)}`;
+  assert.equal(await upgrade(active.url, ca, { pathname: socketPath }), 101, 'development client connects on the same verified TLS port');
+  assert.equal(await upgrade(active.url, ca, { pathname: socketPath, headers: { origin: 'https://untrusted.invalid' } }), 403);
+  assert.equal(await upgrade(active.url, ca, { pathname: socketPath, headers: { host: 'untrusted.invalid' } }), 403);
+  assert.equal(await upgrade(active.url, ca, { pathname: `${base}api/v1/session?token=${encodeURIComponent(socketToken)}` }), 404);
+  assert.equal(await upgrade(active.url, ca, { pathname: `${base}?token=invalid-synthetic-token` }), 400);
+  passed('development WebSocket uses the same TLS port; foreign Host/Origin, API path and invalid token rejected');
 
   for (const route of ['session', 'auth/google/callback?code=synthetic-code&state=synthetic-state',
     'auth/github/callback?code=synthetic-code', 'save']) {
@@ -122,6 +156,18 @@ try {
   passed('shared API router: honest 503, inert callbacks, unknown404/method405; no cookie or direct PHP bypass');
 
   assert.equal((await request(active.url, { ca, pathname: `${base}${marker}/safe.txt` })).body, 'synthetic public asset');
+  const authoredBase = `${base}content/spec001/${marker}`;
+  const authored = await request(active.url, { ca, pathname: `${authoredBase}/safe.json?import` });
+  assert.equal(authored.status, 200, 'authored JSON module must be available to the actual development client');
+  assert.match(authored.body, /export default/);
+  assert.match(authored.body, /synthetic authored content/);
+  assert.equal((await request(active.url, { ca, pathname: `${authoredBase}/safe.json` })).status, 200);
+  for (const name of ['notes.txt', 'config.local.json', 'alias.json', 'server-alias.json']) {
+    const deniedContent = await request(active.url, { ca, pathname: `${authoredBase}/${name}?import` });
+    assert.equal(deniedContent.status, 404, name);
+    assert.ok(!deniedContent.body.includes(marker), name);
+  }
+  passed('authored JSON imports work; non-JSON, private-name and escaping symlink content remain denied');
   const denied = ['server/config.example.php', '.local/provider-discovery.json', '.runtime/composer-2.11.3.phar',
     '.cache/canary', '.git/config', '.env', '.env.local', 'package.json', 'README.md',
     '@fs/etc/passwd', `@fs/${root}/.env`, '%2eenv', '%252eenv', '.%2e/server/config.example.php',
@@ -220,6 +266,7 @@ echo json_encode(['host' => $_SERVER['HTTP_HOST'], 'proto' => $_SERVER['HTTP_X_F
   child?.kill('SIGTERM');
   await active?.stop();
   await rm(fixture, { recursive: true, force: true });
+  await rm(authoredFixture, { recursive: true, force: true });
   if (publicCreated) {
     // Only remove the directory this check created if it is still empty.
     const { rmdir } = await import('node:fs/promises');

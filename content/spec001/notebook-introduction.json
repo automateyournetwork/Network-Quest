@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "rooms": [
+    { "id": "spec001:R01", "label": "The Arrival Lift" },
+    { "id": "spec001:R02", "label": "The Titan's Workshop" }
+  ],
+  "objectives": [
+    { "id": "spec001:O01", "label": "Read the silent link in R01", "roomId": "spec001:R01" },
+    { "id": "spec001:O02", "label": "Open the investigation in R02", "roomId": "spec001:R02" }
+  ],
+  "facts": [
+    { "id": "spec001:FACT-power", "heading": "Power indication", "sourceId": "spec001:R01", "kind": "Observation" },
+    { "id": "spec001:FACT-link", "heading": "Link indication", "sourceId": "spec001:R01", "kind": "Observation" },
+    { "id": "spec001:FACT-photon-clue", "heading": "Power and communication", "sourceId": "spec001:R01", "kind": "Character guidance" },
+    { "id": "spec001:FACT-titan-clue", "heading": "Investigation scope", "sourceId": "spec001:R02", "kind": "Character guidance" },
+    {
+      "id": "spec001:FACT-endpoints", "heading": "Known-good endpoints", "sourceId": "spec001:R02", "kind": "Scenario context",
+      "list": {
+        "label": "Known-good endpoints", "ordered": false,
+        "requiresFactIds": ["spec001:FACT-endpoint-a", "spec001:FACT-endpoint-b"],
+        "items": ["Lift Sender A — known good", "Workshop Receiver B — known good"]
+      }
+    },
+    { "id": "spec001:FACT-endpoint-a", "heading": "Lift Sender A", "sourceId": "spec001:R02", "kind": "Scenario context" },
+    { "id": "spec001:FACT-endpoint-b", "heading": "Workshop Receiver B", "sourceId": "spec001:R02", "kind": "Scenario context" },
+    {
+      "id": "spec001:FACT-path", "heading": "Physical path under test", "sourceId": "spec001:R02", "kind": "Scenario context",
+      "list": {
+        "label": "Physical path under test", "ordered": true,
+        "requiresFactIds": ["spec001:FACT-path", "spec001:FACT-endpoint-a", "spec001:FACT-endpoint-b"],
+        "items": ["Lift Sender A", "selected training conduit", "workshop patch lead", "Workshop Receiver B"]
+      }
+    },
+    { "id": "spec001:FACT-packet-context", "heading": "Message capsule", "sourceId": "spec001:R01", "kind": "Scenario context" }
+  ],
+  "measurement": {
+    "factId": "spec001:FACT-inspection", "sourceId": "spec001:R01", "heading": "Physical inspection",
+    "ruleId": "spec001:PHY04", "profileId": "spec001:PROFILE-COPPER-100"
+  }
+}

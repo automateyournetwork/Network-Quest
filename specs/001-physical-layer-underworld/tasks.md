@@ -103,6 +103,43 @@ verification using the implemented `InteractionPlanner` and `GameplayStore` port
 Coordinate any shared action-bus intents and browser registration through root;
 join final interfaces before acceptance. This does not complete T025 or guest play.
 
+T032 may implement the pure packet domain against accepted T024 physical results
+and reviewed T031 expectations while guest controllers finish. It owns separate
+domain files/tests and must retain incomplete/stale evidence rejection. R01 UI
+activity still joins the actual guest controller state in T033/T034 before G1.
+
+T027 may build notebook state/UI/tests alongside T026 dialogue and T032 pure
+packet work using accepted T025 ports and T024 physical evaluation. Root coordinates
+any shared reducer or bus changes; no separate task may edit them concurrently.
+T028 may independently use the existing destination/canReachRoom reducer ports
+and T025 WalkPlanner with separate navigation/scene-object files; T027 retains
+shared reducer ownership. Join controllers with T029 before T030 guest acceptance.
+
+T033 may build its isolated packet controls on accepted T032/domain and T017/bus
+ports while T027/T028 finish. Coordinate bus intents through root. Actual R01
+activity/save restrictions and guest composition still join in T029/T034 before G1.
+
+T029 may compose the actual bootstrap against implemented T027 stable ports while
+its final native checks finish, using disjoint title/tutorial/main files. T027
+retains notebook/reducer ownership. Final guest acceptance waits for the joined
+checks and T030, and packet activity remains T034.
+
+T034 may prepare its separate packet activity adapter/tests on accepted T033 and
+implemented T027 notebook/store ports while T029 finishes composition. It must use
+actual R01 state/evaluation, acquire an unsafe activity lock and join T029 before
+real introduction browser acceptance. Coordinate the app composition handoff; no
+concurrent main edits or fabricated physical evidence.
+
+### Verified independent local database scheduling
+
+T037 may implement its isolated PHP database/migration boundary while T030/T035
+finish the guest checkpoint. Its actual inputs are accepted T009 dependencies,
+T019 private disposable-service harness, T036 independent storage expectations
+and the current data/API contracts. It owns separate server files and uses only
+synthetic private temporary databases. This does not enable auth/save routes,
+start live provider flows, run a host migration, or pass G1/G2. Client/account
+integration still joins the actual guest interfaces and required acceptance gates.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -168,12 +205,12 @@ join final interfaces before acceptance. This does not complete T025 or guest pl
 - [X] T022 [US1] Author prepared guest walkthrough expectations for O01/O02, dialogue skip/replay and evidence travel in `tests/fixtures/guest-investigation.json` and `tests/e2e/guest-introduction.spec.ts`, before wiring the interaction.
 - [X] T023 [US1] Author the Arrival Lift and Titan's Workshop scenes, briefings and initial observations in `content/spec001/rooms/R01.json`, `content/spec001/rooms/R02.json` and `content/spec001/dialogue/introduction.json`; distinguish power from link and permit ongoing guest play.
 - [X] T024 [US1] Implement declared copper/continuity and content-error evaluation needed by T01/T02/T14 in `src/domain/copper.ts` and `src/domain/evaluate.ts`; run the independent fixtures including exact-limit and malformed-profile cases before integrating scores.
-- [ ] T025 [US1] Implement Walk/Look/Talk/Use, helpful unsupported-action feedback, inventory selection/item combinations and visible W/L/T/U/I/N/C controls in `src/ui/verbs.ts` and `src/ui/inventory.ts`; required tools cannot be consumed irrecoverably.
-- [ ] T026 [US1] Implement skippable/replayable dialogue with effect-once completion in `src/state/dialogue.ts` and `src/ui/dialogue.ts`; skipped lines retain required clues and replays cannot duplicate items/objective rewards.
-- [ ] T027 [US1] Implement Objectives/Evidence/Hypotheses/Maps/Personal Notes with source/freshness, pinning and 4096-character plain-text notes in `src/state/notebook.ts` and `src/ui/notebook.ts`; distinguish observations, speculation and user writing.
-- [ ] T028 [US1] Implement room movement, safe authored positions and atomic arrival in `src/state/navigation.ts` and `src/ui/scene-objects.ts`; carry clues/hypotheses across R01–R02 and keep the semantic scene list equivalent to visual hotspots.
-- [ ] T029 [US1] Wire New Adventure/title/tutorial and a dismissible sign-in invitation in `src/ui/title.ts` and `src/state/tutorial.ts`; decline continues guest play without a durable-save claim and later New Adventure preserves replacement safeguards.
-- [ ] T030 [US1] Run guest and meaningful dialogue/inventory/measurement freshness cases in `tests/e2e/guest-introduction.spec.ts` and `tests/state/introduction.test.ts`; record keyboard/pointer R01–R02 results in `docs/evidence/spec001/US1.md` (AC01/AC04).
+- [X] T025 [US1] Implement Walk/Look/Talk/Use, helpful unsupported-action feedback, inventory selection/item combinations and visible W/L/T/U/I/N/C controls in `src/ui/verbs.ts` and `src/ui/inventory.ts`; required tools cannot be consumed irrecoverably.
+- [X] T026 [US1] Implement skippable/replayable dialogue with effect-once completion in `src/state/dialogue.ts` and `src/ui/dialogue.ts`; skipped lines retain required clues and replays cannot duplicate items/objective rewards.
+- [X] T027 [US1] Implement Objectives/Evidence/Hypotheses/Maps/Personal Notes with source/freshness, pinning and 4096-character plain-text notes in `src/state/notebook.ts` and `src/ui/notebook.ts`; distinguish observations, speculation and user writing.
+- [X] T028 [US1] Implement room movement, safe authored positions and atomic arrival in `src/state/navigation.ts` and `src/ui/scene-objects.ts`; carry clues/hypotheses across R01–R02 and keep the semantic scene list equivalent to visual hotspots.
+- [X] T029 [US1] Wire New Adventure/title/tutorial and a dismissible sign-in invitation in `src/ui/title.ts` and `src/state/tutorial.ts`; decline continues guest play without a durable-save claim and later New Adventure preserves replacement safeguards.
+- [X] T030 [US1] Run guest and meaningful dialogue/inventory/measurement freshness cases in `tests/e2e/guest-introduction.spec.ts` and `tests/state/introduction.test.ts`; record keyboard/pointer R01–R02 results in `docs/evidence/spec001/US1.md` (AC01/AC04).
 
 ### Playable diagnostic checkpoint
 
@@ -232,9 +269,9 @@ join final interfaces before acceptance. This does not complete T025 or guest pl
 **Ready after**: T022–T030.
 
 - [X] T031 [US3] Independently author byte/bit/symbol/impairment expectations in `tests/fixtures/packet-journey.json` and `tests/domain/packet-journey.test.ts`: 0x4E 0x51 is 01001110 01010001; T12 is 00101101, with explicit toy-model limits.
-- [ ] T032 [US3] Implement deterministic encode/transmit/impair/decode journey steps in `src/domain/packet-journey.ts`; consume the current physical evaluator result rather than an independent cutscene success flag.
-- [ ] T033 [US3] Build pause/step/replay and semantic keyboard/pointer journey controls in `src/ui/packet-journey.ts` and truthful upper-realm context in `content/spec001/packet-context.json`; no seven invented headers or claim that two payload bytes are a full Ethernet frame.
-- [ ] T034 [US3] Integrate and verify the initial R01 message demonstration in `src/state/packet-activity.ts` and `tests/e2e/packet-introduction.spec.ts`; record observed message/result agreement in `docs/evidence/spec001/US3-introduction.md`.
+- [X] T032 [US3] Implement deterministic encode/transmit/impair/decode journey steps in `src/domain/packet-journey.ts`; consume the current physical evaluator result rather than an independent cutscene success flag.
+- [X] T033 [US3] Build pause/step/replay and semantic keyboard/pointer journey controls in `src/ui/packet-journey.ts` and truthful upper-realm context in `content/spec001/packet-context.json`; no seven invented headers or claim that two payload bytes are a full Ethernet frame.
+- [X] T034 [US3] Integrate and verify the initial R01 message demonstration in `src/state/packet-activity.ts` and `tests/e2e/packet-introduction.spec.ts`; record observed message/result agreement in `docs/evidence/spec001/US3-introduction.md`.
 
 ### Repaired R12 packet journey
 

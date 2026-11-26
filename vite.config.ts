@@ -53,7 +53,14 @@ function frontendBoundary(preview = false): Connect.NextHandleFunction {
     for (const candidate of candidates) {
       if (!existsSync(candidate)) continue;
       const resolved = realpathSync(candidate);
+      // Authored game data is public source. Development JSON modules need the
+      // same canonical-path/private-name protection as source modules; preview
+      // still serves the independent built dist tree only.
+      const authoredContent = !preview && local.startsWith('content/spec001/')
+        && path.extname(candidate) === '.json' && path.extname(resolved) === '.json'
+        && beneath(resolved, path.join(root, 'content/spec001'));
       const allowed = roots.some((directory) => beneath(resolved, directory))
+        || authoredContent
         || (!preview && resolved === path.join(root, 'index.html'))
         || resolved === (preview ? path.join(root, 'dist') : root);
       if (!allowed || privatePath(path.relative(root, resolved))) {

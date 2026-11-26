@@ -2,7 +2,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-test('built shell loads its nested assets and reports the actual development state', async ({ page, baseURL }) => {
+test('built introduction loads its nested assets and exposes the guest title', async ({ page, baseURL }) => {
   const errors: string[] = [];
   const resources: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
@@ -15,7 +15,8 @@ test('built shell loads its nested assets and reports the actual development sta
   expect(response?.status()).toBe(200);
   await expect(page).toHaveTitle('Network Quest — In development');
   await expect(page.getByRole('heading', { level: 1, name: 'Network Quest', exact: true })).toBeVisible();
-  await expect(page.locator('#development-status')).toHaveText('This build contains setup only. Play is not available yet.');
+  await expect(page.getByRole('button', { name: 'New Adventure', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Continue', exact: true })).toHaveAttribute('aria-disabled', 'true');
   expect(resources.some((url) => /\/assets\/.*\.js$/.test(url))).toBe(true);
   expect(resources.some((url) => /\/assets\/.*\.css$/.test(url))).toBe(true);
   expect(resources.every((url) => url.startsWith(`${baseURL}assets/`))).toBe(true);
@@ -41,15 +42,15 @@ test('static preview denies private paths and has no working API or session', as
     .toEqual({ local: 0, session: 0 });
 });
 
-test('current text shell has semantic landmarks and remains readable at a narrow viewport', async ({ page }) => {
+test('current title has semantic landmarks and remains readable at a narrow viewport', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('./');
   await expect(page.getByRole('main')).toBeVisible();
-  await expect(page.locator('#development-status')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'New Adventure', exact: true })).toBeVisible();
   const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
   expect(result.violations).toEqual([]);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
-  // This shell has no game controls. Keyboard journeys, zoom/assistive review,
-  // actual Safari, gameplay and provider/save recovery belong to later suites.
+  // This checks the title. Actual guest journeys have their own suite; manual
+  // assistive review, Safari and real provider/save recovery remain separate.
 });

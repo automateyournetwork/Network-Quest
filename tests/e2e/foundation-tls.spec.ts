@@ -17,7 +17,8 @@ test('isolated Firefox CA trust verifies HTTPS shell and actual unavailable API'
     trusted = await firefox.launchPersistentContext(local.profile, { headless: true, ignoreHTTPSErrors: false });
     const page = await trusted.newPage();
     expect((await page.goto(local.url))?.status()).toBe(200);
-    await expect(page.locator('#development-status')).toHaveText('This build contains setup only. Play is not available yet.');
+    await expect(page.getByRole('button', { name: 'New Adventure', exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Continue', exact: true })).toHaveAttribute('aria-disabled', 'true');
     const result = await page.evaluate(async () => {
       const session = await fetch('api/v1/session');
       const callback = await fetch('api/v1/auth/google/callback?code=synthetic-browser-code');

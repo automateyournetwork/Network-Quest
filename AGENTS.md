@@ -36,8 +36,9 @@ commands need `NQ_PHP_BIN=/opt/homebrew/opt/php@8.4/bin/php` on the verified Mac
 README documents explicit TLS inputs and the shared API's honest unavailable 503
 responses. Vitest discovers `tests/**/*.test.ts`; new Playwright specs must be
 assigned explicitly or discovery fails. T024 executes 15 reviewed copper/content-error
-cases; 68 evaluator cases remain pending. T022's nine guest browser cases are visibly
-pending until T030. `assets:verify`, `package:release` and deployment commands remain
+cases; 68 evaluator cases remain pending. T030 owns acceptance of T022's nine
+independent guest browser cases; consult HANDOFF/state for current results.
+`assets:verify`, `package:release` and deployment commands remain
 planned and must be implemented before invocation. No test command deploys.
 
 ## Code Style

@@ -1,6 +1,10 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { createActionBus } from '../../src/ui/action-bus';
+import type { ActionContext, SemanticAction } from '../../src/ui/action-bus';
+import { createPacketJourneyController } from '../../src/ui/packet-journey';
+import type { PacketJourneyBinding } from '../../src/ui/packet-journey';
 import type { DomainAction, EvaluationStatus, WorldVersion } from '../../src/domain/types';
 import { evaluateCopper } from '../../src/domain/copper';
 import type { CopperChallenge, CopperInput } from '../../src/domain/copper';
@@ -15,7 +19,7 @@ import type {
 /**
  * T031 integrity and literal expectations remain separately identified below.
  * T032 activates 34 cases through real domain functions and actual copper calls.
- * Five control TODOs still require T033/T034 execution.
+ * T033 activates five controller cases; T034 real R01 integration remains separate.
  * The shared T014 pending evaluator cases remain untouched by these references.
  */
 type JsonValue = null | boolean | number | string | JsonValue[] | JsonObject;
@@ -526,8 +530,45 @@ describe('T032 actual encoding/comparison/validation/current-physical-result exe
   });
 });
 
-describe('T033/T034 real pause/step/replay and renderer authority checks — pending', () => {
-  for (const entry of fixture.controlCases) {
-    it.todo(`${entry.id}: exercise actual controls/domain state; keyboard/pointer integration remains required`);
-  }
+describe('T033 real pause/step/replay and renderer authority checks', () => {
+  it.each(fixture.controlCases)('$id executes controls with actual copper and packet domain state', entry => {
+    const base = byId(fixture.transmissionCases, 'PJ-TRANSMIT-PASS');
+    let binding: PacketJourneyBinding = { identity: {}, context: { adventureId: 'packet-controls', ...current } as ActionContext,
+      challenge: journeyChallenge(base.bench, base.impairment), world: physicalWorld(base) };
+    const before = structuredClone(binding.world);
+    const bus = createActionBus({ getContext: () => binding.context });
+    const controller = createPacketJourneyController({ bus, read: () => binding,
+      context: readJson<unknown>('../../content/spec001/packet-context.json') });
+    const choose = (kind: SemanticAction['kind']) => { const p = controller.project(); const control = p.view.controls.find(c => c.action.kind === kind)!; return bus.dispatch(p.capture(control.action)); };
+    const view = () => controller.project().view;
+    const atCompare = () => { for (let i = 0; i < 4; i++) choose('step-packet'); };
+    controller.open();
+    if (entry.id === 'PJ-PAUSE') {
+      choose('step-packet'); choose('resume-packet'); const trace = view().result;
+      choose('pause-packet'); expect(view()).toMatchObject({ phase: entry.expected['phase'], paused: entry.expected['paused'] });
+      expect(view().result).toEqual(trace);
+    } else if (entry.id === 'PJ-STEP') {
+      choose('step-packet'); choose('step-packet'); expect(view()).toMatchObject({ phase: entry.expected['phase'], paused: entry.expected['paused'] });
+      expect(view().result?.observations[0]).toMatchObject({ recoveredSymbolValues: [-1, -3, 3, 1, -1, -1, -3, -1] });
+    } else if (entry.id === 'PJ-REPLAY') {
+      atCompare(); const first = view().result; choose('replay-packet'); const sequence = [view().phase];
+      for (let i = 0; i < 4; i++) { choose('step-packet'); sequence.push(view().phase); }
+      expect(sequence).toEqual(entry.expected['phaseSequence']); expect(view().result).toEqual(first);
+      expect(view().result?.observations[0]).toMatchObject({ recoveredBits: entry.expected['recoveredBits'] });
+    } else if (entry.id === 'PJ-REPLAY-STALE') {
+      atCompare(); const old = controller.project(), replay = old.view.controls.find(c => c.action.kind === 'replay-packet')!;
+      binding = { ...binding, context: { ...binding.context, configurationRevision: 8 } as ActionContext,
+        world: { ...binding.world, configurationRevision: 8 } as PacketJourneyWorld };
+      expect(bus.dispatch(old.capture(replay.action)).status).toBe('rejected'); expect(view().open).toBe(false);
+      controller.open(); expect(view().result?.status).toBe('invalid-input'); expect(view().result?.observations[0]).toMatchObject({ transmissionSucceeded: false });
+    } else {
+      choose('step-packet'); choose('step-packet');
+      expect(() => bus.capture({ kind: 'renderer-animation-finished' } as never)).toThrow();
+      expect(view()).toMatchObject({ phase: entry.expected['phase'], paused: entry.expected['paused'] });
+      expect(view().result?.observations[0]).toMatchObject({ transmissionSucceeded: false });
+    }
+    expect(view().result?.acceptedEffects).toEqual([]); expect(view().result?.observations[0]).toMatchObject({ progressAward: 0, attemptPenalty: 0 });
+    expect(binding.world.physicalEvidence).toEqual(before.physicalEvidence);
+    controller.dispose(); bus.dispose();
+  });
 });

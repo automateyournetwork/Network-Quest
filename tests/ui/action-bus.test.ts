@@ -1,6 +1,6 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import { describe, expect, it, vi } from 'vitest';
-import type { AdventureId, AttemptId, ConfigurationRevision, QualifiedId } from '../../src/domain/types';
+import type { AdventureId, AttemptId, ConfigurationRevision, ItemId, QualifiedId } from '../../src/domain/types';
 import { createReducer, createReducerState } from '../../src/state/reducer';
 import type { ContentRegistry } from '../../src/content/registry';
 import type { RuntimeState } from '../../src/state/types';
@@ -75,6 +75,27 @@ describe('semantic action ownership and lifecycle', () => {
     expect(bus.dispatch({ ...bus.capture(look) })).toMatchObject({ reason: 'unknown-action' });
     expect(() => bus.capture({ ...look, acceptedEffects: [{ kind: 'complete-objective' }] } as SemanticAction)).toThrow();
     expect(() => bus.capture({ kind: 'select-verb', verb: 'grant' } as unknown as SemanticAction)).toThrow();
+  });
+
+  it('accepts only exact typed inventory and hotspot-choice intent shapes', () => {
+    const bus = createActionBus({ getContext: context });
+    const actions: SemanticAction[] = [
+      { kind: 'select-item', itemId: 'spec001:ITEM-kit' as Extract<SemanticAction, { kind: 'select-item' }>['itemId'] },
+      { kind: 'select-item', itemId: null },
+      { kind: 'combine-items', itemId: 'spec001:ITEM-a' as ItemId, targetItemId: 'spec001:ITEM-b' as ItemId, combinationId: null },
+      { kind: 'recover-item', itemId: 'spec001:ITEM-kit' as ItemId },
+      { kind: 'choose-hotspot-action', targetId: 'spec001:HOTSPOT-path' as QualifiedId, verb: 'use', itemId: null, choiceId: 'spec001:ACTION-inspect' as QualifiedId },
+    ];
+    for (const action of actions) {
+      expect(bus.capture(action).input).toEqual(action);
+      expect(() => bus.capture({ ...action, effects: [] } as unknown as SemanticAction)).toThrow();
+    }
+    for (const action of [
+      { kind: 'select-item', itemId: 2 }, { kind: 'recover-item', itemId: null },
+      { kind: 'combine-items', itemId: 'a', targetItemId: '', combinationId: null },
+      { kind: 'combine-items', itemId: 'a', targetItemId: 'b', combinationId: [] },
+      { kind: 'choose-hotspot-action', targetId: 'a', verb: 'grant', itemId: null, choiceId: 'b' },
+    ]) expect(() => bus.capture(action as unknown as SemanticAction)).toThrow();
   });
 
   it('reports missing handlers, enforces single ownership and disposes registrations safely', () => {
