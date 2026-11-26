@@ -1,5 +1,6 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 // Local trusted HTTP adapter policy. Inspect raw fields BEFORE Node discards duplicates.
+import { randomUUID } from 'node:crypto';
 
 export function admitRawHeaders(rawHeaders) {
   if (!Array.isArray(rawHeaders) || rawHeaders.length % 2 || rawHeaders.length > 128) return 400;
@@ -23,8 +24,18 @@ export function admitRawHeaders(rawHeaders) {
 }
 
 export function rejectRequest(req, res, status) {
-  res.writeHead(status, { 'Cache-Control': 'no-store', 'Connection': 'close', 'Content-Length': '0',
-    'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer' }).end();
+  // Parsed requests can fail before PHP. Preserve the API Problem contract here
+  // without reflecting any URL, submitted header, cookie, token or body bytes.
+  const requestId = randomUUID();
+  const [code, message] = status === 413 ? ['body-too-large', 'The request exceeds the supported size.']
+    : status === 403 ? ['forbidden', 'The request could not be authorized.']
+    : ['invalid-request', 'The request is malformed.'];
+  const body = JSON.stringify({ code, message, requestId });
+  res.writeHead(status, { 'Cache-Control': 'no-store', 'Connection': 'close', 'Content-Length': String(Buffer.byteLength(body)),
+    'Content-Type': 'application/json; charset=utf-8', 'X-Request-Id': requestId,
+    'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer', 'X-Frame-Options': 'DENY',
+    'X-Robots-Tag': 'noindex, nofollow',
+    'Content-Security-Policy': "default-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'" }).end(body);
   // Closing this request/socket bounds rejected bodies; no attacker bytes are logged.
   req.resume();
 }

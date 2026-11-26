@@ -16,7 +16,7 @@ const server = https.createServer({ cert: readFileSync(certificate), key: readFi
   const denied = admitRawHeaders(req.rawHeaders);
   if (denied !== null) { rejectRequest(req, res, denied); return; }
   if (req.headers.host !== new URL(origin).host || (req.headers.origin && req.headers.origin !== origin)) {
-    res.writeHead(403, { 'Cache-Control': 'no-store' }).end(); return;
+    rejectRequest(req, res, 403); return;
   }
   readBoundedBody(req, res, (body) => {
     const headers = { ...req.headers, 'content-length': String(body.length) };

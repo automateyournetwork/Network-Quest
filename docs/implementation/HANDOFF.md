@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-26
 
-**56 loops started; 41 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
+**59 loops started; 44 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
 Current active ownership is in state.json:
 
 - Loop046/T035 local correction reviewed: real Three.js R01/R02 graybox, shared
@@ -72,22 +72,35 @@ Current active ownership is in state.json:
   join;100 scopedtests/1332assertions including71nativeTLS assertions, plus root
   fullPHP706/8356PASS. Receipt status does not reconcile/delete; logout preserves
   slots. Actual browser/provider/response-loss journeys remain later.
-- Loop054/T047: credentialed client API/account-generation guards and popup hints;
-  mocked fetch tests alone cannot certify actual provider/HTTP/browser acceptance.
-- Loop055/T048: pure safe snapshots, dirty generations and explicit supported
-  read/migration dispatch against independent baseline fixtures; no API/UI edits.
-- Loop056/T053: independent PHP identity/security/save/API-contract verification
-  on accepted joined services; owns only its three reserved test files and note.
-- Next local sequence: review final native auth/account composition, then
-  snapshot/migration and client save coordination on verified interfaces. Do not waive required
-  owner/gate reviews or infer real provider acceptance from synthetic tests.
+- T047 accepted in loop054 after root source/test review and all14 seals matched;
+  100 focused tests PASS. Exact snapshot lexical bytes, frozen request retries,
+  generation guards, preferences HTTP ETag and bounded manual popup recovery are
+  implemented. Mock ports do not certify native provider/browser behavior.
+- T048 accepted in loop055 after root source/test review and all24 seals matched;
+  275 focused checks PASS. Pure safe captures and explicit supported read/migration
+  dispatch preserve unknown original bytes and reject unsafe transitions.
+- Root joined client1095 PASS/68 physical TODO; check/build PASS on final T047/T048
+  files. Existing large JS-chunk advisory remains. Neither module is composed into
+  the actual save/account UI yet.
+- T053 accepted in loop056 after root read all three suites and all52 seals
+  matched. Scoped131tests/6749assertions PASS. Root fullPHP837/15105PASS
+  (22.561s/32MiB), trustedHTTPSbrowser1PASS and dev:verify12groupsPASS. Actual
+  oversized parsed-request admission exposed empty413; root corrected bounded
+  Problem JSON in both local proxies, and retained413/403 regression tests pass.
+  This is actual local TLS plus synthetic SDK evidence; real providers remainopen.
+- Loop057/T049: serialized save coordinator on accepted API/snapshot interfaces.
+- Loop058/T054: independent conditional/concurrent save and receipt verification.
+- Loop059/T055: independent deletion crash/recovery and receipt-only verification.
+- Next local sequence: review these results and integrate explicit save/account UI,
+  opt-in autosave and independent deletion recovery checks. Preserve owner/gate
+  reviews and actual provider requirements.
 
 Accepted implementation now includes domain/state/content foundations, accessible
 controls and presentation lifecycle adapters; actual guest title, R01/R02
 investigation, O01/O02, dialogue skip/replay, inventory, five notebook sections,
 fresh/stale readings and the initial packet activity. **Finished media count0.**
 The unconfigured service entry remains unavailable. Private configured entry
-composition is under review; actual provider login and browser saves remain
+composition is locally accepted; actual provider login and browser saves remain
 unaccepted. No production account service is deployed.
 
 Recent evidence:
@@ -195,12 +208,13 @@ Do not fabricate listening. Production Audacity4 .aup4/native review remains lat
 ## Publication and release
 
 Latest pushed and independently remote-verified commit:
-`85c4a03fd5200f734f6ac5885807059680f834d2` (T040 GitHub adapter and tracking
-through37 accepted tasks). All6 staged paths were explicitly inspected/hash-matched
-and private scans passed. Previous `11129bdaae56cffa398fd92736518537d14e37a0`
-contains the playable graybox, Google/shared auth and single-slot repository;
-root stable PHP357tests/2790assertions passed at migration1. Current routes,
-recovery/barrier and migration2 work remain uncommitted until reviewed.
+`ae97fb3cc27cb53e2ab10e6649c62288ef9b433b` (joined T041/T044/T045/T046 account,
+save, recovery, private configuration and native entry;41 accepted tasks).
+All58 staged paths were explicitly inspected/hash-matched;4 private OAuth values
+and private-key markers scanned clear. Root full PHP706tests/8356assertions PASS.
+Prior `85c4a03fd5200f734f6ac5885807059680f834d2` contains T040 GitHub;
+`11129bdaae56cffa398fd92736518537d14e37a0` contains graybox/Google/single-slot
+repository. Active client/snapshot/independent security work stays uncommitted.
 **No release deployed.**
 
 Owner authorization covers scoped reviewed pushes to automateyournetwork/Network-Quest

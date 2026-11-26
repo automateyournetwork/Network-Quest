@@ -172,7 +172,7 @@ export async function startDev({ cert, key, port = 8443, php = 'php', probeRoute
       const denied = admitRawHeaders(req.rawHeaders);
       if (denied !== null) { rejectRequest(req, res, denied); return; }
       if (req.headers.host !== new URL(origin).host || (req.headers.origin && req.headers.origin !== origin)) {
-        res.writeHead(403).end(); return;
+        rejectRequest(req, res, 403); return;
       }
       const pathname = (req.url ?? '').split('?')[0];
       if (pathname === apiBase || pathname.startsWith(`${apiBase}/`)) {
