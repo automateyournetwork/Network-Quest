@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-26
 
-**59 loops started; 44 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
+**59 loops started; 46 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
 Current active ownership is in state.json:
 
 - Loop046/T035 local correction reviewed: real Three.js R01/R02 graybox, shared
@@ -89,8 +89,16 @@ Current active ownership is in state.json:
   Problem JSON in both local proxies, and retained413/403 regression tests pass.
   This is actual local TLS plus synthetic SDK evidence; real providers remainopen.
 - Loop057/T049: serialized save coordinator on accepted API/snapshot interfaces.
-- Loop058/T054: independent conditional/concurrent save and receipt verification.
-- Loop059/T055: independent deletion crash/recovery and receipt-only verification.
+- T054 accepted in loop058:36tests/2433assertions; repository/routejoin159/4471
+  PASS. Root reviewed full process harness/cases and all38 seals. Actual separate
+  processes/PDO/sessions prove receipt-first races, expiry, contention and rollback.
+- T055 accepted in loop059:26tests/1225assertions PASS, eight real SIGKILL workers
+  and two nativeTLS restored-database cases. Root reviewed full suite and34 seals;
+  found final proof freshness could use pre-transaction time. Root moved that
+  clock read after final session recheck;299→300accepts,300→301denies.
+- Root current fullPHP **899tests/18763assertions PASS**,31.394s/34MiB, joining
+  both independent suites and the timing correction. Synthetic provider replies
+  and isolated backups do not establish actual provider/host/retention acceptance.
 - Next local sequence: review these results and integrate explicit save/account UI,
   opt-in autosave and independent deletion recovery checks. Preserve owner/gate
   reviews and actual provider requirements.
@@ -102,6 +110,11 @@ fresh/stale readings and the initial packet activity. **Finished media count0.**
 The unconfigured service entry remains unavailable. Private configured entry
 composition is locally accepted; actual provider login and browser saves remain
 unaccepted. No production account service is deployed.
+
+Latest published checkpoint: `a83eee5991ac3602fe7d158bc818e5f3aa8549ca` on
+`001-physical-layer-underworld`, independently verified at origin. All20 staged
+paths matched reviewed hashes; four private OAuth values and private-key markers
+were absent. Includes T047/T048/T053 and proxy fix. This is not a deployment.
 
 Recent evidence:
 

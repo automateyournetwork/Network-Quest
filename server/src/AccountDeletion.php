@@ -48,16 +48,18 @@ final class AccountDeletion
             $token = $headers['x-deletion-receipt'] ?? '';
             if (!Security::isToken($token)) { throw new RequestRejected('invalid-request'); }
             $this->security->limit('deletion', $prior, $peerAddress);
-            $now = $this->now();
-            $account = $this->database->immediate(fn (PDO $pdo): string =>
-                $this->sessions->within($pdo, $prior, function (SessionContext $current) use ($pdo, $now): string {
+            [$account, $now] = $this->database->immediate(fn (PDO $pdo): array =>
+                $this->sessions->within($pdo, $prior, function (SessionContext $current) use ($pdo): array {
                     // auth_time, ordinary login, client timestamps or fresh guest sessions are
                     // NOT this proof. T041 issues it only after new same-identity delete-reauth.
+                    // Obtain time after lock acquisition and the final session recheck: a
+                    // proof can expire between request admission and this authorization.
+                    $now = $this->now();
                     $proof = $pdo->prepare('SELECT confirmed_at,expires_at FROM delete_reauth_proofs WHERE session_hash=? AND account_id=?');
                     $proof->execute([$current->idHash, $current->accountId]); $row = $proof->fetch();
                     if ($row === false || $now < $row['confirmed_at'] || $now > $row['expires_at']
                         || $row['expires_at'] !== $row['confirmed_at'] + 300) { throw new RequestRejected('forbidden'); }
-                    return $current->accountId;
+                    return [$current->accountId, $now];
                 }));
             // No game transaction is active while external intent + binding commit together.
             // The shared barrier prevents protected logout/save/auth from changing authority.
