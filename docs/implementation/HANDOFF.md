@@ -456,3 +456,115 @@ TODO,165 original fixture checks/68 evaluator TODO,53 copper tests), typecheckPA
 Original83 cases, source data and protected assertions remain unchanged. This
 accepts independent fixture preparation only. Actual evaluators/routes and human
 technical review remain pending.60 tasks accepted/74 loops;073 remains active.
+
+T068 fixture checkpoint `6b7c5282f2043167e1bcd0bee201f1f72c0c41e3` pushed; all7
+explicit staged paths matched hashes/private-value checks/whitespace, remote
+verified. No deployment.
+
+Owner R01 review is now requested at
+http://127.0.0.1:54594/arcade/play/network-quest/?t067=review . This live guest-only
+loopback preview serves the unchanged frozen dist without injected measurement
+code; HTML hashc162936668773b59bf6e1dee19085ffb070ff4cf1a2e6cff78e0f0f60c9087d4.
+Process session77659 and owned Safariwindow7338 are kept open by073. Owner was
+asked to bring Safari forward, review NewAdventure/power/link/Photon/sound, then
+leave Safari open for actual checks. Preserve that pending question; do not
+navigate the review page away until the owner finishes. Existing audio audition
+approval remains complete. No room approval or nativeSafari FPS is inferred.
+
+Loop075 starts a bounded T065 metadata follow-up while actual room review is
+pending. The existing validator requires canonical lossless format names and
+per-line voice records; candidates currently use descriptive formats and one
+aggregate run record. Produce additive truthful candidate metadata from actual
+run/script hashes. Preserve all sealed original sources, audio, packet approvals
+and runtime files; no human review or quota acceptance is created. Root joins
+canonical metadata only after review. This does not recount T065 or scale media.
+
+Loop076 is a separate T061 audit-correctness follow-up. Accepted voice validation
+currently takes the first per-asset TTS production record, ignoring the declared
+production event association.075 revealed that preserved older evidence can
+shadow corrected truthful metadata. Fresh independent cases must precede a
+bounded fix; unreferenced or contradictory proof must not certify a voice. This
+is evidence validation, not new audio production or accepted media.075 owns
+additive metadata;076 owns validator/tests; root joins after both reviews.
+
+## Workspace-credit interruption — 2026-11-26T21:12:03.609902+00:00
+
+All three active workers returned the exact error: “Your workspace is out of credits. Ask your workspace owner to refill in order to continue.”
+No retry was attempted against the unchanged credit limit.60tasks remain accepted,
+76loops started. Latest pushed/remote-verified source is
+`6b7c5282f2043167e1bcd0bee201f1f72c0c41e3`; no game release is deployed.
+
+Resume the existing073/075/076 workers after workspace credits are restored,
+without resetting or incrementing their reserved loop numbers. Owner's latest
+“continue what loop are we on” is continuation/status steering, not room approval.
+The concrete room question remains pending; preview54594 returnedHTTP200 at this
+handoff. Keep its server alive; do not navigate away while the owner reviews.
+
+-073: all12Firefox raw samples independently rechecked by root,6distinct origins,
+  2.099–2.126s cold readiness,119.75–120.25actual renderFPS, no unexpected HTTP/server
+  errors. NativeSafari failed foreground control; no valid Safari timing or native
+  visibility claim. Root matched122of123original freeze records; only the updated
+  Safari helper differs, with historical/current helper hashes required in report.
+  Partial tools/evidence/report remain uncommitted and need final review.
+-075:24newmetadata/projection/audit/production files exist under its two owned
+  directories. No final report/worker note was produced before interruption. Root
+  has not accepted or merged them. Inspect actual existing output before resuming.
+-076: worker proposed declared-event-only voice proof and fail-closed contradictory
+  duplicate event handling. No new test, validator edit or final report exists;
+  no RED/GREEN result is claimed. Begin independent cases in the reserved loop.
+
+Root also moved the exact T065 coordinator acceptance appendix from loop070 to
+`docs/evidence/spec001/audio-coordinator-review.md`, restoring loop070's original
+sealed bytes. All207original audio artifact seals now match. Native/audio/approved
+33-filepacket bytes are unchanged; this documentation correction is uncommitted.
+All dirtywork is preserved; no broad staging or partial-worker publication.
+
+## Owner resumes workers and requests contained game screen — 2026-11-26
+
+Owner reports credit reset and explicitly instructs all3workers to resume.
+073/075/076 were followed up at their existing numbers; counter remains76.
+Historical credit failure is preserved, now superseded for continuation.
+
+Actual owner room feedback: “review looks good but there is a LOT OF TEXT BUTTONS
+below the main playable window this is no really great this needs to be EXACTLY
+Like Sierra Quest games imagine the window as an old 286 Monitor those games had
+no additional menus and such right”. Record positive visual feedback, with a
+required substantial presentation correction; not final R01/G3 acceptance.
+
+Implementation direction: one contained adventure frame dominated by the scene.
+Put compact verbs/inventory inside the frame; show descriptions, evidence, notebook,
+dialogue, save/account/options as contextual in-frame panels/overlays on demand.
+Remove the document-style stack of object/action/menu blocks below the playable
+window. Preserve all accessible keyboard/text actions, readable200% text and
+responsive390/768 layouts through usable in-frame panels, plus existing media,
+diagnostic state and save guarantees. No imitation Sierra assets or originalgame
+code. Freeze previousT066/T067candidate evidence before changes; rerun meaningful
+layout/access/input/save integration checks and obtain revised owner review.
+073owns priorbenchmarkreport only; root coordinates isolated correction ownership.
+
+Loop075 metadata is ready for rootreview with27sealedfiles and unchanged207/33
+source/approval seals; no canonicalmerge yet. Its slot goes to fresh077/T066
+contained-game-frame correction. SPEC/PLAN andfeaturepresentation now record
+the explicitowner direction.077owns runtime/UI andrelatedtests/evidence;073
+finishes oldcandidatebench packet only;076ownsassetvalidator. Rootownsmanifest,
+sharedtracking/publication and integrationreview.60acceptedtasks/77loops.
+
+## Audio provenance and validator join accepted — 2026-11-26
+
+Root reviewed the exact 60 metadata changes, eight voice projections and original
+source links from loop 075; all 27 follow-up seals match. Independent checks
+confirmed 36 RIFF/WAVE headers, eight exact script/raw/source hash bindings, and
+unchanged statuses, usage records and quota flags. Root reviewed loop 076's full
+validator change, 47-case independent oracle and report; all four final hashes
+match. The actual RED run had 25 failures; final GREEN passed 362 checks across
+four asset suites. Typecheck passed. Frozen oracle and schema are unchanged.
+
+Root joined 12 corrected canonical entries and ran the actual inventory CLI:
+PASS, no issues and all accepted quota counts zero. The inventory still has
+381 entries: 21 integrated, seven exported and 353 planned. No audio/source bytes,
+human approval or runtime changed. Historical production records remain; current
+voice evidence binds every declared TTS event and rejects contradictory duplicates.
+
+Both follow-ups are accepted without counting T065/T061 twice: 60 tasks accepted
+across 77 loops. Loop 073 preserves the earlier candidate evidence; loop 077 owns
+the requested interface correction. No release is deployed.

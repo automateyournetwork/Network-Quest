@@ -659,6 +659,16 @@ Provide a selectable list of named scene objects/exits, text descriptions of imp
 
 Use readable default text, scalable dialogue and captions, visible focus, and redundant labels for status colors. At 200% zoom controls must remain usable. Reduced motion suppresses nonessential camera motion/flashes and shortens transitions without delaying feedback. Pause simulation presentation when the tab is hidden; no invisible timer changes a mandatory puzzle. Music/effects/voice controls are independent and persist as account preferences when signed in.
 
+Owner interface refinement (2026-11-26), preserving FR-019–021: the adventure is
+one contained Sierra Quest-style game screen. Compact verbs/inventory live inside
+the frame; descriptions, named-object actions, evidence, notebook, dialogue and
+game/account/sound settings appear on demand within it. No long webpage of text
+buttons or menus may extend below the room during ordinary play. Keyboard/text
+access, focus restoration, captions, 200% readability and complete text mode remain
+required. This follows the owner-reviewed R01 finding and the corresponding
+[root presentation requirement](../../SPEC.md#input-and-accessible-presentation);
+revised R01 browser/access checks and owner review precede acceptance.
+
 #### Browser compatibility and player-visible performance
 
 The supported desktop baseline includes Mac Safari and current and previous supported major

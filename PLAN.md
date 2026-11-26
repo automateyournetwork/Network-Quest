@@ -73,6 +73,23 @@ Use explicit transitions: `loading → introduction/exploring → dialogue/inspe
 
 At G2, implement deterministic replay of recorded decisions for test fixtures, a content graph check, and safe encounter preparation snapshots kept in memory. In-session retry and E03 Continue restore encounter and inventory state from preparation while preserving new notebook clues, personal notes and hint-use history; mark measurements from the prior attempt stale. Keep this retention separate from Restore Save, which loads the confirmed saved adventure, and persist retained information only through the existing safe save rules. The public client is inspectable and a single-player save is not a trusted certification record. The backend still validates ownership, schemas, sizes and accepted field types; it does not execute uploaded code or arbitrary rules.
 
+### Owner-reviewed game-screen correction — 2026-11-26
+
+T066's first real-media room received positive visual feedback, with a required
+interface correction: replace the document-style stack below the scene with one
+contained adventure frame. Keep existing semantic controllers and captured intents;
+compose compact in-frame verbs/inventory plus contextual panels for text, evidence,
+notebook, dialogue, game/account controls and sound. Preserve keyboard navigation,
+Escape/focus restoration, text mode and scalable readable panels. Do not reduce
+content, remove actions or change save/domain behavior to achieve the layout.
+Verify ordinary desktop play has no controls below the game frame; inspect actual
+1280×720/1440×900 and narrow/200% views, relevant persistence flows and accessibility.
+Preserve the previous T066/T067 measurements as historical candidate evidence,
+then freeze and review the corrected room before repeating affected benchmarks.
+No media assets or episode quantities change, and final owner acceptance remains
+pending. The correction is tracked in the existing T066 work, with a fresh worker
+loop and root review; T067 retains performance/owner evidence ownership.
+
 ## Rule implementation and evidence
 
 Implement small evaluators for profile compatibility, copper continuity/length, optical receive range and margin, radio scenario checks, delivered-power allocation, common capabilities and toy-symbol decoding. Domain inputs carry units and provenance. Keep profile selection separate from arithmetic: a valid power budget does not override an incompatible optic. Measurements include a topology/configuration revision so changes invalidate stale evidence.

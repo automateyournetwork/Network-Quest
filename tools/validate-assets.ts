@@ -171,19 +171,33 @@ export function validateAssetManifest(manifest: unknown, evidence: AssetEvidence
     }
     const preservedReferences = [...a.sources, ...a.derivedFrom.flatMap(id => { const parent = byId.get(id); return parent ? [...parent.sources, ...parent.exports] : []; })];
     for (const reference of references) if (!preservedReferences.some(s => s.file.sha256 === reference && hashAt(s.file.path) === reference)) add('PRODUCTION_REFERENCE_HASH', a.assetId);
+    const voiceEvents = new Map<string, AssetEvidenceRecord>();
     for (const p of a.production) {
       if (!p.outputHashes.length || !covers(sourceHashes, p.outputHashes)) add('PRODUCTION_OUTPUT_HASH', a.assetId);
       if (p.method === 'openai-generated' && !/openai/i.test(p.tool)) add('PRODUCTION_METHOD_MISMATCH', a.assetId);
       if (generated(p.method) && !a.sources.some(s => s.role === 'raw-generation' && p.outputHashes.includes(s.file.sha256))) add('RAW_GENERATION_REQUIRED', a.assetId);
       if (!fileAt(p.settingsPath) || !fileAt(p.promptOrScriptPath)) add('PRODUCTION_INPUT_MISSING', a.assetId);
-      const found = assetRecords.find(([, r]) => r.type === 'production' && r.details['eventId'] === p.eventId);
-      const r = get(found?.[0], a, 'PRODUCTION_EVIDENCE_MISSING');
+      const matching = assetRecords.filter(([, r]) => r.type === 'production' && r.details['eventId'] === p.eventId);
+      const voiceGeneration = a.kind === 'voice' && p.method === 'tts-generated';
+      let r: AssetEvidenceRecord | undefined;
+      // Historical distinct event IDs remain preserved, but cannot certify a
+      // declared voice event. A duplicated identity has no ordering priority:
+      // only identical declarations/testimony are unambiguous, with every copy
+      // still required to have its own matching observed JSON bytes.
+      if (voiceGeneration && (a.production.some(other => other.eventId === p.eventId && !isDeepStrictEqual(other, p))
+        || matching.some(([, record]) => !isDeepStrictEqual(record, matching[0]![1])))) {
+        add('PRODUCTION_EVIDENCE_AMBIGUOUS', a.assetId);
+      } else if (voiceGeneration && matching.length) {
+        const observed = matching.map(([path]) => get(path, a, 'PRODUCTION_EVIDENCE_MISSING'));
+        if (observed.every(record => record !== undefined)) r = observed[0];
+      } else r = get(matching[0]?.[0], a, 'PRODUCTION_EVIDENCE_MISSING');
       if (r) {
         const d = r.details;
         if (r.status !== 'passed' || !covers(r.hashes, p.outputHashes)) add('PRODUCTION_EVIDENCE_MISSING', a.assetId);
         if (d['method'] !== p.method || d['tool'] !== p.tool) add('PRODUCTION_METHOD_MISMATCH', a.assetId);
         for (const k of ['version', 'modelRevision', 'eventId', 'settingsPath', 'promptOrScriptPath', 'referenceHashes', 'outputHashes'] as const) if (!isDeepStrictEqual(d[k], p[k])) add('PRODUCTION_EVIDENCE_MISMATCH', a.assetId);
         if (hashAt(p.settingsPath) !== d['settingsSha256'] || hashAt(p.promptOrScriptPath) !== d['promptSha256']) add('PRODUCTION_INPUT_MISSING', a.assetId);
+        if (voiceGeneration) voiceEvents.set(p.eventId, r);
       }
     }
     if (accepted) for (const source of a.sources.filter(s => ['native', 'master'].includes(s.role))) {
@@ -271,8 +285,15 @@ export function validateAssetManifest(manifest: unknown, evidence: AssetEvidence
           if (voice['lineId'] !== au.captionId || voice['speakerId'] !== line?.speakerId || voice['text'] !== line?.text || !nonempty(voice['voiceId']) || !nonempty(voice['tool']) || !nonempty(voice['modelRevision'])) add('VOICE_TEXT_LINK', a.assetId);
           const path = typeof voice['scriptPath'] === 'string' ? voice['scriptPath'] : '';
           if (!fileAt(path) || new TextDecoder().decode(fileAt(path)) !== line?.text || hashAt(path) !== voice['scriptSha256']) add('VOICE_TEXT_LINK', a.assetId);
-          const event = assetRecords.find(([, r]) => r.type === 'production' && r.details['method'] === 'tts-generated')?.[1];
-          if (!event || hashAt(au.voiceRecordPath ?? '') !== event.details['voiceRecordSha256'] || ['tool', 'version', 'modelRevision'].some(k => voice[k] !== event.details[k])) add('VOICE_RECORD_MISSING', a.assetId);
+          const declared = a.production.filter(p => p.method === 'tts-generated');
+          if (!declared.length) add('VOICE_RECORD_MISSING', a.assetId);
+          for (const p of declared) {
+            const event = voiceEvents.get(p.eventId);
+            if (!event || hashAt(au.voiceRecordPath ?? '') !== event.details['voiceRecordSha256']
+              || (event.details['voiceRecordPath'] !== undefined && event.details['voiceRecordPath'] !== au.voiceRecordPath)
+              || ['tool', 'version', 'modelRevision'].some(k => voice[k] !== event.details[k])) add('VOICE_RECORD_MISSING', a.assetId);
+            if (path !== p.promptOrScriptPath) add('VOICE_TEXT_LINK', a.assetId);
+          }
         }
       }
     }

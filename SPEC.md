@@ -346,6 +346,17 @@ Provide a selectable list of named scene objects/exits, text descriptions of imp
 
 Use readable default text, scalable dialogue and captions, visible focus, and redundant labels for status colors. At 200% zoom controls must remain usable. Reduced motion suppresses nonessential camera motion/flashes and shortens transitions without delaying feedback. Pause simulation presentation when the tab is hidden; no invisible timer changes a mandatory puzzle. Music/effects/voice controls are independent and persist as account preferences when signed in.
 
+**Owner interface refinement, 2026-11-26:** Present the adventure as one contained
+game screen, evoking the Sierra Quest experience on a 286 monitor. The room is the
+dominant surface, with compact verbs and inventory controls inside its frame.
+Descriptions, named-object actions, evidence, notebook, dialogue and game/account/
+sound settings open as contextual panels or overlays within that screen. Ordinary
+play MUST NOT produce a long webpage of text buttons and menus beneath the room.
+Preserve the complete keyboard/text interface, focus restoration, captions and
+readable scaling through these panels; text mode remains a complete playable view.
+This refines C4/C14 and NQ-01/03/04, not the media quantities or save behavior.
+The revised room requires actual browser/accessibility checks and owner review.
+
 ### Compatibility and provisional performance budgets
 
 | Item | Acceptance target / interpretation |

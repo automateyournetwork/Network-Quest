@@ -1,0 +1,51 @@
+{
+  "scope": "Actual existing schema and semantic inventory CLI; no accepted statuses were created and accepted-only branches were not exercised.",
+  "runs": [
+    {
+      "command": ".runtime/node-v26.13.1-darwin-arm64/bin/node tools/validate-assets.ts --manifest assets-src/audio/auditions/metadata-followup/manifest-candidates.json --mode inventory",
+      "exitCode": 0,
+      "result": {
+        "mode": "inventory",
+        "valid": true,
+        "issues": [],
+        "counts": {
+          "characterModels": 0,
+          "props": 0,
+          "interactiveProps": 0,
+          "roomsWithImageSet": 0,
+          "sceneLayers": 0,
+          "portraits": 0,
+          "illustrations": 0,
+          "music": 0,
+          "ambience": 0,
+          "effects": 0,
+          "voices": 0
+        },
+        "scope": "Offline source/evidence consistency; no human audition, owner approval, finished-room or gate certification."
+      }
+    },
+    {
+      "command": ".runtime/node-v26.13.1-darwin-arm64/bin/node tools/validate-assets.ts --mode inventory",
+      "exitCode": 0,
+      "result": {
+        "mode": "inventory",
+        "valid": true,
+        "issues": [],
+        "counts": {
+          "characterModels": 0,
+          "props": 0,
+          "interactiveProps": 0,
+          "roomsWithImageSet": 0,
+          "sceneLayers": 0,
+          "portraits": 0,
+          "illustrations": 0,
+          "music": 0,
+          "ambience": 0,
+          "effects": 0,
+          "voices": 0
+        },
+        "scope": "Offline source/evidence consistency; no human audition, owner approval, finished-room or gate certification."
+      }
+    }
+  ]
+}
