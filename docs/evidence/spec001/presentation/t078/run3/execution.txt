@@ -1,0 +1,100 @@
+node:internal/modules/run_main:111
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   {
++     description: 'Ensure elements that have scrollable content are accessible by keyboard in Safari',
++     help: 'Scrollable region must have keyboard access',
++     helpUrl: 'https://dequeuniversity.com/rules/axe/4.14/scrollable-region-focusable?application=playwright',
++     id: 'scrollable-region-focusable',
++     impact: 'serious',
++     nodes: [
++       {
++         all: [],
++         any: [
++           {
++             data: null,
++             id: 'focusable-content',
++             impact: 'serious',
++             message: 'Element should have focusable content',
++             relatedNodes: []
++           },
++           {
++             data: null,
++             id: 'focusable-element',
++             impact: 'serious',
++             message: 'Element should be focusable',
++             relatedNodes: []
++           }
++         ],
++         failureSummary: 'Fix any of the following:\n' +
++           '  Element should have focusable content\n' +
++           '  Element should be focusable',
++         html: '<p class="nq-shell-status" role="status" aria-live="polite" aria-atomic="true">',
++         impact: 'serious',
++         none: [],
++         target: [
++           '.nq-shell-status'
++         ]
++       }
++     ],
++     tags: [
++       'cat.keyboard',
++       'wcag2a',
++       'wcag211',
++       'wcag213',
++       'TTv5',
++       'TT4.a',
++       'EN-301-549',
++       'EN-9.2.1.1',
++       'EN-9.2.1.3',
++       'RGAAv4',
++       'RGAA-7.3.2'
++     ]
++   }
++ ]
+- []
+
+    at file:///Users/john.capobianco/Network-Quest/.local/t078/narrow-isolated.ts:30:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    {
+      id: 'scrollable-region-focusable',
+      impact: 'serious',
+      tags: [
+        'cat.keyboard', 'wcag2a',
+        'wcag211',      'wcag213',
+        'TTv5',         'TT4.a',
+        'EN-301-549',   'EN-9.2.1.1',
+        'EN-9.2.1.3',   'RGAAv4',
+        'RGAA-7.3.2'
+      ],
+      description: 'Ensure elements that have scrollable content are accessible by keyboard in Safari',
+      help: 'Scrollable region must have keyboard access',
+      helpUrl: 'https://dequeuniversity.com/rules/axe/4.14/scrollable-region-focusable?application=playwright',
+      nodes: [
+        {
+          any: [ [Object], [Object] ],
+          all: [],
+          none: [],
+          impact: 'serious',
+          html: '<p class="nq-shell-status" role="status" aria-live="polite" aria-atomic="true">',
+          target: [ '.nq-shell-status' ],
+          failureSummary: 'Fix any of the following:\n' +
+            '  Element should have focusable content\n' +
+            '  Element should be focusable'
+        }
+      ]
+    }
+  ],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v26.13.1

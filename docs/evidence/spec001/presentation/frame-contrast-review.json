@@ -1,0 +1,84 @@
+{
+  "recordedAt": "2026-11-26T22:07:35.390036+00:00",
+  "reviewer": "Codex coordinator, source calculation and actual screenshot inspection; not a human assistive review",
+  "source": {
+    "path": "src/app/application.css",
+    "sha256": "a097780a38e601a73038d09853bff51280e68e877ec872ffc5ff71488da40dde"
+  },
+  "sources": [
+    "https://www.w3.org/TR/WCAG22/#dfn-relative-luminance",
+    "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html"
+  ],
+  "method": "WCAG sRGB relative luminance; (lighter+0.05)/(darker+0.05). Compare defined opaque gradient endpoints and button normal/hover colors. For translucent caption/status compare both sRGB and linear-light alpha compositing over white, a conservative bright backdrop for these dark panels. Values remain unrounded in data.",
+  "rows": [
+    {
+      "target": ".nq-game-location",
+      "foreground": "#d7ccaf",
+      "checks": [
+        {
+          "background": "#293a3d",
+          "ratio": 7.439958752448473
+        },
+        {
+          "background": "#15262d",
+          "ratio": 9.758990778562746
+        }
+      ]
+    },
+    {
+      "target": ".nq-save-indicator",
+      "foreground": "#ddc99e",
+      "checks": [
+        {
+          "background": "#293a3d",
+          "ratio": 7.31387429585964
+        },
+        {
+          "background": "#15262d",
+          "ratio": 9.59360584967916
+        }
+      ]
+    },
+    {
+      "target": ".nq-scene-fallback",
+      "foreground": "#f5e7cc",
+      "checks": [
+        {
+          "background": "#25383e",
+          "ratio": 10.026759972576775
+        },
+        {
+          "background": "#364e50",
+          "ratio": 7.274147216978481
+        }
+      ]
+    },
+    {
+      "target": ".nq-media-caption",
+      "foreground": "#fff0d5",
+      "checks": [
+        {
+          "background": "#10202d",
+          "alpha": 0.9098039215686274,
+          "underlay": "#ffffff",
+          "sRGBCompositeRatio": 11.333951326486229,
+          "linearLightCompositeRatio": 6.130773915814859
+        }
+      ]
+    },
+    {
+      "target": ".nq-shell-status",
+      "foreground": "#fff0d3",
+      "checks": [
+        {
+          "background": "#14242e",
+          "alpha": 0.9333333333333333,
+          "underlay": "#ffffff",
+          "sRGBCompositeRatio": 11.620490775460873,
+          "linearLightCompositeRatio": 7.084513713870423
+        }
+      ]
+    }
+  ],
+  "limit": "Supplemental source-color calculations; original axe incomplete remains unchanged. No whole-WCAG, native zoom, screen-reader, color-profile, or human acceptance certification."
+}

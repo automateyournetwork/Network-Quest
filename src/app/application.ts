@@ -8,6 +8,7 @@ import { createTutorialReducer } from '../state/tutorial';
 import { createPacketActivityController } from '../state/packet-activity';
 import { contextFromRuntime, createActionBus } from '../ui/action-bus';
 import { createAppShell } from '../ui/app-shell';
+import { createAdventureFrame } from '../ui/adventure-frame';
 import { createDialogueController, createDialoguePanel, introductionDialogueBindings } from '../ui/dialogue';
 import { createInventoryController, createInventoryPanel, inventoryView } from '../ui/inventory';
 import { createNotebookController, createNotebookPanel } from '../ui/notebook';
@@ -63,6 +64,7 @@ export function createIntroductionApplication(host: HTMLElement) {
   const mediaHost = host.ownerDocument.createElement('div');
   const menuHost = host.ownerDocument.createElement('div'), saveHost = host.ownerDocument.createElement('div'), settingsHost = host.ownerDocument.createElement('div'), adventureHost = host.ownerDocument.createElement('div'); host.replaceChildren(menuHost, mediaHost, saveHost, settingsHost, adventureHost);
   adventureHost.className = 'nq-adventure-host';
+  const frame = createAdventureFrame(host, { menu: menuHost, saves: saveHost, settings: settingsHost, sound: mediaHost, adventure: adventureHost });
   const dismissedCompletions = new Set<string>();
   const createPanels = () => {
     const shell = createAppShell(adventureHost, bus);
@@ -77,7 +79,7 @@ export function createIntroductionApplication(host: HTMLElement) {
       return preference === 'on' || (preference === 'system' && host.ownerDocument.defaultView?.matchMedia('(prefers-reduced-motion: reduce)').matches === true);
     };
     const onView = (view: Parameters<typeof shell.render>[0] | null, originalCapture?: Parameters<typeof shell.render>[1]) => {
-      if (view) shell.render(view, originalCapture);
+      if (view) { shell.render(view, originalCapture); frame.sync(!!state.runtime.game); }
       if (view?.presentationStatus.startsWith('Visual presentation unavailable')) mode = 'text';
     };
     const grayAdapter = createRoomAdapter({ pool, dispatcher: bus, renderers: { three: graybox }, onView });
@@ -91,9 +93,9 @@ export function createIntroductionApplication(host: HTMLElement) {
       const button = host.ownerDocument.createElement('button'); button.type = 'button'; button.textContent = label;
       button.addEventListener('click', () => { mode = nextMode; detail = nextDetail; activeAdapter().setMode(mode, detail); }, { signal: events.signal }); visualControls.append(button);
     }
-    shell.element.querySelector('.nq-shell-controls')!.after(visualControls);
+    frame.attach(shell, visualControls);
     const dismissProgress = host.ownerDocument.createElement('button'); dismissProgress.type = 'button'; dismissProgress.textContent = 'Dismiss investigation progress'; dismissProgress.hidden = true;
-    shell.element.append(dismissProgress);
+    shell.element.querySelector('.nq-shell-captions')!.append(dismissProgress);
     let progressGame = state.runtime.game;
     dismissProgress.addEventListener('click', () => {
       if (!progressGame || state.runtime.game !== progressGame) return;
@@ -249,6 +251,7 @@ export function createIntroductionApplication(host: HTMLElement) {
   }
   function render() {
     if (disposed || installing) return;
+    const renderFocus = host.ownerDocument.activeElement;
     const session = api?.session;
     const identityChanged = loadedApiGeneration !== api?.capture() || loadedAuthGeneration !== state.runtime.auth.clientGeneration;
     if (!preferenceOperation && matchingPreferenceSession() && session?.state === 'authenticated'
@@ -259,7 +262,7 @@ export function createIntroductionApplication(host: HTMLElement) {
     }
     const game = state.runtime.game;
     panels.sound.show(game?.world.roomId ?? null, presentation, preferenceMessage, { authenticated: matchingPreferenceSession(), busy: !!preferenceOperation || accountSettings?.busy === true, reviewRequired: preferenceReviewRequired });
-    panels.shell.element.style.fontSize = `${presentation.textScale}rem`;
+    frame.element.style.fontSize = `${presentation.textScale}rem`;
     adventureHost.hidden = game === null;
     if (game !== projectedGame) { projectedGame = game; capture = bus.captureScope(contextFromRuntime(state.runtime)); }
     const notebookView = notebook.project();
@@ -274,6 +277,7 @@ export function createIntroductionApplication(host: HTMLElement) {
         evidence: notebookView.view.evidence.map(entry => ({ id: entry.id, label: entry.heading, text: entry.text, source: `${entry.sourceRoom} · ${entry.kind}`, freshness: entry.freshness })),
         captions: [{ id: `ambience:${room.id}`, text: room.ambience.text }, ...completions] });
     }
+    frame.preparePanels();
     panels.inventory.render(inventoryView(registry, state, [q('ITEM-inspection-kit')]), capture);
     panels.notebook.render(notebookView.view, notebookView.capture);
     const dialogueView = dialogue.project(); panels.dialogue.render(dialogueView.view, dialogueView.capture);
@@ -289,6 +293,7 @@ export function createIntroductionApplication(host: HTMLElement) {
       for (const control of menu.element.querySelectorAll('button')) control.disabled = settings.busy && control.textContent !== 'Settings';
       saveHost.inert = settings.busy;
     }
+    frame.sync(!!game, renderFocus);
     if (focusRoom) { panels.shell.element.querySelector('h1')?.focus(); focusRoom = false; }
     autosave?.observe();
   }
@@ -307,6 +312,6 @@ export function createIntroductionApplication(host: HTMLElement) {
   }), unsubscribeAutosave = autosave?.subscribe(() => render()); render(); void saves.bootstrap();
   return { dispose() {
     if (disposed) return; disposed = true; unsubscribe(); packet.dispose(); dialogue.dispose(); notebook.dispose(); inventory.dispose(); verbs.dispose();
-    unsubscribeAutosave?.(); accountSettings?.dispose(); autosavePanel?.dispose(); settingsPanel?.dispose(); autosave?.dispose(); saves.dispose(); saveDialogs.dispose(); menu.dispose(); disposePanels(); bus.dispose();
+    unsubscribeAutosave?.(); accountSettings?.dispose(); autosavePanel?.dispose(); settingsPanel?.dispose(); autosave?.dispose(); saves.dispose(); saveDialogs.dispose(); menu.dispose(); disposePanels(); frame.dispose(); bus.dispose();
   } };
 }

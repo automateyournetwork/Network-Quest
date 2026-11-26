@@ -1,4 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import { clickButton, pressButton, openFrame, closeFrame, revealControl } from './support/adventure-controls';
 import { expect, firefox, test, type BrowserContext, type Page } from '@playwright/test';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -22,7 +23,7 @@ test.describe('T035/T066 actual playable R01 media and R02 graybox', () => {
       if (url.pathname.includes('/api/') && request.method() !== 'GET') writes.push(request.method());
     });
     await page.setViewportSize({ width: 1440, height: 900 }); await page.goto(local.url);
-    await button('New Adventure').click(); await ready('spec001:R01');
+    await clickButton(page, 'New Adventure'); await ready('spec001:R01'); await openFrame(page,'Scene'); await clickButton(page,'Show hotspots'); await closeFrame(page);
   });
   test.afterEach(async () => { try { await context?.close(); } finally { await local?.stop(); }
     expect(errors).toEqual([]); expect(writes).toEqual([]); expect(external).toEqual([]); });
@@ -35,7 +36,7 @@ test.describe('T035/T066 actual playable R01 media and R02 graybox', () => {
     await expect(page.locator('.nq-shell-presentation-status')).toContainText('ready');
   }
   async function act(verb: string, id: string, choice?: string) {
-    await button(verb).click(); await ready(id.includes('titan') || id.includes('endpoints') || id.includes('declared-path') ? 'spec001:R02' : 'spec001:R01');
+    await clickButton(page, verb); await ready(id.includes('titan') || id.includes('endpoints') || id.includes('declared-path') ? 'spec001:R02' : 'spec001:R01');
     await target(id).click();
     if (choice) await visual().locator('[data-graybox-control]').filter({ hasText: choice }).click();
   }
@@ -56,46 +57,46 @@ test.describe('T035/T066 actual playable R01 media and R02 graybox', () => {
     }
     await budget();
     await act('Look', 'spec001:HOTSPOT-power');
-    await button('Link indication').focus(); await button('Link indication').press('Enter');
-    await act('Talk', 'spec001:HOTSPOT-photon'); await button('Skip dialogue').click();
+    await revealControl(page,'Link indication'); await button('Link indication').focus(); await pressButton(page, 'Link indication', 'Enter');
+    await act('Talk', 'spec001:HOTSPOT-photon'); await clickButton(page, 'Skip dialogue');
     await act('Use', 'spec001:HOTSPOT-path', 'Inspect physical path');
     await expect(page.locator('.nq-shell-captions')).toContainText('End-to-end service is not proven');
     await act('Look', 'spec001:HOTSPOT-capsule');
     const journey = page.getByRole('dialog', { name: 'Packet journey', exact: true });
     await expect(journey).toContainText('Length only: 105 m');
-    await button('Return to investigation').click();
+    await clickButton(page, 'Return to investigation');
     await act('Use', 'spec001:HOTSPOT-path', 'Change physical path');
     await act('Look', 'spec001:HOTSPOT-capsule'); await expect(journey).toContainText('Length only: 95 m');
-    for (let index = 0; index < 4; index++) await button('Step journey').press('Enter');
-    await expect(journey).toContainText('Recovered bits: 01001110 01010001'); await button('Return to investigation').click();
-    await button('Walk').click(); await target('exit:spec001:R01:spec001:R02').click(); await ready('spec001:R02');
-    await act('Talk', 'spec001:HOTSPOT-titan'); await button('Skip dialogue').press('Enter');
+    for (let index = 0; index < 4; index++) await pressButton(page, 'Step journey', 'Enter');
+    await expect(journey).toContainText('Recovered bits: 01001110 01010001'); await clickButton(page, 'Return to investigation');
+    await clickButton(page, 'Walk'); await target('exit:spec001:R01:spec001:R02').click(); await ready('spec001:R02');
+    await act('Talk', 'spec001:HOTSPOT-titan'); await pressButton(page, 'Skip dialogue', 'Enter');
     await act('Look', 'spec001:HOTSPOT-endpoints'); await act('Look', 'spec001:HOTSPOT-declared-path');
-    await button('Notebook').press('Enter'); await page.getByRole('textbox', { name: 'Hypothesis', exact: true }).fill('The service loop may exceed the declared length; compare its segments.');
-    await button('Pin hypothesis').press('Enter');
+    await pressButton(page, 'Notebook', 'Enter'); await page.getByRole('textbox', { name: 'Hypothesis', exact: true }).fill('The service loop may exceed the declared length; compare its segments.');
+    await pressButton(page, 'Pin hypothesis', 'Enter');
     const objectives = page.locator('[role="dialog"][aria-label="Notebook"] > section').filter({ has: page.locator('h3').filter({ hasText: /^Objectives$/ }) });
     await expect(objectives.locator('li').filter({ hasText: 'Completed' })).toHaveCount(2);
-    await button('Close notebook').press('Enter'); await button('Continue as guest').click();
+    await pressButton(page, 'Close notebook', 'Enter'); await clickButton(page, 'Continue as guest');
     await expect(visual().locator('[data-safe-position]')).toHaveAttribute('data-safe-position', 'spec001:R02.entry');
     await budget(); await writeFile('test-results/T035-graybox-budget.json', JSON.stringify(budgets, null, 2));
     await page.screenshot({ path: 'test-results/T035-graybox-workshop-desktop.png', fullPage: true });
     await visual().screenshot({ path: 'test-results/T035-graybox-workshop-detail.png' });
-    await button('Walk').press('Enter'); await button('Walk to The Arrival Lift').press('Enter'); await ready('spec001:R01');
+    await pressButton(page, 'Walk', 'Enter'); await pressButton(page, 'Walk to The Arrival Lift', 'Enter'); await ready('spec001:R01');
     await page.screenshot({ path: 'test-results/T035-graybox-arrival-desktop.png', fullPage: true });
     await visual().screenshot({ path: 'test-results/T035-graybox-arrival-detail.png' });
   });
   test('canceled and stale visual presses cannot affect a new adventure; repeated room swaps keep one canvas', async () => {
-    await button('Look').click(); const old = await target('spec001:HOTSPOT-power').elementHandle();
+    await clickButton(page, 'Look'); const old = await target('spec001:HOTSPOT-power').elementHandle();
     const oldCanvas = await visual().locator('canvas').elementHandle();
     await old!.dispatchEvent('pointerdown', { pointerId: 9, clientX: 1, clientY: 1, button: 0 });
     await old!.dispatchEvent('pointercancel', { pointerId: 9 }); await old!.dispatchEvent('click', { pointerId: 9 });
     await expect(page.locator('.nq-shell-evidence li')).toHaveCount(0);
     await old!.dispatchEvent('pointerdown', { pointerId: 10, clientX: 1, clientY: 1, button: 0 });
-    await button('New Adventure').click(); await button('Start new adventure').click(); await ready('spec001:R01');
+    await clickButton(page, 'New Adventure'); await clickButton(page, 'Start new adventure'); await ready('spec001:R01');
     await expect.poll(() => oldCanvas!.evaluate(canvas => (canvas as HTMLCanvasElement).getContext('webgl2')!.isContextLost())).toBe(true);
     await old!.dispatchEvent('click', { pointerId: 10 });
     await expect(page.locator('.nq-shell-evidence li')).toHaveCount(0);
-    await button('Walk').click();
+    await clickButton(page, 'Walk');
     const canvas = await visual().locator('canvas').elementHandle();
     for (let index = 0; index < 3; index++) {
       await target('exit:spec001:R01:spec001:R02').click(); await ready('spec001:R02');
@@ -111,13 +112,13 @@ test.describe('T035/T066 actual playable R01 media and R02 graybox', () => {
       const extension = gl?.getExtension('WEBGL_lose_context'); if (!extension) throw new Error('Real context-loss extension unavailable'); extension.loseContext();
     });
     await expect(page.locator('.nq-shell-presentation-status')).toContainText('unavailable');
-    await button('Link indication').press('Enter');
+    await pressButton(page, 'Link indication', 'Enter');
     await expect(page.locator('.nq-shell-evidence')).toContainText('Power indication');
     await expect(page.locator('.nq-shell-evidence')).toContainText('Link indication');
-    await button('Retry visual scene').press('Enter'); await ready('spec001:R01');
-    await button('Text scene').press('Enter'); await expect(visual()).toHaveCount(0);
+    await pressButton(page, 'Retry visual scene', 'Enter'); await ready('spec001:R01');
+    await pressButton(page, 'Text scene', 'Enter'); await expect(visual()).toHaveCount(0);
     await expect(page.locator('.nq-shell-evidence')).toContainText('Power indication');
-    await button('Low detail scene').press('Enter'); await ready('spec001:R01');
+    await pressButton(page, 'Low detail scene', 'Enter'); await ready('spec001:R01');
     await expect(visual()).toHaveAttribute('data-detail', 'low');
   });
   test('390 px, touch, 200% text and reduced motion retain readable controls without a render loop', async ({}, info) => {
@@ -127,7 +128,7 @@ test.describe('T035/T066 actual playable R01 media and R02 graybox', () => {
     await page.screenshot({ path: 'test-results/T035-graybox-390px.png', fullPage: true });
     await page.evaluate(() => { document.documentElement.style.fontSize = '200%'; });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    await button('Link indication').press('Enter'); await expect(page.locator('.nq-shell-evidence')).toContainText('Link indication');
+    await pressButton(page, 'Link indication', 'Enter'); await expect(page.locator('.nq-shell-evidence')).toContainText('Link indication');
     await page.screenshot({ path: 'test-results/T035-graybox-200percent.png', fullPage: true });
     await visual().locator('.nq-graybox-stage').screenshot({ path: 'test-results/T035-graybox-200percent-stage.png' });
     const count = await visual().getAttribute('data-render-count'); await page.waitForTimeout(150); expect(await visual().getAttribute('data-render-count')).toBe(count);
@@ -141,21 +142,21 @@ test.describe('T035/T066 actual playable R01 media and R02 graybox', () => {
   test('visual pointer observations equal a fresh keyboard investigation', async () => {
     const observations: string[][] = [];
     for (const input of ['visual', 'keyboard']) {
-      if (input === 'keyboard') { await button('New Adventure').click(); await button('Start new adventure').click(); await ready('spec001:R01'); }
-      await button('Look').press('Enter');
+      if (input === 'keyboard') { await clickButton(page, 'New Adventure'); await clickButton(page, 'Start new adventure'); await ready('spec001:R01'); }
+      await pressButton(page, 'Look', 'Enter');
       for (const [id, label] of [['power', 'Power indication'], ['link', 'Link indication']] as const) {
         if (input === 'visual' && id === 'power') {
           // Hit the actual Three.js mesh below its projected number, exercising
           // raycasting rather than an HTML label or a semantic button.
           const pin = (await target('spec001:HOTSPOT-power').boundingBox())!, canvas = (await visual().locator('canvas').boundingBox())!;
           await visual().locator('canvas').click({ position: { x: pin.x + pin.width / 2 - canvas.x, y: pin.y + pin.height / 2 - canvas.y + 28 } });
-        } else if (input === 'visual') await target(`spec001:HOTSPOT-${id}`).click(); else await button(label).press('Enter');
+        } else if (input === 'visual') await target(`spec001:HOTSPOT-${id}`).click(); else await pressButton(page, label, 'Enter');
       }
-      await button('Use').press('Enter');
+      await pressButton(page, 'Use', 'Enter');
       if (input === 'visual') {
         await target('spec001:HOTSPOT-satchel').click(); await target('spec001:HOTSPOT-path').click();
         await visual().locator('[data-graybox-control]').filter({ hasText: 'Inspect physical path' }).click();
-      } else { await button('Take inspection kit').press('Enter'); await button('Inspect physical path').press('Enter'); }
+      } else { await pressButton(page, 'Take inspection kit', 'Enter'); await pressButton(page, 'Inspect physical path', 'Enter'); }
       const rows = await page.locator('.nq-shell-evidence li').allTextContents();
       // A fresh adventure has a distinct attempt UUID; compare the complete
       // evidence apart from that identity, and separately require it to change.

@@ -1,19 +1,20 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
-import { test, expect, button, dialog, contract, installCookie } from './support/t056-journey';
+import { clickButton, pressButton } from './support/adventure-controls';
+import { test, expect, dialog, contract, installCookie } from './support/t056-journey';
 
 test.describe('T056 independent native logout contract', () => {
   test('SAVE13 Cancel changes no request or adventure; confirmed revocation clears editors and restores only durable data later', async ({ journey: j }, _info) => {
     contract('SAVE13'); await j.start(); await j.notes('Durable before logout'); await j.firstSave(); const saved = await j.local.inspectSlot();
-    await j.notes('Unsaved sensitive notebook'); await button(j.page, 'Settings').click(); await button(j.page, 'Log out').click();
+    await j.notes('Unsaved sensitive notebook'); await clickButton(j.page, 'Settings'); await clickButton(j.page, 'Log out');
     await expect(dialog(j.page, 'Settings')).toContainText('Unsaved progress and notes'); const count = j.mutations.length;
-    await button(j.page, 'Cancel').press('Enter'); expect(j.mutations.length).toBe(count); await button(j.page, 'Close settings').click(); await j.expectNotes('Unsaved sensitive notebook');
-    await button(j.page, 'Settings').click(); await button(j.page, 'Log out').click(); await button(j.page, 'Confirm logout').press('Enter');
-    await expect(dialog(j.page, 'Settings')).toContainText('Logout confirmed'); await expect(j.page.getByRole('heading', { name: 'Network Quest', exact: true })).toBeVisible();
+    await pressButton(j.page, 'Cancel', 'Enter'); expect(j.mutations.length).toBe(count); await clickButton(j.page, 'Close settings'); await j.expectNotes('Unsaved sensitive notebook');
+    await clickButton(j.page, 'Settings'); await clickButton(j.page, 'Log out'); await pressButton(j.page, 'Confirm logout', 'Enter');
+    await expect(dialog(j.page, 'Settings')).toContainText('Logout confirmed'); await clickButton(j.page, 'Close settings'); await expect(j.page.getByRole('heading', { name: 'Network Quest', exact: true })).toBeVisible();
     expect(await j.local.inspectSlot()).toEqual(saved); expect(j.writes().length).toBe(1); expect(j.mutations.filter(m => m.path.endsWith('/logout')).length).toBe(1);
     await expect(j.page.getByRole('textbox', { name: 'Personal notes', includeHidden: true })).toHaveValue('');
     expect(await j.page.evaluate(() => document.body.textContent?.includes('Unsaved sensitive notebook'))).toBe(false);
     await j.page.screenshot({ path: _info.outputPath('T056-logout-cleared.png'), fullPage: true });
-    await installCookie(j.context, (await j.local.syntheticSession('github')).cookie); await j.page.reload(); await button(j.page, 'Continue').click(); await j.expectNotes('Durable before logout');
+    await installCookie(j.context, (await j.local.syntheticSession('github')).cookie); await j.page.reload(); await clickButton(j.page, 'Continue'); await j.expectNotes('Durable before logout');
     expect(await j.local.inspectSlot()).toEqual(saved); expect(j.writes().length).toBe(1);
   });
 
@@ -28,11 +29,11 @@ test.describe('T056 independent native logout contract', () => {
       await route.fulfill(result).catch(() => {});
     });
     try {
-      await button(j.page, 'Save').click(); await intercepted;
-      await button(j.page, 'Settings').click(); await button(j.page, 'Log out').click(); await button(j.page, 'Confirm logout').click();
+      await clickButton(j.page, 'Save'); await intercepted;
+      await clickButton(j.page, 'Settings'); await clickButton(j.page, 'Log out'); await clickButton(j.page, 'Confirm logout');
       await expect(dialog(j.page, 'Settings')).toContainText('Logout confirmed'); release();
       await expect.poll(() => lateStatus).toBe(commitFirst ? 200 : 401);
-      await expect(j.page.getByRole('heading', { name: 'Network Quest', exact: true })).toBeVisible();
+      await clickButton(j.page, 'Close settings'); await expect(j.page.getByRole('heading', { name: 'Network Quest', exact: true })).toBeVisible();
       const current = await j.local.inspectSlot(); expect(current?.revision).toBe(commitFirst ? 2 : 1);
       expect(current?.snapshot.notebook.personalNotes).toBe(commitFirst ? 'Pending save capture' : 'Original slot');
       expect(j.writes().length).toBe(2); expect(j.mutations.filter(m => m.path.endsWith('/logout')).length).toBe(1);

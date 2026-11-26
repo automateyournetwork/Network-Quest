@@ -2,6 +2,7 @@
 import { test, expect, firefox } from '@playwright/test';
 import type { BrowserContext, Locator, Page } from '@playwright/test';
 import fixture from '../fixtures/guest-investigation.json' with { type: 'json' };
+import { revealControl, openFrame, closeFrame } from './support/adventure-controls';
 import { localTls } from './support/local-tls';
 
 /**
@@ -63,7 +64,8 @@ test.describe('T030 real guest walkthrough — independent T022 expectations', (
     expect(externalRequests).toEqual([]);
   });
 
-  const button = (name: string) => page.getByRole('button', { name, exact: true });
+  const labels = new WeakMap<Locator,string>();
+  const button = (name: string) => { const control=page.getByRole('button', { name, exact: true }); labels.set(control,name); return control; };
   const notebook = () => page.getByRole('dialog', { name: 'Notebook', exact: true });
   // Resolve the native section/heading relation at startup. Recursive region
   // accessible-name lookup also crashes Firefox when reading nested lists.
@@ -72,6 +74,7 @@ test.describe('T030 real guest walkthrough — independent T022 expectations', (
   const objective = (name: string) => section('Objectives').getByRole('listitem').filter({ hasText: name });
 
   async function activate(control: Locator, input: Input = 'pointer') {
+    const name=labels.get(control); if (name) await revealControl(page,name); else if (!await control.isVisible() || await control.evaluate(el=>!!el.closest('[inert]'))) await closeFrame(page);
     await expect(control).toBeVisible();
     await expect(control).toBeEnabled();
     if (input === 'keyboard') { await control.focus(); await control.press('Enter'); }
@@ -79,7 +82,7 @@ test.describe('T030 real guest walkthrough — independent T022 expectations', (
   }
   async function verb(name: 'Walk' | 'Look' | 'Talk' | 'Use', input: Input = 'pointer') {
     if (input === 'keyboard') {
-      await button(name).focus();
+      await revealControl(page,name); await button(name).focus();
       await page.keyboard.press(ui.shortcuts[name].toLowerCase());
     } else await activate(button(name));
     await expect(button(name)).toHaveAttribute('aria-pressed', 'true');
@@ -226,7 +229,7 @@ test.describe('T030 real guest walkthrough — independent T022 expectations', (
   test('GI01 Fresh New Adventure enters R01 as a guest', async () => {
     await start();
     for (const [name, key] of Object.entries(ui.shortcuts)) await expect(button(name)).toHaveAttribute('aria-keyshortcuts', key);
-    await expect(page.getByText(ui.text.guestStatus, { exact: true })).toBeVisible();
+    await openFrame(page,'Game'); await expect(page.getByText(ui.text.guestStatus, { exact: true })).toBeVisible(); await closeFrame(page);
     expect(externalRequests).toEqual([]); expect(saveWrites).toEqual([]);
   });
 
@@ -327,7 +330,7 @@ test.describe('T030 real guest walkthrough — independent T022 expectations', (
     await expect(invitation).toContainText(ui.text.signInExplanation);
     await activate(invitation.getByRole('button', { name: action.decline, exact: true }));
     await expect(invitation).toBeHidden();
-    await expect(page.getByText(ui.text.guestStatus, { exact: true })).toBeVisible();
+    await openFrame(page,'Game'); await expect(page.getByText(ui.text.guestStatus, { exact: true })).toBeVisible(); await closeFrame(page);
     await openNotebook();
     await section('Personal Notes').getByRole('textbox', { name: 'Personal notes', exact: true }).fill(fixture.playerInput.note);
     await closeNotebook(); await walk(action.toArrival, arrival); await walk(action.toWorkshop, workshop); await openNotebook();
@@ -341,7 +344,7 @@ test.describe('T030 real guest walkthrough — independent T022 expectations', (
   test('GI09 Keyboard follows the same four-verb investigation', async () => {
     await start('keyboard'); await finishO01(false, 'keyboard'); await finishO02(false, 'keyboard');
     for (const [name, key] of Object.entries(ui.shortcuts)) await expect(button(name)).toHaveAttribute('aria-keyshortcuts', key);
-    await button('Notebook').focus(); await page.keyboard.press('n'); await expect(notebook()).toBeVisible();
+    await revealControl(page,'Notebook'); await button('Notebook').focus(); await page.keyboard.press('n'); await expect(notebook()).toBeVisible();
     const notes = section('Personal Notes').getByRole('textbox', { name: 'Personal notes', exact: true });
     await notes.pressSequentially('wl tuin c'); await expect(notes).toHaveValue('wl tuin c'); await expect(notes).toBeFocused();
     await expect(objective(o01)).toContainText(ui.text.completed); await expect(objective(o02)).toContainText(ui.text.completed);

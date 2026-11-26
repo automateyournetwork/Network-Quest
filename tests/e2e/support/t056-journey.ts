@@ -1,4 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import { clickButton } from './adventure-controls';
 // T056 independent journeys use the composed app; no page-injected runtime or auth hook.
 import { expect, firefox, test as base, type BrowserContext, type Page } from '@playwright/test';
 import { configuredSave } from './configured-save';
@@ -48,23 +49,24 @@ async function openJourney() {
       await expect(button(page, 'Continue')).toHaveAttribute('aria-disabled', 'false');
     },
     writes: () => mutations.filter(item => item.method === 'PUT' && item.path.endsWith('/save')),
-    async start(tab = page) { await button(tab, 'New Adventure').click(); await button(tab, 'Start new adventure').click(); await expect(tab.getByRole('heading', { name: 'The Arrival Lift', exact: true })).toBeVisible(); },
-    async notes(value: string, tab = page) { await button(tab, 'Notebook').click(); await tab.getByRole('textbox', { name: 'Personal notes', exact: true }).fill(value); await button(tab, 'Close notebook').click(); },
-    async expectNotes(value: string, tab = page) { await button(tab, 'Notebook').click(); await expect(tab.getByRole('textbox', { name: 'Personal notes', exact: true })).toHaveValue(value); await button(tab, 'Close notebook').click(); },
-    async firstSave(tab = page) { await button(tab, 'Save').click(); await button(tab, 'Save this adventure').click(); await expect(tab.getByText(/^Saved at /)).toBeVisible(); },
+    async start(tab = page, options: { textFallback?: boolean } = {}) { await clickButton(tab, 'New Adventure'); await clickButton(tab, 'Start new adventure'); await expect(tab.getByRole('heading', { name: 'The Arrival Lift', exact: true })).toBeVisible(); if (options.textFallback) { await expect(tab.locator('.nq-game')).toHaveAttribute('data-text-scene','true'); await expect(tab.getByRole('dialog',{name:'Scene objects and exits',exact:true})).toHaveAttribute('aria-modal','true'); } else await expect(tab.locator('[aria-modal=true]')).toHaveCount(0); expect(await tab.locator('.nq-adventure-host').evaluate(el=>!el.closest('[inert]'))).toBe(true); expect(await tab.locator('.nq-adventure-host').evaluate(el=>el.contains(document.activeElement))).toBe(true); },
+    async notes(value: string, tab = page) { await clickButton(tab, 'Notebook'); await tab.getByRole('textbox', { name: 'Personal notes', exact: true }).fill(value); await clickButton(tab, 'Close notebook'); },
+    async expectNotes(value: string, tab = page) { await clickButton(tab, 'Notebook'); await expect(tab.getByRole('textbox', { name: 'Personal notes', exact: true })).toHaveValue(value); await clickButton(tab, 'Close notebook'); },
+    async firstSave(tab = page) { await clickButton(tab, 'Save'); await clickButton(tab, 'Save this adventure'); await expect(tab.getByText(/^Saved at /)).toBeVisible(); },
     async openProvider(provider: 'GitHub' | 'Google', tab = page) {
-      const opened = context.waitForEvent('page'); await button(tab, provider).click(); const popup = await opened;
+      const opened = context.waitForEvent('page'); await clickButton(tab, provider); const popup = await opened;
       await popup.waitForURL(provider === 'GitHub' ? 'https://github.com/login/oauth/authorize**' : 'https://accounts.google.com/**');
       return popup;
     },
     async deletionReady() {
-      await button(page, 'Settings').click(); await button(page, 'Delete account').click();
-      const opened = context.waitForEvent('page'); await button(page, 'Confirm choice and sign in again').click(); const popup = await opened;
+      await clickButton(page, 'Settings'); await clickButton(page, 'Delete account');
+      const opened = context.waitForEvent('page'); await clickButton(page, 'Confirm choice and sign in again'); const popup = await opened;
       await popup.waitForURL('https://github.com/login/oauth/authorize**');
       const cookie = (await context.cookies(local.url)).find(item => item.name === '__Secure-nq_session')!;
       const issued = await local.completeDeletionReauth(`${cookie.name}=${cookie.value}`); await installCookie(context, issued.cookie);
       await popup.bringToFront(); await page.bringToFront();
-      if (await button(page, 'Check deletion sign-in result').isVisible()) await button(page, 'Check deletion sign-in result').click();
+      // Returning to the app triggers its normal session check. Wait for the
+      // ready state instead of racing that check with a redundant second click.
       await expect(button(page, 'Delete account now')).toBeVisible();
       expect(mutations.filter(item => item.method === 'DELETE').length).toBe(0);
     },

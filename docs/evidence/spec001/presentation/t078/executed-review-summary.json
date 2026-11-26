@@ -1,0 +1,69 @@
+{
+  "recordedAt": "2026-11-26T22:04:11.843012+00:00",
+  "run1": {
+    "passed": 5,
+    "failed": 1,
+    "seconds": 22.6,
+    "failure": "Firefox page crashed in full default AxeBuilder.analyze; no accessibility outcome returned."
+  },
+  "run2": {
+    "scope": "Only failed narrow case; added screenshot before axe, same assertions/rules",
+    "passed": 0,
+    "failed": 1,
+    "failure": "Firefox page crashed again inside full default AxeBuilder.analyze."
+  },
+  "run3": {
+    "scope": "Independent native process; actual guest app via trusted TLS,390x844,in-app200%text; nonempty Power feedback then scroll to last Scene action; all default axe rules",
+    "passed": false,
+    "failure": "Actual serious scrollable-region-focusable violation on .nq-shell-status. Screenshot/rectangles prove sticky header occludes feedback by325.6x152.6px. Functional continuation after axe assertion not reached."
+  },
+  "localTraces": [
+    {
+      "path": ".local/t078/results/frame-review-390px-200-tex-34051-ecovery-uses-the-same-state/trace.zip",
+      "sha256": "48e2d266c8710755c9534a285e8bc5ab96b7c54bb190106373b20adaac54a52d",
+      "retention": "Local only; trace may contain ephemeral synthetic authentication/session headers. Not copied into public evidence."
+    },
+    {
+      "path": ".local/t078/run2-results/frame-review-390px-200-tex-34051-ecovery-uses-the-same-state/trace.zip",
+      "sha256": "22263e595f8e1b309a56e555e2d3ae1b0ff7e734611f75c5dbc13b234db1c415",
+      "retention": "Local only; trace may contain ephemeral synthetic authentication/session headers. Not copied into public evidence."
+    }
+  ],
+  "run4": {
+    "scope": "Repeat all five direct cases after preparePanels introduced a shared control-ownership render hook",
+    "passed": 5,
+    "failed": 0,
+    "seconds": 19.0
+  },
+  "run5": {
+    "scope": "Affected isolated narrow Scene+stage continuation, first native scroll assertion",
+    "passed": false,
+    "sceneAxeViolations": 0,
+    "failure": "Immediate post-ArrowDown scrollTop comparison failed; later diagnostic establishes asynchronous native scrolling. This driver failure is retained, not relabeled a passed execution."
+  },
+  "run6": {
+    "scope": "Same runtime; bounded native scroll settling and reset to Home; Scene and stage full default axe, exact text-to-visual recovery and packet phase/stale-control continuation",
+    "passed": true,
+    "sceneAxePasses": 36,
+    "stageAxePasses": 33,
+    "axeViolations": 0,
+    "pageErrors": 0,
+    "apiMutations": 0,
+    "packetPhases": 5,
+    "oldDetachedReturnIgnored": true,
+    "sceneAxeIncomplete": [],
+    "stageAxeIncomplete": [
+      {
+        "id": "color-contrast",
+        "targets": [
+          ".nq-game-location",
+          ".nq-save-indicator",
+          ".nq-scene-fallback",
+          ".nq-media-caption",
+          ".nq-shell-status"
+        ]
+      }
+    ]
+  },
+  "finalStatus": "Independent scoped interface review passes on final-candidate source; does not accept T066/T067/G3 or human/native Safari/native zoom/release gates."
+}

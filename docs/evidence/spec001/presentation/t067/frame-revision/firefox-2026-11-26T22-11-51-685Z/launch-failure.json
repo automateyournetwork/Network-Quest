@@ -1,0 +1,12 @@
+{
+  "recordedAt": "2026-11-26T22:12:27.283283+00:00",
+  "status": "launch-failed-before-samples",
+  "command": ".runtime/node-v26.13.1-darwin-arm64/bin/node tools/measurement/t067-frame-firefox.ts --samples=1",
+  "exitCode": 1,
+  "error": "Error: NQ_PHP_BIN must select PHP 8.4.28.",
+  "location": "tools/dev.mjs:87 via tests/e2e/support/local-tls.ts:65 and t067-frame-firefox.ts:20",
+  "cause": "Required pinned NQ_PHP_BIN environment was omitted from this invocation. No app defect or timing result is claimed.",
+  "completedSamples": 0,
+  "cleanup": "The localTls catch awaits stop() before rethrow; the observed original PHP guard error followed that cleanup path. startDev fails before starting its server.",
+  "correction": "Invoke the same frozen helper with NQ_PHP_BIN=/opt/homebrew/opt/php@8.4/bin/php. No helper or runtime change."
+}

@@ -1,0 +1,39 @@
+// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+// Independent process boundary; full default axe rules retained unchanged.
+import { firefox } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+import assert from 'node:assert/strict';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { localTls } from '../../tests/e2e/support/local-tls.ts';
+const output=new URL('./run3-isolated/',import.meta.url); await mkdir(output,{recursive:true});
+const local=await localTls(); let context;
+try {
+  context=await firefox.launchPersistentContext(local.profile,{headless:true,ignoreHTTPSErrors:false,reducedMotion:'reduce'});
+  const page=await context.newPage(),errors:string[]=[],mutations:string[]=[];
+  page.on('pageerror',e=>errors.push(e.message));
+  page.on('request',r=>{if(r.url().includes('/api/')&&!['GET','HEAD','OPTIONS'].includes(r.method()))mutations.push(r.method()+' '+new URL(r.url()).pathname);});
+  const button=(name:string)=>page.getByRole('button',{name,exact:true}).and(page.locator('button:not([inert]):not([inert] *)'));
+  await page.goto(local.url); await button('New Adventure').click(); await page.locator('.nq-room[data-rendered=true]').waitFor();
+  await page.setViewportSize({width:390,height:844}); await button('Sound and reading').click(); await page.getByRole('slider',{name:'Text size',exact:true}).fill('2'); await button('Close Sound and reading').click();
+  await button('Look').click(); await button('Scene').click(); await button('Power indication').click(); await button('Text scene').click();
+  await page.locator('.nq-shell-objects > li').last().locator('button').last().scrollIntoViewIfNeeded();
+  const layout=await page.evaluate(()=>{
+    const active=document.querySelector<HTMLElement>('.nq-frame-window.nq-window-active')!,header=active.querySelector<HTMLElement>('.nq-window-bar')!,status=active.querySelector<HTMLElement>('.nq-shell-status')!;
+    const h=header.getBoundingClientRect(),s=status.getBoundingClientRect();
+    return {viewport:{width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,scrollHeight:document.documentElement.scrollHeight},header:h.toJSON(),status:{text:status.textContent,rect:s.toJSON(),inert:!!status.closest('[inert]')},overlap:{width:Math.max(0,Math.min(h.right,s.right)-Math.max(h.left,s.left)),height:Math.max(0,Math.min(h.bottom,s.bottom)-Math.max(h.top,s.top))}};
+  });
+  await writeFile(new URL('narrow-layout.json',output),JSON.stringify(layout,null,2));
+  await page.screenshot({path:new URL('narrow-with-feedback.png',output).pathname,fullPage:true});
+  assert.equal(layout.viewport.scrollWidth,390); assert.equal(layout.viewport.scrollHeight,844);
+  const axe=await new AxeBuilder({page}).analyze();
+  await writeFile(new URL('axe.json',output),JSON.stringify({browser:context.browser()?.version(),userAgent:await page.evaluate(()=>navigator.userAgent),axeVersion:axe.testEngine.version,passes:axe.passes.map(p=>p.id),incomplete:axe.incomplete.map(i=>({id:i.id,nodes:i.nodes.map(n=>n.target)})),violations:axe.violations},null,2));
+  assert.deepEqual(axe.violations,[]);
+  await page.keyboard.press('Escape'); assert.equal(await button('Scene').evaluate(el=>el===document.activeElement),true);
+  await button('Open scene description').click(); await button('Link indication').click();
+  assert.match(await page.locator('.nq-shell-status').innerText(),/Link indication/);
+  await button('Retry visual scene').click(); await page.locator('.nq-room[data-rendered=true]').waitFor(); await button('Close Scene objects and exits').click();
+  await page.screenshot({path:new URL('narrow-recovered-room.png',output).pathname,fullPage:true});
+  assert.deepEqual(errors,[]); assert.deepEqual(mutations,[]);
+  await writeFile(new URL('result.json',output),JSON.stringify({valid:true,errors,mutations,axeViolations:0,axePasses:axe.passes.length,scope:'Isolated process, actual guest app + trusted local TLS,390x844,in-app200%text,full default axe; no real providers or assistive technology.'},null,2));
+  process.stdout.write('Independent isolated narrow checks passed.\n');
+}finally{try{await context?.close();}finally{await local.stop();}}

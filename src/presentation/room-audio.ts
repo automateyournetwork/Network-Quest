@@ -11,14 +11,14 @@ export function createRoomAudioPanel(host: HTMLElement, media: RoomMedia, gameBa
   const root = node('section'); root.className = 'nq-media'; root.setAttribute('aria-label', 'Sound and reading');
   const details = node('details'), summary = node('summary'); summary.textContent = 'Sound and reading'; details.append(summary);
   const status = node('p'); status.setAttribute('role', 'status');
-  const caption = node('p'); caption.className = 'nq-media-caption'; caption.setAttribute('aria-live', 'off');
+  const caption = node('p'); caption.className = 'nq-media-caption'; caption.setAttribute('aria-live', 'off'); caption.tabIndex = -1;
   const refreshButton = node('button'); refreshButton.type = 'button'; refreshButton.textContent = 'Reload account presentation preferences';
   refreshButton.addEventListener('click', refresh, { signal: events.signal });
   const preferencesStatus = node('p'); preferencesStatus.className = 'nq-media-preferences-status';
   const rows = new Map<string, { element: HTMLElement; status: HTMLElement; replay: HTMLButtonElement }>();
   const update = (state: AudioState) => {
     const row = rows.get(state.id); if (row) { row.status.textContent = state.status === 'awaiting-gesture' ? 'Select Replay to enable sound.' : state.status === 'unavailable' ? 'Audio unavailable. The transcript remains available.' : state.status; row.element.dataset['audioStatus'] = state.status; }
-    if (['playing', 'loading', 'awaiting-gesture'].includes(state.status)) { caption.textContent = state.text; caption.hidden = !settings.captions; }
+    if (['playing', 'loading', 'awaiting-gesture'].includes(state.status)) { caption.textContent = state.text; caption.tabIndex = 0; caption.hidden = !settings.captions; }
     if (state.status === 'unavailable' || state.status === 'awaiting-gesture') status.textContent = state.status === 'unavailable' ? 'Audio unavailable. Read the transcript or retry playback.' : 'Sound waits for your choice. Select a Replay button.';
   };
   const adapter = createAudioAdapter({ backend: createHtmlAudioBackend(document), volumes: volumesFromSettings(settings), maxCues: 6, maxVoices: 3, maxPendingPlays: 3, onChange: update });
@@ -58,7 +58,7 @@ export function createRoomAudioPanel(host: HTMLElement, media: RoomMedia, gameBa
       if (disposed) return; settings = next; root.style.fontSize = `${next.textScale}rem`; adapter.setVolumes(volumesFromSettings(next)); caption.hidden = !next.captions; preferencesStatus.textContent = preferenceMessage; refreshButton.hidden = !account.authenticated; refreshButton.disabled = account.busy;
       for (const [key, control] of inputs) { control.disabled = account.busy || account.reviewRequired; if (key === 'captions') (control as HTMLInputElement).checked = next.captions; else control.value = String(next[key as keyof PresentationSettings]); const output = control.parentElement?.querySelector('output'); if (output) output.textContent = `${Math.round(Number(control.value) * 100)}%`; }
       if (nextRoom !== room) {
-        room = nextRoom; for (const handle of handles.values()) handle.stop(); caption.textContent = ''; status.textContent = '';
+        room = nextRoom; for (const handle of handles.values()) handle.stop(); caption.textContent = ''; caption.tabIndex = -1; status.textContent = '';
         if (room === media.composition.roomId) for (const cue of media.composition.audio.filter(c => c.trigger === 'arrival')) void handles.get(cue.assetId)!.play();
       }
       for (const cue of media.composition.audio) rows.get(cue.assetId)!.element.hidden = cue.trigger !== 'title' && room !== media.composition.roomId;

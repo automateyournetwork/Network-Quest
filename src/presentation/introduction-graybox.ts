@@ -165,7 +165,8 @@ export function createIntroductionGraybox(host: HTMLElement): RoomRenderer<Grayb
           element.textContent = control.label; if (control.unavailableReason) { element.dataset['unavailable'] = 'true'; element.textContent += ` — ${control.unavailableReason}`; } return element;
         }));
       };
-      updateChoices(selectedId); root.append(caption, stage, legend, choiceTitle, choices, feedback);
+      updateChoices(selectedId); root.append(stage, choices);
+      if (host.dataset['contained'] !== 'true') root.append(caption, legend, choiceTitle, feedback);
       const ray = new THREE.Raycaster(), coordinates = new THREE.Vector2();
       const controls = new Map(request.view.objects.flatMap(object => object.actions).map(control => [control.id, control]));
       const target = (event: PointerEvent): { object?: SceneObjectView; control?: SemanticControl } => {
@@ -198,9 +199,10 @@ export function createIntroductionGraybox(host: HTMLElement): RoomRenderer<Grayb
       canvas.addEventListener('webglcontextlost', lose, { signal: abort.signal });
       function draw() {
         frame = 0; if (!alive || !attached || paused || request.signal.aborted) return;
-        const width = Math.max(1, Math.round(stage.getBoundingClientRect().width)), height = Math.round(Math.max(230, Math.min(480, width / 1.65)));
+        const contained = host.dataset['contained'] === 'true';
+        const width = Math.max(1, Math.round(stage.getBoundingClientRect().width)), height = contained ? Math.max(1, Math.round(host.clientHeight)) : Math.round(Math.max(230, Math.min(480, width / 1.65)));
         renderer.setPixelRatio(request.settings.detail === 'low' ? 1 : Math.min(window.devicePixelRatio || 1, 1.5)); renderer.setSize(width, height, false);
-        stage.style.height = `${height}px`; const aspect = width / height;
+        if (!contained) stage.style.height = `${height}px`; const aspect = width / height;
         const heightSpan = Math.max(9, layout!.camera.span / aspect);
         camera.left = -heightSpan * aspect / 2; camera.right = -camera.left; camera.top = heightSpan / 2; camera.bottom = -camera.top; camera.updateProjectionMatrix();
         renderer.render(scene, camera);

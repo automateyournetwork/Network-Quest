@@ -102,7 +102,9 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
         const object = currentView.objects.find(o => o.id === anchor.objectId); if (!object) throw new Error('Authored scene anchor has no semantic control');
         const pin = node('span', 'nq-graybox-pin'); pin.textContent = String(index + 1); pin.title = object.label; pin.dataset['grayboxObject'] = anchor.objectId; pins.append(pin); pinNodes.set(anchor.objectId, pin);
       }
-      root.append(stage, instructions, choiceTitle, choices, feedback); updateChoices();
+      root.append(stage, choices);
+      if (host.dataset['contained'] !== 'true') root.append(instructions, choiceTitle, feedback);
+      updateChoices();
       const find = (event: PointerEvent) => {
         const element = event.target instanceof window.Element ? event.target as Element : null;
         const controlId = element?.closest<HTMLElement>('[data-graybox-control]')?.dataset['grayboxControl'];
@@ -123,8 +125,9 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
         frame = 0; if (!alive || !attached || paused || request.signal.aborted) return;
         const elapsed = last ? Math.min((now - last) / 1000, 0.05) : 0; if (last && now > last) { samples.push(now - last); if (samples.length > 300) samples.shift(); } last = now;
         if (!request.settings.reducedMotion) for (const actor of actors) { actor.mixer.update(elapsed); if (actor.remaining > 0 && (actor.remaining -= elapsed) <= 0) play(actor, 'idle'); }
-        const width = Math.max(1, Math.round(stage.getBoundingClientRect().width)), height = Math.round(Math.max(230, Math.min(640, width * 9 / 16)));
-        const framing = roomFraming(width, height, composition.camera); stage.style.height = `${height}px`;
+        const contained = host.dataset['contained'] === 'true';
+        const width = Math.max(1, Math.round(stage.getBoundingClientRect().width)), height = contained ? Math.max(1, Math.round(host.clientHeight)) : Math.round(Math.max(230, Math.min(640, width * 9 / 16)));
+        const framing = roomFraming(width, height, composition.camera); if (!contained) stage.style.height = `${height}px`;
         webgl.setPixelRatio(request.settings.detail === 'low' ? 1 : Math.min(window.devicePixelRatio || 1, 1.5));
         if (canvas.clientWidth !== width || canvas.clientHeight !== height || canvas.width !== Math.round(width * webgl.getPixelRatio()) || canvas.height !== Math.round(height * webgl.getPixelRatio())) webgl.setSize(width, height, false);
         camera.left = -framing.widthSpan / 2; camera.right = -camera.left; camera.top = framing.heightSpan / 2; camera.bottom = -camera.top; camera.updateProjectionMatrix();

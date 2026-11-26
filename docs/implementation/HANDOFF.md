@@ -581,3 +581,127 @@ six origin logs, and viewed the failed native Safari capture. Its visible browse
 chrome/flat page cannot prove game rendering. The growing preview request log
 is excluded. T067 remains pending; resume the same worker after loop 077's reviewed
 freeze. Current game-screen correction has sole runtime/build/browser ownership.
+
+Historical representative-room checkpoint `38473264667d76c2e7ffa3c4e1b4d6dcdf2b67cb`
+is pushed and remote-verified.99 explicit paths passed byte hashes, private-value/
+key scans and whitespace. Three sealed Blender source-reopen logs were inspected
+and force-added individually; generic runtime/operator log ignores stay intact.
+No current UI work was staged. T067 remains pending and no release is deployed.
+
+Root inspected loop077's first actual desktop/Scene/Notebook screenshots under
+`.local/t077/`: the scene fills about85% of1440×900 and the page does not scroll.
+Requested refinements: numbered pins and You label off during ordinary visual
+play, discoverable hotspot assistance and descriptive hover feedback; sticky Close
+and Escape/focus restoration in every in-frame panel. Complete named-object/text
+actions and current pointer captures must remain.077 owns these corrections and
+focused real-browser/accessibility/persistence verification before final review.
+
+## Three-worker continuation — 2026-11-26
+
+Owner explicitly requested all three worker slots after credit reset.077 continues
+the contained adventure frame with exclusive runtime/build/browser ownership.
+Same073 resumes additive benchmark preparation without altering its historical
+95-file seal or old owner preview. Fresh078 performs an independent frame input,
+modal/focus and account/save lifecycle review in disjoint evidence; findings go
+to077/root, with real browser work coordinated after the revised source freezes.
+78 loops started,60 tasks accepted. No resets, duplicated acceptance or deployment.
+
+Root/078 source review found and077 is correcting modal feedback/save-status
+placement, New/Restore leaving Game open, and Scene-return focus/attachment cleanup.
+Root inspected run4 desktop and390px/200%-text images; they substantiate the new
+contained layout and the stale-Game finding, not final acceptance.077 retains
+browser/build ownership for relevant joined journeys.073's additive revision
+helpers are ready; root reviewed the server delta/probe/freeze/Firefox/Safari
+runners and requested accessible Close-name correction, now present. Six syntax
+checks and all95 historical seals pass; no revised benchmark result is claimed.
+078 will independently exercise the stable frame before073 times it.
+
+### Current contained-frame verification — 2026-11-26
+
+078 independently ran five direct native scenarios successfully for save failure
+explanations, Inventory feedback, exact Scene/Dialogue focus, New/Restore/cancel,
+and logout preservation. Its narrow in-runner axe case crashed twice in Firefox;
+these are retained, with no invented application cause. A standalone full-default
+axe run then exposed a real serious scrollable-region-focusable failure and
+325.6×152.6px header/feedback overlap. Root inspected the native image/geometry.
+077 corrected panel feedback into normal scroll flow and keyboard access to long
+stage feedback/captions; affected390/768/in-game200%-text run10 passed, including
+full-default axe and first/last-line checks by internal scrolling. Actual browser
+zoom, human assistive review and Safari remain separate, unverified scopes.
+
+077 joined run11 completed57/65 PASS. Eight failures are retained for corrections;
+one real integration defect is an obsolete Return control after packet phase
+changes because frame reparenting bypassed its owner's keyed reconciliation.
+077 is fixing original-container restoration before passive controller rendering,
+then reapplying frame placement; root highlighted onView/sync ordering.078 prepared
+a direct phase/Replay/Return uniqueness/focus continuation plus the narrow/fullaxe
+recheck. Do not freeze, markT066/T067 accepted or infer a clean joined run yet.
+Runtime/build/browser ownership remains077;078 is waiting for targeted review,
+073 waits for root's stable reviewed freeze.78loops/60accepted, no deployment.
+
+077 run12 passes all9 affected cases, including the added obsolete-packet-control
+regression. Original controls are returned to owner containers afterpanels.show
+and before the passive rendering batch; final frame composition preserves current
+handlers/captures.078 final direct rerun4 passes5/5; isolatedrun6 passes Scene/stage
+full-default axe (0violations), actualTab/ArrowDown scrolling, text→visual recovery,
+packetall5phases/replay/reopen/exactoneReturn and stale detached input rejection.
+Run5's immediate-scroll assertion failed before native scrolling settled; a bounded
+observation passed on unchanged runtime. All prior failures remain. Root matched
+all7 reviewed runtime hashes.077 now owns finalcheck/build/units/66joinedcases;
+078 seals its final report. Revised benchmark and owner acceptance remain pending.
+
+### Revised candidate ready for owner review and measurement — 2026-11-26
+
+077 finaljoinedrun13 passes66/66 (5.4min), focusedunits287/287 (17files), check
+and productionbuild. Root matched20source+4buildinput+33distrecords in
+`presentation/t077/final-source-build.json` (seal9f5d21c956b312a12884ea48eeb61a374cdeee50e2628f58987c385cfa8e3af7).
+078's65artifactseal b020134b36cfd2ba976ec802c1b50fe8baa2be66772cf2c48a32b0685b103ed9
+allmatch. Root inspected corrected narrow/desktopcaptures and actualpacket/scroll
+observations. Originalaxe contrast-incomplete results remain; supplemental
+source-color calculations/agentvisualinspection are recorded separately in
+`presentation/frame-contrast-review.md`, not human or whole-access acceptance.
+
+New immutablepreview http://127.0.0.1:63366/arcade/play/network-quest/?t067=review
+is live (processsession80711); all33servedbuildfiles match, no injectedprobe.
+Root requested the required corrected-screen review with the actuallink and asked
+owner to openSafari/leaveitfrontmost. Noanswer/approval/foreground inferred.
+Old54594/7338 retained.073 now owns exclusivebrowser/measurement work: additive
+freeze, calibratedFirefox cold/warm, boundedactualSafari usable-surface evidence.
+Noheavytests/build/Gitcompression during timedmeasurements. No gate/task is newly
+accepted, and no release deployed.78loops/60accepted preserved.
+
+### Revised performance audit and native capability — 2026-11-26
+
+Same073 completed12 revised Firefox159 samples on six distinct cold/warm origins:
+three pairs at each1280×720 and1440×900. Root independently checked raw render
+counts, visibility, byte budgets, source hashes and response logs. Cold readiness
+is2.108–2.155s; warm0.661–0.694s; actual render cadence113.75–120.25FPS across
+recorded phases. Both calibrated aggregate response schedulers measured about
+19.99Mb/s; this is local response pacing, not WAN or production performance.
+All131 frozen files and21 export/build bindings match. Root inspected the actual
+1280px full-frame and1280/1440px room captures: contained controls, no webpage
+controls below the frame, original room/media and readable in-scene caption.
+
+No page or scene-asset errors were recorded. Each pair retains two intentional
+guest session503 responses and one favicon404. Three pairs include four aborted
+narrator range requests followed by one completion; the other19 asset URLs each
+load once. Completed warm asset timing entries have zero transfer, but omitted
+in-flight narrator requests prevent a claim of complete audio cache reuse.
+All12 inherited context-loss text-substring predicates are false; this is not
+semantic fallback acceptance. The separate final077 joined test actually loses
+WebGL context, performs keyboard Link indication, retains Power/Link observations,
+and retries visual rendering successfully. Original raw observations remain.
+
+Native Safari27.2 again failed the bounded foreground preflight: DOM hidden,
+visibilityState hidden, hasFocus false and application not frontmost after one
+ordinary activation. Window/tab native visible flags alone do not pass it. No
+required viewport or timing sample started and no usable image was claimed. Only
+task window7732 was closed; owner7338 and preview origins remain untouched. Do
+not retry unchanged capability or enable browser settings. The existing owner
+request asks to open63366 in Safari and leave it frontmost while reviewing.
+
+077 and078 are complete for their implementation/independent-review scopes;
+073 retains native/owner follow-up. No new task or G3 acceptance, no loop reset,
+and no deployment. Required review remains pending for the corrected screen;
+unchanged original audio approval remains valid. Root prepares a scoped combined
+GitHub checkpoint after the additive073 report/seal is reviewed.

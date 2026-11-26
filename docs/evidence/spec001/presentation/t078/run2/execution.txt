@@ -1,0 +1,39 @@
+
+Running 1 test using 1 worker
+
+(node:81152) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 frame-review.spec.ts:127:1 › 390px 200% text keeps top-window actions reachable and text recovery uses the same state (3.5s)
+
+
+  1) frame-review.spec.ts:127:1 › 390px 200% text keeps top-window actions reachable and text recovery uses the same state 
+
+    Error: frame.evaluate: Page crashed
+
+      135 |   await expect(button(j.page,'Close Scene objects and exits')).toBeInViewport();
+      136 |   await observe(j.page,info,'narrow-before-axe');
+    > 137 |   const axe = await new AxeBuilder({page:j.page}).analyze(); expect(axe.violations).toEqual([]);
+          |               ^
+      138 |   const measurement = await observe(j.page,info,'narrow-text-scene');
+      139 |   expect(measurement.viewport.scrollHeight).toBeLessThanOrEqual(measurement.viewport.height);
+      140 |   expect(measurement.viewport.scrollWidth).toBeLessThanOrEqual(measurement.viewport.width);
+        at AxeBuilder.runPartialRecursive (/Users/john.capobianco/Network-Quest/node_modules/@axe-core/playwright/dist/index.mjs:303:34)
+        at AxeBuilder.analyze (/Users/john.capobianco/Network-Quest/node_modules/@axe-core/playwright/dist/index.mjs:228:28)
+        at /Users/john.capobianco/Network-Quest/.local/t078/frame-review.spec.ts:137:15
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    run2-results/frame-review-390px-200-tex-34051-ecovery-uses-the-same-state/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: run2-results/frame-review-390px-200-tex-34051-ecovery-uses-the-same-state/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    run2-results/frame-review-390px-200-tex-34051-ecovery-uses-the-same-state/trace.zip
+    Usage:
+
+        npx playwright show-trace run2-results/frame-review-390px-200-tex-34051-ecovery-uses-the-same-state/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    frame-review.spec.ts:127:1 › 390px 200% text keeps top-window actions reachable and text recovery uses the same state 

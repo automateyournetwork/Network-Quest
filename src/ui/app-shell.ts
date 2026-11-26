@@ -48,6 +48,15 @@ export interface AppShell {
   dispose(): void;
 }
 
+const iconPaths: Readonly<Record<string, string>> = {
+  walk: 'M14 3a2 2 0 1 0 0 .1M12 7l-3 5 4 3-2 6m1-14 4 5 4 1m-7 2 4 6M9 12l-5 3',
+  look: 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7m13 0a3 3 0 1 0-6 0 3 3 0 0 0 6 0',
+  talk: 'M3 4h18v12H10l-6 5v-5H3V4m4 5h10m-10 3h7',
+  use: 'm8 11 1-8h3v8l2-5h3l-1 6 3-2 2 2-4 8H8l-5-7 2-2 3 3',
+  inventory: 'M4 8h16v13H4V8m4 0V4h8v4M4 12h16m-10 0v4h4v-4',
+  notebook: 'M5 3h15v18H5V3m-3 4h6m-6 5h6m-6 5h6m3-10h6m-6 5h6',
+  compendium: 'M2 4c4-1 7 0 10 2 3-2 6-3 10-2v16c-4-1-7 0-10 2-3-2-6-3-10-2V4m10 2v16',
+};
 const shortcuts: Readonly<Record<string, string>> = { walk: 'w', look: 'l', talk: 't', use: 'u', inventory: 'i', notebook: 'n', compendium: 'c' };
 function shortcut(action: SemanticAction): string | undefined {
   if (action.kind === 'select-verb') return shortcuts[action.verb];
@@ -139,7 +148,14 @@ export function createAppShell(host: HTMLElement, bus: Pick<ActionBus, 'captureS
   const captionNodes = new Map<string, HTMLLIElement>();
   const buttons = new WeakMap<HTMLButtonElement, ControlNodes>();
   const shortcutButtons = new Map<string, HTMLButtonElement>();
-  const announce = (message: string) => { if (!disposed) text(status, message); };
+  const announce = (message: string) => {
+    if (disposed) return;
+    const changed = status.textContent !== message; text(status, message); status.tabIndex = message ? 0 : -1;
+    const window = status.closest<HTMLElement>('.nq-window-active');
+    // Action feedback sits below the fixed window heading. Reveal it by scrolling
+    // only that window; notes/sliders keep their editing position and focus.
+    if (changed && message && window && !(document.activeElement instanceof Element && editing(document.activeElement))) window.scrollTop = 0;
+  };
   const unsubscribe = bus.subscribe((_action, result) => { if (result.message) announce(result.message); });
 
   function activate(button: HTMLButtonElement) {
@@ -211,6 +227,12 @@ export function createAppShell(host: HTMLElement, bus: Pick<ActionBus, 'captureS
       buttons.set(button, entry);
     }
     entry.model = model;
+    const iconId = model.action.kind === 'select-verb' ? model.action.verb : model.action.kind === 'open-panel' ? model.action.panel : '';
+    if (shell.classList.contains('nq-framed-shell') && iconPaths[iconId] && !entry.button.querySelector('svg')) {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('aria-hidden', 'true');
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path'); path.setAttribute('d', iconPaths[iconId]!); svg.append(path); entry.button.prepend(svg);
+    }
     text(entry.label, model.label);
     const key = allowShortcut ? shortcut(model.action) : undefined;
     entry.key.hidden = !key;

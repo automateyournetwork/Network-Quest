@@ -1,0 +1,84 @@
+// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+// Affected F078-04 continuation only; full default axe rules, actual guest UI.
+import { firefox } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+import assert from 'node:assert/strict';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { localTls } from '../../tests/e2e/support/local-tls.ts';
+const output=new URL('./run5-isolated/',import.meta.url); await mkdir(output,{recursive:true});
+const local=await localTls(); let context;
+try {
+  context=await firefox.launchPersistentContext(local.profile,{headless:true,ignoreHTTPSErrors:false,reducedMotion:'reduce'});
+  const page=await context.newPage(),errors:string[]=[],mutations:string[]=[];
+  page.on('pageerror',e=>errors.push(e.message));
+  page.on('request',r=>{if(r.url().includes('/api/')&&!['GET','HEAD','OPTIONS'].includes(r.method()))mutations.push(r.method()+' '+new URL(r.url()).pathname);});
+  const button=(name:string)=>page.getByRole('button',{name,exact:true}).and(page.locator('button:not([inert]):not([inert] *)'));
+  const audit=async(name:string)=>{
+    const axe=await new AxeBuilder({page}).analyze();
+    const report={browser:context!.browser()?.version(),userAgent:await page.evaluate(()=>navigator.userAgent),axeVersion:axe.testEngine.version,passes:axe.passes.map(p=>p.id),incomplete:axe.incomplete.map(i=>({id:i.id,nodes:i.nodes.map(n=>n.target)})),violations:axe.violations};
+    await writeFile(new URL(`${name}-axe.json`,output),JSON.stringify(report,null,2)); assert.deepEqual(axe.violations,[]); return report;
+  };
+  await page.goto(local.url); await button('New Adventure').click(); await page.locator('.nq-room[data-rendered=true]').waitFor();
+  await page.setViewportSize({width:390,height:844}); await button('Sound and reading').click(); await page.getByRole('slider',{name:'Text size',exact:true}).fill('2'); await button('Close Sound and reading').click();
+  await button('Look').click(); await button('Scene').click(); await button('Power indication').click(); await button('Text scene').click();
+  await page.locator('.nq-shell-objects > li').last().locator('button').last().scrollIntoViewIfNeeded();
+  const layout=await page.evaluate(()=>{
+    const active=document.querySelector<HTMLElement>('.nq-frame-window.nq-window-active')!,header=active.querySelector<HTMLElement>('.nq-window-bar')!,status=active.querySelector<HTMLElement>('.nq-shell-status')!;
+    const h=header.getBoundingClientRect(),s=status.getBoundingClientRect();
+    return {viewport:{width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,scrollHeight:document.documentElement.scrollHeight},header:h.toJSON(),status:{text:status.textContent,rect:s.toJSON(),inert:!!status.closest('[inert]')},overlap:{width:Math.max(0,Math.min(h.right,s.right)-Math.max(h.left,s.left)),height:Math.max(0,Math.min(h.bottom,s.bottom)-Math.max(h.top,s.top))}};
+  });
+  await writeFile(new URL('narrow-layout.json',output),JSON.stringify(layout,null,2));
+  await page.screenshot({path:new URL('narrow-last-action.png',output).pathname,fullPage:true});
+  assert.equal(layout.viewport.scrollWidth,390); assert.equal(layout.viewport.scrollHeight,844); assert.equal(layout.overlap.width*layout.overlap.height,0);
+  await page.locator('.nq-frame-window.nq-window-active').evaluate(el=>{el.scrollTop=0;});
+  await page.screenshot({path:new URL('narrow-feedback-start.png',output).pathname,fullPage:true});
+  const panelAudit=await audit('scene');
+  await page.keyboard.press('Escape'); assert.equal(await button('Scene').evaluate(el=>el===document.activeElement),true);
+  await button('Sound and reading').click(); await button('Replay Narrator').click(); await button('Close Sound and reading').click();
+  const scrollChecks=[];
+  for(const selector of ['.nq-shell-status','.nq-media-caption']) {
+    const region=page.locator(selector);
+    const initial=await region.evaluate(el=>({text:el.textContent,clientHeight:el.clientHeight,scrollHeight:el.scrollHeight,scrollTop:el.scrollTop,tabindex:el.getAttribute('tabindex')}));
+    if(initial.scrollHeight>initial.clientHeight){
+      let found=false;
+      for(let i=0;i<30;i++){await page.keyboard.press('Tab');if(await region.evaluate(el=>el===document.activeElement)){found=true;break;}}
+      assert.equal(found,true,`${selector} must be reachable through Tab when scrollable`);
+      for(let i=0;i<12;i++)await page.keyboard.press('ArrowDown');
+      assert.ok(await region.evaluate(el=>el.scrollTop)>initial.scrollTop,`${selector} must scroll by keyboard`);
+    }
+    scrollChecks.push({selector,initial,after:await region.evaluate(el=>({scrollTop:el.scrollTop,focused:el===document.activeElement}))});
+  }
+  await writeFile(new URL('stage-keyboard-scroll.json',output),JSON.stringify(scrollChecks,null,2));
+  await page.screenshot({path:new URL('narrow-stage-long-feedback.png',output).pathname,fullPage:true});
+  const stageAudit=await audit('stage');
+  await button('Open scene description').click(); await button('Link indication').click();
+  assert.match(await page.locator('.nq-shell-status').innerText(),/Link indication/);
+  await button('Retry visual scene').click(); await page.locator('.nq-room[data-rendered=true]').waitFor(); await button('Close Scene objects and exits').click();
+  await page.screenshot({path:new URL('narrow-recovered-room.png',output).pathname,fullPage:true});
+  // The joined suite exposed a real relocated-control duplication. Exercise
+  // controller reconciliation directly, never select the first duplicate.
+  await button('Scene').click(); const capsule=button('Look at message capsule'); await capsule.click();
+  const packet=page.getByRole('dialog',{name:'Packet journey',exact:true}),packetPhases=[];
+  const returned=packet.getByRole('button',{name:'Return to investigation',exact:true});
+  for(const phase of ['payload','encode','transmit','decode','compare']){
+    assert.match(await packet.getByRole('heading').innerText(),new RegExp(`— ${phase}`));
+    assert.equal(await returned.count(),1,`Exactly one current Return control in ${phase}`);
+    await returned.focus(); await returned.press('l'); assert.equal(await returned.evaluate(el=>el===document.activeElement),true);
+    packetPhases.push({phase,returnCount:await returned.count(),focusRetained:true});
+    if(phase!=='compare')await packet.getByRole('button',{name:'Step journey',exact:true}).press('Enter');
+  }
+  await page.screenshot({path:new URL('packet-compare.png',output).pathname,fullPage:true});
+  await packet.getByRole('button',{name:'Replay journey',exact:true}).click(); assert.equal(await returned.count(),1);
+  assert.match(await packet.getByRole('heading').innerText(),/— payload/);
+  const oldReturn=await returned.elementHandle(); assert.ok(oldReturn);
+  await returned.press('Escape'); assert.equal(await packet.isVisible(),false); assert.equal(await capsule.evaluate(el=>el===document.activeElement),true);
+  assert.equal(await oldReturn.evaluate(el=>el.isConnected),false);
+  await capsule.click(); assert.equal(await returned.count(),1);
+  await oldReturn.evaluate(el=>(el as HTMLButtonElement).click());
+  assert.equal(await packet.isVisible(),true); assert.match(await packet.getByRole('heading').innerText(),/— payload/); assert.equal(await returned.count(),1);
+  await returned.click(); assert.equal(await packet.isVisible(),false);
+  await writeFile(new URL('packet-controls.json',output),JSON.stringify({phases:packetPhases,replayReturnCount:1,reopenReturnCount:1,escapeRestoresCapsule:true,oldReturnDisconnected:true,oldDetachedClickIgnored:true,explicitReturnCloses:true},null,2));
+  assert.deepEqual(errors,[]); assert.deepEqual(mutations,[]);
+  await writeFile(new URL('result.json',output),JSON.stringify({valid:true,errors,mutations,sceneAxeViolations:0,stageAxeViolations:0,sceneAxePasses:panelAudit.passes.length,stageAxePasses:stageAudit.passes.length,scope:'Isolated process, actual guest app + trusted local TLS,390x844,in-app200%text,full default axe; no real providers,human/native-zoom or assistive-technology claim.'},null,2));
+  process.stdout.write('Independent affected narrow checks passed.\n');
+}finally{try{await context?.close();}finally{await local.stop();}}

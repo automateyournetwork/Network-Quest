@@ -1,0 +1,101 @@
+{
+  "recordedAt": "2026-11-26T21:40:33.385952+00:00",
+  "status": "Refreshed preparation only; no runtime or native browser operation",
+  "priorObservation": {
+    "path": "docs/evidence/spec001/presentation/t067/frame-revision/preparation-checks.json",
+    "sha256": "12397b8183764887da2b6a5ec8161f9a2207a2bfdc490165edc7d2f968a74fc3",
+    "unchanged": true
+  },
+  "reviewCorrections": [
+    {
+      "foundBy": "Root read-through before execution",
+      "issue": "closeFrame used visible Close text while button lookup prioritized the descriptive aria-label; revised loop077 shortens visible text to Close.",
+      "change": "Shared buttonName uses aria-label fallback visible text for both lookup and close activation.",
+      "runtimeFailureClaimed": false
+    },
+    {
+      "foundBy": "Root surface-evidence review",
+      "issue": "DOM visibility alone does not prove native foreground or usable page painting.",
+      "change": "One ordinary activation maximum per run; record native frontmost and actual preflight screenshot, stop before timing if still not frontmost, retain explicit unaccepted surface-review fields. Actual image inspection still required.",
+      "browserOperationsPerformed": false
+    }
+  ],
+  "checks": [
+    {
+      "path": "tools/measurement/t067-frame-firefox.ts",
+      "sha256": "0f36125d23887b5e87c1bb8a24ddb92bc125796971064a20612031cfabb477f7",
+      "method": "Pinned Node --check only",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "path": "tools/measurement/t067-frame-freeze.mjs",
+      "sha256": "88621bbd14627f8aa34136a256805a9849c75df7bd912e6d4477f69b8f1abe9b",
+      "method": "Pinned Node --check only",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "path": "tools/measurement/t067-frame-probe.mjs",
+      "sha256": "5ef3052d1680b70cb16e08f9ff688428edc810c7008512141829a3f10b7840ac",
+      "method": "Pinned Node --check only",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "path": "tools/measurement/t067-frame-review.mjs",
+      "sha256": "6178a19da67ea87a5f02d10beb849f30785a1ce3ce38c45dc041420d439e928c",
+      "method": "Pinned Node --check only",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "path": "tools/measurement/t067-frame-safari.mjs",
+      "sha256": "8a7e149518fd4a4d6401fa709893ccea28dbe120ab4e3f3caebaac5692caced8",
+      "method": "Pinned Node --check only",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "path": "tools/measurement/t067-frame-server.ts",
+      "sha256": "d7a63125e3ccaaad1bcf7e5e7e10b7b577a96eae8f73454a44b65c24027e12ab",
+      "method": "Pinned Node --check only",
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "historicalSeal": {
+    "path": "docs/evidence/spec001/presentation/t067/partial-artifact-seal.json",
+    "sha256": "f64def79aa56259cf5cd824d83ea90d4ff512d6d756fd25b8a8686b73bb38445",
+    "allRecordsUnchanged": 95
+  },
+  "sourceObservations": [
+    {
+      "path": "src/ui/adventure-frame.ts",
+      "sha256": "6b16fba77036847be6ac44ad9382fbf86e74b350dd535a08c6308d6b14fb3b44",
+      "bytes": 15216
+    },
+    {
+      "path": "src/app/application.ts",
+      "sha256": "5e3726cc1daaa2b6658d905b0570757f6f379fee6bb6477605d6481fab3d0762",
+      "bytes": 26175
+    },
+    {
+      "path": "tests/e2e/support/adventure-controls.ts",
+      "sha256": "7efe0fff8e22196cd695a2d404551aac73a49ed2e9eba3ae2860da72cb44269a",
+      "bytes": 2279
+    }
+  ],
+  "sourceObservationLimit": "Loop077 still edits these files. These hashes record preparation reads and do not freeze or accept a runtime.",
+  "browserOperationsPerformed": false,
+  "appBuildOrSharedTestsRun": false,
+  "preparedToolPaths": [
+    "tools/measurement/t067-frame-firefox.ts",
+    "tools/measurement/t067-frame-freeze.mjs",
+    "tools/measurement/t067-frame-probe.d.mts",
+    "tools/measurement/t067-frame-probe.mjs",
+    "tools/measurement/t067-frame-review.mjs",
+    "tools/measurement/t067-frame-safari.mjs",
+    "tools/measurement/t067-frame-server.ts"
+  ]
+}

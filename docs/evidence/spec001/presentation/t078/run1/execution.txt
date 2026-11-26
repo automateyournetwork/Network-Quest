@@ -1,0 +1,47 @@
+
+Running 6 tests using 1 worker
+
+(node:80438) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 frame-review.spec.ts:46:1 › F078-01 honest status remains visible during play and a failed save retains its specific explanation (3.8s)
+  ✓  2 frame-review.spec.ts:69:1 › F078-02 owned gameplay feedback is inside the active modal and shortcuts remain safe while typing (3.1s)
+  ✓  3 frame-review.spec.ts:90:1 › Scene to Dialogue returns to the same accessible opener and Tab remains in the top window (3.1s)
+  ✓  4 frame-review.spec.ts:105:1 › F078-03 canceled New preserves notes and repeated successful New or Restore enters usable room (4.5s)
+  ✘  5 frame-review.spec.ts:127:1 › 390px 200% text keeps top-window actions reachable and text recovery uses the same state (3.4s)
+(node:80760) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  6 frame-review.spec.ts:149:1 › canceled logout preserves memory and confirmed logout clears it with the one server save unchanged (3.8s)
+
+
+  1) frame-review.spec.ts:127:1 › 390px 200% text keeps top-window actions reachable and text recovery uses the same state 
+
+    Error: frame.evaluate: Page crashed
+
+      134 |   await j.page.locator('.nq-shell-objects > li').last().locator('button').last().scrollIntoViewIfNeeded();
+      135 |   await expect(button(j.page,'Close Scene objects and exits')).toBeInViewport();
+    > 136 |   const axe = await new AxeBuilder({page:j.page}).analyze(); expect(axe.violations).toEqual([]);
+          |               ^
+      137 |   const measurement = await observe(j.page,info,'narrow-text-scene');
+      138 |   expect(measurement.viewport.scrollHeight).toBeLessThanOrEqual(measurement.viewport.height);
+      139 |   expect(measurement.viewport.scrollWidth).toBeLessThanOrEqual(measurement.viewport.width);
+        at AxeBuilder.runPartialRecursive (/Users/john.capobianco/Network-Quest/node_modules/@axe-core/playwright/dist/index.mjs:303:34)
+        at AxeBuilder.analyze (/Users/john.capobianco/Network-Quest/node_modules/@axe-core/playwright/dist/index.mjs:228:28)
+        at /Users/john.capobianco/Network-Quest/.local/t078/frame-review.spec.ts:136:15
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    results/frame-review-390px-200-tex-34051-ecovery-uses-the-same-state/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: results/frame-review-390px-200-tex-34051-ecovery-uses-the-same-state/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    results/frame-review-390px-200-tex-34051-ecovery-uses-the-same-state/trace.zip
+    Usage:
+
+        npx playwright show-trace results/frame-review-390px-200-tex-34051-ecovery-uses-the-same-state/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    frame-review.spec.ts:127:1 › 390px 200% text keeps top-window actions reachable and text recovery uses the same state 
+  5 passed (22.6s)

@@ -258,3 +258,41 @@ measurements are historical candidate evidence, not acceptance of the revised
 interface. Revised browser/accessibility evidence, actual Safari and final owner
 review remain pending, alongside earlier aggregate prerequisites. T066/T067 stay
 unchecked and G3 stays PENDING. No full episode or release is accepted.
+
+## Contained-screen correction verified — 2026-11-26
+
+Loop077 replaces the page of controls with one contained adventure frame, compact
+icons/verbs and contextual accessible windows. Final joined browser verification
+passes66/66, focused units287/287, check and production build pass. Source/build
+hashes stayed fixed. The [implementation packet](presentation/t077/review.md)
+preserves all failed development runs and corrected input/focus/control ownership
+defects. The [independent review](presentation/t078/review.md) passes five direct
+scenarios plus narrow Scene/stage full-default axe, keyboard scrolling, text/visual
+recovery and packet lifecycle checks. Original contrast-incomplete entries remain;
+[source-color review](presentation/frame-contrast-review.md) is supplemental.
+
+The corrected [owner review packet](presentation/t067/frame-revision/review.md)
+serves the exact built candidate at the revised local preview. Owner review has
+been requested; no answer is inferred. Loop073 is measuring this revision separately
+from the preserved historical candidate. T066/T067 remain unchecked and G3 remains
+PENDING for the required review/evidence and earlier aggregate prerequisites.
+No complete episode, real-provider verification, release or deployment is claimed.
+
+### Revised R01 measured; native/owner evidence remains pending — 2026-11-26
+
+The frozen contained-screen candidate completed12 Firefox159 samples on six
+independent origins, three cold/warm pairs per required desktop viewport. Root
+recomputed readiness2.108–2.155s cold/0.661–0.694s warm, actual render cadence
+113.75–120.25FPS, byte/triangle/estimated-texture bounds and source integrity.
+All numeric budgets pass under the recorded calibrated local-response profile.
+No page/scene-asset errors occurred. Preserve intentional guest-session503s,
+favicon404s and canceled narrator range requests; warm completed entries do not
+prove full audio-cache reuse. All12 inherited context-loss text predicates are
+false; separate final077 keyboard context-loss/recovery evidence is distinct.
+
+Actual Safari27.2 preflight remained hidden and outside the foreground after the
+one allowed activation. No Safari timing sample, painted-surface success or
+required-viewport result is claimed. Corrected-screen owner approval and usable
+native Safari evidence remain pending. See the [revised owner packet](presentation/t067/frame-revision/review.md).
+T066/T067 remain unchecked; G3 and earlier aggregate gates do not pass from these
+scoped Firefox results. No episode release or deployment is accepted.

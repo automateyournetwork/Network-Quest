@@ -1,0 +1,69 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/ui tests/presentation tests/services/save-coordinator.test.ts tests/services/account.test.ts
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/presentation/audio.test.ts (13 tests) 8ms
+ ✓ tests/services/account.test.ts (21 tests) 52ms
+ ✓ tests/presentation/room-adapter.test.ts (9 tests) 17ms
+ ✓ tests/ui/packet-journey.test.ts (20 tests) 54ms
+ ✓ tests/ui/action-bus.test.ts (26 tests) 9ms
+ ✓ tests/presentation/resource-pool.test.ts (7 tests) 16ms
+ ✓ tests/presentation/introduction-graybox.test.ts (11 tests) 6ms
+ ✓ tests/ui/title.test.ts (7 tests) 5ms
+ ✓ tests/presentation/room-media.test.ts (4 tests) 1306ms
+   ✓ actual R01 media admission (4)
+     ✓ rejects wrong authored use targets and export formats before starting an adventure 1298ms
+ ✓ tests/ui/scene-objects.test.ts (8 tests) 2399ms
+   ✓ T028 equivalent scene object/navigation projection (8)
+     ✓ projects every actual hotspot, exit, region and safe position with the T025 actions intact 401ms
+     ✓ projects all six workshop exits honestly and does not move through a locked or unavailable one 354ms
+ ✓ tests/ui/notebook.test.ts (10 tests) 2666ms
+   ✓ T027 trusted notebook controller and projections (9)
+     ✓ uses actual T025 room/hotspot/tool bindings and records real copper inspection 422ms
+     ✓ opens through PanelPlanner and projects only recorded facts and actual measurements, never a static inspected flag 358ms
+ ✓ tests/ui/verbs.test.ts (11 tests) 3169ms
+   ✓ T025 current-room verb resolution (11)
+     ✓ projects visible controls and changes transient verb selection without progress 410ms
+     ✓ rejects remote targets, action IDs as targets, unheld tools and wrong-verb explicit choices 341ms
+ ✓ tests/ui/dialogue.test.ts (12 tests) 3276ms
+   ✓ T026 trusted Talk planner and transient sessions (11)
+     ✓ joins actual T025 Talk, immediately retains clue/kit, skips and replays without rewards 430ms
+     ✓ shares the canonical satchel receipt with Photon and preserves existing objective progress on replay 325ms
+     ✓ holds a reducer dialogue transaction while open and restores the prior safe activity on finish/close 373ms
+ ✓ tests/ui/inventory.test.ts (10 tests) 4019ms
+   ✓ T025 inventory intent and actual reducer boundary (10)
+     ✓ selects/deselects only known held items without progress or persistence changes 473ms
+     ✓ refuses duplicate inventory rows and unknown records instead of making ambiguous quantities usable 610ms
+     ✓ sums same-item debits before rewards and rejects insufficient quantities atomically 568ms
+     ✓ keeps unheld, unrelated, ineligible and unrecoverable transformations unchanged 798ms
+ ✓ tests/ui/save-dialogs.test.ts (24 tests) 8252ms
+   ✓ T050 save dialogs composed with accepted API/account/coordinator/reader (24)
+     ✓ requires explicit first adoption after authenticated GET and empty read; cancellation keeps memory and sends no write 813ms
+     ✓ shows summary and explicit different-adventure load/replace/cancel; restore replaces exact notes and clears transient state 402ms
+     ✓ rejects a stale local-edit load or replacement confirmation 663ms
+     ✓ newer or invalid snapshots retain the read and offer neither load nor replacement 527ms
+     ✓ manual session recovery after a retained login adopts guest progress without writing 542ms
+     ✓ New Adventure suppression survives binding an opted-in account and does not replace the slot 491ms
+     ✓ Cancel while a reviewed read is in flight prevents its late dialog or restore effect 498ms
+ ✓ tests/ui/account-settings.test.ts (42 tests) 11614ms
+   ✓ T052 account settings operation ownership (14)
+     ✓ discloses actual identity, one-slot data and unverified backup policy without invented expiry 898ms
+     ✓ canceling the logout warning changes no runtime, API generation, outstanding work or requests 394ms
+     ✓ confirmed logout stops competing work and clears only after current 204, without save/delete 312ms
+     ✓ lost logout stays unconfirmed and preserves adventure; an explicit current guest GET can confirm revocation 357ms
+ ✓ tests/services/save-coordinator.test.ts (52 tests) 14183ms
+   ✓ T049 coordinator, actual API/reader/capture with synthetic transport only (52)
+     ✓ requires explicit current runtime/API binding and a full slot read before a new write 824ms
+     ✓ manually adopts one confirmed-empty slot, with default autosave OFF and no dirty increment 420ms
+     ✓ uses one conditional slot for eligible automatic writes 321ms
+     ✓ new run/restore invalidation discards the old view without applying its late read to a replacement runtime 480ms
+     ✓ read failure or mismatched summary cannot establish empty-slot or replacement authority 462ms
+
+ Test Files  17 passed (17)
+      Tests  287 passed (287)
+   Start at  17:03:42
+   Duration  14.73s (tests 88%, import 11%, transform 1%)
+

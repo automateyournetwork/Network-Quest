@@ -1,4 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import { clickButton } from './support/adventure-controls';
 import { test, expect, button, dialog, contract, installCookie, type Journey } from './support/t056-journey';
 
 const statusPath = '**/api/v1/account/deletion-status';
@@ -17,21 +18,21 @@ test.describe('T056 operation-specific native deletion status', () => {
   test('lost committed DELETE confirms through the actual completed receipt even after all account sessions disappear', async ({ journey: j }, _info) => {
     await anchor(j);
     await j.page.route('**/api/v1/account', async route => { expect(await j.local.commitAndLoseResponse(route.request())).toBe(204); await route.abort('failed'); });
-    await button(j.page, 'Delete account now').click(); await expect(dialog(j.page, 'Settings')).toContainText('Account deletion confirmed');
+    await clickButton(j.page, 'Delete account now'); await expect(dialog(j.page, 'Settings')).toContainText('Account deletion confirmed');
     expect(await j.local.inspectAccount()).toMatchObject({ accounts: 0, identities: 0, sessions: 0, saves: 0, preferences: 0 });
     expect(checks(j).length).toBe(1); await privateReceipt(j);
     await j.page.screenshot({ path: _info.outputPath('T056-receipt-state.png'), fullPage: true });
-    await expect(j.page.getByRole('heading', { name: 'Network Quest', exact: true })).toBeVisible();
+    await clickButton(j.page,'Close settings'); await expect(j.page.getByRole('heading', { name: 'Network Quest', exact: true })).toBeVisible();
   });
 
   test('prepared durable pending receipt stays unconfirmed and status reads do not reconcile or delete live rows', async ({ journey: j }, _info) => {
     await anchor(j); const original = await j.local.inspectSlot();
     await j.page.route('**/api/v1/account', async route => { await j.local.prepareDeletion((await route.request().allHeaders())['x-deletion-receipt']!); await route.abort('failed'); });
-    await button(j.page, 'Delete account now').click(); await expect(dialog(j.page, 'Settings')).toContainText('Deletion is pending. It has not been confirmed complete.');
+    await clickButton(j.page, 'Delete account now'); await expect(dialog(j.page, 'Settings')).toContainText('Deletion is pending. It has not been confirmed complete.');
     expect(checks(j).length).toBe(1); expect(await j.local.inspectSlot()).toEqual(original); expect((await j.local.inspectAccount()).accounts).toBe(1);
     await expect(j.page.getByRole('heading', { name: 'The Arrival Lift', exact: true })).toBeVisible(); await privateReceipt(j);
     await j.page.screenshot({ path: _info.outputPath('T056-pending-receipt.png'), fullPage: true });
-    await button(j.page, 'Close settings').click(); await j.expectNotes('Deletion prepared notes'); expect(deletes(j).length).toBe(1);
+    await clickButton(j.page, 'Close settings'); await j.expectNotes('Deletion prepared notes'); expect(deletes(j).length).toBe(1);
   });
 
   for (const state of ['unknown', 'expired'] as const) test(`${state} receipt never proves deletion or triggers a second DELETE/sign-in`, async ({ journey: j }, _info) => {
@@ -41,7 +42,7 @@ test.describe('T056 operation-specific native deletion status', () => {
       else await j.local.expireSession((await route.request().allHeaders())['cookie']!);
       await route.abort('failed');
     });
-    await button(j.page, 'Delete account now').click(); await expect(dialog(j.page, 'Settings')).toContainText('This receipt is unknown, expired or no longer available.');
+    await clickButton(j.page, 'Delete account now'); await expect(dialog(j.page, 'Settings')).toContainText('This receipt is unknown, expired or no longer available.');
     await expect(dialog(j.page, 'Settings')).not.toContainText('Account deletion confirmed'); await expect(button(j.page, 'Check deletion status')).toBeHidden();
     await expect(j.page.getByRole('heading', { name: 'The Arrival Lift', exact: true })).toBeVisible(); expect(checks(j).length).toBe(1); await privateReceipt(j);
     expect(j.mutations.filter(m => m.path.endsWith('/auth/github/start')).length).toBe(1);
@@ -56,9 +57,9 @@ test.describe('T056 operation-specific native deletion status', () => {
     await anchor(j); const original = await j.local.inspectSlot();
     await j.page.route('**/api/v1/account', route => route.abort('failed'));
     await j.page.route(statusPath, route => route.abort('failed'));
-    await button(j.page, 'Delete account now').click(); await expect.poll(() => checks(j).length).toBe(1);
+    await clickButton(j.page, 'Delete account now'); await expect.poll(() => checks(j).length).toBe(1);
     await expect(dialog(j.page, 'Settings')).toContainText('Deletion is unconfirmed'); expect(await j.local.inspectSlot()).toEqual(original); await privateReceipt(j);
-    await j.page.reload(); await expect(j.page.getByText('Synthetic T050 player (github)', { exact: true })).toBeVisible(); await button(j.page, 'Settings').click();
+    await j.page.reload(); await expect(j.page.getByText('Synthetic T050 player (github)', { exact: true })).toBeVisible(); await clickButton(j.page, 'Settings');
     await expect(button(j.page, 'Check deletion status')).toBeHidden(); await expect(dialog(j.page, 'Settings')).not.toContainText('Account deletion confirmed');
     expect(checks(j).length).toBe(1); expect(deletes(j).length).toBe(1); expect(await j.local.inspectSlot()).toEqual(original);
   });
@@ -69,16 +70,16 @@ test.describe('T056 operation-specific native deletion status', () => {
     await j.page.route('**/api/v1/account', async route => { expect(await j.local.commitAndLoseResponse(route.request())).toBe(204); await route.abort('failed'); });
     await j.page.route(statusPath, async route => { const result = await j.local.forwardNative(route.request()); expect(result.status).toBe(200); expect(JSON.parse(result.body).state).toBe('completed'); reached(); await held; await route.fulfill(result).catch(() => {}); delivered = true; });
     try {
-      await button(j.page, 'Delete account now').click(); await captured; await button(j.page, 'Close settings').click();
-      await button(j.page, 'Save').click(); await expect(dialog(j.page, 'Sign in to save')).toBeVisible();
+      await clickButton(j.page, 'Delete account now'); await captured; await clickButton(j.page, 'Close settings');
+      await clickButton(j.page, 'Save'); await expect(dialog(j.page, 'Sign in to save')).toBeVisible();
       const popup = await j.openProvider('Google'); const next = await j.local.syntheticSession('google'); await installCookie(j.context, next.cookie);
-      await popup.bringToFront(); await j.page.bringToFront(); if (await button(j.page, 'Check Session').isVisible()) await button(j.page, 'Check Session').click();
-      await expect(dialog(j.page, 'Save this adventure?')).toBeVisible(); await button(j.page, 'Cancel').click();
+      await popup.bringToFront(); await j.page.bringToFront(); // The app checks the returned provider session on focus; await the adopted state below.
+      await expect(dialog(j.page, 'Save this adventure?')).toBeVisible(); await clickButton(j.page, 'Cancel');
       await j.start(); await j.notes('Later Google account survives'); await j.firstSave(); const current = await j.local.inspectSlot('google');
       release(); await expect.poll(() => delivered).toBe(true);
       await expect(j.page.getByText('Synthetic T056 Google player (google)', { exact: true })).toBeVisible(); await j.expectNotes('Later Google account survives');
       expect(await j.local.inspectSlot('google')).toEqual(current); expect((await j.local.inspectAccount()).accounts).toBe(1); expect(deletes(j).length).toBe(1);
-      await button(j.page, 'Settings').click(); await expect(dialog(j.page, 'Settings')).not.toContainText('Account deletion confirmed');
+      await clickButton(j.page, 'Settings'); await expect(dialog(j.page, 'Settings')).not.toContainText('Account deletion confirmed');
       await j.page.screenshot({ path: _info.outputPath('T056-later-account-survives.png'), fullPage: true });
     } finally { release(); }
   });

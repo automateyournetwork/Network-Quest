@@ -1,0 +1,165 @@
+// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+// Independent Loop078 observation. Actual public app; private synthetic account
+// fixture only. Direct UI steps intentionally do not close unexpected windows.
+import { test, expect } from '../../tests/e2e/support/t056-journey';
+import type { Journey } from '../../tests/e2e/support/t056-journey';
+import type { Page, TestInfo } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+import { writeFile } from 'node:fs/promises';
+
+const button = (page:Page,name:string) => page.getByRole('button',{name,exact:true})
+  .and(page.locator('button:not([inert]):not([inert] *)'));
+
+async function observe(page: Page, info: TestInfo, name: string) {
+  const state = await page.evaluate(() => {
+    const active = document.activeElement as HTMLElement | null;
+    return {
+      active: active ? { tag: active.tagName, text: active.textContent?.slice(0,160), hidden: !!active.closest('[hidden]'), inert: !!active.closest('[inert]') } : null,
+      modals: [...document.querySelectorAll<HTMLElement>('.nq-window-active')].map(el => ({ label: el.getAttribute('aria-label'), role: el.getAttribute('role'), modal: el.getAttribute('aria-modal') })),
+      status: [...document.querySelectorAll<HTMLElement>('[role=status], .nq-save > p')].map(el => ({ text:el.textContent, hidden:!!el.closest('[hidden]'), inert:!!el.closest('[inert]'), visibility:getComputedStyle(el).visibility, rects:el.getClientRects().length })),
+      viewport: { width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,scrollHeight:document.documentElement.scrollHeight },
+    };
+  });
+  await writeFile(info.outputPath(`${name}.json`), JSON.stringify(state,null,2));
+  await page.screenshot({ path:info.outputPath(`${name}.png`),fullPage:true });
+  return state;
+}
+async function start(j: Journey) {
+  await button(j.page,'New Adventure').click();
+  await button(j.page,'Start new adventure').click();
+  await expect(j.page.locator('.nq-room')).toHaveAttribute('data-rendered','true');
+  await expect(j.page.locator('[aria-modal=true]')).toHaveCount(0);
+  expect(await button(j.page,'Walk').evaluate(el => !!el.closest('[inert]'))).toBe(false);
+}
+async function notes(page: Page, value: string) {
+  await button(page,'Notebook').click();
+  await page.getByRole('textbox',{name:'Personal notes',exact:true}).fill(value);
+  await button(page,'Close notebook').click();
+}
+async function firstSave(j: Journey) {
+  await button(j.page,'Game').click(); await button(j.page,'Save').click();
+  await button(j.page,'Save this adventure').click();
+  await expect.poll(async () => (await j.local.inspect())?.revision).toBe(1);
+  await button(j.page,'Close Game menu').click();
+}
+
+test('F078-01 honest status remains visible during play and a failed save retains its specific explanation', async ({journey:j},info) => {
+  await start(j); await notes(j.page,'Loop078 synthetic saved note'); await firstSave(j);
+  const saved = await j.local.inspect();
+  await button(j.page,'Game').click();
+  const savedInMenu = j.page.getByRole('dialog',{name:'Game menu',exact:true}).getByText(/^Saved at /);
+  await expect(savedInMenu).toBeVisible(); expect(await savedInMenu.evaluate(el => !!el.closest('[inert]'))).toBe(false);
+  await button(j.page,'Close Game menu').click();
+  await notes(j.page,'Loop078 synthetic unsaved note');
+  const status = j.page.getByText('Unsaved changes',{exact:true});
+  await expect(status).toBeVisible();
+  expect(await status.evaluate(el => !!el.closest('[inert]'))).toBe(false);
+  await j.page.route('**/api/v1/save', async route => {
+    if (route.request().method() !== 'PUT') return route.continue();
+    await route.fulfill({status:503,headers:{'Cache-Control':'no-store','Content-Type':'application/json','Retry-After':'2'},body:JSON.stringify({code:'unavailable',message:'Loop078 synthetic unavailable service',requestId:'10000000-0000-4000-8000-000000000078'})});
+  });
+  await button(j.page,'Game').click(); await button(j.page,'Save').click();
+  const recovery = j.page.getByRole('dialog',{name:'Save outcome unconfirmed',exact:true}); await expect(recovery).toBeVisible();
+  const reason = recovery.getByText('Account service is unavailable. Keep playing in this tab; progress is not confirmed saved.',{exact:true}).first();
+  await expect(reason).toBeVisible(); expect(await reason.evaluate(el => !!el.closest('[inert]'))).toBe(false);
+  expect(await j.local.inspect()).toEqual(saved);
+  await observe(j.page,info,'save-specific-failure');
+});
+
+test('F078-02 owned gameplay feedback is inside the active modal and shortcuts remain safe while typing', async ({journey:j},info) => {
+  await start(j); await button(j.page,'Talk').click(); await button(j.page,'Scene').click();
+  await button(j.page,'Talk to Photon the Firefly').click(); await button(j.page,'Skip dialogue').click();
+  const scene = j.page.getByRole('dialog',{name:'Scene objects and exits',exact:true});
+  if (await scene.isVisible()) await button(j.page,'Close Scene objects and exits').click();
+  await button(j.page,'Inventory').click(); await button(j.page,'Select Reusable inspection kit').click();
+  const inventory = j.page.getByRole('dialog',{name:'Inventory',exact:true});
+  const feedback = inventory.locator('.nq-shell-status');
+  await expect(feedback).toContainText('selected. Choose a scene target or another inventory item.');
+  expect(await feedback.evaluate(el => !!el.closest('[inert]'))).toBe(false);
+  await observe(j.page,info,'inventory-feedback');
+  await button(j.page,'Close Inventory').click(); await expect(button(j.page,'Inventory')).toBeFocused();
+  await button(j.page,'Notebook').focus(); await j.page.keyboard.press('n');
+  const notebook = j.page.getByRole('dialog',{name:'Notebook',exact:true});
+  const editor = j.page.getByRole('textbox',{name:'Personal notes',exact:true});
+  await editor.fill('wl tuin c'); await editor.press('n');
+  await expect(editor).toHaveValue('wl tuin cn'); await expect(editor).toBeFocused(); await expect(notebook).toBeVisible();
+  await editor.press('Escape'); await expect(button(j.page,'Notebook')).toBeFocused();
+  expect(j.writes()).toHaveLength(0);
+});
+
+test('Scene to Dialogue returns to the same accessible opener and Tab remains in the top window', async ({journey:j},info) => {
+  await start(j); await button(j.page,'Talk').click(); await button(j.page,'Scene').click();
+  const opener = button(j.page,'Talk to Photon the Firefly'); await opener.press('Enter');
+  const dialogue = j.page.getByRole('dialog',{name:'Dialogue',exact:true});
+  await expect(dialogue).toBeVisible(); await expect(dialogue).toHaveAttribute('aria-modal','true');
+  const close = button(j.page,'Close dialogue'); await close.focus(); await close.press('l');
+  await expect(close).toBeFocused();
+  for (let i=0;i<12;i++) { await j.page.keyboard.press(i%3===0?'Shift+Tab':'Tab'); expect(await dialogue.evaluate(el => el.contains(document.activeElement))).toBe(true); }
+  await j.page.keyboard.press('Escape'); await expect(dialogue).toBeHidden();
+  await observe(j.page,info,'dialogue-return');
+  await expect(opener).toBeVisible(); await expect(opener).toBeFocused();
+  expect(await opener.evaluate(el => !!el.closest('[inert]'))).toBe(false);
+  expect(j.writes()).toHaveLength(0);
+});
+
+test('F078-03 canceled New preserves notes and repeated successful New or Restore enters usable room', async ({journey:j},info) => {
+  await start(j); await notes(j.page,'Loop078 durable restore marker'); await firstSave(j);
+  await notes(j.page,'Loop078 unsaved cancel marker');
+  await button(j.page,'Game').click(); await button(j.page,'New Adventure').click();
+  await button(j.page,'Cancel').click(); await button(j.page,'Close Game menu').click();
+  await button(j.page,'Notebook').click(); await expect(j.page.getByRole('textbox',{name:'Personal notes',exact:true})).toHaveValue('Loop078 unsaved cancel marker');
+  await button(j.page,'Close notebook').click();
+  for (let i=0;i<3;i++) {
+    await button(j.page,'Game').click(); await button(j.page,'New Adventure').click(); await button(j.page,'Start new adventure').click();
+    await expect(j.page.locator('[aria-modal=true]')).toHaveCount(0);
+    expect(await button(j.page,'Walk').evaluate(el => !!el.closest('[inert]'))).toBe(false);
+    await expect(j.page.getByRole('heading',{name:'The Arrival Lift',exact:true})).toBeFocused();
+    await button(j.page,'Look').press('Enter'); await expect(button(j.page,'Look')).toHaveAttribute('aria-pressed','true');
+  }
+  await button(j.page,'Game').click(); await button(j.page,'Restore Save').click(); await button(j.page,'Discard current progress and load').click();
+  await expect(j.page.locator('[aria-modal=true]')).toHaveCount(0);
+  await expect(j.page.getByRole('heading',{name:'The Arrival Lift',exact:true})).toBeFocused();
+  await button(j.page,'Notebook').click(); await expect(j.page.getByRole('textbox',{name:'Personal notes',exact:true})).toHaveValue('Loop078 durable restore marker');
+  await button(j.page,'Close notebook').click(); await observe(j.page,info,'restored-room');
+  expect(j.writes()).toHaveLength(1); expect((await j.local.inspect())?.revision).toBe(1);
+});
+
+test('390px 200% text keeps top-window actions reachable and text recovery uses the same state', async ({journey:j},info) => {
+  await start(j); await j.page.setViewportSize({width:390,height:844});
+  await button(j.page,'Sound and reading').click(); await j.page.getByRole('slider',{name:'Text size',exact:true}).fill('2');
+  await expect(j.page.locator('.nq-media-preferences-status')).toHaveText('Presentation preferences saved to your account.');
+  await button(j.page,'Close Sound and reading').click();
+  await button(j.page,'Scene').click(); const scene = j.page.getByRole('dialog',{name:'Scene objects and exits',exact:true});
+  await button(j.page,'Text scene').click();
+  await j.page.locator('.nq-shell-objects > li').last().locator('button').last().scrollIntoViewIfNeeded();
+  await expect(button(j.page,'Close Scene objects and exits')).toBeInViewport();
+  await observe(j.page,info,'narrow-before-axe');
+  const axe = await new AxeBuilder({page:j.page}).analyze(); expect(axe.violations).toEqual([]);
+  const measurement = await observe(j.page,info,'narrow-text-scene');
+  expect(measurement.viewport.scrollHeight).toBeLessThanOrEqual(measurement.viewport.height);
+  expect(measurement.viewport.scrollWidth).toBeLessThanOrEqual(measurement.viewport.width);
+  await j.page.keyboard.press('Escape'); await expect(button(j.page,'Scene')).toBeFocused();
+  await button(j.page,'Open scene description').click(); await expect(scene).toBeVisible();
+  await j.page.keyboard.press('l'); await button(j.page,'Power indication').click();
+  await expect(scene.locator('.nq-shell-status')).toContainText('Power indication');
+  await button(j.page,'Retry visual scene').click(); await expect(j.page.locator('.nq-room')).toHaveAttribute('data-rendered','true');
+  await button(j.page,'Close Scene objects and exits').click(); await observe(j.page,info,'narrow-recovered-room');
+  expect(j.writes()).toHaveLength(0);
+});
+
+test('canceled logout preserves memory and confirmed logout clears it with the one server save unchanged', async ({journey:j},info) => {
+  await start(j); await notes(j.page,'Loop078 durable logout marker'); await firstSave(j); const saved=await j.local.inspect();
+  await notes(j.page,'Loop078 unsaved logout marker');
+  await button(j.page,'Game').click(); await button(j.page,'Settings').click(); await button(j.page,'Log out').click();
+  const before=j.mutations.length; await button(j.page,'Cancel').click(); expect(j.mutations.length).toBe(before);
+  await button(j.page,'Close settings').click();
+  const game=j.page.getByRole('dialog',{name:'Game menu',exact:true}); if(await game.isVisible()) await button(j.page,'Close Game menu').click();
+  await button(j.page,'Notebook').click(); await expect(j.page.getByRole('textbox',{name:'Personal notes',exact:true})).toHaveValue('Loop078 unsaved logout marker'); await button(j.page,'Close notebook').click();
+  await button(j.page,'Game').click(); await button(j.page,'Settings').click(); await button(j.page,'Log out').click(); await button(j.page,'Confirm logout').click();
+  await expect(j.page.getByRole('dialog',{name:'Settings',exact:true})).toContainText('Logout confirmed');
+  await button(j.page,'Close settings').click(); await expect(j.page.getByRole('heading',{name:'Network Quest',exact:true})).toBeVisible();
+  expect(await j.page.evaluate(()=>document.body.textContent?.includes('Loop078 unsaved logout marker'))).toBe(false);
+  expect(await j.local.inspect()).toEqual(saved); expect(j.writes()).toHaveLength(1);
+  expect(j.mutations.filter(m=>m.path.endsWith('/logout'))).toHaveLength(1);
+  await observe(j.page,info,'logout-title');
+});
