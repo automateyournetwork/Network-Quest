@@ -145,6 +145,13 @@ Keep every AC01–21 row visible. G6 passes only its executable criteria and act
 
 ## G7 — independent package, recovery and release
 
+The owner's subsequent continuation/release instruction explicitly authorizes
+reviewed GitHub publication and deployment of the finished accepted release with
+its arcade listing. The initiation condition below is satisfied subject to all
+specified acceptance and owner-review prerequisites; it is not another pending
+generic permission request. GitHub push and GoDaddy activation remain separate.
+This authorization does not pass a gate or permit calling a scaffold complete.
+
 **Status: PENDING.** Decision task T170; destinations `docs/evidence/spec001/recovery-drill.md`, `docs/evidence/spec001/staging.md`, `docs/evidence/spec001/release-readiness.md`, `docs/evidence/spec001/release.md`, `docs/evidence/spec001/acceptance-matrix.md` and this ledger. Coverage: W09, C2/C6/C12/C13/C14/C15; FR-012/015/016/023–026; NQ-10/11/12; final AC01–21 reconciliation, especially AC11–13/16/17/19.
 
 - T164: Produce checksummed standalone client/PHP/vendor/schema/credits/source-index package with code/content/API/save/DB compatibility metadata; verify no private website, credentials, records or backups are included.

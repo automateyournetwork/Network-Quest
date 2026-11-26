@@ -140,6 +140,22 @@ describe('T052 account settings operation ownership', () => {
     for (let i = 0; i < 10; i++) await f.advance(30000);
     expect(count()).toBeLessThanOrEqual(6); expect(f.timers.size).toBe(0); expect(f.lifecycle.clearToTitle).not.toHaveBeenCalled(); f.dispose();
   });
+  it('re-arms an early deletion-status timer without checking before its backoff', async () => {
+    const f = await fixture(); await f.reauth(); f.deletion = async () => { throw new Error('lost'); };
+    try {
+      await f.controller.act('send-delete'); await f.advance(999);
+      expect(f.timers.size).toBe(1);
+      const [id, timer] = [...f.timers][0]!;
+      // The platform wake-up and Date.now can differ slightly. Deliver this
+      // callback one millisecond before its wall-clock eligibility threshold.
+      f.timers.delete(id); timer.fn(); await flush();
+      const reads = () => f.fetcher.mock.calls.filter(([url]) => String(url).endsWith('/deletion-status')).length;
+      expect(reads()).toBe(0); expect(f.timers.size).toBe(1);
+      await f.advance(1); expect(reads()).toBe(1);
+      expect(f.fetcher.mock.calls.filter(([, init]) => init?.method === 'DELETE').length).toBe(1);
+      expect(f.controller.project().phase).toBe('delete-unconfirmed');
+    } finally { f.dispose(); }
+  });
   it('drops receipt polling and stale completion after disposal or an explicit later view', async () => {
     const f = await fixture(); await f.reauth(); f.deletion = async () => { throw new Error('lost'); }; const response = deferred<Response>(); f.status = () => response.promise;
     await f.controller.act('send-delete'); await f.advance(1000); f.replaceView(); const before = f.state;

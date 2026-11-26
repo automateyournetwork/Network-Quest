@@ -38,8 +38,10 @@ responses. Vitest discovers `tests/**/*.test.ts`; new Playwright specs must be
 assigned explicitly or discovery fails. T024 executes 15 reviewed copper/content-error
 cases; 68 evaluator cases remain pending. T030 owns acceptance of T022's nine
 independent guest browser cases; consult HANDOFF/state for current results.
-`assets:verify`, `package:release` and deployment commands remain
-planned and must be implemented before invocation. No test command deploys.
+`npm run assets:verify` now audits inventory; `-- --mode release` also enforces
+media minima and distribution. It checks evidence consistency, not human review.
+`package:release` and deployment commands remain planned and must be implemented
+before invocation. No test command deploys.
 
 ## Code Style
 

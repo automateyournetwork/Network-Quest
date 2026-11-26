@@ -224,18 +224,20 @@ function baseline(name: string): FixtureInput {
   if (name === 'shared-blend') {
     const a = prop(input), b = prop(input, 2);
     // Separate named objects in one saved/reopened source, not two copies of one object.
-    const oldHash = b['sources'][0].file.sha256;
+    const oldHash = b['sources'][0].file.sha256, oldPath = b['sources'][0].file.path;
     const source = structuredClone(a['sources'][0].file);
     b['sources'][0].file = source; b['model'].blendSourcePath = source.path;
-    replaceHash(input, b, oldHash, source.sha256); return input;
+    replaceHash(input, b, oldHash, source.sha256);
+    replaceObservedPath(input, b, oldPath, source.path); return input;
   }
   if (name === 'derived-layers') {
     const parent = imageAsset(input);
     for (const role of ['midground', 'foreground']) {
       const child = imageAsset(input, 1, role);
-      const oldHash = child['sources'][1].file.sha256;
+      const oldHash = child['sources'][1].file.sha256, oldPath = child['sources'][1].file.path;
       child['sources'][1].file = structuredClone(parent['sources'][1].file);
       replaceHash(input, child, oldHash, parent['sources'][1].file.sha256);
+      replaceObservedPath(input, child, oldPath, parent['sources'][1].file.path);
       child['derivedFrom'] = [parent['assetId']];
       child['production'] = [{ ...child['production'][0], method: 'manual-edit', tool: 'Image editor', eventId: `synthetic-edit-${role}`, referenceHashes: [parent['sources'][1].file.sha256], outputHashes: [child['sources'][0].file.sha256], notes: 'Separate usable mask/layer from one actual parent call; no new OpenAI call.' }];
       const id = child['assetId'].slice('spec001:ASSET-'.length);
@@ -269,6 +271,15 @@ function baseline(name: string): FixtureInput {
   }
   for (let n = 1; n <= 60; n++) voice(input, n);
   return input;
+}
+function replaceObservedPath(input: FixtureInput, asset: RecordData, oldPath: string, newPath: string) {
+  // A mechanically shared source changes its observed path as well as hash.
+  // Preserve the existing review/expected result; do not manufacture a new check.
+  for (const [path, record] of Object.entries(input.evidence.records)) {
+    if (record.assetId !== asset['assetId'] || !Array.isArray(record.details['observedPaths'])) continue;
+    record.details['observedPaths'] = record.details['observedPaths'].map(value => value === oldPath ? newPath : value);
+    input.evidence.files[path] = JSON.stringify(record);
+  }
 }
 function replaceHash(input: FixtureInput, asset: RecordData, oldHash: string, newHash: string) {
   // Fixture copying helper, never computes validity/counts/expected answers.
@@ -350,6 +361,19 @@ describe('T060 fixture/schema validity only — no media acceptance', () => {
     const input = baseline('derived-layers');
     expect(input.manifest.assets.flatMap(asset => asset['production']).filter(event => event.method === 'openai-generated')).toHaveLength(1);
     expect(new Set(input.manifest.assets.map(asset => asset['exports'][0].file.sha256)).size).toBe(3);
+  });
+  it('shared-source and derivative reviews observe the current source paths', () => {
+    for (const name of ['shared-blend', 'derived-layers']) {
+      const input = baseline(name);
+      for (const asset of input.manifest.assets) {
+        const paths = [...asset['sources'], ...asset['exports']].map(entry => entry.file.path);
+        for (const record of Object.values(input.evidence.records)) {
+          if (record.assetId === asset['assetId'] && ['visual', 'browser-comparison'].includes(record.check ?? '')) {
+            expect(record.details['observedPaths']).toEqual(expect.arrayContaining(paths));
+          }
+        }
+      }
+    }
   });
 });
 

@@ -19,6 +19,15 @@ Within the Project setup and G0 feasibility batch, T001 precedes the T002–T006
 
 A completed task records its scoped result; it does not certify an entire acceptance criterion whose remaining integration/media/human checks occur later. All eight stories remain required for release. The first playable guest increment is not the complete episode: retain 12 finished rooms, 25 models, 150 props, ≥50 interactive/evidence props, 36 room layers, 25 portraits, 24 illustrations, 8 music cues, 12 ambiences, 40 effects and 60 selected voice lines.
 
+**Current publication authorization:** the owner's later continuation/release
+instruction explicitly authorizes scoped reviewed GitHub commits/pushes and
+deployment of the finished accepted Spec001 release with its arcade listing.
+This satisfies the initiation condition in T168/T169 once their acceptance and
+required owner-review prerequisites are met; do not request the same generic
+publication permission again. Review the concrete staged/release contents and
+preserve all release conditions. GitHub publication and host activation remain
+separate operations. See `AGENTS.md` and `docs/implementation/state.json`.
+
 ## Execution sequence and gate dependencies
 
 | Order | Batch | Task IDs | Required preceding batch | Gate / purpose |
@@ -246,6 +255,20 @@ explicit pending semantic cases until that implementation exists. This preparati
 cannot accept media, count feasibility files, waive listening/benchmark review, or
 start bulk production before G3. T059 remains required for measured benchmark use.
 
+T062 may define art/audio conventions and production/review plans while T061
+implements the validator, after T059 tooling and T060's independent oracle are
+accepted. Use the same agreed stable allocation IDs and disjoint files; reconcile
+the completed manifest before benchmark production. Planning creates no accepted
+media, waives no listening/rights/owner review and does not start bulk production
+before G3. This follows the owner's independent-work continuation instruction.
+
+After accepted T059–T062, T063–T065 may produce the bounded R01 benchmark and
+audition candidates while real-provider/retention evidence remains open. Those
+external capabilities do not supply inputs to Blender/image/audio production.
+Keep shared camera/asset IDs consistent and candidate manifests disjoint until
+root joins them. Actual review, native source reopening and T066 browser use
+remain required; this exception neither passes G2/G3 nor permits bulk production.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -418,7 +441,7 @@ start bulk production before G3. T059 remains required for measured benchmark us
 - [X] T053 [P] [US4] Exercise malformed/oversized/Unicode/schema/ownership/CSRF and forged/expired/replayed state/nonce/signature/audience cases in `server/tests/IdentitySecurityTest.php` and `server/tests/SaveValidationTest.php`, and check all nine API operations/headers/status/body shapes in `server/tests/ApiContractTest.php`; prove isolation and absence of private data/receipt tokens in errors/logs.
 - [X] T054 [P] [US4] Use independent sessions/DB connections for conditional races, lost responses, key reuse/expiry, replay after a later revision and save-vs-logout/deletion in `server/tests/SaveConcurrencyTest.php`. Also commit/lose response/change schema-content write policy/retry: retained receipt succeeds once while the same old payload under a new key is rejected. Cover a receipt appearing during provisional validation and ensure revoked/wrong-account requests never read it.
 - [X] T055 [P] [US4] Test deletion-intent/live-commit/completion-marker crash windows, fresh same-account authorization, receipt binding/expiry/rate limits, wrong-Origin/unknown-token rejection and denied resurrection in `server/tests/AccountDeletionTest.php`; prove receipt-only checks cannot delete/sign in/read progress and that expired sessions cannot be mistaken for completed deletion. Use isolated storage only.
-- [ ] T056 [US4] Run adoption/conflict/offline/session-expiry/autosave/close-and-restore/older-content cases in `tests/e2e/single-save.spec.ts`, canceled/confirmed logout in `tests/e2e/logout.spec.ts`, and lost DELETE response/pending/completed/unknown/expired status plus later-account response isolation in `tests/e2e/account-deletion.spec.ts`; record SAVE01–13 prepared-state results in `docs/evidence/spec001/US4.md` with no deletion success inferred from GET session.
+- [X] T056 [US4] Run adoption/conflict/offline/session-expiry/autosave/close-and-restore/older-content cases in `tests/e2e/single-save.spec.ts`, canceled/confirmed logout in `tests/e2e/logout.spec.ts`, and lost DELETE response/pending/completed/unknown/expired status plus later-account response isolation in `tests/e2e/account-deletion.spec.ts`; record SAVE01–13 prepared-state results in `docs/evidence/spec001/US4.md` with no deletion success inferred from GET session.
 - [ ] T057 [US4] Run actual Google and GitHub save/close/restore and cross-device account-isolation flows, including canceled/blocked popup recovery, and record non-secret results in `docs/evidence/spec001/real-providers.md`; mocks cannot pass AC11.
 - [ ] T058 [US4] Recheck the full authored world graph and one-slot/provider evidence, then record G2 in `docs/evidence/spec001/gates.md`; distinguish prepared encounter/migration fixtures from later full-story UI coverage and leave unavailable real checks unverified.
 
@@ -511,8 +534,8 @@ start bulk production before G3. T059 remains required for measured benchmark us
 **Ready after**: T059.
 
 - [X] T060 [US8] Author semantic manifest negative cases for duplicate identities, missing sources/rights/use, false acceptance, broken lineage and padded quotas in `tests/fixtures/asset-manifests.json` and `tests/content/assets.test.ts`; schema checks alone cannot certify review.
-- [ ] T061 [US8] Implement source/hash/rights/lineage/usage/count validation and assets:verify in `tools/validate-assets.ts`; create the planned CH01–CH25, PR001–PR150 and image/audio identity allocations in `assets-src/manifest.json` without claiming any planned item accepted.
-- [ ] T062 [US8] Define camera/palette/scale/animation/voice conventions and exact production/review records in `assets-src/art-direction.md` and `assets-src/audio/production-plan.json`; allocate 36 room layers, 25 portraits, 24 illustrations, 8 cues, 12 ambiences, 40 effects and 60 selected lines.
+- [X] T061 [US8] Implement source/hash/rights/lineage/usage/count validation and assets:verify in `tools/validate-assets.ts`; create the planned CH01–CH25, PR001–PR150 and image/audio identity allocations in `assets-src/manifest.json` without claiming any planned item accepted.
+- [X] T062 [US8] Define camera/palette/scale/animation/voice conventions and exact production/review records in `assets-src/art-direction.md` and `assets-src/audio/production-plan.json`; allocate 36 room layers, 25 portraits, 24 illustrations, 8 cues, 12 ambiences, 40 effects and 60 selected lines.
 - [ ] T063 [P] [US8] Produce and reopen real R01 scene and Apprentice/Photon .blend sources with locomotion/idle/reaction clips, meaningful props and usable GLB exports in `assets-src/rooms/R01.blend`, `assets-src/characters/CH01.blend`, `assets-src/characters/CH03.blend` and `public/assets/models/`; record actual source/browser comparison.
 - [ ] T064 [P] [US8] Generate actual OpenAI R01 background and two usable layers, preserve original prompts/references/output metadata and honest edits in `assets-src/images/R01/`, then export registered layers under `public/assets/images/R01/`; no fabricated invocation or private temporary references.
 - [ ] T065 [P] [US8] Audition project dialogue for narrator/Titan/Photon/Hermit and representative AI-assisted music/effects in `assets-src/audio/auditions/`; retain raw generations, exact voice/model terms, Audacity4 .aup4/lossless masters and actual headphone/speaker listening records in `docs/evidence/spec001/audio-auditions.md`.

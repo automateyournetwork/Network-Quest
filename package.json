@@ -21,7 +21,8 @@
     "build": "npm run typecheck && npm run save-policy:check && vite build",
     "preview:client": "vite preview --host 127.0.0.1",
     "save-policy:generate": "node tools/generate-save-content-policy.ts --generate",
-    "save-policy:check": "node tools/generate-save-content-policy.ts"
+    "save-policy:check": "node tools/generate-save-content-policy.ts",
+    "assets:verify": "node tools/validate-assets.ts"
   },
   "dependencies": {
     "ajv": "8.20.0",

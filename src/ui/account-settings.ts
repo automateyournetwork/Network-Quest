@@ -120,7 +120,16 @@ export function createAccountSettingsController(options: {
     if (op.checks >= backoff.length || op.nextCheck >= op.deadline) {
       unavailable(op, unknownDeletion + ' Bounded status checking has stopped. No completion is confirmed; a new destructive attempt requires a fresh explicit choice and provider sign-in.'); return false;
     }
-    op.timer = clock.setTimeout(() => { op.timer = null; if (current(op)) void checkDeletion(op); }, delay);
+    const wake = () => {
+      op.timer = null;
+      if (!current(op) || !op.receipt || op.checking) return;
+      // A platform timer can wake just before the wall-clock deadline. Retain
+      // the scheduled observation instead of losing it at checkDeletion's guard.
+      const remaining = op.nextCheck - clock.now();
+      if (remaining > 0) { op.timer = clock.setTimeout(wake, Math.min(remaining, 2147483647)); return; }
+      void checkDeletion(op);
+    };
+    op.timer = clock.setTimeout(wake, delay);
     return true;
   }
   async function checkDeletion(op: Operation): Promise<void> {
