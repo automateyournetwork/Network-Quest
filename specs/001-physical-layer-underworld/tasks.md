@@ -182,6 +182,12 @@ interfaces before acceptance; T044 HTTP save/preferences is not an input to the
 durable storage protocol. Synthetic explicit retention policies do not establish
 host backup coverage or production retention. Real HTTP deletion remains T046.
 
+T044 may build separate save/preferences route handlers on accepted T038/T042/T043
+and the stable AccountAccess contract while T041/T045 complete their disjoint
+composition. Root coordinates configuration/Router ownership; final service
+checks must join the actual barrier and transport. No synthetic policy or pending
+provider/HTTP acceptance becomes production readiness through this scheduling.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -338,7 +344,7 @@ host backup coverage or production retention. Real HTTP deletion remains T046.
 - [X] T037 [US4] Implement dedicated accounts/identities/sessions/auth_transactions/preferences/saves/receipts/migrations tables in `server/migrations/001_game.sql` and `server/src/Database.php`; enforce one slot/account, provider-subject uniqueness and private rollback-journal storage.
 - [X] T038 [US4] Implement opaque Secure/HttpOnly/Lax host-only sessions, rotation, idle/absolute expiry, same-origin CSRF and redacted/rate-limited requests in `server/src/Sessions.php` and `server/src/Security.php`; GET session bootstraps guest CSRF without granting identity.
 - [X] T039 [P] [US4] Implement Google authorization-code/S256 and verified required iss/aud/sub/exp/iat/nonce checks in `server/src/Identity/Google.php`; request openid profile only, validate one-use session-bound state and discard provider tokens after identification.
-- [ ] T040 [P] [US4] Implement GitHub GenericProvider/S256 with explicit empty scopes and GET /user stable numeric ID in `server/src/Identity/GitHub.php`; avoid email/repository access, implicit account merging and token persistence.
+- [X] T040 [P] [US4] Implement GitHub GenericProvider/S256 with explicit empty scopes and GET /user stable numeric ID in `server/src/Identity/GitHub.php`; avoid email/repository access, implicit account merging and token persistence.
 - [ ] T041 [US4] Implement POST auth start, GET callback and GET session in `server/src/Routes/Auth.php`; bind fixed callbacks, ten-minute one-use transactions and deletion reauth purpose, rotate sessions and emit only an origin-safe completion hint to the retained game tab.
 - [X] T042 [US4] Implement strict Draft2020-12/format/registry/safe-state validation in `server/src/SaveValidator.php` and `src/services/save-validator.ts`; enforce 262144 UTF-8 bytes, 4096 Unicode note characters and bounded/known fields for new writes. Return provisional semantic errors to the coordinator; do not bypass receipt-first replay resolution.
 - [X] T043 [US4] Implement single-slot writes in `server/src/SaveRepository.php`: authenticate/bound requests, resolve retained account/key receipts before current semantic policy, validate still-new candidates outside the lock, then BEGIN IMMEDIATE and recheck authorization/receipt before returning a cached validation error or comparing revision. Fingerprint mode/confirmation/precondition/exact bytes; atomically write snapshot/revision/receipt and report committed versus current revision separately.

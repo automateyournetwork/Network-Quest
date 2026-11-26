@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-26
 
-**51 loops started; 36 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
+**52 loops started; 37 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
 Current active ownership is in state.json:
 
 - Loop046/T035 local correction reviewed: real Three.js R01/R02 graybox, shared
@@ -51,15 +51,19 @@ Current active ownership is in state.json:
   suite join357/2790 PASS at migration1; newT040/T041 tests excluded. Exact-byte
   receipts/current-summary/conditional writes verified locally; actual HTTP,
   deletion-ledger barrier and full simultaneous races still join later.
-- Loop049/T040: GitHub identity adapter on actual shared auth/session ports,
-  synthetic HTTP tests only; common files remain loop047-owned until reviewed.
+- T040 accepted in loop049:50 GitHub synthetic cases/1628assertions, joined
+  providers107/2278 PASS with actual GenericProvider/S256 and fixed empty scopes.
+  Root reviewed source/tests and27 seals; current Database default migration2
+  was still T041-review-pending, not accepted by that provider result.
 - Loop050/T041: auth/session routes, private configuration and final account/session
   commit; joins actual T040 before final verification. No production credentials
   in tests and no external deletion-ledger acceptance before T045.
 - Loop051/T045: durable external deletion intents/receipt hashes/account deletion
   and actual AccountAccess barrier; joins T041 purpose-proof forward migration.
-- Next local sequence: review provider adapters and single-slot repository, then
-  actual service integration on verified interfaces. Do not waive required
+- Loop052/T044: save/preferences HTTP handlers on accepted repository/validators,
+  joining actual T045 barrier; shared Router/config remain T041-owned.
+- Next local sequence: review GitHub and join actual auth/save/recovery services
+  on verified interfaces. Do not waive required
   owner/gate reviews or infer real provider acceptance from synthetic tests.
 
 Accepted implementation now includes domain/state/content foundations, accessible
@@ -170,12 +174,13 @@ Do not fabricate listening. Production Audacity4 .aup4/native review remains lat
 ## Publication and release
 
 Latest pushed and independently remote-verified commit:
-`4df0c0884afb9f5d44791ad965573004d7e1a3cd` (T038 sessions/security, T042
-provisional validation, uppercase external UUID parity and preserved history).
-All26 staged paths were explicitly inspected/hash-matched and production-value/
-private scans passed. Previous T037 checkpoint: `a8626ba355a8d61ef9a85265d3f724e22635c9ea`;
-guest/packet checkpoint: `a252a092b442465c2e94562bb6ec5a454c7a7e6b`.
-Active work stays uncommitted until root review. **No release deployed.**
+`11129bdaae56cffa398fd92736518537d14e37a0` (T035 local playable graybox,
+T039 Google/shared auth and T043 single-slot writes). All23 staged paths were
+explicitly inspected/hash-matched and private scans passed. Root stable PHP
+357tests/2790assertions PASS at migration1. Previous service checkpoint:
+`4df0c0884afb9f5d44791ad965573004d7e1a3cd`; guest/packet checkpoint:
+`a252a092b442465c2e94562bb6ec5a454c7a7e6b`. Current route/recovery/migration2
+work remains uncommitted until reviewed. **No release deployed.**
 
 Owner authorization covers scoped reviewed pushes to automateyournetwork/Network-Quest
 and finished accepted release deployment at

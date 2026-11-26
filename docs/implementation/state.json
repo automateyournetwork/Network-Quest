@@ -2,8 +2,8 @@
   "feature": "001-physical-layer-underworld",
   "authorizedAt": "2026-11-25",
   "loopCap": 200,
-  "loopsStarted": 51,
-  "activeTask": "T040/T041/T045",
+  "loopsStarted": 52,
+  "activeTask": "T041/T044/T045",
   "status": "running",
   "completedTasks": [
     "T001",
@@ -41,7 +41,8 @@
     "T038",
     "T042",
     "T039",
-    "T043"
+    "T043",
+    "T040"
   ],
   "blockedTasks": [
     {
@@ -63,13 +64,8 @@
       "note": "docs/implementation/loops/007-T005.md"
     }
   ],
-  "lastLoopNote": "docs/implementation/loops/048-T043.md",
+  "lastLoopNote": "docs/implementation/loops/049-T040.md",
   "activeLoops": [
-    {
-      "loop": 49,
-      "task": "T040",
-      "agent": "/root/loop049_t040"
-    },
     {
       "loop": 50,
       "task": "T041",
@@ -79,6 +75,11 @@
       "loop": 51,
       "task": "T045",
       "agent": "/root/loop051_t045"
+    },
+    {
+      "loop": 52,
+      "task": "T044",
+      "agent": "/root/loop052_t044"
     }
   ],
   "gates": {
@@ -91,7 +92,7 @@
     "T011",
     "T007 final reassessment"
   ],
-  "nextAction": "Loop049 GitHub, loop050 auth routes/config and loop051 durable deletion ledger/barrier. Stable joined PHP357/2790PASS; no actualprovider/deployment.",
+  "nextAction": "Join loop050 auth/config, loop051 recovery/deletion barrier and loop052 save/preferences routes; production HTTP duplicate-header admission and liveproviders still require verification.",
   "executionDirection": "docs/implementation/execution-direction.md",
   "publicationAuthorization": {
     "date": "2026-11-25",
@@ -101,8 +102,8 @@
   },
   "publication": {
     "branch": "001-physical-layer-underworld",
-    "lastPushedCommit": "4df0c0884afb9f5d44791ad965573004d7e1a3cd",
-    "scope": "Reviewed T038 sessions/security, T042 provisional validation, uppercase external UUID correction and preserved review/tracking history. All26 staged paths explicitly inspected and hash matched; production credential/private scans clear. Remote independently verified. No deployment.",
+    "lastPushedCommit": "11129bdaae56cffa398fd92736518537d14e37a0",
+    "scope": "Reviewed T035 local playable graybox, T039 Google/shared auth adapter and T043 single-slot writes. All23 staged paths explicitly inspected/hash matched and private scans clear. Remote independently verified. Root stable PHP357/2790PASS; no deployment.",
     "releaseDeployed": false
   }
 }
