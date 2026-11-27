@@ -1,0 +1,51 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-ILLUSTRATION-16",
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex / loop140 / T123",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Apple sips-316, Pillow 13.0.0, libwebp 1.6.0, Firefox 159.0",
+  "hashes": [
+    "8f4be2f5164219dc4c3896836dde97c72fe26bd2d8e6825c0ee02120c6bd0b99",
+    "08298028120ada1c57e9cae73fe88f8f5ca6ffbe936868b748b8fa4da8a5e3b5",
+    "954b8089a071b0acc18915ee01b22a14a6ca3813c22c9a818bf69b32706f7f32"
+  ],
+  "details": {
+    "findings": "Firefox decoded the registered WebP at a player-accessible journal disclosure in R08. The exact caption and alternative text matched the room binding.",
+    "methods": [
+      "browser-inspection"
+    ],
+    "tool": "Playwright Firefox and view_image",
+    "observedPaths": [
+      "assets-src/images/T123/reference/R08.png",
+      "assets-src/images/T123/16/original.png",
+      "public/assets/illustrations/16.webp"
+    ],
+    "captures": [
+      "docs/evidence/spec001/image-production/T123/native-01/16-journal.png"
+    ],
+    "report": "docs/evidence/spec001/image-production/T123/native-01/browser.json",
+    "reportSha256": "30ac81de78e7fe2dfc414e8c27f1bfd2f9ae40a81af1f4a897730d70dbeb8d54",
+    "observations": [
+      {
+        "id": "16",
+        "use": "journal",
+        "room": "The Storm Observatory",
+        "contentId": "spec001:FACT-SQ03-comparison",
+        "keyboardOpened": true,
+        "caption": "Compare the earlier radio reading with the later current reading, using their recorded signal and noise in dBm and SNR in dB. Weather is a sketch of the scene. The measured change alone establishes neither its cause nor throughput.",
+        "path": "/arcade/play/network-quest/assets/illustrations/16.webp",
+        "alt": "Two diary pages show the same dish facing the same peaks, under clear skies and driving rain. A blank strip waits below each view.",
+        "width": 640,
+        "height": 427,
+        "drawnWidth": 512,
+        "drawnHeight": 342,
+        "webpSha256": "954b8089a071b0acc18915ee01b22a14a6ca3813c22c9a818bf69b32706f7f32",
+        "capture": "docs/evidence/spec001/image-production/T123/native-01/16-journal.png",
+        "captureSha256": "0835f27927dee7570a406e6068676b9a7eaaeed9480c5f860e6e8a418905cc61"
+      }
+    ]
+  },
+  "check": "browser-comparison"
+}

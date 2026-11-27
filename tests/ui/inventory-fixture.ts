@@ -23,6 +23,11 @@ world.documents = Object.entries(documents).flatMap(([path, document]) => {
   return (value.kind === 'collection' ? value.records : [value]).map(record => ({ kind: record.kind, id: record.id, path }));
 });
 export const authoredInput = { world, sources, documents };
+/** These repair-route fixtures include the main objectives but omit the optional quest documents. */
+export function routeDocument(value: S.room | S.collection): S.room | S.collection {
+  if (value.kind !== 'room' || !value.illustrationBindings) return value;
+  return { ...value, illustrationBindings: value.illustrationBindings.filter(binding => !binding.contentId.startsWith('spec001:FACT-SQ')) };
+}
 export function content(records: S.authoredRecord[] = [], mutate?: (documents: Record<string, unknown>) => void) {
   const copy = structuredClone({ world, sources, documents });
   if (records.length) {

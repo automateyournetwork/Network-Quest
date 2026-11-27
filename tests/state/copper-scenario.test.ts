@@ -8,7 +8,7 @@ import { evaluateObjective, objectiveEffectBindings } from '../../src/state/obje
 import { createReducer, createReducerState } from '../../src/state/reducer';
 import type { ReducerInput } from '../../src/state/reducer';
 import type { ActionId, MeasurementId, QualifiedId } from '../../src/domain/types';
-import { authoredInput, setup } from '../ui/inventory-fixture';
+import { authoredInput, routeDocument, setup } from '../ui/inventory-fixture';
 
 const q = <T extends string = string>(id: string) => `spec001:${id}` as QualifiedId<T>;
 const uuid = (n: number) => `00000000-0000-4000-8000-${String(n).padStart(12, '0')}` as MeasurementId;
@@ -19,7 +19,7 @@ input.world.documents = input.world.documents.filter(r => !replaced.includes(r))
 for (const { path } of replaced) delete input.documents[path];
 for (const path of ['content/spec001/profiles.json', 'content/spec001/objectives.json', 'content/spec001/dialogue/copper-actions.json', 'content/spec001/rooms/R03.json', 'content/spec001/rooms/R04.json']) {
   const value = await read<S.collection | S.room>(path);
-  input.documents[path] = value;
+  input.documents[path] = routeDocument(value);
   input.world.documents.push(...(value.kind === 'collection' ? value.records : [value]).map(r => ({ kind: r.kind, id: r.id, path })));
 }
 const validated = validateContent(input);

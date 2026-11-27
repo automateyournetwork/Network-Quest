@@ -1,4 +1,7 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import type { illustrationBinding } from '../content/schema-types.generated';
+import { illustrationFor } from '../content/illustrations';
+import { illustrationDetails } from './illustration';
 import type { ContentRegistry } from '../content/registry';
 import type * as S from '../content/schema-types.generated';
 import type { ItemId, QualifiedId } from '../domain/types';
@@ -69,7 +72,7 @@ export function createInventoryController({ bus, registry, store }: InventoryOpt
 
 export interface InventoryRow {
   readonly id: ItemId; readonly name: string; readonly description: string; readonly quantity: number;
-  readonly selected: boolean; readonly controls: readonly SemanticControl[];
+  readonly illustration?: illustrationBinding | undefined; readonly selected: boolean; readonly controls: readonly SemanticControl[];
 }
 export interface InventoryView {
   readonly context: ReturnType<typeof contextFromRuntime>; readonly open: boolean; readonly items: readonly InventoryRow[];
@@ -89,7 +92,8 @@ export function inventoryView(registry: ContentRegistry, state: ReducerState, it
         id: `inventory-combine:${id}:${recipe.id}`, label: recipe.explanation,
         action: { kind: 'combine-items', itemId: selected.item.id as ItemId, targetItemId: id, combinationId: recipe.id as QualifiedId },
       });
-      return { id, name: item.name, description: item.description, quantity, selected: selected?.item.id === id, controls };
+      const illustration = world && selected?.item.id === id ? illustrationFor(registry, world.roomId, 'inventory', id) : undefined;
+      return { id, ...(illustration ? { illustration } : {}), name: item.name, description: item.description, quantity, selected: selected?.item.id === id, controls };
     }),
     recovery: !rows || !world ? [] : [...new Set(itemIds)].flatMap(id => {
       const item = registry.record(id);
@@ -109,7 +113,7 @@ export function createInventoryPanel(host: HTMLElement, bus: Pick<ActionDispatch
   list.setAttribute('aria-label', 'Inventory items'); close.type = 'button'; close.textContent = 'Close Inventory'; close.setAttribute('aria-keyshortcuts', 'Escape');
   element.append(title, message, list, recovery, close); host.append(element);
   let capture: ActionCapture = bus.captureScope(null), disposed = false, returnFocus: HTMLElement | null = null;
-  const rows = new Map<string, { element: HTMLLIElement; name: HTMLElement; description: HTMLElement; quantity: HTMLElement; actions: HTMLElement }>();
+  const rows = new Map<string, { element: HTMLLIElement; name: HTMLElement; description: HTMLElement; quantity: HTMLElement; guide: HTMLElement; actions: HTMLElement }>();
   const controls = new Map<string, { button: HTMLButtonElement; model: SemanticControl }>();
   const buttonModels = new WeakMap<HTMLButtonElement, { button: HTMLButtonElement; model: SemanticControl }>();
   const dispatch = (control: SemanticControl) => { if (!disposed) bus.dispatch(capture(control.action)); };
@@ -151,9 +155,15 @@ export function createInventoryPanel(host: HTMLElement, bus: Pick<ActionDispatch
       if (!entry) {
         const item = doc.createElement('li'), name = doc.createElement('h3'), description = doc.createElement('p'), quantity = doc.createElement('p'), actions = doc.createElement('div');
         name.id = `${prefix}-${index}-${crypto.randomUUID()}`; actions.setAttribute('role', 'group'); actions.setAttribute('aria-labelledby', name.id);
-        item.append(name, description, quantity, actions); entry = { element: item, name, description, quantity, actions }; rows.set(row.id, entry);
+        const guide = doc.createElement('div');
+        item.append(name, description, quantity, actions, guide); entry = { element: item, name, description, quantity, actions, guide }; rows.set(row.id, entry);
       }
       entry.name.textContent = row.name; entry.description.textContent = row.description; entry.quantity.textContent = `Quantity: ${row.quantity}`;
+      const binding = model.open ? row.illustration : undefined;
+      if (entry.guide.dataset['asset'] !== binding?.assetId) {
+        entry.guide.replaceChildren(...(binding ? [illustrationDetails(doc, binding)] : []));
+        if (binding) entry.guide.dataset['asset'] = binding.assetId; else delete entry.guide.dataset['asset'];
+      }
       reconcile(entry.actions, row.controls.map(renderControl)); return entry.element;
     }));
     reconcile(recovery, model.recovery.map(renderControl));

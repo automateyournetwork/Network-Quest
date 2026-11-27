@@ -1,0 +1,42 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-ILLUSTRATION-11",
+  "hashes": [
+    "b31faa4d25aad13e085361056cad5ab0cadc0fdb2bd1836d682109fcedbd6cc2",
+    "46e9ffaa0fc97ace1bee57f3f3f9e448e070e90a4c6874c0719e74735875c345",
+    "2725b1d70c2cb1a912bbb7ae6f4d7488fece526562e86126b6d2e9ee1b26f37a"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex worker loop139/T122",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+  "details": {
+    "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative.",
+    "methods": [
+      "browser-inspection"
+    ],
+    "tool": "Firefox 159.0 via Playwright",
+    "observedPaths": [
+      "docs/evidence/spec001/prop-production/T112/PR059-native.png",
+      "assets-src/images/T122/11/original.png",
+      "public/assets/illustrations/11.webp"
+    ],
+    "report": "docs/evidence/spec001/image-production/T122/with-workshop/browser.json",
+    "finalSourceVerification": "docs/evidence/spec001/image-production/T122/verified-joined/browser.json",
+    "actualUses": [
+      {
+        "assetId": "spec001:ASSET-ILLUSTRATION-11",
+        "contentId": "spec001:O06",
+        "room": "The Prism Vault",
+        "surface": "Diagnostics",
+        "place": "diagnostics",
+        "width": 768,
+        "height": 512,
+        "src": "/arcade/play/network-quest/assets/illustrations/11.webp",
+        "sha256": "2725b1d70c2cb1a912bbb7ae6f4d7488fece526562e86126b6d2e9ee1b26f37a"
+      }
+    ]
+  },
+  "check": "browser-comparison"
+}

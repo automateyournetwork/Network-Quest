@@ -26,8 +26,14 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**141 loops started; 114/170 tasks accepted; no deployment.** The remote feature branch reached
-`125c509af128e7865dd396a71ae64e6c7ec08479` for all 36 room layers after the
+**145 loops started; 118/170 tasks accepted; no deployment.** Eight full music cues and their listening packets reached the remote feature branch at
+`321d1d5879e83442db3485112acf9c4a854c0b1f`. Actual human speaker and headphone
+review remains open for T124/T125. The compendium checkpoint for all 25 discovered
+portraits was `462129824acd676afb9e1cfae35fbe9a1857aff0`.
+The guest journey decoded and checked each portrait’s caption. The domain rerun passed
+4,330 executable tests with four workers, with 360 existing TODOs. The first full run
+hit the five-second inventory test timeout under contention. All 36 room layers are in
+`125c509af128e7865dd396a71ae64e6c7ec08479`, following the
 150-prop checkpoint `c358e126` and the character checkpoint `a5eb891`. The
 Photon checkpoint was `284394d` and the T106 layout freeze was `d7dc4a1`. The preceding checkpoint `e6362f6b27ef3daa0166468d2e56733fa08c9aa6`
 (accepted T105 and isolated T106 preparation) was
@@ -95,8 +101,22 @@ Loop 137/T120: Thirteen CH01–CH13 portrait bindings were reached and decoded i
 
 Loop 138/T121: All twelve CH14–CH25 discoveries decoded their own portrait, and the paired Twins retained accessible text when loading failed. [Verification](loops/138-T121.md).
 
+Loop 141/T124: Four full cues have native masters, verified loops and transitions. Awaiting actual ordinary-speaker and headphone listening to the sealed T124 packet. [Verification](loops/141-T124.md).
+
+Loop 142/T125: Four additional native cues and the one-shot epilogue passed browser verification. Awaiting human listening on both device types. [Verification](loops/142-T125.md).
+
+Loop 139/T122: Twelve illustrated guides passed their in-context Firefox checks, including the earned serial strip and accessible decode failure. [Verification](loops/139-T122.md).
+
+Loop 140/T123: Twelve distinct instructional images passed fourteen native placements, with the power-audit ledger reused in the Workshop. [Verification](loops/140-T123.md).
+
+Loop 108/T096: The earned R04 serial illustration now opens after correct delivery; practice, incorrect input and withdrawal leave the reward hidden. [Verification](loops/108-T096.md).
+
+Loop 110/T097: The earned 3 W-shortfall ledger now appears on the Workshop wall, with its text equivalent, without granting required progress. [Verification](loops/110-T097.md).
+
+The final reward joins for loops 108 and 110 are recorded in the [all-seven journey and Workshop review](../evidence/spec001/image-production/illustration-join/rewards.md).
+
 <!-- current production assignments -->
-Active assignments: 139/T122, 140/T123, 141/T124.
+Active assignments: 143/T126, 144/T127, 145/T128.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

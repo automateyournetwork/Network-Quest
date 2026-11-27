@@ -1,5 +1,8 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import './optional-activities.css';
+import type { illustrationBinding } from '../content/schema-types.generated';
+import { illustrationDetails } from './illustration';
+import { illustrationFor } from '../content/illustrations';
 import type { ContentRegistry } from '../content/registry';
 import { scoutEvidence, scoutPredictionCurrent, type ScoutChoice, type ScoutAssessment, type ScoutComparisonInput } from '../state/optional-channel-scout';
 import type { QualifiedId } from '../domain/types';
@@ -40,6 +43,8 @@ export interface OptionalActivityView {
   readonly instructions: readonly string[]; readonly map: readonly string[]; readonly samples: readonly string[];
   readonly feedback: string | null; readonly hintText: string | null; readonly completed: boolean;
   readonly rewardText: string | null;
+  readonly illustration?: illustrationBinding | undefined;
+  readonly unavailableText?: string | undefined;
   readonly controls: { readonly practice: string; readonly delivery: string; readonly submit: string; readonly retry: string; readonly exit: string };
   readonly limitations: readonly string[];
   readonly sources: readonly { readonly title: string; readonly section: string; readonly claim: string; readonly url: string | null }[];
@@ -135,6 +140,11 @@ export function projectOptionalActivity(registry: ContentRegistry, game: GameSta
   const activity = definition.optionalActivity, profile = 'profileId' in activity ? registry.record(activity.profileId) : null, room = registry.record(session.entry.roomId);
   const title = definition.id === 'spec001:MG03' ? 'Channel Scout' : definition.id === 'spec001:MG02' ? 'Prism Budget Bench' : activity.kind === 'notebook-combination' ? 'Lost Maintenance Record' : room?.kind === 'room' ? room.hotspots.find(h => h.id === session.entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity';
   const completed = optionalActivityCompleted(registry, definition, game);
+  const reward = activity.reward;
+  const earned = completed && game.notebook.factIds.some(id => id === reward.factId);
+  const imageReward = reward.kind === 'workshop-decoration' || reward.kind === 'journal-illustration' || reward.kind === 'optional-radio-depth' ? reward : undefined;
+  const bound = earned && imageReward ? illustrationFor(registry, session.entry.roomId, 'journal', imageReward.factId) : undefined;
+  const illustration = bound?.assetId === imageReward?.assetId ? bound : undefined;
   const level = (value: number) => value > 0 ? `+${value}` : String(value).replace('-', '−');
   const parameters = profile?.kind === 'profile' ? profile.parameters as { levels?: readonly { symbol: { value: number }; bits: string }[]; deliveredBudget?: { value: number; unit: string }; transmit?: { value: number; unit: string }; sensitivity?: { value: number; unit: string }; maximumReceive?: { value: number; unit: string }; requiredMargin?: { value: number; unit: string } } : null;
   const radioRecords = activity.kind === 'radio-channel-scout' ? scoutEvidence(registry, game) : [];
@@ -150,9 +160,10 @@ export function projectOptionalActivity(registry: ContentRegistry, game: GameSta
     ] : isToySymbolActivity(activity) ? activity[session.mode].samples.map(sample => `Position ${sample.position}: ${level(sample.value)} toy-level`)
       : activity.kind === 'delivered-power-audit' ? [`Delivered allowance: ${parameters?.deliveredBudget?.value} ${parameters?.deliveredBudget?.unit} after losses.`, ...activity[session.mode].demands.map((demand, index) => `Demand card ${index + 1}: ${demand.value} ${demand.unit} delivered after losses.`), 'The supplied port and compatibility checks are satisfied. Power does not prove data connectivity.'] : [] : [],
     feedback: session.feedback, hintText: session.hintText, completed,
-    rewardText: completed && game.notebook.factIds.some(id => id === activity.reward.factId)
+    illustration, unavailableText: imageReward?.unavailableText,
+    rewardText: earned
       ? activity.reward.kind === 'epilogue-maintenance-history' ? activity.reward.epilogueText
-        : activity.reward.kind === 'journal-illustration' || activity.reward.kind === 'workshop-decoration' || activity.reward.kind === 'optional-radio-depth' ? `${activity.reward.alternativeText} ${activity.reward.unavailableText}` : null
+        : imageReward ? illustration ? imageReward.alternativeText : `${imageReward.alternativeText} ${imageReward.unavailableText}` : null
       : null,
     controls: activity.controls, limitations: definition.model.limitations, answerKind: answerKinds[activity.kind],
     ...(activity.kind === 'notebook-combination' ? { maintenance: { cards: maintenanceCards(activity, registry, game, session.mode ?? 'delivery') ?? [], ...activity.answerControls } } : {}),
@@ -332,6 +343,7 @@ export function createOptionalActivityPanel<Command>(host: HTMLElement, dispatch
     feedback.setAttribute('role', 'status'); feedback.setAttribute('aria-live', 'polite'); children.push(feedback);
     if (view.hintText) children.push(paragraph(view.hintText));
     if (view.rewardText) children.push(paragraph(view.rewardText));
+    if (view.illustration) children.push(illustrationDetails(doc, view.illustration, view.unavailableText));
     const controls = doc.createElement('div'); controls.append(
       button(scope, 'hint', 'Next hint', { kind: 'hint-optional', sessionId: view.sessionId }),
       button(scope, 'explain', 'Read explanation', { kind: 'explain-optional', sessionId: view.sessionId }),

@@ -1,0 +1,43 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-ILLUSTRATION-04",
+  "hashes": [
+    "3b733be8c8ee3d3c28c9d51550891b328a8ca14088818f0fea53eda529326313",
+    "5a942215f5d6daebb719d118d01457a9aae5f3e0a3f3c60c0051ae6ec4fb936a",
+    "f9e3f9107dca9b41ac14c5b39f07ff6cf097dda575c567d044b0a0dcd6eca87d"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex worker loop139/T122",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+  "details": {
+    "findings": "The referenced Blender renders, unaltered generation output and converted WebP decoded locally. Native Firefox independently decoded the display artwork.",
+    "observedPaths": [
+      "docs/evidence/spec001/prop-production/T110/PR012/native.png",
+      "assets-src/images/T122/04/original.png",
+      "public/assets/illustrations/04.webp"
+    ],
+    "nativeModels": [
+      {
+        "reference": {
+          "path": "docs/evidence/spec001/prop-production/T110/PR012/native.png",
+          "sha256": "3b733be8c8ee3d3c28c9d51550891b328a8ca14088818f0fea53eda529326313",
+          "bytes": 259603,
+          "format": "png"
+        },
+        "assetId": "spec001:ASSET-PR012",
+        "manifest": "assets-src/props/R01-R02/manifest.json",
+        "native": {
+          "path": "assets-src/props/R01-R02/PR012.blend",
+          "sha256": "db8145dc4c2e2bfd8ea53de4eef3861f57f7a68a842fe3178252e10719ca4a7a",
+          "bytes": 130213,
+          "format": "blend"
+        },
+        "nativeReopenEvidence": "docs/evidence/spec001/assets/t110/PR012/source-reopen.json"
+      }
+    ],
+    "browserEvidence": "docs/evidence/spec001/image-production/T122/with-workshop/browser.json"
+  },
+  "check": "source-reopen"
+}

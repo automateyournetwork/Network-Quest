@@ -1,0 +1,49 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-ILLUSTRATION-18",
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex / loop140 / T123",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Apple sips-316, Pillow 13.0.0, libwebp 1.6.0, Firefox 159.0",
+  "hashes": [
+    "d591d61353a244d0be1fa38f641fcb0a7a373542369873f298982330d589a880",
+    "7125ea1371f5cf006592122f2dec3afbdcc063579d4995a79eec638d1015aa38",
+    "aa9ae112f6b6e9a35cb1a0ba4abd0e0c4d21708e7a672d90b28529d2173982cb"
+  ],
+  "details": {
+    "findings": "The reference, exact original and web export each reopened to TIFF through Apple ImageIO.",
+    "nativeDecodes": [
+      {
+        "path": "assets-src/images/T123/reference/R09.png",
+        "dimensions": [
+          448,
+          252
+        ],
+        "nativeTIFFDecoded": true
+      },
+      {
+        "path": "assets-src/images/T123/18/original.png",
+        "dimensions": [
+          1536,
+          1024
+        ],
+        "nativeTIFFDecoded": true
+      },
+      {
+        "path": "public/assets/illustrations/18.webp",
+        "dimensions": [
+          640,
+          427
+        ],
+        "nativeTIFFDecoded": true
+      }
+    ],
+    "toolCarrier": {
+      "filename": "exec-2cf320b2-a5b9-4102-afa2-b3d1eed7162d.png",
+      "sha256": "7125ea1371f5cf006592122f2dec3afbdcc063579d4995a79eec638d1015aa38"
+    },
+    "exportReport": "docs/evidence/spec001/image-production/T123/exports.json"
+  },
+  "check": "source-reopen"
+}

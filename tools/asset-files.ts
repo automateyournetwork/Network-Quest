@@ -131,6 +131,7 @@ export function extractAuthoredAssetContent(world: unknown, documents: unknown[]
     if (typeof value['id'] === 'string') {
       if (typeof value['speakerId'] === 'string' && typeof value['text'] === 'string') put({ id: value['id'], kind: 'dialogue-line', speakerId: value['speakerId'], text: value['text'] });
       else if (typeof value['kind'] === 'string' && ['room', 'character', 'prop', 'item', 'objective', 'action', 'evidence', 'diagnostic'].includes(value['kind'])) put({ id: value['id'], kind: value['kind'] });
+      else if (value['id'].startsWith('spec001:FACT-') && typeof value['roomId'] === 'string' && typeof value['text'] === 'string' && Array.isArray(value['subjectIds'])) put({ id: value['id'], kind: 'evidence' });
       else if (value['id'].startsWith('spec001:ACTION-')) put({ id: value['id'], kind: 'action' });
     }
     // Only an exact binding in registered authored data supplies a use. Metadata

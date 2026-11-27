@@ -1,0 +1,51 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-ILLUSTRATION-23",
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex / loop140 / T123",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Apple sips-316, Pillow 13.0.0, libwebp 1.6.0, Firefox 159.0",
+  "hashes": [
+    "17f95b7a77e44063eda93520866904ffd5f274c19ea3c9957a6054b13f25d94a",
+    "43a7bd567c8bf32b7800ec106e06299d2cca73aadee57b11b381339ef9a67563",
+    "d8182d9484eb52875002200cadd57fef8b016eb875b2527eea3e42938a3754aa"
+  ],
+  "details": {
+    "findings": "Firefox decoded the registered WebP at a player-accessible diagnostic disclosure in R12. The exact caption and alternative text matched the room binding.",
+    "methods": [
+      "browser-inspection"
+    ],
+    "tool": "Playwright Firefox and view_image",
+    "observedPaths": [
+      "assets-src/images/T123/reference/R12.png",
+      "assets-src/images/T123/23/original.png",
+      "public/assets/illustrations/23.webp"
+    ],
+    "captures": [
+      "docs/evidence/spec001/image-production/T123/native-01/23-diagnostic.png"
+    ],
+    "report": "docs/evidence/spec001/image-production/T123/native-01/browser.json",
+    "reportSha256": "30ac81de78e7fe2dfc414e8c27f1bfd2f9ae40a81af1f4a897730d70dbeb8d54",
+    "observations": [
+      {
+        "id": "23",
+        "use": "diagnostic",
+        "room": "The Iron Threshold",
+        "contentId": "spec001:O12",
+        "keyboardOpened": true,
+        "caption": "After intervention, retain the earlier preparation readings as stale. Measure the selected route again in the current attempt, then run the independent endpoint service test. A new card or a glowing link lamp alone cannot establish restoration.",
+        "path": "/arcade/play/network-quest/assets/illustrations/23.webp",
+        "alt": "Two validation cards lie side by side. The older card has a folded corner and a broad hatched band. The newer card has a clean edge and a circular seal.",
+        "width": 640,
+        "height": 427,
+        "drawnWidth": 512,
+        "drawnHeight": 342,
+        "webpSha256": "d8182d9484eb52875002200cadd57fef8b016eb875b2527eea3e42938a3754aa",
+        "capture": "docs/evidence/spec001/image-production/T123/native-01/23-diagnostic.png",
+        "captureSha256": "9b7787db9742ba7fa4b7ba69d3dd4c57a118af6822c8cf0d04db4ed779952a17"
+      }
+    ]
+  },
+  "check": "browser-comparison"
+}

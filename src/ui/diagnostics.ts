@@ -1,4 +1,7 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import type { illustrationBinding } from '../content/schema-types.generated';
+import { illustrationFor } from '../content/illustrations';
+import { illustrationDetails } from './illustration';
 import type { ContentRegistry } from '../content/registry';
 import type { MeasurementId, ObjectiveId, QualifiedId } from '../domain/types';
 import { evaluateObjective, objectiveHints } from '../state/objectives';
@@ -11,6 +14,7 @@ import { actionAvailable, playable, reductionPlan, rejected, unavailable } from 
 import type { ActiveActionAdmission, GameplayStore } from './controller-store';
 
 export interface DiagnosticsView {
+  readonly illustration?: illustrationBinding | undefined;
   readonly objectiveId: ObjectiveId;
   readonly explanation: string;
   readonly available: boolean;
@@ -92,7 +96,7 @@ export function createDiagnosticsController(options: { readonly registry: Conten
       const scenario = game ? resolveScenario(game, objectiveId) : null;
       const alternative = record?.kind === 'objective' ? record.alternatives.find(a => a.id === scenario?.alternativeId) : undefined;
       const hints = game ? objectiveHints(registry, game, objectiveId) : null;
-      return { capture: projection.capture, view: structuredClone({ objectiveId, explanation: record?.kind === 'objective' ? record.observableOutcome : 'This objective is unavailable.',
+      return { capture: projection.capture, view: structuredClone({ objectiveId, illustration: game ? illustrationFor(registry, game.world.roomId, 'diagnostic', objectiveId) : undefined, explanation: record?.kind === 'objective' ? record.observableOutcome : 'This objective is unavailable.',
         available: playable(state) && !!alternative, completed: game?.world.completedObjectiveIds.includes(objectiveId) ?? false,
         alternative: alternative ? { id: alternative.id as QualifiedId, label: alternative.label } : null,
         measurements: game?.notebook.measurements.filter(m => m.subjectIds.includes(objectiveId)).map(m => ({ id: m.id,
@@ -161,6 +165,7 @@ export function createDiagnosticsPanel(host: HTMLElement, dispatcher: Pick<Actio
       active = scope; element.hidden = false;
       const { view, capture } = projection;
       const children: HTMLElement[] = [paragraph(view.explanation), paragraph(view.completed ? 'Objective complete.' : 'Completion requires recorded evidence from the current configuration.')];
+      if (view.illustration) children.push(illustrationDetails(doc, view.illustration));
       if (view.alternative) {
         const alternativeId = view.alternative.id;
         children.push(paragraph(`Proposed solution: ${view.alternative.label}. Measurement observes the current configuration.`),

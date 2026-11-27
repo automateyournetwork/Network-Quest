@@ -1,0 +1,51 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-ILLUSTRATION-13",
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex / loop140 / T123",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Apple sips-316, Pillow 13.0.0, libwebp 1.6.0, Firefox 159.0",
+  "hashes": [
+    "8a9a28691229798f94456b35cbd08f2c4e2e87e85245706231222139fd23f6ab",
+    "9f6068bf1dac0dd0c3d9bb22c50e7d8c926e03d05f71a8485ca6e177aa0dd114",
+    "f6c8b58d4752eee3e23ca123840b4ef85fbfdab3e66d65898cedc8bf97522602"
+  ],
+  "details": {
+    "findings": "Firefox decoded the registered WebP at a player-accessible inventory disclosure in R07. The exact caption and alternative text matched the room binding.",
+    "methods": [
+      "browser-inspection"
+    ],
+    "tool": "Playwright Firefox and view_image",
+    "observedPaths": [
+      "assets-src/images/T123/reference/R07.png",
+      "assets-src/images/T123/13/original.png",
+      "public/assets/illustrations/13.webp"
+    ],
+    "captures": [
+      "docs/evidence/spec001/image-production/T123/native-01/13-inventory.png"
+    ],
+    "report": "docs/evidence/spec001/image-production/T123/native-01/browser.json",
+    "reportSha256": "30ac81de78e7fe2dfc414e8c27f1bfd2f9ae40a81af1f4a897730d70dbeb8d54",
+    "observations": [
+      {
+        "id": "13",
+        "use": "inventory",
+        "room": "The Skywell",
+        "contentId": "spec001:ITEM-inspection-kit",
+        "keyboardOpened": true,
+        "caption": "Use the scope to inspect the supplied path. Both the aligned existing corridor and the alternate surveyed corridor are viable. Check that band, channel and PHY match at both endpoints, then measure the selected setup.",
+        "path": "/arcade/play/network-quest/assets/illustrations/13.webp",
+        "alt": "A brass alignment scope looks across a clear gap between two facing dishes on basalt ledges.",
+        "width": 640,
+        "height": 427,
+        "drawnWidth": 512,
+        "drawnHeight": 342,
+        "webpSha256": "f6c8b58d4752eee3e23ca123840b4ef85fbfdab3e66d65898cedc8bf97522602",
+        "capture": "docs/evidence/spec001/image-production/T123/native-01/13-inventory.png",
+        "captureSha256": "d172b72292c65507b66c3af77362c40ab4eb1d1c7bd00cf24cf6a505033e75ba"
+      }
+    ]
+  },
+  "check": "browser-comparison"
+}

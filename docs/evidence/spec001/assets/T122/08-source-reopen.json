@@ -1,0 +1,62 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-ILLUSTRATION-08",
+  "hashes": [
+    "87fc4f9fa61e191761026fd6e7590957c43004e9bd1ce3f9b906772c1d5a06a0",
+    "35c277478fb9a31bc241c129ffe329c5fcdaa7dc732ec60ceb1bb8191a4e7557",
+    "8a619d8d2aa8552f8a795b4495a903e200557085ef2cd264245da9e1f529d0a0",
+    "41ada2b2f65743e883afc6fc2544e15fc6ebee3f1c0e20a9918b419a9bfd4787"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex worker loop139/T122",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+  "details": {
+    "findings": "The referenced Blender renders, unaltered generation output and converted WebP decoded locally. Native Firefox independently decoded the display artwork.",
+    "observedPaths": [
+      "docs/evidence/spec001/assets/T108/CH13-source-rest.png",
+      "docs/evidence/spec001/prop-production/T111/PR033-source.png",
+      "assets-src/images/T122/08/original.png",
+      "public/assets/illustrations/08.webp"
+    ],
+    "nativeModels": [
+      {
+        "reference": {
+          "path": "docs/evidence/spec001/assets/T108/CH13-source-rest.png",
+          "sha256": "87fc4f9fa61e191761026fd6e7590957c43004e9bd1ce3f9b906772c1d5a06a0",
+          "bytes": 129681,
+          "format": "png"
+        },
+        "assetId": "spec001:ASSET-CH13",
+        "manifest": "assets-src/characters/batch-b.json",
+        "native": {
+          "path": "assets-src/characters/CH13.blend",
+          "sha256": "91b684b7f675b996a3c8611e05661040fbbcffa5efecd91d652057b7f79a3078",
+          "bytes": 163684,
+          "format": "blend"
+        },
+        "nativeReopenEvidence": "docs/evidence/spec001/assets/T108/CH13-source-reopen.json"
+      },
+      {
+        "reference": {
+          "path": "docs/evidence/spec001/prop-production/T111/PR033-source.png",
+          "sha256": "35c277478fb9a31bc241c129ffe329c5fcdaa7dc732ec60ceb1bb8191a4e7557",
+          "bytes": 200257,
+          "format": "png"
+        },
+        "assetId": "spec001:ASSET-PR033",
+        "manifest": "assets-src/props/R03-R04/manifest.json",
+        "native": {
+          "path": "assets-src/props/R03-R04/PR033.blend",
+          "format": "blend",
+          "sha256": "538afe7cee2e94e2d7f6b17bace119d8ec87856bc4430f89a6f867bee8bacbb7",
+          "bytes": 122548
+        },
+        "nativeReopenEvidence": "docs/evidence/spec001/assets/t111/PR033-source-reopen.json"
+      }
+    ],
+    "browserEvidence": "docs/evidence/spec001/image-production/T122/with-workshop/browser.json"
+  },
+  "check": "source-reopen"
+}

@@ -1,0 +1,51 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-ILLUSTRATION-20",
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex / loop140 / T123",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Apple sips-316, Pillow 13.0.0, libwebp 1.6.0, Firefox 159.0",
+  "hashes": [
+    "38e1ce3407019289dbc80f0235f833d38a21ca64ebb20a3430f11f94c7d6d4cc",
+    "31001f6f33d1b025f5f6b80199ef0cfe14795cf46744abec533acf146545b42d",
+    "f18201c809cd0f18fb6f378a00c4a36ff2923c998f798d16819076605f44e993"
+  ],
+  "details": {
+    "findings": "Firefox decoded the registered WebP at a player-accessible journal disclosure in R10. The exact caption and alternative text matched the room binding.",
+    "methods": [
+      "browser-inspection"
+    ],
+    "tool": "Playwright Firefox and view_image",
+    "observedPaths": [
+      "assets-src/images/T123/reference/R10.png",
+      "assets-src/images/T123/20/original.png",
+      "public/assets/illustrations/20.webp"
+    ],
+    "captures": [
+      "docs/evidence/spec001/image-production/T123/native-01/20-journal.png"
+    ],
+    "report": "docs/evidence/spec001/image-production/T123/native-01/browser.json",
+    "reportSha256": "30ac81de78e7fe2dfc414e8c27f1bfd2f9ae40a81af1f4a897730d70dbeb8d54",
+    "observations": [
+      {
+        "id": "20",
+        "use": "journal",
+        "room": "The Clockworks",
+        "contentId": "spec001:FACT-clockworks-capabilities",
+        "keyboardOpened": true,
+        "caption": "Both endpoints negotiate. A advertises 1000/full and 100/full. B advertises 100/full and 10/half. Only 100/full appears in both lists. Selecting it records their common mode. Endpoint service still needs a separate test.",
+        "path": "/arcade/play/network-quest/assets/illustrations/20.webp",
+        "alt": "Two fans of embossed cards lead to one central socket. The two cards nearest the socket share a three-point motif.",
+        "width": 640,
+        "height": 427,
+        "drawnWidth": 512,
+        "drawnHeight": 342,
+        "webpSha256": "f18201c809cd0f18fb6f378a00c4a36ff2923c998f798d16819076605f44e993",
+        "capture": "docs/evidence/spec001/image-production/T123/native-01/20-journal.png",
+        "captureSha256": "d6017cd5e6b0e4342076143c555228fb552e806a65084fe498c942a9ed5447eb"
+      }
+    ]
+  },
+  "check": "browser-comparison"
+}

@@ -1,0 +1,2262 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "assets": [
+    {
+      "assetId": "spec001:ASSET-ILLUSTRATION-01",
+      "kind": "illustration",
+      "semanticIdentity": "spec001:ILLUSTRATION-01",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t063-R01-source.png",
+            "sha256": "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "bytes": 852447,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/01-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/T122/01/original.png",
+            "sha256": "b3eb26bc7ab7b0136e03ed14371d18cf764e6abec1d0828c62c9fecc061ee56b",
+            "bytes": 2450544,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/01-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/illustrations/01.webp",
+            "sha256": "f36a19a3ae992e1cadc5885ba109e3773ba995dab87fd6c37be13bc580926375",
+            "bytes": 46718,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "b3eb26bc7ab7b0136e03ed14371d18cf764e6abec1d0828c62c9fecc061ee56b"
+          ],
+          "tool": "Pillow 12.1.0 / libwebp 1.6.0",
+          "preset": "Full frame, Lanczos, quality 88, method 6",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T122/01-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T122-01-v1",
+          "settingsPath": "assets-src/images/T122/01/settings.json",
+          "promptOrScriptPath": "assets-src/images/T122/01/illustration.prompt.txt",
+          "referenceHashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91"
+          ],
+          "outputHashes": [
+            "b3eb26bc7ab7b0136e03ed14371d18cf764e6abec1d0828c62c9fecc061ee56b"
+          ],
+          "notes": "One genuine built-in generation. Full-frame PNG original; semantic captions and labels are separate authored HTML text."
+        }
+      ],
+      "rights": {
+        "creators": [
+          "John Capobianco and Network Quest, original model designs, authored field guides and engineering examples",
+          "OpenAI built-in image generation with Codex-assisted direction"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "reviewStatus": "accepted",
+        "noticePaths": [
+          "assets-src/images/T122/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T117/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T122/input-permissions.md"
+        ],
+        "aiDisclosure": "OpenAI generated the field-guide artwork from project-owned Blender renders. The project licenses its interest in the result. The operator-specific agreement, underlying model revision and seed were not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:FACT-link",
+          "use": "diagnostic-illustration",
+          "evidencePath": "docs/evidence/spec001/assets/T122/01-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "b3eb26bc7ab7b0136e03ed14371d18cf764e6abec1d0828c62c9fecc061ee56b",
+            "f36a19a3ae992e1cadc5885ba109e3773ba995dab87fd6c37be13bc580926375"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/01-structure.json",
+          "findings": "The room registration, production allocation, semantic subject and nested WebP agree. Byte counts, decoded dimensions and SHA-256 values were checked."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "b3eb26bc7ab7b0136e03ed14371d18cf764e6abec1d0828c62c9fecc061ee56b",
+            "f36a19a3ae992e1cadc5885ba109e3773ba995dab87fd6c37be13bc580926375"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/01-source-reopen.json",
+          "findings": "The referenced Blender renders, unaltered generation output and converted WebP decoded locally. Native Firefox independently decoded the display artwork."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "b3eb26bc7ab7b0136e03ed14371d18cf764e6abec1d0828c62c9fecc061ee56b",
+            "f36a19a3ae992e1cadc5885ba109e3773ba995dab87fd6c37be13bc580926375"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/01-visual.json",
+          "findings": "Two separate brass-rimmed lamps. The left lens glows and the right lens is dark."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "b3eb26bc7ab7b0136e03ed14371d18cf764e6abec1d0828c62c9fecc061ee56b",
+            "f36a19a3ae992e1cadc5885ba109e3773ba995dab87fd6c37be13bc580926375"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/01-browser-comparison.json",
+          "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "b3eb26bc7ab7b0136e03ed14371d18cf764e6abec1d0828c62c9fecc061ee56b",
+            "f36a19a3ae992e1cadc5885ba109e3773ba995dab87fd6c37be13bc580926375"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/01-rights.json",
+          "findings": "Each actual input traces to a project-owned model render. The generated output and localized browser export retain the original asset notice and public output terms review."
+        }
+      ],
+      "image": {
+        "width": 768,
+        "height": 512,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/images/T122/01/display.json",
+        "layerRole": "diagnostic-illustration",
+        "registrationPath": "assets-src/images/T122/01/display.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-ILLUSTRATION-02",
+      "kind": "illustration",
+      "semanticIdentity": "spec001:ILLUSTRATION-02",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t063-R01-source.png",
+            "sha256": "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "bytes": 852447,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/02-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/T122/02/original.png",
+            "sha256": "9bfdde93d4227eff9bdca3732cbbac5f1a22be4717e2b741313fe9f27bd570eb",
+            "bytes": 2463523,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/02-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/illustrations/02.webp",
+            "sha256": "9da82d45ffc1d69b2048f131c8a6525c925bfdb498d8d9314be7e9e6416537ff",
+            "bytes": 54200,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "9bfdde93d4227eff9bdca3732cbbac5f1a22be4717e2b741313fe9f27bd570eb"
+          ],
+          "tool": "Pillow 12.1.0 / libwebp 1.6.0",
+          "preset": "Full frame, Lanczos, quality 88, method 6",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T122/02-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T122-02-v1",
+          "settingsPath": "assets-src/images/T122/02/settings.json",
+          "promptOrScriptPath": "assets-src/images/T122/02/illustration.prompt.txt",
+          "referenceHashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91"
+          ],
+          "outputHashes": [
+            "9bfdde93d4227eff9bdca3732cbbac5f1a22be4717e2b741313fe9f27bd570eb"
+          ],
+          "notes": "One genuine built-in generation. Full-frame PNG original; semantic captions and labels are separate authored HTML text."
+        }
+      ],
+      "rights": {
+        "creators": [
+          "John Capobianco and Network Quest, original model designs, authored field guides and engineering examples",
+          "OpenAI built-in image generation with Codex-assisted direction"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "reviewStatus": "accepted",
+        "noticePaths": [
+          "assets-src/images/T122/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T117/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T122/input-permissions.md"
+        ],
+        "aiDisclosure": "OpenAI generated the field-guide artwork from project-owned Blender renders. The project licenses its interest in the result. The operator-specific agreement, underlying model revision and seed were not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:FACT-packet-context",
+          "use": "diagnostic-illustration",
+          "evidencePath": "docs/evidence/spec001/assets/T122/02-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "9bfdde93d4227eff9bdca3732cbbac5f1a22be4717e2b741313fe9f27bd570eb",
+            "9da82d45ffc1d69b2048f131c8a6525c925bfdb498d8d9314be7e9e6416537ff"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/02-structure.json",
+          "findings": "The room registration, production allocation, semantic subject and nested WebP agree. Byte counts, decoded dimensions and SHA-256 values were checked."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "9bfdde93d4227eff9bdca3732cbbac5f1a22be4717e2b741313fe9f27bd570eb",
+            "9da82d45ffc1d69b2048f131c8a6525c925bfdb498d8d9314be7e9e6416537ff"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/02-source-reopen.json",
+          "findings": "The referenced Blender renders, unaltered generation output and converted WebP decoded locally. Native Firefox independently decoded the display artwork."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "9bfdde93d4227eff9bdca3732cbbac5f1a22be4717e2b741313fe9f27bd570eb",
+            "9da82d45ffc1d69b2048f131c8a6525c925bfdb498d8d9314be7e9e6416537ff"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/02-visual.json",
+          "findings": "A capsule extends beyond a window that exposes just two eight-cell payload tiles."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "9bfdde93d4227eff9bdca3732cbbac5f1a22be4717e2b741313fe9f27bd570eb",
+            "9da82d45ffc1d69b2048f131c8a6525c925bfdb498d8d9314be7e9e6416537ff"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/02-browser-comparison.json",
+          "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "9bfdde93d4227eff9bdca3732cbbac5f1a22be4717e2b741313fe9f27bd570eb",
+            "9da82d45ffc1d69b2048f131c8a6525c925bfdb498d8d9314be7e9e6416537ff"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/02-rights.json",
+          "findings": "Each actual input traces to a project-owned model render. The generated output and localized browser export retain the original asset notice and public output terms review."
+        }
+      ],
+      "image": {
+        "width": 768,
+        "height": 512,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/images/T122/02/display.json",
+        "layerRole": "diagnostic-illustration",
+        "registrationPath": "assets-src/images/T122/02/display.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-ILLUSTRATION-03",
+      "kind": "illustration",
+      "semanticIdentity": "spec001:ILLUSTRATION-03",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "docs/evidence/spec001/prop-production/T110/PR018/native.png",
+            "sha256": "b301775b24f138235a057d11350616b085ae48e0bd5b665868e4d3b9139583fc",
+            "bytes": 265974,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/03-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/T122/03/original.png",
+            "sha256": "b46124192c1c749c365ebe205afe71cb01c003748798f400a3f7649cac1dc077",
+            "bytes": 2792930,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/03-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/illustrations/03.webp",
+            "sha256": "606b6e64d015c9c9182bb0d87b36ef4ab6923f6584b3f09fb0ffba3708ecce80",
+            "bytes": 70022,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "b46124192c1c749c365ebe205afe71cb01c003748798f400a3f7649cac1dc077"
+          ],
+          "tool": "Pillow 12.1.0 / libwebp 1.6.0",
+          "preset": "Full frame, Lanczos, quality 88, method 6",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T122/03-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T122-03-v1",
+          "settingsPath": "assets-src/images/T122/03/settings.json",
+          "promptOrScriptPath": "assets-src/images/T122/03/illustration.prompt.txt",
+          "referenceHashes": [
+            "b301775b24f138235a057d11350616b085ae48e0bd5b665868e4d3b9139583fc"
+          ],
+          "outputHashes": [
+            "b46124192c1c749c365ebe205afe71cb01c003748798f400a3f7649cac1dc077"
+          ],
+          "notes": "One genuine built-in generation. Full-frame PNG original; semantic captions and labels are separate authored HTML text."
+        }
+      ],
+      "rights": {
+        "creators": [
+          "John Capobianco and Network Quest, original model designs, authored field guides and engineering examples",
+          "OpenAI built-in image generation with Codex-assisted direction"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "reviewStatus": "accepted",
+        "noticePaths": [
+          "assets-src/images/T122/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T117/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T122/input-permissions.md"
+        ],
+        "aiDisclosure": "OpenAI generated the field-guide artwork from project-owned Blender renders. The project licenses its interest in the result. The operator-specific agreement, underlying model revision and seed were not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:ITEM-inspection-kit",
+          "use": "inventory-illustration",
+          "evidencePath": "docs/evidence/spec001/assets/T122/03-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "b301775b24f138235a057d11350616b085ae48e0bd5b665868e4d3b9139583fc",
+            "b46124192c1c749c365ebe205afe71cb01c003748798f400a3f7649cac1dc077",
+            "606b6e64d015c9c9182bb0d87b36ef4ab6923f6584b3f09fb0ffba3708ecce80"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/03-structure.json",
+          "findings": "The room registration, production allocation, semantic subject and nested WebP agree. Byte counts, decoded dimensions and SHA-256 values were checked."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "b301775b24f138235a057d11350616b085ae48e0bd5b665868e4d3b9139583fc",
+            "b46124192c1c749c365ebe205afe71cb01c003748798f400a3f7649cac1dc077",
+            "606b6e64d015c9c9182bb0d87b36ef4ab6923f6584b3f09fb0ffba3708ecce80"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/03-source-reopen.json",
+          "findings": "The referenced Blender renders, unaltered generation output and converted WebP decoded locally. Native Firefox independently decoded the display artwork."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "b301775b24f138235a057d11350616b085ae48e0bd5b665868e4d3b9139583fc",
+            "b46124192c1c749c365ebe205afe71cb01c003748798f400a3f7649cac1dc077",
+            "606b6e64d015c9c9182bb0d87b36ef4ab6923f6584b3f09fb0ffba3708ecce80"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/03-visual.json",
+          "findings": "An open notebook pairs a square eye card with a round question balloon and a separate clock tab."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "b301775b24f138235a057d11350616b085ae48e0bd5b665868e4d3b9139583fc",
+            "b46124192c1c749c365ebe205afe71cb01c003748798f400a3f7649cac1dc077",
+            "606b6e64d015c9c9182bb0d87b36ef4ab6923f6584b3f09fb0ffba3708ecce80"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/03-browser-comparison.json",
+          "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "b301775b24f138235a057d11350616b085ae48e0bd5b665868e4d3b9139583fc",
+            "b46124192c1c749c365ebe205afe71cb01c003748798f400a3f7649cac1dc077",
+            "606b6e64d015c9c9182bb0d87b36ef4ab6923f6584b3f09fb0ffba3708ecce80"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/03-rights.json",
+          "findings": "Each actual input traces to a project-owned model render. The generated output and localized browser export retain the original asset notice and public output terms review."
+        }
+      ],
+      "image": {
+        "width": 768,
+        "height": 512,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/images/T122/03/display.json",
+        "layerRole": "inventory-illustration",
+        "registrationPath": "assets-src/images/T122/03/display.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-ILLUSTRATION-04",
+      "kind": "illustration",
+      "semanticIdentity": "spec001:ILLUSTRATION-04",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "docs/evidence/spec001/prop-production/T110/PR012/native.png",
+            "sha256": "3b733be8c8ee3d3c28c9d51550891b328a8ca14088818f0fea53eda529326313",
+            "bytes": 259603,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/04-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/T122/04/original.png",
+            "sha256": "5a942215f5d6daebb719d118d01457a9aae5f3e0a3f3c60c0051ae6ec4fb936a",
+            "bytes": 2519580,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/04-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/illustrations/04.webp",
+            "sha256": "f9e3f9107dca9b41ac14c5b39f07ff6cf097dda575c567d044b0a0dcd6eca87d",
+            "bytes": 53824,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "5a942215f5d6daebb719d118d01457a9aae5f3e0a3f3c60c0051ae6ec4fb936a"
+          ],
+          "tool": "Pillow 12.1.0 / libwebp 1.6.0",
+          "preset": "Full frame, Lanczos, quality 88, method 6",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T122/04-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T122-04-v1",
+          "settingsPath": "assets-src/images/T122/04/settings.json",
+          "promptOrScriptPath": "assets-src/images/T122/04/illustration.prompt.txt",
+          "referenceHashes": [
+            "3b733be8c8ee3d3c28c9d51550891b328a8ca14088818f0fea53eda529326313"
+          ],
+          "outputHashes": [
+            "5a942215f5d6daebb719d118d01457a9aae5f3e0a3f3c60c0051ae6ec4fb936a"
+          ],
+          "notes": "One genuine built-in generation. Full-frame PNG original; semantic captions and labels are separate authored HTML text."
+        }
+      ],
+      "rights": {
+        "creators": [
+          "John Capobianco and Network Quest, original model designs, authored field guides and engineering examples",
+          "OpenAI built-in image generation with Codex-assisted direction"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "reviewStatus": "accepted",
+        "noticePaths": [
+          "assets-src/images/T122/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T117/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T122/input-permissions.md"
+        ],
+        "aiDisclosure": "OpenAI generated the field-guide artwork from project-owned Blender renders. The project licenses its interest in the result. The operator-specific agreement, underlying model revision and seed were not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:FACT-endpoints",
+          "use": "diagnostic-illustration",
+          "evidencePath": "docs/evidence/spec001/assets/T122/04-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "3b733be8c8ee3d3c28c9d51550891b328a8ca14088818f0fea53eda529326313",
+            "5a942215f5d6daebb719d118d01457a9aae5f3e0a3f3c60c0051ae6ec4fb936a",
+            "f9e3f9107dca9b41ac14c5b39f07ff6cf097dda575c567d044b0a0dcd6eca87d"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/04-structure.json",
+          "findings": "The room registration, production allocation, semantic subject and nested WebP agree. Byte counts, decoded dimensions and SHA-256 values were checked."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "3b733be8c8ee3d3c28c9d51550891b328a8ca14088818f0fea53eda529326313",
+            "5a942215f5d6daebb719d118d01457a9aae5f3e0a3f3c60c0051ae6ec4fb936a",
+            "f9e3f9107dca9b41ac14c5b39f07ff6cf097dda575c567d044b0a0dcd6eca87d"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/04-source-reopen.json",
+          "findings": "The referenced Blender renders, unaltered generation output and converted WebP decoded locally. Native Firefox independently decoded the display artwork."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "3b733be8c8ee3d3c28c9d51550891b328a8ca14088818f0fea53eda529326313",
+            "5a942215f5d6daebb719d118d01457a9aae5f3e0a3f3c60c0051ae6ec4fb936a",
+            "f9e3f9107dca9b41ac14c5b39f07ff6cf097dda575c567d044b0a0dcd6eca87d"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/04-visual.json",
+          "findings": "A braided copper lead, a glass fiber and two facing radio dishes span the same two endpoint posts."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "3b733be8c8ee3d3c28c9d51550891b328a8ca14088818f0fea53eda529326313",
+            "5a942215f5d6daebb719d118d01457a9aae5f3e0a3f3c60c0051ae6ec4fb936a",
+            "f9e3f9107dca9b41ac14c5b39f07ff6cf097dda575c567d044b0a0dcd6eca87d"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/04-browser-comparison.json",
+          "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "3b733be8c8ee3d3c28c9d51550891b328a8ca14088818f0fea53eda529326313",
+            "5a942215f5d6daebb719d118d01457a9aae5f3e0a3f3c60c0051ae6ec4fb936a",
+            "f9e3f9107dca9b41ac14c5b39f07ff6cf097dda575c567d044b0a0dcd6eca87d"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/04-rights.json",
+          "findings": "Each actual input traces to a project-owned model render. The generated output and localized browser export retain the original asset notice and public output terms review."
+        }
+      ],
+      "image": {
+        "width": 768,
+        "height": 512,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/images/T122/04/display.json",
+        "layerRole": "diagnostic-illustration",
+        "registrationPath": "assets-src/images/T122/04/display.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-ILLUSTRATION-05",
+      "kind": "illustration",
+      "semanticIdentity": "spec001:ILLUSTRATION-05",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "docs/evidence/spec001/prop-production/T111/PR029-source.png",
+            "sha256": "574f876b2c533232c62fb19111e02fd316876322ef6bdb4dcfdf843ea56fb7d4",
+            "bytes": 219865,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/05-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/T122/05/original.png",
+            "sha256": "5d31b9354b4159b6971fe1beb4706b5ebc2c84159f90b6cb9bb120912e1258e9",
+            "bytes": 2806204,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/05-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/illustrations/05.webp",
+            "sha256": "7f05c5572508d1de2d3dc044293f22d2579592597aa5c9e2c5320add192c8251",
+            "bytes": 60016,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "5d31b9354b4159b6971fe1beb4706b5ebc2c84159f90b6cb9bb120912e1258e9"
+          ],
+          "tool": "Pillow 12.1.0 / libwebp 1.6.0",
+          "preset": "Full frame, Lanczos, quality 88, method 6",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T122/05-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T122-05-v1",
+          "settingsPath": "assets-src/images/T122/05/settings.json",
+          "promptOrScriptPath": "assets-src/images/T122/05/illustration.prompt.txt",
+          "referenceHashes": [
+            "574f876b2c533232c62fb19111e02fd316876322ef6bdb4dcfdf843ea56fb7d4"
+          ],
+          "outputHashes": [
+            "5d31b9354b4159b6971fe1beb4706b5ebc2c84159f90b6cb9bb120912e1258e9"
+          ],
+          "notes": "One genuine built-in generation. Full-frame PNG original; semantic captions and labels are separate authored HTML text."
+        }
+      ],
+      "rights": {
+        "creators": [
+          "John Capobianco and Network Quest, original model designs, authored field guides and engineering examples",
+          "OpenAI built-in image generation with Codex-assisted direction"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "reviewStatus": "accepted",
+        "noticePaths": [
+          "assets-src/images/T122/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T117/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T122/input-permissions.md"
+        ],
+        "aiDisclosure": "OpenAI generated the field-guide artwork from project-owned Blender renders. The project licenses its interest in the result. The operator-specific agreement, underlying model revision and seed were not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:ITEM-inspection-kit",
+          "use": "inventory-illustration",
+          "evidencePath": "docs/evidence/spec001/assets/T122/05-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "574f876b2c533232c62fb19111e02fd316876322ef6bdb4dcfdf843ea56fb7d4",
+            "5d31b9354b4159b6971fe1beb4706b5ebc2c84159f90b6cb9bb120912e1258e9",
+            "7f05c5572508d1de2d3dc044293f22d2579592597aa5c9e2c5320add192c8251"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/05-structure.json",
+          "findings": "The room registration, production allocation, semantic subject and nested WebP agree. Byte counts, decoded dimensions and SHA-256 values were checked."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "574f876b2c533232c62fb19111e02fd316876322ef6bdb4dcfdf843ea56fb7d4",
+            "5d31b9354b4159b6971fe1beb4706b5ebc2c84159f90b6cb9bb120912e1258e9",
+            "7f05c5572508d1de2d3dc044293f22d2579592597aa5c9e2c5320add192c8251"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/05-source-reopen.json",
+          "findings": "The referenced Blender renders, unaltered generation output and converted WebP decoded locally. Native Firefox independently decoded the display artwork."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "574f876b2c533232c62fb19111e02fd316876322ef6bdb4dcfdf843ea56fb7d4",
+            "5d31b9354b4159b6971fe1beb4706b5ebc2c84159f90b6cb9bb120912e1258e9",
+            "7f05c5572508d1de2d3dc044293f22d2579592597aa5c9e2c5320add192c8251"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/05-visual.json",
+          "findings": "Two probes touch opposite sides of a copper conductor with a visible break between the frayed ends."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "574f876b2c533232c62fb19111e02fd316876322ef6bdb4dcfdf843ea56fb7d4",
+            "5d31b9354b4159b6971fe1beb4706b5ebc2c84159f90b6cb9bb120912e1258e9",
+            "7f05c5572508d1de2d3dc044293f22d2579592597aa5c9e2c5320add192c8251"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/05-browser-comparison.json",
+          "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "574f876b2c533232c62fb19111e02fd316876322ef6bdb4dcfdf843ea56fb7d4",
+            "5d31b9354b4159b6971fe1beb4706b5ebc2c84159f90b6cb9bb120912e1258e9",
+            "7f05c5572508d1de2d3dc044293f22d2579592597aa5c9e2c5320add192c8251"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/05-rights.json",
+          "findings": "Each actual input traces to a project-owned model render. The generated output and localized browser export retain the original asset notice and public output terms review."
+        }
+      ],
+      "image": {
+        "width": 768,
+        "height": 512,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/images/T122/05/display.json",
+        "layerRole": "inventory-illustration",
+        "registrationPath": "assets-src/images/T122/05/display.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-ILLUSTRATION-06",
+      "kind": "illustration",
+      "semanticIdentity": "spec001:ILLUSTRATION-06",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "docs/evidence/spec001/prop-production/T111/PR030-source.png",
+            "sha256": "db648ce6aa18cabee81f2d960c02a5daacacfdf9d3b0b07f78b9f48900b2d118",
+            "bytes": 198641,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/06-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/T122/06/original.png",
+            "sha256": "a1c733b02d8560c8df46a27fbadb3af90fe16543c4020efb854e663333c10901",
+            "bytes": 2638791,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/06-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/illustrations/06.webp",
+            "sha256": "b76b90f40b61193e93768657ccc2cad73de4e54fd595c6a01c353f4a373dbf7b",
+            "bytes": 66476,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "a1c733b02d8560c8df46a27fbadb3af90fe16543c4020efb854e663333c10901"
+          ],
+          "tool": "Pillow 12.1.0 / libwebp 1.6.0",
+          "preset": "Full frame, Lanczos, quality 88, method 6",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T122/06-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T122-06-v1",
+          "settingsPath": "assets-src/images/T122/06/settings.json",
+          "promptOrScriptPath": "assets-src/images/T122/06/illustration.prompt.txt",
+          "referenceHashes": [
+            "db648ce6aa18cabee81f2d960c02a5daacacfdf9d3b0b07f78b9f48900b2d118"
+          ],
+          "outputHashes": [
+            "a1c733b02d8560c8df46a27fbadb3af90fe16543c4020efb854e663333c10901"
+          ],
+          "notes": "One genuine built-in generation. Full-frame PNG original; semantic captions and labels are separate authored HTML text."
+        }
+      ],
+      "rights": {
+        "creators": [
+          "John Capobianco and Network Quest, original model designs, authored field guides and engineering examples",
+          "OpenAI built-in image generation with Codex-assisted direction"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "reviewStatus": "accepted",
+        "noticePaths": [
+          "assets-src/images/T122/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T117/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T122/input-permissions.md"
+        ],
+        "aiDisclosure": "OpenAI generated the field-guide artwork from project-owned Blender renders. The project licenses its interest in the result. The operator-specific agreement, underlying model revision and seed were not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:O03",
+          "use": "diagnostic-illustration",
+          "evidencePath": "docs/evidence/spec001/assets/T122/06-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "db648ce6aa18cabee81f2d960c02a5daacacfdf9d3b0b07f78b9f48900b2d118",
+            "a1c733b02d8560c8df46a27fbadb3af90fe16543c4020efb854e663333c10901",
+            "b76b90f40b61193e93768657ccc2cad73de4e54fd595c6a01c353f4a373dbf7b"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/06-structure.json",
+          "findings": "The room registration, production allocation, semantic subject and nested WebP agree. Byte counts, decoded dimensions and SHA-256 values were checked."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "db648ce6aa18cabee81f2d960c02a5daacacfdf9d3b0b07f78b9f48900b2d118",
+            "a1c733b02d8560c8df46a27fbadb3af90fe16543c4020efb854e663333c10901",
+            "b76b90f40b61193e93768657ccc2cad73de4e54fd595c6a01c353f4a373dbf7b"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/06-source-reopen.json",
+          "findings": "The referenced Blender renders, unaltered generation output and converted WebP decoded locally. Native Firefox independently decoded the display artwork."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "db648ce6aa18cabee81f2d960c02a5daacacfdf9d3b0b07f78b9f48900b2d118",
+            "a1c733b02d8560c8df46a27fbadb3af90fe16543c4020efb854e663333c10901",
+            "b76b90f40b61193e93768657ccc2cad73de4e54fd595c6a01c353f4a373dbf7b"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/06-visual.json",
+          "findings": "Two channel diagrams have the same short final lead. The lower conduit takes a longer detour."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "db648ce6aa18cabee81f2d960c02a5daacacfdf9d3b0b07f78b9f48900b2d118",
+            "a1c733b02d8560c8df46a27fbadb3af90fe16543c4020efb854e663333c10901",
+            "b76b90f40b61193e93768657ccc2cad73de4e54fd595c6a01c353f4a373dbf7b"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/06-browser-comparison.json",
+          "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "db648ce6aa18cabee81f2d960c02a5daacacfdf9d3b0b07f78b9f48900b2d118",
+            "a1c733b02d8560c8df46a27fbadb3af90fe16543c4020efb854e663333c10901",
+            "b76b90f40b61193e93768657ccc2cad73de4e54fd595c6a01c353f4a373dbf7b"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/06-rights.json",
+          "findings": "Each actual input traces to a project-owned model render. The generated output and localized browser export retain the original asset notice and public output terms review."
+        }
+      ],
+      "image": {
+        "width": 768,
+        "height": 512,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/images/T122/06/display.json",
+        "layerRole": "diagnostic-illustration",
+        "registrationPath": "assets-src/images/T122/06/display.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-ILLUSTRATION-07",
+      "kind": "illustration",
+      "semanticIdentity": "spec001:ILLUSTRATION-07",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "docs/evidence/spec001/prop-production/T111/PR037-source.png",
+            "sha256": "498e028c336b073d7250e4beae102f8bd41d25cdd4f2031d08b28d36dd0bfbd2",
+            "bytes": 221104,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/07-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/T122/07/original.png",
+            "sha256": "e8a39294f8387c7bb89f293a40f7b4e27b60c5fc5bd1f73fdc055fe5988b8722",
+            "bytes": 2619189,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/07-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/illustrations/07.webp",
+            "sha256": "572acceaaa245d8e1c8b7a7e3cb7d6eeab9b7289ddd80ab6071a0e23263d622c",
+            "bytes": 63102,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "e8a39294f8387c7bb89f293a40f7b4e27b60c5fc5bd1f73fdc055fe5988b8722"
+          ],
+          "tool": "Pillow 12.1.0 / libwebp 1.6.0",
+          "preset": "Full frame, Lanczos, quality 88, method 6",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T122/07-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T122-07-v1",
+          "settingsPath": "assets-src/images/T122/07/settings.json",
+          "promptOrScriptPath": "assets-src/images/T122/07/illustration.prompt.txt",
+          "referenceHashes": [
+            "498e028c336b073d7250e4beae102f8bd41d25cdd4f2031d08b28d36dd0bfbd2"
+          ],
+          "outputHashes": [
+            "e8a39294f8387c7bb89f293a40f7b4e27b60c5fc5bd1f73fdc055fe5988b8722"
+          ],
+          "notes": "One genuine built-in generation. Full-frame PNG original; semantic captions and labels are separate authored HTML text."
+        }
+      ],
+      "rights": {
+        "creators": [
+          "John Capobianco and Network Quest, original model designs, authored field guides and engineering examples",
+          "OpenAI built-in image generation with Codex-assisted direction"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "reviewStatus": "accepted",
+        "noticePaths": [
+          "assets-src/images/T122/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T117/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T122/input-permissions.md"
+        ],
+        "aiDisclosure": "OpenAI generated the field-guide artwork from project-owned Blender renders. The project licenses its interest in the result. The operator-specific agreement, underlying model revision and seed were not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:O04",
+          "use": "diagnostic-illustration",
+          "evidencePath": "docs/evidence/spec001/assets/T122/07-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "498e028c336b073d7250e4beae102f8bd41d25cdd4f2031d08b28d36dd0bfbd2",
+            "e8a39294f8387c7bb89f293a40f7b4e27b60c5fc5bd1f73fdc055fe5988b8722",
+            "572acceaaa245d8e1c8b7a7e3cb7d6eeab9b7289ddd80ab6071a0e23263d622c"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/07-structure.json",
+          "findings": "The room registration, production allocation, semantic subject and nested WebP agree. Byte counts, decoded dimensions and SHA-256 values were checked."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "498e028c336b073d7250e4beae102f8bd41d25cdd4f2031d08b28d36dd0bfbd2",
+            "e8a39294f8387c7bb89f293a40f7b4e27b60c5fc5bd1f73fdc055fe5988b8722",
+            "572acceaaa245d8e1c8b7a7e3cb7d6eeab9b7289ddd80ab6071a0e23263d622c"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/07-source-reopen.json",
+          "findings": "The referenced Blender renders, unaltered generation output and converted WebP decoded locally. Native Firefox independently decoded the display artwork."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "498e028c336b073d7250e4beae102f8bd41d25cdd4f2031d08b28d36dd0bfbd2",
+            "e8a39294f8387c7bb89f293a40f7b4e27b60c5fc5bd1f73fdc055fe5988b8722",
+            "572acceaaa245d8e1c8b7a7e3cb7d6eeab9b7289ddd80ab6071a0e23263d622c"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/07-visual.json",
+          "findings": "Above, an intact line passes through a coil and emerges with regular square pulses. Below, a cable gap leaves the output trace flat."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "498e028c336b073d7250e4beae102f8bd41d25cdd4f2031d08b28d36dd0bfbd2",
+            "e8a39294f8387c7bb89f293a40f7b4e27b60c5fc5bd1f73fdc055fe5988b8722",
+            "572acceaaa245d8e1c8b7a7e3cb7d6eeab9b7289ddd80ab6071a0e23263d622c"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/07-browser-comparison.json",
+          "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "498e028c336b073d7250e4beae102f8bd41d25cdd4f2031d08b28d36dd0bfbd2",
+            "e8a39294f8387c7bb89f293a40f7b4e27b60c5fc5bd1f73fdc055fe5988b8722",
+            "572acceaaa245d8e1c8b7a7e3cb7d6eeab9b7289ddd80ab6071a0e23263d622c"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/07-rights.json",
+          "findings": "Each actual input traces to a project-owned model render. The generated output and localized browser export retain the original asset notice and public output terms review."
+        }
+      ],
+      "image": {
+        "width": 768,
+        "height": 512,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/images/T122/07/display.json",
+        "layerRole": "diagnostic-illustration",
+        "registrationPath": "assets-src/images/T122/07/display.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-ILLUSTRATION-08",
+      "kind": "illustration",
+      "semanticIdentity": "spec001:ILLUSTRATION-08",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/T108/CH13-source-rest.png",
+            "sha256": "87fc4f9fa61e191761026fd6e7590957c43004e9bd1ce3f9b906772c1d5a06a0",
+            "bytes": 129681,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/08-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/prop-production/T111/PR033-source.png",
+            "sha256": "35c277478fb9a31bc241c129ffe329c5fcdaa7dc732ec60ceb1bb8191a4e7557",
+            "bytes": 200257,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/08-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/T122/08/original.png",
+            "sha256": "8a619d8d2aa8552f8a795b4495a903e200557085ef2cd264245da9e1f529d0a0",
+            "bytes": 2946568,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/08-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/illustrations/08.webp",
+            "sha256": "41ada2b2f65743e883afc6fc2544e15fc6ebee3f1c0e20a9918b419a9bfd4787",
+            "bytes": 88810,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "8a619d8d2aa8552f8a795b4495a903e200557085ef2cd264245da9e1f529d0a0"
+          ],
+          "tool": "Pillow 12.1.0 / libwebp 1.6.0",
+          "preset": "Full frame, Lanczos, quality 88, method 6",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T122/08-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T122-08-v1",
+          "settingsPath": "assets-src/images/T122/08/settings.json",
+          "promptOrScriptPath": "assets-src/images/T122/08/illustration.prompt.txt",
+          "referenceHashes": [
+            "87fc4f9fa61e191761026fd6e7590957c43004e9bd1ce3f9b906772c1d5a06a0",
+            "35c277478fb9a31bc241c129ffe329c5fcdaa7dc732ec60ceb1bb8191a4e7557"
+          ],
+          "outputHashes": [
+            "8a619d8d2aa8552f8a795b4495a903e200557085ef2cd264245da9e1f529d0a0"
+          ],
+          "notes": "One genuine built-in generation. Full-frame PNG original; semantic captions and labels are separate authored HTML text."
+        }
+      ],
+      "rights": {
+        "creators": [
+          "John Capobianco and Network Quest, original model designs, authored field guides and engineering examples",
+          "OpenAI built-in image generation with Codex-assisted direction"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "reviewStatus": "accepted",
+        "noticePaths": [
+          "assets-src/images/T122/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T117/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T122/input-permissions.md"
+        ],
+        "aiDisclosure": "OpenAI generated the field-guide artwork from project-owned Blender renders. The project licenses its interest in the result. The operator-specific agreement, underlying model revision and seed were not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:FACT-SQ01-delivery",
+          "use": "diagnostic-illustration",
+          "evidencePath": "docs/evidence/spec001/assets/T122/08-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "87fc4f9fa61e191761026fd6e7590957c43004e9bd1ce3f9b906772c1d5a06a0",
+            "35c277478fb9a31bc241c129ffe329c5fcdaa7dc732ec60ceb1bb8191a4e7557",
+            "8a619d8d2aa8552f8a795b4495a903e200557085ef2cd264245da9e1f529d0a0",
+            "41ada2b2f65743e883afc6fc2544e15fc6ebee3f1c0e20a9918b419a9bfd4787"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/08-structure.json",
+          "findings": "The room registration, production allocation, semantic subject and nested WebP agree. Byte counts, decoded dimensions and SHA-256 values were checked."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "87fc4f9fa61e191761026fd6e7590957c43004e9bd1ce3f9b906772c1d5a06a0",
+            "35c277478fb9a31bc241c129ffe329c5fcdaa7dc732ec60ceb1bb8191a4e7557",
+            "8a619d8d2aa8552f8a795b4495a903e200557085ef2cd264245da9e1f529d0a0",
+            "41ada2b2f65743e883afc6fc2544e15fc6ebee3f1c0e20a9918b419a9bfd4787"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/08-source-reopen.json",
+          "findings": "The referenced Blender renders, unaltered generation output and converted WebP decoded locally. Native Firefox independently decoded the display artwork."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "87fc4f9fa61e191761026fd6e7590957c43004e9bd1ce3f9b906772c1d5a06a0",
+            "35c277478fb9a31bc241c129ffe329c5fcdaa7dc732ec60ceb1bb8191a4e7557",
+            "8a619d8d2aa8552f8a795b4495a903e200557085ef2cd264245da9e1f529d0a0",
+            "41ada2b2f65743e883afc6fc2544e15fc6ebee3f1c0e20a9918b419a9bfd4787"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/08-visual.json",
+          "findings": "The Ancient Tortoise smiles beside its twin-coil telegraph; four marks run along one continuous paper strip."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "87fc4f9fa61e191761026fd6e7590957c43004e9bd1ce3f9b906772c1d5a06a0",
+            "35c277478fb9a31bc241c129ffe329c5fcdaa7dc732ec60ceb1bb8191a4e7557",
+            "8a619d8d2aa8552f8a795b4495a903e200557085ef2cd264245da9e1f529d0a0",
+            "41ada2b2f65743e883afc6fc2544e15fc6ebee3f1c0e20a9918b419a9bfd4787"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/08-browser-comparison.json",
+          "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "87fc4f9fa61e191761026fd6e7590957c43004e9bd1ce3f9b906772c1d5a06a0",
+            "35c277478fb9a31bc241c129ffe329c5fcdaa7dc732ec60ceb1bb8191a4e7557",
+            "8a619d8d2aa8552f8a795b4495a903e200557085ef2cd264245da9e1f529d0a0",
+            "41ada2b2f65743e883afc6fc2544e15fc6ebee3f1c0e20a9918b419a9bfd4787"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/08-rights.json",
+          "findings": "Each actual input traces to a project-owned model render. The generated output and localized browser export retain the original asset notice and public output terms review."
+        }
+      ],
+      "image": {
+        "width": 768,
+        "height": 512,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/images/T122/08/display.json",
+        "layerRole": "diagnostic-illustration",
+        "registrationPath": "assets-src/images/T122/08/display.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-ILLUSTRATION-09",
+      "kind": "illustration",
+      "semanticIdentity": "spec001:ILLUSTRATION-09",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "docs/evidence/spec001/prop-production/T112/PR043-native.png",
+            "sha256": "928d570e6d10a71605c591d909cdc465348e34e90c1c1d7f89ec3a7dfb12e0c8",
+            "bytes": 184323,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/09-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/T122/09/original.png",
+            "sha256": "c32b4dd81e402dc457dd277084f61a2f803fd2755c6bb622016e6132803d1f60",
+            "bytes": 2715384,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/09-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/illustrations/09.webp",
+            "sha256": "5e07d8d1bd31d74db1f95bca36d7827f6d26a8abd9e5e8bb1eecf7c74ded29b6",
+            "bytes": 59480,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "c32b4dd81e402dc457dd277084f61a2f803fd2755c6bb622016e6132803d1f60"
+          ],
+          "tool": "Pillow 12.1.0 / libwebp 1.6.0",
+          "preset": "Full frame, Lanczos, quality 88, method 6",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T122/09-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T122-09-v1",
+          "settingsPath": "assets-src/images/T122/09/settings.json",
+          "promptOrScriptPath": "assets-src/images/T122/09/illustration.prompt.txt",
+          "referenceHashes": [
+            "928d570e6d10a71605c591d909cdc465348e34e90c1c1d7f89ec3a7dfb12e0c8"
+          ],
+          "outputHashes": [
+            "c32b4dd81e402dc457dd277084f61a2f803fd2755c6bb622016e6132803d1f60"
+          ],
+          "notes": "One genuine built-in generation. Full-frame PNG original; semantic captions and labels are separate authored HTML text."
+        }
+      ],
+      "rights": {
+        "creators": [
+          "John Capobianco and Network Quest, original model designs, authored field guides and engineering examples",
+          "OpenAI built-in image generation with Codex-assisted direction"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "reviewStatus": "accepted",
+        "noticePaths": [
+          "assets-src/images/T122/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T117/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T122/input-permissions.md"
+        ],
+        "aiDisclosure": "OpenAI generated the field-guide artwork from project-owned Blender renders. The project licenses its interest in the result. The operator-specific agreement, underlying model revision and seed were not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:ITEM-inspection-kit",
+          "use": "inventory-illustration",
+          "evidencePath": "docs/evidence/spec001/assets/T122/09-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "928d570e6d10a71605c591d909cdc465348e34e90c1c1d7f89ec3a7dfb12e0c8",
+            "c32b4dd81e402dc457dd277084f61a2f803fd2755c6bb622016e6132803d1f60",
+            "5e07d8d1bd31d74db1f95bca36d7827f6d26a8abd9e5e8bb1eecf7c74ded29b6"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/09-structure.json",
+          "findings": "The room registration, production allocation, semantic subject and nested WebP agree. Byte counts, decoded dimensions and SHA-256 values were checked."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "928d570e6d10a71605c591d909cdc465348e34e90c1c1d7f89ec3a7dfb12e0c8",
+            "c32b4dd81e402dc457dd277084f61a2f803fd2755c6bb622016e6132803d1f60",
+            "5e07d8d1bd31d74db1f95bca36d7827f6d26a8abd9e5e8bb1eecf7c74ded29b6"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/09-source-reopen.json",
+          "findings": "The referenced Blender renders, unaltered generation output and converted WebP decoded locally. Native Firefox independently decoded the display artwork."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "928d570e6d10a71605c591d909cdc465348e34e90c1c1d7f89ec3a7dfb12e0c8",
+            "c32b4dd81e402dc457dd277084f61a2f803fd2755c6bb622016e6132803d1f60",
+            "5e07d8d1bd31d74db1f95bca36d7827f6d26a8abd9e5e8bb1eecf7c74ded29b6"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/09-visual.json",
+          "findings": "A mounted inspection lens sits over a disconnected connector. Three discs show a smooth end face, specks and a deep scratch."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "928d570e6d10a71605c591d909cdc465348e34e90c1c1d7f89ec3a7dfb12e0c8",
+            "c32b4dd81e402dc457dd277084f61a2f803fd2755c6bb622016e6132803d1f60",
+            "5e07d8d1bd31d74db1f95bca36d7827f6d26a8abd9e5e8bb1eecf7c74ded29b6"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/09-browser-comparison.json",
+          "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "928d570e6d10a71605c591d909cdc465348e34e90c1c1d7f89ec3a7dfb12e0c8",
+            "c32b4dd81e402dc457dd277084f61a2f803fd2755c6bb622016e6132803d1f60",
+            "5e07d8d1bd31d74db1f95bca36d7827f6d26a8abd9e5e8bb1eecf7c74ded29b6"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/09-rights.json",
+          "findings": "Each actual input traces to a project-owned model render. The generated output and localized browser export retain the original asset notice and public output terms review."
+        }
+      ],
+      "image": {
+        "width": 768,
+        "height": 512,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/images/T122/09/display.json",
+        "layerRole": "inventory-illustration",
+        "registrationPath": "assets-src/images/T122/09/display.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-ILLUSTRATION-10",
+      "kind": "illustration",
+      "semanticIdentity": "spec001:ILLUSTRATION-10",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t107/CH05-source.png",
+            "sha256": "edcd097168d737b33bf9dc8f1755dc6edeb82cdb101ea76be920134db2d0b746",
+            "bytes": 164832,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/10-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t107/CH06-source.png",
+            "sha256": "e8f550f7eb6b24e740805aa39cc11c5f993f92c78485f6a64e4dbe01c10979d3",
+            "bytes": 190003,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/10-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/T122/10/original.png",
+            "sha256": "e0b271f3e6dfeeb5517450d06ec60cec0bf0ea0e7d18bad0788b9e6e3d8cd560",
+            "bytes": 2931564,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/10-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/illustrations/10.webp",
+            "sha256": "b09da10690cc68ef1673eb918686bb59525807a8338d84fa5cfc4c7e6d890125",
+            "bytes": 81352,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "e0b271f3e6dfeeb5517450d06ec60cec0bf0ea0e7d18bad0788b9e6e3d8cd560"
+          ],
+          "tool": "Pillow 12.1.0 / libwebp 1.6.0",
+          "preset": "Full frame, Lanczos, quality 88, method 6",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T122/10-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T122-10-v1",
+          "settingsPath": "assets-src/images/T122/10/settings.json",
+          "promptOrScriptPath": "assets-src/images/T122/10/illustration.prompt.txt",
+          "referenceHashes": [
+            "edcd097168d737b33bf9dc8f1755dc6edeb82cdb101ea76be920134db2d0b746",
+            "e8f550f7eb6b24e740805aa39cc11c5f993f92c78485f6a64e4dbe01c10979d3"
+          ],
+          "outputHashes": [
+            "e0b271f3e6dfeeb5517450d06ec60cec0bf0ea0e7d18bad0788b9e6e3d8cd560"
+          ],
+          "notes": "One genuine built-in generation. Full-frame PNG original; semantic captions and labels are separate authored HTML text."
+        }
+      ],
+      "rights": {
+        "creators": [
+          "John Capobianco and Network Quest, original model designs, authored field guides and engineering examples",
+          "OpenAI built-in image generation with Codex-assisted direction"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "reviewStatus": "accepted",
+        "noticePaths": [
+          "assets-src/images/T122/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T117/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T122/input-permissions.md"
+        ],
+        "aiDisclosure": "OpenAI generated the field-guide artwork from project-owned Blender renders. The project licenses its interest in the result. The operator-specific agreement, underlying model revision and seed were not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:O05",
+          "use": "diagnostic-illustration",
+          "evidencePath": "docs/evidence/spec001/assets/T122/10-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "edcd097168d737b33bf9dc8f1755dc6edeb82cdb101ea76be920134db2d0b746",
+            "e8f550f7eb6b24e740805aa39cc11c5f993f92c78485f6a64e4dbe01c10979d3",
+            "e0b271f3e6dfeeb5517450d06ec60cec0bf0ea0e7d18bad0788b9e6e3d8cd560",
+            "b09da10690cc68ef1673eb918686bb59525807a8338d84fa5cfc4c7e6d890125"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/10-structure.json",
+          "findings": "The room registration, production allocation, semantic subject and nested WebP agree. Byte counts, decoded dimensions and SHA-256 values were checked."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "edcd097168d737b33bf9dc8f1755dc6edeb82cdb101ea76be920134db2d0b746",
+            "e8f550f7eb6b24e740805aa39cc11c5f993f92c78485f6a64e4dbe01c10979d3",
+            "e0b271f3e6dfeeb5517450d06ec60cec0bf0ea0e7d18bad0788b9e6e3d8cd560",
+            "b09da10690cc68ef1673eb918686bb59525807a8338d84fa5cfc4c7e6d890125"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/10-source-reopen.json",
+          "findings": "The referenced Blender renders, unaltered generation output and converted WebP decoded locally. Native Firefox independently decoded the display artwork."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "edcd097168d737b33bf9dc8f1755dc6edeb82cdb101ea76be920134db2d0b746",
+            "e8f550f7eb6b24e740805aa39cc11c5f993f92c78485f6a64e4dbe01c10979d3",
+            "e0b271f3e6dfeeb5517450d06ec60cec0bf0ea0e7d18bad0788b9e6e3d8cd560",
+            "b09da10690cc68ef1673eb918686bb59525807a8338d84fa5cfc4c7e6d890125"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/10-visual.json",
+          "findings": "The Unicorn and three-headed Hydra occupy separate profile cards with a triangular key and a rectangular key."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "edcd097168d737b33bf9dc8f1755dc6edeb82cdb101ea76be920134db2d0b746",
+            "e8f550f7eb6b24e740805aa39cc11c5f993f92c78485f6a64e4dbe01c10979d3",
+            "e0b271f3e6dfeeb5517450d06ec60cec0bf0ea0e7d18bad0788b9e6e3d8cd560",
+            "b09da10690cc68ef1673eb918686bb59525807a8338d84fa5cfc4c7e6d890125"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/10-browser-comparison.json",
+          "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "edcd097168d737b33bf9dc8f1755dc6edeb82cdb101ea76be920134db2d0b746",
+            "e8f550f7eb6b24e740805aa39cc11c5f993f92c78485f6a64e4dbe01c10979d3",
+            "e0b271f3e6dfeeb5517450d06ec60cec0bf0ea0e7d18bad0788b9e6e3d8cd560",
+            "b09da10690cc68ef1673eb918686bb59525807a8338d84fa5cfc4c7e6d890125"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/10-rights.json",
+          "findings": "Each actual input traces to a project-owned model render. The generated output and localized browser export retain the original asset notice and public output terms review."
+        }
+      ],
+      "image": {
+        "width": 768,
+        "height": 512,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/images/T122/10/display.json",
+        "layerRole": "diagnostic-illustration",
+        "registrationPath": "assets-src/images/T122/10/display.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-ILLUSTRATION-11",
+      "kind": "illustration",
+      "semanticIdentity": "spec001:ILLUSTRATION-11",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "docs/evidence/spec001/prop-production/T112/PR059-native.png",
+            "sha256": "b31faa4d25aad13e085361056cad5ab0cadc0fdb2bd1836d682109fcedbd6cc2",
+            "bytes": 220404,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/11-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/T122/11/original.png",
+            "sha256": "46e9ffaa0fc97ace1bee57f3f3f9e448e070e90a4c6874c0719e74735875c345",
+            "bytes": 2635448,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/11-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/illustrations/11.webp",
+            "sha256": "2725b1d70c2cb1a912bbb7ae6f4d7488fece526562e86126b6d2e9ee1b26f37a",
+            "bytes": 51114,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "46e9ffaa0fc97ace1bee57f3f3f9e448e070e90a4c6874c0719e74735875c345"
+          ],
+          "tool": "Pillow 12.1.0 / libwebp 1.6.0",
+          "preset": "Full frame, Lanczos, quality 88, method 6",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T122/11-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T122-11-v1",
+          "settingsPath": "assets-src/images/T122/11/settings.json",
+          "promptOrScriptPath": "assets-src/images/T122/11/illustration.prompt.txt",
+          "referenceHashes": [
+            "b31faa4d25aad13e085361056cad5ab0cadc0fdb2bd1836d682109fcedbd6cc2"
+          ],
+          "outputHashes": [
+            "46e9ffaa0fc97ace1bee57f3f3f9e448e070e90a4c6874c0719e74735875c345"
+          ],
+          "notes": "One genuine built-in generation. Full-frame PNG original; semantic captions and labels are separate authored HTML text."
+        }
+      ],
+      "rights": {
+        "creators": [
+          "John Capobianco and Network Quest, original model designs, authored field guides and engineering examples",
+          "OpenAI built-in image generation with Codex-assisted direction"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "reviewStatus": "accepted",
+        "noticePaths": [
+          "assets-src/images/T122/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T117/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T122/input-permissions.md"
+        ],
+        "aiDisclosure": "OpenAI generated the field-guide artwork from project-owned Blender renders. The project licenses its interest in the result. The operator-specific agreement, underlying model revision and seed were not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:O06",
+          "use": "diagnostic-illustration",
+          "evidencePath": "docs/evidence/spec001/assets/T122/11-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "b31faa4d25aad13e085361056cad5ab0cadc0fdb2bd1836d682109fcedbd6cc2",
+            "46e9ffaa0fc97ace1bee57f3f3f9e448e070e90a4c6874c0719e74735875c345",
+            "2725b1d70c2cb1a912bbb7ae6f4d7488fece526562e86126b6d2e9ee1b26f37a"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/11-structure.json",
+          "findings": "The room registration, production allocation, semantic subject and nested WebP agree. Byte counts, decoded dimensions and SHA-256 values were checked."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "b31faa4d25aad13e085361056cad5ab0cadc0fdb2bd1836d682109fcedbd6cc2",
+            "46e9ffaa0fc97ace1bee57f3f3f9e448e070e90a4c6874c0719e74735875c345",
+            "2725b1d70c2cb1a912bbb7ae6f4d7488fece526562e86126b6d2e9ee1b26f37a"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/11-source-reopen.json",
+          "findings": "The referenced Blender renders, unaltered generation output and converted WebP decoded locally. Native Firefox independently decoded the display artwork."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "b31faa4d25aad13e085361056cad5ab0cadc0fdb2bd1836d682109fcedbd6cc2",
+            "46e9ffaa0fc97ace1bee57f3f3f9e448e070e90a4c6874c0719e74735875c345",
+            "2725b1d70c2cb1a912bbb7ae6f4d7488fece526562e86126b6d2e9ee1b26f37a"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/11-visual.json",
+          "findings": "A source capsule, two passive components and a receiver gauge are arranged in order on a brass bench."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "b31faa4d25aad13e085361056cad5ab0cadc0fdb2bd1836d682109fcedbd6cc2",
+            "46e9ffaa0fc97ace1bee57f3f3f9e448e070e90a4c6874c0719e74735875c345",
+            "2725b1d70c2cb1a912bbb7ae6f4d7488fece526562e86126b6d2e9ee1b26f37a"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/11-browser-comparison.json",
+          "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "b31faa4d25aad13e085361056cad5ab0cadc0fdb2bd1836d682109fcedbd6cc2",
+            "46e9ffaa0fc97ace1bee57f3f3f9e448e070e90a4c6874c0719e74735875c345",
+            "2725b1d70c2cb1a912bbb7ae6f4d7488fece526562e86126b6d2e9ee1b26f37a"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/11-rights.json",
+          "findings": "Each actual input traces to a project-owned model render. The generated output and localized browser export retain the original asset notice and public output terms review."
+        }
+      ],
+      "image": {
+        "width": 768,
+        "height": 512,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/images/T122/11/display.json",
+        "layerRole": "diagnostic-illustration",
+        "registrationPath": "assets-src/images/T122/11/display.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-ILLUSTRATION-12",
+      "kind": "illustration",
+      "semanticIdentity": "spec001:ILLUSTRATION-12",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "docs/evidence/spec001/prop-production/T112/PR057-native.png",
+            "sha256": "93385c4c444427aacffed1839340bcbd194a17c8871fa552d36de6e18b5d4b3a",
+            "bytes": 162408,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/12-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/T122/12/original.png",
+            "sha256": "113eebea7b60f8c6b1ffbff36886dea6b8bb9fad87f3d605f59f36946f21db8b",
+            "bytes": 2838317,
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T122/12-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/illustrations/12.webp",
+            "sha256": "76b909a90cb04790ede51eb31c1f7a82d30dd0c2cb5a0c0f17192297d13ee15e",
+            "bytes": 68134,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "113eebea7b60f8c6b1ffbff36886dea6b8bb9fad87f3d605f59f36946f21db8b"
+          ],
+          "tool": "Pillow 12.1.0 / libwebp 1.6.0",
+          "preset": "Full frame, Lanczos, quality 88, method 6",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T122/12-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T122-12-v1",
+          "settingsPath": "assets-src/images/T122/12/settings.json",
+          "promptOrScriptPath": "assets-src/images/T122/12/illustration.prompt.txt",
+          "referenceHashes": [
+            "93385c4c444427aacffed1839340bcbd194a17c8871fa552d36de6e18b5d4b3a"
+          ],
+          "outputHashes": [
+            "113eebea7b60f8c6b1ffbff36886dea6b8bb9fad87f3d605f59f36946f21db8b"
+          ],
+          "notes": "One genuine built-in generation. Full-frame PNG original; semantic captions and labels are separate authored HTML text."
+        }
+      ],
+      "rights": {
+        "creators": [
+          "John Capobianco and Network Quest, original model designs, authored field guides and engineering examples",
+          "OpenAI built-in image generation with Codex-assisted direction"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "reviewStatus": "accepted",
+        "noticePaths": [
+          "assets-src/images/T122/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T117/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T122/input-permissions.md"
+        ],
+        "aiDisclosure": "OpenAI generated the field-guide artwork from project-owned Blender renders. The project licenses its interest in the result. The operator-specific agreement, underlying model revision and seed were not exposed."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:FACT-O06-budget",
+          "use": "diagnostic-illustration",
+          "evidencePath": "docs/evidence/spec001/assets/T122/12-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "93385c4c444427aacffed1839340bcbd194a17c8871fa552d36de6e18b5d4b3a",
+            "113eebea7b60f8c6b1ffbff36886dea6b8bb9fad87f3d605f59f36946f21db8b",
+            "76b909a90cb04790ede51eb31c1f7a82d30dd0c2cb5a0c0f17192297d13ee15e"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/12-structure.json",
+          "findings": "The room registration, production allocation, semantic subject and nested WebP agree. Byte counts, decoded dimensions and SHA-256 values were checked."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "93385c4c444427aacffed1839340bcbd194a17c8871fa552d36de6e18b5d4b3a",
+            "113eebea7b60f8c6b1ffbff36886dea6b8bb9fad87f3d605f59f36946f21db8b",
+            "76b909a90cb04790ede51eb31c1f7a82d30dd0c2cb5a0c0f17192297d13ee15e"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/12-source-reopen.json",
+          "findings": "The referenced Blender renders, unaltered generation output and converted WebP decoded locally. Native Firefox independently decoded the display artwork."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "93385c4c444427aacffed1839340bcbd194a17c8871fa552d36de6e18b5d4b3a",
+            "113eebea7b60f8c6b1ffbff36886dea6b8bb9fad87f3d605f59f36946f21db8b",
+            "76b909a90cb04790ede51eb31c1f7a82d30dd0c2cb5a0c0f17192297d13ee15e"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/12-visual.json",
+          "findings": "Two brass stops enclose the receiver band. A hatched strip at its low end and a bolt above the high end distinguish reserve and overload."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "93385c4c444427aacffed1839340bcbd194a17c8871fa552d36de6e18b5d4b3a",
+            "113eebea7b60f8c6b1ffbff36886dea6b8bb9fad87f3d605f59f36946f21db8b",
+            "76b909a90cb04790ede51eb31c1f7a82d30dd0c2cb5a0c0f17192297d13ee15e"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/12-browser-comparison.json",
+          "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex worker loop139/T122",
+          "date": "2026-11-27",
+          "hashes": [
+            "93385c4c444427aacffed1839340bcbd194a17c8871fa552d36de6e18b5d4b3a",
+            "113eebea7b60f8c6b1ffbff36886dea6b8bb9fad87f3d605f59f36946f21db8b",
+            "76b909a90cb04790ede51eb31c1f7a82d30dd0c2cb5a0c0f17192297d13ee15e"
+          ],
+          "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+          "evidencePath": "docs/evidence/spec001/assets/T122/12-rights.json",
+          "findings": "Each actual input traces to a project-owned model render. The generated output and localized browser export retain the original asset notice and public output terms review."
+        }
+      ],
+      "image": {
+        "width": 768,
+        "height": 512,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/images/T122/12/display.json",
+        "layerRole": "diagnostic-illustration",
+        "registrationPath": "assets-src/images/T122/12/display.json"
+      }
+    }
+  ]
+}

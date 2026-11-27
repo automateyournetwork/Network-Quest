@@ -2050,6 +2050,15 @@
           "minItems": 1,
           "maxItems": 128,
           "uniqueItems": true
+        },
+        "illustrationBindings": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/illustrationBinding"
+          }
         }
       },
       "required": [
@@ -2651,14 +2660,34 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "assetId": { "$ref": "#/$defs/id" },
-                "contentId": { "$ref": "#/$defs/characterId" },
-                "use": { "const": "compendium-portrait" },
-                "exportPath": { "type": "string", "pattern": "^public/assets/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+[.](?:png|webp|avif|jpg|jpeg)$" },
-                "interactiveOrEvidence": { "const": false },
-                "caption": { "$ref": "#/$defs/text" }
+                "assetId": {
+                  "$ref": "#/$defs/id"
+                },
+                "contentId": {
+                  "$ref": "#/$defs/characterId"
+                },
+                "use": {
+                  "const": "compendium-portrait"
+                },
+                "exportPath": {
+                  "type": "string",
+                  "pattern": "^public/assets/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+[.](?:png|webp|avif|jpg|jpeg)$"
+                },
+                "interactiveOrEvidence": {
+                  "const": false
+                },
+                "caption": {
+                  "$ref": "#/$defs/text"
+                }
               },
-              "required": ["assetId", "contentId", "use", "exportPath", "interactiveOrEvidence", "caption"]
+              "required": [
+                "assetId",
+                "contentId",
+                "use",
+                "exportPath",
+                "interactiveOrEvidence",
+                "caption"
+              ]
             },
             "discovery": {
               "type": "object",
@@ -5347,7 +5376,7 @@
               "label": "Copper Warrens: the documented conductor break",
               "dialogueId": "spec001:DIALOGUE-copper-bench",
               "sourceActionId": "spec001:ACTION-copper-read-defect",
-              "description": "You read the bench\u2019s supplied diagnosis of an open required conductor. This is a recorded diagnosis, not a new continuity measurement or a repair."
+              "description": "You read the bench’s supplied diagnosis of an open required conductor. This is a recorded diagnosis, not a new continuity measurement or a repair."
             },
             {
               "factId": "spec001:FACT-O05-inspection",
@@ -6324,6 +6353,61 @@
           "const": "off"
         }
       }
+    },
+    "illustrationBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "assetId": {
+          "type": "string",
+          "pattern": "^spec001:ASSET-ILLUSTRATION-(0[1-9]|1[0-9]|2[0-4])$"
+        },
+        "contentId": {
+          "$ref": "#/$defs/id"
+        },
+        "use": {
+          "enum": [
+            "inventory-illustration",
+            "diagnostic-illustration"
+          ]
+        },
+        "exportPath": {
+          "type": "string",
+          "pattern": "^public/assets/illustrations/(0[1-9]|1[0-9]|2[0-4])\\.webp$"
+        },
+        "interactiveOrEvidence": {
+          "const": false
+        },
+        "surface": {
+          "enum": [
+            "inventory",
+            "journal",
+            "diagnostic"
+          ]
+        },
+        "alt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "\\S"
+        },
+        "caption": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "assetId",
+        "contentId",
+        "use",
+        "exportPath",
+        "interactiveOrEvidence",
+        "surface",
+        "alt",
+        "caption"
+      ]
     }
   }
 }

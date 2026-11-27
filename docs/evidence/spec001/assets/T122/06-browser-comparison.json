@@ -1,0 +1,42 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-ILLUSTRATION-06",
+  "hashes": [
+    "db648ce6aa18cabee81f2d960c02a5daacacfdf9d3b0b07f78b9f48900b2d118",
+    "a1c733b02d8560c8df46a27fbadb3af90fe16543c4020efb854e663333c10901",
+    "b76b90f40b61193e93768657ccc2cad73de4e54fd595c6a01c353f4a373dbf7b"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex worker loop139/T122",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+  "details": {
+    "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative.",
+    "methods": [
+      "browser-inspection"
+    ],
+    "tool": "Firefox 159.0 via Playwright",
+    "observedPaths": [
+      "docs/evidence/spec001/prop-production/T111/PR030-source.png",
+      "assets-src/images/T122/06/original.png",
+      "public/assets/illustrations/06.webp"
+    ],
+    "report": "docs/evidence/spec001/image-production/T122/with-workshop/browser.json",
+    "finalSourceVerification": "docs/evidence/spec001/image-production/T122/verified-joined/browser.json",
+    "actualUses": [
+      {
+        "assetId": "spec001:ASSET-ILLUSTRATION-06",
+        "contentId": "spec001:O03",
+        "room": "The Copper Warrens",
+        "surface": "Diagnostics",
+        "place": "diagnostics",
+        "width": 768,
+        "height": 512,
+        "src": "/arcade/play/network-quest/assets/illustrations/06.webp",
+        "sha256": "b76b90f40b61193e93768657ccc2cad73de4e54fd595c6a01c353f4a373dbf7b"
+      }
+    ]
+  },
+  "check": "browser-comparison"
+}

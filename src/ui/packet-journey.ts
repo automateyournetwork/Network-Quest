@@ -1,5 +1,7 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import { evaluatePacketJourney } from '../domain/packet-journey';
+import type { illustrationBinding } from '../content/schema-types.generated';
+import { illustrationDetails } from './illustration';
 import type { JourneyObservation, JourneyPhase, PacketJourneyChallenge, PacketJourneyWorld, PacketResult } from '../domain/packet-journey';
 import type { ActionId, WorldVersion } from '../domain/types';
 import { inspectRepairPacketJourney } from '../state/repair-packet';
@@ -44,6 +46,7 @@ export interface RepairPacketJourneyBinding {
 }
 export type CurrentPacketJourneyBinding = PacketJourneyBinding | RepairPacketJourneyBinding;
 export interface PacketJourneyView {
+  readonly illustration?: illustrationBinding | undefined;
   readonly open: boolean; readonly phase: JourneyPhase; readonly paused: boolean;
   readonly context: PacketContext; readonly result: PacketResult<JourneyObservation | RepairJourneyObservation> | null;
   readonly message: string; readonly controls: readonly SemanticControl[];
@@ -201,6 +204,7 @@ export function createPacketJourneyPanel(host: HTMLElement, bus: Pick<ActionDisp
         paragraph(observation.endpointResponse === null ? 'The route is deliberately isolated. Service remains unresolved; no received trace is supplied.'
           : `Separate supplied endpoint response: ${observation.endpointResponse === 'service-acknowledged' ? 'service acknowledged' : 'service unavailable'}. This cross-layer observation is separate from the physical checks and highlighted pattern; this preview does not classify the repair.`);
       }
+      if (view.open && view.illustration && observation.kind === 'packet-journey' && view.phase === 'payload') body.append(illustrationDetails(doc, view.illustration));
       table('Highlighted payload bytes', ['Hex', 'Letter', 'Bits'], [['0x4E', 'N', '01001110'], ['0x51', 'Q', '01010001']]);
       if (observation.encoded) table('Declared toy encoding in supplied order', ['Position (zero-based)', 'Bits', 'Sent toy level', 'Received toy level'], observation.encoded.samples.map((sample, i) => [String(sample.position), observation.encoded!.pairs[i]!, level(sample.value), observation.recoveredSymbolValues ? level(observation.recoveredSymbolValues[i]!) : 'Not available']));
       paragraph(observation.recoveredBits === null ? 'Recovered bits: not available at this checkpoint.' : `Recovered bits: ${groupedBits(observation.recoveredBits)}.`);

@@ -168,7 +168,11 @@ describe('T093 bounded schema evolution preserves T092 provenance', () => {
       // New T100 payloads are tested against their explicitly retained old-shaped
       // projections. The immutable T092 schema is never rehashed or refreshed.
       const optional = /^content\/spec001\/quests\/(SQ0[123])\.json$/.exec(path);
-      const oldShaped = optional ? json(`docs/evidence/spec001/optional/${optional[1]}/${optional[1]}.current-schema.json`) : document;
+      const oldShaped: any = optional ? json(`docs/evidence/spec001/optional/${optional[1]}/${optional[1]}.current-schema.json`) : structuredClone(document);
+      if (oldShaped.kind === 'room' && oldShaped.illustrationBindings) {
+        expect(old(document),path).toBe(false);
+        delete oldShaped.illustrationBindings;
+      }
       expect(old(oldShaped),path).toBe(true);expect(current(document),path).toBe(true);
     }
   });

@@ -1,0 +1,42 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-ILLUSTRATION-02",
+  "hashes": [
+    "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+    "9bfdde93d4227eff9bdca3732cbbac5f1a22be4717e2b741313fe9f27bd570eb",
+    "9da82d45ffc1d69b2048f131c8a6525c925bfdb498d8d9314be7e9e6416537ff"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex worker loop139/T122",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+  "details": {
+    "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative.",
+    "methods": [
+      "browser-inspection"
+    ],
+    "tool": "Firefox 159.0 via Playwright",
+    "observedPaths": [
+      "docs/evidence/spec001/assets/t063-R01-source.png",
+      "assets-src/images/T122/02/original.png",
+      "public/assets/illustrations/02.webp"
+    ],
+    "report": "docs/evidence/spec001/image-production/T122/with-workshop/browser.json",
+    "finalSourceVerification": "docs/evidence/spec001/image-production/T122/verified-joined/browser.json",
+    "actualUses": [
+      {
+        "assetId": "spec001:ASSET-ILLUSTRATION-02",
+        "contentId": "spec001:FACT-packet-context",
+        "room": "The Arrival Lift",
+        "surface": "Packet journey",
+        "place": "payload",
+        "width": 768,
+        "height": 512,
+        "src": "/arcade/play/network-quest/assets/illustrations/02.webp",
+        "sha256": "9da82d45ffc1d69b2048f131c8a6525c925bfdb498d8d9314be7e9e6416537ff"
+      }
+    ]
+  },
+  "check": "browser-comparison"
+}

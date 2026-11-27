@@ -12,6 +12,7 @@ import { contextFromRuntime, createActionBus } from '../ui/action-bus';
 import { createAppShell } from '../ui/app-shell';
 import { createAdventureFrame } from '../ui/adventure-frame';
 import { createDialogueController, createDialoguePanel, introductionDialogueBindings } from '../ui/dialogue';
+import { illustrationFor } from '../content/illustrations';
 import { createInventoryController, createInventoryPanel, inventoryView } from '../ui/inventory';
 import { createNotebookController, createNotebookPanel } from '../ui/notebook';
 import { createCompendiumController, createCompendiumPanel } from '../ui/compendium';
@@ -454,14 +455,21 @@ export function createIntroductionApplication(host: HTMLElement) {
       const trace = samples?.observations.find(observation => observation.kind === 'toy-trace');
       const sampling = trace?.kind === 'toy-trace' ? [{ id: 'clockworks-samples', speaker: 'Sampling gate',
         text: trace.samples.map((sample, index) => `Sample position ${sample.position}: ${sample.value} toy-level represents ${trace.pairs[index]}.`).join(' ') + ' This is the declared teaching map, not a complete PAM4 PHY.' }] : [];
+      const decorations = optionalDefinitions.flatMap(definition => {
+        const reward = definition.optionalActivity.reward;
+        if (reward.kind !== 'workshop-decoration' || reward.roomId !== String(game.world.roomId)
+          || !game.world.completedQuestIds.some(id => id === definition.id) || !game.notebook.factIds.some(id => String(id) === reward.factId)) return [];
+        const source = definition.evidence.find(e => e.id === reward.factId);
+        const bound = source && illustrationFor(registry, source.roomId, 'journal', reward.factId);
+        const illustration = bound?.assetId === reward.assetId ? bound : undefined;
+        return [{ id: `decoration:${definition.id}`, speaker: 'Workshop ledger decoration', illustration, unavailableText: reward.unavailableText,
+          text: illustration ? reward.alternativeText : `${reward.alternativeText} ${reward.unavailableText}` }];
+      });
       panels.progress(completions.length > 0);
       panels.show({ roomId: game.world.roomId, safePositionId: game.world.position.safePositionId,
         context: contextFromRuntime(state.runtime), title: name, description: room.description, controls: verbs.controls(), objects: verbs.objects(),
         evidence: notebookView.view.evidence.map(entry => ({ id: entry.id, label: entry.heading, text: entry.text, source: `${entry.sourceRoom} · ${entry.kind}`, freshness: entry.freshness })),
-        captions: [{ id: `ambience:${room.id}`, text: room.ambience.text }, ...sampling, ...completions, ...optionalDefinitions.flatMap(definition => {
-          const reward = definition.optionalActivity.reward; return reward.kind === 'workshop-decoration' && reward.roomId === String(game.world.roomId)
-            && game.world.completedQuestIds.some(id => id === definition.id) && game.notebook.factIds.some(id => String(id) === reward.factId)
-            ? [{ id: `decoration:${definition.id}`, speaker: 'Workshop ledger decoration', text: `${reward.alternativeText} ${reward.unavailableText}` }] : []; })] });
+        captions: [{ id: `ambience:${room.id}`, text: room.ambience.text }, ...sampling, ...completions, ...decorations] });
     }
     frame.preparePanels();
     panels.inventory.render(inventoryView(registry, state, [q('ITEM-inspection-kit')]), capture);
@@ -469,7 +477,9 @@ export function createIntroductionApplication(host: HTMLElement) {
     const partyView = party.project(); panels.party.render(partyView.view, partyView.open, partyView.capture);
     const compendiumView = compendium.project(); panels.compendium.render(compendiumView.view, compendiumView.open, compendiumView.capture);
     const dialogueView = dialogue.project(); panels.dialogue.render(dialogueView.view, dialogueView.capture);
-    const packetView = packet.project(); panels.packet.render(packetView.view, packetView.capture);
+    const packetView = packet.project();
+    const payload = packetView.view.open && game ? illustrationFor(registry, game.world.roomId, 'diagnostic', 'spec001:FACT-packet-context') : undefined;
+    panels.packet.render({ ...packetView.view, illustration: payload }, packetView.capture);
     const optionalView = optional.project(); panels.optional.render(optionalView.view, optionalView.capture);
     if (optionalView.view) activityPanel = null;
     if (packetView.view.open && game?.world.roomId === q('R12')) activityPanel = null;

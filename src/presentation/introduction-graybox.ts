@@ -1,5 +1,6 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import * as THREE from 'three';
+import { publicPaths } from '../config';
 import authored from '../../content/spec001/presentation/introduction-graybox.json';
 import type { ActionResult } from '../ui/action-bus';
 import type { SceneObjectView, SemanticControl } from '../ui/app-shell';
@@ -115,6 +116,22 @@ export function createIntroductionGraybox(host: HTMLElement, source?: { readonly
         block([0.2, 1, 0.3], [0.7, 2, 0.8], structure);
         block([0.2, 2.4, 0.3], [0.4, 1, 0.4], structure);
       }
+      // The ledger hangs on two brass supports fixed to the Workshop's rear wall.
+      // The accessible full-size version uses the very same earned caption binding.
+      const ledger = layout.roomId === 'spec001:R02'
+        ? request.view.captions.find(c => c.id === 'decoration:spec001:SQ02')?.illustration : undefined;
+      let ledgerImage: HTMLImageElement | null = null;
+      if (ledger?.assetId === 'spec001:ASSET-ILLUSTRATION-18') {
+        const brass = material('#b38547');
+        for (const x of [3.55, 4.85]) block([x, 2.055, -0.2], [0.1, 1.17, 0.1], brass);
+        ledgerImage = document.createElement('img');
+        ledgerImage.className = 'nq-workshop-decoration';
+        ledgerImage.dataset['illustration'] = ledger.assetId;
+        ledgerImage.alt = 'Earned Workshop decoration. ' + ledger.alt;
+        ledgerImage.draggable = false;
+        ledgerImage.addEventListener('error', () => { if (ledgerImage) ledgerImage.hidden = true; }, { once: true });
+        ledgerImage.src = publicPaths.gameBase + ledger.exportPath.slice('public/'.length);
+      }
       const anchors = new Map<string, THREE.Vector3>();
       for (const placement of layout.objects) {
         const [x, z] = placement.point, [w, h, d] = placement.scale, surface = material(placement.color), id = placement.id;
@@ -145,6 +162,7 @@ export function createIntroductionGraybox(host: HTMLElement, source?: { readonly
       const caption = node('p'); caption.textContent = 'Graybox scene · numbered objects match the list below. Choose a verb, then an object. Gold marker: your safe position.';
       const markerLabel = node('span', 'nq-graybox-position'); markerLabel.dataset['safePosition'] = positionId; markerLabel.textContent = 'You';
       pins.append(markerLabel); stage.append(canvas, pins);
+      if (ledgerImage) stage.append(ledgerImage);
       const legend = node('div', 'nq-graybox-legend'), choices = node('div', 'nq-graybox-choices'), choiceTitle = node('p');
       const feedback = node('p', 'nq-graybox-feedback'); feedback.textContent = feedbackMessage;
       const pinNodes = new Map<string, HTMLElement>();
@@ -211,6 +229,16 @@ export function createIntroductionGraybox(host: HTMLElement, source?: { readonly
         const project = (element: HTMLElement, point: THREE.Vector3) => { const p = point.clone().project(camera); element.style.left = `${(p.x + 1) * 50}%`; element.style.top = `${(1 - p.y) * 50}%`; };
         for (const [id, element] of pinNodes) project(element, anchors.get(id)!);
         project(markerLabel, new THREE.Vector3(safe!.point[0], 1.3, safe!.point[1]));
+        if (ledgerImage) {
+          // Project three corners of the 1.8 × 1.2 sign onto this orthographic
+          // camera. Its frame and physical posts share the same perspective.
+          const pixel = (x: number, y: number) => {
+            const point = new THREE.Vector3(x, y, -0.1).project(camera);
+            return new THREE.Vector2((1 + point.x) * width / 2, (1 - point.y) * height / 2);
+          };
+          const origin = pixel(3.3, 3.73), across = pixel(5.1, 3.73).sub(origin), down = pixel(3.3, 2.53).sub(origin);
+          ledgerImage.style.transform = `matrix(${across.x / 180},${across.y / 180},${down.x / 120},${down.y / 120},${origin.x},${origin.y})`;
+        }
         root.dataset['rendered'] = 'true'; root.dataset['renderCount'] = String(++renders);
         root.dataset['triangles'] = String(renderer.info.render.triangles); root.dataset['drawCalls'] = String(renderer.info.render.calls);
         root.dataset['geometries'] = String(renderer.info.memory.geometries); root.dataset['textures'] = String(renderer.info.memory.textures);

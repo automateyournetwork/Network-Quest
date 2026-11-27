@@ -1,0 +1,38 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-ILLUSTRATION-14",
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex / loop140 / T123",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Apple sips-316, Pillow 13.0.0, libwebp 1.6.0, Firefox 159.0",
+  "hashes": [
+    "8a9a28691229798f94456b35cbd08f2c4e2e87e85245706231222139fd23f6ab",
+    "4279da481a01a34603e6e9bc8e282e240e7c0fcd775fcb6f114558a021f2e12f",
+    "d2e3f0c9024252064ef723919852ad076f1bf6ef15e00f876417166945fbaf57"
+  ],
+  "details": {
+    "findings": "The two rail markers sit at distinct heights. Below the painting, real labels, two bars and a bracket preserve the worked example and units.",
+    "methods": [
+      "image-inspection"
+    ],
+    "tool": "view_image and Pillow comparison sheets",
+    "observedPaths": [
+      "assets-src/images/T123/reference/R07.png",
+      "assets-src/images/T123/14/original.png",
+      "public/assets/illustrations/14.webp"
+    ],
+    "capture": "docs/evidence/spec001/image-production/T123/review-1.jpg",
+    "layout": {
+      "assetId": "spec001:ASSET-ILLUSTRATION-14",
+      "name": "Signal and noise comparison",
+      "roomId": "spec001:R07",
+      "intendedUse": "diagnostic",
+      "purpose": "Two independent bars and a labeled difference bracket rendered by UI",
+      "learningIntent": "T08/T09; SNR is a difference, not guaranteed throughput",
+      "plannedMethod": "Actual OpenAI base imagery with preserved original output; all exact labels/values in semantic UI, with manual diagrams/edits truthfully recorded",
+      "status": "planned"
+    }
+  },
+  "check": "visual"
+}

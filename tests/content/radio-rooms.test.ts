@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { validateContent } from '../../src/content/registry';
 import validateSchema from '../../src/content/schema.generated.js';
 import type * as S from '../../src/content/schema-types.generated';
-import { authoredInput } from '../ui/inventory-fixture';
+import { authoredInput, routeDocument } from '../ui/inventory-fixture';
 const q = (id: string) => `spec001:${id}`;
 const read = async <T>(path: string): Promise<T> => JSON.parse(await readFile(new URL(`../../${path}`, import.meta.url), 'utf8')) as T;
 const profiles = await read<S.collection>('content/spec001/profiles.json');
@@ -21,7 +21,7 @@ function projection() {
   if (!actions) throw new Error('Missing radio actions');
   for (const [path, value] of [['content/spec001/profiles.json', profiles], ['content/spec001/objectives.json', objectives], ['content/spec001/dialogue/radio-actions.json', actions],
     ['content/spec001/rooms/R07.json', room('R07')], ['content/spec001/rooms/R08.json', room('R08')]] as const) {
-    input.documents[path] = structuredClone(value);
+    input.documents[path] = structuredClone(routeDocument(value));
     input.world.documents.push(...(value.kind === 'collection' ? value.records : [value]).map(r => ({ kind: r.kind, id: r.id, path })));
   }
   return input;

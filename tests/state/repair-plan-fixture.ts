@@ -7,7 +7,7 @@ import { createReducer, createReducerState } from '../../src/state/reducer';
 import type { ReducerInput } from '../../src/state/reducer';
 import { createRepairScenarioResolver, prepareRepairPlanChange, repairEffectBindings } from '../../src/state/repair-plan';
 import type { RepairPlanOperation, RepairScenarioResolver } from '../../src/state/repair-plan';
-import { authoredInput, setup } from '../ui/inventory-fixture';
+import { authoredInput, routeDocument, setup } from '../ui/inventory-fixture';
 export const q = <T extends string = string>(id: string) => `spec001:${id}` as QualifiedId<T>;
 export const uuid = (n: number) => `00000000-0000-4000-8000-${String(n).padStart(12, '0')}` as MeasurementId;
 const read = async <T>(path: string): Promise<T> => JSON.parse(await readFile(new URL(`../../${path}`, import.meta.url), 'utf8')) as T;
@@ -16,7 +16,7 @@ const paths = ['content/spec001/profiles.json', 'content/spec001/objectives.json
 const removed = input.world.documents.filter(r => r.kind === 'profile' || r.kind === 'objective' || paths.includes(r.path));
 input.world.documents = input.world.documents.filter(r => !removed.includes(r));
 for (const { path } of removed) delete input.documents[path];
-for (const path of paths) { const value = await read<S.collection | S.room>(path); input.documents[path] = value;
+for (const path of paths) { const value = await read<S.collection | S.room>(path); input.documents[path] = routeDocument(value);
   input.world.documents.push(...(value.kind === 'collection' ? value.records : [value]).map(r => ({ kind: r.kind, id: r.id, path }))); }
 const validated = validateContent(input);
 if (!validated.ok || !validated.registry) throw new Error(JSON.stringify(validated.issues));

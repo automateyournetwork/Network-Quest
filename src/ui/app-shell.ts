@@ -1,4 +1,6 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import type { illustrationBinding } from '../content/schema-types.generated';
+import { illustrationDetails } from './illustration';
 import { copySemanticAction } from './action-bus';
 import type { ActionBus, ActionCapture, ActionContext, SemanticAction } from './action-bus';
 
@@ -24,7 +26,7 @@ export interface EvidenceView {
   readonly freshness: 'observation' | 'current' | 'stale';
   readonly action?: SemanticControl;
 }
-export interface CaptionView { readonly id: string; readonly text: string; readonly speaker?: string }
+export interface CaptionView { readonly id: string; readonly text: string; readonly speaker?: string; readonly illustration?: illustrationBinding | undefined; readonly unavailableText?: string | undefined }
 export interface AppShellView {
   /** Supplied with the view; stale displayed affordances cannot target a newer world. */
   readonly context: ActionContext | null;
@@ -321,7 +323,13 @@ export function createAppShell(host: HTMLElement, bus: Pick<ActionBus, 'captureS
       children(captions, snapshot.captions.map(caption => {
         let element = captionNodes.get(caption.id);
         if (!element) { element = node('li'); captionNodes.set(caption.id, element); }
-        text(element, caption.speaker ? `${caption.speaker}: ${caption.text}` : caption.text);
+        const label = caption.speaker ? `${caption.speaker}: ${caption.text}` : caption.text;
+        if (caption.illustration) {
+          if (element.dataset['asset'] !== caption.illustration.assetId) {
+            element.replaceChildren(document.createTextNode(label), illustrationDetails(document, caption.illustration, caption.unavailableText));
+            element.dataset['asset'] = caption.illustration.assetId;
+          }
+        } else { delete element.dataset['asset']; text(element, label); }
         return element;
       }));
       captionSection.hidden = snapshot.captions.length === 0;

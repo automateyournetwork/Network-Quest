@@ -1,0 +1,38 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-ILLUSTRATION-19",
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex / loop140 / T123",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Apple sips-316, Pillow 13.0.0, libwebp 1.6.0, Firefox 159.0",
+  "hashes": [
+    "38e1ce3407019289dbc80f0235f833d38a21ca64ebb20a3430f11f94c7d6d4cc",
+    "798b5413779362bb6dfa5f1afbfa9d483fe0b707ac13af35aa695ecca8ebc41c",
+    "d25ae975a66f06d03f3405461c0f1399f5cf1703a34906c96cf147991ec3fefc"
+  ],
+  "details": {
+    "findings": "The circle, triangle, square and rotated diamond frames are conspicuous. The semantic key labels their exact toy levels and bit pairs.",
+    "methods": [
+      "image-inspection"
+    ],
+    "tool": "view_image and Pillow comparison sheets",
+    "observedPaths": [
+      "assets-src/images/T123/reference/R10.png",
+      "assets-src/images/T123/19/original.png",
+      "public/assets/illustrations/19.webp"
+    ],
+    "capture": "docs/evidence/spec001/image-production/T123/review-2.jpg",
+    "layout": {
+      "assetId": "spec001:ASSET-ILLUSTRATION-19",
+      "name": "Toy four-symbol key",
+      "roomId": "spec001:R10",
+      "intendedUse": "diagnostic",
+      "purpose": "Four equally distinct symbol shapes with accessible UI values and two-bit mappings",
+      "learningIntent": "O10 / T12; toy mapping, not full PAM4, voltage scale or useful bitrate",
+      "plannedMethod": "Actual OpenAI base imagery with preserved original output; all exact labels/values in semantic UI, with manual diagrams/edits truthfully recorded",
+      "status": "planned"
+    }
+  },
+  "check": "visual"
+}

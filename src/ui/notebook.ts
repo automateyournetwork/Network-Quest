@@ -1,4 +1,7 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import type { illustrationBinding } from '../content/schema-types.generated';
+import { illustrationFor, journalFactEarned } from '../content/illustrations';
+import { illustrationDetails } from './illustration';
 import type { ContentRegistry } from '../content/registry';
 import type * as S from '../content/schema-types.generated';
 import type { FactId, HypothesisId, MeasurementId, ObjectiveId, QualifiedId, RoomId } from '../domain/types';
@@ -78,6 +81,7 @@ export function validateNotebookPresentation(registry: ContentRegistry, input: u
   return structuredClone(input) as unknown as NotebookPresentation;
 }
 export interface NotebookEvidenceView {
+  readonly illustration?: illustrationBinding | undefined;
   readonly id: string; readonly heading: string; readonly sourceRoomId: RoomId; readonly sourceRoom: string;
   readonly kind: string; readonly text: string; readonly freshness: 'observation' | 'current' | 'stale';
   readonly list?: { readonly label: string; readonly ordered: boolean; readonly items: readonly string[] };
@@ -111,9 +115,11 @@ export function createNotebookController({ bus, registry, store, presentation: s
     const evidence: NotebookEvidenceView[] = [];
     if (game) for (const id of game.notebook.factIds) {
       const fact = facts.get(id), mapping = presentation.facts.find(mapping => mapping.id === id);
-      if (!fact || !mapping) continue;
+      if (!fact || !mapping || !journalFactEarned(game, id)) continue;
+      const illustration = id !== q<'fact'>('FACT-link') || game.notebook.factIds.some(f => f === q<'fact'>('FACT-power'))
+        ? illustrationFor(registry, fact.roomId, 'journal', id) : undefined;
       const list = mapping.list?.requiresFactIds.every(id => game.notebook.factIds.includes(id)) ? mapping.list : undefined;
-      evidence.push({ id, heading: mapping.heading, sourceRoomId: fact.roomId as RoomId, sourceRoom: roomName(fact.roomId),
+      evidence.push({ id, ...(illustration ? { illustration } : {}), heading: mapping.heading, sourceRoomId: fact.roomId as RoomId, sourceRoom: roomName(fact.roomId),
         kind: mapping.kind, text: fact.text, freshness: 'observation', ...(list ? { list } : {}) });
     }
     if (game) for (const measurement of game.notebook.measurements) {
@@ -124,7 +130,8 @@ export function createNotebookController({ bus, registry, store, presentation: s
         if (!conclusion || !rooms.some(room => room.id === measurement.roomId) || source?.kind !== 'objective'
           || !source.evidence.some(e => e.roomId === measurement.roomId && e.ruleIds.includes(measurement.ruleId))) continue;
         const readings = measurement.readings.map(r => `${r.name}: ${r.value} ${r.unit}`).join('; ');
-        evidence.push({ id: measurement.id, heading: group.heading, sourceRoomId: measurement.roomId, sourceRoom: roomName(measurement.roomId), kind: 'Measurement',
+        const illustration = group.subjectId === q<'objective'>('O06') ? illustrationFor(registry, measurement.roomId, 'journal', 'spec001:FACT-O06-budget') : undefined;
+        evidence.push({ id: measurement.id, ...(illustration ? { illustration } : {}), heading: group.heading, sourceRoomId: measurement.roomId, sourceRoom: roomName(measurement.roomId), kind: 'Measurement',
           text: `${readings ? `Observed result: ${readings}.` : 'No numeric result was produced for this reading.'} ${conclusion.explanation} ${group.scope}`,
           freshness: isMeasurementCurrent(measurement, game.world) ? 'current' : 'stale' });
         continue;
@@ -326,10 +333,11 @@ export function createNotebookPanel(host: HTMLElement, bus: Pick<ActionDispatche
       li.append(paragraph(`${o.label} — ${o.completed ? 'Completed' : 'In progress'}${o.pinned ? ' — Pinned' : ''}`),
         paragraph(`Source: ${roomName(o.roomId)}`), button(`${o.pinned ? 'Unpin' : 'Pin'} objective: ${o.label}`, { kind: 'pin-objective', objectiveId: o.id }, capture));
     })));
-    reconcile(evidenceList, model.evidence.map(e => row(`evidence:${e.id}`, [e, model.highlightedEvidenceId], li => {
+    reconcile(evidenceList, model.evidence.map(e => row(`evidence:${e.id}`, [e, model.highlightedEvidenceId, model.open], li => {
       const title = doc.createElement('h4'); title.textContent = e.heading; title.tabIndex = -1;
       if (model.highlightedEvidenceId === e.id) li.append(paragraph('Selected source reference.'));
       li.append(title, paragraph(`${e.kind}. Source: ${e.sourceRoom}`), paragraph(e.text), paragraph(`Freshness: ${e.freshness}`));
+      if (model.open && e.illustration) li.append(illustrationDetails(doc, e.illustration));
       if (e.list) { const list = doc.createElement(e.list.ordered ? 'ol' : 'ul'); list.setAttribute('aria-label', e.list.label); for (const text of e.list.items) { const item = doc.createElement('li'); item.textContent = text; list.append(item); } li.append(list); }
       if (model.maps.some(room => room.id === e.sourceRoomId)) li.append(button(`Highlight source: ${e.heading}`, { kind: 'highlight-map-room', roomId: e.sourceRoomId }, capture));
     })));

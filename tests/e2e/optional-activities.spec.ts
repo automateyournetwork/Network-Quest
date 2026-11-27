@@ -1,11 +1,11 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 // Canonical current all-seven journey; exact working-tree hashes are recorded per run.
 // Native controls earn all progress. Local PHP identity alone is synthetic.
-import { expect, firefox, test, type Page } from '@playwright/test';
-import { writeFile } from 'node:fs/promises';
+import { expect, firefox, test, type Locator, type Page } from '@playwright/test';
+import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { configuredSave } from './support/configured-save';
-import { clickButton, closeFrame } from './support/adventure-controls';
+import { clickButton, closeFrame, openFrame } from './support/adventure-controls';
 import type { SaveSnapshotV1, WorldState } from '../../src/state/types';
 import { createT104RunDirectory, captureT104SourceHashes } from './support/t104-run-artifacts';
 const run='native';
@@ -21,17 +21,50 @@ const data:Record<Id,{open:string;practice:string;full:string;submit:string;retr
  MG02:{open:'Open Prism Budget Bench',practice:'Practice the 8 dB card',full:'Diagnose the 10 dB card',submit:'Check my diagnosis',retry:'Try the bench again',exit:'Leave the Prism Bench',fact:'FACT-MG02-completion',correct:'reserve fails, overload is absent',wrong:'−13 dBm'},
  MG03:{open:'Open Channel Scout',practice:'Read the worked boundary card',full:'Predict, measure and compare',submit:'Compare actual readings',retry:'Restore entry preparation and retry',exit:'Leave Channel Scout',fact:'FACT-MG03-completion',correct:'Your notebook records optional radio practice',wrong:'Check the actual readouts'}
 };
+const illustratedRewards = {
+  SQ01: { number: '08', room: 'R04' },
+  SQ02: { number: '18', room: 'R09' },
+  SQ03: { number: '16', room: 'R08' },
+} as const;
+type IllustratedQuest = keyof typeof illustratedRewards;
+function hasIllustration(id: Id): id is IllustratedQuest { return Object.hasOwn(illustratedRewards, id); }
+function rewardDisclosure(host: Locator, id: IllustratedQuest) {
+  return host.locator(`details[data-illustration="spec001:ASSET-ILLUSTRATION-${illustratedRewards[id].number}"]`);
+}
+async function readEarnedIllustration(host: Locator, id: IllustratedQuest) {
+  const { number, room } = illustratedRewards[id];
+  const assetId = `spec001:ASSET-ILLUSTRATION-${number}`;
+  const document = JSON.parse(await readFile(`content/spec001/rooms/${room}.json`, 'utf8'));
+  const binding = document.illustrationBindings.find((entry: { assetId: string }) => entry.assetId === assetId);
+  expect(binding.contentId).toBe(q(data[id].fact));
+  const details = rewardDisclosure(host, id);
+  await expect(details).toBeVisible();
+  await expect(details.locator('img')).toHaveCount(0);
+  await details.locator('summary').press('Enter');
+  const image = details.getByRole('img', { name: binding.alt, exact: true });
+  await expect(image).toBeVisible();
+  await expect(details.locator('figcaption')).toHaveText(binding.caption);
+  const decoded = await image.evaluate(async (element: HTMLImageElement) => {
+    await element.decode();
+    return { path: new URL(element.currentSrc).pathname, width: element.naturalWidth, height: element.naturalHeight };
+  });
+  expect(decoded.path).toBe(`/arcade/play/network-quest/assets/illustrations/${number}.webp`);
+  expect(decoded.width).toBeGreaterThan(0);
+  expect(decoded.height).toBeGreaterThan(0);
+  return { id, assetId, factId: binding.contentId, alt: binding.alt, caption: binding.caption, ...decoded };
+}
 const beforeNote='T104 current all-seven earned journey: retain this notebook with the companions.';
 const retryNote='T104 current actual failed attempt: retain this observation through encounter Retry.';
 const shutdownNote='T104 current actual shutdown: retain this recovery plan and the new hints through Continue.';
 const worldWithoutVersion=(world:WorldState)=>{const{attemptId:_attempt,configurationRevision:_revision,...rest}=world;return rest;};
 test('T104 current all seven actual lifecycle, logical background, earned party and recovery',async()=>{
  test.setTimeout(1_200_000);const output=await createT104RunDirectory('optional-activities');
- const report:any={task:'T104',executionCommit:null,sourceRoot:'current working directory',sourceVariant:'Actual working-tree hashes; no immutable execution-commit claim.',scope:'Native earned controls; only PHP identity is synthetic. Controlled logical clock/document visibility is explicitly simulated; no real-hour, performance or final-media claim.',startedAt:new Date().toISOString(),sources:await captureT104SourceHashes('optional-activities', false),lifecycle:[],exits:[],background:[],saves:[],recovery:[],errors:[],external:[],requests:[]};
+ const report:any={task:'T104',executionCommit:null,sourceRoot:'current working directory',sourceVariant:'Actual working-tree hashes; no immutable execution-commit claim.',scope:'Native earned controls; only PHP identity is synthetic. Controlled logical clock/document visibility is explicitly simulated; no real-hour, performance or final-media claim.',startedAt:new Date().toISOString(),sources:await captureT104SourceHashes('optional-activities', false),lifecycle:[],rewardIllustrations:[],exits:[],background:[],saves:[],recovery:[],errors:[],external:[],requests:[]};
  const local=await configuredSave(),context=await firefox.launchPersistentContext(local.profile,{headless:true,ignoreHTTPSErrors:false,reducedMotion:'reduce',viewport:{width:1280,height:900}});report.browser=context.browser()?.version();
  const[name,value]=local.cookies[0]!.split('=');await context.addCookies([{name:name!,value:value!,domain:'127.0.0.1',path:'/arcade/play/network-quest/',secure:true,httpOnly:true,sameSite:'Lax'}]);
  const page=await context.newPage();page.setDefaultTimeout(12_000);await page.clock.install();const writes:{mode:string|undefined}[]=[];
  context.on('request',request=>{const url=new URL(request.url());if(/^https?:$/.test(url.protocol)&&url.origin!==local.origin)report.external.push({origin:url.origin,path:url.pathname});if(url.pathname.includes('/api/'))report.requests.push({path:url.pathname,method:request.method()});if(url.pathname.endsWith('/save')&&request.method()==='PUT')writes.push({mode:request.headers()['x-save-mode']});});page.on('pageerror',e=>report.errors.push(e.message));
+ const stageLedger = page.locator('.nq-game-stage img[data-illustration="spec001:ASSET-ILLUSTRATION-18"]');
  const ui=controls(page),panel=()=>page.getByRole('dialog',{name:'Optional activity',exact:true}),feedback=()=>panel().locator('[role="status"]:not(.nq-shell-status)'),party=()=>page.getByRole('dialog',{name:'Party',exact:true});
  const row=(id:Id,check:string)=>{expect(report.lifecycle.some((r:any)=>r.id===id&&r.check===check)).toBe(false);report.lifecycle.push({id,check,status:'PASS'});console.log(`PASS ${id} ${check}`);};
  const notes=async(text:string)=>{await ui.click('Notebook');await page.getByRole('textbox',{name:'Personal notes',exact:true}).fill(text);await ui.click('Close notebook');};
@@ -62,20 +95,45 @@ test('T104 current all seven actual lifecycle, logical background, earned party 
  const freshDiary=async()=>{await ui.use('Select fictional scenario channel A at both endpoints');await ui.use('Isolate the local emitter and return to surveyed conditions');await ui.measure(false,['Signal-to-noise ratio: 25 dB']);await ui.use('Reconnect the local emitter for the raised-noise scenario');await ui.measure(false,['Signal-to-noise ratio: 13 dB']);};
  const lifecycle=async(id:Id)=>{await ui.measure(false);const d=data[id],origin=await page.locator('.nq-game-location').innerText(),before=await save(`${id} skipped; main route already independent`);row(id,'SKIP');
   for(const phase of ['instructions','practice','solving','feedback']){const count=writes.length;await open(id);if(phase==='instructions'){await expect(panel().locator('form')).toHaveCount(0);row(id,'START');}else if(phase==='practice'){await ui.click(d.practice);if(id==='SQ01'||id==='MG01'){await expect(panel().getByRole('list',{name:'Practice samples',exact:true}).locator('li')).toHaveCount(1);await expect(panel().getByRole('textbox',{name:'Practice bits',exact:true})).toBeVisible();}else if(id==='SQ04'){await expect(panel().getByRole('checkbox')).toHaveCount(1);}else if(id==='SQ03'||id==='MG03'){await expect(panel()).toContainText('20 dB');await expect(panel().locator('form')).toHaveCount(0);}else if(id==='SQ02'){await expect(panel().getByRole('list',{name:'Power audit cards',exact:true}).locator('li').filter({hasText:/^Demand card/})).toHaveCount(2);}else{await expect(panel().getByRole('list',{name:'Supplied optical card',exact:true})).toContainText('8 dB');}await ui.click('Read explanation');await expect(panel()).toContainText({SQ01:'The single +3 sample maps to 11',SQ02:'12 W + 11 W = 23 W',SQ03:'gives exactly 20 dB SNR',SQ04:'not the missing Photon Gardens observation',MG01:'The single +3 symbol maps to 11',MG02:'3 dB margin',MG03:'cannot complete Channel Scout'}[id]);row(id,'PRACTICE');}else{await ui.click(d.full);expect(await panel().locator('form').count()).toBeGreaterThan(0);if(phase==='feedback'){await fill(id,false);await ui.click(d.submit);await expect(feedback()).toContainText(d.wrong);}}
+   if (hasIllustration(id)) await expect(rewardDisclosure(panel(), id)).toHaveCount(0);
    await ui.click(d.exit);await expect(panel()).toBeHidden();expect(await page.locator('.nq-game-location').innerText()).toBe(origin);expect(writes).toHaveLength(count);expect(await local.inspectSlot()).toEqual(before);report.exits.push({id,phase,actualPhaseControlsAsserted:true,noSave:true,safeOrigin:true});}
   row(id,'EXIT');const entry=await save(`${id} before actual wrong-answer Retry`);expect(entry.snapshot.notebook.measurements.length).toBeGreaterThan(0);expect(entry.snapshot.notebook.measurements.at(-1)?.stale).toBe(false);expect(entry.snapshot.world.inventory).toEqual(before.snapshot.world.inventory);expect(entry.snapshot.world.completedObjectiveIds).toEqual(before.snapshot.world.completedObjectiveIds);expect(entry.snapshot.world.completedQuestIds).toEqual(before.snapshot.world.completedQuestIds);expect(entry.snapshot.world.achievementIds).toEqual(before.snapshot.world.achievementIds);await open(id);await ui.click(d.full);await fill(id,false);await ui.click(d.submit);await expect(feedback()).toContainText(d.wrong);const count=writes.length;await ui.click(d.retry);await expect(panel().locator('form')).toHaveCount(0);await ui.click(d.exit);expect(writes).toHaveLength(count);await ui.notebookStale();await expectNotes(beforeNote);const retried=await save(`${id} after actual wrong-answer Retry`);expect(worldWithoutVersion(retried.snapshot.world)).toEqual(worldWithoutVersion(entry.snapshot.world));expect(retried.snapshot.world.attemptId).not.toBe(entry.snapshot.world.attemptId);expect(retried.snapshot.assistance).toEqual(entry.snapshot.assistance);expect(retried.snapshot.notebook.measurements.every(m=>m.stale)).toBe(true);row(id,'RETRY');
-  if(id==='SQ03')await freshDiary();await open(id);await ui.click(d.full);await fill(id,true);await delay(id);await ui.click(d.submit);await expect(feedback()).toContainText(d.correct);await page.screenshot({path:resolve(output,`${run}-${id}-complete.png`)});await ui.click(d.exit);earned.push(id);const complete=await save(`${id} completed after controlled logical hour`);expect(complete.snapshot.world.completedObjectiveIds).toEqual(entry.snapshot.world.completedObjectiveIds);expect(complete.snapshot.world.inventory).toEqual(entry.snapshot.world.inventory);row(id,'UNTIMED');row(id,'FINISH');
+  if(id==='SQ03')await freshDiary();await open(id);await ui.click(d.full);await fill(id,true);await delay(id);await ui.click(d.submit);await expect(feedback()).toContainText(d.correct);
+  if (hasIllustration(id)) report.rewardIllustrations.push({ surface: 'earned activity', ...await readEarnedIllustration(panel(), id) });
+  await page.screenshot({path:resolve(output,`${run}-${id}-complete.png`)});await ui.click(d.exit);earned.push(id);const complete=await save(`${id} completed after controlled logical hour`);expect(complete.snapshot.world.completedObjectiveIds).toEqual(entry.snapshot.world.completedObjectiveIds);expect(complete.snapshot.world.inventory).toEqual(entry.snapshot.world.inventory);row(id,'UNTIMED');row(id,'FINISH');
   await open(id);await ui.click(d.full);await fill(id,true);await ui.click(d.submit);await expect(feedback()).toContainText('already');await ui.click(d.exit);const replay=await save(`${id} new-session replay once`);expect(replay.snapshot.world.completedObjectiveIds).toEqual(complete.snapshot.world.completedObjectiveIds);receipts(replay.snapshot);row(id,'REPLAY');
  };
  const preserved=(s:SaveSnapshotV1)=>{receipts(s);expect(earned.slice().sort()).toEqual(ids.slice().sort());expect(s.world.recruits.map(r=>[r.characterId,r.level])).toEqual([[q('CH20'),1],[q('CH19'),2]]);expect(s.world.activeAllyIds).toEqual([q('CH20'),q('CH19')]);};
  try{
   await page.goto(local.url);await expect(page.getByText('Synthetic T050 player (github)',{exact:true})).toBeVisible();await ui.click('New Adventure');await ui.click('Start new adventure');await ui.click('Look');await ui.click('Look at power indication');await ui.click('Look at link indication');await ui.click('Talk');await ui.click('Talk to Photon the Firefly');await ui.click('Skip dialogue');await ui.use('Inspect physical path');
-  await ui.walk("The Titan's Workshop");await ui.click('Talk');await ui.click('Talk to the Titan');await ui.click('Skip dialogue');await ui.click('Look');await ui.click('Identify known-good endpoints');await ui.click('Identify physical path under test');await ui.click('Notebook');await page.getByRole('textbox',{name:'Hypothesis',exact:true}).fill('Compare actual observations; optional lessons never substitute for required physical proof.');await ui.click('Pin hypothesis');await ui.click('Close notebook');await notes(beforeNote);
+  await ui.walk("The Titan's Workshop");
+  await expect(stageLedger).toHaveCount(0);
+  await openFrame(page, 'Evidence');
+  await expect(rewardDisclosure(page.getByRole('dialog', { name: 'Evidence and captions' }), 'SQ02')).toHaveCount(0);
+  await closeFrame(page);
+  await ui.click('Talk');await ui.click('Talk to the Titan');await ui.click('Skip dialogue');await ui.click('Look');await ui.click('Identify known-good endpoints');await ui.click('Identify physical path under test');await ui.click('Notebook');await page.getByRole('textbox',{name:'Hypothesis',exact:true}).fill('Compare actual observations; optional lessons never substitute for required physical proof.');await ui.click('Pin hypothesis');await ui.click('Close notebook');await notes(beforeNote);
   await ui.walk('The Copper Warrens');await ui.use('Read and keep the supplied compatibility card');await ui.use('Read and keep the diagnosed-defect card; this is not a performed measurement');await ui.measure(false,['Open required conductors: 1 count']);await ui.use('Fit the supplied replacement section: 85 m + 10 m');await ui.measure(true);await ui.walk('The Echo Cavern');await ui.use('Read and keep the before-record instructions; retain an actual measured open result');await ui.use('Read and keep the repeater role and limits');await ui.use('Conclude: a repeater needs the physical connection restored');await ui.measure(true);await ui.click('Look');await ui.click('Echo Bat');await invite('Echo Bat');await lifecycle('SQ01');
   await ui.walk('The Copper Warrens');await ui.walk("The Titan's Workshop");await ui.walk('The Photon Gardens');await ui.use('Read and keep all five supplied compatibility checks');await ui.use('Select the supplied fully matching optic/fiber pair: all five fields match');await ui.use('Inspect the original connection at the dock before any intervention');await ui.use('Have the dock fit the supplied compatible replacement to the inspected connection');await ui.use('Reinspect the replaced connection to confirm the diagnosed defect was removed');await ui.measure(true,['Inspection complete: 1 count']);await ui.walk('The Prism Vault');await closeFrame(page);await expect(page.getByRole('button',{name:'Complete the Prism Vault fiber verification to unlock this optional bench.',exact:true})).toBeDisabled();report.prerequisiteMG02='actual locked control before earned O06';
   await ui.use('Read and keep the current compatibility and inspection reminder');await ui.use('Select passive path A: total loss 8 dB');await ui.measure(true,['Receive power: -11 dBm','Sensitivity reserve: 3 dB']);await lifecycle('MG02');await ui.walk('The Photon Gardens');await ui.walk("The Titan's Workshop",'Walk to The Titan’s Workshop');await ui.walk('The Shell Market');
   await ui.use('Read the fictional delivered-power profile and compare the original proposal with both kits.');await ui.use('Read and record all separate equipment checks');await ui.use('Select 100/full');await ui.use('Choose complete kit B: 12 W + 11 W + 7 W');await ui.measure(true,['Total delivered demand: 30 W']);await ui.click('Look');await ui.click('Electric Eel');await invite('Electric Eel');await ui.click('Party');await ui.click('Begin practice with Electric Eel');await ui.click('Close party');await ui.use('Inspect the original 12 W + 11 W + 10 W proposal');await ui.measure(false,['Delivered excess: 3 W']);await ui.use('Choose complete kit B: 12 W + 11 W + 7 W');await ui.measure(false,['Delivered headroom: 0 W']);await ui.click('Party');await ui.click('Review lesson with Electric Eel');await expect(party()).toContainText('Electric Eel · Level 2');await ui.click('Close party');await lifecycle('SQ02');await lifecycle('SQ04');
-  await ui.walk("The Titan's Workshop");await ui.walk('The Skywell');await ui.use('Keep the path survey in the notebook');await ui.use('Keep the endpoint settings card');await ui.use('Align the existing surveyed path');await ui.use('Match both endpoint band, channel and PHY settings');await ui.measure(true);await ui.walk('The Storm Observatory');await closeFrame(page);await expect(page.getByRole('button',{name:'Complete the Observatory radio verification to unlock Channel Scout.',exact:true})).toBeDisabled();report.prerequisiteMG03='actual locked control before earned O08';
+  await ui.walk("The Titan's Workshop");
+  await expect(stageLedger).toBeVisible();
+  await expect(stageLedger).toHaveCSS('pointer-events', 'none');
+  report.sceneDecoration = await stageLedger.evaluate(async (image: HTMLImageElement) => {
+    await image.decode();
+    return { path: new URL(image.currentSrc).pathname, width: image.naturalWidth, height: image.naturalHeight };
+  });
+  expect(report.sceneDecoration.path).toBe('/arcade/play/network-quest/assets/illustrations/18.webp');
+  expect(report.sceneDecoration.width).toBeGreaterThan(0);
+  expect(report.sceneDecoration.height).toBeGreaterThan(0);
+  await page.screenshot({ path: resolve(output, `${run}-SQ02-mounted-workshop.png`) });
+  await openFrame(page, 'Evidence');
+  const workshop = page.getByRole('dialog', { name: 'Evidence and captions' });
+  await expect(workshop).toContainText('Workshop ledger decoration');
+  report.rewardIllustrations.push({ surface: 'earned R02 decoration', ...await readEarnedIllustration(workshop, 'SQ02') });
+  await page.screenshot({ path: resolve(output, `${run}-SQ02-earned-workshop.png`) });
+  await closeFrame(page);
+  await ui.walk('The Skywell');await expect(stageLedger).toHaveCount(0);await ui.use('Keep the path survey in the notebook');await ui.use('Keep the endpoint settings card');await ui.use('Align the existing surveyed path');await ui.use('Match both endpoint band, channel and PHY settings');await ui.measure(true);await ui.walk('The Storm Observatory');await closeFrame(page);await expect(page.getByRole('button',{name:'Complete the Observatory radio verification to unlock Channel Scout.',exact:true})).toBeDisabled();report.prerequisiteMG03='actual locked control before earned O08';
   await ui.use('Keep the survey and freshness instructions');await ui.use('Isolate the local emitter and return to surveyed conditions');await ui.measure(true,['Signal-to-noise ratio: 25 dB']);await ui.use('Reconnect the local emitter for the raised-noise scenario');await ui.measure(false,['Signal-to-noise ratio: 13 dB']);await lifecycle('SQ03');await lifecycle('MG03');
   await ui.walk('The Skywell');await ui.walk("The Titan's Workshop");await ui.walk('The Clockworks');await ui.use('Read and record the physical-role and upper-layer explanation');await ui.use('Use untimed step-by-step decoding');await ui.use('Explain: sample physical signals representing bits; this does not discover addresses');for(const[position,pair]of ['00','10','11','01'].entries()){await ui.use(`Inspect sample position ${position}`);await ui.use(`Write ${pair} for sample position ${position}`);}await ui.measure(true);await lifecycle('MG01');
   await ui.walk('The Backhoe Rift','Walk toward The Backhoe Rift');
@@ -92,6 +150,7 @@ test('T104 current all seven actual lifecycle, logical background, earned party 
     const restored=await save('resave of exact restored earned progress');expect(restored.snapshot).toEqual(continued.snapshot);preserved(restored.snapshot);report.recovery.push({case:'one-slot-Restore-Save',status:'PASS',exactWholeSnapshot:true,questCount:4,minigameCount:3,recruitCount:2});console.log('PASS exact whole-snapshot Restore Save and resave');
     await page.screenshot({path:resolve(output,`${run}-restored-earned-progress.png`)});
   for(const id of ids){expect(report.lifecycle.filter((r:any)=>r.id===id).map((r:any)=>r.check).sort()).toEqual(['START','PRACTICE','FINISH','RETRY','EXIT','SKIP','REPLAY','UNTIMED'].sort());expect(report.exits.filter((r:any)=>r.id===id).map((r:any)=>r.phase).sort()).toEqual(['instructions','practice','solving','feedback'].sort());}
+  expect(report.rewardIllustrations).toHaveLength(4);
   expect(report.background).toHaveLength(7);expect(report.recovery).toHaveLength(3);expect(report.errors).toEqual([]);expect(report.external).toEqual([]);expect(report.requests.some((r:any)=>r.path.includes('/auth/'))).toBe(false);expect(await captureT104SourceHashes('optional-activities', false)).toEqual(report.sources);report.status='PASS';
  }catch(error){report.status='FAIL';report.error=String(error);report.lastText=(await page.locator('body').innerText()).slice(-16000);await page.screenshot({path:resolve(output,`${run}-failure.png`)});throw error;}
  finally{report.manualSaveRequests=writes.length;await writeFile(resolve(output,`${run}.json`),JSON.stringify(report,null,2)+'\n');try{await context.close();}finally{await local.stop();}}

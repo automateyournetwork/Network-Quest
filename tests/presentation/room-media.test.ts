@@ -18,7 +18,10 @@ const { registry } = loadIntroductionContent();
 describe('actual R01 media admission', () => {
   it('resolves every exported asset through registered authored uses, with exact approved voice text and no baked full scene', () => {
     const { composition, bindings } = resolveRoomMedia(registry), observed = extractAuthoredAssetContent(world, [arrival, dialogue]);
-    expect(observed.uses).toHaveLength(21);
+    const studies = observed.uses.filter(use => use.use === 'diagnostic-illustration');
+    expect(studies.map(use => use.assetId).sort()).toEqual(['spec001:ASSET-ILLUSTRATION-01', 'spec001:ASSET-ILLUSTRATION-02']);
+    expect(bindings.size).toBe(21);
+    expect(observed.uses).toHaveLength(bindings.size + studies.length);
     for (const binding of bindings.values()) { expect(observed.uses).toContainEqual(binding); expect(readFileSync(binding.exportPath).length).toBeGreaterThan(0); expect(publicMediaUrl(binding, '/arcade/play/network-quest/')).toBe('/arcade/play/network-quest/' + binding.exportPath.slice(7)); }
     expect(composition.models).toHaveLength(13); expect([...bindings.values()].some(b => b.exportPath === 'public/assets/models/R01.glb')).toBe(false);
     expect(composition.audio.filter(cue => cue.channel === 'voice').map(c => c.text)).toEqual([

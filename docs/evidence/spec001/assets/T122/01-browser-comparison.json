@@ -1,0 +1,42 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-ILLUSTRATION-01",
+  "hashes": [
+    "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+    "b3eb26bc7ab7b0136e03ed14371d18cf764e6abec1d0828c62c9fecc061ee56b",
+    "f36a19a3ae992e1cadc5885ba109e3773ba995dab87fd6c37be13bc580926375"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex worker loop139/T122",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Blender model references, genuine OpenAI built-in image returns, Pillow 12.1.0 / libwebp 1.6.0, Firefox 159.0 via Playwright.",
+  "details": {
+    "findings": "The earned or contextual guest surface displayed its registered illustration. Firefox decoded its intrinsic size and its HTTP response matched the inspected derivative.",
+    "methods": [
+      "browser-inspection"
+    ],
+    "tool": "Firefox 159.0 via Playwright",
+    "observedPaths": [
+      "docs/evidence/spec001/assets/t063-R01-source.png",
+      "assets-src/images/T122/01/original.png",
+      "public/assets/illustrations/01.webp"
+    ],
+    "report": "docs/evidence/spec001/image-production/T122/with-workshop/browser.json",
+    "finalSourceVerification": "docs/evidence/spec001/image-production/T122/verified-joined/browser.json",
+    "actualUses": [
+      {
+        "assetId": "spec001:ASSET-ILLUSTRATION-01",
+        "contentId": "spec001:FACT-link",
+        "room": "The Arrival Lift",
+        "surface": "Notebook",
+        "place": "notebook",
+        "width": 768,
+        "height": 512,
+        "src": "/arcade/play/network-quest/assets/illustrations/01.webp",
+        "sha256": "f36a19a3ae992e1cadc5885ba109e3773ba995dab87fd6c37be13bc580926375"
+      }
+    ]
+  },
+  "check": "browser-comparison"
+}

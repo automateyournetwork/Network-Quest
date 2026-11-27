@@ -82,6 +82,11 @@ main:has(> .nq-game) { max-width: none; margin: 0; padding: 0; }
 .nq-adventure-host > .nq-framed-shell { font:inherit; padding:0; margin:0; max-width:none; height:100%; display:flex; flex-direction:column; background:#14242c; color:var(--ink); }
 .nq-room-heading { position:absolute; width:1px; height:1px; clip-path:inset(50%); overflow:hidden; }
 .nq-game-stage { position:relative; flex:1; min-height:0; background:#101e29; overflow:hidden; }
+.nq-workshop-decoration {
+  position: absolute; top: 0; left: 0; width: 180px; height: 120px; transform-origin: top left;
+  pointer-events: none; user-select: none; box-sizing: border-box;
+  border: 4px ridge #b28a50; background: #263533; box-shadow: 2px 3px 4px #0008;
+}
 .nq-game-stage .nq-shell-presentation { position:absolute; inset:0; }
 .nq-game-stage .nq-graybox { position:absolute; inset:0; border:0; border-radius:0; box-shadow:none; }
 .nq-game-stage .nq-graybox-stage { position:absolute; inset:0; width:100%; height:100%; }

@@ -1,6 +1,7 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import validateSchema from './schema.generated.js';
 import type * as S from './schema-types.generated';
+import { validIllustrationBinding } from './illustrations.ts';
 import { optionalActivityContentIssues } from './optional-activities.ts';
 
 export interface ContentIssue { code: string; path: string; message: string }
@@ -442,6 +443,13 @@ function checkRecord(r: S.authoredRecord, w: S.world, records: S.authoredRecord[
   }
   if (r.kind === 'room') {
     checkRoom(r, w, fail);
+    const illustrations = r.illustrationBindings ?? [];
+    if (new Set(illustrations.map(b => b.assetId)).size !== illustrations.length) fail('illustration-binding', r.id, 'Duplicate illustration in room');
+    for (const b of illustrations) {
+      const target = records.some(rec => rec.id === b.contentId && (rec.kind === 'item' || rec.kind === 'objective')
+        || 'evidence' in rec && rec.evidence.some(e => e.id === b.contentId && e.roomId === r.id));
+      if (!validIllustrationBinding(r.id, b) || !target) fail('illustration-binding', b.assetId, 'Illustration must identify its allocated subject, room, surface and export');
+    }
     const bindings = r.mediaBindings ?? [];
     if (new Set(bindings.map(b => b.assetId)).size !== bindings.length) fail('media-binding', r.id, 'A room asset has more than one runtime binding');
     for (const binding of bindings) {

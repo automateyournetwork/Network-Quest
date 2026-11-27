@@ -1,0 +1,41 @@
+{
+  "brief": {
+    "assetId": "spec001:ASSET-ILLUSTRATION-02",
+    "name": "Known test payload",
+    "roomId": "spec001:R01",
+    "intendedUse": "diagnostic",
+    "purpose": "Two highlighted bytes inside a larger opaque supplied frame; real UI prints 0x4E 0x51 and bits",
+    "learningIntent": "AC21 / LO5; test payload is not the whole frame",
+    "plannedMethod": "Actual OpenAI base imagery with preserved original output; all exact labels/values in semantic UI, with manual diagrams/edits truthfully recorded",
+    "status": "planned"
+  },
+  "room": "content/spec001/rooms/R01.json",
+  "binding": {
+    "assetId": "spec001:ASSET-ILLUSTRATION-02",
+    "contentId": "spec001:FACT-packet-context",
+    "use": "diagnostic-illustration",
+    "exportPath": "public/assets/illustrations/02.webp",
+    "interactiveOrEvidence": false,
+    "surface": "diagnostic",
+    "alt": "A capsule extends beyond a window that exposes just two eight-cell payload tiles.",
+    "caption": "Inside the supplied opaque frame, two highlighted payload bytes spell NQ: 0x4E = 01001110 and 0x51 = 01010001. The capsule continues on both sides of the window. Comparing the highlight tests only the supplied pattern."
+  },
+  "original": {
+    "path": "assets-src/images/T122/02/original.png",
+    "sha256": "9bfdde93d4227eff9bdca3732cbbac5f1a22be4717e2b741313fe9f27bd570eb",
+    "bytes": 2463523,
+    "format": "png"
+  },
+  "web": {
+    "path": "public/assets/illustrations/02.webp",
+    "sha256": "9da82d45ffc1d69b2048f131c8a6525c925bfdb498d8d9314be7e9e6416537ff",
+    "bytes": 54200,
+    "format": "webp"
+  },
+  "conversion": "Scale the full uncropped frame with Lanczos and encode RGB WebP at quality 88, method 6. No retouching or labels in the derivative.",
+  "script": "assets-src/images/T122/export.py",
+  "displaySize": [
+    768,
+    512
+  ]
+}
