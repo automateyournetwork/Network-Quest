@@ -1,0 +1,13 @@
+
+> network-quest@0.0.0 build
+> npm run typecheck && npm run save-policy:check && vite build
+
+
+> network-quest@0.0.0 typecheck
+> tsc --noEmit
+
+
+> network-quest@0.0.0 save-policy:check
+> node tools/generate-save-content-policy.ts
+
+server/content/save-policy.generated.json is stale; run node tools/generate-save-content-policy.ts --generate

@@ -1,0 +1,128 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ docs/evidence/spec001/optional/MG03/authoring.test.ts (72 tests | 12 failed | 60 skipped) 170ms
+   ↓ MG03 fixed authored candidate and current schema (15)
+     ↓ passes actual registry with cloned current-schema projection and isolated closed schema
+     ↓ preserves immutable T092 prerequisite, reward, rule and source-case identities
+     ↓ uses the actual channel desk, Phoenix and safe origin with explicit physical changes
+     ↓ uses exactly existing closed controls and rejects arbitrary actions
+     ↓ keeps the practice card visibly distinct from earned measurements
+     ↓ rejects malformed profile candidate semantics
+     ↓ rejects malformed boundary candidate semantics
+     ↓ rejects malformed timing candidate semantics
+     ↓ rejects malformed action candidate semantics
+     ↓ rejects malformed evidence candidate semantics
+     ↓ rejects malformed reward candidate semantics
+     ↓ rejects malformed exit candidate semantics
+     ↓ rejects malformed return candidate semantics
+     ↓ rejects malformed prerequisite candidate semantics
+     ↓ leaves actual O08 completable before any minigame receipt and explains locked state
+   ❯ actual predict, measure and compare adapters (52)
+     ↓ executes frozen T08→T09 with correct diagnosis of an actually failed current link
+     ↓ accepts honest revision of a wrong prediction without calling the prediction correct
+     ↓ executes inclusive boundary20 with real measurement and real reviewed evaluator
+     ↓ practice uses evaluateRadio without adding any measurement or completion
+     ↓ select and predict alone preserve historical readings and require explicit measure
+     ↓ does not allow a retrospective prediction for an already taken current reading
+     ↓ requires an earlier actual baseline and preserves safe missing-evidence operation
+     ↓ requires prediction even for a correct existing comparison
+     ↓ rejects incorrect comparison without state changes
+     ↓ rejects incorrect threshold without state changes
+     ↓ rejects incorrect prediction without state changes
+     ↓ rejects incorrect weather without state changes
+     ↓ rejects incorrect throughput without state changes
+     ↓ rejects incorrect history without state changes
+     × rejects malformed/forged comparison null 38ms
+     × rejects malformed/forged comparison {} 15ms
+     × rejects malformed/forged comparison "" 13ms
+     × rejects malformed/forged comparison {"laterMeasurementId":"unknown","comparison":"decreased","currentAssessment":"below-threshold","predictionAssessment":"supported","evidenceClaim":"current-reading-only-no-cause"} 11ms
+     × rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":true,"predictionAssessment":"supported","evidenceClaim":"current-reading-only-no-cause"} 11ms
+     × rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","predictionAssessment":"supported","evidenceClaim":"current-reading-only-no-cause","effects":[{"kind":"record-fact","effectId":"spec001:EFFECT-MG03-notebook","factId":"spec001:FACT-MG03-completion"},{"kind":"complete-minigame","effectId":"spec001:EFFECT-MG03-complete","minigameId":"spec001:MG03"}]} 12ms
+     × rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","predictionAssessment":"supported","evidenceClaim":"current-reading-only-no-cause","profile":{"kind":"profile","schemaVersion":1,"episodeId":"spec001","contentVersion":"1.0.0","id":"spec001:PROFILE-RADIO","reviewedProfileId":"spec001:PROFILE-RADIO","ruleIds":["spec001:PHY07"],"sourceClaims":[{"sourceId":"spec001:S08","section":"Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)","supportedClaim":"Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.","limitations":["Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."]},{"sourceId":"spec001:S09","section":"What is Signal-to-Noise Ratio (SNR)?","supportedClaim":"SNR is a signal-to-noise power ratio; its dB value is ten times the base-ten logarithm of that ratio.","limitations":["For compatible power measurements with one reference, subtracting dBm yields dB. No universal acceptable threshold follows from this definition."]}],"model":{"label":"fictional-teaching-profile","scope":"Exact reviewed fictional/toy profile for the Physical Layer exercises. Its supplied thresholds and assumptions are not universal standards or real-product specifications. Runtime comparisons must retain the reviewed units and independent boundary cases.","assumptions":["Signal and noise use comparable received power measurements in dBm.","Known compatible radio settings and viable path are independently supplied; sample fresh after change."],"limitations":["No universal Wi-Fi throughput, channel ranking, coverage model or regulatory assertion.","Missing authored path/settings facts are content-error; explicitly incompatible chosen settings are incorrect."]},"parameters":{"requiredSNR":{"value":20,"unit":"dB"},"inclusiveMinimum":true},"reviewedCaseIds":["T08","T09","B-RADIO-20","B-RADIO-BELOW","B-RADIO-PATH","I-PHY07"],"alternatives":[{"id":"spec001:ACTION-read-PROFILE-RADIO","label":"Read radio exercise profile","method":"direct-action","itemIds":[],"abilityIds":[],"condition":{"kind":"always"},"ruleIds":["spec001:PHY07"],"evidenceIds":["spec001:FACT-O08-snr"],"effects":[],"explanation":"Read the declared profile and its limitations. Reading a profile is context only: it neither awards progress nor substitutes for compatibility, current measurements or endpoint validation."}]}} 10ms
+     × rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","predictionAssessment":"supported","evidenceClaim":"current-reading-only-no-cause","correct":true} 11ms
+     × rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","predictionAssessment":"supported","evidenceClaim":"current-reading-only-no-cause","currentVersion":100} 11ms
+     × rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":["decreased"],"currentAssessment":"below-threshold","predictionAssessment":"supported","evidenceClaim":"current-reading-only-no-cause"} 11ms
+     × rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","predictionAssessment":["supported"],"evidenceClaim":"current-reading-only-no-cause"} 10ms
+     × rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","predictionAssessment":"supported","evidenceClaim":["current-reading-only-no-cause"]} 10ms
+     ↓ rejects malformed prediction null
+     ↓ rejects malformed prediction {}
+     ↓ rejects malformed prediction {"baselineMeasurementId":"00000000-0000-4000-8000-000000000002","assessment":"good"}
+     ↓ rejects malformed prediction {"baselineMeasurementId":"00000000-0000-4000-8000-000000000002","assessment":"meets-threshold","measurements":[]}
+     ↓ rejects explicit-stale instead of refreshing evidence
+     ↓ rejects wrong-attempt instead of refreshing evidence
+     ↓ rejects old-revision-false-flag instead of refreshing evidence
+     ↓ rejects not-latest instead of refreshing evidence
+     ↓ rejects scenario-mismatch instead of refreshing evidence
+     ↓ rejects stale-command instead of refreshing evidence
+     ↓ rejects stale-prediction instead of refreshing evidence
+     ↓ rejects new-adventure instead of refreshing evidence
+     ↓ executes the immutable C-FRESH freshness fields with the actual primitive
+     ↓ executes the immutable B-STALE-FLAG freshness fields with the actual primitive
+     ↓ executes the immutable T13 freshness fields with the actual primitive
+     ↓ invalidates a prediction after actual configuration changes even when values are restored
+     ↓ rejects corrupt room provenance as an authoring error
+     ↓ rejects corrupt subject provenance as an authoring error
+     ↓ rejects corrupt unit provenance as an authoring error
+     ↓ rejects corrupt snr provenance as an authoring error
+     ↓ rejects corrupt channel provenance as an authoring error
+     ↓ rejects corrupt duplicate provenance as an authoring error
+     ↓ rejects corrupt baseline provenance as an authoring error
+     ↓ checks authored delivery before malformed input and uses actual profile validation
+     ↓ compares reverse and unchanged observations without privileging a direction
+     ↓ preserves an existing19.99 boundary observation without adding a new activity control
+   ↓ actual receipt and encounter-recovery boundaries, not optional lifecycle (5)
+     ↓ applies the complete own fact+achievement batch once in existing fields
+     ↓ rejects partial receipt record-fact
+     ↓ rejects partial receipt complete-minigame
+     ↓ raw proposal result has no award authority and retained fact alone is not completion
+     ↓ actual encounter Retry retains learning, rewinds completion and stales readings
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/evidence/spec001/optional/MG03/authoring.test.ts [ docs/evidence/spec001/optional/MG03/authoring.test.ts ]
+AssertionError: content/spec001/rooms/R08.json: expected '24820d381bb464e85f7b5ce34e3b755aaeeee…' to be '141104d203bcdc45b40d375be262e2fff7711…' // Object.is equality
+
+Expected: "141104d203bcdc45b40d375be262e2fff771167e87ea2981e3c45ddace68da28"
+Received: "24820d381bb464e85f7b5ce34e3b755aaeeeeb9ee995e058be13e4e500973461"
+
+ ❯ docs/evidence/spec001/optional/MG03/authoring.test.ts:92:124
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/evidence/spec001/optional/MG03/authoring.test.ts > actual predict, measure and compare adapters > rejects malformed/forged comparison null
+ FAIL  docs/evidence/spec001/optional/MG03/authoring.test.ts > actual predict, measure and compare adapters > rejects malformed/forged comparison {}
+ FAIL  docs/evidence/spec001/optional/MG03/authoring.test.ts > actual predict, measure and compare adapters > rejects malformed/forged comparison ""
+ FAIL  docs/evidence/spec001/optional/MG03/authoring.test.ts > actual predict, measure and compare adapters > rejects malformed/forged comparison {"laterMeasurementId":"unknown","comparison":"decreased","currentAssessment":"below-threshold","predictionAssessment":"supported","evidenceClaim":"current-reading-only-no-cause"}
+ FAIL  docs/evidence/spec001/optional/MG03/authoring.test.ts > actual predict, measure and compare adapters > rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":true,"predictionAssessment":"supported","evidenceClaim":"current-reading-only-no-cause"}
+ FAIL  docs/evidence/spec001/optional/MG03/authoring.test.ts > actual predict, measure and compare adapters > rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","predictionAssessment":"supported","evidenceClaim":"current-reading-only-no-cause","effects":[{"kind":"record-fact","effectId":"spec001:EFFECT-MG03-notebook","factId":"spec001:FACT-MG03-completion"},{"kind":"complete-minigame","effectId":"spec001:EFFECT-MG03-complete","minigameId":"spec001:MG03"}]}
+ FAIL  docs/evidence/spec001/optional/MG03/authoring.test.ts > actual predict, measure and compare adapters > rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","predictionAssessment":"supported","evidenceClaim":"current-reading-only-no-cause","profile":{"kind":"profile","schemaVersion":1,"episodeId":"spec001","contentVersion":"1.0.0","id":"spec001:PROFILE-RADIO","reviewedProfileId":"spec001:PROFILE-RADIO","ruleIds":["spec001:PHY07"],"sourceClaims":[{"sourceId":"spec001:S08","section":"Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)","supportedClaim":"Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.","limitations":["Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."]},{"sourceId":"spec001:S09","section":"What is Signal-to-Noise Ratio (SNR)?","supportedClaim":"SNR is a signal-to-noise power ratio; its dB value is ten times the base-ten logarithm of that ratio.","limitations":["For compatible power measurements with one reference, subtracting dBm yields dB. No universal acceptable threshold follows from this definition."]}],"model":{"label":"fictional-teaching-profile","scope":"Exact reviewed fictional/toy profile for the Physical Layer exercises. Its supplied thresholds and assumptions are not universal standards or real-product specifications. Runtime comparisons must retain the reviewed units and independent boundary cases.","assumptions":["Signal and noise use comparable received power measurements in dBm.","Known compatible radio settings and viable path are independently supplied; sample fresh after change."],"limitations":["No universal Wi-Fi throughput, channel ranking, coverage model or regulatory assertion.","Missing authored path/settings facts are content-error; explicitly incompatible chosen settings are incorrect."]},"parameters":{"requiredSNR":{"value":20,"unit":"dB"},"inclusiveMinimum":true},"reviewedCaseIds":["T08","T09","B-RADIO-20","B-RADIO-BELOW","B-RADIO-PATH","I-PHY07"],"alternatives":[{"id":"spec001:ACTION-read-PROFILE-RADIO","label":"Read radio exercise profile","method":"direct-action","itemIds":[],"abilityIds":[],"condition":{"kind":"always"},"ruleIds":["spec001:PHY07"],"evidenceIds":["spec001:FACT-O08-snr"],"effects":[],"explanation":"Read the declared profile and its limitations. Reading a profile is context only: it neither awards progress nor substitutes for compatibility, current measurements or endpoint validation."}]}}
+ FAIL  docs/evidence/spec001/optional/MG03/authoring.test.ts > actual predict, measure and compare adapters > rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","predictionAssessment":"supported","evidenceClaim":"current-reading-only-no-cause","correct":true}
+ FAIL  docs/evidence/spec001/optional/MG03/authoring.test.ts > actual predict, measure and compare adapters > rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","predictionAssessment":"supported","evidenceClaim":"current-reading-only-no-cause","currentVersion":100}
+ FAIL  docs/evidence/spec001/optional/MG03/authoring.test.ts > actual predict, measure and compare adapters > rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":["decreased"],"currentAssessment":"below-threshold","predictionAssessment":"supported","evidenceClaim":"current-reading-only-no-cause"}
+ FAIL  docs/evidence/spec001/optional/MG03/authoring.test.ts > actual predict, measure and compare adapters > rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","predictionAssessment":["supported"],"evidenceClaim":"current-reading-only-no-cause"}
+ FAIL  docs/evidence/spec001/optional/MG03/authoring.test.ts > actual predict, measure and compare adapters > rejects malformed/forged comparison {"laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","predictionAssessment":"supported","evidenceClaim":["current-reading-only-no-cause"]}
+Error: MG03 projection registry: [{"code":"schema","path":"content/spec001/quests/SQ03.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ03.json","message":"Listed document was not loaded"}]
+ ❯ registry docs/evidence/spec001/optional/MG03/authoring.test.ts:41:45
+     39| function registry() {
+     40|   const result = validateContent(input());
+     41|   if (!result.ok || !result.registry) throw new Error(`MG03 projection…
+       |                                             ^
+     42|   return result.registry;
+     43| }
+ ❯ fixture docs/evidence/spec001/optional/MG03/authoring.test.ts:46:15
+ ❯ pair docs/evidence/spec001/optional/MG03/authoring.test.ts:87:13
+ ❯ docs/evidence/spec001/optional/MG03/authoring.test.ts:222:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  12 failed | 60 skipped (72)
+   Start at  09:59:24
+   Duration  327ms (tests 63%, import 22%, transform 15%, worker 1%)
+

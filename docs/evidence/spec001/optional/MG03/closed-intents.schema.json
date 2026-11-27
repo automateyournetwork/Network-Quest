@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0. Proposed activity payloads; original action/adventure/account capture remains required outside this closed payload.",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "sessionId",
+        "choice"
+      ],
+      "properties": {
+        "kind": {
+          "const": "scout-select"
+        },
+        "sessionId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        },
+        "choice": {
+          "enum": [
+            "channel-A",
+            "channel-B",
+            "mitigate-emitter",
+            "raise-noise"
+          ]
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "sessionId",
+        "baselineMeasurementId",
+        "assessment"
+      ],
+      "properties": {
+        "kind": {
+          "const": "scout-predict"
+        },
+        "sessionId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        },
+        "baselineMeasurementId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        },
+        "assessment": {
+          "enum": [
+            "meets-threshold",
+            "below-threshold"
+          ]
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "sessionId"
+      ],
+      "properties": {
+        "kind": {
+          "const": "scout-measure"
+        },
+        "sessionId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "sessionId",
+        "laterMeasurementId",
+        "comparison",
+        "currentAssessment",
+        "predictionAssessment",
+        "evidenceClaim"
+      ],
+      "properties": {
+        "kind": {
+          "const": "scout-compare"
+        },
+        "sessionId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        },
+        "laterMeasurementId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        },
+        "comparison": {
+          "enum": [
+            "increased",
+            "unchanged",
+            "decreased"
+          ]
+        },
+        "currentAssessment": {
+          "enum": [
+            "meets-threshold",
+            "below-threshold"
+          ]
+        },
+        "predictionAssessment": {
+          "enum": [
+            "supported",
+            "not-supported"
+          ]
+        },
+        "evidenceClaim": {
+          "enum": [
+            "current-reading-only-no-cause",
+            "earlier-proves-current",
+            "weather-proven",
+            "throughput-proven"
+          ]
+        }
+      }
+    }
+  ]
+}

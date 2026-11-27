@@ -1,0 +1,241 @@
+{
+  "kind": "minigame",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:MG03",
+  "completionAchievementId": "spec001:ACHIEVEMENT-MG03-complete",
+  "prerequisite": {
+    "kind": "objective-complete",
+    "objectiveId": "spec001:O08"
+  },
+  "evidence": [
+    {
+      "id": "spec001:FACT-MG03-instructions",
+      "roomId": "spec001:R08",
+      "subjectIds": [
+        "spec001:CH10",
+        "spec001:PROFILE-RADIO"
+      ],
+      "kind": "context",
+      "text": "Channel Scout opens after you prove radio in the Observatory. Its channel and emitter controls change this adventure's actual radio configuration. Choose an earlier actual reading, select or prepare the current configuration, record a prediction, explicitly measure, then compare. Unchanged SNR is a valid comparison. A prediction is not a reading. Practice, help, retry and exit remain available without a timer or score.",
+      "ruleIds": [
+        "spec001:PHY07",
+        "spec001:STATE01"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-MG03-scope",
+      "roomId": "spec001:R08",
+      "subjectIds": [
+        "spec001:CH10",
+        "spec001:PROFILE-RADIO"
+      ],
+      "kind": "context",
+      "text": "The earlier reading remains historical. Only the later actual observation at the current attempt and configuration can describe the current supplied link. A channel label or prediction alone is not an observation. These fixed toy inputs are not a propagation model, a universal Wi-Fi threshold, a weather-causation test, throughput, routing or end-to-end service proof.",
+      "ruleIds": [
+        "spec001:PHY07",
+        "spec001:STATE01"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-MG03-completion",
+      "roomId": "spec001:R08",
+      "subjectIds": [
+        "spec001:CH10",
+        "spec001:PROFILE-RADIO"
+      ],
+      "kind": "observation",
+      "text": "You predicted, took a new reading and compared it with an earlier observation. Your notebook records optional radio practice and help use separately. A wrong prediction can be revised by honest comparison; the result neither proves independent mastery nor repairs a failed link.",
+      "ruleIds": [
+        "spec001:PHY07",
+        "spec001:STATE01"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "alternatives": [
+    {
+      "id": "spec001:ACTION-MG03-compare",
+      "label": "Compare the new reading with your prediction",
+      "method": "direct-action",
+      "itemIds": [],
+      "abilityIds": [],
+      "condition": {
+        "kind": "always"
+      },
+      "ruleIds": [
+        "spec001:PHY07",
+        "spec001:STATE01"
+      ],
+      "evidenceIds": [
+        "spec001:FACT-MG03-scope"
+      ],
+      "effects": [],
+      "explanation": "An accurate comparison after an explicitly captured prediction and actual new measurement records optional practice once. An honest correction of a wrong prediction is valid. Practice and mere channel selection never complete the exercise."
+    }
+  ],
+  "ruleIds": [
+    "spec001:PHY07",
+    "spec001:STATE01"
+  ],
+  "profileIds": [
+    "spec001:PROFILE-RADIO"
+  ],
+  "sourceClaims": [
+    {
+      "sourceId": "spec001:S08",
+      "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+      "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+      "limitations": [
+        "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."
+      ]
+    },
+    {
+      "sourceId": "spec001:S09",
+      "section": "What is Signal-to-Noise Ratio (SNR)?",
+      "supportedClaim": "SNR is a signal-to-noise power ratio; its dB value is ten times the base-ten logarithm of that ratio.",
+      "limitations": [
+        "For compatible power measurements with one reference, subtracting dBm yields dB. No universal acceptable threshold follows from this definition."
+      ]
+    }
+  ],
+  "model": {
+    "label": "fictional-teaching-profile",
+    "scope": "Optional predict–measure–compare exercise over the existing supplied Observatory radio scenario and actual notebook measurements. Channel and emitter controls change the adventure configuration.",
+    "assumptions": [
+      "Radio proof is completed before entry; no optional activity is required to prove radio.",
+      "Only existing channel A/B and emitter controls are offered. Earlier readings may be valid history from an older attempt.",
+      "The supplied scenario has fixed readings; pressing Measure records the current configuration. Notebook order establishes sequence, not elapsed time."
+    ],
+    "limitations": [
+      "The earlier reading remains historical. Only the later actual observation at the current attempt and configuration can describe the current supplied link. A channel label or prediction alone is not an observation. These fixed toy inputs are not a propagation model, a universal Wi-Fi threshold, a weather-causation test, throughput, routing or end-to-end service proof.",
+      "No wall-clock timestamp, weather model, new SNR physics or invented measurement provenance is introduced.",
+      "Completed radio proof remains an earned historical objective; a subsequent failing reading does not magically pass.",
+      "Completion records optional radio practice. No required item or score depends on it, and it is not an independent-mastery certificate."
+    ]
+  },
+  "effects": [
+    {
+      "kind": "record-fact",
+      "effectId": "spec001:EFFECT-MG03-notebook",
+      "factId": "spec001:FACT-MG03-completion"
+    },
+    {
+      "kind": "complete-minigame",
+      "effectId": "spec001:EFFECT-MG03-complete",
+      "minigameId": "spec001:MG03"
+    }
+  ],
+  "hints": {
+    "method": {
+      "id": "spec001:HINT-MG03-method",
+      "text": "Keep the earlier reading visible as history. After a configuration change, record what you expect, then explicitly measure before drawing a current conclusion."
+    },
+    "workedStep": {
+      "id": "spec001:HINT-MG03-step",
+      "text": "For the worked boundary card, −65 minus −85 is 20 dB. The supplied inclusive threshold accepts equality. This worked card does not create a notebook measurement."
+    },
+    "solution": {
+      "id": "spec001:HINT-MG03-solution",
+      "text": "Compare the displayed actual SNR readings. If 25 dB became 13 dB, it decreased by 12 dB and the current supplied link is below 20 dB. Say whether your prediction matched; neither weather cause nor throughput follows. This is assisted practice with the same optional completion."
+    }
+  },
+  "observableOutcome": "An accurate fresh comparison records optional radio practice once, including honest revision of a wrong prediction. A failed current link stays failed; required preparation remains available.",
+  "completionExplanation": "You predicted, took a new reading and compared it with an earlier observation. Your notebook records optional radio practice and help use separately. A wrong prediction can be revised by honest comparison; the result neither proves independent mastery nor repairs a failed link.",
+  "requiresReflexTiming": false,
+  "requiredForMainStory": false,
+  "skippable": true,
+  "instructions": "Channel Scout opens after you prove radio in the Observatory. Its channel and emitter controls change this adventure's actual radio configuration. Choose an earlier actual reading, select or prepare the current configuration, record a prediction, explicitly measure, then compare. Unchanged SNR is a valid comparison. A prediction is not a reading. Practice, help, retry and exit remain available without a timer or score.",
+  "practiceExplanation": "Worked source card, not a notebook observation: signal −65 dBm and noise −85 dBm give 20 dB SNR. With the supplied viable path and matching settings, this exactly meets the fictional inclusive 20 dB minimum. It does not guarantee throughput. Opening this card records worked assistance and cannot complete Channel Scout.",
+  "retryExplanation": "Restore the radio configuration and required inventory captured when you entered this exercise. Keep clues, notes and hint history. Begin a new attempt; all retained old readings are historical and stale until measured again. After completion, retry still restores the original entry radio configuration and inventory while your earned optional completion remains recorded. Retry does not save.",
+  "exitExplanation": "Close Channel Scout at your captured Observatory origin. Keep the actual radio configuration you currently selected and all recorded observations; an impaired link remains impaired. No teleport, refresh or save occurs. Ordinary preparation controls and the required inspection kit remain recoverable.",
+  "timingDefault": "off",
+  "timingUnlock": "after-untimed-completion",
+  "requiredScoreForMainStory": false,
+  "optionalActivity": {
+    "kind": "radio-channel-scout",
+    "speakerId": "spec001:CH10",
+    "instructions": [
+      "“Predictions go in pencil,” says the Phoenix. “Observations get their own line.”",
+      "Channel Scout opens after you prove radio in the Observatory. Its channel and emitter controls change this adventure's actual radio configuration. Choose an earlier actual reading, select or prepare the current configuration, record a prediction, explicitly measure, then compare. Unchanged SNR is a valid comparison. A prediction is not a reading. Practice, help, retry and exit remain available without a timer or score.",
+      "The earlier reading remains historical. Only the later actual observation at the current attempt and configuration can describe the current supplied link. A channel label or prediction alone is not an observation. These fixed toy inputs are not a propagation model, a universal Wi-Fi threshold, a weather-causation test, throughput, routing or end-to-end service proof."
+    ],
+    "profileId": "spec001:PROFILE-RADIO",
+    "delivery": {
+      "actionId": "spec001:ACTION-MG03-compare",
+      "sourceCaseIds": [
+        "T08",
+        "T09",
+        "B-RADIO-20",
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "measurementObjectiveId": "spec001:O08",
+      "measurementRuleId": "spec001:PHY07",
+      "measurementRoomId": "spec001:R08",
+      "predictionRequired": true,
+      "measurementAfterPrediction": true,
+      "historicalUse": "comparison-only",
+      "currentRequired": true
+    },
+    "selectionActions": {
+      "channel-A": "spec001:ACTION-radio-channel-A",
+      "channel-B": "spec001:ACTION-radio-channel-B",
+      "mitigate-emitter": "spec001:ACTION-radio-mitigate-emitter",
+      "raise-noise": "spec001:ACTION-radio-raise-noise"
+    },
+    "practice": {
+      "sourceCaseId": "B-RADIO-20",
+      "signal": {
+        "value": -65,
+        "unit": "dBm"
+      },
+      "noise": {
+        "value": -85,
+        "unit": "dBm"
+      },
+      "viablePath": true,
+      "settingsCompatible": true,
+      "explanation": "Worked source card, not a notebook observation: signal −65 dBm and noise −85 dBm give 20 dB SNR. With the supplied viable path and matching settings, this exactly meets the fictional inclusive 20 dB minimum. It does not guarantee throughput. Opening this card records worked assistance and cannot complete Channel Scout."
+    },
+    "feedback": {
+      "missingEvidence": "No eligible earlier actual radio reading is available. Practice and exit remain available. Close Channel Scout, prepare the path and take an actual Observatory reading, then reopen it. No source card is substituted for your evidence.",
+      "freshMeasurementRequired": "Record a prediction for this configuration, then press Measure. A previous reading or a channel change alone cannot complete the comparison.",
+      "predictionRecorded": "Your prediction is stored for this configuration. It is not a measurement or a verdict. Press Measure to observe, or leave.",
+      "incorrect": "Check the actual readouts and their freshness. Compare their SNR, the current threshold result and whether your prediction matched. The earlier reading proves no current result, weather cause or throughput. This explanation records assistance; retry or exit remains available.",
+      "correct": "You predicted, took a new reading and compared it with an earlier observation. Your notebook records optional radio practice and help use separately. A wrong prediction can be revised by honest comparison; the result neither proves independent mastery nor repairs a failed link.",
+      "contentError": "The exercise cannot verify its authored inputs or original records. This is an authoring problem, not a learner mistake. No completion or penalty was recorded; you may leave safely.",
+      "alreadyCompleted": "Your notebook already records this optional radio practice. Review, retry or leave; no duplicate completion is awarded."
+    },
+    "controls": {
+      "practice": "Read the worked boundary card",
+      "delivery": "Predict, measure and compare",
+      "predict": "Record prediction",
+      "measure": "Measure this configuration",
+      "submit": "Compare actual readings",
+      "retry": "Restore entry preparation and retry",
+      "exit": "Leave Channel Scout"
+    },
+    "recovery": {
+      "retryExplanation": "Restore the radio configuration and required inventory captured when you entered this exercise. Keep clues, notes and hint history. Begin a new attempt; all retained old readings are historical and stale until measured again. After completion, retry still restores the original entry radio configuration and inventory while your earned optional completion remains recorded. Retry does not save.",
+      "exitExplanation": "Close Channel Scout at your captured Observatory origin. Keep the actual radio configuration you currently selected and all recorded observations; an impaired link remains impaired. No teleport, refresh or save occurs. Ordinary preparation controls and the required inspection kit remain recoverable."
+    },
+    "reward": {
+      "kind": "optional-radio-practice",
+      "factId": "spec001:FACT-MG03-completion"
+    },
+    "entryContexts": [
+      {
+        "roomId": "spec001:R08",
+        "safePositionId": "spec001:R08.entry",
+        "hotspotId": "spec001:HOTSPOT-radio-channels"
+      }
+    ],
+    "returnPolicy": "captured-entry",
+    "timingDefault": "off"
+  }
+}

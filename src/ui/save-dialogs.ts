@@ -93,6 +93,7 @@ export function createSaveDialogsController(options: {
       reviewed = null; panel = 'conflict'; message = 'The server save changed. Review it before choosing whether to load or replace it.';
     } else if (store.getState().runtime.persistence.pendingRequest) { panel = 'recovery'; message = failureMessage(result.error); }
     else if (result.reason === 'unsafe') { panel = 'none'; message = 'Finish the current activity before saving. The previous account save remains available.'; }
+    else if (result.error?.status === 403) { panel = 'signin'; message = 'Check your current session before reviewing the account save again. Your progress stays in this tab.'; }
     else if (result.reason === 'session-required' || result.error?.status === 401) { panel = 'signin'; message = 'Sign in to review and save this adventure. Your current progress stays in this tab.'; }
     else { panel = 'none'; message = result.error ? failureMessage(result.error) : 'The save is not ready. Review the account slot again.'; }
     changed();

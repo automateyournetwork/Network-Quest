@@ -1,0 +1,71 @@
+
+Running 1 test using 1 worker
+
+(node:72416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS R01 actual actor discovery and scoped entries
+PASS R02 actual actor discovery and scoped entries
+PASS actual introduction; guest memory and explicit non-evidence hypothesis
+PASS R03 actual actor discovery and scoped entries
+PASS R04 actual actor discovery and scoped entries
+PASS CH20 level 1 ability equals conventional physical reading
+PASS CH20 distinct post-recruit lesson earns level 2
+PASS CH20 level 2 ability equals conventional physical reading
+PASS CH04 distinct post-recruit lesson earns level 2
+PASS CH04 level 1 ability equals conventional physical reading
+PASS CH04 level 2 ability equals conventional physical reading
+PASS R05 actual actor discovery and scoped entries
+PASS CH03 level 1 optical ability equals conventional controlled intervention
+PASS CH03 distinct post-recruit lesson earns level 2
+PASS CH03 advanced mismatch equals conventional mismatch
+PASS R06 actual actor discovery and scoped entries
+PASS CH16 level 1 optical ability equals conventional controlled intervention
+PASS CH16 distinct post-recruit lesson earns level 2
+PASS CH16 advanced host mismatch equals conventional mismatch
+PASS CH05 distinct post-recruit lesson earns level 2
+PASS CH05 level 1 ability equals conventional physical reading
+PASS CH05 level 2 ability equals conventional physical reading
+PASS CH06 distinct post-recruit lesson earns level 2
+PASS CH06 level 1 ability equals conventional physical reading
+PASS CH06 level 2 ability equals conventional physical reading
+PASS R07 actual actor discovery and scoped entries
+PASS R08 actual actor discovery and scoped entries
+PASS CH07 distinct post-recruit lesson earns level 2
+PASS CH07 level 1 ability equals conventional physical reading
+PASS CH07 level 2 ability equals conventional physical reading
+PASS R09 actual actor discovery and scoped entries
+PASS CH19 level 1 ability equals conventional physical reading
+  ✘  1 tests/e2e/companions.spec.ts:20:1 › T104 actual all-room companion discovery, earned progression and conventional equivalents (1.3m)
+
+
+  1) tests/e2e/companions.spec.ts:20:1 › T104 actual all-room companion discovery, earned progression and conventional equivalents 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('dialog', { name: 'Diagnostics', exact: true }).locator('ol[aria-label="Recorded measurements"] > li').last()
+    Expected substring: "Delivered excess: 0 W"
+    Received string:    "Current reading: Delivered budget: 30 W; Total delivered demand: 30 W; Delivered headroom: 0 W; Selected common rate: 100 Mbps; Selected full duplex: 1 count; Common mode supported: 1 countSubmit this reading"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" getByRole('dialog', { name: 'Diagnostics', exact: true }).locator('ol[aria-label="Recorded measurements"] > li').last() with timeout 5000ms
+      - waiting for getByRole('dialog', { name: 'Diagnostics', exact: true }).locator('ol[aria-label="Recorded measurements"] > li').last()
+        13 × locator resolved to <li>…</li>
+           - unexpected value "Current reading: Delivered budget: 30 W; Total delivered demand: 30 W; Delivered headroom: 0 W; Selected common rate: 100 Mbps; Selected full duplex: 1 count; Common mode supported: 1 countSubmit this reading"
+
+
+      141 |   const party=()=>page.getByRole('dialog',{name:'Party',exact:true}),compendium=()=>page.getByRole('dialog',{name:'Compendium',exact:true}),diag=()=>page.getByRole('dialog',{name:'Diagnostics',exact:true});
+      142 |   const click=async(name:string)=>{if(['Party','Compendium','Diagnostics','Repair plan','Validate repair'].includes(name))await closeFrame(page);await clickButton(page,name);};
+    > 143 |   const capture=async(expected:string[])=>{const latest=diag().locator('ol[aria-label="Recorded measurements"] > li').last();for(const text of expected)await expect(latest).toContainText(text);const reading=await latest.locator(':scope > p').innerText();expect(reading).toMatch(/^Current reading: .+:/);return reading.replace(/^Current reading: /,'').split('; ');};
+          |                                                                                                                                                                              ^
+      144 |   return{click,party,compendium,row:(name:string)=>party().locator('section').filter({has:page.getByRole('heading',{name:new RegExp(`^${name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')} ·`)})}),
+      145 |     walk:async(name:string,label=`Walk to ${name}`)=>{await click('Walk');await click(label);await expect(page.locator('.nq-game-location')).toHaveText(name);},
+      146 |     latest:async(expected:string[])=>{await click('Diagnostics');const result=await capture(expected);await click('Close diagnostics');return result;},
+        at capture (/Users/john.capobianco/Network-Quest/tests/e2e/companions.spec.ts:143:174)
+        at Object.measure (/Users/john.capobianco/Network-Quest/tests/e2e/companions.spec.ts:147:136)
+        at /Users/john.capobianco/Network-Quest/tests/e2e/companions.spec.ts:120:251
+
+    Error Context: .local/t104-browser-artifacts/companions-T104-actual-all-f3e32-nd-conventional-equivalents/error-context.md
+
+  1 failed
+    tests/e2e/companions.spec.ts:20:1 › T104 actual all-room companion discovery, earned progression and conventional equivalents 

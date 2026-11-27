@@ -1,0 +1,96 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/services/save-coordinator.test.ts -t keeps a stale tab
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest/.local/Q02-review/tree
+
+ ❯ tests/services/save-coordinator.test.ts (53 tests | 1 failed | 52 skipped) 582ms
+   ❯ T049 coordinator, actual API/reader/capture with synthetic transport only (53)
+     × keeps a stale tab from reviewing a different signed-in session’s save 581ms
+     ↓ requires explicit current runtime/API binding and a full slot read before a new write
+     ↓ manually adopts one confirmed-empty slot, with default autosave OFF and no dirty increment
+     ↓ requires manual first adoption even when the account has opted into autosave
+     ↓ uses one conditional slot for eligible automatic writes
+     ↓ serializes concurrent save/retry/read calls without queueing a recapture
+     ↓ UI-LATE-ACK acknowledges captured generation 4 while real reducer edits leave generation 5 dirty
+     ↓ SV-OLD-POLICY retries exact bytes/key/mode/precondition/confirmation without validating or capturing again
+     ↓ keep playing retains an unknown outcome and forbids a new overwrite
+     ↓ SV-REPLAY-OLDER records receipt 8, current slot 9 and requires a fresh read plus consent before overwrite
+     ↓ SV-STALE exposes 412 without replacing memory, then requires reviewed conditional explicit replacement
+     ↓ binds replacement consent to owned review, slot adventure, ETag and unchanged local capture
+     ↓ rejects actual dialogue-transaction state even when it has a safe preparation checkpoint
+     ↓ rejects actual pending-effect state even when it has a safe preparation checkpoint
+     ↓ rejects actual room-transition state even when it has a safe preparation checkpoint
+     ↓ rejects actual cutscene state even when it has a safe preparation checkpoint
+     ↓ rejects actual active-encounter state even when it has a safe preparation checkpoint
+     ↓ rejects actual terminal-failure state even when it has a safe preparation checkpoint
+     ↓ rejects actual shutdown state even when it has a safe preparation checkpoint
+     ↓ rejects pending reducer work even with a superficially safe runtime activity
+     ↓ preserves game/confirmed metadata on HTTP 401 without false acknowledgement or automatic sign-in
+     ↓ preserves game/confirmed metadata on HTTP 403 without false acknowledgement or automatic sign-in
+     ↓ preserves game/confirmed metadata on HTTP 422 without false acknowledgement or automatic sign-in
+     ↓ preserves game/confirmed metadata on HTTP 429 without false acknowledgement or automatic sign-in
+     ↓ preserves game/confirmed metadata on HTTP 503 without false acknowledgement or automatic sign-in
+     ↓ never acknowledges a mismatching request receipt
+     ↓ never acknowledges a mismatching adventure receipt
+     ↓ never acknowledges a mismatching revision receipt
+     ↓ passes exact unknown lexical snapshot bytes to SaveReader and blocks replacement/autosave
+     ↓ invalid supported saves also remain untouched; a session summary never grants replacement
+     ↓ UI-LATE-ACCOUNT ignores a late receipt after runtime generation invalidation, preserving later memory
+     ↓ UI-LATE-ACCOUNT ignores a late receipt after api generation invalidation, preserving later memory
+     ↓ UI-LATE-ACCOUNT ignores a late receipt after view generation invalidation, preserving later memory
+     ↓ rejects stale session binding even when provider/display name are identical
+     ↓ new run/restore invalidation discards the old view without applying its late read to a replacement runtime
+     ↓ reentrant saving subscribers cannot send an invalidated write or release a later operation
+     ↓ reentrant read subscribers cannot send an invalidated GET
+     ↓ disposal and repeated invalidation preserve gameplay and never perform network mutations
+     ↓ a failed-notification retry keeps its own in-flight lock after the older send returns
+     ↓ disposal cannot be reentered through an unbound notification to send new requests
+     ↓ terminal disposal notifications cannot recurse or restart the coordinator
+     ↓ UI lifecycle and read-review tokens reject clones, edits and same-adventure rebinding
+     ↓ a receipt invalidated in the API-result microtask cannot acknowledge the replacement runtime
+     ↓ same-adventure restore invalidation rejects the old frozen pending handle
+     ↓ a timeout preserves frozen pending bytes and the in-memory adventure for explicit retry
+     ↓ E01 only writes at a declared safe Continue point (isolated fixture policy)
+     ↓ E02 only writes at a declared safe Continue point (isolated fixture policy)
+     ↓ never accepts E03 as a current Continue outcome even with safe-continue activity
+     ↓ read failure or mismatched summary cannot establish empty-slot or replacement authority
+     ↓ a later read that discovers another device write cannot silently authorize autosave over it
+     ↓ the current status projection reflects dirty edits after a successful acknowledgement
+     ↓ blocks interrupted reader results and retains their original bytes
+     ↓ blocks migration-failed reader results and retains their original bytes
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/services/save-coordinator.test.ts > T049 coordinator, actual API/reader/capture with synthetic transport only > keeps a stale tab from reviewing a different signed-in session’s save
+AssertionError: expected { ok: true, review: { …(2) }, …(1) } to match object { ok: false, error: { status: 403 } }
+(6 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "error": {
+-     "status": 403,
+-   },
+-   "ok": false,
++   "ok": true,
+  }
+
+ ❯ tests/services/save-coordinator.test.ts:97:18
+     95|     });
+     96|     const read = await h.coordinator.readSlot();
+     97|     expect(read).toMatchObject({ ok: false, error: { status: 403 } });
+       |                  ^
+     98|     expect(h.state.runtime.auth).toMatchObject({ displayName: 'Same La…
+     99|     expect(h.state.runtime.game).toBe(originalGame);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 52 skipped (53)
+   Start at  11:22:00
+   Duration  1.11s (tests 55%, transform 39%, import 6%)
+

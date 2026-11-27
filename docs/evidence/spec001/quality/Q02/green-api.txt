@@ -1,0 +1,50 @@
+
+> network-quest@0.0.0 test:api
+> node tools/test-api.mjs --do-not-cache-result --filter AuthRoutesTest|SaveConcurrencyTest|AccountDeletionTest|DeletionStatusRoutesTest|SaveRoutesTest|SessionsTest|ApiContractTest
+
+PHPUnit 12.5.45 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.28
+Configuration: /Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/phpunit.xml
+
+.......................EE...........E......................E...  63 / 217 ( 29%)
+............................................................... 126 / 217 ( 58%)
+............................................................... 189 / 217 ( 87%)
+............................                                    217 / 217 (100%)
+
+Time: 00:12.719, Memory: 30.00 MB
+
+There were 4 errors:
+
+1) AccountDeletionTest::testNativeConfiguredEntryPollsWithoutRecoveryThenSuppressesRestoredIdentityBeforeSessionProjection@pending intent with data (true)
+RuntimeException: Supply the absolute pinned Node 26.13.1 binary as NQ_TEST_NODE_BIN.
+
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/Support/TestEnvironment.php:170
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/Support/TestEnvironment.php:145
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/AccountDeletionTest.php:596
+
+2) AccountDeletionTest::testNativeConfiguredEntryPollsWithoutRecoveryThenSuppressesRestoredIdentityBeforeSessionProjection@completed deletion with data (false)
+RuntimeException: Supply the absolute pinned Node 26.13.1 binary as NQ_TEST_NODE_BIN.
+
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/Support/TestEnvironment.php:170
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/Support/TestEnvironment.php:145
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/AccountDeletionTest.php:596
+
+3) ApiContractTest::testActualTlsAllNinePathsHaveContractShapesAndIsolatedSideEffects
+RuntimeException: Supply the absolute pinned Node 26.13.1 binary as NQ_TEST_NODE_BIN.
+
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/Support/TestEnvironment.php:170
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/Support/TestEnvironment.php:145
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/ApiContractTest.php:59
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/ApiContractTest.php:224
+
+4) ApiContractTest::testParsedWireOriginRejectionsMatchProblemContractAndRevealNoHeaders
+RuntimeException: Supply the absolute pinned Node 26.13.1 binary as NQ_TEST_NODE_BIN.
+
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/Support/TestEnvironment.php:170
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/Support/TestEnvironment.php:145
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/ApiContractTest.php:59
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/ApiContractTest.php:396
+
+ERRORS!
+Tests: 217, Assertions: 7151, Errors: 4.

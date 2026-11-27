@@ -1,0 +1,88 @@
+{
+  "recordedAt": "2026-11-27T16:14:50.094486+00:00",
+  "task": "T103",
+  "loop": 115,
+  "baseCommit": "9a93bf7815cda8b7055a8177bd61d5c468dc8f52",
+  "baseOverlaySealSha256": "a0a7ab554e05e0baf43166cfe86126685349ab4e41add15b702daba7558caee3",
+  "sourceRoot": "/Users/john.capobianco/Network-Quest/.local/mg03-join-mg02-9a93bf7",
+  "scope": "Actual isolated integration; current-tree reconciliation and T103 acceptance remain pending.",
+  "checks": [
+    {
+      "kind": "focused-runtime-regressions",
+      "passed": 240,
+      "MG03": 64,
+      "MG02": 62,
+      "MG01": 52,
+      "framework": 62,
+      "durationSeconds": 5.13,
+      "log": "11-runtime-final.log"
+    },
+    {
+      "kind": "added-exact-production-oracle-assertions",
+      "passed": 64,
+      "durationSeconds": 3.67,
+      "log": "22-exact-case-assertions.log",
+      "productionSourceChanged": false
+    },
+    {
+      "kind": "strict-types",
+      "exitCode": 0,
+      "log": "23-final-strict-types.log"
+    },
+    {
+      "kind": "final-typecheck-content-policy",
+      "exitCode": 0,
+      "log": "19-final-check.log"
+    },
+    {
+      "kind": "final-build",
+      "exitCode": 0,
+      "log": "15-build-final.log"
+    },
+    {
+      "kind": "actual-built-guest-firefox",
+      "groupsPassed": 15,
+      "browser": "159.0",
+      "receipt": "18-native-final.json",
+      "axeViolations": 0,
+      "pageErrors": [],
+      "apiOrMutationRequests": [],
+      "changedSources": [],
+      "lifecycleCoverage": "Eight lifecycle categories, not all exact T092 conditions.",
+      "nativeUntimedPauseMilliseconds": 750,
+      "backgroundTabExecuted": false,
+      "logicalControllerClockAdvanceSeconds": 3600
+    },
+    {
+      "kind": "earned-local-JS-PHP-policy-parity",
+      "candidates": 5,
+      "scope": "Existing safe snapshot validation; no provider/transport claim."
+    },
+    {
+      "kind": "preserved-original-seals",
+      "entries": 226,
+      "receipt": "20-original-preservation.json"
+    }
+  ],
+  "retainedFailures": [
+    "01-before-integration.log",
+    "02-content-generate.log",
+    "04-runtime-initial.log",
+    "05-types-initial.log",
+    "12-build-final.log"
+  ],
+  "retainedEarlierNative": "13-native-initial.json;13-application.browser.mjs;13-mg03-*-200.png",
+  "pending": [
+    "Serialized main reconciliation after current MG01/MG02; preserve SQ03/SQ04 and current source ownership.",
+    "Merged generated schema/types/policy and affected/current native checks.",
+    "Exact T092 long/background and complete all-seven activity matrix belongs T104/116.",
+    "T105 whole episode, providers, media, human/owner and aggregate gate acceptance."
+  ],
+  "wholeClientRegressionRun": false,
+  "mainSharedSourcesChanged": false,
+  "sealedMG01MG02Changed": false,
+  "originalMG03PacketChanged": false,
+  "taskAccepted": false,
+  "gitChanged": false,
+  "deployment": false
+}

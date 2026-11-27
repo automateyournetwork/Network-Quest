@@ -1,0 +1,75 @@
+
+> network-quest@0.0.0 test:api
+> node tools/test-api.mjs --do-not-cache-result
+
+PHPUnit 12.5.45 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.28
+Configuration: /Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/phpunit.xml
+
+...............................................................  63 / 909 (  6%)
+............................................................... 126 / 909 ( 13%)
+............................................................... 189 / 909 ( 20%)
+............................................................... 252 / 909 ( 27%)
+............................................................... 315 / 909 ( 34%)
+............................................................... 378 / 909 ( 41%)
+............................................................... 441 / 909 ( 48%)
+.....EEEE...................................................... 504 / 909 ( 55%)
+............................................................... 567 / 909 ( 62%)
+............................................................... 630 / 909 ( 69%)
+............................................................... 693 / 909 ( 76%)
+............................................................... 756 / 909 ( 83%)
+............................................................... 819 / 909 ( 90%)
+............................................................... 882 / 909 ( 97%)
+...........................                                     909 / 909 (100%)
+
+Time: 00:34.261, Memory: 34.00 MB
+
+There were 4 errors:
+
+1) MeasurementHarnessTest::testNativeTwentySessionHarnessKeepsCsrfAndCertificateFailuresAndCleansUp
+RuntimeException: TLS proxy failed.
+
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/tools/NativeMeasurementServer.php:74
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/tools/measure-save-load.php:99
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/MeasurementHarnessTest.php:39
+
+2) MeasurementHarnessTest::testNativePositiveControlCreatesAndReplacesAllTwentySlotsWithValidatedResponses
+RuntimeException: TLS proxy failed.
+
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/tools/NativeMeasurementServer.php:74
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/tools/measure-save-load.php:99
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/MeasurementHarnessTest.php:56
+
+3) MeasurementHarnessTest::testConcurrentTwentySessionTrialRetainsEveryOutcome
+RuntimeException: TLS proxy failed.
+
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/tools/NativeMeasurementServer.php:74
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/tools/measure-save-load.php:99
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/MeasurementHarnessTest.php:70
+
+4) MeasurementHarnessTest::testInterruptedNativeRunEmitsFailureAndVerifiedCleanup
+JsonException: Syntax error
+
+/Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/MeasurementHarnessTest.php:87
+
+--
+
+3 tests triggered 1 PHP warning:
+
+1) /Users/john.capobianco/Network-Quest/.local/Q02-review/tree/tools/NativeMeasurementServer.php:72
+proc_open(): posix_spawn() failed: No such file or directory
+
+Triggered by:
+
+* MeasurementHarnessTest::testConcurrentTwentySessionTrialRetainsEveryOutcome
+  /Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/MeasurementHarnessTest.php:68
+
+* MeasurementHarnessTest::testNativePositiveControlCreatesAndReplacesAllTwentySlotsWithValidatedResponses
+  /Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/MeasurementHarnessTest.php:52
+
+* MeasurementHarnessTest::testNativeTwentySessionHarnessKeepsCsrfAndCertificateFailuresAndCleansUp
+  /Users/john.capobianco/Network-Quest/.local/Q02-review/tree/server/tests/MeasurementHarnessTest.php:36
+
+ERRORS!
+Tests: 909, Assertions: 18822, Errors: 4, Warnings: 1.

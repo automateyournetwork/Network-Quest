@@ -1,0 +1,47 @@
+--- a/src/state/reducer.ts
++++ b/src/state/reducer.ts
+@@ -144,7 +144,7 @@
+     actionIds: [], pending: null,
+     highestRevision: Math.max(0, ...worlds.map(w => w.configurationRevision), ...measurements.map(m => m.configurationRevision)),
+     usedAttemptIds: [...new Set([...worlds.map(w => w.attemptId), ...measurements.map(m => m.attemptId),
+-      ...(runtime.game?.assistance.map(h => h.attemptId) ?? []), ...(runtime.game?.outcomeHistory.map(o => o.attemptId) ?? [])])],
++      ...(runtime.game?.assistance.map(h => h.attemptId) ?? []), ...(runtime.game?.outcomeHistory.map(o => o.attemptId) ?? [])].map(id => id.toLowerCase() as AttemptId))],
+     partyPractice: null,
+     optionalActivity: null,
+   } };
+@@ -527,12 +527,13 @@
+       if (!['terminal-failure', 'shutdown'].includes(state.runtime.activity.kind) || !checkpoint || checkpoint.adventureId !== game.adventureId
+         || !legalWorld(checkpoint.world) || !safeDestination(registry, { roomId: checkpoint.world.roomId, safePositionId: checkpoint.world.position.safePositionId, activity: 'safe-preparation' })) return reject('no-preparation');
+       if (!uuidPattern.test(input.nextAttemptId)) return reject('invalid-action');
+-      if (state.control.usedAttemptIds.includes(input.nextAttemptId)) return reject('attempt-reused');
++      const nextAttemptId = input.nextAttemptId.toLowerCase() as AttemptId;
++      if (state.control.usedAttemptIds.includes(nextAttemptId)) return reject('attempt-reused');
+       const revision = nextRevision(state);
+       if (revision === null) return reject('generation-exhausted');
+-      const world: WorldState = { ...structuredClone(checkpoint.world), attemptId: input.nextAttemptId, configurationRevision: revision };
++      const world: WorldState = { ...structuredClone(checkpoint.world), attemptId: nextAttemptId, configurationRevision: revision };
+       const result = accept(state, command.actionId, { game: { ...game, world, notebook: staleMeasurements(game) }, activity: { kind: 'safe-preparation' }, changed: true, revision });
+-      return result.status === 'rejected' ? result : { ...result, state: { ...result.state, control: { ...result.state.control, usedAttemptIds: [...state.control.usedAttemptIds, input.nextAttemptId], partyPractice: null, optionalActivity: null } } };
++      return result.status === 'rejected' ? result : { ...result, state: { ...result.state, control: { ...result.state.control, usedAttemptIds: [...state.control.usedAttemptIds, nextAttemptId], partyPractice: null, optionalActivity: null } } };
+     }
+     if (!safeKinds.has(state.runtime.activity.kind) && state.runtime.activity.kind !== 'active-encounter') return reject('invalid-state');
+     if (input.kind === 'recover-item') {
+--- a/tests/state/reducer.test.ts
++++ b/tests/state/reducer.test.ts
+@@ -408,6 +408,16 @@
+       measurements: [{ ...game(applied).notebook.measurements[0]!, configurationRevision: 17 as ConfigurationRevision }] },
+       assistance: [{ objectiveId: id<'objective'>('O01'), hintId: id<'hint'>('hint-one'), level: 3 as const, attemptId: attempt(1) }] };
+     const failed = createReducerState({ ...applied.runtime, game: learned, activity: { kind }, checkpoint: { adventureId: learned.adventureId, world: prepared } });
++    const historical = 'aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee' as AttemptId;
++    const mixedHistory = createReducerState({ ...failed.runtime, game: { ...learned, assistance: [{ ...learned.assistance[0]!, attemptId: historical.toUpperCase() as AttemptId }] } });
++    const alias = reduce(mixedHistory, command(mixedHistory, { kind: 'rewind-preparation', nextAttemptId: historical }, 'case-alias'));
++    expect(alias.reason).toBe('attempt-reused');
++    expect(alias.state).toBe(mixedHistory);
++    const fresh = 'bbbbbbbb-cccc-4ddd-8eee-ffffffffffff' as AttemptId;
++    const advanced = reduce(mixedHistory, command(mixedHistory, { kind: 'rewind-preparation', nextAttemptId: fresh.toUpperCase() as AttemptId }, 'fresh-uppercase'));
++    expect(advanced.status).toBe('applied');
++    expect(game(advanced.state).world.attemptId).toBe(fresh);
++    expect(advanced.state.control.usedAttemptIds).toContain(fresh);
+     const result = reduce(failed, command(failed, { kind: 'rewind-preparation', nextAttemptId: attempt(2) }, 'retry-1'));
+     expect(result.status).toBe('applied');
+     expect(quantity(result.state, 'item-part')).toBe(1); expect(quantity(result.state, 'item-repaired')).toBe(0);

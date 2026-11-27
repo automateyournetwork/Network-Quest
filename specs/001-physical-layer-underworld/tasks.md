@@ -684,6 +684,10 @@ progress. Independent read-only reviews may overlap; shared fixes stay serialize
 and receive affected verification. Preserve existing evidence, approved behavior,
 accessibility, source-backed rules, media quantities and all owner/release gates.
 A model change alone does not justify rewriting working code.
+Q01/Q02 may begin independent read-only architecture/account inspection of
+accepted subsystem sources while MG03 finishes its join; reconcile their findings to the coherent all-seven/T104 adapter
+build before shared fixes or final review. This preserves dependency acceptance
+while keeping the third worker useful.
 
 - [X] T093 [US7] Author all CH01–CH25 roles, limitations, realm notes, recruitment/progression and portrait/source references in `content/spec001/characters.json`; preserve nine recruits (Photon, Copperhead, Unicorn, optical Hydra, Thunderbird, Hermit, Eel, Echo Bat, Chameleon).
 - [X] T094 [US7] Implement demonstrated recruitment, meaningful progression, max-two active allies and free preparation swaps in `src/state/party.ts` and `src/ui/party.ts`; abilities apply the same validated physical effects as conventional tools.
@@ -695,7 +699,7 @@ A model change alone does not justify rewriting working code.
 - [X] T100 [US7] Implement shared optional activity instructions/practice/explanation/retry/exit and default-off timing in `src/state/optional-activities.ts` and `src/ui/optional-activities.ts`; leaving or skipping never loses required items.
 - [X] T101 [P] [US7] Author Clockworks Bit Loom MG01 in `content/spec001/minigames/MG01.json`, reusing the toy decoder with untimed practice and no score requirement for O10.
 - [X] T102 [P] [US7] Author Prism Budget Bench MG02 in `content/spec001/minigames/MG02.json`, reusing reviewed optical rules after O06 with independent boundaries and no mandatory reward.
-- [ ] T103 [P] [US7] Author Channel Scout MG03 in `content/spec001/minigames/MG03.json`, reusing scoped radio rules after O08 with predict/measure/compare explanations and safe exit.
+- [X] T103 [P] [US7] Author Channel Scout MG03 in `content/spec001/minigames/MG03.json`, reusing scoped radio rules after O08 with predict/measure/compare explanations and safe exit.
 - [ ] T104 [US7] Verify all 25 entries, nine recruits/progression/abilities, max-two party and conventional equivalents in `tests/e2e/companions.spec.ts`, and every SQ01–04/MG01–03 start/finish/retry/exit in `tests/e2e/optional-activities.spec.ts`; record gameplay evidence for AC05/06 and cross-room AC04, keeping portrait-dependent AC05 acceptance pending until final media/regression in `docs/evidence/spec001/US7.md`.
 
 ## Phase 10: User Story 8 — Explore a finished episode and retain progress through expansion (P2)

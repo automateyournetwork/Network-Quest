@@ -22,7 +22,9 @@ import type { GameState, HintLevel, Measurement } from './types';
 
 type WithoutProfile<T> = Omit<T, 'kind' | 'profile'>;
 type CopperPath = WithoutProfile<Extract<CopperChallenge, { kind: 'copper-path' }>>;
-type CapabilitySelection = { readonly bothNegotiate: true; readonly selected: AdvertisedCapability };
+type CapabilitySelection = { readonly bothNegotiate: true; readonly selected: AdvertisedCapability }
+  & ({ readonly endpointA?: never; readonly endpointB?: never }
+    | { readonly endpointA: readonly AdvertisedCapability[]; readonly endpointB: readonly AdvertisedCapability[] });
 interface Selected { readonly alternativeId: QualifiedId }
 /**
  * Trusted room adapters read the actual current GameState, including the chosen
@@ -155,8 +157,11 @@ function physical(registry: ContentRegistry, game: GameState, scenario: Objectiv
     }
   };
   const capability = (value: CapabilitySelection) => {
-    if (!isRecord(value) || Object.keys(value).some(k => !['bothNegotiate', 'selected'].includes(k))) { run(error('capability')); return; }
-    run(evaluateCapabilities({ kind: 'common-capabilities', profile: profile<CapabilitiesProfile>(registry, 'PROFILE-CAPABILITIES'), bothNegotiate: value.bothNegotiate }, command({ kind: 'select-capability', selected: value.selected }), game.world));
+    if (!isRecord(value) || Object.keys(value).some(k => !['bothNegotiate', 'selected', 'endpointA', 'endpointB'].includes(k))) { run(error('capability')); return; }
+    // Trusted scenario facts only. The existing domain validator enforces paired
+    // nonempty reviewed subsets; omission keeps the full canonical profile.
+    const { selected, ...facts } = value;
+    run(evaluateCapabilities({ ...facts, kind: 'common-capabilities', profile: profile<CapabilitiesProfile>(registry, 'PROFILE-CAPABILITIES') }, command({ kind: 'select-capability', selected }), game.world));
   };
   switch (scenario.kind) {
     case 'copper-preparation': case 'copper-proof': {

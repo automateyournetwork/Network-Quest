@@ -1,0 +1,130 @@
+
+ RUN  v5.1.2 /private/var/folders/ln/99pzcfd950j6vxf7gbfjjm5w0000gq/T/network-quest-t104-gaps-58ce1a0-9uw2xlst
+
+ ❯ docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts (40 tests | 9 failed) 120ms
+   ✓ SQ01 exact original lifecycle inputs (10)
+     ✓ START independently exposes instructions, practice, exit and no timer or completion 7ms
+     ✓ PRACTICE records worked assistance with retry/exit and no full completion 3ms
+     ✓ EXIT proves actual unfinished instructions before leaving 4ms
+     ✓ EXIT proves actual unfinished practice before leaving 3ms
+     ✓ EXIT proves actual unfinished solving before leaving 3ms
+     ✓ EXIT proves actual unfinished feedback before leaving 3ms
+     ✓ RETRY follows actual wrong feedback and preserves the entire honest assistance history 4ms
+     ✓ SKIP never starts optional play and retains route, progress and the only kit 1ms
+     ✓ FINISH and new-action REPLAY grant exactly one fact/quest with explanation and no main award 3ms
+     ✓ UNTIMED keeps real solving state and progress after 3600 seconds of controlled logical time 3ms
+   ✓ SQ02 exact original lifecycle inputs (10)
+     ✓ START independently exposes instructions, practice, exit and no timer or completion 2ms
+     ✓ PRACTICE records worked assistance with retry/exit and no full completion 1ms
+     ✓ EXIT proves actual unfinished instructions before leaving 3ms
+     ✓ EXIT proves actual unfinished practice before leaving 3ms
+     ✓ EXIT proves actual unfinished solving before leaving 2ms
+     ✓ EXIT proves actual unfinished feedback before leaving 3ms
+     ✓ RETRY follows actual wrong feedback and preserves the entire honest assistance history 3ms
+     ✓ SKIP never starts optional play and retains route, progress and the only kit 1ms
+     ✓ FINISH and new-action REPLAY grant exactly one fact/quest with explanation and no main award 4ms
+     ✓ UNTIMED keeps real solving state and progress after 3600 seconds of controlled logical time 2ms
+   ✓ SQ03 exact original lifecycle inputs (10)
+     ✓ START independently exposes instructions, practice, exit and no timer or completion 2ms
+     ✓ PRACTICE records worked assistance with retry/exit and no full completion 2ms
+     ✓ EXIT proves actual unfinished instructions before leaving 5ms
+     ✓ EXIT proves actual unfinished practice before leaving 5ms
+     ✓ EXIT proves actual unfinished solving before leaving 4ms
+     ✓ EXIT proves actual unfinished feedback before leaving 4ms
+     ✓ RETRY follows actual wrong feedback and preserves the entire honest assistance history 5ms
+     ✓ SKIP never starts optional play and retains route, progress and the only kit 1ms
+     ✓ FINISH and new-action REPLAY grant exactly one fact/quest with explanation and no main award 5ms
+     ✓ UNTIMED keeps real solving state and progress after 3600 seconds of controlled logical time 4ms
+   ❯ SQ04 exact original lifecycle inputs (10)
+     × START independently exposes instructions, practice, exit and no timer or completion 3ms
+     × PRACTICE records worked assistance with retry/exit and no full completion 2ms
+     × EXIT proves actual unfinished instructions before leaving 3ms
+     × EXIT proves actual unfinished practice before leaving 2ms
+     × EXIT proves actual unfinished solving before leaving 3ms
+     × EXIT proves actual unfinished feedback before leaving 2ms
+     × RETRY follows actual wrong feedback and preserves the entire honest assistance history 2ms
+     ✓ SKIP never starts optional play and retains route, progress and the only kit 1ms
+     × FINISH and new-action REPLAY grant exactly one fact/quest with explanation and no main award 2ms
+     × UNTIMED keeps real solving state and progress after 3600 seconds of controlled logical time 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts > SQ04 exact original lifecycle inputs > START independently exposes instructions, practice, exit and no timer or completion
+AssertionError: expected 'rejected' to be 'handled' // Object.is equality
+
+Expected: "handled"
+Received: "rejected"
+
+ ❯ docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts:19:115
+     17| describe.each(ids)('%s exact original lifecycle inputs',id=>{
+     18|   it('START independently exposes instructions, practice, exit and no …
+     19|     const f=make(id,false);unchangedMembership(f);const before=structu…
+       |                                                                                                                   ^
+     20|     expect(f.view().phase).toBe('instructions');expect(f.view().instru…
+     21|     expect(f.state().control.optionalActivity?.timingEnabled).toBe(fal…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts > SQ04 exact original lifecycle inputs > PRACTICE records worked assistance with retry/exit and no full completion
+TypeError: Cannot read properties of null (reading 'sessionId')
+ ❯ session docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-fixture.ts:57:53
+
+ ❯ Object.mode docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-fixture.ts:60:88
+ ❯ docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts:25:47
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts > SQ04 exact original lifecycle inputs > EXIT proves actual unfinished instructions before leaving
+ FAIL  docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts > SQ04 exact original lifecycle inputs > EXIT proves actual unfinished practice before leaving
+ FAIL  docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts > SQ04 exact original lifecycle inputs > EXIT proves actual unfinished solving before leaving
+ FAIL  docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts > SQ04 exact original lifecycle inputs > EXIT proves actual unfinished feedback before leaving
+AssertionError: expected 'rejected' to be 'handled' // Object.is equality
+
+Expected: "handled"
+Received: "rejected"
+
+ ❯ docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts:32:88
+     30|   });
+     31|   it.each(['instructions','practice','solving','feedback'] as const)('…
+     32|     const f=make(id);const original=structuredClone(f.game());expect(f…
+       |                                                                                        ^
+     33|     if(phase==='practice')expect(f.mode('practice').status).toBe('hand…
+     34|     if(phase==='solving'||phase==='feedback')expect(f.mode('delivery')…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts > SQ04 exact original lifecycle inputs > RETRY follows actual wrong feedback and preserves the entire honest assistance history
+AssertionError: expected 'rejected' to be 'handled' // Object.is equality
+
+Expected: "handled"
+Received: "rejected"
+
+ ❯ docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts:46:30
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts > SQ04 exact original lifecycle inputs > FINISH and new-action REPLAY grant exactly one fact/quest with explanation and no main award
+TypeError: Cannot read properties of null (reading 'sessionId')
+ ❯ session docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-fixture.ts:57:53
+
+ ❯ Object.mode docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-fixture.ts:60:88
+ ❯ docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts:62:73
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts > SQ04 exact original lifecycle inputs > UNTIMED keeps real solving state and progress after 3600 seconds of controlled logical time
+TypeError: Cannot read properties of null (reading 'sessionId')
+ ❯ session docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-fixture.ts:57:53
+
+ ❯ Object.mode docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-fixture.ts:60:88
+ ❯ docs/evidence/spec001/companions-t104/gaps-58ce1a0/optional-exact.test.ts:69:53
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  9 failed | 31 passed (40)
+   Start at  10:57:45
+   Duration  1.19s (import 54%, transform 35%, tests 11%)
+

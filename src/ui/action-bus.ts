@@ -96,6 +96,8 @@ function sameContext(a: ActionContext | null, b: ActionContext | null): boolean 
 const verbs = new Set<string>(['walk', 'look', 'talk', 'use']);
 const panels = new Set<string>(['inventory', 'notebook', 'compendium', 'party', 'settings', 'save']);
 const fields: Record<SemanticAction['kind'], readonly string[]> = {
+  'scout-select': ['kind','sessionId','choice'], 'scout-predict': ['kind','sessionId','baselineMeasurementId','assessment'],
+  'scout-measure': ['kind','sessionId'], 'scout-compare': ['kind','sessionId','laterMeasurementId','comparison','currentAssessment','predictionAssessment','evidenceClaim'],
   'start-optional': ['kind', 'activityId', 'hotspotId'], 'choose-optional-mode': ['kind', 'sessionId', 'mode'],
   'submit-optional': ['kind', 'sessionId', 'bits'], 'submit-optional-power': ['kind', 'sessionId', 'answer'], 'submit-optional-diary': ['kind', 'sessionId', 'answer'], 'submit-optional-maintenance': ['kind', 'sessionId', 'answer'],
   'submit-optional-optics': ['kind', 'sessionId', 'answer'],
@@ -131,6 +133,17 @@ export function copySemanticAction(input: SemanticAction): SemanticAction {
   const keys = fields[input.kind];
   if (Object.keys(input).length !== keys.length || Object.keys(input).some(key => !keys.includes(key))) throw new TypeError('Semantic actions contain intent only.');
   switch (input.kind) {
+    case 'scout-select':
+      if (!dialogueSession(input.sessionId) || typeof input.choice !== 'string' || !['channel-A','channel-B','mitigate-emitter','raise-noise'].includes(input.choice)) throw new TypeError('Invalid radio selection.'); break;
+    case 'scout-predict':
+      if (!dialogueSession(input.sessionId) || !dialogueSession(input.baselineMeasurementId) || (input.assessment !== 'meets-threshold' && input.assessment !== 'below-threshold')) throw new TypeError('Invalid radio prediction.'); break;
+    case 'scout-measure': if (!dialogueSession(input.sessionId)) throw new TypeError('Invalid radio session.'); break;
+    case 'scout-compare':
+      if (!dialogueSession(input.sessionId) || !dialogueSession(input.laterMeasurementId)
+        || typeof input.comparison !== 'string' || !['increased','unchanged','decreased'].includes(input.comparison)
+        || (input.currentAssessment !== 'meets-threshold' && input.currentAssessment !== 'below-threshold')
+        || (input.predictionAssessment !== 'supported' && input.predictionAssessment !== 'not-supported')
+        || typeof input.evidenceClaim !== 'string' || !['current-reading-only-no-cause','earlier-proves-current','weather-proven','throughput-proven'].includes(input.evidenceClaim)) throw new TypeError('Invalid radio comparison.'); break;
     case 'start-optional': if (!qualifiedIdentity(input.activityId) || !qualifiedIdentity(input.hotspotId)) throw new TypeError('Invalid optional activity entry.'); break;
     case 'choose-optional-mode': if (!dialogueSession(input.sessionId) || !['practice', 'delivery'].includes(input.mode)) throw new TypeError('Invalid optional mode.'); break;
     case 'submit-optional': if (!dialogueSession(input.sessionId) || typeof input.bits !== 'string' || input.bits.length > 512) throw new TypeError('Invalid optional answer.'); break;

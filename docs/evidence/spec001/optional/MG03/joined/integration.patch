@@ -1,0 +1,1255 @@
+--- a/content/schemas/content.schema.json
++++ b/content/schemas/content.schema.json
+@@ -4374,6 +4374,9 @@
+         },
+         {
+           "$ref": "#/$defs/optionalOpticalBench"
++        },
++        {
++          "$ref": "#/$defs/optionalRadioScout"
+         }
+       ]
+     },
+@@ -5023,6 +5026,333 @@
+           "const": "off"
+         }
+       }
++    },
++    "optionalRadioScout": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "kind",
++        "speakerId",
++        "instructions",
++        "profileId",
++        "delivery",
++        "selectionActions",
++        "practice",
++        "feedback",
++        "controls",
++        "recovery",
++        "reward",
++        "entryContexts",
++        "returnPolicy",
++        "timingDefault"
++      ],
++      "properties": {
++        "kind": {
++          "const": "radio-channel-scout"
++        },
++        "speakerId": {
++          "const": "spec001:CH10"
++        },
++        "instructions": {
++          "type": "array",
++          "minItems": 1,
++          "maxItems": 8,
++          "items": {
++            "type": "string",
++            "minLength": 1,
++            "maxLength": 2000
++          }
++        },
++        "profileId": {
++          "const": "spec001:PROFILE-RADIO"
++        },
++        "delivery": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "actionId",
++            "sourceCaseIds",
++            "measurementObjectiveId",
++            "measurementRuleId",
++            "measurementRoomId",
++            "predictionRequired",
++            "measurementAfterPrediction",
++            "historicalUse",
++            "currentRequired"
++          ],
++          "properties": {
++            "actionId": {
++              "const": "spec001:ACTION-MG03-compare"
++            },
++            "sourceCaseIds": {
++              "const": [
++                "T08",
++                "T09",
++                "B-RADIO-20",
++                "T13",
++                "C-FRESH",
++                "B-STALE-FLAG"
++              ]
++            },
++            "measurementObjectiveId": {
++              "const": "spec001:O08"
++            },
++            "measurementRuleId": {
++              "const": "spec001:PHY07"
++            },
++            "measurementRoomId": {
++              "const": "spec001:R08"
++            },
++            "predictionRequired": {
++              "const": true
++            },
++            "measurementAfterPrediction": {
++              "const": true
++            },
++            "historicalUse": {
++              "const": "comparison-only"
++            },
++            "currentRequired": {
++              "const": true
++            }
++          }
++        },
++        "selectionActions": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "channel-A",
++            "channel-B",
++            "mitigate-emitter",
++            "raise-noise"
++          ],
++          "properties": {
++            "channel-A": {
++              "const": "spec001:ACTION-radio-channel-A"
++            },
++            "channel-B": {
++              "const": "spec001:ACTION-radio-channel-B"
++            },
++            "mitigate-emitter": {
++              "const": "spec001:ACTION-radio-mitigate-emitter"
++            },
++            "raise-noise": {
++              "const": "spec001:ACTION-radio-raise-noise"
++            }
++          }
++        },
++        "practice": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "sourceCaseId",
++            "signal",
++            "noise",
++            "viablePath",
++            "settingsCompatible",
++            "explanation"
++          ],
++          "properties": {
++            "sourceCaseId": {
++              "const": "B-RADIO-20"
++            },
++            "signal": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "value",
++                "unit"
++              ],
++              "properties": {
++                "value": {
++                  "const": -65
++                },
++                "unit": {
++                  "const": "dBm"
++                }
++              }
++            },
++            "noise": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "value",
++                "unit"
++              ],
++              "properties": {
++                "value": {
++                  "const": -85
++                },
++                "unit": {
++                  "const": "dBm"
++                }
++              }
++            },
++            "viablePath": {
++              "const": true
++            },
++            "settingsCompatible": {
++              "const": true
++            },
++            "explanation": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            }
++          }
++        },
++        "feedback": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "missingEvidence",
++            "freshMeasurementRequired",
++            "predictionRecorded",
++            "incorrect",
++            "correct",
++            "contentError",
++            "alreadyCompleted"
++          ],
++          "properties": {
++            "missingEvidence": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            },
++            "freshMeasurementRequired": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            },
++            "predictionRecorded": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            },
++            "incorrect": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            },
++            "correct": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            },
++            "contentError": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            },
++            "alreadyCompleted": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            }
++          }
++        },
++        "controls": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "practice",
++            "delivery",
++            "predict",
++            "measure",
++            "submit",
++            "retry",
++            "exit"
++          ],
++          "properties": {
++            "practice": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            },
++            "delivery": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            },
++            "predict": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            },
++            "measure": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            },
++            "submit": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            },
++            "retry": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            },
++            "exit": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            }
++          }
++        },
++        "recovery": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "retryExplanation",
++            "exitExplanation"
++          ],
++          "properties": {
++            "retryExplanation": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            },
++            "exitExplanation": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 2000
++            }
++          }
++        },
++        "reward": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "kind",
++            "factId"
++          ],
++          "properties": {
++            "kind": {
++              "const": "optional-radio-practice"
++            },
++            "factId": {
++              "const": "spec001:FACT-MG03-completion"
++            }
++          }
++        },
++        "entryContexts": {
++          "const": [
++            {
++              "roomId": "spec001:R08",
++              "safePositionId": "spec001:R08.entry",
++              "hotspotId": "spec001:HOTSPOT-radio-channels"
++            }
++          ]
++        },
++        "returnPolicy": {
++          "const": "captured-entry"
++        },
++        "timingDefault": {
++          "const": "off"
++        }
++      }
+     }
+   }
+ }
+--- /dev/null
++++ b/content/spec001/minigames/MG03.json
+@@ -0,0 +1,241 @@
++{
++  "kind": "minigame",
++  "schemaVersion": 1,
++  "episodeId": "spec001",
++  "contentVersion": "1.0.0",
++  "id": "spec001:MG03",
++  "completionAchievementId": "spec001:ACHIEVEMENT-MG03-complete",
++  "prerequisite": {
++    "kind": "objective-complete",
++    "objectiveId": "spec001:O08"
++  },
++  "evidence": [
++    {
++      "id": "spec001:FACT-MG03-instructions",
++      "roomId": "spec001:R08",
++      "subjectIds": [
++        "spec001:CH10",
++        "spec001:PROFILE-RADIO"
++      ],
++      "kind": "context",
++      "text": "Channel Scout opens after you prove radio in the Observatory. Its channel and emitter controls change this adventure's actual radio configuration. Choose an earlier actual reading, select or prepare the current configuration, record a prediction, explicitly measure, then compare. Unchanged SNR is a valid comparison. A prediction is not a reading. Practice, help, retry and exit remain available without a timer or score.",
++      "ruleIds": [
++        "spec001:PHY07",
++        "spec001:STATE01"
++      ],
++      "requiresFreshMeasurement": false
++    },
++    {
++      "id": "spec001:FACT-MG03-scope",
++      "roomId": "spec001:R08",
++      "subjectIds": [
++        "spec001:CH10",
++        "spec001:PROFILE-RADIO"
++      ],
++      "kind": "context",
++      "text": "The earlier reading remains historical. Only the later actual observation at the current attempt and configuration can describe the current supplied link. A channel label or prediction alone is not an observation. These fixed toy inputs are not a propagation model, a universal Wi-Fi threshold, a weather-causation test, throughput, routing or end-to-end service proof.",
++      "ruleIds": [
++        "spec001:PHY07",
++        "spec001:STATE01"
++      ],
++      "requiresFreshMeasurement": false
++    },
++    {
++      "id": "spec001:FACT-MG03-completion",
++      "roomId": "spec001:R08",
++      "subjectIds": [
++        "spec001:CH10",
++        "spec001:PROFILE-RADIO"
++      ],
++      "kind": "observation",
++      "text": "You predicted, took a new reading and compared it with an earlier observation. Your notebook records optional radio practice and help use separately. A wrong prediction can be revised by honest comparison; the result neither proves independent mastery nor repairs a failed link.",
++      "ruleIds": [
++        "spec001:PHY07",
++        "spec001:STATE01"
++      ],
++      "requiresFreshMeasurement": false
++    }
++  ],
++  "alternatives": [
++    {
++      "id": "spec001:ACTION-MG03-compare",
++      "label": "Compare the new reading with your prediction",
++      "method": "direct-action",
++      "itemIds": [],
++      "abilityIds": [],
++      "condition": {
++        "kind": "always"
++      },
++      "ruleIds": [
++        "spec001:PHY07",
++        "spec001:STATE01"
++      ],
++      "evidenceIds": [
++        "spec001:FACT-MG03-scope"
++      ],
++      "effects": [],
++      "explanation": "An accurate comparison after an explicitly captured prediction and actual new measurement records optional practice once. An honest correction of a wrong prediction is valid. Practice and mere channel selection never complete the exercise."
++    }
++  ],
++  "ruleIds": [
++    "spec001:PHY07",
++    "spec001:STATE01"
++  ],
++  "profileIds": [
++    "spec001:PROFILE-RADIO"
++  ],
++  "sourceClaims": [
++    {
++      "sourceId": "spec001:S08",
++      "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
++      "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
++      "limitations": [
++        "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."
++      ]
++    },
++    {
++      "sourceId": "spec001:S09",
++      "section": "What is Signal-to-Noise Ratio (SNR)?",
++      "supportedClaim": "SNR is a signal-to-noise power ratio; its dB value is ten times the base-ten logarithm of that ratio.",
++      "limitations": [
++        "For compatible power measurements with one reference, subtracting dBm yields dB. No universal acceptable threshold follows from this definition."
++      ]
++    }
++  ],
++  "model": {
++    "label": "fictional-teaching-profile",
++    "scope": "Optional predict–measure–compare exercise over the existing supplied Observatory radio scenario and actual notebook measurements. Channel and emitter controls change the adventure configuration.",
++    "assumptions": [
++      "Radio proof is completed before entry; no optional activity is required to prove radio.",
++      "Only existing channel A/B and emitter controls are offered. Earlier readings may be valid history from an older attempt.",
++      "The supplied scenario has fixed readings; pressing Measure records the current configuration. Notebook order establishes sequence, not elapsed time."
++    ],
++    "limitations": [
++      "The earlier reading remains historical. Only the later actual observation at the current attempt and configuration can describe the current supplied link. A channel label or prediction alone is not an observation. These fixed toy inputs are not a propagation model, a universal Wi-Fi threshold, a weather-causation test, throughput, routing or end-to-end service proof.",
++      "No wall-clock timestamp, weather model, new SNR physics or invented measurement provenance is introduced.",
++      "Completed radio proof remains an earned historical objective; a subsequent failing reading does not magically pass.",
++      "Completion records optional radio practice. No required item or score depends on it, and it is not an independent-mastery certificate."
++    ]
++  },
++  "effects": [
++    {
++      "kind": "record-fact",
++      "effectId": "spec001:EFFECT-MG03-notebook",
++      "factId": "spec001:FACT-MG03-completion"
++    },
++    {
++      "kind": "complete-minigame",
++      "effectId": "spec001:EFFECT-MG03-complete",
++      "minigameId": "spec001:MG03"
++    }
++  ],
++  "hints": {
++    "method": {
++      "id": "spec001:HINT-MG03-method",
++      "text": "Keep the earlier reading visible as history. After a configuration change, record what you expect, then explicitly measure before drawing a current conclusion."
++    },
++    "workedStep": {
++      "id": "spec001:HINT-MG03-step",
++      "text": "For the worked boundary card, −65 minus −85 is 20 dB. The supplied inclusive threshold accepts equality. This worked card does not create a notebook measurement."
++    },
++    "solution": {
++      "id": "spec001:HINT-MG03-solution",
++      "text": "Compare the displayed actual SNR readings. If 25 dB became 13 dB, it decreased by 12 dB and the current supplied link is below 20 dB. Say whether your prediction matched; neither weather cause nor throughput follows. This is assisted practice with the same optional completion."
++    }
++  },
++  "observableOutcome": "An accurate fresh comparison records optional radio practice once, including honest revision of a wrong prediction. A failed current link stays failed; required preparation remains available.",
++  "completionExplanation": "You predicted, took a new reading and compared it with an earlier observation. Your notebook records optional radio practice and help use separately. A wrong prediction can be revised by honest comparison; the result neither proves independent mastery nor repairs a failed link.",
++  "requiresReflexTiming": false,
++  "requiredForMainStory": false,
++  "skippable": true,
++  "instructions": "Channel Scout opens after you prove radio in the Observatory. Its channel and emitter controls change this adventure's actual radio configuration. Choose an earlier actual reading, select or prepare the current configuration, record a prediction, explicitly measure, then compare. Unchanged SNR is a valid comparison. A prediction is not a reading. Practice, help, retry and exit remain available without a timer or score.",
++  "practiceExplanation": "Worked source card, not a notebook observation: signal −65 dBm and noise −85 dBm give 20 dB SNR. With the supplied viable path and matching settings, this exactly meets the fictional inclusive 20 dB minimum. It does not guarantee throughput. Opening this card records worked assistance and cannot complete Channel Scout.",
++  "retryExplanation": "Restore the radio configuration and required inventory captured when you entered this exercise. Keep clues, notes and hint history. Begin a new attempt; all retained old readings are historical and stale until measured again. After completion, retry still restores the original entry radio configuration and inventory while your earned optional completion remains recorded. Retry does not save.",
++  "exitExplanation": "Close Channel Scout at your captured Observatory origin. Keep the actual radio configuration you currently selected and all recorded observations; an impaired link remains impaired. No teleport, refresh or save occurs. Ordinary preparation controls and the required inspection kit remain recoverable.",
++  "timingDefault": "off",
++  "timingUnlock": "after-untimed-completion",
++  "requiredScoreForMainStory": false,
++  "optionalActivity": {
++    "kind": "radio-channel-scout",
++    "speakerId": "spec001:CH10",
++    "instructions": [
++      "“Predictions go in pencil,” says the Phoenix. “Observations get their own line.”",
++      "Channel Scout opens after you prove radio in the Observatory. Its channel and emitter controls change this adventure's actual radio configuration. Choose an earlier actual reading, select or prepare the current configuration, record a prediction, explicitly measure, then compare. Unchanged SNR is a valid comparison. A prediction is not a reading. Practice, help, retry and exit remain available without a timer or score.",
++      "The earlier reading remains historical. Only the later actual observation at the current attempt and configuration can describe the current supplied link. A channel label or prediction alone is not an observation. These fixed toy inputs are not a propagation model, a universal Wi-Fi threshold, a weather-causation test, throughput, routing or end-to-end service proof."
++    ],
++    "profileId": "spec001:PROFILE-RADIO",
++    "delivery": {
++      "actionId": "spec001:ACTION-MG03-compare",
++      "sourceCaseIds": [
++        "T08",
++        "T09",
++        "B-RADIO-20",
++        "T13",
++        "C-FRESH",
++        "B-STALE-FLAG"
++      ],
++      "measurementObjectiveId": "spec001:O08",
++      "measurementRuleId": "spec001:PHY07",
++      "measurementRoomId": "spec001:R08",
++      "predictionRequired": true,
++      "measurementAfterPrediction": true,
++      "historicalUse": "comparison-only",
++      "currentRequired": true
++    },
++    "selectionActions": {
++      "channel-A": "spec001:ACTION-radio-channel-A",
++      "channel-B": "spec001:ACTION-radio-channel-B",
++      "mitigate-emitter": "spec001:ACTION-radio-mitigate-emitter",
++      "raise-noise": "spec001:ACTION-radio-raise-noise"
++    },
++    "practice": {
++      "sourceCaseId": "B-RADIO-20",
++      "signal": {
++        "value": -65,
++        "unit": "dBm"
++      },
++      "noise": {
++        "value": -85,
++        "unit": "dBm"
++      },
++      "viablePath": true,
++      "settingsCompatible": true,
++      "explanation": "Worked source card, not a notebook observation: signal −65 dBm and noise −85 dBm give 20 dB SNR. With the supplied viable path and matching settings, this exactly meets the fictional inclusive 20 dB minimum. It does not guarantee throughput. Opening this card records worked assistance and cannot complete Channel Scout."
++    },
++    "feedback": {
++      "missingEvidence": "No eligible earlier actual radio reading is available. Practice and exit remain available. Close Channel Scout, prepare the path and take an actual Observatory reading, then reopen it. No source card is substituted for your evidence.",
++      "freshMeasurementRequired": "Record a prediction for this configuration, then press Measure. A previous reading or a channel change alone cannot complete the comparison.",
++      "predictionRecorded": "Your prediction is stored for this configuration. It is not a measurement or a verdict. Press Measure to observe, or leave.",
++      "incorrect": "Check the actual readouts and their freshness. Compare their SNR, the current threshold result and whether your prediction matched. The earlier reading proves no current result, weather cause or throughput. This explanation records assistance; retry or exit remains available.",
++      "correct": "You predicted, took a new reading and compared it with an earlier observation. Your notebook records optional radio practice and help use separately. A wrong prediction can be revised by honest comparison; the result neither proves independent mastery nor repairs a failed link.",
++      "contentError": "The exercise cannot verify its authored inputs or original records. This is an authoring problem, not a learner mistake. No completion or penalty was recorded; you may leave safely.",
++      "alreadyCompleted": "Your notebook already records this optional radio practice. Review, retry or leave; no duplicate completion is awarded."
++    },
++    "controls": {
++      "practice": "Read the worked boundary card",
++      "delivery": "Predict, measure and compare",
++      "predict": "Record prediction",
++      "measure": "Measure this configuration",
++      "submit": "Compare actual readings",
++      "retry": "Restore entry preparation and retry",
++      "exit": "Leave Channel Scout"
++    },
++    "recovery": {
++      "retryExplanation": "Restore the radio configuration and required inventory captured when you entered this exercise. Keep clues, notes and hint history. Begin a new attempt; all retained old readings are historical and stale until measured again. After completion, retry still restores the original entry radio configuration and inventory while your earned optional completion remains recorded. Retry does not save.",
++      "exitExplanation": "Close Channel Scout at your captured Observatory origin. Keep the actual radio configuration you currently selected and all recorded observations; an impaired link remains impaired. No teleport, refresh or save occurs. Ordinary preparation controls and the required inspection kit remain recoverable."
++    },
++    "reward": {
++      "kind": "optional-radio-practice",
++      "factId": "spec001:FACT-MG03-completion"
++    },
++    "entryContexts": [
++      {
++        "roomId": "spec001:R08",
++        "safePositionId": "spec001:R08.entry",
++        "hotspotId": "spec001:HOTSPOT-radio-channels"
++      }
++    ],
++    "returnPolicy": "captured-entry",
++    "timingDefault": "off"
++  }
++}
+--- a/content/spec001/world.json
++++ b/content/spec001/world.json
+@@ -2314,7 +2314,7 @@
+       "id": "spec001:FD-IRON-CITY",
+       "roomId": "spec001:R12",
+       "targetEpisodeId": "spec002",
+-      "label": "The Iron City \u2014 future episode",
++      "label": "The Iron City — future episode",
+       "description": "Story boundary until Spec002 is released. The distant application beacon gives context; its services are not simulated. Spec001 endings and all valid repair options remain completable.",
+       "traversable": false,
+       "requiredForMainStory": false
+@@ -2849,6 +2849,11 @@
+       "kind": "minigame",
+       "id": "spec001:MG02",
+       "path": "content/spec001/minigames/MG02.json"
++    },
++    {
++      "kind": "minigame",
++      "id": "spec001:MG03",
++      "path": "content/spec001/minigames/MG03.json"
+     }
+   ],
+   "constraints": {
+--- a/docs/evidence/spec001/optional/MG01/joined/runtime.test.ts
++++ b/docs/evidence/spec001/optional/MG01/joined/runtime.test.ts
+@@ -203,7 +203,7 @@
+     const base = capture.capture.snapshot, inputs = [base,
+       { ...base, world: { ...base.world, completedObjectiveIds: [q('MG01')] } },
+       { ...base, world: { ...base.world, completedQuestIds: [q('MG01')] } },
+-      { ...base, world: { ...base.world, achievementIds: [q('ACHIEVEMENT-MG03-complete')] } },
++      { ...base, world: { ...base.world, achievementIds: [q('ACHIEVEMENT-unregistered')] } },
+       { ...base, assistance: [{ ...base.assistance[0], objectiveId: q('O10') }] },
+       { ...base, assistance: [{ ...base.assistance[0], hintId: q('HINT-SQ01-method') }] },
+       { ...base, world: { ...base.world, achievementIds: [] } },
+--- a/docs/evidence/spec001/optional/MG02/joined/runtime.test.ts
++++ b/docs/evidence/spec001/optional/MG02/joined/runtime.test.ts
+@@ -186,7 +186,7 @@
+     const capture = captureSafeSnapshot(f.state(), validator); expect(capture.ok).toBe(true); if (!capture.ok) return;
+     const base = capture.capture.snapshot; expect(base).not.toHaveProperty('optionalActivity'); expect(base.world).not.toHaveProperty('minigameScores');
+     const inputs = [base, { ...base, world: { ...base.world, completedObjectiveIds: [q('MG02')] } }, { ...base, world: { ...base.world, completedQuestIds: [q('MG02')] } },
+-      { ...base, world: { ...base.world, achievementIds: [q('ACHIEVEMENT-MG03-complete')] } }, { ...base, assistance: [{ ...base.assistance[0], objectiveId: q('O06') }] },
++      { ...base, world: { ...base.world, achievementIds: [q('ACHIEVEMENT-unregistered')] } }, { ...base, assistance: [{ ...base.assistance[0], objectiveId: q('O06') }] },
+       { ...base, assistance: [{ ...base.assistance[0], hintId: q('HINT-MG01-method') }] }, { ...base, world: { ...base.world, achievementIds: [] } }];
+     const results = inputs.map(input => { const r = validator.validateNewWrite(new TextEncoder().encode(JSON.stringify(input))); return { ok: r.ok, code: r.ok ? null : r.code }; });
+     const code = "require 'server/vendor/autoload.php';require 'server/src/SaveValidator.php';$i=json_decode(stream_get_contents(STDIN));$v=new NetworkQuest\\SaveValidator([$i->policy]);$o=[];foreach($i->inputs as $c){$r=$v->validateNewWrite(json_encode($c));$o[]=['ok'=>$r->ok,'code'=>$r->code];}echo json_encode($o);";
+--- a/src/app/application.ts
++++ b/src/app/application.ts
+@@ -238,9 +238,9 @@
+         const buttons = projected.entries.map(entry => {
+           const button = [...optionalOpeners.querySelectorAll('button')].find(node => node.dataset['activity'] === entry.activityId)
+             ?? host.ownerDocument.createElement('button');
+-          button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = entry.activityId === q('MG02') ? 'Prism Budget Bench' : entry.activityId === q('MG01') ? 'Bit Loom' : entry.activityId === q('SQ01') ? 'Serial Post' : 'Energy audit';
++          button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = entry.activityId === q('MG03') ? 'Channel Scout' : entry.activityId === q('MG02') ? 'Prism Budget Bench' : entry.activityId === q('MG01') ? 'Bit Loom' : entry.activityId === q('SQ01') ? 'Serial Post' : 'Energy audit';
+           button.disabled = !entry.available;
+-          if (entry.unavailableReason) { button.textContent = 'Prism Bench · complete fiber verification first'; button.title = entry.unavailableReason; }
++          if (entry.unavailableReason) { button.textContent = entry.activityId === q('MG03') ? 'Channel Scout · complete radio verification first' : 'Prism Bench · complete fiber verification first'; button.title = entry.unavailableReason; }
+           else button.removeAttribute('title');
+           button.setAttribute('aria-label', entry.unavailableReason ?? `Open ${button.textContent}`);
+           button.addEventListener('click', () => {
+--- a/src/app/content.ts
++++ b/src/app/content.ts
+@@ -29,6 +29,7 @@
+ import packetRepair from '../../content/spec001/dialogue/packet-r12.json' with { type: 'json' };
+ import repairActions from '../../content/spec001/dialogue/repair-plan-actions.json' with { type: 'json' };
+ import characters from '../../content/spec001/characters.json' with { type: 'json' };
++import channelScout from '../../content/spec001/minigames/MG03.json' with { type: 'json' };
+ import prismBench from '../../content/spec001/minigames/MG02.json' with { type: 'json' };
+ import bitLoom from '../../content/spec001/minigames/MG01.json' with { type: 'json' };
+ import serialPost from '../../content/spec001/quests/SQ01.json' with { type: 'json' };
+@@ -57,6 +58,7 @@
+     'content/spec001/characters.json': characters,
+     'content/spec001/minigames/MG01.json': bitLoom,
+     'content/spec001/minigames/MG02.json': prismBench,
++    'content/spec001/minigames/MG03.json': channelScout,
+     'content/spec001/quests/SQ01.json': serialPost,
+     'content/spec001/quests/SQ02.json': powerAudit,
+   };
+--- a/src/content/optional-activities.ts
++++ b/src/content/optional-activities.ts
+@@ -1,6 +1,7 @@
+ // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+ import type { ContentRegistry } from './registry';
+ import type { OptionalActivityDefinition } from '../state/optional-activities';
++import { optionalRadioScoutContentIssues } from './optional-channel-scout.ts';
+ import { optionalOpticalBenchContentIssues } from './optional-optical-bench.ts';
+ import { optionalLoomContentIssues } from './optional-symbol-loom.ts';
+ import reviewed from '../../content/spec001/sources.json' with { type: 'json' };
+@@ -14,7 +15,7 @@
+   try { return checkOptionalContent(record, registry); } catch { return ['optional-malformed']; }
+ }
+ function checkOptionalContent(record: unknown, registry: ContentRegistry): readonly string[] {
+-  if (isRecord(record) && record['kind'] === 'minigame') return record['id'] === 'spec001:MG02' ? optionalOpticalBenchContentIssues(record, registry) : optionalLoomContentIssues(record, registry);
++  if (isRecord(record) && record['kind'] === 'minigame') return record['id'] === 'spec001:MG03' ? optionalRadioScoutContentIssues(record, registry) : record['id'] === 'spec001:MG02' ? optionalOpticalBenchContentIssues(record, registry) : optionalLoomContentIssues(record, registry);
+   const errors: string[] = [];
+   if (!isRecord(record) || record['kind'] !== 'quest' || !['spec001:SQ01', 'spec001:SQ02'].includes(String(record['id'])) || !isRecord(record['optionalActivity'])) return ['unsupported-optional-activity'];
+   const activity = record['optionalActivity'];
+@@ -24,7 +25,7 @@
+     || activity['timingDefault'] !== 'off' || activity['returnPolicy'] !== 'captured-entry' || !Array.isArray(activity['instructions'])
+     || !activity['instructions'].length || !activity['instructions'].every(text)) errors.push('optional-shape');
+   const def = record as unknown as OptionalActivityDefinition, authored = def.optionalActivity;
+-  if (authored.kind === 'toy-symbol-loom' || authored.kind === 'optical-budget-bench') return ['unsupported-optional-activity'];
++  if (authored.kind === 'toy-symbol-loom' || authored.kind === 'optical-budget-bench' || authored.kind === 'radio-channel-scout') return ['unsupported-optional-activity'];
+   if (!isRecord(activity['practice']) || !isRecord(activity['delivery']) || !isRecord(activity['feedback']) || !isRecord(activity['reward'])
+     || !isRecord(activity['controls']) || !isRecord(activity['recovery']) || !Array.isArray(activity['entryContexts'])
+     || !Array.isArray(record['effects']) || !Array.isArray(record['alternatives']) || !Array.isArray(record['evidence'])
+@@ -88,7 +89,7 @@
+ export function optionalRewardAllocationMatches(definition: OptionalActivityDefinition, manifest: unknown): boolean {
+   if (!isRecord(manifest) || !Array.isArray(manifest['assets'])) return false;
+   const reward = definition.optionalActivity.reward;
+-  if (reward.kind === 'optional-practice-only' || reward.kind === 'optional-optical-depth') return false; // No media allocation is declared or required.
++  if (reward.kind === 'optional-practice-only' || reward.kind === 'optional-optical-depth' || reward.kind === 'optional-radio-practice') return false; // No media allocation is declared or required.
+   const matches = manifest['assets'].filter(row => isRecord(row) && row['assetId'] === reward.assetId);
+   const expected = definition.id === 'spec001:SQ01' ? '08' : definition.id === 'spec001:SQ02' ? '18' : null;
+   return expected !== null && reward.assetId === `spec001:ASSET-ILLUSTRATION-${expected}` && matches.length === 1 && isRecord(matches[0])
+--- /dev/null
++++ b/src/content/optional-channel-scout.ts
+@@ -0,0 +1,33 @@
++// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
++import type { ContentRegistry } from './registry';
++import type * as S from './schema-types.generated';
++import validateSchema from './schema.generated.js';
++import reviewed from '../../content/spec001/sources.json' with { type: 'json' };
++const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
++export function optionalRadioScoutContentIssues(value: unknown, registry: ContentRegistry): readonly string[] {
++  if (!validateSchema(value)) return ['optional-radio-shape'];
++  const definition = value as S.minigame, activity = definition.optionalActivity;
++  if (definition.kind !== 'minigame' || definition.id !== 'spec001:MG03' || activity?.kind !== 'radio-channel-scout'
++    || definition.completionAchievementId !== 'spec001:ACHIEVEMENT-MG03-complete') return ['unsupported-optional-activity'];
++  const issues: string[] = [], profile = registry.record(activity.profileId);
++  if (profile?.kind !== 'profile' || profile.reviewedProfileId !== profile.id || profile.id !== 'spec001:PROFILE-RADIO'
++    || !same(definition.ruleIds, ['spec001:PHY07','spec001:STATE01']) || !same(definition.profileIds,[profile.id])
++    || !same(definition.sourceClaims,profile.sourceClaims)) issues.push('optional-radio-profile');
++  const boundary = reviewed.reviewCases.find(c => c.id === 'B-RADIO-20');
++  if (!boundary || !('signal' in boundary.inputs) || !('noise' in boundary.inputs)
++    || !same(activity.practice.signal,boundary.inputs.signal) || !same(activity.practice.noise,boundary.inputs.noise)) issues.push('optional-radio-source');
++  const room = registry.record('spec001:R08'), anchor = registry.safePosition('spec001:R08.entry');
++  if (room?.kind !== 'room' || !room.characterIds.includes(activity.speakerId) || anchor?.roomId !== room.id
++    || !anchor.eligibleStates.includes('stable-exploration') || !room.hotspots.some(h=>h.id==='spec001:HOTSPOT-radio-channels'&&h.verbs.includes('look'))
++    || !definition.evidence.every(e=>e.roomId===room.id)) issues.push('optional-radio-entry');
++  const alternative = definition.alternatives[0];
++  if (!same(definition.prerequisite,{kind:'objective-complete',objectiveId:'spec001:O08'}) || definition.alternatives.length!==1
++    || alternative?.id!==activity.delivery.actionId || !same(alternative.condition,{kind:'always'}) || alternative.method!=='direct-action'
++    || alternative.effects.length || alternative.itemIds.length || alternative.abilityIds.length) issues.push('optional-radio-prerequisite');
++  if (!same(definition.effects,[{kind:'record-fact',effectId:'spec001:EFFECT-MG03-notebook',factId:activity.reward.factId},
++    {kind:'complete-minigame',effectId:'spec001:EFFECT-MG03-complete',minigameId:definition.id}])
++    || !definition.evidence.some(e=>e.id===activity.reward.factId&&e.kind==='observation')) issues.push('optional-radio-receipt');
++  if (definition.requiredForMainStory!==false || definition.requiresReflexTiming!==false || definition.requiredScoreForMainStory!==false
++    || definition.skippable!==true || definition.timingDefault!=='off') issues.push('optional-radio-safety');
++  return issues;
++}
+--- a/src/state/optional-activities.ts
++++ b/src/state/optional-activities.ts
+@@ -2,6 +2,7 @@
+ import type { ContentRegistry } from '../content/registry';
+ import type * as S from '../content/schema-types.generated';
+ import { contentError, isRecord } from '../domain/evaluate';
++import { captureScoutPrediction, evaluateScoutComparison, scoutSelectionAction, scoutPredictionCurrent, scoutEvidence, type RadioChannelScout, type ScoutChoice, type ScoutPrediction, type ScoutComparisonInput, type ScoutAssessment } from './optional-channel-scout';
+ import { evaluateSymbolAnswer } from '../domain/packet-journey';
+ import { evaluateBenchAnswer, evaluateCompatibilityCard, type OpticalBenchAnswer, type OpticalBudgetBench } from './optional-optical-bench';
+ import { evaluateAuditAnswer } from './optional-power-audit';
+@@ -38,7 +39,7 @@
+   readonly reward: { readonly kind: 'optional-practice-only'; readonly factId: 'spec001:FACT-MG01-completion' };
+ }
+ export type OptionalActivityDefinition = (Readonly<Omit<S.quest, 'optionalActivity'>> | Readonly<Omit<S.minigame, 'optionalActivity'>>)
+-  & { readonly optionalActivity: ToyMessageActivity | DeliveredPowerAudit | ToySymbolLoomActivity | OpticalBudgetBench };
++  & { readonly optionalActivity: ToyMessageActivity | DeliveredPowerAudit | ToySymbolLoomActivity | OpticalBudgetBench | RadioChannelScout };
+ export type OptionalMode = 'practice' | 'delivery';
+ export interface OptionalActivitySession {
+   readonly sessionId: string;
+@@ -54,8 +55,13 @@
+   readonly feedback: string | null;
+   readonly result: EvaluationStatus | null;
+   readonly hintText: string | null;
++  readonly scout?: { readonly prediction: ScoutPrediction | null; readonly measurementId: string | null };
+ }
+ export type OptionalActivityOperation =
++  | { readonly kind: 'scout-select'; readonly sessionId: string; readonly choice: ScoutChoice }
++  | { readonly kind: 'scout-predict'; readonly sessionId: string; readonly baselineMeasurementId: string; readonly assessment: ScoutAssessment }
++  | { readonly kind: 'scout-measure'; readonly sessionId: string; readonly id: import('../domain/types').MeasurementId }
++  | ({ readonly kind: 'scout-compare'; readonly sessionId: string } & ScoutComparisonInput)
+   | { readonly kind: 'start'; readonly activityId: QualifiedId; readonly hotspotId: QualifiedId; readonly sessionId: string }
+   | { readonly kind: 'choose-mode'; readonly sessionId: string; readonly mode: OptionalMode }
+   | { readonly kind: 'submit'; readonly sessionId: string; readonly bits: string }
+@@ -68,6 +74,7 @@
+   | { readonly ok: true; readonly game: GameState; readonly session: OptionalActivitySession | null;
+       readonly activity: ActivityState | { readonly kind: 'active-optional' };
+       readonly evaluation: EvaluationResult<unknown, StateEffect>;
++      readonly radio?: { readonly kind: 'select'; readonly actionId: QualifiedId } | { readonly kind: 'measure'; readonly id: import('../domain/types').MeasurementId };
+       readonly retry?: { readonly preparation: WorldState; readonly nextAttemptId: AttemptId } };
+ const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+ const qualified = /^spec001:[A-Za-z0-9][A-Za-z0-9._-]{0,55}$/;
+@@ -110,6 +117,7 @@
+         ? evaluateSymbolAnswer({ profile: { id: profile.id, parameters: profile.parameters } as ToySymbolProfile,
+         samples: activity[mode].samples }, action as DomainAction<{ readonly bits: string }>, game.world)
+         : contentError({ code: 'unsupported-optional-variant', field: definition.id, message: 'This activity is not supported.' });
++  if (activity.kind === 'radio-channel-scout') return { evaluation: contentError({ code: 'radio-requires-session', field: definition.id, message: 'Use the captured radio session.' }), feedback: activity.feedback.contentError, assistanceLevel: null };
+   const feedback = result.status === 'content-error' ? activity.feedback.contentError : activity.feedback[mode][result.status === 'invalid-input' ? 'invalidInput' : result.status];
+   const completed = optionalActivityCompleted(registry, definition, game);
+   const alternative = definition.alternatives.find(a => a.id === activity.delivery.actionId)!;
+@@ -168,7 +176,7 @@
+   operation: OptionalActivityOperation, action: DomainAction<unknown> | undefined, clientGeneration: ClientGeneration): OptionalActivityPreparation {
+   const fail = (reason: 'content-error' | 'invalid-input' | 'invalid-state' | 'precondition'): OptionalActivityPreparation => ({ ok: false, reason });
+   if (!isRecord(operation) || !Number.isSafeInteger(clientGeneration) || clientGeneration < 0) return fail('invalid-input');
+-  const fields: Record<OptionalActivityOperation['kind'], readonly string[]> = { start: ['kind', 'activityId', 'hotspotId', 'sessionId'],
++  const fields: Record<OptionalActivityOperation['kind'], readonly string[]> = { 'scout-select': ['kind','sessionId','choice'], 'scout-predict': ['kind','sessionId','baselineMeasurementId','assessment'], 'scout-measure': ['kind','sessionId','id'], 'scout-compare': ['kind','sessionId','laterMeasurementId','comparison','currentAssessment','predictionAssessment','evidenceClaim'], start: ['kind', 'activityId', 'hotspotId', 'sessionId'],
+     'choose-mode': ['kind', 'sessionId', 'mode'], submit: ['kind', 'sessionId', 'bits'], 'submit-power': ['kind', 'sessionId', 'answer'], 'submit-optics': ['kind', 'sessionId', 'answer'], 'compatibility-cards': ['kind', 'sessionId'], hint: ['kind', 'sessionId'], explanation: ['kind', 'sessionId'], 'boundary-example': ['kind', 'sessionId'], exit: ['kind', 'sessionId'], retry: ['kind', 'sessionId', 'nextAttemptId'] };
+   if (!Object.hasOwn(fields, operation.kind) || !exact(operation, fields[operation.kind]) || !uuid.test(operation.sessionId)) return fail('invalid-input');
+   if (operation.kind === 'start') {
+@@ -180,7 +188,7 @@
+     if (!entry || !anchor?.eligibleStates.includes(activity.kind as SafeState) || !conditionSatisfied(definition.prerequisite, game.world, registry)) return fail('precondition');
+     return { ok: true, game, activity: { kind: 'active-optional' }, evaluation: empty(), session: freeze({ sessionId: operation.sessionId, activityId: operation.activityId,
+       adventureId: game.adventureId, clientGeneration, entry: structuredClone(entry), preparation: structuredClone(game.world), previousActivity: activity.kind as SafeState,
+-      phase: 'instructions', mode: null, timingEnabled: false, feedback: null, result: null, hintText: null }) };
++      phase: 'instructions', mode: null, timingEnabled: false, feedback: null, result: null, hintText: null, ...(definition.optionalActivity.kind === 'radio-channel-scout' ? { scout: { prediction: null, measurementId: null } } : {}) }) };
+   }
+   if (!session || session.sessionId !== operation.sessionId || session.adventureId !== game.adventureId || session.clientGeneration !== clientGeneration || activity.kind !== 'active-optional'
+     || game.world.roomId !== session.entry.roomId || game.world.position.safePositionId !== session.entry.safePositionId) return fail('invalid-state');
+@@ -189,14 +197,20 @@
+   if (operation.kind === 'exit') return { ok: true, game, session: null, activity: { kind: session.previousActivity }, evaluation: empty() };
+   const definition = optionalActivityDefinition(registry, session.activityId);
+   if (!definition) return fail('content-error');
+-  const success = (next: OptionalActivitySession, nextGame = game, evaluation = empty()): OptionalActivityPreparation => ({ ok: true, game: nextGame, session: freeze(next), activity, evaluation });
++  const success = (next: OptionalActivitySession, nextGame = game, evaluation = empty()): Extract<OptionalActivityPreparation, { ok: true }> => ({ ok: true, game: nextGame, session: freeze(next), activity, evaluation });
+   if (operation.kind === 'choose-mode') {
+     if (!['practice', 'delivery'].includes(operation.mode)) return fail('invalid-input');
++    if (definition.optionalActivity.kind === 'radio-channel-scout') {
++      const a = definition.optionalActivity, next = operation.mode === 'practice' ? assistance(game, definition, 2) : game;
++      if (!next) return fail('invalid-state');
++      return success({ ...session, mode: operation.mode, phase: operation.mode === 'practice' ? 'practice' : 'solving', result: null, hintText: null, scout: { prediction: null, measurementId: null },
++        feedback: operation.mode === 'practice' ? a.practice.explanation : scoutEvidence(registry, game).length ? null : a.feedback.missingEvidence }, next);
++    }
+     return success({ ...session, mode: operation.mode, phase: operation.mode === 'practice' ? 'practice' : 'solving', feedback: null, result: null, hintText: null });
+   }
+   if (operation.kind === 'retry') {
+     if (!uuid.test(operation.nextAttemptId) || operation.nextAttemptId.toLowerCase() === game.world.attemptId.toLowerCase()) return fail('invalid-input');
+-    return { ...success({ ...session, phase: 'instructions', mode: null, feedback: null, result: null, hintText: null }),
++    return { ...success({ ...session, phase: 'instructions', mode: null, feedback: null, result: null, hintText: null, ...(session.scout ? { scout: { prediction: null, measurementId: null } } : {}) }),
+       retry: { preparation: session.preparation, nextAttemptId: operation.nextAttemptId } } as OptionalActivityPreparation;
+   }
+   if (operation.kind === 'boundary-example') {
+@@ -223,8 +237,38 @@
+     const nextGame = assistance(game, definition, level);
+     return nextGame ? success({ ...session, hintText }, nextGame) : fail('invalid-state');
+   }
++  if (operation.kind.startsWith('scout-')) {
++    const a = definition.optionalActivity;
++    if (a.kind !== 'radio-channel-scout' || session.mode !== 'delivery' || !session.scout || !action) return fail('invalid-input');
++    if (operation.kind === 'scout-select') {
++      const actionId = scoutSelectionAction(operation.choice); if (!actionId) return fail('invalid-input');
++      return { ...success({ ...session, phase: 'solving', result: null, feedback: 'Configuration selected. Record a prediction, then take a new measurement.', scout: { prediction: null, measurementId: null } }), radio: { kind: 'select', actionId } };
++    }
++    if (operation.kind === 'scout-predict') {
++      const result = captureScoutPrediction(a.delivery, registry, { ...action, input: { baselineMeasurementId: operation.baselineMeasurementId, assessment: operation.assessment } }, game);
++      return success({ ...session, phase: 'solving', result: result.status === 'correct' ? null : result.status,
++        feedback: result.status === 'correct' ? a.feedback.predictionRecorded : a.feedback.freshMeasurementRequired,
++        scout: { prediction: result.status === 'correct' ? result.observations[0] as ScoutPrediction : null, measurementId: null } });
++    }
++    if (operation.kind === 'scout-measure') {
++      if (!uuid.test(operation.id) || !scoutPredictionCurrent(registry, session.scout.prediction, game)) return fail('invalid-input');
++      return { ...success({ ...session, phase: 'solving', result: null, feedback: 'New observation recorded. Compare its SNR with the earlier reading and your prediction.', scout: { ...session.scout, measurementId: operation.id } }), radio: { kind: 'measure', id: operation.id } };
++    }
++    if (operation.kind === 'scout-compare') {
++      const { kind: _kind, sessionId: _sessionId, ...answer } = operation;
++      const result = evaluateScoutComparison(a.delivery, registry, session.scout.prediction, { ...action, input: answer }, game);
++      const complete = optionalActivityCompleted(registry, definition, game);
++      const next = result.status === 'incorrect' ? assistance(game, definition, 3) : game;
++      if (!next) return fail('invalid-state');
++      const feedback = result.status === 'content-error' ? a.feedback.contentError : result.status === 'invalid-input' ? a.feedback.freshMeasurementRequired
++        : result.status === 'incorrect' ? a.feedback.incorrect : complete ? a.feedback.alreadyCompleted : `${a.feedback.correct} Your prediction was ${operation.predictionAssessment === 'supported' ? 'supported' : 'not supported'} by the new observation.`;
++      const evaluation: EvaluationResult<unknown, StateEffect> = result.status === 'correct' ? { ...result, acceptedEffects: !complete ? definition.effects as StateEffect[] : [] } : result;
++      return success({ ...session, phase: 'feedback', result: result.status, feedback }, next, evaluation);
++    }
++    return fail('invalid-input');
++  }
+   if (!session.mode || !action || (operation.kind !== 'submit' && operation.kind !== 'submit-power' && operation.kind !== 'submit-optics')) return fail('invalid-input');
+-  if (operation.kind === 'submit' && ((definition.optionalActivity.kind === 'delivered-power-audit' || definition.optionalActivity.kind === 'optical-budget-bench') || typeof operation.bits !== 'string' || operation.bits.length > 512)
++  if (operation.kind === 'submit' && ((definition.optionalActivity.kind === 'delivered-power-audit' || definition.optionalActivity.kind === 'optical-budget-bench' || definition.optionalActivity.kind === 'radio-channel-scout') || typeof operation.bits !== 'string' || operation.bits.length > 512)
+     || operation.kind === 'submit-power' && definition.optionalActivity.kind !== 'delivered-power-audit'
+     || operation.kind === 'submit-optics' && definition.optionalActivity.kind !== 'optical-budget-bench') return fail('invalid-input');
+   const result = evaluateOptionalAnswer(registry, definition, session.mode, { ...action, input: operation.kind === 'submit' ? { bits: operation.bits } : operation.answer }, game);
+--- /dev/null
++++ b/src/state/optional-channel-scout.ts
+@@ -0,0 +1,160 @@
++// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
++// Reviewed radio adapters. Only the optional reducer transaction installs actual operations.
++import type { ContentRegistry } from '../content/registry';
++import { contentError, invalidInput, isRecord } from '../domain/evaluate';
++import { evaluateRadio, type RadioProfile } from '../domain/radio';
++import type { DomainAction, EvaluationResult, QualifiedId, WorldVersion } from '../domain/types';
++import { isHistoricalObjectiveMeasurement } from './objective-history';
++import { isMeasurementCurrent } from './reducer';
++import { createRadioScenarioResolver } from './radio-scenario';
++import type { GameState, Measurement } from './types';
++import candidate from '../../content/spec001/minigames/MG03.json' with { type: 'json' };
++
++const q = <T extends string = string>(id: string) => `spec001:${id}` as QualifiedId<T>;
++const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
++const exact = (x: Record<string, unknown>, keys: readonly string[]) => Object.keys(x).length === keys.length && Object.keys(x).every(k => keys.includes(k));
++const canonical = (x: unknown): string => Array.isArray(x) ? `[${x.map(canonical).join(',')}]` : isRecord(x)
++  ? `{${Object.entries(x).sort(([a], [b]) => a.localeCompare(b)).map(([k, v]) => `${JSON.stringify(k)}:${canonical(v)}`).join(',')}}` : JSON.stringify(x);
++const error = (field: string) => contentError({ code: 'channel-scout-content', field, message: 'Channel Scout requires its reviewed scenario and intact original observations.' });
++export type ScoutAssessment = 'meets-threshold' | 'below-threshold';
++export interface ScoutPredictionInput { readonly baselineMeasurementId: string; readonly assessment: ScoutAssessment }
++export type ScoutComparisonInput = {
++  readonly laterMeasurementId: string;
++  readonly comparison: 'increased' | 'unchanged' | 'decreased';
++  readonly currentAssessment: ScoutAssessment;
++  readonly predictionAssessment: 'supported' | 'not-supported';
++  readonly evidenceClaim: 'current-reading-only-no-cause' | 'earlier-proves-current' | 'weather-proven' | 'throughput-proven';
++};
++/** Controller-owned transient capture, never accepted from UI or a persisted save. */
++export interface ScoutPrediction {
++  readonly kind: 'scout-prediction';
++  readonly adventureId: string;
++  readonly version: WorldVersion;
++  readonly baseline: Measurement;
++  readonly observedMeasurementIds: readonly string[];
++  readonly scenarioSignature: string;
++  readonly assessment: ScoutAssessment;
++}
++/** Exact trusted mapping; callers cannot submit an action ID or a flag/value. */
++export const scoutSelections = Object.freeze({
++  'channel-A': q('ACTION-radio-channel-A'), 'channel-B': q('ACTION-radio-channel-B'),
++  'mitigate-emitter': q('ACTION-radio-mitigate-emitter'), 'raise-noise': q('ACTION-radio-raise-noise'),
++});
++export function scoutSelectionAction(choice: unknown): QualifiedId | null {
++  return typeof choice === 'string' && Object.hasOwn(scoutSelections, choice) ? scoutSelections[choice as keyof typeof scoutSelections] : null;
++}
++const assessment = (value: unknown): value is ScoutAssessment => value === 'meets-threshold' || value === 'below-threshold';
++function profile(registry: ContentRegistry): RadioProfile {
++  const record = registry.record(q('PROFILE-RADIO'));
++  return (record?.kind === 'profile' && record.reviewedProfileId === record.id ? { id: record.id, parameters: record.parameters } : null) as RadioProfile;
++}
++/** Evaluate the actual fixed resolver. This result is NOT installed as a reading. */
++function envelope(delivery: unknown, registry: ContentRegistry, action: DomainAction<unknown>, game: GameState) {
++  if (canonical(delivery) !== canonical(candidate.optionalActivity.delivery)) return { failure: error('delivery') } as const;
++  const scenario = createRadioScenarioResolver(registry)(game, q('O08'));
++  if (scenario?.kind !== 'radio-proof') return { failure: error('scenario') } as const;
++  const checked = evaluateRadio({ kind: 'radio-link', profile: profile(registry), ...scenario.path },
++    (isRecord(action) ? { ...action, input: { kind: 'measure-link' } } : action) as DomainAction<{ kind: 'measure-link' }>, game.world);
++  if (checked.status === 'content-error' || checked.status === 'invalid-input') return { failure: checked } as const;
++  if (game.world.roomId !== q('R08') || !game.world.completedObjectiveIds.includes(q('O08'))) return { failure: invalidInput('scout-unavailable-before-radio-proof') } as const;
++  if (!scenario.path.viablePath || !scenario.path.settingsCompatible) return { failure: invalidInput('scout-path-preparation-required') } as const;
++  return { scenario, checked } as const;
++}
++/** Integrity and scope only. It preserves the measurement's original version. */
++function checkedRecord(registry: ContentRegistry, game: GameState, record: Measurement) {
++  if (!record || typeof record.stale !== 'boolean' || !record.readings.every(r => isRecord(r) && exact(r, ['name', 'value', 'unit']))) return null;
++  const status = record.conclusionCode.endsWith(':correct') ? 'correct' : record.conclusionCode.endsWith(':incorrect') ? 'incorrect' : null;
++  if (!status || !isHistoricalObjectiveMeasurement(registry, game, q('O08'), record, status)
++    || record.readings[0]?.value !== 1 || record.readings[1]?.value !== 1) return null;
++  const signal = record.readings[2]!, noise = record.readings[3]!;
++  // Exactly the supplied O08 states, including existing near-boundary evidence.
++  // This whitelist is provenance scope, not another radio or SNR formula.
++  if (signal.value !== -65 || ![-90, -78, -85, -84.99].includes(noise.value)
++    || (noise.value === -90 && !record.conclusionCode.includes('scenario-channel-A:'))
++    || (noise.value === -85 && !record.conclusionCode.includes('scenario-channel-B:'))) return null;
++  const result = evaluateRadio({ kind: 'radio-link', profile: profile(registry), viablePath: true, settingsCompatible: true,
++    signal: { value: signal.value, unit: 'dBm' }, noise: { value: noise.value, unit: 'dBm' } },
++  { actionId: 'scout-historical-integrity' as DomainAction<unknown>['actionId'], expectedVersion: record, input: { kind: 'measure-link' } }, record);
++  const observed = result.observations[0];
++  if (!observed || observed.kind !== 'radio-link' || !observed.snrProven || result.status !== status) return null;
++  return { record, observation: observed, physicalStatus: status };
++}
++export function captureScoutPrediction(delivery: unknown, registry: ContentRegistry, action: DomainAction<unknown>, game: GameState): EvaluationResult<ScoutPrediction | unknown, never> {
++  const checked = envelope(delivery, registry, action, game); if ('failure' in checked) return checked.failure!;
++  const answer = action.input;
++  if (!isRecord(answer) || !exact(answer, ['baselineMeasurementId', 'assessment']) || typeof answer['baselineMeasurementId'] !== 'string'
++    || !uuid.test(answer['baselineMeasurementId']) || !assessment(answer['assessment'])) return invalidInput('malformed-scout-prediction');
++  const matches = game.notebook.measurements.filter(m => m.id === answer['baselineMeasurementId']);
++  if (!matches.length) return invalidInput('scout-missing-baseline');
++  if (matches.length !== 1) return error('duplicate-measurement-id');
++  const baseline = checkedRecord(registry, game, matches[0]!);
++  if (!baseline) return error('baseline-provenance');
++  if (baseline.record.configurationRevision >= game.world.configurationRevision) return invalidInput('scout-earlier-baseline-required');
++  const capture: ScoutPrediction = { kind: 'scout-prediction', adventureId: game.adventureId,
++    version: { configurationRevision: game.world.configurationRevision, attemptId: game.world.attemptId },
++    baseline: structuredClone(baseline.record), observedMeasurementIds: game.notebook.measurements.map(m => m.id),
++    scenarioSignature: canonical(checked.scenario), assessment: answer['assessment'] };
++  return { status: 'correct', reasonCode: 'scout-prediction-recorded-not-measured', acceptedEffects: [], observations: [capture] };
++}
++export function evaluateScoutComparison(delivery: unknown, registry: ContentRegistry, prediction: ScoutPrediction | null,
++  action: DomainAction<unknown>, game: GameState): EvaluationResult<unknown, never> {
++  const current = envelope(delivery, registry, action, game); if ('failure' in current) return current.failure!;
++  if (!prediction) return invalidInput('scout-prediction-required');
++  if (prediction.adventureId !== game.adventureId || prediction.version.attemptId !== game.world.attemptId
++    || prediction.version.configurationRevision !== game.world.configurationRevision || prediction.scenarioSignature !== canonical(current.scenario)) return invalidInput('scout-prediction-stale');
++  const answer = action.input;
++  if (!isRecord(answer) || !exact(answer, ['laterMeasurementId', 'comparison', 'currentAssessment', 'predictionAssessment', 'evidenceClaim'])
++    || typeof answer['laterMeasurementId'] !== 'string' || !uuid.test(answer['laterMeasurementId'])
++    || (typeof answer['comparison'] !== 'string' || !['increased', 'unchanged', 'decreased'].includes(answer['comparison'])) || !assessment(answer['currentAssessment'])
++    || (typeof answer['predictionAssessment'] !== 'string' || !['supported', 'not-supported'].includes(answer['predictionAssessment']))
++    || (typeof answer['evidenceClaim'] !== 'string' || !['current-reading-only-no-cause', 'earlier-proves-current', 'weather-proven', 'throughput-proven'].includes(answer['evidenceClaim']))) return invalidInput('malformed-scout-comparison');
++  const find = (id: string) => game.notebook.measurements.filter(m => m.id === id);
++  const before = find(prediction.baseline.id), after = find(answer['laterMeasurementId']);
++  if (!before.length || !after.length) return invalidInput('scout-new-measurement-required');
++  if (before.length !== 1 || after.length !== 1) return error('duplicate-measurement-id');
++  if (canonical(before[0]) !== canonical(prediction.baseline)) return error('baseline-capture-changed');
++  const earlier = checkedRecord(registry, game, before[0]!), later = checkedRecord(registry, game, after[0]!);
++  if (!earlier || !later) return error('measurement-provenance');
++  if (prediction.observedMeasurementIds.includes(later.record.id) || game.notebook.measurements.indexOf(later.record) < prediction.observedMeasurementIds.length
++    || earlier.record.configurationRevision >= later.record.configurationRevision) return invalidInput('scout-measure-after-prediction');
++  if (!isMeasurementCurrent(later.record, game.world)) return invalidInput('scout-current-measurement-required');
++  const latest = game.notebook.measurements.filter(m => m.ruleId === q('PHY07') && m.subjectIds.includes(q('O08')) && isMeasurementCurrent(m, game.world)).at(-1);
++  if (latest?.id !== later.record.id) return invalidInput('scout-latest-measurement-required');
++  if (later.observation.signal.value !== current.scenario.path.signal.value || later.observation.noise.value !== current.scenario.path.noise.value
++    || later.record.conclusionCode !== `O08:${current.scenario.alternativeId.slice(8)}:${later.physicalStatus}`) return invalidInput('scout-current-scenario-mismatch');
++  // Exact bounded display delta only; actual threshold/SNR are evaluateRadio's.
++  const delta = (Math.round(later.observation.snr.value * 100) - Math.round(earlier.observation.snr.value * 100)) / 100;
++  const expectedComparison = delta > 0 ? 'increased' : delta < 0 ? 'decreased' : 'unchanged';
++  const expectedAssessment: ScoutAssessment = later.observation.thresholdMet ? 'meets-threshold' : 'below-threshold';
++  const expectedPredictionAssessment = prediction.assessment === expectedAssessment ? 'supported' : 'not-supported';
++  const correct = answer['comparison'] === expectedComparison && answer['currentAssessment'] === expectedAssessment
++    && answer['predictionAssessment'] === expectedPredictionAssessment && answer['evidenceClaim'] === 'current-reading-only-no-cause';
++  return { status: correct ? 'correct' : 'incorrect', reasonCode: correct ? 'scout-comparison-correct' : 'scout-comparison-incorrect', acceptedEffects: [], observations: [{
++    kind: 'scout-comparison', earlier: { ...earlier, use: 'historical-only', usableAsCurrent: false }, later,
++    prediction: { assessment: prediction.assessment, supported: expectedPredictionAssessment === 'supported' },
++    snrChange: { value: delta, unit: 'dB' }, expectedComparison, expectedAssessment, expectedPredictionAssessment,
++    learnerStatus: correct ? 'correct' : 'incorrect', activityCompletionEligible: correct,
++    currentLinkPass: later.observation.usableLink, weatherCausationProven: false, throughputProven: false,
++    wholeRouteProven: false, independentMasteryProven: false, repaired: false, progressAward: 0, attemptPenalty: 0,
++  }] };
++}
++
++
++export type RadioChannelScout = import('../content/schema-types.generated').optionalRadioScout;
++export type ScoutChoice = keyof typeof scoutSelections;
++/** These helpers expose checked records, not caller-created measurements. */
++export function scoutEvidence(registry: ContentRegistry, game: GameState) {
++  return game.notebook.measurements.flatMap((record, index) => {
++    const checked = checkedRecord(registry, game, record);
++    return checked ? [{ id: record.id, index: index + 1, revision: record.configurationRevision,
++      historical: !isMeasurementCurrent(record, game.world), snr: checked.observation.snr.value,
++      signal: checked.observation.signal.value, noise: checked.observation.noise.value,
++      thresholdMet: checked.observation.thresholdMet }] : [];
++  });
++}
++export function scoutPredictionCurrent(registry: ContentRegistry, prediction: ScoutPrediction | null, game: GameState): boolean {
++  const scenario = createRadioScenarioResolver(registry)(game, q('O08'));
++  return !!prediction && prediction.adventureId === game.adventureId && prediction.version.attemptId === game.world.attemptId
++    && prediction.version.configurationRevision === game.world.configurationRevision && prediction.scenarioSignature === canonical(scenario)
++    && game.notebook.measurements.some(m => m.id === prediction.baseline.id && canonical(m) === canonical(prediction.baseline));
++}
+--- a/src/state/reducer.ts
++++ b/src/state/reducer.ts
+@@ -9,6 +9,7 @@
+ import type { ActivityState, DirtyGeneration, GameState, Measurement, RuntimeState, SafeState, WorldState } from './types';
+ import { conditionSupported as supportedCondition, conditionSatisfied as conditionMet } from './conditions';
+ import { minigameAchievement } from './conditions';
++import { prepareRadioAction, createRadioScenarioResolver } from './radio-scenario';
+ import { prepareOptionalActivityChange, finalizeOptionalSession, rewindOptionalPreparation } from './optional-activities';
+ import type { OptionalActivityOperation, OptionalActivitySession } from './optional-activities';
+ import { prepareNotebookChange } from './notebook';
+@@ -457,6 +458,25 @@
+         if (!retried.ok) return reject(retried.reason);
+         candidateGame = retried.game; control = { ...control, highestRevision: retried.highestRevision, usedAttemptIds: retried.usedAttemptIds, partyPractice: null };
+       }
++      // Trusted closed radio directives compose existing operations inside this
++      // optional transaction. Activity admission stays active-optional throughout.
++      if (result.radio) {
++        const radio = result.radio;
++        if (radio.kind === 'select') {
++          const prepared = prepare({ ...state, runtime: { ...state.runtime, game: candidateGame } }, { evaluation: prepareRadioAction(registry, candidateGame, radio.actionId) });
++          if (!prepared.ok) return reject(prepared.reason);
++          candidateGame = prepared.value.game;
++        } else {
++          const resolver = createRadioScenarioResolver(registry), scenario = resolver(candidateGame, 'spec001:O08' as ObjectiveId);
++          if (scenario?.kind !== 'radio-proof') return reject('content-error');
++          const measured = prepareObjectiveChange(registry, resolver, candidateGame, { kind: 'measure', objectiveId: 'spec001:O08' as ObjectiveId, alternativeId: scenario.alternativeId, id: radio.id });
++          if (!measured.ok) return reject(measured.reason);
++          const prepared = prepare({ ...state, runtime: { ...state.runtime, game: candidateGame } }, { evaluation: measured.evaluation });
++          if (!prepared.ok) return reject(prepared.reason);
++          const final = measured.finalize(prepared.value.game); if (!final.ok) return reject(final.reason);
++          candidateGame = final.game;
++        }
++      }
+       // Invalid learner input/content reports feedback with no effects. Only a
+       // valid full-delivery selection reaches the canonical atomic batch check.
+       if (result.evaluation.acceptedEffects.length) {
+--- a/src/ui/action-bus.ts
++++ b/src/ui/action-bus.ts
+@@ -95,6 +95,8 @@
+ const verbs = new Set<string>(['walk', 'look', 'talk', 'use']);
+ const panels = new Set<string>(['inventory', 'notebook', 'compendium', 'party', 'settings', 'save']);
+ const fields: Record<SemanticAction['kind'], readonly string[]> = {
++  'scout-select': ['kind','sessionId','choice'], 'scout-predict': ['kind','sessionId','baselineMeasurementId','assessment'],
++  'scout-measure': ['kind','sessionId'], 'scout-compare': ['kind','sessionId','laterMeasurementId','comparison','currentAssessment','predictionAssessment','evidenceClaim'],
+   'start-optional': ['kind', 'activityId', 'hotspotId'], 'choose-optional-mode': ['kind', 'sessionId', 'mode'],
+   'submit-optional': ['kind', 'sessionId', 'bits'], 'submit-optional-power': ['kind', 'sessionId', 'answer'], 'submit-optional-optics': ['kind', 'sessionId', 'answer'],
+   'hint-optional': ['kind', 'sessionId'], 'retry-optional': ['kind', 'sessionId'], 'explain-optional': ['kind', 'sessionId'],
+@@ -129,6 +131,17 @@
+   const keys = fields[input.kind];
+   if (Object.keys(input).length !== keys.length || Object.keys(input).some(key => !keys.includes(key))) throw new TypeError('Semantic actions contain intent only.');
+   switch (input.kind) {
++    case 'scout-select':
++      if (!dialogueSession(input.sessionId) || typeof input.choice !== 'string' || !['channel-A','channel-B','mitigate-emitter','raise-noise'].includes(input.choice)) throw new TypeError('Invalid radio selection.'); break;
++    case 'scout-predict':
++      if (!dialogueSession(input.sessionId) || !dialogueSession(input.baselineMeasurementId) || (input.assessment !== 'meets-threshold' && input.assessment !== 'below-threshold')) throw new TypeError('Invalid radio prediction.'); break;
++    case 'scout-measure': if (!dialogueSession(input.sessionId)) throw new TypeError('Invalid radio session.'); break;
++    case 'scout-compare':
++      if (!dialogueSession(input.sessionId) || !dialogueSession(input.laterMeasurementId)
++        || typeof input.comparison !== 'string' || !['increased','unchanged','decreased'].includes(input.comparison)
++        || (input.currentAssessment !== 'meets-threshold' && input.currentAssessment !== 'below-threshold')
++        || (input.predictionAssessment !== 'supported' && input.predictionAssessment !== 'not-supported')
++        || typeof input.evidenceClaim !== 'string' || !['current-reading-only-no-cause','earlier-proves-current','weather-proven','throughput-proven'].includes(input.evidenceClaim)) throw new TypeError('Invalid radio comparison.'); break;
+     case 'start-optional': if (!qualifiedIdentity(input.activityId) || !qualifiedIdentity(input.hotspotId)) throw new TypeError('Invalid optional activity entry.'); break;
+     case 'choose-optional-mode': if (!dialogueSession(input.sessionId) || !['practice', 'delivery'].includes(input.mode)) throw new TypeError('Invalid optional mode.'); break;
+     case 'submit-optional': if (!dialogueSession(input.sessionId) || typeof input.bits !== 'string' || input.bits.length > 512) throw new TypeError('Invalid optional answer.'); break;
+--- a/src/ui/optional-activities.css
++++ b/src/ui/optional-activities.css
+@@ -11,3 +11,5 @@
+ .nq-optional select { max-width: 100%; }
+ .nq-optional .nq-optical-answer { display: grid; grid-template-columns: minmax(0, 1fr); }
+ .nq-optical-answer input, .nq-optical-answer select { font: inherit; box-sizing: border-box; min-width: 0; max-width: 100%; padding: .3em .45em; min-height: 45px; }
++.nq-optional .nq-radio-scout form { display: grid; grid-template-columns: minmax(0, 1fr); margin-block: 1em; }
++.nq-radio-scout select { font: inherit; box-sizing: border-box; min-width: 0; width: 100%; padding: .3em .45em; min-height: 45px; }
+--- a/src/ui/optional-activities.ts
++++ b/src/ui/optional-activities.ts
+@@ -1,6 +1,7 @@
+ // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+ import './optional-activities.css';
+ import type { ContentRegistry } from '../content/registry';
++import { scoutEvidence, scoutPredictionCurrent, type ScoutChoice, type ScoutAssessment, type ScoutComparisonInput } from '../state/optional-channel-scout';
+ import type { QualifiedId } from '../domain/types';
+ import { optionalActivityDefinition, optionalActivityCompleted } from '../state/optional-activities';
+ import type { OptionalActivitySession, OptionalMode } from '../state/optional-activities';
+@@ -17,6 +18,10 @@
+ 
+ /** Intent only. The application adapter captures it through the standard bus. */
+ export type OptionalActivityIntent =
++  | { readonly kind: 'scout-select'; readonly sessionId: string; readonly choice: ScoutChoice }
++  | { readonly kind: 'scout-predict'; readonly sessionId: string; readonly baselineMeasurementId: string; readonly assessment: ScoutAssessment }
++  | { readonly kind: 'scout-measure'; readonly sessionId: string }
++  | ({ readonly kind: 'scout-compare'; readonly sessionId: string } & ScoutComparisonInput)
+   | { readonly kind: 'start-optional'; readonly activityId: QualifiedId; readonly hotspotId: QualifiedId }
+   | { readonly kind: 'choose-optional-mode'; readonly sessionId: string; readonly mode: OptionalMode }
+   | { readonly kind: 'submit-optional'; readonly sessionId: string; readonly bits: string }
+@@ -32,12 +37,13 @@
+   readonly controls: { readonly practice: string; readonly delivery: string; readonly submit: string; readonly retry: string; readonly exit: string };
+   readonly limitations: readonly string[];
+   readonly sources: readonly { readonly title: string; readonly section: string; readonly claim: string; readonly url: string | null }[];
+-  readonly answerKind: 'bits' | 'power' | 'optics';
++  readonly answerKind: 'bits' | 'power' | 'optics' | 'radio';
++  readonly radio?: { readonly baselines: readonly { readonly id: string; readonly label: string }[]; readonly prediction: string | null; readonly canMeasure: boolean; readonly measurementId: string | null; readonly predictLabel: string; readonly measureLabel: string };
+   readonly opticalControls: OpticalBudgetBench['answerControls'] | null;
+   readonly answerControls: { readonly assessmentLabel: string; readonly withinBudget: string; readonly overBudget: string; readonly differenceLabel: string } | null;
+ }
+ export interface OptionalSource { readonly id: string; readonly title: string; readonly url: string }
+-const optionalKinds: readonly OptionalActivityIntent['kind'][] = ['start-optional', 'choose-optional-mode', 'submit-optional', 'submit-optional-power', 'submit-optional-optics', 'compatibility-optional', 'hint-optional', 'retry-optional', 'explain-optional', 'boundary-optional', 'exit-optional'];
++const optionalKinds: readonly OptionalActivityIntent['kind'][] = ['scout-select','scout-predict','scout-measure','scout-compare','start-optional', 'choose-optional-mode', 'submit-optional', 'submit-optional-power', 'submit-optional-optics', 'compatibility-optional', 'hint-optional', 'retry-optional', 'explain-optional', 'boundary-optional', 'exit-optional'];
+ export function createOptionalActivitiesController(options: { readonly registry: ContentRegistry; readonly store: GameplayStore; readonly bus: ActionBus;
+   readonly activityIds: readonly QualifiedId[]; readonly sources?: readonly OptionalSource[] }) {
+   const { registry, store, bus } = options;
+@@ -51,6 +57,10 @@
+     const input = action.input as OptionalActivityIntent;
+     let operation: OptionalActivityOperation;
+     switch (input.kind) {
++      case 'scout-select': operation = { kind: 'scout-select', sessionId: input.sessionId, choice: input.choice }; break;
++      case 'scout-predict': operation = { kind: 'scout-predict', sessionId: input.sessionId, baselineMeasurementId: input.baselineMeasurementId, assessment: input.assessment }; break;
++      case 'scout-measure': operation = { kind: 'scout-measure', sessionId: input.sessionId, id: crypto.randomUUID() as import('../domain/types').MeasurementId }; break;
++      case 'scout-compare': operation = { ...input }; break;
+       case 'start-optional': operation = { kind: 'start', activityId: input.activityId, hotspotId: input.hotspotId, sessionId: crypto.randomUUID() }; break;
+       case 'choose-optional-mode': operation = { kind: 'choose-mode', sessionId: input.sessionId, mode: input.mode }; break;
+       case 'submit-optional': operation = { kind: 'submit', sessionId: input.sessionId, bits: input.bits }; break;
+@@ -91,8 +101,8 @@
+       const definition = optionalActivityDefinition(registry, activityId); if (!definition) return [];
+       return definition.optionalActivity.entryContexts.filter(entry => entry.roomId === game.world.roomId && entry.safePositionId === game.world.position.safePositionId).map(entry => {
+         const room = registry.record(entry.roomId), available = conditionSatisfied(definition.prerequisite, game.world, registry);
+-        return { activityId, hotspotId: entry.hotspotId as QualifiedId, available, unavailableReason: available ? null : definition.id === 'spec001:MG02' ? 'Complete the Prism Vault fiber verification to unlock this optional bench.' : 'Complete the required investigation to unlock this activity.',
+-          label: definition.id === 'spec001:MG02' ? 'Prism Budget Bench' : room?.kind === 'room' ? room.hotspots.find(h => h.id === entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity' };
++        return { activityId, hotspotId: entry.hotspotId as QualifiedId, available, unavailableReason: available ? null : definition.id === 'spec001:MG03' ? 'Complete the Observatory radio verification to unlock Channel Scout.' : definition.id === 'spec001:MG02' ? 'Complete the Prism Vault fiber verification to unlock this optional bench.' : 'Complete the required investigation to unlock this activity.',
++          label: definition.id === 'spec001:MG03' ? 'Channel Scout' : definition.id === 'spec001:MG02' ? 'Prism Budget Bench' : room?.kind === 'room' ? room.hotspots.find(h => h.id === entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity' };
+       });
+     }) : [];
+     return { entries, capture: projection.capture, view: state.runtime.activity?.kind === 'active-optional' && session?.clientGeneration === state.runtime.auth.clientGeneration
+@@ -108,13 +118,13 @@
+     instructions: [], map: [], samples: [], feedback: 'This exhibit needs correction. You can leave safely.', hintText: null, completed: false, rewardText: null,
+     controls: { practice: 'Practice', delivery: 'Try the full activity', submit: 'Check answer', retry: 'Retry', exit: 'Leave activity' }, limitations: [], sources: [], answerKind: 'bits', answerControls: null, opticalControls: null };
+   const activity = definition.optionalActivity, profile = registry.record(activity.profileId), room = registry.record(session.entry.roomId);
+-  const title = definition.id === 'spec001:MG02' ? 'Prism Budget Bench' : room?.kind === 'room' ? room.hotspots.find(h => h.id === session.entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity';
++  const title = definition.id === 'spec001:MG03' ? 'Channel Scout' : definition.id === 'spec001:MG02' ? 'Prism Budget Bench' : room?.kind === 'room' ? room.hotspots.find(h => h.id === session.entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity';
+   const completed = optionalActivityCompleted(registry, definition, game);
+   const level = (value: number) => value > 0 ? `+${value}` : String(value).replace('-', '−');
+   const parameters = profile?.kind === 'profile' ? profile.parameters as { levels?: readonly { symbol: { value: number }; bits: string }[]; deliveredBudget?: { value: number; unit: string }; transmit?: { value: number; unit: string }; sensitivity?: { value: number; unit: string }; maximumReceive?: { value: number; unit: string }; requiredMargin?: { value: number; unit: string } } : null;
+   return { sessionId: session.sessionId, title, phase: session.phase, mode: session.mode, instructions: activity.instructions,
+     map: activity.kind === 'toy-symbol-message' || activity.kind === 'toy-symbol-loom' ? parameters?.levels?.map(row => `${level(row.symbol.value)} → ${row.bits}`) ?? [] : [],
+-    samples: session.mode ? activity.kind === 'optical-budget-bench' ? [
++    samples: session.mode ? activity.kind === 'radio-channel-scout' ? session.mode === 'practice' ? [activity.practice.explanation] : scoutEvidence(registry, game).map(row => `Observatory reading ${row.index}, configuration ${row.revision}: signal ${row.signal} dBm; noise ${row.noise} dBm; SNR ${row.snr} dB. ${row.thresholdMet ? 'Meets' : 'Below'} the supplied 20 dB threshold. ${row.historical ? 'Historical only; cannot prove the current link.' : 'Current actual observation.'}`) : activity.kind === 'optical-budget-bench' ? [
+       `Transmit: ${parameters?.transmit?.value} dBm. Total passive loss: ${activity[session.mode].loss.value} dB.`,
+       `Sensitivity: ${parameters?.sensitivity?.value} dBm. Required reserve: ${parameters?.requiredMargin?.value} dB, inclusive.`,
+       `Maximum receive: ${parameters?.maximumReceive?.value} dBm, inclusive. Check overload separately.`,
+@@ -123,7 +133,10 @@
+       : activity.kind === 'delivered-power-audit' ? [`Delivered allowance: ${parameters?.deliveredBudget?.value} ${parameters?.deliveredBudget?.unit} after losses.`, ...activity[session.mode].demands.map((demand, index) => `Demand card ${index + 1}: ${demand.value} ${demand.unit} delivered after losses.`), 'The supplied port and compatibility checks are satisfied. Power does not prove data connectivity.'] : [] : [],
+     feedback: session.feedback, hintText: session.hintText, completed,
+     rewardText: (activity.reward.kind === 'journal-illustration' || activity.reward.kind === 'workshop-decoration') && completed && game.notebook.factIds.some(id => id === activity.reward.factId) ? `${activity.reward.alternativeText} ${activity.reward.unavailableText}` : null,
+-    controls: activity.controls, limitations: definition.model.limitations, answerKind: activity.kind === 'optical-budget-bench' ? 'optics' : activity.kind === 'delivered-power-audit' ? 'power' : 'bits',
++    controls: activity.controls, limitations: definition.model.limitations, answerKind: activity.kind === 'radio-channel-scout' ? 'radio' : activity.kind === 'optical-budget-bench' ? 'optics' : activity.kind === 'delivered-power-audit' ? 'power' : 'bits',
++    ...(activity.kind === 'radio-channel-scout' ? { radio: { baselines: scoutEvidence(registry, game).filter(row => row.revision < game.world.configurationRevision).map(row => ({ id: row.id, label: `Reading ${row.index} · ${row.snr} dB` })),
++      prediction: session.scout?.prediction ? `Recorded prediction: ${session.scout.prediction.assessment === 'meets-threshold' ? 'meets' : 'below'} the supplied 20 dB threshold. ${scoutPredictionCurrent(registry, session.scout.prediction, game) ? session.scout?.measurementId ? 'A new actual reading is available for comparison.' : 'Ready for an explicit measurement.' : 'Configuration changed; record a new prediction.'}` : null,
++      canMeasure: scoutPredictionCurrent(registry, session.scout?.prediction ?? null, game), measurementId: session.scout?.measurementId ?? null, predictLabel: activity.controls.predict, measureLabel: activity.controls.measure } } : {}),
+     opticalControls: activity.kind === 'optical-budget-bench' ? activity.answerControls : null,
+     answerControls: activity.kind === 'delivered-power-audit' ? activity.answerControls : null,
+     sources: definition.sourceClaims.map(claim => {
+@@ -185,6 +198,39 @@
+       send(scope, { kind: 'submit-optional-optics', sessionId: scope.view.sessionId, answer });
+     }, { signal: scope.abort.signal }); return form;
+   }
++  function radioForm(scope: Scope, previous: Scope | null) {
++    const radio = scope.view.radio!, section = doc.createElement('div'); section.className = 'nq-radio-scout';
++    if (scope.view.mode === 'practice') return section;
++    const configuration = doc.createElement('div'); configuration.setAttribute('aria-label', 'Radio configuration');
++    for (const [choice, label] of [['channel-A','Select channel A'],['channel-B','Select channel B'],['mitigate-emitter','Isolate the local emitter'],['raise-noise','Reconnect the local emitter']] as const)
++      configuration.append(button(scope, choice, label, { kind: 'scout-select', sessionId: scope.view.sessionId, choice }));
++    section.append(paragraph('These controls change the adventure’s radio configuration. A new observation requires Measure.'), configuration);
++    const retain = previous?.view.sessionId === scope.view.sessionId && previous.view.mode === scope.view.mode;
++    function select(form: HTMLElement, key: string, labelText: string, options: readonly (readonly [string,string])[]) {
++      const label = doc.createElement('label'), select = doc.createElement('select'); select.id = `nq-scout-${key}`; label.htmlFor = select.id; label.textContent = labelText;
++      for (const [value,text] of [['','Choose an option'],...options]) { const option=doc.createElement('option'); option.value=value!; option.textContent=text!; select.append(option); }
++      select.value = retain ? (previous?.controls.get(key) as HTMLSelectElement | undefined)?.value ?? '' : '';
++      scope.controls.set(key,select);form.append(label,select);return select;
++    }
++    const prediction = doc.createElement('form'), baseline = select(prediction,'baseline','Earlier actual observation',radio.baselines.map(row=>[row.id,row.label] as const));
++    const expected = select(prediction,'prediction','Predicted current threshold result',[['meets-threshold','Meets 20 dB'],['below-threshold','Below 20 dB']]);
++    const predict = doc.createElement('button'); predict.type='submit';predict.textContent=radio.predictLabel;scope.controls.set('predict',predict);prediction.append(predict);
++    const enablePrediction=()=>{predict.disabled=!baseline.value||!expected.value;};enablePrediction();baseline.addEventListener('change',enablePrediction,{signal:scope.abort.signal});expected.addEventListener('change',enablePrediction,{signal:scope.abort.signal});
++    prediction.addEventListener('submit',event=>{event.preventDefault();if(baseline.value&&(expected.value==='meets-threshold'||expected.value==='below-threshold'))send(scope,{kind:'scout-predict',sessionId:scope.view.sessionId,baselineMeasurementId:baseline.value,assessment:expected.value});},{signal:scope.abort.signal});section.append(prediction);
++    if(!radio.baselines.length)section.append(paragraph('An earlier actual reading is needed. Select a different configuration, or leave and take a radio reading before returning.'));
++    if(radio.prediction)section.append(paragraph(radio.prediction));
++    const measure=button(scope,'measure',radio.measureLabel,{kind:'scout-measure',sessionId:scope.view.sessionId});measure.disabled=!radio.canMeasure;section.append(measure);
++    const comparison=doc.createElement('form');
++    const direction=select(comparison,'comparison','SNR compared with the earlier reading',[['increased','Increased'],['unchanged','Unchanged'],['decreased','Decreased']]);
++    const threshold=select(comparison,'threshold','Current measured threshold result',[['meets-threshold','Meets 20 dB'],['below-threshold','Below 20 dB']]);
++    const supported=select(comparison,'supported','Did the new reading support your prediction?',[['supported','Supported'],['not-supported','Not supported']]);
++    const claim=select(comparison,'claim','What does this evidence establish?',[['current-reading-only-no-cause','Observation only'],['earlier-proves-current','Earlier proves now'],['weather-proven','Weather caused it'],['throughput-proven','Throughput proved']]);
++    const submit=doc.createElement('button');submit.type='submit';submit.textContent=scope.view.controls.submit;scope.controls.set('submit',submit);comparison.append(submit);
++    const enableCompare=()=>{submit.disabled=!radio.measurementId||![direction,threshold,supported,claim].every(node=>!!node.value);};enableCompare();
++    for(const node of [direction,threshold,supported,claim])node.addEventListener('change',enableCompare,{signal:scope.abort.signal});
++    comparison.addEventListener('submit',event=>{event.preventDefault();if(submit.disabled||!radio.measurementId)return;send(scope,{kind:'scout-compare',sessionId:scope.view.sessionId,laterMeasurementId:radio.measurementId,comparison:direction.value as ScoutComparisonInput['comparison'],currentAssessment:threshold.value as ScoutAssessment,predictionAssessment:supported.value as ScoutComparisonInput['predictionAssessment'],evidenceClaim:claim.value as ScoutComparisonInput['evidenceClaim']});},{signal:scope.abort.signal});
++    section.append(comparison);return section;
++  }
+   return { element, render(view: OptionalActivityView | null, capture: Capture) {
+     if (disposed) return;
+     if (!view) { retire(); return; }
+@@ -202,9 +248,10 @@
+       button(scope, 'delivery', view.controls.delivery, { kind: 'choose-optional-mode', sessionId: view.sessionId, mode: 'delivery' })); children.push(actions);
+     if (view.map.length) children.push(paragraph(`Toy map: ${view.map.join('; ')}. These are labels, not measured volts.`));
+     if (view.mode) {
+-      const samples = doc.createElement('ol'); samples.setAttribute('aria-label', view.answerKind === 'optics' ? 'Supplied optical card' : view.answerKind === 'power' ? 'Power audit cards' : view.mode === 'practice' ? 'Practice samples' : 'Message samples');
++      const samples = doc.createElement('ol'); samples.setAttribute('aria-label', view.answerKind === 'radio' ? view.mode === 'practice' ? 'Worked radio source card' : 'Actual radio observations' : view.answerKind === 'optics' ? 'Supplied optical card' : view.answerKind === 'power' ? 'Power audit cards' : view.mode === 'practice' ? 'Practice samples' : 'Message samples');
+       for (const sample of view.samples) { const item = doc.createElement('li'); item.textContent = sample; samples.append(item); } children.push(samples);
+-      if (view.answerKind === 'optics' && view.opticalControls) {
++      if (view.answerKind === 'radio' && view.radio) { children.push(radioForm(scope, previous)); }
++      else if (view.answerKind === 'optics' && view.opticalControls) {
+         children.push(opticalForm(scope, previous, view.opticalControls));
+       } else {
+       const form = doc.createElement('form'), label = doc.createElement('label'), answer = doc.createElement('input'), submit = doc.createElement('button');
+@@ -229,7 +276,7 @@
+       }, { signal: scope.abort.signal }); children.push(form);
+       }
+     }
+-    const feedback = paragraph(view.feedback ?? (view.completed ? 'Completion recorded in your journal.' : view.answerKind === 'optics' ? 'Choose practice or diagnose the full card when ready.' : view.answerKind === 'power' ? 'Choose practice or audit the full plan when ready.' : 'Choose practice or the full message when ready.'));
++    const feedback = paragraph(view.feedback ?? (view.completed ? 'Completion recorded in your journal.' : view.answerKind === 'radio' ? 'Choose worked practice or predict, measure and compare when ready.' : view.answerKind === 'optics' ? 'Choose practice or diagnose the full card when ready.' : view.answerKind === 'power' ? 'Choose practice or audit the full plan when ready.' : 'Choose practice or the full message when ready.'));
+     feedback.setAttribute('role', 'status'); feedback.setAttribute('aria-live', 'polite'); children.push(feedback);
+     if (view.hintText) children.push(paragraph(view.hintText));
+     if (view.rewardText) children.push(paragraph(view.rewardText));

@@ -106,6 +106,16 @@ final class SaveRoutesTest extends TestCase
         try { return ($handler ?? $this->handler())->handle($method, $route, $query, $fields ?? $this->fields(), $stream, '127.0.0.1'); }
         finally { fclose($stream); }
     }
+    public function testSaveReadCanBeBoundToTheReviewedSession(): void
+    {
+        $other = $this->account(self::OTHER);
+        $this->response($this->request(fields: $this->fields([], $other)), 201);
+        $this->response($this->request('GET', fields: $this->fields([], $other)), 200);
+        $stale = $this->request('GET', fields: $this->fields(['X-CSRF-Token' => $this->auth['csrfToken']], $other));
+        $problem = $this->response($stale, 403);
+        self::assertSame('forbidden', $problem['code']);
+        self::assertArrayNotHasKey('snapshot', $problem);
+    }
     private function response(array $response, int $status): array
     {
         self::assertSame($status, $response['status']);

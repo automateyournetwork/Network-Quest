@@ -1,0 +1,75 @@
+
+ RUN  v5.1.2 isolated-Q01
+
+ ❯ tests/state/reducer.test.ts (38 tests | 2 failed | 36 skipped) 6ms
+   ↓ real validated content interoperability (2)
+     ↓ accepts either complete conventional alternative independently and blocks reward replay across alternatives
+     ↓ accepts a single A combination consuming A+B without a reciprocal declaration on B
+   ↓ deterministic atomic command boundary (11)
+     ↓ commits consumption, reward, completion, safe arrival and freshness together without mutating input
+     ↓ rechecks stale action versions before considering replay and cannot duplicate any reward
+     ↓ retains one-time receipts in existing save world fields across a fresh reducer instance
+     ↓ rejects a stable effect registered under two different completion anchors
+     ↓ rejects partial receipt groups so a reward cannot bypass consumption or pre-complete its objective
+     ↓ does not penalize or reward invalid-input, even if a malformed result includes effects
+     ↓ does not penalize or reward content-error, even if a malformed result includes effects
+     ↓ permits explained incorrect effects but does not score any networking model
+     ↓ rejects changed effect payloads, unknown IDs and duplicate effect entries atomically
+     ↓ validates affordability before any grant, and a failed batch changes no location or generation
+     ↓ checks authored preconditions and destination membership without granting partial progress
+   ↓ transient transitions and legitimate repeated adjustments (6)
+     ↓ begins without consumption or arrival and commits exactly once using the original safe world
+     ↓ cancels/interruption returns the exact committed world and late callbacks cannot restart or apply it
+     ↓ checks the transition identity independently from current configuration and attempt
+     ↓ can toggle a real configuration repeatedly, but never reapplies an action ID or revives old measurements
+     ↓ does not advance physical freshness for a new fact and treats duplicate facts as a no-op
+     ↓ preserves the entire state and identity when logout is canceled, including a pending transition
+   ❯ essential recovery and fresh-attempt primitive (19)
+     ↓ never consumes a never-consumed essential tool, even in a documented transformation
+     ↓ requires an actual documented transformation and currently reachable recovery, without refilling inventory
+     ↓ checks recovery against the final world, including configuration effects and arrival
+     ↓ explicit recovery returns a consumed tool only at its available source and never grants extra copies
+     × rewinds terminal-failure preparation and rewards together while retaining learning and advancing beyond all old readings 5ms
+     × rewinds shutdown preparation and rewards together while retaining learning and advancing beyond all old readings 1ms
+     ↓ rejects a retry without matching safe preparation, and never wraps exhausted freshness
+     ↓ requires both measurement generations and explicit freshness to agree
+     ↓ allows a later distinct documented consumption and recovery without producing duplicate outputs
+     ↓ does not strand an already-consumed essential tool by changing its recovery conditions
+     ↓ rejects unsupported minigame state predicates, including negation, instead of inventing save flags
+     ↓ prevents identity, empty action and active-party invariants from being bypassed
+     ↓ a successful no-op action ID cannot later carry a different mutation
+     ↓ keeps one-time flag receipts authored, monotonic, and compatible with the unchanged save wire schema
+     ↓ cannot mark a different dialogue effect completed without including it in the atomic group
+     ↓ rejects inventory overflow without awarding the receipt or consuming any input
+     ↓ rejects authored identifiers that cannot fit the save-v1 wire boundary
+     ↓ owns a pending request snapshot and rejects callbacks after fresh state installation
+     ↓ can change to another eligible safe activity at the same position without fabricating a game change
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/reducer.test.ts > essential recovery and fresh-attempt primitive > rewinds terminal-failure preparation and rewards together while retaining learning and advancing beyond all old readings
+ FAIL  tests/state/reducer.test.ts > essential recovery and fresh-attempt primitive > rewinds shutdown preparation and rewards together while retaining learning and advancing beyond all old readings
+AssertionError: expected undefined to be 'attempt-reused' // Object.is equality
+
+- Expected:
+"attempt-reused"
+
++ Received:
+undefined
+
+ ❯ tests/state/reducer.test.ts:414:26
+    412|     const mixedHistory = createReducerState({ ...failed.runtime, game:…
+    413|     const alias = reduce(mixedHistory, command(mixedHistory, { kind: '…
+    414|     expect(alias.reason).toBe('attempt-reused');
+       |                          ^
+    415|     expect(alias.state).toBe(mixedHistory);
+    416|     const fresh = 'bbbbbbbb-cccc-4ddd-8eee-ffffffffffff' as AttemptId;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 36 skipped (38)
+   Start at  11:17:55
+   Duration  133ms (import 60%, transform 29%, tests 9%, worker 2%)
+

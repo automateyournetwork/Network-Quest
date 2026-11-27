@@ -1,0 +1,69 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/services/game-api.test.ts tests/services/save-coordinator.test.ts
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest/.local/Q02-review/tree
+
+ ✓ tests/services/game-api.test.ts (86 tests) 22ms
+ ✓ tests/services/save-coordinator.test.ts (53 tests) 26621ms
+   ✓ T049 coordinator, actual API/reader/capture with synthetic transport only (53)
+     ✓ keeps a stale tab from reviewing a different signed-in session’s save 560ms
+     ✓ requires explicit current runtime/API binding and a full slot read before a new write 496ms
+     ✓ manually adopts one confirmed-empty slot, with default autosave OFF and no dirty increment 481ms
+     ✓ requires manual first adoption even when the account has opted into autosave 468ms
+     ✓ uses one conditional slot for eligible automatic writes 469ms
+     ✓ serializes concurrent save/retry/read calls without queueing a recapture 466ms
+     ✓ UI-LATE-ACK acknowledges captured generation 4 while real reducer edits leave generation 5 dirty 470ms
+     ✓ SV-OLD-POLICY retries exact bytes/key/mode/precondition/confirmation without validating or capturing again 473ms
+     ✓ keep playing retains an unknown outcome and forbids a new overwrite 466ms
+     ✓ SV-REPLAY-OLDER records receipt 8, current slot 9 and requires a fresh read plus consent before overwrite 488ms
+     ✓ SV-STALE exposes 412 without replacing memory, then requires reviewed conditional explicit replacement 470ms
+     ✓ binds replacement consent to owned review, slot adventure, ETag and unchanged local capture 473ms
+     ✓ rejects actual dialogue-transaction state even when it has a safe preparation checkpoint 474ms
+     ✓ rejects actual pending-effect state even when it has a safe preparation checkpoint 491ms
+     ✓ rejects actual room-transition state even when it has a safe preparation checkpoint 485ms
+     ✓ rejects actual cutscene state even when it has a safe preparation checkpoint 483ms
+     ✓ rejects actual active-encounter state even when it has a safe preparation checkpoint 486ms
+     ✓ rejects actual terminal-failure state even when it has a safe preparation checkpoint 469ms
+     ✓ rejects actual shutdown state even when it has a safe preparation checkpoint 480ms
+     ✓ rejects pending reducer work even with a superficially safe runtime activity 485ms
+     ✓ preserves game/confirmed metadata on HTTP 401 without false acknowledgement or automatic sign-in 474ms
+     ✓ preserves game/confirmed metadata on HTTP 403 without false acknowledgement or automatic sign-in 483ms
+     ✓ preserves game/confirmed metadata on HTTP 422 without false acknowledgement or automatic sign-in 508ms
+     ✓ preserves game/confirmed metadata on HTTP 429 without false acknowledgement or automatic sign-in 544ms
+     ✓ preserves game/confirmed metadata on HTTP 503 without false acknowledgement or automatic sign-in 485ms
+     ✓ never acknowledges a mismatching request receipt 493ms
+     ✓ never acknowledges a mismatching adventure receipt 484ms
+     ✓ never acknowledges a mismatching revision receipt 483ms
+     ✓ passes exact unknown lexical snapshot bytes to SaveReader and blocks replacement/autosave 492ms
+     ✓ invalid supported saves also remain untouched; a session summary never grants replacement 477ms
+     ✓ UI-LATE-ACCOUNT ignores a late receipt after runtime generation invalidation, preserving later memory 487ms
+     ✓ UI-LATE-ACCOUNT ignores a late receipt after api generation invalidation, preserving later memory 486ms
+     ✓ UI-LATE-ACCOUNT ignores a late receipt after view generation invalidation, preserving later memory 480ms
+     ✓ rejects stale session binding even when provider/display name are identical 486ms
+     ✓ new run/restore invalidation discards the old view without applying its late read to a replacement runtime 974ms
+     ✓ reentrant saving subscribers cannot send an invalidated write or release a later operation 493ms
+     ✓ reentrant read subscribers cannot send an invalidated GET 478ms
+     ✓ disposal and repeated invalidation preserve gameplay and never perform network mutations 481ms
+     ✓ a failed-notification retry keeps its own in-flight lock after the older send returns 483ms
+     ✓ disposal cannot be reentered through an unbound notification to send new requests 494ms
+     ✓ terminal disposal notifications cannot recurse or restart the coordinator 473ms
+     ✓ UI lifecycle and read-review tokens reject clones, edits and same-adventure rebinding 488ms
+     ✓ a receipt invalidated in the API-result microtask cannot acknowledge the replacement runtime 480ms
+     ✓ same-adventure restore invalidation rejects the old frozen pending handle 470ms
+     ✓ a timeout preserves frozen pending bytes and the in-memory adventure for explicit retry 474ms
+     ✓ E01 only writes at a declared safe Continue point (isolated fixture policy) 499ms
+     ✓ E02 only writes at a declared safe Continue point (isolated fixture policy) 472ms
+     ✓ never accepts E03 as a current Continue outcome even with safe-continue activity 471ms
+     ✓ read failure or mismatched summary cannot establish empty-slot or replacement authority 933ms
+     ✓ a later read that discovers another device write cannot silently authorize autosave over it 476ms
+     ✓ the current status projection reflects dirty edits after a successful acknowledgement 497ms
+     ✓ blocks interrupted reader results and retains their original bytes 486ms
+     ✓ blocks migration-failed reader results and retains their original bytes 501ms
+
+ Test Files  2 passed (2)
+      Tests  139 passed (139)
+   Start at  11:22:16
+   Duration  26.78s (tests 99%)
+

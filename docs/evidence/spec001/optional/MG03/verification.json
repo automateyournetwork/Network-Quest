@@ -1,0 +1,95 @@
+{
+  "task": "T103",
+  "loop": 115,
+  "status": "independent-authoring-and-proposal-checks-pass; task/runtime acceptance pending",
+  "commit": "9a93bf7815cda8b7055a8177bd61d5c468dc8f52",
+  "executionCwd": "/Users/john.capobianco/Network-Quest/.local/mg03-review-9a93bf7",
+  "node": "v26.13.1",
+  "typescript": "7.0.2",
+  "vitest": "5.1.2",
+  "runs": [
+    {
+      "log": "01-initial-tests.log",
+      "cwd": "/Users/john.capobianco/Network-Quest",
+      "status": "PASS",
+      "passed": 67,
+      "durationSeconds": 26.79,
+      "typecheck": "02-initial-types.log: PASS"
+    },
+    {
+      "log": "03-enum-regression-initial.log",
+      "cwd": "/Users/john.capobianco/Network-Quest",
+      "status": "FAIL",
+      "failedTests": 12,
+      "skipped": 60,
+      "cause": "Concurrent SQ03 world/full payload schema mismatch blocked fixture construction; afterAll also detected R08 input drift. No enum assertion reached."
+    },
+    {
+      "log": "06-pre-isolation-types.log",
+      "cwd": "/Users/john.capobianco/Network-Quest",
+      "status": "FAIL",
+      "cause": "Mistaken main-tree check: one owned prepared-session clientGeneration property error plus three active shared UI errors. No shared source edited."
+    },
+    {
+      "log": "08-final-tests.log",
+      "json": "08-final-results.json",
+      "cwd": "/Users/john.capobianco/Network-Quest/.local/mg03-review-9a93bf7",
+      "status": "PASS",
+      "passed": 76,
+      "durationSeconds": 29.62,
+      "inputSeal": "10-before-brand-inputs.json"
+    },
+    {
+      "log": "09-final-types.log",
+      "cwd": "/Users/john.capobianco/Network-Quest/.local/mg03-review-9a93bf7",
+      "status": "FAIL",
+      "cause": "Test-only FlagId brand annotation omitted on one readonly flag lookup."
+    },
+    {
+      "log": "11-affected-test.log",
+      "cwd": "/Users/john.capobianco/Network-Quest/.local/mg03-review-9a93bf7",
+      "status": "PASS",
+      "passed": 1,
+      "skipped": 75,
+      "durationSeconds": 0.801,
+      "reason": "Only change from 76-check passing run was a TypeScript generic flag brand erased at runtime; affected exit test rerun."
+    },
+    {
+      "log": "12-final-types.log",
+      "cwd": "/Users/john.capobianco/Network-Quest/.local/mg03-review-9a93bf7",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "distinctFocusedPasses": 76,
+  "fullSuiteRerunAfterBrandOnlyChange": false,
+  "dependencyCheck": "13-dependency-check.json",
+  "canonical": {
+    "path": "content/spec001/minigames/MG03.json",
+    "status": "root-approved corrected current-schema projection; byte-equal, unregistered, unloaded",
+    "fullCandidateProductionSupported": false
+  },
+  "completedScopedEvidence": [
+    "Actual current-schema registry projection and isolated full-payload schema",
+    "Immutable OPT-MG03-COMPARE/BOUNDARY/STALE-PREDICTION learning expectations",
+    "Actual T08/T09/B-RADIO-20 radio operations; existing19.99 regression without new activity control",
+    "Actual C-FRESH/B-STALE-FLAG/T13 primitive projections, actual stale/version/provenance checks",
+    "Closed scalar input guards, earlier actual record and prediction-before-new-measurement ordering",
+    "Explicit whole minigame receipt in existing achievementIds; partial/replay/zero-effect boundaries",
+    "Proposed exact completion-only replay preparation through existing rewind primitive",
+    "Existing matching-session safe exit with prepared unsupported candidate session"
+  ],
+  "pending": [
+    "Actual MG03 shared schema/content registration/loader/session/controller/UI variant",
+    "Atomic bounded select/measure composition while active-optional",
+    "Actual MG03 help accounting and account-generation/stale-callback lifecycle",
+    "Generated JS/PHP content policy and real save/restore/provider round trips",
+    "T104 actual START/PRACTICE/FINISH/RETRY/EXIT/SKIP/REPLAY/UNTIMED and native accessibility",
+    "Main-route regression, human technical/learning review, media, owner and aggregate acceptance"
+  ],
+  "notes": [
+    "No new physics, fixture expectation, score, timer, main reward or persistent field.",
+    "Original67 receipt set preserved in04-initial-67-receipts.json; evaluator-receipts.json is full76; narrow afterAll output stored separately.",
+    "Initial input-manifest preparation used nonexistent specs contracts content.schema.json path; corrected to content/schemas/content.schema.json before executing frozen tests."
+  ]
+}

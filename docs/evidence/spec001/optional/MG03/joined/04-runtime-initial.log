@@ -1,0 +1,62 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest/.local/mg03-join-mg02-9a93bf7
+
+ ❯ docs/evidence/spec001/optional/MG02/joined/runtime.test.ts (62 tests | 1 failed) 2895ms
+   ❯ MG02 actual controller validation, assistance, captures and save-v1 (36)
+     × safe save-v1 after exit retains only actual receipt/fact/help and JS/PHP policies agree 428ms
+ ❯ docs/evidence/spec001/optional/MG01/joined/runtime.test.ts (52 tests | 1 failed) 3231ms
+   ❯ MG01 failures, captured intents and safe persistence (20)
+     × validates actual achievement/fact/help snapshots identically in JavaScript and PHP without objective/quest aliases 323ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/evidence/spec001/optional/MG01/joined/runtime.test.ts > MG01 failures, captured intents and safe persistence > validates actual achievement/fact/help snapshots identically in JavaScript and PHP without objective/quest aliases
+AssertionError: expected [ true, false, false, true, …(3) ] to deeply equal [ true, false, false, false, …(3) ]
+
+- Expected
++ Received
+
+  [
+    true,
+    false,
+    false,
+-   false,
++   true,
+    false,
+    false,
+    true,
+  ]
+
+ ❯ docs/evidence/spec001/optional/MG01/joined/runtime.test.ts:214:125
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  docs/evidence/spec001/optional/MG02/joined/runtime.test.ts > MG02 actual controller validation, assistance, captures and save-v1 > safe save-v1 after exit retains only actual receipt/fact/help and JS/PHP policies agree
+AssertionError: expected [ true, false, false, true, …(3) ] to deeply equal [ true, false, false, false, …(3) ]
+
+- Expected
++ Received
+
+  [
+    true,
+    false,
+    false,
+-   false,
++   true,
+    false,
+    false,
+    true,
+  ]
+
+ ❯ docs/evidence/spec001/optional/MG02/joined/runtime.test.ts:194:125
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 7 passed (9)
+      Tests  2 failed | 188 passed (190)
+   Start at  11:00:41
+   Duration  4.98s (tests 75%, import 22%, transform 3%)
+

@@ -223,7 +223,8 @@ export class GameApi {
   }
   getSave(): Promise<ApiResult<SavedSnapshot>> {
     if (this.current?.state !== 'authenticated') return Promise.resolve(failure('session-required'));
-    return this.request('/save', 'GET', [200], v => fields(v, ['summary', 'snapshot']) && summary(v['summary']) && record(v['snapshot']), [401, 404, 503], {}, undefined, true);
+    return this.request('/save', 'GET', [200], v => fields(v, ['summary', 'snapshot']) && summary(v['summary']) && record(v['snapshot']), [401, 403, 404, 503],
+      { 'X-CSRF-Token': this.current.csrfToken }, undefined, true);
   }
   prepareSaveWrite(input: SaveWriteInput): { readonly ok: true; readonly request: PreparedSaveWrite } | ApiFailure {
     if (this.disposed) return failure('disposed');

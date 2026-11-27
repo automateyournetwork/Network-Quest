@@ -147,6 +147,7 @@ describe('GameApi contract transport (synthetic)', () => {
     const { api, fetch } = rig([json(account()), new Response(raw, { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ETag: summary.etag } })]);
     await api.getSession(); expect(await api.getSave()).toMatchObject({ ok: true, data: { summary: newer }, rawJson: raw });
     expect(fetch.mock.calls.at(-1)![1]!.method).toBe('GET');
+    expect(new Headers(fetch.mock.calls.at(-1)![1]!.headers).get('X-CSRF-Token')).toBe(csrf);
   });
 
   it('rejects inconsistent save headers and acknowledgements including a wrong request id', async () => {

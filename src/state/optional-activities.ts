@@ -2,6 +2,7 @@
 import type { ContentRegistry } from '../content/registry';
 import type * as S from '../content/schema-types.generated';
 import { contentError, invalidInput, isRecord } from '../domain/evaluate';
+import { captureScoutPrediction, evaluateScoutComparison, scoutSelectionAction, scoutPredictionCurrent, scoutEvidence, type RadioChannelScout, type ScoutChoice, type ScoutPrediction, type ScoutComparisonInput, type ScoutAssessment } from './optional-channel-scout';
 import { evaluateSymbolAnswer } from '../domain/packet-journey';
 import { evaluateBenchAnswer, evaluateCompatibilityCard, type OpticalBenchAnswer, type OpticalBudgetBench } from './optional-optical-bench';
 import { evaluateAuditAnswer } from './optional-power-audit';
@@ -41,7 +42,7 @@ export interface ToySymbolLoomActivity extends Omit<ToyMessageActivity, 'kind' |
   readonly reward: { readonly kind: 'optional-practice-only'; readonly factId: 'spec001:FACT-MG01-completion' };
 }
 export type OptionalActivityDefinition = (Readonly<Omit<S.quest, 'optionalActivity'>> | Readonly<Omit<S.minigame, 'optionalActivity'>>)
-  & { readonly optionalActivity: ToyMessageActivity | DeliveredPowerAudit | RadioDiaryActivity | MaintenanceActivity | ToySymbolLoomActivity | OpticalBudgetBench };
+  & { readonly optionalActivity: ToyMessageActivity | DeliveredPowerAudit | RadioDiaryActivity | MaintenanceActivity | ToySymbolLoomActivity | OpticalBudgetBench | RadioChannelScout };
 export function isToySymbolActivity(activity: OptionalActivityDefinition['optionalActivity']): activity is ToyMessageActivity | ToySymbolLoomActivity {
   return activity.kind === 'toy-symbol-message' || activity.kind === 'toy-symbol-loom';
 }
@@ -60,8 +61,13 @@ export interface OptionalActivitySession {
   readonly feedback: string | null;
   readonly result: EvaluationStatus | null;
   readonly hintText: string | null;
+  readonly scout?: { readonly prediction: ScoutPrediction | null; readonly measurementId: string | null };
 }
 export type OptionalActivityOperation =
+  | { readonly kind: 'scout-select'; readonly sessionId: string; readonly choice: ScoutChoice }
+  | { readonly kind: 'scout-predict'; readonly sessionId: string; readonly baselineMeasurementId: string; readonly assessment: ScoutAssessment }
+  | { readonly kind: 'scout-measure'; readonly sessionId: string; readonly id: import('../domain/types').MeasurementId }
+  | ({ readonly kind: 'scout-compare'; readonly sessionId: string } & ScoutComparisonInput)
   | { readonly kind: 'start'; readonly activityId: QualifiedId; readonly hotspotId: QualifiedId; readonly sessionId: string }
   | { readonly kind: 'choose-mode'; readonly sessionId: string; readonly mode: OptionalMode }
   | { readonly kind: 'submit'; readonly sessionId: string; readonly bits: string }
@@ -76,6 +82,7 @@ export type OptionalActivityPreparation = { readonly ok: false; readonly reason:
   | { readonly ok: true; readonly game: GameState; readonly session: OptionalActivitySession | null;
       readonly activity: ActivityState | { readonly kind: 'active-optional' };
       readonly evaluation: EvaluationResult<unknown, StateEffect>;
+      readonly radio?: { readonly kind: 'select'; readonly actionId: QualifiedId } | { readonly kind: 'measure'; readonly id: import('../domain/types').MeasurementId };
       readonly retry?: { readonly preparation: WorldState; readonly nextAttemptId: AttemptId } };
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const qualified = /^spec001:[A-Za-z0-9][A-Za-z0-9._-]{0,55}$/;
@@ -117,6 +124,7 @@ export function evaluateOptionalAnswer(registry: ContentRegistry, definition: Op
     : activity.kind === 'notebook-combination' ? evaluateMaintenanceAnswer(activity, registry, mode, action, game)
     : activity.kind === 'radio-weather-diary' ? mode === 'delivery' ? evaluateDiaryAnswer(activity.delivery, registry, action, game) : invalidInput('diary-practice-is-read-only')
     : contentError({ code: 'optional-content', field: definition.id, message: 'Unsupported optional activity.' });
+  if (activity.kind === 'radio-channel-scout') return { evaluation: contentError({ code: 'radio-requires-session', field: definition.id, message: 'Use the captured radio session.' }), feedback: activity.feedback.contentError, assistanceLevel: null };
   const feedback = result.status === 'content-error' ? activity.feedback.contentError : activity.feedback[mode][result.status === 'invalid-input' ? 'invalidInput' : result.status];
   const completed = optionalActivityCompleted(registry, definition, game);
   const alternative = definition.alternatives.find(a => a.id === activity.delivery.actionId)!;
@@ -175,7 +183,7 @@ export function prepareOptionalActivityChange(registry: ContentRegistry, game: G
   operation: OptionalActivityOperation, action: DomainAction<unknown> | undefined, clientGeneration: ClientGeneration): OptionalActivityPreparation {
   const fail = (reason: 'content-error' | 'invalid-input' | 'invalid-state' | 'precondition'): OptionalActivityPreparation => ({ ok: false, reason });
   if (!isRecord(operation) || !Number.isSafeInteger(clientGeneration) || clientGeneration < 0) return fail('invalid-input');
-  const fields: Record<OptionalActivityOperation['kind'], readonly string[]> = { start: ['kind', 'activityId', 'hotspotId', 'sessionId'],
+  const fields: Record<OptionalActivityOperation['kind'], readonly string[]> = { 'scout-select': ['kind','sessionId','choice'], 'scout-predict': ['kind','sessionId','baselineMeasurementId','assessment'], 'scout-measure': ['kind','sessionId','id'], 'scout-compare': ['kind','sessionId','laterMeasurementId','comparison','currentAssessment','predictionAssessment','evidenceClaim'], start: ['kind', 'activityId', 'hotspotId', 'sessionId'],
     'choose-mode': ['kind', 'sessionId', 'mode'], submit: ['kind', 'sessionId', 'bits'], 'submit-power': ['kind', 'sessionId', 'answer'], 'submit-diary': ['kind', 'sessionId', 'answer'], 'submit-maintenance': ['kind', 'sessionId', 'answer'], 'submit-optics': ['kind', 'sessionId', 'answer'], 'compatibility-cards': ['kind', 'sessionId'], hint: ['kind', 'sessionId'], explanation: ['kind', 'sessionId'], 'boundary-example': ['kind', 'sessionId'], exit: ['kind', 'sessionId'], retry: ['kind', 'sessionId', 'nextAttemptId'] };
   if (!Object.hasOwn(fields, operation.kind) || !exact(operation, fields[operation.kind]) || !uuid.test(operation.sessionId)) return fail('invalid-input');
   if (operation.kind === 'start') {
@@ -187,7 +195,7 @@ export function prepareOptionalActivityChange(registry: ContentRegistry, game: G
     if (!entry || !anchor?.eligibleStates.includes(activity.kind as SafeState) || !conditionSatisfied(definition.prerequisite, game.world, registry)) return fail('precondition');
     return { ok: true, game, activity: { kind: 'active-optional' }, evaluation: empty(), session: freeze({ sessionId: operation.sessionId, activityId: operation.activityId,
       adventureId: game.adventureId, clientGeneration, entry: structuredClone(entry), preparation: structuredClone(game.world), previousActivity: activity.kind as SafeState,
-      phase: 'instructions', mode: null, timingEnabled: false, feedback: null, result: null, hintText: null }) };
+      phase: 'instructions', mode: null, timingEnabled: false, feedback: null, result: null, hintText: null, ...(definition.optionalActivity.kind === 'radio-channel-scout' ? { scout: { prediction: null, measurementId: null } } : {}) }) };
   }
   if (!session || session.sessionId !== operation.sessionId || session.adventureId !== game.adventureId || session.clientGeneration !== clientGeneration || activity.kind !== 'active-optional'
     || game.world.roomId !== session.entry.roomId || game.world.position.safePositionId !== session.entry.safePositionId) return fail('invalid-state');
@@ -196,7 +204,7 @@ export function prepareOptionalActivityChange(registry: ContentRegistry, game: G
   if (operation.kind === 'exit') return { ok: true, game, session: null, activity: { kind: session.previousActivity }, evaluation: empty() };
   const definition = optionalActivityDefinition(registry, session.activityId);
   if (!definition) return fail('content-error');
-  const success = (next: OptionalActivitySession, nextGame = game, evaluation = empty()): OptionalActivityPreparation => ({ ok: true, game: nextGame, session: freeze(next), activity, evaluation });
+  const success = (next: OptionalActivitySession, nextGame = game, evaluation = empty()): Extract<OptionalActivityPreparation, { ok: true }> => ({ ok: true, game: nextGame, session: freeze(next), activity, evaluation });
   if (operation.kind === 'choose-mode') {
     if (!['practice', 'delivery'].includes(operation.mode)) return fail('invalid-input');
     if (definition.optionalActivity.kind === 'notebook-combination' && operation.mode === 'practice') {
@@ -212,11 +220,17 @@ export function prepareOptionalActivityChange(registry: ContentRegistry, game: G
       if (!radioDiaryEvidence(registry, game).available) return success({ ...session, mode: null, phase: 'instructions',
         feedback: definition.optionalActivity.feedback.missingEvidence, result: null, hintText: null });
     }
+    if (definition.optionalActivity.kind === 'radio-channel-scout') {
+      const a = definition.optionalActivity, next = operation.mode === 'practice' ? assistance(game, definition, 2) : game;
+      if (!next) return fail('invalid-state');
+      return success({ ...session, mode: operation.mode, phase: operation.mode === 'practice' ? 'practice' : 'solving', result: null, hintText: null, scout: { prediction: null, measurementId: null },
+        feedback: operation.mode === 'practice' ? a.practice.explanation : scoutEvidence(registry, game).length ? null : a.feedback.missingEvidence }, next);
+    }
     return success({ ...session, mode: operation.mode, phase: operation.mode === 'practice' ? 'practice' : 'solving', feedback: null, result: null, hintText: null });
   }
   if (operation.kind === 'retry') {
     if (!uuid.test(operation.nextAttemptId) || operation.nextAttemptId.toLowerCase() === game.world.attemptId.toLowerCase()) return fail('invalid-input');
-    return { ...success({ ...session, phase: 'instructions', mode: null, feedback: null, result: null, hintText: null }),
+    return { ...success({ ...session, phase: 'instructions', mode: null, feedback: null, result: null, hintText: null, ...(session.scout ? { scout: { prediction: null, measurementId: null } } : {}) }),
       retry: { preparation: session.preparation, nextAttemptId: operation.nextAttemptId } } as OptionalActivityPreparation;
   }
   if (operation.kind === 'boundary-example') {
@@ -242,6 +256,36 @@ export function prepareOptionalActivityChange(registry: ContentRegistry, game: G
       : [definition.hints.method.text, definition.hints.workedStep.text, definition.hints.solution.text][level - 1]!;
     const nextGame = assistance(game, definition, level);
     return nextGame ? success({ ...session, hintText }, nextGame) : fail('invalid-state');
+  }
+  if (operation.kind.startsWith('scout-')) {
+    const a = definition.optionalActivity;
+    if (a.kind !== 'radio-channel-scout' || session.mode !== 'delivery' || !session.scout || !action) return fail('invalid-input');
+    if (operation.kind === 'scout-select') {
+      const actionId = scoutSelectionAction(operation.choice); if (!actionId) return fail('invalid-input');
+      return { ...success({ ...session, phase: 'solving', result: null, feedback: 'Configuration selected. Record a prediction, then take a new measurement.', scout: { prediction: null, measurementId: null } }), radio: { kind: 'select', actionId } };
+    }
+    if (operation.kind === 'scout-predict') {
+      const result = captureScoutPrediction(a.delivery, registry, { ...action, input: { baselineMeasurementId: operation.baselineMeasurementId, assessment: operation.assessment } }, game);
+      return success({ ...session, phase: 'solving', result: result.status === 'correct' ? null : result.status,
+        feedback: result.status === 'correct' ? a.feedback.predictionRecorded : a.feedback.freshMeasurementRequired,
+        scout: { prediction: result.status === 'correct' ? result.observations[0] as ScoutPrediction : null, measurementId: null } });
+    }
+    if (operation.kind === 'scout-measure') {
+      if (!uuid.test(operation.id) || !scoutPredictionCurrent(registry, session.scout.prediction, game)) return fail('invalid-input');
+      return { ...success({ ...session, phase: 'solving', result: null, feedback: 'New observation recorded. Compare its SNR with the earlier reading and your prediction.', scout: { ...session.scout, measurementId: operation.id } }), radio: { kind: 'measure', id: operation.id } };
+    }
+    if (operation.kind === 'scout-compare') {
+      const { kind: _kind, sessionId: _sessionId, ...answer } = operation;
+      const result = evaluateScoutComparison(a.delivery, registry, session.scout.prediction, { ...action, input: answer }, game);
+      const complete = optionalActivityCompleted(registry, definition, game);
+      const next = result.status === 'incorrect' ? assistance(game, definition, 3) : game;
+      if (!next) return fail('invalid-state');
+      const feedback = result.status === 'content-error' ? a.feedback.contentError : result.status === 'invalid-input' ? a.feedback.freshMeasurementRequired
+        : result.status === 'incorrect' ? a.feedback.incorrect : complete ? a.feedback.alreadyCompleted : `${a.feedback.correct} Your prediction was ${operation.predictionAssessment === 'supported' ? 'supported' : 'not supported'} by the new observation.`;
+      const evaluation: EvaluationResult<unknown, StateEffect> = result.status === 'correct' ? { ...result, acceptedEffects: !complete ? definition.effects as StateEffect[] : [] } : result;
+      return success({ ...session, phase: 'feedback', result: result.status, feedback }, next, evaluation);
+    }
+    return fail('invalid-input');
   }
   if (!session.mode || !action || (operation.kind !== 'submit' && operation.kind !== 'submit-power' && operation.kind !== 'submit-diary' && operation.kind !== 'submit-maintenance' && operation.kind !== 'submit-optics')) return fail('invalid-input');
   if (operation.kind === 'submit' && (!isToySymbolActivity(definition.optionalActivity) || typeof operation.bits !== 'string' || operation.bits.length > 512)

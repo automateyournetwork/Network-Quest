@@ -52,12 +52,12 @@ async function setup(options: { slot?: number; slotAdventure?: AdventureId; auto
   const writes: RequestInit[] = [];
   let reads = 0, sessions = 0, nextKey = 0;
   let write = async (init: RequestInit): Promise<Response> => ack((currentSummary?.revision ?? 0) + 1, undefined, false, new Headers(init.headers).get('Idempotency-Key')!);
-  let read = async (): Promise<Response> => currentSummary === null ? problem(404, 'save-not-found')
+  let read = async (_init: RequestInit): Promise<Response> => currentSummary === null ? problem(404, 'save-not-found')
     : new Response(`{"summary":${JSON.stringify(currentSummary)},"snapshot":${snapshotJson}}`, { headers: {
       'Content-Type': 'application/json', 'Cache-Control': 'no-store', ETag: currentSummary.etag } });
   const fetcher = vi.fn(async (url: string | URL | Request, init?: RequestInit): Promise<Response> => {
     if (String(url).endsWith('/session')) { sessions++; return response(session); }
-    if (init?.method === 'GET') { reads++; return read(); }
+    if (init?.method === 'GET') { reads++; return read(init); }
     writes.push(init!); return write(init!);
   });
   const api = new GameApi({ origin: 'https://game.example', apiBase: '/api/v1', fetch: fetcher as typeof fetch });
@@ -83,6 +83,23 @@ async function review(h: Awaited<ReturnType<typeof setup>>) {
 }
 
 describe('T049 coordinator, actual API/reader/capture with synthetic transport only', () => {
+  it('keeps a stale tab from reviewing a different signed-in session’s save', async () => {
+    const h = await setup(), originalGame = h.state.runtime.game;
+    const switchedToken = 'd'.repeat(43);
+    h.setRead(async init => {
+      const expected = new Headers(init.headers).get('X-CSRF-Token');
+      if (expected !== null && expected !== switchedToken) return problem(403, 'forbidden');
+      return response({ summary: summary(1, otherAdventure), snapshot: {
+        ...originalGame, adventureId: otherAdventure, saveSchemaVersion: 1, safeState: 'stable-exploration'
+      } }, 200, '"save-1"');
+    });
+    const read = await h.coordinator.readSlot();
+    expect(read).toMatchObject({ ok: false, error: { status: 403 } });
+    expect(h.state.runtime.auth).toMatchObject({ displayName: 'Same Label', csrfToken: h.session.csrfToken });
+    expect(h.state.runtime.game).toBe(originalGame);
+    expect(h.writes).toHaveLength(0);
+  });
+
   it('requires explicit current runtime/API binding and a full slot read before a new write', async () => {
     const h = await setup({ slot: 8, bind: false });
     expect(await h.coordinator.save('manual')).toMatchObject({ ok: false, reason: 'session-required' });

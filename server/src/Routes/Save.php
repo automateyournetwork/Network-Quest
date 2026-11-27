@@ -52,7 +52,7 @@ final class Save
     private function read(array $headers): array
     {
         return $this->accounts->run(function () use ($headers): array {
-            $prior = $this->sessions->require($headers['cookie'] ?? null);
+            $prior = $this->sessions->require($headers['cookie'] ?? null, true, $headers['x-csrf-token'] ?? null);
             return $this->database->immediate(fn (PDO $pdo): array => $this->sessions->within($pdo, $prior, function (SessionContext $current) use ($pdo): array {
                 $query = $pdo->prepare('SELECT revision,saved_at,schema_version,content_version,adventure_id,payload_json,payload_hash,summary_json FROM saves WHERE account_id=?');
                 $query->execute([$current->accountId]); $slot = $query->fetch();

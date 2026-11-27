@@ -26,27 +26,33 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**116 loops started; 95/170 tasks accepted; no deployment.** Latest pushed commit:
-`a276934c0a3bbf91b76b7428668b9afc4b34ccdc` (Clockworks Bit Loom MG01/T101).
-T102/MG02 is accepted and ready for scoped publication: all268 hashes match,
-366 focused checks and12 actual built browser groups pass; strict check/build
-pass. Its native pause is750ms foreground only, not background/hour evidence.
+**121 loops started;96/170 tasks accepted;no deployment.** Latest pushed commit:
+`8ddb998c5250a95420f4b12dd1f162aa25ec80d7` (MG02/T102). T103/MG03 is accepted
+and queued for scoped publication with reviewed Q01/Q02 fixes and partial T104
+regressions. Root matched269worker hashes before follow-ups; currentcheck/build
+pass. Fullclient4245PASS/1media-test timeout/360TODO, then4affectedtestsPASSserial:
+4246distinctchecks accounted across112suites. FullPHP909tests/19167assertionsPASS.
+CurrentMG03 native15groups preceded the disclosed follow-up fixes.
 
-Same115 finishes isolated actual MG03; current-source join follows root's MG02
-publication and MG03 review. Same116 closes exact original T092 cases on frozen
-58ce1a0:27 actual ally/tool vectors,12 capability guards,40 lifecycle and36 party
-checks pass. Four earned side-quest forms also survive a simulated logical hour
-and document visibility events, with real renderer pause/resume and successful
-manual save afterward. This is not a real background-hour/performance test.
-Final all-seven/current recovery and case reconciliation remain open.
+Q01 normalized reused attempt UUID identity in generic recovery; Q02 binds game
+save reads to the tab's reviewed session and offers explicit Check Session on a
+cookie mismatch. Both have genuine RED/isolated/current passing evidence. Q04
+found no technical correction;37sourcehashes match and256focusedchecks pass.
+Same119/Q03 proposes a bounded ending/optional instruction presentation fix in
+isolation. Same121/Q05 reconciles exact81outcome+45retry originalcases.
 
-Five owner-requested fresh GPT-6.2 Astra reviews follow this coherent optional/
-T104 build and precede T105. None has started; preserve counter116 and the playful,
-witty, lightly dark networking/OSI tone. T096/T097 remain open for actual picture
-rewards. Finished media, actual providers and required human reviews remain ahead.
-G0 has named external gaps; G1–G7 remain pending. Protect owner previews63366/54594;
-keep rawT089 traces and preview logs local. The original Sierra-style adventure
-and contained286frame remain mandatory.
+Same116/T104 has145newly discovered current checks passing, plus reviewed older
+native/gap packets. Exact final all-seven native/recovery and140case reconciliation
+remain open; four no-recruit whole-route rows explicitly belong to T105. Six
+optional timing-only cases need final capability inspection. Literal precommit
+ability animation remains assigned to finalmedia/T147. Do not claim140allpass.
+
+All five requested Astra review loops have started (117–121), with no counter
+reset or extra Spec001 taskboxes. T096/T097 still need actual picture rewards.
+Finishedmedia, actualproviders and requiredhumanreviews remainahead; G0 has named
+external gaps andG1–G7 remainpending. Preserve ownerpreviews63366/54594, rawT089
+traces/previewlogs locally, originalevidence and the playful/witty/lightlydark
+Networking/OSI Sierra adventure within the approved286frame.
 
 ### Historical checkpoints (preserved; not current ownership)
 

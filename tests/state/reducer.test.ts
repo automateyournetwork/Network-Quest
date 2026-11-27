@@ -408,6 +408,16 @@ describe('essential recovery and fresh-attempt primitive', () => {
       measurements: [{ ...game(applied).notebook.measurements[0]!, configurationRevision: 17 as ConfigurationRevision }] },
       assistance: [{ objectiveId: id<'objective'>('O01'), hintId: id<'hint'>('hint-one'), level: 3 as const, attemptId: attempt(1) }] };
     const failed = createReducerState({ ...applied.runtime, game: learned, activity: { kind }, checkpoint: { adventureId: learned.adventureId, world: prepared } });
+    const historical = 'aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee' as AttemptId;
+    const mixedHistory = createReducerState({ ...failed.runtime, game: { ...learned, assistance: [{ ...learned.assistance[0]!, attemptId: historical.toUpperCase() as AttemptId }] } });
+    const alias = reduce(mixedHistory, command(mixedHistory, { kind: 'rewind-preparation', nextAttemptId: historical }, 'case-alias'));
+    expect(alias.reason).toBe('attempt-reused');
+    expect(alias.state).toBe(mixedHistory);
+    const fresh = 'bbbbbbbb-cccc-4ddd-8eee-ffffffffffff' as AttemptId;
+    const advanced = reduce(mixedHistory, command(mixedHistory, { kind: 'rewind-preparation', nextAttemptId: fresh.toUpperCase() as AttemptId }, 'fresh-uppercase'));
+    expect(advanced.status).toBe('applied');
+    expect(game(advanced.state).world.attemptId).toBe(fresh);
+    expect(advanced.state.control.usedAttemptIds).toContain(fresh);
     const result = reduce(failed, command(failed, { kind: 'rewind-preparation', nextAttemptId: attempt(2) }, 'retry-1'));
     expect(result.status).toBe('applied');
     expect(quantity(result.state, 'item-part')).toBe(1); expect(quantity(result.state, 'item-repaired')).toBe(0);

@@ -245,7 +245,8 @@ export function createIntroductionApplication(host: HTMLElement) {
             ?? host.ownerDocument.createElement('button');
           button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = optionalNames[entry.activityId] ?? world.optionalActivities.find(activity => activity.id === entry.activityId)?.name ?? entry.label;
           button.disabled = !entry.available;
-          if (entry.activityId === q('MG02') && entry.unavailableReason) { button.textContent = 'Prism Bench · complete fiber verification first'; button.title = entry.unavailableReason; }
+          if (entry.activityId === q('MG03') && entry.unavailableReason) { button.textContent = 'Channel Scout · complete radio verification first'; button.title = entry.unavailableReason; }
+          else if (entry.activityId === q('MG02') && entry.unavailableReason) { button.textContent = 'Prism Bench · complete fiber verification first'; button.title = entry.unavailableReason; }
           else button.removeAttribute('title');
           button.setAttribute('aria-label', entry.unavailableReason ?? `Open ${button.textContent}`);
           button.addEventListener('click', () => {

@@ -9,6 +9,7 @@ import type {
 import type { ActivityState, DirtyGeneration, GameState, Measurement, RuntimeState, SafeState, WorldState } from './types';
 import { conditionSupported as supportedCondition, conditionSatisfied as conditionMet } from './conditions';
 import { minigameAchievement } from './conditions';
+import { prepareRadioAction, createRadioScenarioResolver } from './radio-scenario';
 import { prepareOptionalActivityChange, finalizeOptionalSession, rewindOptionalPreparation } from './optional-activities';
 import type { OptionalActivityOperation, OptionalActivitySession } from './optional-activities';
 import { prepareNotebookChange } from './notebook';
@@ -144,7 +145,7 @@ export function createReducerState(runtime: RuntimeState): ReducerState {
     actionIds: [], pending: null,
     highestRevision: Math.max(0, ...worlds.map(w => w.configurationRevision), ...measurements.map(m => m.configurationRevision)),
     usedAttemptIds: [...new Set([...worlds.map(w => w.attemptId), ...measurements.map(m => m.attemptId),
-      ...(runtime.game?.assistance.map(h => h.attemptId) ?? []), ...(runtime.game?.outcomeHistory.map(o => o.attemptId) ?? [])])],
+      ...(runtime.game?.assistance.map(h => h.attemptId) ?? []), ...(runtime.game?.outcomeHistory.map(o => o.attemptId) ?? [])].map(id => id.toLowerCase() as AttemptId))],
     partyPractice: null,
     optionalActivity: null,
   } };
@@ -457,6 +458,25 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
         if (!retried.ok) return reject(retried.reason);
         candidateGame = retried.game; control = { ...control, highestRevision: retried.highestRevision, usedAttemptIds: retried.usedAttemptIds, partyPractice: null };
       }
+      // Trusted closed radio directives compose existing operations inside this
+      // optional transaction. Activity admission stays active-optional throughout.
+      if (result.radio) {
+        const radio = result.radio;
+        if (radio.kind === 'select') {
+          const prepared = prepare({ ...state, runtime: { ...state.runtime, game: candidateGame } }, { evaluation: prepareRadioAction(registry, candidateGame, radio.actionId) });
+          if (!prepared.ok) return reject(prepared.reason);
+          candidateGame = prepared.value.game;
+        } else {
+          const resolver = createRadioScenarioResolver(registry), scenario = resolver(candidateGame, 'spec001:O08' as ObjectiveId);
+          if (scenario?.kind !== 'radio-proof') return reject('content-error');
+          const measured = prepareObjectiveChange(registry, resolver, candidateGame, { kind: 'measure', objectiveId: 'spec001:O08' as ObjectiveId, alternativeId: scenario.alternativeId, id: radio.id });
+          if (!measured.ok) return reject(measured.reason);
+          const prepared = prepare({ ...state, runtime: { ...state.runtime, game: candidateGame } }, { evaluation: measured.evaluation });
+          if (!prepared.ok) return reject(prepared.reason);
+          const final = measured.finalize(prepared.value.game); if (!final.ok) return reject(final.reason);
+          candidateGame = final.game;
+        }
+      }
       // Invalid learner input/content reports feedback with no effects. Only a
       // valid full-delivery selection reaches the canonical atomic batch check.
       if (result.evaluation.acceptedEffects.length) {
@@ -527,12 +547,13 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
       if (!['terminal-failure', 'shutdown'].includes(state.runtime.activity.kind) || !checkpoint || checkpoint.adventureId !== game.adventureId
         || !legalWorld(checkpoint.world) || !safeDestination(registry, { roomId: checkpoint.world.roomId, safePositionId: checkpoint.world.position.safePositionId, activity: 'safe-preparation' })) return reject('no-preparation');
       if (!uuidPattern.test(input.nextAttemptId)) return reject('invalid-action');
-      if (state.control.usedAttemptIds.includes(input.nextAttemptId)) return reject('attempt-reused');
+      const nextAttemptId = input.nextAttemptId.toLowerCase() as AttemptId;
+      if (state.control.usedAttemptIds.includes(nextAttemptId)) return reject('attempt-reused');
       const revision = nextRevision(state);
       if (revision === null) return reject('generation-exhausted');
-      const world: WorldState = { ...structuredClone(checkpoint.world), attemptId: input.nextAttemptId, configurationRevision: revision };
+      const world: WorldState = { ...structuredClone(checkpoint.world), attemptId: nextAttemptId, configurationRevision: revision };
       const result = accept(state, command.actionId, { game: { ...game, world, notebook: staleMeasurements(game) }, activity: { kind: 'safe-preparation' }, changed: true, revision });
-      return result.status === 'rejected' ? result : { ...result, state: { ...result.state, control: { ...result.state.control, usedAttemptIds: [...state.control.usedAttemptIds, input.nextAttemptId], partyPractice: null, optionalActivity: null } } };
+      return result.status === 'rejected' ? result : { ...result, state: { ...result.state, control: { ...result.state.control, usedAttemptIds: [...state.control.usedAttemptIds, nextAttemptId], partyPractice: null, optionalActivity: null } } };
     }
     if (!safeKinds.has(state.runtime.activity.kind) && state.runtime.activity.kind !== 'active-encounter') return reject('invalid-state');
     if (input.kind === 'recover-item') {

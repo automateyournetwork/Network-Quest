@@ -1,0 +1,96 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/services/game-api.test.ts tests/services/save-coordinator.test.ts tests/ui/save-dialogs.test.ts
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/services/game-api.test.ts (86 tests) 23ms
+ ✓ tests/ui/save-dialogs.test.ts (25 tests) 14886ms
+   ✓ T050 save dialogs composed with accepted API/account/coordinator/reader (25)
+     ✓ offers an explicit session check before reviewing after an account switch 601ms
+     ✓ requires explicit first adoption after authenticated GET and empty read; cancellation keeps memory and sends no write 515ms
+     ✓ shows summary and explicit different-adventure load/replace/cancel; restore replaces exact notes and clears transient state 499ms
+     ✓ rejects a stale local-edit load or replacement confirmation 981ms
+     ✓ binds replacement to reviewed ETag, server adventure and a new request key 498ms
+     ✓ Continue reads and validates without starting a new run and warns before discarding unsaved progress 507ms
+     ✓ newer or invalid snapshots retain the read and offer neither load nor replacement 990ms
+     ✓ ignores late slot reads after whole-view invalidation, even with the same adventure and counters 514ms
+     ✓ keeps an unknown write frozen after Keep Playing and retry sends identical bytes/key despite newer edits 490ms
+     ✓ 412 never reuses consent: a fresh review and second explicit replacement decision are required 487ms
+     ✓ unconfigured service leaves guest gameplay intact and performs no save or provider navigation 486ms
+     ✓ popup reservation is synchronous; blocked recovery is explicit, and cancellation retains notes 485ms
+     ✓ GET session alone establishes identity; identical provider/display labels never preserve an old owned view 480ms
+     ✓ ignores AccountService observations from a separate non-login flow 487ms
+     ✓ manual session recovery after a retained login adopts guest progress without writing 1019ms
+     ✓ New Adventure suppression survives binding an opted-in account and does not replace the slot 982ms
+     ✓ read drift after a same-ID restore stays a conflict and cannot authorize an automatic overwrite 482ms
+     ✓ safe-state capture rejects dialogue transactions without writing 486ms
+     ✓ a late acknowledgement cannot paint Saved after explicit same-adventure view replacement 495ms
+     ✓ Cancel while a reviewed read is in flight prevents its late dialog or restore effect 967ms
+     ✓ a read-only session check cannot discard an unresolved frozen write 493ms
+     ✓ an expired read offers sign-in while retaining the adventure 485ms
+     ✓ a failed provider start can be retried explicitly without an intervening game reset 483ms
+     ✓ an older retained receipt displays conflict rather than Saved and requires current review 487ms
+     ✓ a freshly reviewed empty slot after drift still needs explicit consent and uses create precondition 484ms
+ ✓ tests/services/save-coordinator.test.ts (53 tests) 26995ms
+   ✓ T049 coordinator, actual API/reader/capture with synthetic transport only (53)
+     ✓ keeps a stale tab from reviewing a different signed-in session’s save 595ms
+     ✓ requires explicit current runtime/API binding and a full slot read before a new write 514ms
+     ✓ manually adopts one confirmed-empty slot, with default autosave OFF and no dirty increment 504ms
+     ✓ requires manual first adoption even when the account has opted into autosave 486ms
+     ✓ uses one conditional slot for eligible automatic writes 499ms
+     ✓ serializes concurrent save/retry/read calls without queueing a recapture 504ms
+     ✓ UI-LATE-ACK acknowledges captured generation 4 while real reducer edits leave generation 5 dirty 512ms
+     ✓ SV-OLD-POLICY retries exact bytes/key/mode/precondition/confirmation without validating or capturing again 488ms
+     ✓ keep playing retains an unknown outcome and forbids a new overwrite 507ms
+     ✓ SV-REPLAY-OLDER records receipt 8, current slot 9 and requires a fresh read plus consent before overwrite 509ms
+     ✓ SV-STALE exposes 412 without replacing memory, then requires reviewed conditional explicit replacement 492ms
+     ✓ binds replacement consent to owned review, slot adventure, ETag and unchanged local capture 488ms
+     ✓ rejects actual dialogue-transaction state even when it has a safe preparation checkpoint 480ms
+     ✓ rejects actual pending-effect state even when it has a safe preparation checkpoint 486ms
+     ✓ rejects actual room-transition state even when it has a safe preparation checkpoint 477ms
+     ✓ rejects actual cutscene state even when it has a safe preparation checkpoint 483ms
+     ✓ rejects actual active-encounter state even when it has a safe preparation checkpoint 482ms
+     ✓ rejects actual terminal-failure state even when it has a safe preparation checkpoint 490ms
+     ✓ rejects actual shutdown state even when it has a safe preparation checkpoint 502ms
+     ✓ rejects pending reducer work even with a superficially safe runtime activity 493ms
+     ✓ preserves game/confirmed metadata on HTTP 401 without false acknowledgement or automatic sign-in 486ms
+     ✓ preserves game/confirmed metadata on HTTP 403 without false acknowledgement or automatic sign-in 487ms
+     ✓ preserves game/confirmed metadata on HTTP 422 without false acknowledgement or automatic sign-in 508ms
+     ✓ preserves game/confirmed metadata on HTTP 429 without false acknowledgement or automatic sign-in 485ms
+     ✓ preserves game/confirmed metadata on HTTP 503 without false acknowledgement or automatic sign-in 482ms
+     ✓ never acknowledges a mismatching request receipt 487ms
+     ✓ never acknowledges a mismatching adventure receipt 487ms
+     ✓ never acknowledges a mismatching revision receipt 495ms
+     ✓ passes exact unknown lexical snapshot bytes to SaveReader and blocks replacement/autosave 494ms
+     ✓ invalid supported saves also remain untouched; a session summary never grants replacement 488ms
+     ✓ UI-LATE-ACCOUNT ignores a late receipt after runtime generation invalidation, preserving later memory 478ms
+     ✓ UI-LATE-ACCOUNT ignores a late receipt after api generation invalidation, preserving later memory 473ms
+     ✓ UI-LATE-ACCOUNT ignores a late receipt after view generation invalidation, preserving later memory 479ms
+     ✓ rejects stale session binding even when provider/display name are identical 491ms
+     ✓ new run/restore invalidation discards the old view without applying its late read to a replacement runtime 973ms
+     ✓ reentrant saving subscribers cannot send an invalidated write or release a later operation 497ms
+     ✓ reentrant read subscribers cannot send an invalidated GET 491ms
+     ✓ disposal and repeated invalidation preserve gameplay and never perform network mutations 490ms
+     ✓ a failed-notification retry keeps its own in-flight lock after the older send returns 502ms
+     ✓ disposal cannot be reentered through an unbound notification to send new requests 474ms
+     ✓ terminal disposal notifications cannot recurse or restart the coordinator 472ms
+     ✓ UI lifecycle and read-review tokens reject clones, edits and same-adventure rebinding 504ms
+     ✓ a receipt invalidated in the API-result microtask cannot acknowledge the replacement runtime 482ms
+     ✓ same-adventure restore invalidation rejects the old frozen pending handle 473ms
+     ✓ a timeout preserves frozen pending bytes and the in-memory adventure for explicit retry 473ms
+     ✓ E01 only writes at a declared safe Continue point (isolated fixture policy) 489ms
+     ✓ E02 only writes at a declared safe Continue point (isolated fixture policy) 475ms
+     ✓ never accepts E03 as a current Continue outcome even with safe-continue activity 476ms
+     ✓ read failure or mismatched summary cannot establish empty-slot or replacement authority 947ms
+     ✓ a later read that discovers another device write cannot silently authorize autosave over it 474ms
+     ✓ the current status projection reflects dirty edits after a successful acknowledgement 501ms
+     ✓ blocks interrupted reader results and retains their original bytes 498ms
+     ✓ blocks migration-failed reader results and retains their original bytes 488ms
+
+ Test Files  3 passed (3)
+      Tests  164 passed (164)
+   Start at  11:24:53
+   Duration  27.50s (tests 98%, transform 2%)
+

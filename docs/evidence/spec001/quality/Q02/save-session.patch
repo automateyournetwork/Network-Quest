@@ -1,0 +1,150 @@
+--- a/server/src/Routes/Save.php
++++ b/server/src/Routes/Save.php
+@@ -52,7 +52,7 @@
+     private function read(array $headers): array
+     {
+         return $this->accounts->run(function () use ($headers): array {
+-            $prior = $this->sessions->require($headers['cookie'] ?? null);
++            $prior = $this->sessions->require($headers['cookie'] ?? null, true, $headers['x-csrf-token'] ?? null);
+             return $this->database->immediate(fn (PDO $pdo): array => $this->sessions->within($pdo, $prior, function (SessionContext $current) use ($pdo): array {
+                 $query = $pdo->prepare('SELECT revision,saved_at,schema_version,content_version,adventure_id,payload_json,payload_hash,summary_json FROM saves WHERE account_id=?');
+                 $query->execute([$current->accountId]); $slot = $query->fetch();
+--- a/src/services/game-api.ts
++++ b/src/services/game-api.ts
+@@ -223,7 +223,8 @@
+   }
+   getSave(): Promise<ApiResult<SavedSnapshot>> {
+     if (this.current?.state !== 'authenticated') return Promise.resolve(failure('session-required'));
+-    return this.request('/save', 'GET', [200], v => fields(v, ['summary', 'snapshot']) && summary(v['summary']) && record(v['snapshot']), [401, 404, 503], {}, undefined, true);
++    return this.request('/save', 'GET', [200], v => fields(v, ['summary', 'snapshot']) && summary(v['summary']) && record(v['snapshot']), [401, 403, 404, 503],
++      { 'X-CSRF-Token': this.current.csrfToken }, undefined, true);
+   }
+   prepareSaveWrite(input: SaveWriteInput): { readonly ok: true; readonly request: PreparedSaveWrite } | ApiFailure {
+     if (this.disposed) return failure('disposed');
+--- a/src/ui/save-dialogs.ts
++++ b/src/ui/save-dialogs.ts
+@@ -93,6 +93,7 @@
+       reviewed = null; panel = 'conflict'; message = 'The server save changed. Review it before choosing whether to load or replace it.';
+     } else if (store.getState().runtime.persistence.pendingRequest) { panel = 'recovery'; message = failureMessage(result.error); }
+     else if (result.reason === 'unsafe') { panel = 'none'; message = 'Finish the current activity before saving. The previous account save remains available.'; }
++    else if (result.error?.status === 403) { panel = 'signin'; message = 'Check your current session before reviewing the account save again. Your progress stays in this tab.'; }
+     else if (result.reason === 'session-required' || result.error?.status === 401) { panel = 'signin'; message = 'Sign in to review and save this adventure. Your current progress stays in this tab.'; }
+     else { panel = 'none'; message = result.error ? failureMessage(result.error) : 'The save is not ready. Review the account slot again.'; }
+     changed();
+--- a/tests/services/game-api.test.ts
++++ b/tests/services/game-api.test.ts
+@@ -147,6 +147,7 @@
+     const { api, fetch } = rig([json(account()), new Response(raw, { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ETag: summary.etag } })]);
+     await api.getSession(); expect(await api.getSave()).toMatchObject({ ok: true, data: { summary: newer }, rawJson: raw });
+     expect(fetch.mock.calls.at(-1)![1]!.method).toBe('GET');
++    expect(new Headers(fetch.mock.calls.at(-1)![1]!.headers).get('X-CSRF-Token')).toBe(csrf);
+   });
+ 
+   it('rejects inconsistent save headers and acknowledgements including a wrong request id', async () => {
+--- a/tests/services/save-coordinator.test.ts
++++ b/tests/services/save-coordinator.test.ts
+@@ -52,12 +52,12 @@
+   const writes: RequestInit[] = [];
+   let reads = 0, sessions = 0, nextKey = 0;
+   let write = async (init: RequestInit): Promise<Response> => ack((currentSummary?.revision ?? 0) + 1, undefined, false, new Headers(init.headers).get('Idempotency-Key')!);
+-  let read = async (): Promise<Response> => currentSummary === null ? problem(404, 'save-not-found')
++  let read = async (_init: RequestInit): Promise<Response> => currentSummary === null ? problem(404, 'save-not-found')
+     : new Response(`{"summary":${JSON.stringify(currentSummary)},"snapshot":${snapshotJson}}`, { headers: {
+       'Content-Type': 'application/json', 'Cache-Control': 'no-store', ETag: currentSummary.etag } });
+   const fetcher = vi.fn(async (url: string | URL | Request, init?: RequestInit): Promise<Response> => {
+     if (String(url).endsWith('/session')) { sessions++; return response(session); }
+-    if (init?.method === 'GET') { reads++; return read(); }
++    if (init?.method === 'GET') { reads++; return read(init); }
+     writes.push(init!); return write(init!);
+   });
+   const api = new GameApi({ origin: 'https://game.example', apiBase: '/api/v1', fetch: fetcher as typeof fetch });
+@@ -83,6 +83,23 @@
+ }
+ 
+ describe('T049 coordinator, actual API/reader/capture with synthetic transport only', () => {
++  it('keeps a stale tab from reviewing a different signed-in session’s save', async () => {
++    const h = await setup(), originalGame = h.state.runtime.game;
++    const switchedToken = 'd'.repeat(43);
++    h.setRead(async init => {
++      const expected = new Headers(init.headers).get('X-CSRF-Token');
++      if (expected !== null && expected !== switchedToken) return problem(403, 'forbidden');
++      return response({ summary: summary(1, otherAdventure), snapshot: {
++        ...originalGame, adventureId: otherAdventure, saveSchemaVersion: 1, safeState: 'stable-exploration'
++      } }, 200, '"save-1"');
++    });
++    const read = await h.coordinator.readSlot();
++    expect(read).toMatchObject({ ok: false, error: { status: 403 } });
++    expect(h.state.runtime.auth).toMatchObject({ displayName: 'Same Label', csrfToken: h.session.csrfToken });
++    expect(h.state.runtime.game).toBe(originalGame);
++    expect(h.writes).toHaveLength(0);
++  });
++
+   it('requires explicit current runtime/API binding and a full slot read before a new write', async () => {
+     const h = await setup({ slot: 8, bind: false });
+     expect(await h.coordinator.save('manual')).toMatchObject({ ok: false, reason: 'session-required' });
+--- a/server/tests/SaveRoutesTest.php
++++ b/server/tests/SaveRoutesTest.php
+@@ -105,6 +105,16 @@
+         $stream = fopen('php://memory', 'w+b'); fwrite($stream, $raw ?? ($method === 'GET' ? '' : self::payload())); rewind($stream);
+         try { return ($handler ?? $this->handler())->handle($method, $route, $query, $fields ?? $this->fields(), $stream, '127.0.0.1'); }
+         finally { fclose($stream); }
++    }
++    public function testSaveReadCanBeBoundToTheReviewedSession(): void
++    {
++        $other = $this->account(self::OTHER);
++        $this->response($this->request(fields: $this->fields([], $other)), 201);
++        $this->response($this->request('GET', fields: $this->fields([], $other)), 200);
++        $stale = $this->request('GET', fields: $this->fields(['X-CSRF-Token' => $this->auth['csrfToken']], $other));
++        $problem = $this->response($stale, 403);
++        self::assertSame('forbidden', $problem['code']);
++        self::assertArrayNotHasKey('snapshot', $problem);
+     }
+     private function response(array $response, int $status): array
+     {
+--- a/tests/ui/save-dialogs.test.ts
++++ b/tests/ui/save-dialogs.test.ts
+@@ -72,6 +72,20 @@
+ }
+ 
+ describe('T050 save dialogs composed with accepted API/account/coordinator/reader', () => {
++  it('offers an explicit session check before reviewing after an account switch', async () => {
++    const f = fixture({ slot: true });
++    await f.dialogs.bootstrap();
++    const original = f.state.runtime.game;
++    f.setSession({ ...f.session, csrfToken: 'b'.repeat(43) });
++    f.read(async () => problem(403, 'forbidden'));
++    await f.dialogs.continue();
++    expect(f.dialogs.project()).toMatchObject({ panel: 'signin', message: expect.stringContaining('Check your current session') });
++    await f.dialogs.act('check-session');
++    expect(f.state.runtime.auth).toMatchObject({ csrfToken: f.session.csrfToken });
++    expect(f.restored).not.toHaveBeenCalled();
++    expect(f.writes).toHaveLength(0);
++    expect(f.state.runtime.game).toBe(original);
++  });
+   it('requires explicit first adoption after authenticated GET and empty read; cancellation keeps memory and sends no write', async () => {
+     const f = fixture(), game = f.state.runtime.game; await f.dialogs.bootstrap();
+     expect(f.state.runtime.game).toBe(game); expect(f.writes).toHaveLength(0);
+--- a/specs/001-physical-layer-underworld/contracts/game-api.openapi.yaml
++++ b/specs/001-physical-layer-underworld/contracts/game-api.openapi.yaml
+@@ -149,6 +149,12 @@
+     get:
+       operationId: getSave
+       summary: Read the sole account slot without changing it
++      parameters:
++        - name: X-CSRF-Token
++          in: header
++          required: false
++          description: The game sends the token from its reviewed session. A mismatch returns 403 before reading the slot.
++          schema: {type: string, minLength: 32, maxLength: 256}
+       responses:
+         '200':
+           description: Current slot; validate supported version before interpreting payload
+@@ -161,6 +167,8 @@
+                 $ref: '#/components/schemas/SavedSnapshot'
+         '401':
+           $ref: '#/components/responses/Unauthorized'
++        '403':
++          $ref: '#/components/responses/Forbidden'
+         '404':
+           description: Account has no save
+           content:

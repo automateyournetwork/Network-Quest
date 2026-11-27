@@ -1,6 +1,7 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import './optional-activities.css';
 import type { ContentRegistry } from '../content/registry';
+import { scoutEvidence, scoutPredictionCurrent, type ScoutChoice, type ScoutAssessment, type ScoutComparisonInput } from '../state/optional-channel-scout';
 import type { QualifiedId } from '../domain/types';
 import { optionalActivityDefinition, optionalActivityCompleted, isToySymbolActivity } from '../state/optional-activities';
 import type { OptionalActivityDefinition, OptionalActivitySession, OptionalMode } from '../state/optional-activities';
@@ -21,6 +22,10 @@ import { guardedPlan, playable, rejected, reductionPlan, unavailable } from './c
 
 /** Intent only. The application adapter captures it through the standard bus. */
 export type OptionalActivityIntent =
+  | { readonly kind: 'scout-select'; readonly sessionId: string; readonly choice: ScoutChoice }
+  | { readonly kind: 'scout-predict'; readonly sessionId: string; readonly baselineMeasurementId: string; readonly assessment: ScoutAssessment }
+  | { readonly kind: 'scout-measure'; readonly sessionId: string }
+  | ({ readonly kind: 'scout-compare'; readonly sessionId: string } & ScoutComparisonInput)
   | { readonly kind: 'start-optional'; readonly activityId: QualifiedId; readonly hotspotId: QualifiedId }
   | { readonly kind: 'choose-optional-mode'; readonly sessionId: string; readonly mode: OptionalMode }
   | { readonly kind: 'submit-optional'; readonly sessionId: string; readonly bits: string }
@@ -38,18 +43,20 @@ export interface OptionalActivityView {
   readonly controls: { readonly practice: string; readonly delivery: string; readonly submit: string; readonly retry: string; readonly exit: string };
   readonly limitations: readonly string[];
   readonly sources: readonly { readonly title: string; readonly section: string; readonly claim: string; readonly url: string | null }[];
-  readonly answerKind: 'bits' | 'power' | 'diary' | 'maintenance' | 'optics';
+  readonly answerKind: 'bits' | 'power' | 'diary' | 'maintenance' | 'optics' | 'radio';
   readonly diary?: RadioDiaryView;
   readonly maintenance?: MaintenanceView;
+  readonly radio?: { readonly baselines: readonly { readonly id: string; readonly label: string }[]; readonly prediction: string | null; readonly canMeasure: boolean; readonly measurementId: string | null; readonly predictLabel: string; readonly measureLabel: string };
   readonly opticalControls: OpticalBudgetBench['answerControls'] | null;
   readonly answerControls: { readonly assessmentLabel: string; readonly withinBudget: string; readonly overBudget: string; readonly differenceLabel: string } | null;
 }
 const answerKinds: Readonly<Record<OptionalActivityDefinition['optionalActivity']['kind'], OptionalActivityView['answerKind']>> = {
+  'radio-channel-scout': 'radio',
   'toy-symbol-message': 'bits', 'toy-symbol-loom': 'bits', 'delivered-power-audit': 'power',
   'radio-weather-diary': 'diary', 'notebook-combination': 'maintenance', 'optical-budget-bench': 'optics',
 };
 export interface OptionalSource { readonly id: string; readonly title: string; readonly url: string }
-const optionalKinds: readonly OptionalActivityIntent['kind'][] = ['start-optional', 'choose-optional-mode', 'submit-optional', 'submit-optional-power', 'submit-optional-optics', 'compatibility-optional', 'submit-optional-diary', 'submit-optional-maintenance', 'hint-optional', 'retry-optional', 'explain-optional', 'boundary-optional', 'exit-optional'];
+const optionalKinds: readonly OptionalActivityIntent['kind'][] = ['scout-select','scout-predict','scout-measure','scout-compare','start-optional', 'choose-optional-mode', 'submit-optional', 'submit-optional-power', 'submit-optional-optics', 'compatibility-optional', 'submit-optional-diary', 'submit-optional-maintenance', 'hint-optional', 'retry-optional', 'explain-optional', 'boundary-optional', 'exit-optional'];
 export function createOptionalActivitiesController(options: { readonly registry: ContentRegistry; readonly store: GameplayStore; readonly bus: ActionBus;
   readonly activityIds: readonly QualifiedId[]; readonly sources?: readonly OptionalSource[] }) {
   const { registry, store, bus } = options;
@@ -63,6 +70,10 @@ export function createOptionalActivitiesController(options: { readonly registry:
     const input = action.input as OptionalActivityIntent;
     let operation: OptionalActivityOperation;
     switch (input.kind) {
+      case 'scout-select': operation = { kind: 'scout-select', sessionId: input.sessionId, choice: input.choice }; break;
+      case 'scout-predict': operation = { kind: 'scout-predict', sessionId: input.sessionId, baselineMeasurementId: input.baselineMeasurementId, assessment: input.assessment }; break;
+      case 'scout-measure': operation = { kind: 'scout-measure', sessionId: input.sessionId, id: crypto.randomUUID() as import('../domain/types').MeasurementId }; break;
+      case 'scout-compare': operation = { ...input }; break;
       case 'start-optional': operation = { kind: 'start', activityId: input.activityId, hotspotId: input.hotspotId, sessionId: crypto.randomUUID() }; break;
       case 'choose-optional-mode': operation = { kind: 'choose-mode', sessionId: input.sessionId, mode: input.mode }; break;
       case 'submit-optional': operation = { kind: 'submit', sessionId: input.sessionId, bits: input.bits }; break;
@@ -105,8 +116,8 @@ export function createOptionalActivitiesController(options: { readonly registry:
       const definition = optionalActivityDefinition(registry, activityId); if (!definition) return [];
       return definition.optionalActivity.entryContexts.filter(entry => entry.roomId === game.world.roomId && entry.safePositionId === game.world.position.safePositionId).map(entry => {
         const room = registry.record(entry.roomId), available = conditionSatisfied(definition.prerequisite, game.world, registry);
-        return { activityId, hotspotId: entry.hotspotId as QualifiedId, available, unavailableReason: available ? null : definition.id === 'spec001:MG02' ? 'Complete the Prism Vault fiber verification to unlock this optional bench.' : 'Complete the required investigation to unlock this activity.',
-          label: definition.id === 'spec001:MG02' ? 'Prism Budget Bench' : room?.kind === 'room' ? room.hotspots.find(h => h.id === entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity' };
+        return { activityId, hotspotId: entry.hotspotId as QualifiedId, available, unavailableReason: available ? null : definition.id === 'spec001:MG03' ? 'Complete the Observatory radio verification to unlock Channel Scout.' : definition.id === 'spec001:MG02' ? 'Complete the Prism Vault fiber verification to unlock this optional bench.' : 'Complete the required investigation to unlock this activity.',
+          label: definition.id === 'spec001:MG03' ? 'Channel Scout' : definition.id === 'spec001:MG02' ? 'Prism Budget Bench' : room?.kind === 'room' ? room.hotspots.find(h => h.id === entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity' };
       });
     }) : [];
     return { entries, capture: projection.capture, view: state.runtime.activity?.kind === 'active-optional' && session?.clientGeneration === state.runtime.auth.clientGeneration
@@ -122,13 +133,13 @@ export function projectOptionalActivity(registry: ContentRegistry, game: GameSta
     instructions: [], map: [], samples: [], feedback: 'This exhibit needs correction. You can leave safely.', hintText: null, completed: false, rewardText: null,
     controls: { practice: 'Practice', delivery: 'Try the full activity', submit: 'Check answer', retry: 'Retry', exit: 'Leave activity' }, limitations: [], sources: [], answerKind: 'bits', answerControls: null, opticalControls: null };
   const activity = definition.optionalActivity, profile = 'profileId' in activity ? registry.record(activity.profileId) : null, room = registry.record(session.entry.roomId);
-  const title = definition.id === 'spec001:MG02' ? 'Prism Budget Bench' : activity.kind === 'notebook-combination' ? 'Lost Maintenance Record' : room?.kind === 'room' ? room.hotspots.find(h => h.id === session.entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity';
+  const title = definition.id === 'spec001:MG03' ? 'Channel Scout' : definition.id === 'spec001:MG02' ? 'Prism Budget Bench' : activity.kind === 'notebook-combination' ? 'Lost Maintenance Record' : room?.kind === 'room' ? room.hotspots.find(h => h.id === session.entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity';
   const completed = optionalActivityCompleted(registry, definition, game);
   const level = (value: number) => value > 0 ? `+${value}` : String(value).replace('-', '−');
   const parameters = profile?.kind === 'profile' ? profile.parameters as { levels?: readonly { symbol: { value: number }; bits: string }[]; deliveredBudget?: { value: number; unit: string }; transmit?: { value: number; unit: string }; sensitivity?: { value: number; unit: string }; maximumReceive?: { value: number; unit: string }; requiredMargin?: { value: number; unit: string } } : null;
   return { sessionId: session.sessionId, title, phase: session.phase, mode: session.mode, instructions: activity.instructions,
     map: isToySymbolActivity(activity) ? parameters?.levels?.map(row => `${level(row.symbol.value)} → ${row.bits}`) ?? [] : [],
-    samples: session.mode ? activity.kind === 'optical-budget-bench' ? [
+    samples: session.mode ? activity.kind === 'radio-channel-scout' ? session.mode === 'practice' ? [activity.practice.explanation] : scoutEvidence(registry, game).map(row => `Observatory reading ${row.index}, configuration ${row.revision}: signal ${row.signal} dBm; noise ${row.noise} dBm; SNR ${row.snr} dB. ${row.thresholdMet ? 'Meets' : 'Below'} the supplied 20 dB threshold. ${row.historical ? 'Historical only; cannot prove the current link.' : 'Current actual observation.'}`) : activity.kind === 'optical-budget-bench' ? [
       `Transmit: ${parameters?.transmit?.value} dBm. Total passive loss: ${activity[session.mode].loss.value} dB.`,
       `Sensitivity: ${parameters?.sensitivity?.value} dBm. Required reserve: ${parameters?.requiredMargin?.value} dB, inclusive.`,
       `Maximum receive: ${parameters?.maximumReceive?.value} dBm, inclusive. Check overload separately.`,
@@ -143,6 +154,9 @@ export function projectOptionalActivity(registry: ContentRegistry, game: GameSta
     controls: activity.controls, limitations: definition.model.limitations, answerKind: answerKinds[activity.kind],
     ...(activity.kind === 'notebook-combination' ? { maintenance: { cards: maintenanceCards(activity, registry, game, session.mode ?? 'delivery') ?? [], ...activity.answerControls } } : {}),
     ...(activity.kind === 'radio-weather-diary' ? { diary: projectRadioDiary(registry, game, activity, completed && game.notebook.factIds.some(id => String(id) === activity.reward.factId)) } : {}),
+    ...(activity.kind === 'radio-channel-scout' ? { radio: { baselines: scoutEvidence(registry, game).filter(row => row.revision < game.world.configurationRevision).map(row => ({ id: row.id, label: `Reading ${row.index} · ${row.snr} dB` })),
+      prediction: session.scout?.prediction ? `Recorded prediction: ${session.scout.prediction.assessment === 'meets-threshold' ? 'meets' : 'below'} the supplied 20 dB threshold. ${scoutPredictionCurrent(registry, session.scout.prediction, game) ? session.scout?.measurementId ? 'A new actual reading is available for comparison.' : 'Ready for an explicit measurement.' : 'Configuration changed; record a new prediction.'}` : null,
+      canMeasure: scoutPredictionCurrent(registry, session.scout?.prediction ?? null, game), measurementId: session.scout?.measurementId ?? null, predictLabel: activity.controls.predict, measureLabel: activity.controls.measure } } : {}),
     opticalControls: activity.kind === 'optical-budget-bench' ? activity.answerControls : null,
     answerControls: activity.kind === 'delivered-power-audit' ? activity.answerControls : null,
     sources: definition.sourceClaims.map(claim => {
@@ -204,6 +218,39 @@ export function createOptionalActivityPanel<Command>(host: HTMLElement, dispatch
       send(scope, { kind: 'submit-optional-optics', sessionId: scope.view.sessionId, answer });
     }, { signal: scope.abort.signal }); return form;
   }
+  function radioForm(scope: Scope, previous: Scope | null) {
+    const radio = scope.view.radio!, section = doc.createElement('div'); section.className = 'nq-radio-scout';
+    if (scope.view.mode === 'practice') return section;
+    const configuration = doc.createElement('div'); configuration.setAttribute('aria-label', 'Radio configuration');
+    for (const [choice, label] of [['channel-A','Select channel A'],['channel-B','Select channel B'],['mitigate-emitter','Isolate the local emitter'],['raise-noise','Reconnect the local emitter']] as const)
+      configuration.append(button(scope, choice, label, { kind: 'scout-select', sessionId: scope.view.sessionId, choice }));
+    section.append(paragraph('These controls change the adventure’s radio configuration. A new observation requires Measure.'), configuration);
+    const retain = previous?.view.sessionId === scope.view.sessionId && previous.view.mode === scope.view.mode;
+    function select(form: HTMLElement, key: string, labelText: string, options: readonly (readonly [string,string])[]) {
+      const label = doc.createElement('label'), select = doc.createElement('select'); select.id = `nq-scout-${key}`; label.htmlFor = select.id; label.textContent = labelText;
+      for (const [value,text] of [['','Choose an option'],...options]) { const option=doc.createElement('option'); option.value=value!; option.textContent=text!; select.append(option); }
+      select.value = retain ? (previous?.controls.get(key) as HTMLSelectElement | undefined)?.value ?? '' : '';
+      scope.controls.set(key,select);form.append(label,select);return select;
+    }
+    const prediction = doc.createElement('form'), baseline = select(prediction,'baseline','Earlier actual observation',radio.baselines.map(row=>[row.id,row.label] as const));
+    const expected = select(prediction,'prediction','Predicted current threshold result',[['meets-threshold','Meets 20 dB'],['below-threshold','Below 20 dB']]);
+    const predict = doc.createElement('button'); predict.type='submit';predict.textContent=radio.predictLabel;scope.controls.set('predict',predict);prediction.append(predict);
+    const enablePrediction=()=>{predict.disabled=!baseline.value||!expected.value;};enablePrediction();baseline.addEventListener('change',enablePrediction,{signal:scope.abort.signal});expected.addEventListener('change',enablePrediction,{signal:scope.abort.signal});
+    prediction.addEventListener('submit',event=>{event.preventDefault();if(baseline.value&&(expected.value==='meets-threshold'||expected.value==='below-threshold'))send(scope,{kind:'scout-predict',sessionId:scope.view.sessionId,baselineMeasurementId:baseline.value,assessment:expected.value});},{signal:scope.abort.signal});section.append(prediction);
+    if(!radio.baselines.length)section.append(paragraph('An earlier actual reading is needed. Select a different configuration, or leave and take a radio reading before returning.'));
+    if(radio.prediction)section.append(paragraph(radio.prediction));
+    const measure=button(scope,'measure',radio.measureLabel,{kind:'scout-measure',sessionId:scope.view.sessionId});measure.disabled=!radio.canMeasure;section.append(measure);
+    const comparison=doc.createElement('form');
+    const direction=select(comparison,'comparison','SNR compared with the earlier reading',[['increased','Increased'],['unchanged','Unchanged'],['decreased','Decreased']]);
+    const threshold=select(comparison,'threshold','Current measured threshold result',[['meets-threshold','Meets 20 dB'],['below-threshold','Below 20 dB']]);
+    const supported=select(comparison,'supported','Did the new reading support your prediction?',[['supported','Supported'],['not-supported','Not supported']]);
+    const claim=select(comparison,'claim','What does this evidence establish?',[['current-reading-only-no-cause','Observation only'],['earlier-proves-current','Earlier proves now'],['weather-proven','Weather caused it'],['throughput-proven','Throughput proved']]);
+    const submit=doc.createElement('button');submit.type='submit';submit.textContent=scope.view.controls.submit;scope.controls.set('submit',submit);comparison.append(submit);
+    const enableCompare=()=>{submit.disabled=!radio.measurementId||![direction,threshold,supported,claim].every(node=>!!node.value);};enableCompare();
+    for(const node of [direction,threshold,supported,claim])node.addEventListener('change',enableCompare,{signal:scope.abort.signal});
+    comparison.addEventListener('submit',event=>{event.preventDefault();if(submit.disabled||!radio.measurementId)return;send(scope,{kind:'scout-compare',sessionId:scope.view.sessionId,laterMeasurementId:radio.measurementId,comparison:direction.value as ScoutComparisonInput['comparison'],currentAssessment:threshold.value as ScoutAssessment,predictionAssessment:supported.value as ScoutComparisonInput['predictionAssessment'],evidenceClaim:claim.value as ScoutComparisonInput['evidenceClaim']});},{signal:scope.abort.signal});
+    section.append(comparison);return section;
+  }
   return { element, render(view: OptionalActivityView | null, capture: Capture) {
     if (disposed) return;
     if (!view) { retire(); return; }
@@ -236,9 +283,10 @@ export function createOptionalActivityPanel<Command>(host: HTMLElement, dispatch
       previous?.view.sessionId === view.sessionId && previous.view.mode === view.mode ? previous.controls : new Map(),
       scope.controls, view.controls.submit, scope.abort.signal, answer => send(scope, { kind: 'submit-optional-maintenance', sessionId: view.sessionId, answer })));
     if (view.mode && !view.diary && !view.maintenance) {
-      const samples = doc.createElement('ol'); samples.setAttribute('aria-label', view.answerKind === 'optics' ? 'Supplied optical card' : view.answerKind === 'power' ? 'Power audit cards' : view.mode === 'practice' ? 'Practice samples' : 'Message samples');
+      const samples = doc.createElement('ol'); samples.setAttribute('aria-label', view.answerKind === 'radio' ? view.mode === 'practice' ? 'Worked radio source card' : 'Actual radio observations' : view.answerKind === 'optics' ? 'Supplied optical card' : view.answerKind === 'power' ? 'Power audit cards' : view.mode === 'practice' ? 'Practice samples' : 'Message samples');
       for (const sample of view.samples) { const item = doc.createElement('li'); item.textContent = sample; samples.append(item); } children.push(samples);
-      if (view.answerKind === 'optics' && view.opticalControls) {
+      if (view.answerKind === 'radio' && view.radio) { children.push(radioForm(scope, previous)); }
+      else if (view.answerKind === 'optics' && view.opticalControls) {
         children.push(opticalForm(scope, previous, view.opticalControls));
       } else if (view.answerKind === 'bits' || view.answerKind === 'power') {
       const form = doc.createElement('form'), label = doc.createElement('label'), answer = doc.createElement('input'), submit = doc.createElement('button');
@@ -263,7 +311,7 @@ export function createOptionalActivityPanel<Command>(host: HTMLElement, dispatch
       }, { signal: scope.abort.signal }); children.push(form);
       }
     }
-    const feedback = paragraph(view.feedback ?? (view.completed ? 'Completion recorded in your journal.' : view.answerKind === 'optics' ? 'Choose practice or diagnose the full card when ready.' : view.answerKind === 'maintenance' ? 'Choose the supplied practice card or combine your collected records when ready.' : view.answerKind === 'diary' ? 'Read the worked card or compare your actual observations when ready.' : view.answerKind === 'power' ? 'Choose practice or audit the full plan when ready.' : 'Choose practice or the full message when ready.'));
+    const feedback = paragraph(view.feedback ?? (view.completed ? 'Completion recorded in your journal.' : view.answerKind === 'radio' ? 'Choose worked practice or predict, measure and compare when ready.' : view.answerKind === 'optics' ? 'Choose practice or diagnose the full card when ready.' : view.answerKind === 'maintenance' ? 'Choose the supplied practice card or combine your collected records when ready.' : view.answerKind === 'diary' ? 'Read the worked card or compare your actual observations when ready.' : view.answerKind === 'power' ? 'Choose practice or audit the full plan when ready.' : 'Choose practice or the full message when ready.'));
     feedback.setAttribute('role', 'status'); feedback.setAttribute('aria-live', 'polite'); children.push(feedback);
     if (view.hintText) children.push(paragraph(view.hintText));
     if (view.rewardText) children.push(paragraph(view.rewardText));

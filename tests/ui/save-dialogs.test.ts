@@ -72,6 +72,20 @@ function fixture(options: { title?: boolean; slot?: boolean; same?: boolean; gue
 }
 
 describe('T050 save dialogs composed with accepted API/account/coordinator/reader', () => {
+  it('offers an explicit session check before reviewing after an account switch', async () => {
+    const f = fixture({ slot: true });
+    await f.dialogs.bootstrap();
+    const original = f.state.runtime.game;
+    f.setSession({ ...f.session, csrfToken: 'b'.repeat(43) });
+    f.read(async () => problem(403, 'forbidden'));
+    await f.dialogs.continue();
+    expect(f.dialogs.project()).toMatchObject({ panel: 'signin', message: expect.stringContaining('Check your current session') });
+    await f.dialogs.act('check-session');
+    expect(f.state.runtime.auth).toMatchObject({ csrfToken: f.session.csrfToken });
+    expect(f.restored).not.toHaveBeenCalled();
+    expect(f.writes).toHaveLength(0);
+    expect(f.state.runtime.game).toBe(original);
+  });
   it('requires explicit first adoption after authenticated GET and empty read; cancellation keeps memory and sends no write', async () => {
     const f = fixture(), game = f.state.runtime.game; await f.dialogs.bootstrap();
     expect(f.state.runtime.game).toBe(game); expect(f.writes).toHaveLength(0);
