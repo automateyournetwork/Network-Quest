@@ -88,6 +88,16 @@ describe('T093 canonical authored character roster', () => {
     let data=input();char(data).compendium.portraitAssetId='spec001:ASSET-PORTRAIT-CH04';reject(data,'character-portrait');
     data=input();delete char(data).compendium.recruitmentSummary;reject(data,'character-compendium');
   });
+  it('keeps a published portrait binding attached to its own character and allocation', () => {
+    const data = input();
+    const owner = char(data);
+    const other = char(data, 'CH04');
+    owner.compendium.portraitBinding.contentId = other.id;
+    reject(data, 'character-portrait');
+    owner.compendium.portraitBinding.contentId = owner.id;
+    owner.compendium.portraitBinding.assetId = other.compendium.portraitAssetId;
+    reject(data, 'character-portrait');
+  });
   it('rejects added recruitment/levels on a nonrecruit without changing the nine-recruit roster', () => {
     const data=input();char(data,'CH08').abilities=[structuredClone(char(data).abilities[0])];
     char(data,'CH08').abilities[0].id='spec001:ABILITY-CH08-illegal';reject(data,'character-nonrecruit');
@@ -128,7 +138,13 @@ describe('T093 bounded schema evolution preserves T092 provenance', () => {
     expect(fixture.frozenArtifacts['content/schemas/content.schema.json']).toBe('712297ffb45b2d1fa9abf75ff042ca1c50a58610d077a61cc1dc13688afbb27b');
     const changed=Object.keys(beforeOptionalSchema.$defs).filter(k=>JSON.stringify(beforeOptionalSchema.$defs[k])!==JSON.stringify(originalSchema.$defs[k]));
     expect(changed).toEqual(['ability','character','characterDemonstration']);
-    for (const key of ['ability','character','characterDemonstration']) expect(schema.$defs[key]).toEqual(beforeOptionalSchema.$defs[key]);
+    for (const key of ['ability','characterDemonstration']) expect(schema.$defs[key]).toEqual(beforeOptionalSchema.$defs[key]);
+    const characterBeforePortraits = structuredClone(schema.$defs.character);
+    const compendium = characterBeforePortraits.properties.compendium;
+    expect(compendium.required).not.toContain('portraitBinding');
+    expect(compendium.properties.portraitBinding).toBeDefined();
+    delete compendium.properties.portraitBinding;
+    expect(characterBeforePortraits).toEqual(beforeOptionalSchema.$defs.character);
     expect(schema.$defs.ability.anyOf).toBeUndefined();
     // The generated editor type must keep the complete ability object.
     const ability = char(input()).abilities[0] as S.ability;

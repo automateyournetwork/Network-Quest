@@ -1,0 +1,32 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PORTRAIT-CH13",
+  "hashes": [
+    "87fc4f9fa61e191761026fd6e7590957c43004e9bd1ce3f9b906772c1d5a06a0",
+    "d064739c4256097800464c4f4403676df6c47eb8acdb5fc087d7be519c916604",
+    "8857b3d0d1b37c7715c22178af46eb4cf9373478cbbe3b523ca5825a0c56487d",
+    "8306c123647e198ddbfb7e2d8dd6e89eb060adf6bd1933df887ece1b16ba11f1"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex worker loop137/T120",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, original Blender 5.2.1 renders, OpenAI built-in image generation, Pillow 12.1.0 / libwebp 1.6.0 and Firefox 159.0.",
+  "details": {
+    "findings": "The gold spectacles, cap, mailed envelope and raised flag make the tortoise's postal role recognizable.",
+    "methods": [
+      "image-inspection"
+    ],
+    "tool": "OpenAI view_image; full generated artwork, model/portrait pairs and 96 px contact sheet",
+    "observedPaths": [
+      "docs/evidence/spec001/assets/T108/CH13-source-rest.png",
+      "assets-src/images/T120/CH13/original.png",
+      "public/assets/portraits/CH13.webp",
+      "public/assets/portraits/CH13-256.webp"
+    ],
+    "modelComparison": "docs/evidence/spec001/image-production/T120/model-portrait-sheet.jpg",
+    "thumbnailSheet": "docs/evidence/spec001/image-production/T120/thumbnail-sheet.png",
+    "reviewScope": "Agent production inspection."
+  },
+  "check": "visual"
+}

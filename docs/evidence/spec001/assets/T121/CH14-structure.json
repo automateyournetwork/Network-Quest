@@ -1,0 +1,58 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PORTRAIT-CH14",
+  "hashes": [
+    "5085324ae81d4d0b6b36981bb373d18f628129f2f73fb955b1dfbefc0ea46f9d",
+    "98953b30aa216026b7cd5a1238b2849c55cb54b9942fe2d658dee9c19db5d048",
+    "2dd1609ff703dbe6de4d225d88aae4e4f3966f191da5c15c47864749724e1c53",
+    "a45321bc641e4ca291bd3954518ba37cbbf8dadacaa2afa801881ebfa83f5b62"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex / loop138 / T121",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Apple sips-316, Pillow 12.1.0, libwebp 1.6.0, Firefox 159.0",
+  "details": {
+    "findings": "The intact RGB PNG and both WebPs decoded. Native dimensions and hashes agreed with the export report.",
+    "exportReport": "docs/evidence/spec001/image-production/T121/exports.json",
+    "original": {
+      "path": "assets-src/images/T121/CH14/original.png",
+      "sha256": "98953b30aa216026b7cd5a1238b2849c55cb54b9942fe2d658dee9c19db5d048",
+      "bytes": 2908138,
+      "format": "PNG",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGB"
+    },
+    "exports": [
+      {
+        "path": "public/assets/portraits/CH14.webp",
+        "sha256": "2dd1609ff703dbe6de4d225d88aae4e4f3966f191da5c15c47864749724e1c53",
+        "bytes": 43180,
+        "format": "WEBP",
+        "dimensions": [
+          512,
+          512
+        ],
+        "mode": "RGB",
+        "rmse8BitRgbFromResizedOriginal": 4.2625
+      },
+      {
+        "path": "public/assets/portraits/CH14-256.webp",
+        "sha256": "a45321bc641e4ca291bd3954518ba37cbbf8dadacaa2afa801881ebfa83f5b62",
+        "bytes": 12070,
+        "format": "WEBP",
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGB",
+        "rmse8BitRgbFromResizedOriginal": 4.6905
+      }
+    ],
+    "composition": "Whole square, with the generator framing unchanged at both display sizes."
+  },
+  "check": "structure"
+}

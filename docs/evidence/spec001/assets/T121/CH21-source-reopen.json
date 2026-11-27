@@ -1,0 +1,60 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PORTRAIT-CH21",
+  "hashes": [
+    "0c8d9f1feb922c0db44c92efbd975f88b433bd011e2efcb4e1fe512de6553bf1",
+    "5f71f7d2a9882a124dfc41a4aeb8f93a6e8b3a2e1df9171fdc0c4994ad6122f6",
+    "68eaa0fd007f79e3749b199d9557bbf27899e34d9cb2d018fbbbdf0b5c6ac7ce",
+    "1990c4be443a72ca9a83b680433186e439c26578c8cf89dd40758c77a3c6983b"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex / loop138 / T121",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Apple sips-316, Pillow 12.1.0, libwebp 1.6.0, Firefox 159.0",
+  "details": {
+    "findings": "Apple ImageIO via sips decoded the original and model render to TIFF in separate native processes.",
+    "nativeReport": "docs/evidence/spec001/image-production/T121/native-reopen.json",
+    "nativeDecodes": [
+      {
+        "path": "assets-src/images/T121/CH21/model-reference.png",
+        "sha256": "0c8d9f1feb922c0db44c92efbd975f88b433bd011e2efcb4e1fe512de6553bf1",
+        "pixelDimensions": [
+          480,
+          480
+        ],
+        "nativeTiffDecoded": true
+      },
+      {
+        "path": "assets-src/images/T121/CH21/original.png",
+        "sha256": "5f71f7d2a9882a124dfc41a4aeb8f93a6e8b3a2e1df9171fdc0c4994ad6122f6",
+        "pixelDimensions": [
+          1254,
+          1254
+        ],
+        "nativeTiffDecoded": true
+      },
+      {
+        "path": "public/assets/portraits/CH21.webp",
+        "sha256": "68eaa0fd007f79e3749b199d9557bbf27899e34d9cb2d018fbbbdf0b5c6ac7ce",
+        "pixelDimensions": [
+          512,
+          512
+        ],
+        "nativeTiffDecoded": true
+      },
+      {
+        "path": "public/assets/portraits/CH21-256.webp",
+        "sha256": "1990c4be443a72ca9a83b680433186e439c26578c8cf89dd40758c77a3c6983b",
+        "pixelDimensions": [
+          256,
+          256
+        ],
+        "nativeTiffDecoded": true
+      }
+    ],
+    "characterModel": "assets-src/characters/CH21.blend",
+    "characterModelSha256": "33e8592944c809d4c75b387900e978baaab82d5cbb1489bfe01345514089ee9e"
+  },
+  "check": "source-reopen"
+}

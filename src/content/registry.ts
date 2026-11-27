@@ -411,6 +411,10 @@ function checkRecord(r: S.authoredRecord, w: S.world, records: S.authoredRecord[
     if (!r.effects.some(e => e.kind === 'complete-objective' && e.objectiveId === r.id)) fail('objective-effect', r.id, 'Completion must identify this objective');
   }
   if (r.kind === 'character') {
+    const portrait = r.compendium.portraitBinding;
+    if (portrait && (portrait.contentId !== r.id || portrait.assetId !== r.compendium.portraitAssetId || !r.assetIds.includes(portrait.assetId))) {
+      fail('character-portrait', r.id, 'Reviewed portrait must identify this character and its allocated compendium asset');
+    }
     if (r.recruitable !== w.characters.find(c => c.id === r.id)?.recruitable) fail('character-definition', r.id, 'Recruitability contradicts registry');
     if (new Set(r.progression.map(p => p.level)).size !== r.progression.length) fail('progression', r.id, 'Duplicate progression level');
     for (const p of r.progression) if (p.abilityIds.some(id => !r.abilities.some(a => a.id === id))) fail('ability-owner', r.id, 'Progression unlocks another character ability');

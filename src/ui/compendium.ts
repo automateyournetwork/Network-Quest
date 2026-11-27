@@ -12,6 +12,7 @@ import type { NotebookEvidenceView } from './notebook';
  * Planned manifest allocations are deliberately not a runtime URL resolver. */
 export interface CompendiumPortraitBinding {
   readonly characterId: string; readonly compendiumId: string; readonly assetId: string; readonly exportPath: string;
+  readonly caption?: string;
 }
 export type CompendiumPortrait = { readonly status: 'unavailable'; readonly assetId: string | null; readonly text: string }
   | { readonly status: 'available'; readonly assetId: string; readonly text: string; readonly src: string };
@@ -20,9 +21,10 @@ export function resolveCompendiumPortrait(character: Readonly<S.character>, bind
   const unavailable: CompendiumPortrait = { status: 'unavailable', assetId, text };
   const matches = bindings.filter(binding => binding.characterId === character.id && binding.compendiumId === character.compendium.id && binding.assetId === assetId);
   if (!assetId || !character.assetIds.includes(assetId) || matches.length !== 1 || !/^\/(?:[A-Za-z0-9_-]+\/)*$/.test(gameBase)) return unavailable;
-  const path = matches[0]!.exportPath;
+  const binding = matches[0]!;
+  const path = binding.exportPath;
   if (!/^public\/assets\/[A-Za-z0-9_./-]+\.(?:png|webp|avif|jpg|jpeg)$/.test(path) || path.split('/').some(segment => segment === '..' || segment === '.' || segment === '')) return unavailable;
-  return { status: 'available', assetId, text, src: `${gameBase}${path.slice('public/'.length)}` };
+  return { status: 'available', assetId, text: binding.caption?.trim() || text, src: `${gameBase}${path.slice('public/'.length)}` };
 }
 
 export interface EvidenceRouteStep { readonly fromRoomId: RoomId; readonly fromRoom: string; readonly toRoomId: RoomId; readonly toRoom: string; readonly exitLabel: string }
@@ -207,7 +209,13 @@ export interface CompendiumControllerOptions extends Omit<CompendiumProjectionOp
 }
 export function createCompendiumController(options: CompendiumControllerOptions) {
   const { bus, store } = options;
-  const metadata = structuredClone(options.metadata), portraits = structuredClone(options.portraits ?? []), sourceCatalog = structuredClone(options.sourceCatalog ?? []);
+  const metadata = structuredClone(options.metadata), sourceCatalog = structuredClone(options.sourceCatalog ?? []);
+  const portraits = structuredClone(options.portraits ?? metadata.characters.flatMap(({ id }) => {
+    const character = options.registry.record(id);
+    if (character?.kind !== 'character' || !character.compendium.portraitBinding) return [];
+    const { assetId, exportPath, caption, contentId } = character.compendium.portraitBinding;
+    return [{ characterId: contentId, compendiumId: character.compendium.id, assetId, exportPath, caption }];
+  }));
   let disposed = false, projection: { readonly game: GameState | null; readonly capture: ActionCapture } | null = null;
   const panels: PanelPlanner = (panel, action, before) => {
     if (disposed || panel !== 'compendium') return unavailable('panel-unavailable', 'This panel is not available here.');

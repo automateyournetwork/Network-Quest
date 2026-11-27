@@ -1,0 +1,33 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PORTRAIT-CH10",
+  "hashes": [
+    "9a58cf9c79afa03c6a4f33a0a5a0adf48c3ffe2841ba9777ecebc901e45ed756",
+    "489f07e93e44a9c15f9bbd94e69743a3a7f18f823300514a23924dea57f4736b",
+    "bd13f1c380a10d7ba5f527724603c9e62a237827acdfa0b5b8f7c50bd95cce83",
+    "fda3288b9c61eb7ba82187713c30e2bac60097c3ba050a503dbebfa22a320e03"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex worker loop137/T120",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, original Blender 5.2.1 renders, OpenAI built-in image generation, Pillow 12.1.0 / libwebp 1.6.0 and Firefox 159.0.",
+  "details": {
+    "findings": "Both WebP sizes independently decoded in native Firefox from the nested public path. Their HTTP response hashes matched the inspected exports.",
+    "methods": [
+      "browser-inspection"
+    ],
+    "tool": "Playwright Firefox 159.0 and agent inspection of rendered comparison sheets",
+    "observedPaths": [
+      "docs/evidence/spec001/assets/T108/CH10-source-rest.png",
+      "assets-src/images/T120/CH10/original.png",
+      "public/assets/portraits/CH10.webp",
+      "public/assets/portraits/CH10-256.webp"
+    ],
+    "report": "docs/evidence/spec001/image-production/T120/browser.json",
+    "compendiumId": "spec001:COMPENDIUM-CH10",
+    "caption": "Microwave Phoenix spreads fans of russet and gold feathers around the small brass alignment dial on its chest.",
+    "scope": "Independent export/browser comparison; separate usage records identify discoveries through gameplay."
+  },
+  "check": "browser-comparison"
+}

@@ -133,6 +133,12 @@ describe('T095 portrait boundary; positive bindings remain synthetic', () => {
     expect(resolveCompendiumPortrait(character, [good], '/arcade/play/network-quest/')).toEqual({ status: 'available', assetId: good.assetId,
       text: character.compendium.portraitText, src: '/arcade/play/network-quest/assets/portraits/CH03.webp' });
   });
+  it('describes the reviewed portrait and retains the character text when its binding is unavailable', () => {
+    const caption = 'Photon has copper antennae, pale wings and a glowing abdomen.';
+    expect(resolveCompendiumPortrait(character, [{ ...good, caption }]).text).toBe(caption);
+    expect(resolveCompendiumPortrait(character, [{ ...good, caption: ' ' }]).text).toBe(character.compendium.portraitText);
+    expect(resolveCompendiumPortrait(character, [{ ...good, caption, exportPath: '../CH03.webp' }]).text).toBe(character.compendium.portraitText);
+  });
   it.each([
     { ...good, characterId: 'spec001:CH04' }, { ...good, compendiumId: 'spec001:COMPENDIUM-CH04' }, { ...good, assetId: 'spec001:ASSET-CH03' },
     { ...good, exportPath: 'https://example.com/private.png' }, { ...good, exportPath: 'public/assets/../private.png' },

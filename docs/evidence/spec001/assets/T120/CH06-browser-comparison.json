@@ -1,0 +1,33 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PORTRAIT-CH06",
+  "hashes": [
+    "e8f550f7eb6b24e740805aa39cc11c5f993f92c78485f6a64e4dbe01c10979d3",
+    "d264ae6c511c9a95007f4fb56bc94f1e7eb66b126e9d1ce07f07f26692ef3255",
+    "7733d3497b8207a8f910e7cd4da523baa0e63dad1252c1037503f350fcbcc0f1",
+    "b45b224e43dc6f8ecd98ae79eed573a83ecc79d22641d45a760998627fe3cb0b"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex worker loop137/T120",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, original Blender 5.2.1 renders, OpenAI built-in image generation, Pillow 12.1.0 / libwebp 1.6.0 and Firefox 159.0.",
+  "details": {
+    "findings": "Both WebP sizes independently decoded in native Firefox from the nested public path. Their HTTP response hashes matched the inspected exports.",
+    "methods": [
+      "browser-inspection"
+    ],
+    "tool": "Playwright Firefox 159.0 and agent inspection of rendered comparison sheets",
+    "observedPaths": [
+      "docs/evidence/spec001/assets/t107/CH06-source.png",
+      "assets-src/images/T120/CH06/original.png",
+      "public/assets/portraits/CH06.webp",
+      "public/assets/portraits/CH06-256.webp"
+    ],
+    "report": "docs/evidence/spec001/image-production/T120/browser.json",
+    "compendiumId": "spec001:COMPENDIUM-CH06",
+    "caption": "The Multimode Hydra’s three striped necks rise from one body. The middle head wears spectacles above a single brass gauge.",
+    "scope": "Independent export/browser comparison; separate usage records identify discoveries through gameplay."
+  },
+  "check": "browser-comparison"
+}

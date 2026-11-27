@@ -1,0 +1,60 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PORTRAIT-CH19",
+  "hashes": [
+    "398ed0645871ed5daca9b8dbefa20b5ecb7ef8e11a2887d2cde581c6b83b2df6",
+    "2f011e9b9abb0d4183221f0ef3db7c040b35498bec2cee6e19cd0c79a01b6d2d",
+    "27c65194d072ccc55289e51c480ce2f6ae412c7a2906cfb80596f12b8a94c3b5",
+    "0ed14b0b7da92f2a3f596b7d65b0b1989efa3ec8db017abd0b056299746b1183"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex / loop138 / T121",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Apple sips-316, Pillow 12.1.0, libwebp 1.6.0, Firefox 159.0",
+  "details": {
+    "findings": "Apple ImageIO via sips decoded the original and model render to TIFF in separate native processes.",
+    "nativeReport": "docs/evidence/spec001/image-production/T121/native-reopen.json",
+    "nativeDecodes": [
+      {
+        "path": "assets-src/images/T121/CH19/model-reference.png",
+        "sha256": "398ed0645871ed5daca9b8dbefa20b5ecb7ef8e11a2887d2cde581c6b83b2df6",
+        "pixelDimensions": [
+          480,
+          480
+        ],
+        "nativeTiffDecoded": true
+      },
+      {
+        "path": "assets-src/images/T121/CH19/original.png",
+        "sha256": "2f011e9b9abb0d4183221f0ef3db7c040b35498bec2cee6e19cd0c79a01b6d2d",
+        "pixelDimensions": [
+          1254,
+          1254
+        ],
+        "nativeTiffDecoded": true
+      },
+      {
+        "path": "public/assets/portraits/CH19.webp",
+        "sha256": "27c65194d072ccc55289e51c480ce2f6ae412c7a2906cfb80596f12b8a94c3b5",
+        "pixelDimensions": [
+          512,
+          512
+        ],
+        "nativeTiffDecoded": true
+      },
+      {
+        "path": "public/assets/portraits/CH19-256.webp",
+        "sha256": "0ed14b0b7da92f2a3f596b7d65b0b1989efa3ec8db017abd0b056299746b1183",
+        "pixelDimensions": [
+          256,
+          256
+        ],
+        "nativeTiffDecoded": true
+      }
+    ],
+    "characterModel": "assets-src/characters/CH19.blend",
+    "characterModelSha256": "8046ea92759362999bc57dca1e621c7e2b08e1f895b8cb254a586e30d2fa4483"
+  },
+  "check": "source-reopen"
+}

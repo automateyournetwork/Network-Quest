@@ -1,0 +1,30 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PORTRAIT-CH05",
+  "hashes": [
+    "edcd097168d737b33bf9dc8f1755dc6edeb82cdb101ea76be920134db2d0b746",
+    "ba1254beda98efda0cc1a8672d04160ed61d40f5003c29ca9fcf7b585a99382f",
+    "1b8161bde3766b6f1d41465c00757534b10d2b96bbb7460d7739eab6beec10a3",
+    "38f03e277560019c1a0c327af4d921b26628600e6aa7613088f432efcc895433",
+    "eba012f5b5f685c090c2d0cda6791265cec1576ca394b7618dcc57e29039d4f9"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex worker loop137/T120",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, original Blender 5.2.1 renders, OpenAI built-in image generation, Pillow 12.1.0 / libwebp 1.6.0 and Firefox 159.0.",
+  "details": {
+    "findings": "Every original PNG and the actual Blender reference decode independently. Both web derivatives reopen in Pillow and native Firefox.",
+    "observedPaths": [
+      "docs/evidence/spec001/assets/t107/CH05-source.png",
+      "assets-src/images/T120/CH05/original.png",
+      "assets-src/images/T120/CH05/second/original.png",
+      "public/assets/portraits/CH05.webp",
+      "public/assets/portraits/CH05-256.webp"
+    ],
+    "tool": "Pillow 12.1.0, Playwright Firefox 159.0",
+    "sourceModelEvidence": "docs/evidence/spec001/assets/t107/CH05-source-reopen.json",
+    "browserEvidence": "docs/evidence/spec001/image-production/T120/browser.json"
+  },
+  "check": "source-reopen"
+}

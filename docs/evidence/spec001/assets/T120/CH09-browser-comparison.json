@@ -1,0 +1,35 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PORTRAIT-CH09",
+  "hashes": [
+    "9cd36d280ec3087f5acf4bdb8802431f25f77d1d5819c30bf261883e145d3668",
+    "f11ab17a085c7779fc01029aead549ec4810581d23e389b073acd41a696886be",
+    "04c422bdc963f793dba7040bbb4d91b5b80c5ae7a704da94a946dfacceeb109b",
+    "dbca79e35d3c3d93361124107b77b94e04548ea6bc94b8213977ac88eead3ad3",
+    "9f7ff27a8ac4fedc90169d37f23ded38fb98d17727c22c55e7e96e009fac2c66"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex worker loop137/T120",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, original Blender 5.2.1 renders, OpenAI built-in image generation, Pillow 12.1.0 / libwebp 1.6.0 and Firefox 159.0.",
+  "details": {
+    "findings": "Both WebP sizes independently decoded in native Firefox from the nested public path. Their HTTP response hashes matched the inspected exports.",
+    "methods": [
+      "browser-inspection"
+    ],
+    "tool": "Playwright Firefox 159.0 and agent inspection of rendered comparison sheets",
+    "observedPaths": [
+      "docs/evidence/spec001/assets/t107/CH09-source.png",
+      "assets-src/images/T120/CH09/original.png",
+      "assets-src/images/T120/CH09/second/original.png",
+      "public/assets/portraits/CH09.webp",
+      "public/assets/portraits/CH09-256.webp"
+    ],
+    "report": "docs/evidence/spec001/image-production/T120/browser.json",
+    "compendiumId": "spec001:COMPENDIUM-CH09",
+    "caption": "Red Scorpion peers out between broad pincers. Its segmented red tail curls up to a gold-rimmed ruby lens.",
+    "scope": "Independent export/browser comparison; separate usage records identify discoveries through gameplay."
+  },
+  "check": "browser-comparison"
+}

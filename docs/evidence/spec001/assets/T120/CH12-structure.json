@@ -1,0 +1,40 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PORTRAIT-CH12",
+  "hashes": [
+    "20e6859c69481323ca6b405a02675b4112081e0c9d1be05f76fae2205e1778ff",
+    "3a4264c345c91c337624a614a700a39b0b7285d4426cb33662831e429a52fbf6",
+    "d49a01aa46d9799972983c8e21d63778d96c9941dc6d1600ad3e250f54cb117f",
+    "fc5281bd028a5e601f1c01a72e836bd13432761f155b17473d8b2ee012165a01"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex worker loop137/T120",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, original Blender 5.2.1 renders, OpenAI built-in image generation, Pillow 12.1.0 / libwebp 1.6.0 and Firefox 159.0.",
+  "details": {
+    "findings": "The selected square RGB PNG and both decoded WebPs match their recorded hashes, dimensions and registered character identity.",
+    "pixelReport": "docs/evidence/spec001/image-production/T120/exports.json",
+    "nativeModel": {
+      "modelId": "spec001:ASSET-CH12",
+      "sourceRecord": "assets-src/characters/batch-b.json",
+      "native": {
+        "path": "assets-src/characters/CH12.blend",
+        "sha256": "ce48d4b85f95f6e7478df8364f07b7b41b80f3e1798c93df79bd07cc0a84b5bb",
+        "bytes": 167415,
+        "format": "blend"
+      },
+      "historicalExport": {
+        "path": "public/assets/models/CH12.glb",
+        "sha256": "ba3f5c8ac721a1fb46ec753029414e395a0aabb43e2bc901919f6bceb0993d3d",
+        "bytes": 478396,
+        "format": "glb"
+      },
+      "nativeReopenEvidence": "docs/evidence/spec001/assets/T108/CH12-source-reopen.json",
+      "nativeReopenSha256": "cc44a3c868380f011df4a24a04a07a3ce518b65ffe2607442d35ea63d06e2c20"
+    },
+    "compendiumId": "spec001:COMPENDIUM-CH12",
+    "characterId": "spec001:CH12"
+  },
+  "check": "structure"
+}

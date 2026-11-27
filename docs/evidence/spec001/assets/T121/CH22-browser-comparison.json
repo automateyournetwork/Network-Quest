@@ -1,0 +1,65 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PORTRAIT-CH22",
+  "hashes": [
+    "774f7384d761bddf2d0b8d0e47a7911013be595a389f3fbad828e5a2dfd893ef",
+    "6a397e3b2d5d872865ff74e50f391a86875e87a3362ab140a61bedb3c13d67db",
+    "9bb93d476c438a190dca63f3352c077394775880f3e200856339a85740d2b3ed",
+    "555f7d22681bf364ed95bbe4fcbb0126eaabecff66725a783a3c92eba7cdc5c9"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex / loop138 / T121",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Apple sips-316, Pillow 12.1.0, libwebp 1.6.0, Firefox 159.0",
+  "details": {
+    "findings": "An actual guest discovered the character and opened its compendium entry. Firefox decoded the registered portrait and both display WebPs matched the source in the separate nested-base gallery.",
+    "observedPaths": [
+      "assets-src/images/T121/CH22/model-reference.png",
+      "assets-src/images/T121/CH22/original.png",
+      "public/assets/portraits/CH22.webp",
+      "public/assets/portraits/CH22-256.webp"
+    ],
+    "methods": [
+      "browser-inspection"
+    ],
+    "tool": "Playwright Firefox and view_image",
+    "nativeGalleryReport": "docs/evidence/spec001/image-production/T121/browser.json",
+    "browserComparison": {
+      "id": "CH22",
+      "sizes": [
+        {
+          "path": "/arcade/play/network-quest/assets/portraits/CH22.webp",
+          "size": [
+            512,
+            512
+          ],
+          "bytes": 41030,
+          "sha256": "9bb93d476c438a190dca63f3352c077394775880f3e200856339a85740d2b3ed"
+        },
+        {
+          "path": "/arcade/play/network-quest/assets/portraits/CH22-256.webp",
+          "size": [
+            256,
+            256
+          ],
+          "bytes": 12128,
+          "sha256": "555f7d22681bf364ed95bbe4fcbb0126eaabecff66725a783a3c92eba7cdc5c9"
+        }
+      ]
+    },
+    "discoveryReport": "docs/evidence/spec001/image-production/portrait-join/discoveries.json",
+    "discoveryReportSha256": "9bd286b3e2c5df6f56ac8abbd02c896f99d6861f5730632b7381b9ee6d160046",
+    "observed": {
+      "assetId": "spec001:ASSET-PORTRAIT-CH22",
+      "path": "/arcade/play/network-quest/assets/portraits/CH22.webp",
+      "caption": "Chameleon looks two ways at once. Raised square scales checker its green flank, and its dark tail coils into a tight spiral.",
+      "width": 512,
+      "height": 512
+    },
+    "captures": [
+      "docs/evidence/spec001/image-production/T121/browser-gallery.png"
+    ]
+  },
+  "check": "browser-comparison"
+}

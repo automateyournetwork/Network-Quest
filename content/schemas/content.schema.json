@@ -2647,6 +2647,19 @@
             "portraitText": {
               "$ref": "#/$defs/text"
             },
+            "portraitBinding": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "assetId": { "$ref": "#/$defs/id" },
+                "contentId": { "$ref": "#/$defs/characterId" },
+                "use": { "const": "compendium-portrait" },
+                "exportPath": { "type": "string", "pattern": "^public/assets/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+[.](?:png|webp|avif|jpg|jpeg)$" },
+                "interactiveOrEvidence": { "const": false },
+                "caption": { "$ref": "#/$defs/text" }
+              },
+              "required": ["assetId", "contentId", "use", "exportPath", "interactiveOrEvidence", "caption"]
+            },
             "discovery": {
               "type": "object",
               "additionalProperties": false,

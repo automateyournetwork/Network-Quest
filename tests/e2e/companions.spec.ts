@@ -44,12 +44,31 @@ test('T104 actual all-room companion discovery, earned progression and conventio
   const inspectEntry = async (id: string) => {
     const entry=ui.compendium().locator('details').filter({has:page.locator(':scope > summary').filter({hasText:`${name(id)} ·`})}).first();
     const summary=entry.locator(':scope > summary'); await summary.click();
-    for(const label of ['Technology:','Ability:','Realm and dependencies:','Recruitment:','Progression:','Portrait not yet available.']) await expect(entry).toContainText(label);
+    for(const label of ['Technology:','Ability:','Realm and dependencies:','Recruitment:','Progression:']) await expect(entry).toContainText(label);
     await entry.getByText('Technical sources and scope',{exact:true}).click();
     const links=await entry.locator('a').evaluateAll(nodes=>nodes.map(node=>({href:node.getAttribute('href'),target:node.getAttribute('target'),rel:node.getAttribute('rel')})));
     expect(links.length).toBeGreaterThan(0); expect(links.every(link=>link.href?.startsWith('https://') && link.target==='_blank' && link.rel==='noopener noreferrer')).toBe(true);
     await expect(entry.getByRole('list',{name:'Limitations',exact:true})).not.toBeEmpty();
-    await expect(entry.locator('img')).toHaveCount(0); report.discoveries.push({id,name:name(id),sourceLinks:links,portrait:'not yet available'}); await summary.click();
+    const binding = characters.find((character: { id: string }) => character.id === q(id)).compendium.portraitBinding;
+    const image = entry.locator('figure img');
+    if (binding) {
+      const expectedPath = '/arcade/play/network-quest/' + binding.exportPath.slice('public/'.length);
+      await expect(image).toHaveAttribute('src', expectedPath);
+      await expect(image).toHaveAttribute('alt', binding.caption);
+      await expect(entry.locator('figcaption')).toHaveText(binding.caption);
+      const decoded = await image.evaluate(async (element: HTMLImageElement) => {
+        await element.decode();
+        return { width: element.naturalWidth, height: element.naturalHeight };
+      });
+      expect(decoded.width).toBeGreaterThan(0);
+      expect(decoded.height).toBeGreaterThan(0);
+      report.discoveries.push({id, name:name(id), sourceLinks:links, portrait:{ assetId:binding.assetId, path:expectedPath, caption:binding.caption, ...decoded }});
+    } else {
+      await expect(entry).toContainText('Portrait not yet available.');
+      await expect(image).toHaveCount(0);
+      report.discoveries.push({id, name:name(id), sourceLinks:links, portrait:'not yet available'});
+    }
+    await summary.click();
   };
   const discover = async (roomId: string) => {
     const room=await json(`content/spec001/rooms/${roomId}.json`);

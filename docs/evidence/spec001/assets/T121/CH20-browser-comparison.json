@@ -1,0 +1,65 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PORTRAIT-CH20",
+  "hashes": [
+    "ac7602dc4b439f6020b3ecfe53084289c2980614e4906b107e5c37fe5c26e6c2",
+    "1bb04aa13e3497f282a6485905a9d8cda10c08e950c4e8b7e34412446b984e59",
+    "618aa4e939cc0bb6977f89b800eb296cde816016c28a53677abb8528d4da8337",
+    "f21a5d0f450206cad67613b7c019b2c5bcc70346ba80fa6897056c384567a737"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex / loop138 / T121",
+  "date": "2026-11-27",
+  "environment": "macOS arm64, Apple sips-316, Pillow 12.1.0, libwebp 1.6.0, Firefox 159.0",
+  "details": {
+    "findings": "An actual guest discovered the character and opened its compendium entry. Firefox decoded the registered portrait and both display WebPs matched the source in the separate nested-base gallery.",
+    "observedPaths": [
+      "assets-src/images/T121/CH20/model-reference.png",
+      "assets-src/images/T121/CH20/original.png",
+      "public/assets/portraits/CH20.webp",
+      "public/assets/portraits/CH20-256.webp"
+    ],
+    "methods": [
+      "browser-inspection"
+    ],
+    "tool": "Playwright Firefox and view_image",
+    "nativeGalleryReport": "docs/evidence/spec001/image-production/T121/browser.json",
+    "browserComparison": {
+      "id": "CH20",
+      "sizes": [
+        {
+          "path": "/arcade/play/network-quest/assets/portraits/CH20.webp",
+          "size": [
+            512,
+            512
+          ],
+          "bytes": 36554,
+          "sha256": "618aa4e939cc0bb6977f89b800eb296cde816016c28a53677abb8528d4da8337"
+        },
+        {
+          "path": "/arcade/play/network-quest/assets/portraits/CH20-256.webp",
+          "size": [
+            256,
+            256
+          ],
+          "bytes": 10698,
+          "sha256": "f21a5d0f450206cad67613b7c019b2c5bcc70346ba80fa6897056c384567a737"
+        }
+      ]
+    },
+    "discoveryReport": "docs/evidence/spec001/image-production/portrait-join/discoveries.json",
+    "discoveryReportSha256": "9bd286b3e2c5df6f56ac8abbd02c896f99d6861f5730632b7381b9ee6d160046",
+    "observed": {
+      "assetId": "spec001:ASSET-PORTRAIT-CH20",
+      "path": "/arcade/play/network-quest/assets/portraits/CH20.webp",
+      "caption": "Echo Bat cocks its head between two tall dish-shaped ears. Copper-edged wings frame the round brass pendant on its chest.",
+      "width": 512,
+      "height": 512
+    },
+    "captures": [
+      "docs/evidence/spec001/image-production/T121/browser-gallery.png"
+    ]
+  },
+  "check": "browser-comparison"
+}

@@ -26,10 +26,10 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**139 loops started; 112/170 tasks accepted; no deployment.** The remote feature
-branch reached `a5eb8910def87329bb1095b7be70f9845b242226` for the three
-character batches. It includes the Photon checkpoint `284394d` and the T106
-layout freeze `d7dc4a1`. The preceding checkpoint `e6362f6b27ef3daa0166468d2e56733fa08c9aa6`
+**141 loops started; 114/170 tasks accepted; no deployment.** The remote feature branch reached
+`125c509af128e7865dd396a71ae64e6c7ec08479` for all 36 room layers after the
+150-prop checkpoint `c358e126` and the character checkpoint `a5eb891`. The
+Photon checkpoint was `284394d` and the T106 layout freeze was `d7dc4a1`. The preceding checkpoint `e6362f6b27ef3daa0166468d2e56733fa08c9aa6`
 (accepted T105 and isolated T106 preparation) was
 pushed/remoteverified:74reviewedpaths/3430847bytes, exactstage/blob/private/authored
 whitespacePASS and22rawfindingspreserved. T104 is accepted for local gameplay. Both normal-config native
@@ -91,8 +91,12 @@ Loop 135/T118: Verified twelve registered image layers for R05–R08, original g
 
 Loop 136/T119: All twelve R09–R12 layers passed the source, alpha, camera and registered cast reviews. [Verification](loops/136-T119.md).
 
+Loop 137/T120: Thirteen CH01–CH13 portrait bindings were reached and decoded in their own discovered compendium entries. [Verification](loops/137-T120.md).
+
+Loop 138/T121: All twelve CH14–CH25 discoveries decoded their own portrait, and the paired Twins retained accessible text when loading failed. [Verification](loops/138-T121.md).
+
 <!-- current production assignments -->
-Active assignments: 137/T120, 138/T121, 139/T122.
+Active assignments: 139/T122, 140/T123, 141/T124.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).
