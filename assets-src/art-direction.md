@@ -38,12 +38,14 @@ The finished visual stage is intentionally designed. The current R01/R02 graybox
 and its long text lists prove functional access, not approved finished art or layout.
 At desktop sizes, give the room a stable composed frame, a legible protagonist,
 readable interactive silhouettes and a quiet verb/inventory area. Keep full labeled
-scene objects, evidence and actions available through semantic HTML alongside or
-below the stage. On narrow screens, rearrange panels and preserve the full scene
-through fit/letterboxing; do not crop a necessary exit or depend on hovering.
-Exact stage proportions and panel arrangement are reviewed in T066/T067, not
-assumed approved here. At 200% text scaling, controls may occupy more space without
-covering essential art or becoming inaccessible.
+scene objects, evidence and actions available through semantic HTML in contextual
+Scene, Evidence, Inventory and Notebook panels inside the approved 286 monitor frame.
+The owner's corrected R01 frame approval on 2026-11-26 supersedes this plan's earlier
+below-stage menu direction. On narrow screens and at 200% text scaling, use contained,
+scrollable panels and visible keyboard focus; keep every observation/action reachable.
+Preserve the full scene through fit/letterboxing; do not crop a necessary exit,
+depend on hovering or add menus below the frame. Later finished rooms still require
+their own native visual and accessibility review.
 
 Use three visual distances: calm far silhouettes; a readable middle band of
 characters, diagnostic objects and exits; sparse foreground edges that frame the

@@ -26,10 +26,10 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**123 loops started; 98/170 tasks accepted; no deployment.** Latest pushed commit
-`8b66902618564462ac9cb15ba677ea66fc12980b` (accepted T104 canonical checkpoint),
-pushed/remoteverified:71reviewedpaths/5095138bytes, exactstage/blob/private/authored
-whitespacePASS and5rawfindingspreserved. T104 is accepted for local gameplay. Both normal-config native
+**126 loops started; 99/170 tasks accepted; no deployment.** Latest pushed commit
+`e6362f6b27ef3daa0166468d2e56733fa08c9aa6` (accepted T105 and isolated T106 preparation),
+pushed/remoteverified:74reviewedpaths/3430847bytes, exactstage/blob/private/authored
+whitespacePASS and22rawfindingspreserved. T104 is accepted for local gameplay. Both normal-config native
 journeys passed3.1min;32canonical files/255published inputs/4test overlays matched.
 Final all-seven packet49owned/254published/120assertion refs matched. Exact140
 original inputs stay unchanged:129mapped/6timingN/A/4T105rows/1media-animationpartial.
@@ -47,11 +47,20 @@ each8required objectives/8rooms (union12), one-slot exact reload. Original42phys
 52route reconciliation plus four no-recruit T092 rows is accepted:98mappedrows,
 704fieldgroups/71references verified,4native/21scoped/73adapted,not98literalpasses.
 734focused/30overlappingaffected/check/buildPASS; productionunchanged. Same122
-now has GO for canonical layout freeze before fresh media source batches.122/T106 prepares isolated
-layouts with150exact prop identities,109currentinteractive subjects,136hotspots/
-28exits and380quota identities. No freeze/bulkmedia before acceptedT105. Preserve
-saved positions and12x7R09–R12walk regions; correct smaller grayboxgeometry during
-finished-room integration. Owner previews63366/54594 remain protected.
+completed the canonical layout freeze:13final files/16original artifacts matched;
+root independently confirmed identical numerical/semantic room data, exactrosters
+and380single-owner allocations. T106 is accepted; no produced or accepted media is inferred.
+
+Fresh loops 124/T107, 125/T108 and 126/T109 produce disjoint real Blender character batches:
+CH02/04–09 (7), CH10–17 (8), CH18–25 (8; pairedCH24counts1). Read canonical
+assets-src/rooms/scene-layouts.json and production-allocation.json plus the art
+contract. Early Titan/copper/fiber and representative designs need root visual
+review before scaling. Preserve existingCH01/03, allsource/rights/nativeproof;
+global manifest consolidation remainsT132. Private commonbrief:
+.local/character-worker-brief.md; broader mediahandoff:.local/media-coordinator-handoff.md.
+Keep originalmodel/source/evidencefiles unchanged; production/export isnot quota
+acceptance or actualin-gameintegration. Owner previews63366/54594 remain protected.
+
 
 T096/T097 actual reward pictures, portraits/finishedmedia, providers, humanreviews
 and release gates remain open. Continue the original playful, witty, lightly dark
