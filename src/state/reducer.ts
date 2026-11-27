@@ -14,6 +14,8 @@ import { prepareObjectiveChange } from './objectives';
 import type { ObjectiveOperation, ObjectiveScenarioResolver } from './objectives';
 import { prepareRepairPlanChange } from './repair-plan';
 import type { RepairPlanOperation, RepairScenarioResolver } from './repair-plan';
+import { preparePartyChange, capturePartyPractice } from './party';
+import type { PartyOperation, PartyPractice } from './party';
 
 /** Authored effects only. Evaluators select them; the reducer never scores physics. */
 export type StateEffect = S.effect & IdentifiedEffect;
@@ -46,6 +48,7 @@ interface EffectRequest {
   readonly destination?: Destination;
 }
 export type ReducerInput =
+  | { readonly kind: 'party'; readonly operation: PartyOperation }
   | { readonly kind: 'repair-plan'; readonly operation: RepairPlanOperation }
   | { readonly kind: 'objective'; readonly operation: ObjectiveOperation }
   | { readonly kind: 'notebook'; readonly operation: NotebookOperation }
@@ -74,6 +77,8 @@ export interface ReducerState {
     readonly pending: PendingTransition | null;
     readonly highestRevision: number;
     readonly usedAttemptIds: readonly AttemptId[];
+    /** Unfinished demonstrated learning is transient and retires on restore/retry. */
+    readonly partyPractice?: PartyPractice | null;
   };
 }
 export type RejectionReason =
@@ -134,6 +139,7 @@ export function createReducerState(runtime: RuntimeState): ReducerState {
     highestRevision: Math.max(0, ...worlds.map(w => w.configurationRevision), ...measurements.map(m => m.configurationRevision)),
     usedAttemptIds: [...new Set([...worlds.map(w => w.attemptId), ...measurements.map(m => m.attemptId),
       ...(runtime.game?.assistance.map(h => h.attemptId) ?? []), ...(runtime.game?.outcomeHistory.map(o => o.attemptId) ?? [])])],
+    partyPractice: null,
   } };
 }
 
@@ -400,7 +406,7 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
     } };
   }
 
-  return (state, command) => {
+  return function reduce(state, command) {
     const reject = (reason: RejectionReason): Reduction => ({ state, status: 'rejected', reason });
     const game = state.runtime.game;
     // Canceling the logout choice has no gameplay, identity or bookkeeping effect.
@@ -425,6 +431,30 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
       return accept(state, command.actionId, { ...result.value, activity: pending.request.destination ? result.value.activity : pending.previousActivity }, true);
     }
     if (pending) return reject('transition-pending');
+    if (input.kind === 'party') {
+      // Party work never broadens the committed-encounter action admission.
+      const anchor = registry.safePosition(game.world.position.safePositionId);
+      if (!safeKinds.has(state.runtime.activity.kind) || !anchor || anchor.roomId !== game.world.roomId
+        || !anchor.eligibleStates.includes(state.runtime.activity.kind as SafeState)) return reject('invalid-state');
+      const result = preparePartyChange(registry, options.objectiveScenario, game, input.operation, state.control.partyPractice);
+      if (!result.ok) return reject(result.reason);
+      // The authorized ally delegates the SAME canonical operation; it does not
+      // return a renderer verdict or install a second effect/receipt path.
+      if ('delegate' in result) return reduce(state, { ...command, input: result.delegate });
+      let candidate = result.game;
+      if (result.configurationChanged) {
+        const revision = nextRevision(state);
+        if (revision === null) return reject('generation-exhausted');
+        candidate = { ...candidate, world: { ...candidate.world, configurationRevision: revision }, notebook: staleMeasurements(candidate) };
+      }
+      if (!legalWorld(candidate.world) || candidate.world.compendiumIds.length > 256) return reject('invalid-state');
+      const reduction = accept(state, command.actionId, { game: candidate, activity: state.runtime.activity,
+        changed: canonical(candidate) !== canonical(game), revision: candidate.world.configurationRevision });
+      if (reduction.status === 'rejected' || result.practice === (state.control.partyPractice ?? null)) return reduction;
+      return { status: reduction.status === 'no-op' ? 'applied' : reduction.status, state: {
+        ...reduction.state, control: { ...reduction.state.control, partyPractice: result.practice },
+      } };
+    }
     if (input.kind === 'notebook' || input.kind === 'objective' || input.kind === 'repair-plan') {
       if (!safeKinds.has(state.runtime.activity.kind)) {
         let admitted = false;
@@ -441,9 +471,13 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
       if (!prepared.ok) return reject(prepared.reason);
       const final = notebook.finalize(prepared.value.game);
       if (!final.ok) return reject(final.reason);
-      return accept(state, command.actionId, { ...prepared.value, game: final.game,
+      const accepted = accept(state, command.actionId, { ...prepared.value, game: final.game,
         activity: input.kind === 'repair-plan' && 'activity' in final ? (final.activity as ActivityState | undefined) ?? prepared.value.activity : prepared.value.activity,
         changed: canonical(final.game) !== canonical(game) });
+      if (accepted.status === 'rejected' || input.kind !== 'objective' || input.operation.kind !== 'measure') return accepted;
+      const practice = capturePartyPractice(options.objectiveScenario, game, final.game, input.operation, state.control.partyPractice);
+      return practice === (state.control.partyPractice ?? null) ? accepted : { ...accepted, state: { ...accepted.state,
+        control: { ...accepted.state.control, partyPractice: practice } } };
     }
     if (input.kind === 'rewind-preparation') {
       const checkpoint = state.runtime.checkpoint;
@@ -455,7 +489,7 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
       if (revision === null) return reject('generation-exhausted');
       const world: WorldState = { ...structuredClone(checkpoint.world), attemptId: input.nextAttemptId, configurationRevision: revision };
       const result = accept(state, command.actionId, { game: { ...game, world, notebook: staleMeasurements(game) }, activity: { kind: 'safe-preparation' }, changed: true, revision });
-      return result.status === 'rejected' ? result : { ...result, state: { ...result.state, control: { ...result.state.control, usedAttemptIds: [...state.control.usedAttemptIds, input.nextAttemptId] } } };
+      return result.status === 'rejected' ? result : { ...result, state: { ...result.state, control: { ...result.state.control, usedAttemptIds: [...state.control.usedAttemptIds, input.nextAttemptId], partyPractice: null } } };
     }
     if (!safeKinds.has(state.runtime.activity.kind) && state.runtime.activity.kind !== 'active-encounter') return reject('invalid-state');
     if (input.kind === 'recover-item') {

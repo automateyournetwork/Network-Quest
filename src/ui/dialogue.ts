@@ -11,7 +11,7 @@ import { contextFromRuntime } from './action-bus';
 import type { ActionBus, ActionCapture, ActionContext, ActionDispatcher, ActionPlan, CapturedAction } from './action-bus';
 import type { SemanticControl } from './app-shell';
 import type { GameplayStore } from './controller-store';
-import { guardedPlan, playable, rejected, unavailable } from './controller-store';
+import { guardedPlan, playable, rejected, unavailable, prepareActorEncounter } from './controller-store';
 import type { HotspotBinding, InteractionPlanner } from './verbs';
 
 export interface DialogueBinding {
@@ -76,6 +76,11 @@ export function createDialogueController({ registry, store, bus, bindings, effec
         const out = unlock(before, expected);
         if (out.status === 'rejected') return rejected(out.reason ?? 'dialogue-lock', 'This conversation is no longer active.');
         candidate = out.state;
+      }
+      if (opening) {
+        const encounter = prepareActorEncounter(registry, store, candidate, topic.binding.hotspotId, 'talk');
+        if (encounter.status === 'rejected') return rejected(encounter.reason ?? 'dialogue-encounter', 'This actor is no longer available.');
+        candidate = encounter.state;
       }
       // Opening Talk is also an authored narrator entry/choice. Both it and the
       // target entry are prepared before a single compare-and-set installation.

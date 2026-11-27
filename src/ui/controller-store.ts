@@ -1,5 +1,8 @@
+import type { ContentRegistry } from '../content/registry';
+import type { ActionId, QualifiedId } from '../domain/types';
+import { encounterCharacter } from '../state/party';
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
-import type { ReducerInput, ReducerState } from '../state/reducer';
+import type { ReducerInput, ReducerState, Reduction } from '../state/reducer';
 import type { UiState } from '../state/types';
 import { reducerActionHandler } from './action-bus';
 import type { ActionPlan, ActionResult, CapturedAction, ReducerActionAdapter, SemanticAction } from './action-bus';
@@ -31,9 +34,22 @@ export function uiPlan(store: GameplayStore, before: ReducerState, patch: Partia
   return guardedPlan(store, before, { status: 'ready', commit: () => store.compareAndSet(before, next)
     ? { status: 'handled', message } : rejected('state-replaced', 'The adventure has changed. Choose the action again.') });
 }
+/** Stage an actual authored actor encounter inside the caller's single CAS. */
+export function prepareActorEncounter(registry: ContentRegistry, store: GameplayStore, before: ReducerState, hotspotId: QualifiedId, verb: 'look' | 'talk'): Reduction {
+  const game = before.runtime.game;
+  if (!game || !encounterCharacter(registry, game, hotspotId, verb)) return { status: 'no-op', state: before };
+  return store.reduce(before, { actionId: crypto.randomUUID() as ActionId, adventureId: game.adventureId, expectedVersion: game.world,
+    input: { kind: 'party', operation: { kind: 'encounter', hotspotId, verb } } });
+}
 /** Effects still pass through the canonical reducer's atomic/receipt checks. */
-export function reductionPlan(store: GameplayStore, action: CapturedAction, before: ReducerState, input: ReducerInput, message: string): ActionPlan {
+export function reductionPlan(store: GameplayStore, action: CapturedAction, before: ReducerState, input: ReducerInput, message: string, encounter?: { registry: ContentRegistry; hotspotId: QualifiedId; verb: 'look' | 'talk' }): ActionPlan {
   const plan = reducerActionHandler({ ...store,
+    reduce: (state, command) => {
+      const first = encounter ? prepareActorEncounter(encounter.registry, store, state, encounter.hotspotId, encounter.verb) : { status: 'no-op' as const, state };
+      if (first.status === 'rejected') return { ...first, state };
+      const result = store.reduce(first.state, command);
+      return result.status === 'rejected' ? { ...result, state } : result;
+    },
     compareAndSet: (expected, next) => {
       const ui = next.runtime.ui;
       // Removal is determined by the completed reducer candidate. Clear only

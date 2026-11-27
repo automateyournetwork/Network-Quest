@@ -24,7 +24,7 @@ export interface SaveContentPolicy {
   members: Record<SaveMemberKind, readonly string[]>;
   safePositions: Record<string, { roomId: string; eligibleStates: readonly SafeState[] }>;
   itemMaxQuantities: Record<string, number>;
-  recruits: Record<string, { maxLevel: number; abilityIds: readonly string[]; progressFlagIds: readonly string[] }>;
+  recruits: Record<string, { maxLevel: number; abilityIds: readonly string[]; progressFlagIds: readonly string[]; abilityIdsByLevel: Readonly<Record<string, readonly string[]>> }>;
   hints: Record<string, { objectiveId: string; level: number }>;
   objectivePrerequisites: Record<string, CompletionDependency>;
   measurementRules: Record<string, MeasurementRulePolicy>;
@@ -145,7 +145,10 @@ export class SaveValidator {
     }
     for (const recruit of w.recruits) {
       const allowed = own(p.recruits, recruit.characterId);
-      if (!allowed || recruit.level > allowed.maxLevel || recruit.abilityIds.some(id => !allowed.abilityIds.includes(id))
+      const levelAbilities = allowed?.abilityIdsByLevel && own(allowed.abilityIdsByLevel, String(recruit.level));
+      if (!allowed || recruit.level > allowed.maxLevel || !Array.isArray(levelAbilities)
+        || recruit.abilityIds.length !== levelAbilities.length || recruit.abilityIds.some(id => !levelAbilities.includes(id))
+        || recruit.abilityIds.some(id => !allowed.abilityIds.includes(id))
         || recruit.progressFlags.some(id => !allowed.progressFlagIds.includes(id))) return fail('relationship', '/world/recruits');
     }
     if (w.activeAllyIds.some(id => !w.recruits.some(r => r.characterId === id))) return fail('relationship', '/world/activeAllyIds');
@@ -288,7 +291,22 @@ export function createSaveContentPolicy(registry: ContentRegistry, world: Readon
       if (record.recruitable) {
         add('character', record.id);
         record.abilities.forEach(ability => add('ability', ability.id));
-        p.recruits[record.id] = { maxLevel: Math.max(1, ...record.progression.map(entry => entry.level)), abilityIds: record.abilities.map(a => a.id), progressFlagIds: [] };
+        // A level is an explicit authored cumulative unlock set, not permission
+        // to carry every ability that this character may eventually learn.
+        const levels = [...record.progression].sort((a, b) => a.level - b.level);
+        if (!levels.length || levels.some((entry, index) => entry.level !== index + 1
+          || !entry.abilityIds.length || new Set(entry.abilityIds).size !== entry.abilityIds.length
+          || entry.abilityIds.some(id => !record.abilities.some(ability => ability.id === id)))) {
+          throw new Error('Recruit save policy requires consecutive explicit levels and owned ability unlocks');
+        }
+        const abilityIdsByLevel: Record<string, readonly string[]> = {}, unlocked: string[] = [];
+        for (const entry of levels) {
+          if (entry.abilityIds.every(id => unlocked.includes(id))) throw new Error('Recruit progression must unlock a new authored ability');
+          for (const id of entry.abilityIds) if (!unlocked.includes(id)) unlocked.push(id);
+          abilityIdsByLevel[String(entry.level)] = [...unlocked];
+        }
+        if (record.abilities.some(ability => !unlocked.includes(ability.id))) throw new Error('Recruit save policy cannot authorize an ability without an authored level');
+        p.recruits[record.id] = { maxLevel: levels.at(-1)!.level, abilityIds: record.abilities.map(a => a.id), progressFlagIds: [], abilityIdsByLevel };
       }
     }
   }

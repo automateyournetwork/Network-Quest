@@ -1,5 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
-import type { ActionId, AdventureId, FactId, InstanceId, ItemId, MeasurementId, ObjectiveId, QualifiedId, RoomId, Verb, WorldVersion } from '../domain/types';
+import type { AbilityId, ActionId, AdventureId, CharacterId, FactId, InstanceId, ItemId, MeasurementId, ObjectiveId, QualifiedId, RoomId, Verb, WorldVersion } from '../domain/types';
 import { validNotebookText } from '../state/notebook';
 import type { ReducerCommand, ReducerInput, ReducerState, Reduction } from '../state/reducer';
 import type { RuntimeState, UiState } from '../state/types';
@@ -7,6 +7,9 @@ import type { RepairClassification } from '../state/repair-plan';
 
 /** Intent only. Renderers cannot submit evaluations, effects or arbitrary payloads. */
 export type SemanticAction =
+  | { readonly kind: 'invite-ally' | 'begin-ally-practice' | 'review-ally-practice'; readonly characterId: CharacterId }
+  | { readonly kind: 'set-active-allies'; readonly characterIds: readonly CharacterId[] }
+  | { readonly kind: 'use-ally-ability'; readonly characterId: CharacterId; readonly abilityId: AbilityId; readonly actionId: QualifiedId }
   | { readonly kind: 'commit-rift-hazard'; readonly hazardId: QualifiedId; readonly warningAcknowledged: boolean }
   | { readonly kind: 'choose-repair-plan'; readonly choiceId: QualifiedId }
   | { readonly kind: 'review-repair-plan' | 'measure-repair-link' | 'test-repair-endpoint' }
@@ -88,8 +91,10 @@ function sameContext(a: ActionContext | null, b: ActionContext | null): boolean 
 }
 
 const verbs = new Set<string>(['walk', 'look', 'talk', 'use']);
-const panels = new Set<string>(['inventory', 'notebook', 'compendium', 'settings', 'save']);
+const panels = new Set<string>(['inventory', 'notebook', 'compendium', 'party', 'settings', 'save']);
 const fields: Record<SemanticAction['kind'], readonly string[]> = {
+  'invite-ally': ['kind', 'characterId'], 'begin-ally-practice': ['kind', 'characterId'], 'review-ally-practice': ['kind', 'characterId'],
+  'set-active-allies': ['kind', 'characterIds'], 'use-ally-ability': ['kind', 'characterId', 'abilityId', 'actionId'],
   'commit-rift-hazard': ['kind', 'hazardId', 'warningAcknowledged'],
   'choose-repair-plan': ['kind', 'choiceId'], 'review-repair-plan': ['kind'], 'measure-repair-link': ['kind'], 'test-repair-endpoint': ['kind'],
   'execute-repair-plan': ['kind', 'reviewId', 'warningAcknowledged'], 'classify-repair': ['kind', 'selection', 'linkId', 'endpointId'],
@@ -118,6 +123,11 @@ export function copySemanticAction(input: SemanticAction): SemanticAction {
   const keys = fields[input.kind];
   if (Object.keys(input).length !== keys.length || Object.keys(input).some(key => !keys.includes(key))) throw new TypeError('Semantic actions contain intent only.');
   switch (input.kind) {
+    case 'invite-ally': case 'begin-ally-practice': case 'review-ally-practice':
+      if (!qualifiedIdentity(input.characterId)) throw new TypeError('Invalid ally identity.'); break;
+    case 'set-active-allies': if (!Array.isArray(input.characterIds) || input.characterIds.length > 2
+      || new Set(input.characterIds).size !== input.characterIds.length || !input.characterIds.every(qualifiedIdentity)) throw new TypeError('Choose up to two different allies.'); break;
+    case 'use-ally-ability': if (!qualifiedIdentity(input.characterId) || !qualifiedIdentity(input.abilityId) || !qualifiedIdentity(input.actionId)) throw new TypeError('Invalid ally ability intent.'); break;
     case 'commit-rift-hazard': if (!qualifiedIdentity(input.hazardId) || typeof input.warningAcknowledged !== 'boolean') throw new TypeError('Invalid fictional danger acknowledgement.'); break;
     case 'choose-repair-plan': if (!qualifiedIdentity(input.choiceId)) throw new TypeError('Invalid repair choice.'); break;
     case 'review-repair-plan': case 'measure-repair-link': case 'test-repair-endpoint': break;
@@ -148,7 +158,7 @@ export function copySemanticAction(input: SemanticAction): SemanticAction {
       break;
     case 'close-panel': break;
   }
-  return Object.freeze({ ...input });
+  return input.kind === 'set-active-allies' ? Object.freeze({ ...input, characterIds: Object.freeze([...input.characterIds]) }) : Object.freeze({ ...input });
 }
 
 const rejected = (reason: string, message: string): ActionResult => Object.freeze({ status: 'rejected', reason, message });

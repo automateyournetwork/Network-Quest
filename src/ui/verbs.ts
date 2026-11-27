@@ -2,6 +2,7 @@
 import type { ContentRegistry } from '../content/registry';
 import type * as S from '../content/schema-types.generated';
 import type { ItemId, QualifiedId, RoomId, Verb } from '../domain/types';
+import { encounterCharacter } from '../state/party';
 import { conditionSatisfied } from '../state/conditions';
 import type { ReducerState, StateEffect } from '../state/reducer';
 import type { UiState } from '../state/types';
@@ -88,6 +89,8 @@ export function createVerbController({ bus, registry, store, bindings, walk, pan
     if (choices.length > 1) return unavailable('choose-action', `Choose an action for ${hotspot.label}: ${choices.map(e => e.choice.text).join('; ')}.`);
     const selected = choices[0];
     if (!selected) {
+      if ((input.verb === 'look' || input.verb === 'talk') && encounterCharacter(registry, before.runtime.game!, hotspot.id, input.verb))
+        return reductionPlan(store, action, before, { kind: 'party', operation: { kind: 'encounter', hotspotId: hotspot.id as QualifiedId, verb: input.verb } }, hotspot.description);
       if (input.verb === 'look') return { status: 'handled', message: hotspot.description };
       return unavailable('interaction-unavailable', `${hotspot.unsupportedVerbText} No eligible ${input.verb} action is connected for this selection.`);
     }
@@ -98,7 +101,8 @@ export function createVerbController({ bus, registry, store, bindings, walk, pan
     const message = input.verb === 'look' ? [hotspot.description, ...room.evidence.filter(e => hotspot.evidenceIds.includes(e.id)
       && selected.choice.effects.some(effect => effect.kind === 'record-fact' && effect.factId === e.id)).map(e => e.text)].join('\n\n') : selected.choice.text;
     return reductionPlan(store, action, before, { kind: 'apply', evaluation: { status: 'correct', reasonCode: 'authored-hotspot-action', observations: [],
-      acceptedEffects: selected.choice.effects as StateEffect[] } }, message);
+      acceptedEffects: selected.choice.effects as StateEffect[] } }, message, input.verb === 'look' || input.verb === 'talk'
+      ? { registry, hotspotId: hotspot.id as QualifiedId, verb: input.verb } : undefined);
   };
   try {
     register('select-verb', action => {
@@ -125,7 +129,7 @@ export function createVerbController({ bus, registry, store, bindings, walk, pan
       const state = store.getState();
       return [
         ...(['walk', 'look', 'talk', 'use'] as const).map(verb => ({ id: `verb:${verb}`, label: title(verb), pressed: state.runtime.ui?.selectedVerb === verb, action: { kind: 'select-verb' as const, verb } })),
-        ...(['inventory', 'notebook', 'compendium'] as const).map(panel => ({ id: `panel:${panel}`, label: title(panel), action: { kind: 'open-panel' as const, panel } })),
+        ...(['inventory', 'notebook', 'compendium', 'party'] as const).map(panel => ({ id: `panel:${panel}`, label: title(panel), action: { kind: 'open-panel' as const, panel } })),
       ];
     },
     objects(): readonly SceneObjectView[] {

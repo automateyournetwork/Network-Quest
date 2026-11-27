@@ -91,7 +91,11 @@ final class SaveRepositoryTest extends TestCase
 
     private static function policy(): object
     {
-        return json_decode(file_get_contents(__DIR__ . '/../../tests/services/save-validator-policy.json'))->policy;
+        $policy = json_decode(file_get_contents(__DIR__ . '/../../tests/services/save-validator-policy.json'))->policy;
+        $policy->recruits->{'spec001:fixture.helper'}->abilityIdsByLevel = (object) [
+            '1' => [], '2' => ['spec001:fixture.measure'],
+        ];
+        return $policy;
     }
 
     private function repository(?callable $observer = null, ?array $policies = null, ?array $versions = null, ?AccountAccess $access = null): SaveRepository

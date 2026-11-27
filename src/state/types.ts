@@ -181,7 +181,7 @@ export interface PresentationSettings {
 }
 
 export interface UiState {
-  readonly panel: 'none' | 'inventory' | 'notebook' | 'compendium' | 'settings' | 'save';
+  readonly panel: 'none' | 'inventory' | 'notebook' | 'compendium' | 'party' | 'settings' | 'save';
   readonly focusedObject: InstanceId | QualifiedId | null;
   readonly selectedVerb: Verb;
   readonly selectedItem: ItemId | null;

@@ -1,0 +1,61 @@
+--- a/tests/services/save-validator.test.ts
++++ b/tests/services/save-validator.test.ts
+@@ -17,7 +17,12 @@
+ const root = new URL('../../', import.meta.url);
+ const base = readFileSync(new URL(conformance.schemaBase, root), 'utf8');
+ const bytes = (text: string) => new TextEncoder().encode(text);
+-const policy = fixture.policy as SaveContentPolicy;
++// Explicit projection of the synthetic helper, preserving original fixture bytes.
++const policy = { ...structuredClone(fixture.policy), recruits: {
++  'spec001:fixture.helper': { ...fixture.policy.recruits['spec001:fixture.helper'], abilityIdsByLevel: {
++    '1': [], '2': ['spec001:fixture.measure'],
++  } },
++} } as SaveContentPolicy;
+ const validator = new SaveValidator([policy]);
+ type Patch = { op: string; path: string; value?: unknown; text?: string; count?: number };
+ function patched(patches: readonly Patch[]): string {
+--- a/tests/state/save-migrations.test.ts
++++ b/tests/state/save-migrations.test.ts
+@@ -24,7 +24,7 @@
+     flag: [q('powered'), q('trained')], compendium: [q('helper')], fact: [q('power-fact')],
+     hint: [q('hint-method')], rule: [q('length')], subject: [probe], caveat: [q('shutdown-caveat')],
+   }, safePositions: { [q(old ? 'old-bench' : 'safe-bench')]: { roomId: q('workshop'), eligibleStates: ['safe-preparation'] } },
+-  itemMaxQuantities: { [probe]: 1 }, recruits: { [q('helper')]: { maxLevel: 2, abilityIds: [q('observe')], progressFlagIds: [q('trained')] } },
++  itemMaxQuantities: { [probe]: 1 }, recruits: { [q('helper')]: { maxLevel: 2, abilityIds: [q('observe')], progressFlagIds: [q('trained')], abilityIdsByLevel: { '1': [], '2': [q('observe')] } } },
+   hints: { [q('hint-method')]: { objectiveId: q('inspect'), level: 1 } }, objectivePrerequisites: { [q('inspect')]: { kind: 'always' } },
+   measurementRules: { [q('length')]: { readings: { length: 'm' }, conclusionCodes: ['fixture-inspected'] } }, unsafeFlags: {} };
+ }
+--- a/server/tests/SaveValidatorTest.php
++++ b/server/tests/SaveValidatorTest.php
+@@ -17,7 +17,15 @@
+     private static function read(string $path): string { return file_get_contents(self::ROOT . '/' . $path); }
+     private static function doc(string $path): object { return json_decode(self::read($path), flags: JSON_THROW_ON_ERROR); }
+     private static function conformance(): object { return self::doc('tests/fixtures/save-conformance.json'); }
+-    private static function fixture(): object { return self::doc('tests/services/save-validator-policy.json'); }
++    private static function fixture(): object
++    {
++        // Explicit trusted test projection; the original oracle bytes stay intact.
++        $fixture = self::doc('tests/services/save-validator-policy.json');
++        $fixture->policy->recruits->{'spec001:fixture.helper'}->abilityIdsByLevel = (object) [
++            '1' => [], '2' => ['spec001:fixture.measure'],
++        ];
++        return $fixture;
++    }
+     private static function base(): string { return self::read(self::conformance()->schemaBase); }
+     private static function validator(): SaveValidator { return new SaveValidator([self::fixture()->policy]); }
+ 
+--- a/server/tests/SaveRepositoryTest.php
++++ b/server/tests/SaveRepositoryTest.php
+@@ -91,7 +91,11 @@
+ 
+     private static function policy(): object
+     {
+-        return json_decode(file_get_contents(__DIR__ . '/../../tests/services/save-validator-policy.json'))->policy;
++        $policy = json_decode(file_get_contents(__DIR__ . '/../../tests/services/save-validator-policy.json'))->policy;
++        $policy->recruits->{'spec001:fixture.helper'}->abilityIdsByLevel = (object) [
++            '1' => [], '2' => ['spec001:fixture.measure'],
++        ];
++        return $policy;
+     }
+ 
+     private function repository(?callable $observer = null, ?array $policies = null, ?array $versions = null, ?AccountAccess $access = null): SaveRepository

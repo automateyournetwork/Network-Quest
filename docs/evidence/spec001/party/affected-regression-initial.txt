@@ -1,0 +1,60 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/ui/action-bus.test.ts (26 tests) 9ms
+ ✓ tests/state/reducer.test.ts (38 tests) 175ms
+ ✓ tests/state/save-migrations.test.ts (22 tests) 639ms
+   ✓ T048 supported-version reading and explicit in-memory migration (22)
+     ✓ reads actual current content and does not grant fixture IDs or unavailable rooms 582ms
+ ✓ tests/services/save-validator.test.ts (109 tests) 1125ms
+   ✓ T042 new-write validation, without account/HTTP/transaction claims (109)
+     ✓ bridges all authored rooms and rejects unavailable rooms/anchors, out-of-order objectives and unauthored recruits 572ms
+     ✓ accepts an actual reducer inspection with explicit reviewed measurement policy and rejects wrong units 508ms
+ ❯ tests/ui/verbs.test.ts (11 tests | 1 failed) 1423ms
+   ❯ T025 current-room verb resolution (11)
+     × projects visible controls and changes transient verb selection without progress 145ms
+     ✓ records real Look evidence and gives authored unsupported feedback without effects 134ms
+     ✓ rejects remote targets, action IDs as targets, unheld tools and wrong-verb explicit choices 131ms
+     ✓ uses exact authored conditions to alternate a selector without choosing presentation order 130ms
+     ✓ uses the actual one-time kit group and preserves it across repeated Use 129ms
+     ✓ requires an explicit authored alternative when multiple Use actions are eligible 125ms
+     ✓ validates bindings to current-room exposed entry choices and rejects unrelated sibling mappings 124ms
+     ✓ routes Talk and Walk only through explicit ports and rejects a stale port commit 121ms
+     ✓ rejects a same-version store replacement during trusted resolution before committing 122ms
+     ✓ keeps unsupported minigame predicates closed under negation and disjunction 137ms
+     ✓ checks exact item-to-hotspot ownership without consuming the reusable kit or awarding an unwired measurement 124ms
+ ✓ tests/ui/dialogue.test.ts (12 tests) 1424ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ui/verbs.test.ts > T025 current-room verb resolution > projects visible controls and changes transient verb selection without progress
+AssertionError: expected [ 'Walk', 'Look', 'Talk', 'Use', …(4) ] to deeply equal [ 'Walk', 'Look', 'Talk', 'Use', …(3) ]
+
+- Expected
++ Received
+
+@@ -4,6 +4,7 @@
+    "Talk",
+    "Use",
+    "Inventory",
+    "Notebook",
+    "Compendium",
++   "Party",
+  ]
+
+ ❯ tests/ui/verbs.test.ts:20:53
+     18|   it('projects visible controls and changes transient verb selection w…
+     19|     const f = setup(), controller = createVerbController({ ...f, bindi…
+     20|     expect(controller.controls().map(c => c.label)).toEqual(['Walk', '…
+       |                                                     ^
+     21|     for (const verb of ['walk', 'look', 'talk', 'use'] as const) {
+     22|       expect(f.bus.dispatch(f.bus.capture({ kind: 'select-verb', verb …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  1 failed | 217 passed (218)
+   Start at  09:12:00
+   Duration  1.76s (tests 84%, import 11%, transform 5%)
+

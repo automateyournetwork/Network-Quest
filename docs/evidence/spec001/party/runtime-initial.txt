@@ -1,0 +1,215 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/state/party.test.ts (45 tests | 21 failed) 121ms
+   ❯ T094 independent real party runtime contract (45)
+     ✓ CH03: encounter alone awards neither recruitment nor a usable ability 6ms
+     ✓ CH04: encounter alone awards neither recruitment nor a usable ability 2ms
+     ✓ CH05: encounter alone awards neither recruitment nor a usable ability 1ms
+     ✓ CH06: encounter alone awards neither recruitment nor a usable ability 1ms
+     ✓ CH07: encounter alone awards neither recruitment nor a usable ability 1ms
+     ✓ CH16: encounter alone awards neither recruitment nor a usable ability 1ms
+     ✓ CH19: encounter alone awards neither recruitment nor a usable ability 1ms
+     ✓ CH20: encounter alone awards neither recruitment nor a usable ability 1ms
+     ✓ CH22: encounter alone awards neither recruitment nor a usable ability 1ms
+     × CH03: valid demonstrated invitation is singular and does not silently activate an ally 5ms
+     ✓ CH04: valid demonstrated invitation is singular and does not silently activate an ally 4ms
+     × CH05: valid demonstrated invitation is singular and does not silently activate an ally 3ms
+     × CH06: valid demonstrated invitation is singular and does not silently activate an ally 2ms
+     ✓ CH07: valid demonstrated invitation is singular and does not silently activate an ally 3ms
+     × CH16: valid demonstrated invitation is singular and does not silently activate an ally 2ms
+     ✓ CH19: valid demonstrated invitation is singular and does not silently activate an ally 3ms
+     ✓ CH20: valid demonstrated invitation is singular and does not silently activate an ally 3ms
+     ✓ CH22: valid demonstrated invitation is singular and does not silently activate an ally 3ms
+     × CH03: repeating recruitment evidence does not itself earn meaningful progression 3ms
+     ✓ CH04: repeating recruitment evidence does not itself earn meaningful progression 3ms
+     × CH05: repeating recruitment evidence does not itself earn meaningful progression 2ms
+     × CH06: repeating recruitment evidence does not itself earn meaningful progression 3ms
+     ✓ CH07: repeating recruitment evidence does not itself earn meaningful progression 3ms
+     × CH16: repeating recruitment evidence does not itself earn meaningful progression 2ms
+     ✓ CH19: repeating recruitment evidence does not itself earn meaningful progression 2ms
+     ✓ CH20: repeating recruitment evidence does not itself earn meaningful progression 3ms
+     ✓ CH22: repeating recruitment evidence does not itself earn meaningful progression 3ms
+     × CH03: explicit post-recruit demonstration unlocks a new useful ability exactly once 3ms
+     ✓ CH04: explicit post-recruit demonstration unlocks a new useful ability exactly once 6ms
+     × CH05: explicit post-recruit demonstration unlocks a new useful ability exactly once 2ms
+     × CH06: explicit post-recruit demonstration unlocks a new useful ability exactly once 2ms
+     ✓ CH07: explicit post-recruit demonstration unlocks a new useful ability exactly once 3ms
+     × CH16: explicit post-recruit demonstration unlocks a new useful ability exactly once 3ms
+     ✓ CH19: explicit post-recruit demonstration unlocks a new useful ability exactly once 4ms
+     ✓ CH20: explicit post-recruit demonstration unlocks a new useful ability exactly once 5ms
+     ✓ CH22: explicit post-recruit demonstration unlocks a new useful ability exactly once 4ms
+     × keeps zero active allies valid, accepts two unique recruits, and rejects a third without silent eviction 3ms
+     × rejects duplicate and unrecruited active identities atomically 2ms
+     × swaps freely in preparation, preserves inventory, advances configuration once and stales measurements without a save 2ms
+     × rejects swaps during active-encounter without broadening the active encounter policy 2ms
+     × rejects swaps during terminal-failure without broadening the active encounter policy 2ms
+     × rejects swaps during shutdown without broadening the active encounter policy 3ms
+     × rejects swaps during pending-effect without broadening the active encounter policy 2ms
+     × invalidates a captured party control after Restore even with the same adventure and configuration 2ms
+     × persists completed levels and the active pair, while unfinished practice must restart after Restore 2ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 21 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > CH03: valid demonstrated invitation is singular and does not silently activate an ally
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > CH05: valid demonstrated invitation is singular and does not silently activate an ally
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > CH06: valid demonstrated invitation is singular and does not silently activate an ally
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > CH16: valid demonstrated invitation is singular and does not silently activate an ally
+AssertionError: conventional action ACTION-fiber-profile-matched in spec001:R05: expected null not to be null
+ ❯ action tests/state/party-fixture.ts:64:91
+     62|   };
+     63|   const action = (id: string) => { const input = conventionalAbilityOp…
+     64|     expect(input, `conventional action ${id} in ${state.runtime.game!.…
+       |                                                                                           ^
+     65|   const measure = (short: string) => { walk(benches[short]!); const ob…
+     66|     const id = crypto.randomUUID() as MeasurementId; send({ kind: 'obj…
+ ❯ fiber tests/state/party-fixture.ts:68:142
+ ❯ Object.demonstrateRecruitment tests/state/party-fixture.ts:72:55
+ ❯ recruit docs/evidence/spec001/party/runtime-contract.ts:45:7
+ ❯ docs/evidence/spec001/party/runtime-contract.ts:61:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > CH03: repeating recruitment evidence does not itself earn meaningful progression
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > CH05: repeating recruitment evidence does not itself earn meaningful progression
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > CH06: repeating recruitment evidence does not itself earn meaningful progression
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > CH16: repeating recruitment evidence does not itself earn meaningful progression
+AssertionError: conventional action ACTION-fiber-profile-matched in spec001:R05: expected null not to be null
+ ❯ action tests/state/party-fixture.ts:64:91
+     62|   };
+     63|   const action = (id: string) => { const input = conventionalAbilityOp…
+     64|     expect(input, `conventional action ${id} in ${state.runtime.game!.…
+       |                                                                                           ^
+     65|   const measure = (short: string) => { walk(benches[short]!); const ob…
+     66|     const id = crypto.randomUUID() as MeasurementId; send({ kind: 'obj…
+ ❯ fiber tests/state/party-fixture.ts:68:142
+ ❯ Object.demonstrateRecruitment tests/state/party-fixture.ts:72:55
+ ❯ recruit docs/evidence/spec001/party/runtime-contract.ts:45:7
+ ❯ docs/evidence/spec001/party/runtime-contract.ts:71:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > CH03: explicit post-recruit demonstration unlocks a new useful ability exactly once
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > CH05: explicit post-recruit demonstration unlocks a new useful ability exactly once
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > CH06: explicit post-recruit demonstration unlocks a new useful ability exactly once
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > CH16: explicit post-recruit demonstration unlocks a new useful ability exactly once
+AssertionError: conventional action ACTION-fiber-profile-matched in spec001:R05: expected null not to be null
+ ❯ action tests/state/party-fixture.ts:64:91
+     62|   };
+     63|   const action = (id: string) => { const input = conventionalAbilityOp…
+     64|     expect(input, `conventional action ${id} in ${state.runtime.game!.…
+       |                                                                                           ^
+     65|   const measure = (short: string) => { walk(benches[short]!); const ob…
+     66|     const id = crypto.randomUUID() as MeasurementId; send({ kind: 'obj…
+ ❯ fiber tests/state/party-fixture.ts:68:142
+ ❯ Object.demonstrateRecruitment tests/state/party-fixture.ts:72:55
+ ❯ recruit docs/evidence/spec001/party/runtime-contract.ts:45:7
+ ❯ docs/evidence/spec001/party/runtime-contract.ts:80:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > keeps zero active allies valid, accepts two unique recruits, and rejects a third without silent eviction
+AssertionError: conventional action ACTION-fiber-profile-matched in spec001:R05: expected null not to be null
+ ❯ action tests/state/party-fixture.ts:64:91
+     62|   };
+     63|   const action = (id: string) => { const input = conventionalAbilityOp…
+     64|     expect(input, `conventional action ${id} in ${state.runtime.game!.…
+       |                                                                                           ^
+     65|   const measure = (short: string) => { walk(benches[short]!); const ob…
+     66|     const id = crypto.randomUUID() as MeasurementId; send({ kind: 'obj…
+ ❯ fiber tests/state/party-fixture.ts:68:142
+ ❯ Object.demonstrateRecruitment tests/state/party-fixture.ts:72:55
+ ❯ recruit docs/evidence/spec001/party/runtime-contract.ts:45:7
+ ❯ docs/evidence/spec001/party/runtime-contract.ts:94:66
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > rejects duplicate and unrecruited active identities atomically
+AssertionError: conventional action ACTION-fiber-profile-matched in spec001:R05: expected null not to be null
+ ❯ action tests/state/party-fixture.ts:64:91
+     62|   };
+     63|   const action = (id: string) => { const input = conventionalAbilityOp…
+     64|     expect(input, `conventional action ${id} in ${state.runtime.game!.…
+       |                                                                                           ^
+     65|   const measure = (short: string) => { walk(benches[short]!); const ob…
+     66|     const id = crypto.randomUUID() as MeasurementId; send({ kind: 'obj…
+ ❯ fiber tests/state/party-fixture.ts:68:142
+ ❯ Object.demonstrateRecruitment tests/state/party-fixture.ts:72:55
+ ❯ recruit docs/evidence/spec001/party/runtime-contract.ts:45:7
+ ❯ docs/evidence/spec001/party/runtime-contract.ts:102:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > swaps freely in preparation, preserves inventory, advances configuration once and stales measurements without a save
+AssertionError: conventional action ACTION-fiber-profile-matched in spec001:R05: expected null not to be null
+ ❯ action tests/state/party-fixture.ts:64:91
+     62|   };
+     63|   const action = (id: string) => { const input = conventionalAbilityOp…
+     64|     expect(input, `conventional action ${id} in ${state.runtime.game!.…
+       |                                                                                           ^
+     65|   const measure = (short: string) => { walk(benches[short]!); const ob…
+     66|     const id = crypto.randomUUID() as MeasurementId; send({ kind: 'obj…
+ ❯ fiber tests/state/party-fixture.ts:68:142
+ ❯ Object.demonstrateRecruitment tests/state/party-fixture.ts:72:55
+ ❯ recruit docs/evidence/spec001/party/runtime-contract.ts:45:7
+ ❯ docs/evidence/spec001/party/runtime-contract.ts:111:66
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > rejects swaps during active-encounter without broadening the active encounter policy
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > rejects swaps during terminal-failure without broadening the active encounter policy
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > rejects swaps during shutdown without broadening the active encounter policy
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > rejects swaps during pending-effect without broadening the active encounter policy
+AssertionError: conventional action ACTION-fiber-profile-matched in spec001:R05: expected null not to be null
+ ❯ action tests/state/party-fixture.ts:64:91
+     62|   };
+     63|   const action = (id: string) => { const input = conventionalAbilityOp…
+     64|     expect(input, `conventional action ${id} in ${state.runtime.game!.…
+       |                                                                                           ^
+     65|   const measure = (short: string) => { walk(benches[short]!); const ob…
+     66|     const id = crypto.randomUUID() as MeasurementId; send({ kind: 'obj…
+ ❯ fiber tests/state/party-fixture.ts:68:142
+ ❯ Object.demonstrateRecruitment tests/state/party-fixture.ts:72:55
+ ❯ recruit docs/evidence/spec001/party/runtime-contract.ts:45:7
+ ❯ docs/evidence/spec001/party/runtime-contract.ts:123:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > invalidates a captured party control after Restore even with the same adventure and configuration
+AssertionError: conventional action ACTION-fiber-profile-matched in spec001:R05: expected null not to be null
+ ❯ action tests/state/party-fixture.ts:64:91
+     62|   };
+     63|   const action = (id: string) => { const input = conventionalAbilityOp…
+     64|     expect(input, `conventional action ${id} in ${state.runtime.game!.…
+       |                                                                                           ^
+     65|   const measure = (short: string) => { walk(benches[short]!); const ob…
+     66|     const id = crypto.randomUUID() as MeasurementId; send({ kind: 'obj…
+ ❯ fiber tests/state/party-fixture.ts:68:142
+ ❯ Object.demonstrateRecruitment tests/state/party-fixture.ts:72:55
+ ❯ recruit docs/evidence/spec001/party/runtime-contract.ts:45:7
+ ❯ docs/evidence/spec001/party/runtime-contract.ts:130:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ FAIL  tests/state/party.test.ts > T094 independent real party runtime contract > persists completed levels and the active pair, while unfinished practice must restart after Restore
+AssertionError: conventional action ACTION-fiber-profile-matched in spec001:R05: expected null not to be null
+ ❯ action tests/state/party-fixture.ts:64:91
+     62|   };
+     63|   const action = (id: string) => { const input = conventionalAbilityOp…
+     64|     expect(input, `conventional action ${id} in ${state.runtime.game!.…
+       |                                                                                           ^
+     65|   const measure = (short: string) => { walk(benches[short]!); const ob…
+     66|     const id = crypto.randomUUID() as MeasurementId; send({ kind: 'obj…
+ ❯ fiber tests/state/party-fixture.ts:68:142
+ ❯ Object.demonstrateRecruitment tests/state/party-fixture.ts:72:55
+ ❯ recruit docs/evidence/spec001/party/runtime-contract.ts:45:7
+ ❯ docs/evidence/spec001/party/runtime-contract.ts:136:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  21 failed | 24 passed (45)
+   Start at  09:08:34
+   Duration  811ms (import 74%, tests 16%, transform 10%)
+

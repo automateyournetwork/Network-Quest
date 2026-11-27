@@ -17,7 +17,15 @@ final class SaveValidatorTest extends TestCase
     private static function read(string $path): string { return file_get_contents(self::ROOT . '/' . $path); }
     private static function doc(string $path): object { return json_decode(self::read($path), flags: JSON_THROW_ON_ERROR); }
     private static function conformance(): object { return self::doc('tests/fixtures/save-conformance.json'); }
-    private static function fixture(): object { return self::doc('tests/services/save-validator-policy.json'); }
+    private static function fixture(): object
+    {
+        // Explicit trusted test projection; the original oracle bytes stay intact.
+        $fixture = self::doc('tests/services/save-validator-policy.json');
+        $fixture->policy->recruits->{'spec001:fixture.helper'}->abilityIdsByLevel = (object) [
+            '1' => [], '2' => ['spec001:fixture.measure'],
+        ];
+        return $fixture;
+    }
     private static function base(): string { return self::read(self::conformance()->schemaBase); }
     private static function validator(): SaveValidator { return new SaveValidator([self::fixture()->policy]); }
 

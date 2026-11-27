@@ -1,0 +1,108 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ docs/evidence/spec001/party/preparation-contract.test.ts (24 tests | 23 failed) 6ms
+   ❯ T094 preparation: canonical boundaries that recruitment must preserve (24)
+     × CH03: records the actual O05 result with its canonical provenance 3ms
+     × CH04: records the actual O04 result with its canonical provenance 0ms
+     × CH05: records the actual O06 result with its canonical provenance 0ms
+     × CH06: records the actual O06 result with its canonical provenance 0ms
+     × CH07: records the actual O08 result with its canonical provenance 0ms
+     × CH16: records the actual O09 result with its canonical provenance 0ms
+     × CH19: records the actual O09 result with its canonical provenance 0ms
+     × CH20: records the actual O04 result with its canonical provenance 0ms
+     × CH22: records the actual O09 result with its canonical provenance 0ms
+     × CH03: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration 0ms
+     × CH04: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration 0ms
+     × CH05: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration 0ms
+     × CH06: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration 0ms
+     × CH07: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration 0ms
+     × CH16: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration 0ms
+     × CH19: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration 0ms
+     × CH20: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration 0ms
+     × CH22: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration 0ms
+     × CH03: ability rule labels cannot be substituted for the O05 measurement rule 0ms
+     × CH16: ability rule labels cannot be substituted for the O09 measurement rule 0ms
+     × CH20: ability rule labels cannot be substituted for the O04 measurement rule 0ms
+     × CH22: ability rule labels cannot be substituted for the O09 measurement rule 0ms
+     × a real R06 to R05 walk preserves optical learning history while making its result stale for a current repair 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 23 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH03: records the actual O05 result with its canonical provenance
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH04: records the actual O04 result with its canonical provenance
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH05: records the actual O06 result with its canonical provenance
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH06: records the actual O06 result with its canonical provenance
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH07: records the actual O08 result with its canonical provenance
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH16: records the actual O09 result with its canonical provenance
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH19: records the actual O09 result with its canonical provenance
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH20: records the actual O04 result with its canonical provenance
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH22: records the actual O09 result with its canonical provenance
+TypeError: Cannot read properties of undefined (reading 'map')
+ ❯ fixture docs/evidence/spec001/party/preparation-contract.test.ts:61:59
+     59|       completedObjectiveIds: ['O01', 'O02', 'O03', 'O05', 'O07'].filte…
+     60|       inventory: [{ itemId: q<'item'>('ITEM-inspection-kit'), quantity…
+     61|     notebook: { ...game.notebook, factIds: world.evidence.map(e => e.i…
+       |                                                           ^
+     62|   } });
+     63|   const reduce = createReducer({ registry, bindings, objectiveScenario…
+ ❯ docs/evidence/spec001/party/preparation-contract.test.ts:101:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH03: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH04: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH05: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH06: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH07: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH16: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH19: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH20: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH22: submit remains repeatable with fresh measurement after completion; submit status alone cannot prove demonstration
+TypeError: Cannot read properties of undefined (reading 'map')
+ ❯ fixture docs/evidence/spec001/party/preparation-contract.test.ts:61:59
+     59|       completedObjectiveIds: ['O01', 'O02', 'O03', 'O05', 'O07'].filte…
+     60|       inventory: [{ itemId: q<'item'>('ITEM-inspection-kit'), quantity…
+     61|     notebook: { ...game.notebook, factIds: world.evidence.map(e => e.i…
+       |                                                           ^
+     62|   } });
+     63|   const reduce = createReducer({ registry, bindings, objectiveScenario…
+ ❯ docs/evidence/spec001/party/preparation-contract.test.ts:113:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH03: ability rule labels cannot be substituted for the O05 measurement rule
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH16: ability rule labels cannot be substituted for the O09 measurement rule
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH20: ability rule labels cannot be substituted for the O04 measurement rule
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > CH22: ability rule labels cannot be substituted for the O09 measurement rule
+TypeError: Cannot read properties of undefined (reading 'map')
+ ❯ fixture docs/evidence/spec001/party/preparation-contract.test.ts:61:59
+     59|       completedObjectiveIds: ['O01', 'O02', 'O03', 'O05', 'O07'].filte…
+     60|       inventory: [{ itemId: q<'item'>('ITEM-inspection-kit'), quantity…
+     61|     notebook: { ...game.notebook, factIds: world.evidence.map(e => e.i…
+       |                                                           ^
+     62|   } });
+     63|   const reduce = createReducer({ registry, bindings, objectiveScenario…
+ ❯ docs/evidence/spec001/party/preparation-contract.test.ts:127:63
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  docs/evidence/spec001/party/preparation-contract.test.ts > T094 preparation: canonical boundaries that recruitment must preserve > a real R06 to R05 walk preserves optical learning history while making its result stale for a current repair
+TypeError: Cannot read properties of undefined (reading 'map')
+ ❯ fixture docs/evidence/spec001/party/preparation-contract.test.ts:61:59
+     59|       completedObjectiveIds: ['O01', 'O02', 'O03', 'O05', 'O07'].filte…
+     60|       inventory: [{ itemId: q<'item'>('ITEM-inspection-kit'), quantity…
+     61|     notebook: { ...game.notebook, factIds: world.evidence.map(e => e.i…
+       |                                                           ^
+     62|   } });
+     63|   const reduce = createReducer({ registry, bindings, objectiveScenario…
+ ❯ docs/evidence/spec001/party/preparation-contract.test.ts:131:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  23 failed | 1 passed (24)
+   Start at  08:22:33
+   Duration  815ms (import 67%, transform 32%, tests 1%)
+

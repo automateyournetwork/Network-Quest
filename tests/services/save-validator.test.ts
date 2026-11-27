@@ -17,7 +17,12 @@ import { saveSchemaArtifacts } from '../../tools/generate-save-validator';
 const root = new URL('../../', import.meta.url);
 const base = readFileSync(new URL(conformance.schemaBase, root), 'utf8');
 const bytes = (text: string) => new TextEncoder().encode(text);
-const policy = fixture.policy as SaveContentPolicy;
+// Explicit projection of the synthetic helper, preserving original fixture bytes.
+const policy = { ...structuredClone(fixture.policy), recruits: {
+  'spec001:fixture.helper': { ...fixture.policy.recruits['spec001:fixture.helper'], abilityIdsByLevel: {
+    '1': [], '2': ['spec001:fixture.measure'],
+  } },
+} } as SaveContentPolicy;
 const validator = new SaveValidator([policy]);
 type Patch = { op: string; path: string; value?: unknown; text?: string; count?: number };
 function patched(patches: readonly Patch[]): string {

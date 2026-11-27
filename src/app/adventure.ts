@@ -2,6 +2,7 @@
 import type { ContentRegistry } from '../content/registry';
 import type { AdventureId, AttemptId, ConfigurationRevision, ContentVersion, QualifiedId } from '../domain/types';
 import type { RuntimeState, SaveSnapshotV1 } from '../state/types';
+import { apprenticeDiscovery } from '../state/party';
 
 const q = <T extends string = string>(id: string) => `spec001:${id}` as QualifiedId<T>;
 export function createIntroductionRuntime(): RuntimeState {
@@ -29,7 +30,7 @@ export function startIntroduction(previous: RuntimeState, registry: ContentRegis
   return { ...previous, checkpoint: null, activity: { kind: 'stable-exploration' },
     game: { episodeId: 'spec001', contentVersion: room.contentVersion as ContentVersion, adventureId: crypto.randomUUID() as AdventureId,
       world: { roomId: q('R01'), position: { safePositionId: q('R01.entry') }, attemptId: crypto.randomUUID() as AttemptId,
-        configurationRevision: 0 as ConfigurationRevision, flags: {}, completedObjectiveIds: [], completedQuestIds: [], achievementIds: [], dialogueEffectIds: [], inventory: [], recruits: [], activeAllyIds: [], compendiumIds: [], route: null, continueOutcome: null },
+        configurationRevision: 0 as ConfigurationRevision, flags: {}, completedObjectiveIds: [], completedQuestIds: [], achievementIds: [], dialogueEffectIds: [], inventory: [], recruits: [], activeAllyIds: [], compendiumIds: apprenticeDiscovery(registry, room), route: null, continueOutcome: null },
       notebook: { factIds: [], mapRoomIds: [q('R01')], personalNotes: '', hypotheses: [], measurements: [] }, assistance: [], outcomeHistory: [] },
     ui: { panel: 'none', focusedObject: null, selectedVerb: 'walk', selectedItem: null, feedback: null,
       presentation: previous.ui?.presentation ?? { musicVolume: 1, effectsVolume: 1, voiceVolume: 1, captions: true, reducedMotion: 'system', textScale: 1 } },

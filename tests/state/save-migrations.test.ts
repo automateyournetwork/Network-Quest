@@ -24,7 +24,7 @@ function fixturePolicy(version: string): SaveContentPolicy {
     flag: [q('powered'), q('trained')], compendium: [q('helper')], fact: [q('power-fact')],
     hint: [q('hint-method')], rule: [q('length')], subject: [probe], caveat: [q('shutdown-caveat')],
   }, safePositions: { [q(old ? 'old-bench' : 'safe-bench')]: { roomId: q('workshop'), eligibleStates: ['safe-preparation'] } },
-  itemMaxQuantities: { [probe]: 1 }, recruits: { [q('helper')]: { maxLevel: 2, abilityIds: [q('observe')], progressFlagIds: [q('trained')] } },
+  itemMaxQuantities: { [probe]: 1 }, recruits: { [q('helper')]: { maxLevel: 2, abilityIds: [q('observe')], progressFlagIds: [q('trained')], abilityIdsByLevel: { '1': [], '2': [q('observe')] } } },
   hints: { [q('hint-method')]: { objectiveId: q('inspect'), level: 1 } }, objectivePrerequisites: { [q('inspect')]: { kind: 'always' } },
   measurementRules: { [q('length')]: { readings: { length: 'm' }, conclusionCodes: ['fixture-inspected'] } }, unsafeFlags: {} };
 }

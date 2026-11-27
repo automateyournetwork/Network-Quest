@@ -17,7 +17,7 @@ const interact = (target: string, verb: 'walk' | 'look' | 'talk' | 'use', itemId
 describe('T025 current-room verb resolution', () => {
   it('projects visible controls and changes transient verb selection without progress', () => {
     const f = setup(), controller = createVerbController({ ...f, bindings }); const before = f.store.getState();
-    expect(controller.controls().map(c => c.label)).toEqual(['Walk', 'Look', 'Talk', 'Use', 'Inventory', 'Notebook', 'Compendium']);
+    expect(controller.controls().map(c => c.label)).toEqual(['Walk', 'Look', 'Talk', 'Use', 'Inventory', 'Notebook', 'Compendium', 'Party']);
     for (const verb of ['walk', 'look', 'talk', 'use'] as const) {
       expect(f.bus.dispatch(f.bus.capture({ kind: 'select-verb', verb })).status).toBe('handled');
       expect(controller.controls().find(c => c.label.toLowerCase() === verb)?.pressed).toBe(true);

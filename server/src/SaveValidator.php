@@ -166,7 +166,10 @@ final class SaveValidator
         }
         foreach ($w->recruits as $recruit) {
             $allowed = $p->recruits->{$recruit->characterId} ?? null;
-            if ($allowed === null || $recruit->level > $allowed->maxLevel
+            $levelAbilities = $allowed?->abilityIdsByLevel->{(string) $recruit->level} ?? null;
+            if ($allowed === null || $recruit->level > $allowed->maxLevel || !is_array($levelAbilities)
+                || count($recruit->abilityIds) !== count($levelAbilities)
+                || array_diff($recruit->abilityIds, $levelAbilities) !== []
                 || array_diff($recruit->abilityIds, $allowed->abilityIds) !== []
                 || array_diff($recruit->progressFlags, $allowed->progressFlagIds) !== []) {
                 return self::fail('relationship', '/world/recruits');

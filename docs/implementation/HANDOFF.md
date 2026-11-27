@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**110 loops started; 89 of 170 tasks accepted.** T085–T089 are accepted
+**112 loops started; 90 of 170 tasks accepted.** T085–T089 are accepted
 for their documented local scope. T089 final12native cases PASS in2.6minutes;
 root final85client suites3065PASS/360unchangedTODO (35.33s), check/buildPASS.
 Root matched61finalpublicseal entries and inspected narrow/desktop recovery
@@ -82,7 +82,27 @@ T095accepted after isolated acceptedT093+T095 check/build/45focusedPASS and
 visuallychecked200%reading/sourcefocus. Initial.localdevserverdenialretained;
 normalbuiltpreviewpassed withoutweakening servingpolicy. Seecompendium-join-review.md. Fresh110authors SQ02 energy-audit data
 and proposedvariant with109, no sharedwrites.
+Latest published checkpoint `16ee49ed01e759058ea52dcf8e73155a359ec63d`:98reviewedpaths/2,410,128bytes.
+Exactindex/blob/private/headerchecksPASS,17rawrunner/patchwhitespace findings
+preserved; partyappworkingdiff untouched. Remoteverified.
 No source count or portrait/gate acceptance is inferred. No release deployed.
+
+T094 frozen:117sealed entries matched; root copied accepted16ee49e plus exactparty
+sources/evidence to .local/t094-isolated. Root acceptance tests/publication use
+that copy; ongoing shared edits stay intact.109has fullcoherent schema/registry/
+controller/app/save-policy window for SQ01/SQ02. SQ02canonicalprojection is
+unloaded;58focusedPASS+strictTS, rootapproved actualpowerdiagnosis union.
+Fresh111/T098 and112/T099 independently authorSQ03/SQ04 outsideglobaldiscovery.
+Same108/110 finalruntimejoins remainpending; noauthoring-only acceptance.
+
+T094accepted after rootreview+117matchingseals. Isolatedfullclient3723PASS/1FAIL/
+360TODO exposed missingR11Backhoe temporaryplacement. Rootaddedonlythatplacement;
+13affectedchecksPASS, accountingfor3724distinctclientpasses. FullPHP908tests/
+19138assertionsPASS42.931s;check/buildPASS. First.localnativefixturedenied before
+appassertions; normalproductionpreview then3actualguestRift/discoverychecksPASS,
+zeroobservedpageerrors/APIrequests. Rootinspectedtemporaryscene and200%party.
+Originalfailures retained; nofinishedmedia/provider/gateacceptance. See
+party-join-review.md. Rootwillpublishfrozencopywithoutstaging109workingedits.
 
 ## Earlier position and retained progress history — 2026-11-26
 

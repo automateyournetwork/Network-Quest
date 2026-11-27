@@ -1,0 +1,35 @@
+{
+  "scope": "accepted16ee49e plus frozenT094 only; no optional/private sources",
+  "results": [
+    {
+      "name": "client",
+      "command": [
+        "npm",
+        "run",
+        "test:domain"
+      ],
+      "exit": 1,
+      "seconds": 43.076
+    },
+    {
+      "name": "php",
+      "command": [
+        "npm",
+        "run",
+        "test:api"
+      ],
+      "exit": 0,
+      "seconds": 44.514
+    },
+    {
+      "name": "check-build",
+      "command": [
+        "python3",
+        "-c",
+        "import subprocess; subprocess.run([\"npm\",\"run\",\"check\"],check=True); subprocess.run([\"npm\",\"run\",\"build\"],check=True)"
+      ],
+      "exit": 0,
+      "seconds": 10.125
+    }
+  ]
+}

@@ -82,7 +82,7 @@
       "content/spec001/rooms/R08.json": "141104d203bcdc45b40d375be262e2fff771167e87ea2981e3c45ddace68da28",
       "content/spec001/rooms/R09.json": "b04b9799022e53ca8d9f0de83ee7346313683b837e7a79728ae19dd57276a3b1",
       "content/spec001/rooms/R10.json": "8a3da2d198228b2fefab03176cd089cdc57d2f65b7a686225b2396fa46f4e05d",
-      "content/spec001/rooms/R11.json": "5d676054d686724f8f720b3447226d44ba58b10d5a11c5e6d50fe5af64cba932",
+      "content/spec001/rooms/R11.json": "14faa7a752d2074cab4fe3c0f43dc8f3042221246ded466e00309423b34cd4c7",
       "content/spec001/rooms/R12.json": "992b15c0fb0aac58a6001530af03b9889b2d230741254ab8a583cea89100721e",
       "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
       "content/spec001/world.json": "91c820e72fc773066172591398da912fda32dfe1d31db1fe81fca0084e00366f",
@@ -96,16 +96,18 @@
       "src/domain/packet-journey.ts": "65caaf9939bd8052909e40c4289ba9da531d4dc6194314a31b83d4f066a326bc",
       "src/domain/power.ts": "014074e3ef078a36f9fd2671d6593a67ccc7ebc8a88500be42028511ae842e8f",
       "src/domain/radio.ts": "55f49a9e3b416d129d4ceac9a302636dff043475041d3d8e9a0125f0815e4f74",
-      "src/services/save-validator.ts": "6ec6679b9e958550aabc75dc3f5ece43c9a626318ee1c5a4e3b6793765b29228",
+      "src/services/save-validator.ts": "89c84e10fb9be119005cd34e9530f529f0850f5455f70a814351576932c65760",
       "src/state/copper-scenario.ts": "db3692165cceb049a89d5b1f3189bd513e01e770e6b5335cdb4200492c4e12b8",
       "src/state/equipment-scenarios.ts": "7466d4fa878e2f7da5f150f14f45b403823b3bcaaf7128abebd2e626bcaa8654",
       "src/state/fiber-scenario.ts": "e2b4eeb35bb5e977eee2332987b62b6115f9135b092a364d350f6d60ce4e4004",
       "src/state/notebook.ts": "40bd0cd002a1db14a7065f662e276040bab1fba1906b1f7482a1c89ea7ae63f7",
+      "src/state/objective-history.ts": "f3354bda2588e7c6c398aa86616bf6f5ce084cc53bb1e07a191067d8a1d7310a",
       "src/state/objectives.ts": "3bfa620e3314097a7ab38552942f7676f5b0d1c0f758a9b3cd0b9707762a6eae",
       "src/state/outcomes.ts": "c311cce8030adf169c8d609b1c7a0fe5aa08e2c7ff118ce723d7e0e9e021e013",
+      "src/state/party.ts": "7cd849160b40ed424f4716c1b1c01c3456634cb2558639d7d9fe74e72504c4b6",
       "src/state/radio-scenario.ts": "1a3aa41215e71de2ece7ee36ceec1f67a5d937fc8d887c2c935e103723241067",
       "src/state/repair-plan.ts": "f5de6e1457edc8410c2bdd65fc4db15a9fa4bbf0ab7508eacec9c0f3eaff6d1b",
-      "tools/generate-save-content-policy.ts": "a9ced931e3a4b2020cbca3846fc67315082fc462deb0c2b7739bab7143a51c5e"
+      "tools/generate-save-content-policy.ts": "6fa5457eb5f4e094ce96b75e0cb3587b0d687048f2659183dd6214a8283dae0a"
     }
   },
   "policies": [
@@ -792,7 +794,16 @@
             "spec001:ABILITY-CH03-optical-checklist",
             "spec001:ABILITY-CH03-explain"
           ],
-          "progressFlagIds": []
+          "progressFlagIds": [],
+          "abilityIdsByLevel": {
+            "1": [
+              "spec001:ABILITY-CH03-optical-checklist"
+            ],
+            "2": [
+              "spec001:ABILITY-CH03-optical-checklist",
+              "spec001:ABILITY-CH03-explain"
+            ]
+          }
         },
         "spec001:CH04": {
           "maxLevel": 2,
@@ -800,7 +811,16 @@
             "spec001:ABILITY-CH04-continuity-comparison",
             "spec001:ABILITY-CH04-explain"
           ],
-          "progressFlagIds": []
+          "progressFlagIds": [],
+          "abilityIdsByLevel": {
+            "1": [
+              "spec001:ABILITY-CH04-continuity-comparison"
+            ],
+            "2": [
+              "spec001:ABILITY-CH04-continuity-comparison",
+              "spec001:ABILITY-CH04-explain"
+            ]
+          }
         },
         "spec001:CH05": {
           "maxLevel": 2,
@@ -808,7 +828,16 @@
             "spec001:ABILITY-CH05-optical-budget",
             "spec001:ABILITY-CH05-explain"
           ],
-          "progressFlagIds": []
+          "progressFlagIds": [],
+          "abilityIdsByLevel": {
+            "1": [
+              "spec001:ABILITY-CH05-optical-budget"
+            ],
+            "2": [
+              "spec001:ABILITY-CH05-optical-budget",
+              "spec001:ABILITY-CH05-explain"
+            ]
+          }
         },
         "spec001:CH06": {
           "maxLevel": 2,
@@ -816,7 +845,16 @@
             "spec001:ABILITY-CH06-optical-budget",
             "spec001:ABILITY-CH06-explain"
           ],
-          "progressFlagIds": []
+          "progressFlagIds": [],
+          "abilityIdsByLevel": {
+            "1": [
+              "spec001:ABILITY-CH06-optical-budget"
+            ],
+            "2": [
+              "spec001:ABILITY-CH06-optical-budget",
+              "spec001:ABILITY-CH06-explain"
+            ]
+          }
         },
         "spec001:CH07": {
           "maxLevel": 2,
@@ -824,7 +862,16 @@
             "spec001:ABILITY-CH07-radio-observation",
             "spec001:ABILITY-CH07-explain"
           ],
-          "progressFlagIds": []
+          "progressFlagIds": [],
+          "abilityIdsByLevel": {
+            "1": [
+              "spec001:ABILITY-CH07-radio-observation"
+            ],
+            "2": [
+              "spec001:ABILITY-CH07-radio-observation",
+              "spec001:ABILITY-CH07-explain"
+            ]
+          }
         },
         "spec001:CH16": {
           "maxLevel": 2,
@@ -832,7 +879,16 @@
             "spec001:ABILITY-CH16-module-checklist",
             "spec001:ABILITY-CH16-explain"
           ],
-          "progressFlagIds": []
+          "progressFlagIds": [],
+          "abilityIdsByLevel": {
+            "1": [
+              "spec001:ABILITY-CH16-module-checklist"
+            ],
+            "2": [
+              "spec001:ABILITY-CH16-module-checklist",
+              "spec001:ABILITY-CH16-explain"
+            ]
+          }
         },
         "spec001:CH19": {
           "maxLevel": 2,
@@ -840,7 +896,16 @@
             "spec001:ABILITY-CH19-delivered-power",
             "spec001:ABILITY-CH19-explain"
           ],
-          "progressFlagIds": []
+          "progressFlagIds": [],
+          "abilityIdsByLevel": {
+            "1": [
+              "spec001:ABILITY-CH19-delivered-power"
+            ],
+            "2": [
+              "spec001:ABILITY-CH19-delivered-power",
+              "spec001:ABILITY-CH19-explain"
+            ]
+          }
         },
         "spec001:CH20": {
           "maxLevel": 2,
@@ -848,7 +913,16 @@
             "spec001:ABILITY-CH20-regeneration-limit",
             "spec001:ABILITY-CH20-explain"
           ],
-          "progressFlagIds": []
+          "progressFlagIds": [],
+          "abilityIdsByLevel": {
+            "1": [
+              "spec001:ABILITY-CH20-regeneration-limit"
+            ],
+            "2": [
+              "spec001:ABILITY-CH20-regeneration-limit",
+              "spec001:ABILITY-CH20-explain"
+            ]
+          }
         },
         "spec001:CH22": {
           "maxLevel": 2,
@@ -856,7 +930,16 @@
             "spec001:ABILITY-CH22-capability-intersection",
             "spec001:ABILITY-CH22-explain"
           ],
-          "progressFlagIds": []
+          "progressFlagIds": [],
+          "abilityIdsByLevel": {
+            "1": [
+              "spec001:ABILITY-CH22-capability-intersection"
+            ],
+            "2": [
+              "spec001:ABILITY-CH22-capability-intersection",
+              "spec001:ABILITY-CH22-explain"
+            ]
+          }
         }
       },
       "hints": {
