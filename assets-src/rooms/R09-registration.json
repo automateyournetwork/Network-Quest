@@ -1,0 +1,318 @@
+{
+  "roomId": "spec001:R09",
+  "cameraPath": "assets-src/rooms/R09-camera.json",
+  "frozenLayoutSha256": "e75a138c9d925489134a1a97b141ffca34c4081f7e782b0037569ef2568efedf",
+  "stagedReference": "assets-src/images/R09/reference/inputs.json",
+  "worldToUV": "Orthographic, normalized UV from top left; all exports use a centered full contained stage.",
+  "exportSize": [
+    1600,
+    900
+  ],
+  "layerOrder": [
+    "background distant plate",
+    "midground behind focal actors/evidence",
+    "focal realtime meshes or camera-matched R04 sprites",
+    "foreground edge-only frame"
+  ],
+  "frozenFloorAnchors": [
+    {
+      "name": "floor-corner-1",
+      "world": [
+        0,
+        0,
+        0
+      ],
+      "uvAt16by9": [
+        0.28497,
+        0.281349
+      ]
+    },
+    {
+      "name": "floor-corner-2",
+      "world": [
+        12,
+        0,
+        0
+      ],
+      "uvAt16by9": [
+        0.870206,
+        0.542425
+      ]
+    },
+    {
+      "name": "floor-corner-3",
+      "world": [
+        12,
+        0,
+        7
+      ],
+      "uvAt16by9": [
+        0.71503,
+        0.877471
+      ]
+    },
+    {
+      "name": "floor-corner-4",
+      "world": [
+        0,
+        0,
+        7
+      ],
+      "uvAt16by9": [
+        0.129794,
+        0.616396
+      ]
+    }
+  ],
+  "hotspotAnchors": "Every hotspot below has the same camera-projected world/UV anchor; exits are registered separately",
+  "exits": [
+    {
+      "id": "exit:spec001:R09:spec001:R02",
+      "toRoomId": "spec001:R02",
+      "label": "Walk to The Titan's Workshop",
+      "point": [
+        6,
+        6.8
+      ],
+      "anchorWorld": [
+        6,
+        1.4,
+        6.8
+      ],
+      "uvAt16by9": [
+        0.426846,
+        0.626186
+      ],
+      "walkRegionId": "spec001:WALK-R09",
+      "availability": "unchanged authoritative route/encounter projection; no artwork grants passage"
+    }
+  ],
+  "foregroundMask": "assets-src/images/R09/foreground-allow-mask.png",
+  "foregroundOpaqueAllowRegionsUV": [
+    [
+      [
+        0,
+        0.78
+      ],
+      [
+        0.045,
+        0.94
+      ],
+      [
+        0.045,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    [
+      [
+        0.955,
+        0.94
+      ],
+      [
+        1,
+        0.78
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0.955,
+        1
+      ]
+    ]
+  ],
+  "transformMethod": "Trim alpha <=3 in overlay sources; retain remaining natural alpha, resize with premultiplied Lanczos, apply the recorded Rift distance grade and composite source-over. Project paving after trimming alpha <=8. Clip foreground against editable L-mode allow mask. Export WebP quality 91, method 6, alpha quality 100. No parallax.",
+  "layerPurposes": [
+    "Amber market alcoves in shell-shaped basalt niches with teal reflected fill",
+    "Unlettered canopy shapes behind module stalls and power ledger",
+    "Counter lip and hanging empty shell edge, clear of module comparison areas"
+  ],
+  "safePositions": [
+    {
+      "id": "spec001:R09.entry",
+      "walkRegionId": "spec001:WALK-R09",
+      "point": {
+        "x": 6,
+        "y": 2
+      }
+    }
+  ],
+  "walkRegions": [
+    {
+      "id": "spec001:WALK-R09",
+      "label": "Clear market aisle",
+      "vertices": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 12,
+          "y": 0
+        },
+        {
+          "x": 12,
+          "y": 7
+        },
+        {
+          "x": 0,
+          "y": 7
+        }
+      ]
+    }
+  ],
+  "fullStageCameraSha256": "0b9f669a7bd3804bd367a37d3538984327e4f04066a42679127b719db2bd9967",
+  "rawToExport": {
+    "background": [
+      {
+        "source": "background.png",
+        "sourceSha256": "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          0,
+          0,
+          1672,
+          941
+        ],
+        "destXYWH": [
+          0,
+          0,
+          1600,
+          900
+        ]
+      }
+    ],
+    "midground": [
+      {
+        "source": "midground.png",
+        "sourceSha256": "1b175342512b5904775f84d7ebbaf9c5bdd7114864793da7a005ba37d3414f12",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          45,
+          162,
+          1604,
+          881
+        ],
+        "destXYWH": [
+          303,
+          62,
+          409,
+          189
+        ]
+      },
+      {
+        "passages": {
+          "source": "originals/passage.png",
+          "sourceBox": [
+            16,
+            260,
+            2156,
+            473
+          ],
+          "prefilterPixels": [
+            288,
+            62
+          ],
+          "instances": [
+            {
+              "existingExit": "exit:spec001:R09:spec001:R02",
+              "floorPoint": [
+                6,
+                6.8
+              ],
+              "worldFootprintXZ": [
+                [
+                  5.14,
+                  6.6
+                ],
+                [
+                  6.859999999999999,
+                  6.6
+                ],
+                [
+                  5.14,
+                  7.0
+                ],
+                [
+                  6.859999999999999,
+                  7.0
+                ]
+              ],
+              "destinationPixels": [
+                [
+                  622.9396586666666,
+                  638.1693608571427
+                ],
+                [
+                  757.1537813333332,
+                  671.8481648571427
+                ],
+                [
+                  608.7521386666665,
+                  655.4002979999999
+                ],
+                [
+                  742.9662613333333,
+                  689.0791019999999
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "foreground": [
+      {
+        "source": "foreground.png",
+        "sourceSha256": "e9310ea2d9cfc8342dc7864701245c9a0ba8ca60098f1b9ae520541c62b5fce2",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          0,
+          421,
+          580,
+          941
+        ],
+        "destXYWH": [
+          0,
+          838,
+          69,
+          62
+        ]
+      },
+      {
+        "source": "foreground.png",
+        "sourceSha256": "e9310ea2d9cfc8342dc7864701245c9a0ba8ca60098f1b9ae520541c62b5fce2",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          1092,
+          513,
+          1672,
+          941
+        ],
+        "destXYWH": [
+          1533,
+          851,
+          67,
+          49
+        ]
+      }
+    ]
+  }
+}

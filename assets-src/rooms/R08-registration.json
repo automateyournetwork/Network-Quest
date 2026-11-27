@@ -1,0 +1,275 @@
+{
+  "roomId": "spec001:R08",
+  "cameraPath": "assets-src/rooms/R08-camera.json",
+  "frozenLayoutSha256": "e75a138c9d925489134a1a97b141ffca34c4081f7e782b0037569ef2568efedf",
+  "stagedReference": "assets-src/images/R08/reference/inputs.json",
+  "worldToUV": "Orthographic, normalized UV from top left; all exports use a centered full contained stage.",
+  "exportSize": [
+    1600,
+    900
+  ],
+  "layerOrder": [
+    "background distant plate",
+    "midground behind focal actors/evidence",
+    "focal realtime meshes or camera-matched R04 sprites",
+    "foreground edge-only frame"
+  ],
+  "frozenFloorAnchors": [
+    {
+      "name": "floor-corner-1",
+      "world": [
+        0,
+        0,
+        0
+      ],
+      "uvAt16by9": [
+        0.251365,
+        0.387248
+      ]
+    },
+    {
+      "name": "floor-corner-2",
+      "world": [
+        10,
+        0,
+        0
+      ],
+      "uvAt16by9": [
+        0.828366,
+        0.500978
+      ]
+    },
+    {
+      "name": "floor-corner-3",
+      "world": [
+        10,
+        0,
+        6
+      ],
+      "uvAt16by9": [
+        0.748635,
+        0.797277
+      ]
+    },
+    {
+      "name": "floor-corner-4",
+      "world": [
+        0,
+        0,
+        6
+      ],
+      "uvAt16by9": [
+        0.171634,
+        0.683546
+      ]
+    }
+  ],
+  "hotspotAnchors": "Every hotspot below has the same camera-projected world/UV anchor; exits are registered separately",
+  "exits": [
+    {
+      "id": "exit:spec001:R08:spec001:R07",
+      "toRoomId": "spec001:R07",
+      "label": "Walk to The Skywell",
+      "point": [
+        0.25,
+        5.8
+      ],
+      "anchorWorld": [
+        0.25,
+        1.4,
+        5.8
+      ],
+      "uvAt16by9": [
+        0.188717,
+        0.547346
+      ],
+      "walkRegionId": "spec001:WALK-R08",
+      "availability": "unchanged authoritative route/encounter projection; no artwork grants passage"
+    },
+    {
+      "id": "exit:spec001:R08:spec001:R11",
+      "toRoomId": "spec001:R11",
+      "label": "Walk to The Backhoe Rift",
+      "point": [
+        9.75,
+        5.8
+      ],
+      "anchorWorld": [
+        9.75,
+        1.4,
+        5.8
+      ],
+      "uvAt16by9": [
+        0.736868,
+        0.65539
+      ],
+      "walkRegionId": "spec001:WALK-R08",
+      "availability": "unchanged authoritative route/encounter projection; no artwork grants passage"
+    }
+  ],
+  "foregroundMask": "assets-src/images/R08/foreground-allow-mask.png",
+  "foregroundOpaqueAllowRegionsUV": [
+    [
+      [
+        0,
+        0.78
+      ],
+      [
+        0.045,
+        0.94
+      ],
+      [
+        0.045,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    [
+      [
+        0.955,
+        0.94
+      ],
+      [
+        1,
+        0.78
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0.955,
+        1
+      ]
+    ]
+  ],
+  "transformMethod": "Trim alpha <=3 in overlay sources; retain remaining natural alpha, resize with premultiplied Lanczos, apply declared uniform opacity, source-over composite. Clip foreground against editable L-mode allow mask. Export WebP quality 91, method 6, alpha quality 100. No parallax.",
+  "layerPurposes": [
+    "Round observatory over clouds inside a cavern, rain-lit blue stone",
+    "Window struts behind survey desk and telescope; no flashing lightning",
+    "Rain-dark sill corners, transparent center over candidate-channel controls"
+  ],
+  "rawToExport": {
+    "background": [
+      {
+        "source": "background.png",
+        "sourceSha256": "89303c83e2812499499163c6bea0c351895f797f2eeb62f50dc30b0d9444917a",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          0,
+          0,
+          1672,
+          941
+        ],
+        "destXYWH": [
+          0,
+          0,
+          1600,
+          900
+        ]
+      }
+    ],
+    "midground": [
+      {
+        "source": "struts.png",
+        "sourceSha256": "39f1cc03c8e9173982e699903f3ba209ea6b2a50712b1e85814d9f09a5f1308c",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          821,
+          0,
+          1672,
+          921
+        ],
+        "destXYWH": [
+          -407,
+          -46,
+          515,
+          557
+        ],
+        "mirrorX": true,
+        "opacity": 0.97,
+        "leftAlphaRampPx": 0
+      },
+      {
+        "source": "midground.png",
+        "sourceSha256": "bc6612d9ee354b3f6709068e4e139afe5a5048c8ed6933164868e349e464c3ea",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          974,
+          0,
+          1672,
+          208
+        ],
+        "destXYWH": [
+          1247,
+          -15,
+          355,
+          106
+        ],
+        "mirrorX": false,
+        "opacity": 0.97,
+        "leftAlphaRampPx": 0
+      }
+    ],
+    "foreground": [
+      {
+        "source": "foreground.png",
+        "sourceSha256": "bcaa18373782a1e825d858792eb68b128bbe1da38280baeba26ea9003b984bb3",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          0,
+          670,
+          138,
+          941
+        ],
+        "destXYWH": [
+          0,
+          782,
+          60,
+          118
+        ],
+        "mirrorX": false,
+        "opacity": 1.0,
+        "leftAlphaRampPx": 0
+      },
+      {
+        "source": "foreground.png",
+        "sourceSha256": "bcaa18373782a1e825d858792eb68b128bbe1da38280baeba26ea9003b984bb3",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          1373,
+          764,
+          1672,
+          941
+        ],
+        "destXYWH": [
+          1532,
+          860,
+          68,
+          40
+        ],
+        "mirrorX": false,
+        "opacity": 1.0,
+        "leftAlphaRampPx": 0
+      }
+    ]
+  }
+}

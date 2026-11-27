@@ -1,0 +1,182 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-LAYER-R06-foreground",
+  "hashes": [
+    "04fba4b681a2a9be41dcb1e851e2b88328c0ad1f8c104355ec94959cb6d4bea6",
+    "1e151f6eb6dac0ede8afee4b910e567069e599a7804d22d099b8101453885cb1",
+    "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+    "7001d1fc2778ac03727be46c93eb2169ef547b448373b7cfef6f691e9cc9bab9",
+    "a515edb633df60a693252895cc13d5daaf55553adae80061d7a2b2db7e273a09",
+    "f58cbad50de7c9b91faa32e7ce4482ce2196de45baf038d9661cd87ab11827f8"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex agent loop135/T118",
+  "date": "2026-11-27",
+  "environment": "Blender 5.2.1 LTS, Pillow 12.1.0, Firefox 159.0, standalone camera composition on macOS arm64",
+  "details": {
+    "findings": "Raw sources, registered master and WebP reopened. Export geometry, channels and straight alpha verified by scanning the decoded pixels.",
+    "decodedPixelReport": "docs/evidence/spec001/image-production/T118/R06/pixels.json",
+    "artifacts": [
+      {
+        "path": "assets-src/images/R06/originals/background.png",
+        "sha256": "f58cbad50de7c9b91faa32e7ce4482ce2196de45baf038d9661cd87ab11827f8",
+        "bytes": 2507402,
+        "pixels": [
+          1672,
+          941
+        ],
+        "mode": "RGB",
+        "format": "PNG",
+        "metadataKeys": [],
+        "alphaExtrema": [
+          255,
+          255
+        ],
+        "nonzeroAlpha": 1573352,
+        "partialAlpha": 0,
+        "visibleBoundsAt8": [
+          0,
+          0,
+          1672,
+          941
+        ]
+      },
+      {
+        "path": "assets-src/images/R06/originals/foreground.png",
+        "sha256": "04fba4b681a2a9be41dcb1e851e2b88328c0ad1f8c104355ec94959cb6d4bea6",
+        "bytes": 220175,
+        "pixels": [
+          1672,
+          941
+        ],
+        "mode": "RGBA",
+        "format": "PNG",
+        "metadataKeys": [],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "nonzeroAlpha": 77704,
+        "partialAlpha": 77609,
+        "visibleBoundsAt8": [
+          0,
+          648,
+          1672,
+          941
+        ]
+      },
+      {
+        "path": "assets-src/images/R06/registered/foreground.png",
+        "sha256": "a515edb633df60a693252895cc13d5daaf55553adae80061d7a2b2db7e273a09",
+        "bytes": 17405,
+        "pixels": [
+          1600,
+          900
+        ],
+        "mode": "RGBA",
+        "format": "PNG",
+        "metadataKeys": [],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "nonzeroAlpha": 3390,
+        "partialAlpha": 3259,
+        "visibleBoundsAt8": [
+          0,
+          848,
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "assets-src/images/R06/reference/camera-guide.png",
+        "sha256": "7001d1fc2778ac03727be46c93eb2169ef547b448373b7cfef6f691e9cc9bab9",
+        "bytes": 163346,
+        "pixels": [
+          1280,
+          720
+        ],
+        "mode": "RGB",
+        "format": "PNG",
+        "metadataKeys": [],
+        "alphaExtrema": [
+          255,
+          255
+        ],
+        "nonzeroAlpha": 921600,
+        "partialAlpha": 0,
+        "visibleBoundsAt8": [
+          0,
+          0,
+          1280,
+          720
+        ]
+      },
+      {
+        "path": "assets-src/images/R06/foreground-allow-mask.png",
+        "sha256": "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+        "bytes": 2091,
+        "pixels": [
+          1600,
+          900
+        ],
+        "mode": "L",
+        "format": "PNG",
+        "metadataKeys": [],
+        "alphaExtrema": [
+          255,
+          255
+        ],
+        "nonzeroAlpha": 1440000,
+        "partialAlpha": 0,
+        "visibleBoundsAt8": [
+          0,
+          0,
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "public/assets/images/R06/foreground.webp",
+        "sha256": "1e151f6eb6dac0ede8afee4b910e567069e599a7804d22d099b8101453885cb1",
+        "bytes": 6690,
+        "pixels": [
+          1600,
+          900
+        ],
+        "mode": "RGBA",
+        "format": "WEBP",
+        "metadataKeys": [
+          "background",
+          "duration",
+          "loop",
+          "timestamp"
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "nonzeroAlpha": 3390,
+        "partialAlpha": 3259,
+        "visibleBoundsAt8": [
+          0,
+          848,
+          1600,
+          900
+        ]
+      }
+    ],
+    "masterToExport": {
+      "role": "foreground",
+      "masterExportMaxAlphaDelta": 0,
+      "rmsRGBonBlack": [
+        0.2090587370945198,
+        0.13203797854321225,
+        0.23511078948728265
+      ]
+    }
+  },
+  "check": "structure"
+}

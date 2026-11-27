@@ -1,0 +1,287 @@
+{
+  "roomId": "spec001:R04",
+  "camera": "camera.json",
+  "generationGuide": "reference/camera-guide.png",
+  "layerOrder": [
+    "background",
+    "midground",
+    "realtime cast or R04 sprites",
+    "foreground"
+  ],
+  "transforms": {
+    "background": {
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "destinationSize": [
+        1600,
+        900
+      ],
+      "frame": "Entire opaque image projected on the 16:9 stage."
+    },
+    "midground": {
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "destinationSize": [
+        1600,
+        900
+      ],
+      "placement": {
+        "sourceBox": [
+          0,
+          0,
+          1672,
+          941
+        ],
+        "destRect": [
+          576,
+          -58,
+          1024,
+          576
+        ]
+      },
+      "alpha": "Straight alpha. Remove non-subject alpha values 0\u20133 before premultiplied Lanczos resizing. All other retained alpha is original antialiasing, transformed with its subject."
+    },
+    "foreground": {
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "destinationSize": [
+        1600,
+        900
+      ],
+      "placements": [
+        {
+          "sourceBox": [
+            0,
+            650,
+            483,
+            941
+          ],
+          "destRect": [
+            0,
+            858,
+            69,
+            42
+          ]
+        },
+        {
+          "sourceBox": [
+            1297,
+            685,
+            1672,
+            941
+          ],
+          "destRect": [
+            1531,
+            853,
+            69,
+            47
+          ]
+        }
+      ],
+      "mask": "foreground-allow-mask.png",
+      "alpha": "Straight alpha. Remove non-subject alpha values 0\u20133 before premultiplied Lanczos resizing. All other retained alpha is original antialiasing, transformed with its subject."
+    }
+  },
+  "layerPurpose": [
+    "Deep blue cavern with repeating arches diminishing toward silence",
+    "Stone ribs behind the repeater and serial post, with a clean sprite acting area",
+    "Rounded echo stones at both margins; never cover the visible broken span"
+  ],
+  "frozenFloorAnchors": [
+    {
+      "name": "floor-corner-1",
+      "world": [
+        0,
+        0,
+        0
+      ],
+      "uvAt16by9": [
+        0.220192,
+        0.419974
+      ]
+    },
+    {
+      "name": "floor-corner-2",
+      "world": [
+        10,
+        0,
+        0
+      ],
+      "uvAt16by9": [
+        0.837699,
+        0.494408
+      ]
+    },
+    {
+      "name": "floor-corner-3",
+      "world": [
+        10,
+        0,
+        6
+      ],
+      "uvAt16by9": [
+        0.779808,
+        0.780235
+      ]
+    },
+    {
+      "name": "floor-corner-4",
+      "world": [
+        0,
+        0,
+        6
+      ],
+      "uvAt16by9": [
+        0.162301,
+        0.705801
+      ]
+    }
+  ],
+  "foregroundAllowRegionsUV": [
+    [
+      [
+        0,
+        0.78
+      ],
+      [
+        0.045,
+        0.94
+      ],
+      [
+        0.045,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    [
+      [
+        0.955,
+        0.94
+      ],
+      [
+        1,
+        0.78
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0.955,
+        1
+      ]
+    ]
+  ],
+  "exits": [
+    {
+      "id": "exit:spec001:R04:spec001:R03",
+      "uv": [
+        0.380358,
+        0.582179
+      ]
+    },
+    {
+      "id": "exit:spec001:R04:spec001:R11",
+      "uv": [
+        0.7663,
+        0.628701
+      ]
+    }
+  ],
+  "targets": [
+    {
+      "id": "spec001:HOTSPOT-echo-before-case",
+      "uv": [
+        0.276539,
+        0.409248
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-after-station",
+      "uv": [
+        0.355368,
+        0.406049
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-repeater-core",
+      "uv": [
+        0.438153,
+        0.340073
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-amplitude-ladder",
+      "uv": [
+        0.483597,
+        0.420817
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-reflector",
+      "uv": [
+        0.245761,
+        0.493942
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-gong",
+      "uv": [
+        0.298731,
+        0.543935
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-historical-case",
+      "uv": [
+        0.598705,
+        0.383451
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-bat",
+      "uv": [
+        0.527595,
+        0.335026
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-tortoise",
+      "uv": [
+        0.645307,
+        0.560685
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-serial-post",
+      "uv": [
+        0.709374,
+        0.489325
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-route-notice",
+      "uv": [
+        0.78772,
+        0.410427
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-hint-slate",
+      "uv": [
+        0.702137,
+        0.595127
+      ]
+    }
+  ],
+  "export": "Pillow WebP quality 91 method 6, lossless alpha quality 100, sRGB interpretation. No painted semantic labels. Separate standard images, identical 1600x900 registration."
+}

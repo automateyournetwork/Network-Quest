@@ -1,0 +1,41 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-LAYER-R05-midground",
+  "hashes": [
+    "0473c00732f0cd7c61a70f3c61be682d0dc0e0caaaf16b6a7ed4f7f1cd238845",
+    "212375d8e8f442e17c4b9ee0da1bf23cfbbf66febe1df2ad46bd1c5e5aaec3b5",
+    "5e28c84455cf79be12ba557bf23f3dc35a218a620ac1fd1d7ec4da99b5104075",
+    "db702e2939dd4c22d579f39ae288961eb4351470b9bea529dff5f80f0f0a6749",
+    "e8b2384d48de85d343e43b9f565cc6530f5da7d2a2dc2a6790dd7c1e9a8ef586",
+    "fdea1bfe9700d7ff6701c547f5c80f3d2e018fdfa66e9e502f59e43ad66022fc"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex agent loop135/T118",
+  "date": "2026-11-27",
+  "environment": "Blender 5.2.1 LTS, Pillow 12.1.0, Firefox 159.0, standalone camera composition on macOS arm64",
+  "details": {
+    "findings": "The upper-left bells and top-right ferns retain leaf gaps, fine stems and drop edges on both mattes. The upper middle remains open behind the grove trunk.",
+    "methods": [
+      "image-inspection"
+    ],
+    "tool": "view_image with light/dark matte sheets and Firefox screenshots",
+    "observedPaths": [
+      "assets-src/images/R05/originals/background.png",
+      "assets-src/images/R05/reference/camera-guide.png",
+      "assets-src/images/R05/originals/midground.png",
+      "assets-src/images/R05/originals/canopy.png",
+      "assets-src/images/R05/registered/midground.png",
+      "public/assets/images/R05/midground.webp"
+    ],
+    "captures": [
+      "docs/evidence/spec001/image-production/T118/R05/alpha-mattes.jpg",
+      "docs/evidence/spec001/image-production/T118/R05/desktop.png",
+      "docs/evidence/spec001/image-production/T118/R05/laptop.png",
+      "docs/evidence/spec001/image-production/T118/R05/narrow.png",
+      "docs/evidence/spec001/image-production/T118/R05/exits.png"
+    ],
+    "scope": "Standalone registered composition and source comparison, agent review."
+  },
+  "check": "visual"
+}

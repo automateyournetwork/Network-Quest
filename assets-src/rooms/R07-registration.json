@@ -1,0 +1,275 @@
+{
+  "roomId": "spec001:R07",
+  "cameraPath": "assets-src/rooms/R07-camera.json",
+  "frozenLayoutSha256": "e75a138c9d925489134a1a97b141ffca34c4081f7e782b0037569ef2568efedf",
+  "stagedReference": "assets-src/images/R07/reference/inputs.json",
+  "worldToUV": "Orthographic, normalized UV from top left; all exports use a centered full contained stage.",
+  "exportSize": [
+    1600,
+    900
+  ],
+  "layerOrder": [
+    "background distant plate",
+    "midground behind focal actors/evidence",
+    "focal realtime meshes or camera-matched R04 sprites",
+    "foreground edge-only frame"
+  ],
+  "frozenFloorAnchors": [
+    {
+      "name": "floor-corner-1",
+      "world": [
+        0,
+        0,
+        0
+      ],
+      "uvAt16by9": [
+        0.277163,
+        0.394613
+      ]
+    },
+    {
+      "name": "floor-corner-2",
+      "world": [
+        10,
+        0,
+        0
+      ],
+      "uvAt16by9": [
+        0.837551,
+        0.540001
+      ]
+    },
+    {
+      "name": "floor-corner-3",
+      "world": [
+        10,
+        0,
+        6
+      ],
+      "uvAt16by9": [
+        0.722837,
+        0.795682
+      ]
+    },
+    {
+      "name": "floor-corner-4",
+      "world": [
+        0,
+        0,
+        6
+      ],
+      "uvAt16by9": [
+        0.162449,
+        0.650294
+      ]
+    }
+  ],
+  "hotspotAnchors": "Every hotspot below has the same camera-projected world/UV anchor; exits are registered separately",
+  "exits": [
+    {
+      "id": "exit:spec001:R07:spec001:R02",
+      "toRoomId": "spec001:R02",
+      "label": "Walk to The Titan's Workshop",
+      "point": [
+        0.25,
+        5.8
+      ],
+      "anchorWorld": [
+        0.25,
+        1.4,
+        5.8
+      ],
+      "uvAt16by9": [
+        0.180282,
+        0.5122
+      ],
+      "walkRegionId": "spec001:WALK-R07",
+      "availability": "unchanged authoritative route/encounter projection; no artwork grants passage"
+    },
+    {
+      "id": "exit:spec001:R07:spec001:R08",
+      "toRoomId": "spec001:R08",
+      "label": "Walk to The Storm Observatory",
+      "point": [
+        9.75,
+        5.8
+      ],
+      "anchorWorld": [
+        9.75,
+        1.4,
+        5.8
+      ],
+      "uvAt16by9": [
+        0.712651,
+        0.650318
+      ],
+      "walkRegionId": "spec001:WALK-R07",
+      "availability": "unchanged authoritative route/encounter projection; no artwork grants passage"
+    }
+  ],
+  "foregroundMask": "assets-src/images/R07/foreground-allow-mask.png",
+  "foregroundOpaqueAllowRegionsUV": [
+    [
+      [
+        0,
+        0.78
+      ],
+      [
+        0.045,
+        0.94
+      ],
+      [
+        0.045,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    [
+      [
+        0.955,
+        0.94
+      ],
+      [
+        1,
+        0.78
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0.955,
+        1
+      ]
+    ]
+  ],
+  "transformMethod": "Trim alpha <=3 in overlay sources; retain remaining natural alpha, resize with premultiplied Lanczos, apply declared uniform opacity, source-over composite. Clip foreground against editable L-mode allow mask. Export WebP quality 91, method 6, alpha quality 100. No parallax.",
+  "layerPurposes": [
+    "Underground chimney opening onto indigo sky; bright dawn rim above antenna ledge",
+    "Distant relay structures and cables framing a visible path corridor",
+    "Wind-worn masonry and antenna cable at outer edges; preserve alignment scope"
+  ],
+  "rawToExport": {
+    "background": [
+      {
+        "source": "background.png",
+        "sourceSha256": "1943329770c508951140668105173a935d998be3a5ab35fe3b55196a941eb275",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          0,
+          0,
+          1672,
+          941
+        ],
+        "destXYWH": [
+          0,
+          0,
+          1600,
+          900
+        ]
+      }
+    ],
+    "midground": [
+      {
+        "source": "midground.png",
+        "sourceSha256": "8598be21687e22e6d8a31b48c61374268dfc8d3fc8ea2728f16a095c41d8f707",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          0,
+          0,
+          848,
+          201
+        ],
+        "destXYWH": [
+          574,
+          -24,
+          312,
+          74
+        ],
+        "mirrorX": false,
+        "opacity": 0.58,
+        "leftAlphaRampPx": 48
+      },
+      {
+        "source": "relay.png",
+        "sourceSha256": "c2739190cadb778c20bc4d4e2546713899a198272ba8971717fe26c470336ed7",
+        "sourcePixels": [
+          2172,
+          724
+        ],
+        "sourceBox": [
+          90,
+          60,
+          2043,
+          676
+        ],
+        "destXYWH": [
+          584,
+          50,
+          375,
+          118
+        ],
+        "mirrorX": false,
+        "opacity": 0.82,
+        "leftAlphaRampPx": 0
+      }
+    ],
+    "foreground": [
+      {
+        "source": "cable-edge.png",
+        "sourceSha256": "d7245e27f83a55c1fbf9706f7f2f26873837a8f43aa992270b718fef7f6ddcda",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          0,
+          187,
+          592,
+          941
+        ],
+        "destXYWH": [
+          0,
+          815,
+          67,
+          85
+        ],
+        "mirrorX": false,
+        "opacity": 1.0,
+        "leftAlphaRampPx": 0
+      },
+      {
+        "source": "foreground.png",
+        "sourceSha256": "09504286cffd135da88a6fecb9c84ec04ce4b72d6d5991072304f295087cbe2f",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          1516,
+          826,
+          1672,
+          941
+        ],
+        "destXYWH": [
+          1544,
+          859,
+          56,
+          41
+        ],
+        "mirrorX": false,
+        "opacity": 1.0,
+        "leftAlphaRampPx": 0
+      }
+    ]
+  }
+}

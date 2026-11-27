@@ -1,0 +1,578 @@
+{
+  "roomId": "spec001:R11",
+  "cameraPath": "assets-src/rooms/R11-camera.json",
+  "frozenLayoutSha256": "e75a138c9d925489134a1a97b141ffca34c4081f7e782b0037569ef2568efedf",
+  "stagedReference": "assets-src/images/R11/reference/inputs.json",
+  "worldToUV": "Orthographic, normalized UV from top left; all exports use a centered full contained stage.",
+  "exportSize": [
+    1600,
+    900
+  ],
+  "layerOrder": [
+    "background distant plate",
+    "midground behind focal actors/evidence",
+    "focal realtime meshes or camera-matched R04 sprites",
+    "foreground edge-only frame"
+  ],
+  "frozenFloorAnchors": [
+    {
+      "name": "floor-corner-1",
+      "world": [
+        0,
+        0,
+        0
+      ],
+      "uvAt16by9": [
+        0.281597,
+        0.333199
+      ]
+    },
+    {
+      "name": "floor-corner-2",
+      "world": [
+        12,
+        0,
+        0
+      ],
+      "uvAt16by9": [
+        0.851344,
+        0.53322
+      ]
+    },
+    {
+      "name": "floor-corner-3",
+      "world": [
+        12,
+        0,
+        7
+      ],
+      "uvAt16by9": [
+        0.718403,
+        0.824917
+      ]
+    },
+    {
+      "name": "floor-corner-4",
+      "world": [
+        0,
+        0,
+        7
+      ],
+      "uvAt16by9": [
+        0.148656,
+        0.624896
+      ]
+    }
+  ],
+  "hotspotAnchors": "Every hotspot below has the same camera-projected world/UV anchor; exits are registered separately",
+  "exits": [
+    {
+      "id": "exit:spec001:R11:spec001:R04",
+      "toRoomId": "spec001:R04",
+      "label": "Walk to The Echo Cavern",
+      "point": [
+        0.25,
+        1.6
+      ],
+      "anchorWorld": [
+        0.25,
+        1.4,
+        1.6
+      ],
+      "uvAt16by9": [
+        0.26308,
+        0.293359
+      ],
+      "walkRegionId": "spec001:WALK-R11",
+      "availability": "unchanged authoritative route/encounter projection; no artwork grants passage"
+    },
+    {
+      "id": "exit:spec001:R11:spec001:R06",
+      "toRoomId": "spec001:R06",
+      "label": "Walk to The Prism Vault",
+      "point": [
+        0.25,
+        4.2
+      ],
+      "anchorWorld": [
+        0.25,
+        1.4,
+        4.2
+      ],
+      "uvAt16by9": [
+        0.213702,
+        0.401703
+      ],
+      "walkRegionId": "spec001:WALK-R11",
+      "availability": "unchanged authoritative route/encounter projection; no artwork grants passage"
+    },
+    {
+      "id": "exit:spec001:R11:spec001:R08",
+      "toRoomId": "spec001:R08",
+      "label": "Walk to The Storm Observatory",
+      "point": [
+        11.75,
+        1.6
+      ],
+      "anchorWorld": [
+        11.75,
+        1.4,
+        1.6
+      ],
+      "uvAt16by9": [
+        0.809088,
+        0.485045
+      ],
+      "walkRegionId": "spec001:WALK-R11",
+      "availability": "unchanged authoritative route/encounter projection; no artwork grants passage"
+    },
+    {
+      "id": "exit:spec001:R11:spec001:R10",
+      "toRoomId": "spec001:R10",
+      "label": "Walk to The Clockworks",
+      "point": [
+        11.75,
+        4.2
+      ],
+      "anchorWorld": [
+        11.75,
+        1.4,
+        4.2
+      ],
+      "uvAt16by9": [
+        0.75971,
+        0.59339
+      ],
+      "walkRegionId": "spec001:WALK-R11",
+      "availability": "unchanged authoritative route/encounter projection; no artwork grants passage"
+    },
+    {
+      "id": "exit:spec001:R11:spec001:R12",
+      "toRoomId": "spec001:R12",
+      "label": "Walk to the validation balcony",
+      "point": [
+        6,
+        6.75
+      ],
+      "anchorWorld": [
+        6,
+        1.4,
+        6.75
+      ],
+      "uvAt16by9": [
+        0.438277,
+        0.603807
+      ],
+      "walkRegionId": "spec001:WALK-R11",
+      "availability": "unchanged authoritative route/encounter projection; no artwork grants passage"
+    }
+  ],
+  "foregroundMask": "assets-src/images/R11/foreground-allow-mask.png",
+  "foregroundOpaqueAllowRegionsUV": [
+    [
+      [
+        0,
+        0.78
+      ],
+      [
+        0.045,
+        0.94
+      ],
+      [
+        0.045,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    [
+      [
+        0.955,
+        0.94
+      ],
+      [
+        1,
+        0.78
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0.955,
+        1
+      ]
+    ]
+  ],
+  "transformMethod": "Trim alpha <=3 in overlay sources; retain remaining natural alpha, resize with premultiplied Lanczos, apply the recorded Rift distance grade and composite source-over. Project paving after trimming alpha <=8. Clip foreground against editable L-mode allow mask. Export WebP quality 91, method 6, alpha quality 100. No parallax.",
+  "layerPurposes": [
+    "Large broken trench under a quiet industrial sky of rock; copper, fiber and radio routes visible",
+    "Cut conduit walls and stable scaffold behind the repair work area",
+    "Work-zone rail stubs at margins; always reveal break and preparation exit"
+  ],
+  "safePositions": [
+    {
+      "id": "spec001:R11.preparation",
+      "walkRegionId": "spec001:WALK-R11",
+      "point": {
+        "x": 6,
+        "y": 2
+      }
+    }
+  ],
+  "walkRegions": [
+    {
+      "id": "spec001:WALK-R11",
+      "label": "Safe inspection platform",
+      "vertices": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 12,
+          "y": 0
+        },
+        {
+          "x": 12,
+          "y": 7
+        },
+        {
+          "x": 0,
+          "y": 7
+        }
+      ]
+    }
+  ],
+  "fullStageCameraSha256": "e260dadfdb22a01527fc0cfcf702467d72484a816a7c5f98ce564f82f255e6d0",
+  "rawToExport": {
+    "background": [
+      {
+        "source": "background.png",
+        "sourceSha256": "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          0,
+          0,
+          1672,
+          941
+        ],
+        "destXYWH": [
+          0,
+          0,
+          1600,
+          900
+        ]
+      }
+    ],
+    "midground": [
+      {
+        "source": "midground.png",
+        "sourceSha256": "a10bdaf3fb0ffcf2d0f1c8b51955dfbd253b76ec18078e82fff9faa9d2e435aa",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          55,
+          0,
+          1648,
+          879
+        ],
+        "destXYWH": [
+          1388,
+          83,
+          219,
+          121
+        ],
+        "distanceGrade": {
+          "sRGB": [
+            104,
+            108,
+            143
+          ],
+          "mix": 0.33
+        }
+      },
+      {
+        "passages": {
+          "source": "originals/passage.png",
+          "sourceBox": [
+            37,
+            203,
+            2135,
+            519
+          ],
+          "prefilterPixels": [
+            288,
+            62
+          ],
+          "instances": [
+            {
+              "existingExit": "exit:spec001:R11:spec001:R04",
+              "floorPoint": [
+                0.25,
+                1.6
+              ],
+              "worldFootprintXZ": [
+                [
+                  0.45,
+                  0.7400000000000001
+                ],
+                [
+                  0.45,
+                  2.46
+                ],
+                [
+                  0.04999999999999999,
+                  0.7400000000000001
+                ],
+                [
+                  0.04999999999999999,
+                  2.46
+                ]
+              ],
+              "destinationPixels": [
+                [
+                  462.2539994285714,
+                  334.38269475
+                ],
+                [
+                  409.9891948571428,
+                  398.88940275
+                ],
+                [
+                  431.8674927619047,
+                  328.38206475
+                ],
+                [
+                  379.60268819047616,
+                  392.88877275
+                ]
+              ]
+            },
+            {
+              "existingExit": "exit:spec001:R11:spec001:R06",
+              "floorPoint": [
+                0.25,
+                4.2
+              ],
+              "worldFootprintXZ": [
+                [
+                  0.45,
+                  3.3400000000000003
+                ],
+                [
+                  0.45,
+                  5.0600000000000005
+                ],
+                [
+                  0.04999999999999999,
+                  3.3400000000000003
+                ],
+                [
+                  0.04999999999999999,
+                  5.0600000000000005
+                ]
+              ],
+              "destinationPixels": [
+                [
+                  383.2490622857142,
+                  431.89283475
+                ],
+                [
+                  330.98425771428566,
+                  496.39954275
+                ],
+                [
+                  352.86255561904755,
+                  425.89220475
+                ],
+                [
+                  300.597751047619,
+                  490.39891275
+                ]
+              ]
+            },
+            {
+              "existingExit": "exit:spec001:R11:spec001:R08",
+              "floorPoint": [
+                11.75,
+                1.6
+              ],
+              "worldFootprintXZ": [
+                [
+                  11.95,
+                  0.7400000000000001
+                ],
+                [
+                  11.95,
+                  2.46
+                ],
+                [
+                  11.549999999999999,
+                  0.7400000000000001
+                ],
+                [
+                  11.549999999999999,
+                  2.46
+                ]
+              ],
+              "destinationPixels": [
+                [
+                  1335.866066095238,
+                  506.90080725
+                ],
+                [
+                  1283.6012615238094,
+                  571.40751525
+                ],
+                [
+                  1305.4795594285713,
+                  500.90017724999996
+                ],
+                [
+                  1253.2147548571427,
+                  565.40688525
+                ]
+              ]
+            },
+            {
+              "existingExit": "exit:spec001:R11:spec001:R10",
+              "floorPoint": [
+                11.75,
+                4.2
+              ],
+              "worldFootprintXZ": [
+                [
+                  11.95,
+                  3.3400000000000003
+                ],
+                [
+                  11.95,
+                  5.0600000000000005
+                ],
+                [
+                  11.549999999999999,
+                  3.3400000000000003
+                ],
+                [
+                  11.549999999999999,
+                  5.0600000000000005
+                ]
+              ],
+              "destinationPixels": [
+                [
+                  1256.8611289523808,
+                  604.4109472499999
+                ],
+                [
+                  1204.5963243809522,
+                  668.91765525
+                ],
+                [
+                  1226.474622285714,
+                  598.4103172499999
+                ],
+                [
+                  1174.2098177142855,
+                  662.91702525
+                ]
+              ]
+            },
+            {
+              "existingExit": "exit:spec001:R11:spec001:R12",
+              "floorPoint": [
+                6,
+                6.75
+              ],
+              "worldFootprintXZ": [
+                [
+                  5.14,
+                  6.55
+                ],
+                [
+                  6.859999999999999,
+                  6.55
+                ],
+                [
+                  5.14,
+                  6.95
+                ],
+                [
+                  6.859999999999999,
+                  6.95
+                ]
+              ],
+              "destinationPixels": [
+                [
+                  641.9901420952381,
+                  622.6377405
+                ],
+                [
+                  772.6521207619046,
+                  648.4404494999999
+                ],
+                [
+                  629.8355363809522,
+                  637.6393005
+                ],
+                [
+                  760.4975150476189,
+                  663.4420095
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "foreground": [
+      {
+        "source": "foreground.png",
+        "sourceSha256": "91f0f5c0660537538ddaa57c9948434b2d47165e9e2d3d10deed230e5c1ef361",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          0,
+          144,
+          568,
+          877
+        ],
+        "destXYWH": [
+          0,
+          811,
+          69,
+          89
+        ]
+      },
+      {
+        "source": "foreground.png",
+        "sourceSha256": "91f0f5c0660537538ddaa57c9948434b2d47165e9e2d3d10deed230e5c1ef361",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          1111,
+          122,
+          1672,
+          924
+        ],
+        "destXYWH": [
+          1533,
+          804,
+          67,
+          96
+        ]
+      }
+    ]
+  }
+}

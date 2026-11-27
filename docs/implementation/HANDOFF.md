@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**136 loops started; 109/170 tasks accepted; no deployment.** The remote feature
+**139 loops started; 112/170 tasks accepted; no deployment.** The remote feature
 branch reached `a5eb8910def87329bb1095b7be70f9845b242226` for the three
 character batches. It includes the Photon checkpoint `284394d` and the T106
 layout freeze `d7dc4a1`. The preceding checkpoint `e6362f6b27ef3daa0166468d2e56733fa08c9aa6`
@@ -83,8 +83,16 @@ Loop 132/T115: Verified twenty Rift and Threshold props and the corrected metre 
 
 Loop 133/T116: Verified thirty shared tools and fixtures and their trial mounts. Eight small props need accessible close inspection when integrated. [Verification](loops/133-T116.md).
 
+GitHub checkpoint `c358e12` contains native production and export evidence for the full 150-prop roster. [Full production review](../evidence/spec001/prop-production/join-t113-t116/review.md).
+
+Loop 134/T117: Verified twelve room layers for R01–R04, including the retained R01 records and actual OpenAI originals for the three new environments. [Verification](loops/134-T117.md).
+
+Loop 135/T118: Verified twelve registered image layers for R05–R08, original generator bytes, alpha clearance and camera evidence. T137 owns the R06 filter-door/exit conflict. [Verification](loops/135-T118.md).
+
+Loop 136/T119: All twelve R09–R12 layers passed the source, alpha, camera and registered cast reviews. [Verification](loops/136-T119.md).
+
 <!-- current production assignments -->
-Active assignments: 134/T117, 135/T118, 136/T119.
+Active assignments: 137/T120, 138/T121, 139/T122.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

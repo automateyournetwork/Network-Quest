@@ -1,0 +1,275 @@
+{
+  "roomId": "spec001:R05",
+  "cameraPath": "assets-src/rooms/R05-camera.json",
+  "frozenLayoutSha256": "e75a138c9d925489134a1a97b141ffca34c4081f7e782b0037569ef2568efedf",
+  "stagedReference": "assets-src/images/R05/reference/inputs.json",
+  "worldToUV": "Orthographic, normalized UV from top left; all exports use a centered full contained stage.",
+  "exportSize": [
+    1600,
+    900
+  ],
+  "layerOrder": [
+    "background distant plate",
+    "midground behind focal actors/evidence",
+    "focal realtime meshes or camera-matched R04 sprites",
+    "foreground edge-only frame"
+  ],
+  "frozenFloorAnchors": [
+    {
+      "name": "floor-corner-1",
+      "world": [
+        0,
+        0,
+        0
+      ],
+      "uvAt16by9": [
+        0.29436,
+        0.313306
+      ]
+    },
+    {
+      "name": "floor-corner-2",
+      "world": [
+        10,
+        0,
+        0
+      ],
+      "uvAt16by9": [
+        0.841475,
+        0.537126
+      ]
+    },
+    {
+      "name": "floor-corner-3",
+      "world": [
+        10,
+        0,
+        6
+      ],
+      "uvAt16by9": [
+        0.70564,
+        0.861665
+      ]
+    },
+    {
+      "name": "floor-corner-4",
+      "world": [
+        0,
+        0,
+        6
+      ],
+      "uvAt16by9": [
+        0.158525,
+        0.637845
+      ]
+    }
+  ],
+  "hotspotAnchors": "Every hotspot below has the same camera-projected world/UV anchor; exits are registered separately",
+  "exits": [
+    {
+      "id": "exit:spec001:R05:spec001:R02",
+      "toRoomId": "spec001:R02",
+      "label": "Walk to The Titan\u2019s Workshop",
+      "point": [
+        0.25,
+        5.8
+      ],
+      "anchorWorld": [
+        0.25,
+        1.4,
+        5.8
+      ],
+      "uvAt16by9": [
+        0.17673,
+        0.510143
+      ],
+      "walkRegionId": "spec001:WALK-R05",
+      "availability": "unchanged authoritative route/encounter projection; no artwork grants passage"
+    },
+    {
+      "id": "exit:spec001:R05:spec001:R06",
+      "toRoomId": "spec001:R06",
+      "label": "Walk to The Prism Vault",
+      "point": [
+        9.75,
+        5.8
+      ],
+      "anchorWorld": [
+        9.75,
+        1.4,
+        5.8
+      ],
+      "uvAt16by9": [
+        0.69649,
+        0.722772
+      ],
+      "walkRegionId": "spec001:WALK-R05",
+      "availability": "unchanged authoritative route/encounter projection; no artwork grants passage"
+    }
+  ],
+  "foregroundMask": "assets-src/images/R05/foreground-allow-mask.png",
+  "foregroundOpaqueAllowRegionsUV": [
+    [
+      [
+        0,
+        0.78
+      ],
+      [
+        0.045,
+        0.94
+      ],
+      [
+        0.045,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    [
+      [
+        0.955,
+        0.94
+      ],
+      [
+        1,
+        0.78
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0.955,
+        1
+      ]
+    ]
+  ],
+  "transformMethod": "Trim alpha <=3 in overlay sources; retain remaining natural alpha, resize with premultiplied Lanczos, apply declared uniform opacity, source-over composite. Clip foreground against editable L-mode allow mask. Export WebP quality 91, method 6, alpha quality 100. No parallax.",
+  "layerPurposes": [
+    "Jade-black grotto with glassy fiber roots and distant pearl light blossoms",
+    "Light blossom canopy behind a clear inspection dock and optical path",
+    "Opaque root silhouettes with alpha-edged leaves at corners, no bloom over connector"
+  ],
+  "rawToExport": {
+    "background": [
+      {
+        "source": "background.png",
+        "sourceSha256": "fdea1bfe9700d7ff6701c547f5c80f3d2e018fdfa66e9e502f59e43ad66022fc",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          0,
+          0,
+          1672,
+          941
+        ],
+        "destXYWH": [
+          0,
+          0,
+          1600,
+          900
+        ]
+      }
+    ],
+    "midground": [
+      {
+        "source": "midground.png",
+        "sourceSha256": "212375d8e8f442e17c4b9ee0da1bf23cfbbf66febe1df2ad46bd1c5e5aaec3b5",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          0,
+          0,
+          1384,
+          391
+        ],
+        "destXYWH": [
+          1150,
+          -17,
+          455,
+          129
+        ],
+        "mirrorX": true,
+        "opacity": 0.86,
+        "leftAlphaRampPx": 0
+      },
+      {
+        "source": "canopy.png",
+        "sourceSha256": "db702e2939dd4c22d579f39ae288961eb4351470b9bea529dff5f80f0f0a6749",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          0,
+          0,
+          1223,
+          722
+        ],
+        "destXYWH": [
+          -38,
+          -30,
+          477,
+          282
+        ],
+        "mirrorX": false,
+        "opacity": 0.92,
+        "leftAlphaRampPx": 0
+      }
+    ],
+    "foreground": [
+      {
+        "source": "foreground.png",
+        "sourceSha256": "c5788cf0f22c8f593a4f8144e4db67df326c0d5c7cf49af97d84ceb084ab61cd",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          0,
+          632,
+          320,
+          941
+        ],
+        "destXYWH": [
+          0,
+          838,
+          64,
+          62
+        ],
+        "mirrorX": false,
+        "opacity": 1.0,
+        "leftAlphaRampPx": 0
+      },
+      {
+        "source": "foreground.png",
+        "sourceSha256": "c5788cf0f22c8f593a4f8144e4db67df326c0d5c7cf49af97d84ceb084ab61cd",
+        "sourcePixels": [
+          1672,
+          941
+        ],
+        "sourceBox": [
+          1413,
+          707,
+          1672,
+          941
+        ],
+        "destXYWH": [
+          1541,
+          847,
+          59,
+          53
+        ],
+        "mirrorX": false,
+        "opacity": 1.0,
+        "leftAlphaRampPx": 0
+      }
+    ]
+  }
+}

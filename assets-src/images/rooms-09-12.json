@@ -1,0 +1,2951 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "assets": [
+    {
+      "assetId": "spec001:ASSET-LAYER-R09-background",
+      "semanticIdentity": "spec001:LAYER-R09-background",
+      "kind": "scene-layer",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R09/reference/camera-guide.png",
+            "bytes": 172216,
+            "sha256": "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender with Pillow camera guide",
+          "version": "5.2.1 / 13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R09-background-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R09/originals/background.png",
+            "bytes": 2395359,
+            "sha256": "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R09-background-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R09/registered/background.png",
+            "bytes": 2028694,
+            "sha256": "c7c75d1c9cc8a43ea0dea76e9705d5978dedb0e3f2d1bcccf07e29920e9f5fa3",
+            "format": "png"
+          },
+          "role": "master",
+          "application": "Pillow / registered PNG",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R09-background-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R09/background.webp",
+            "bytes": 236206,
+            "sha256": "199a9aac123dfcc32e2ce76e8b4bcd89c249eccaa449b440971b920a23a27f73",
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "c7c75d1c9cc8a43ea0dea76e9705d5978dedb0e3f2d1bcccf07e29920e9f5fa3"
+          ],
+          "tool": "Pillow 13.0.0 / WebP",
+          "preset": "1600x900, q91, method 6, alpha quality 100",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T119/R09-background-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R09-background-v1",
+          "settingsPath": "assets-src/images/R09/background.settings.json",
+          "promptOrScriptPath": "assets-src/images/R09/background.prompt.txt",
+          "referenceHashes": [
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d"
+          ],
+          "outputHashes": [
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "manual-edit",
+          "tool": "Pillow",
+          "version": "13.0.0",
+          "modelRevision": "not-applicable",
+          "eventId": "T119-R09-background-registration-v1",
+          "settingsPath": "assets-src/rooms/R09-registration.json",
+          "promptOrScriptPath": "assets-src/images/T119/register-layers.py",
+          "referenceHashes": [
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079"
+          ],
+          "outputHashes": [
+            "c7c75d1c9cc8a43ea0dea76e9705d5978dedb0e3f2d1bcccf07e29920e9f5fa3"
+          ],
+          "notes": "Scripted full-frame registration of the preserved OpenAI pixels into the editable registered PNG using the named transforms and masks."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest, original direction and registered Blender references",
+          "OpenAI built-in image generation with Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/T119/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T119/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T119/input-permissions.md"
+        ],
+        "aiDisclosure": "Artwork from actual OpenAI image generation, with deterministic camera registration, alpha cleanup and compression. Project-controlled rights only."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "199a9aac123dfcc32e2ce76e8b4bcd89c249eccaa449b440971b920a23a27f73",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "c7c75d1c9cc8a43ea0dea76e9705d5978dedb0e3f2d1bcccf07e29920e9f5fa3",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-background-structure.json",
+          "findings": "Independent decode of source PNGs and registered 1600x900 WebP. Compared current sizes, alpha and hashes."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "199a9aac123dfcc32e2ce76e8b4bcd89c249eccaa449b440971b920a23a27f73",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "c7c75d1c9cc8a43ea0dea76e9705d5978dedb0e3f2d1bcccf07e29920e9f5fa3",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-background-source-reopen.json",
+          "findings": "Pillow decoded sources, references and public WebP. Firefox independently decoded the web export and registered cast."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "199a9aac123dfcc32e2ce76e8b4bcd89c249eccaa449b440971b920a23a27f73",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "c7c75d1c9cc8a43ea0dea76e9705d5978dedb0e3f2d1bcccf07e29920e9f5fa3",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-background-visual.json",
+          "findings": "Warm nautilus vaults and the distant glowing spiral enclose an open semicircular market. The north shutters stay behind the live module displays. A lighter wedge in the floor meets the physical return sill. The counters and plaques need closer semantic inspection at 390 pixels."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "199a9aac123dfcc32e2ce76e8b4bcd89c249eccaa449b440971b920a23a27f73",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "c7c75d1c9cc8a43ea0dea76e9705d5978dedb0e3f2d1bcccf07e29920e9f5fa3",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-background-rights.json",
+          "findings": "Project-owned input and generated output provenance reviewed against the linked public terms on 2026-11-27. Covers the interest held by the project."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "199a9aac123dfcc32e2ce76e8b4bcd89c249eccaa449b440971b920a23a27f73",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "c7c75d1c9cc8a43ea0dea76e9705d5978dedb0e3f2d1bcccf07e29920e9f5fa3",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-background-browser-comparison.json",
+          "findings": "Native isolated composition inspected. Finished-room interaction, low-detail behavior, footprint and owner review await integration."
+        }
+      ],
+      "image": {
+        "width": 1600,
+        "height": 900,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/rooms/R09-camera.json",
+        "layerRole": "background",
+        "registrationPath": "assets-src/rooms/R09-registration.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R09-midground",
+      "semanticIdentity": "spec001:LAYER-R09-midground",
+      "kind": "scene-layer",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-LAYER-R09-background"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R09/originals/background.png",
+            "bytes": 2395359,
+            "sha256": "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R09-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R09/reference/camera-guide.png",
+            "bytes": 172216,
+            "sha256": "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender with Pillow camera guide",
+          "version": "5.2.1 / 13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R09-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R09/originals/midground.png",
+            "bytes": 1430206,
+            "sha256": "1b175342512b5904775f84d7ebbaf9c5bdd7114864793da7a005ba37d3414f12",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R09-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R09/originals/passage.png",
+            "bytes": 1052014,
+            "sha256": "9455790913c96ab6d9423c172edd10ec0a3ba8fedaae9a603e95263cf46db3bb",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R09-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R09/registered/midground.png",
+            "bytes": 119485,
+            "sha256": "47340f593e7c522cfcfb7183755e30258bed7b7b872c06785af38f6708ef392a",
+            "format": "png"
+          },
+          "role": "master",
+          "application": "Pillow / registered PNG",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R09-midground-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R09/midground.webp",
+            "bytes": 32912,
+            "sha256": "bb02e2e5a4bac029202d8f5007bba30ef651b164afbcbd56eb4fe0fdcdf32786",
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "47340f593e7c522cfcfb7183755e30258bed7b7b872c06785af38f6708ef392a"
+          ],
+          "tool": "Pillow 13.0.0 / WebP",
+          "preset": "1600x900, q91, method 6, alpha quality 100",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T119/R09-midground-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R09-midground-v1",
+          "settingsPath": "assets-src/images/R09/midground.settings.json",
+          "promptOrScriptPath": "assets-src/images/R09/midground.prompt.txt",
+          "referenceHashes": [
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d"
+          ],
+          "outputHashes": [
+            "1b175342512b5904775f84d7ebbaf9c5bdd7114864793da7a005ba37d3414f12"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R09-passage-v1",
+          "settingsPath": "assets-src/images/R09/passage.settings.json",
+          "promptOrScriptPath": "assets-src/images/R09/passage.prompt.txt",
+          "referenceHashes": [
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079"
+          ],
+          "outputHashes": [
+            "9455790913c96ab6d9423c172edd10ec0a3ba8fedaae9a603e95263cf46db3bb"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "manual-edit",
+          "tool": "Pillow",
+          "version": "13.0.0",
+          "modelRevision": "not-applicable",
+          "eventId": "T119-R09-midground-registration-v1",
+          "settingsPath": "assets-src/rooms/R09-registration.json",
+          "promptOrScriptPath": "assets-src/images/T119/register-layers.py",
+          "referenceHashes": [
+            "1b175342512b5904775f84d7ebbaf9c5bdd7114864793da7a005ba37d3414f12",
+            "9455790913c96ab6d9423c172edd10ec0a3ba8fedaae9a603e95263cf46db3bb"
+          ],
+          "outputHashes": [
+            "47340f593e7c522cfcfb7183755e30258bed7b7b872c06785af38f6708ef392a"
+          ],
+          "notes": "Scripted full-frame registration of the preserved OpenAI pixels into the editable registered PNG using the named transforms and masks."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest, original direction and registered Blender references",
+          "OpenAI built-in image generation with Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/T119/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T119/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T119/input-permissions.md"
+        ],
+        "aiDisclosure": "Artwork from actual OpenAI image generation, with deterministic camera registration, alpha cleanup and compression. Project-controlled rights only."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "1b175342512b5904775f84d7ebbaf9c5bdd7114864793da7a005ba37d3414f12",
+            "47340f593e7c522cfcfb7183755e30258bed7b7b872c06785af38f6708ef392a",
+            "9455790913c96ab6d9423c172edd10ec0a3ba8fedaae9a603e95263cf46db3bb",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "bb02e2e5a4bac029202d8f5007bba30ef651b164afbcbd56eb4fe0fdcdf32786",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-midground-structure.json",
+          "findings": "Independent decode of source PNGs and registered 1600x900 WebP. Compared current sizes, alpha and hashes."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "1b175342512b5904775f84d7ebbaf9c5bdd7114864793da7a005ba37d3414f12",
+            "47340f593e7c522cfcfb7183755e30258bed7b7b872c06785af38f6708ef392a",
+            "9455790913c96ab6d9423c172edd10ec0a3ba8fedaae9a603e95263cf46db3bb",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "bb02e2e5a4bac029202d8f5007bba30ef651b164afbcbd56eb4fe0fdcdf32786",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-midground-source-reopen.json",
+          "findings": "Pillow decoded sources, references and public WebP. Firefox independently decoded the web export and registered cast."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "1b175342512b5904775f84d7ebbaf9c5bdd7114864793da7a005ba37d3414f12",
+            "47340f593e7c522cfcfb7183755e30258bed7b7b872c06785af38f6708ef392a",
+            "9455790913c96ab6d9423c172edd10ec0a3ba8fedaae9a603e95263cf46db3bb",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "bb02e2e5a4bac029202d8f5007bba30ef651b164afbcbd56eb4fe0fdcdf32786",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-midground-visual.json",
+          "findings": "The sea-green double awning attaches above the first shutters; the underside and wavy fabric hem survive light and dark mattes. The shell-inlaid return sill is fully visible. The frozen eye-height exit control lies across the mounted loan counter."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "1b175342512b5904775f84d7ebbaf9c5bdd7114864793da7a005ba37d3414f12",
+            "47340f593e7c522cfcfb7183755e30258bed7b7b872c06785af38f6708ef392a",
+            "9455790913c96ab6d9423c172edd10ec0a3ba8fedaae9a603e95263cf46db3bb",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "bb02e2e5a4bac029202d8f5007bba30ef651b164afbcbd56eb4fe0fdcdf32786",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-midground-rights.json",
+          "findings": "Project-owned input and generated output provenance reviewed against the linked public terms on 2026-11-27. Covers the interest held by the project."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "1b175342512b5904775f84d7ebbaf9c5bdd7114864793da7a005ba37d3414f12",
+            "47340f593e7c522cfcfb7183755e30258bed7b7b872c06785af38f6708ef392a",
+            "9455790913c96ab6d9423c172edd10ec0a3ba8fedaae9a603e95263cf46db3bb",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "bb02e2e5a4bac029202d8f5007bba30ef651b164afbcbd56eb4fe0fdcdf32786",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-midground-browser-comparison.json",
+          "findings": "Native isolated composition inspected. Finished-room interaction, low-detail behavior, footprint and owner review await integration."
+        }
+      ],
+      "image": {
+        "width": 1600,
+        "height": 900,
+        "colorSpace": "sRGB",
+        "alpha": true,
+        "cameraRecordPath": "assets-src/rooms/R09-camera.json",
+        "layerRole": "midground",
+        "registrationPath": "assets-src/rooms/R09-registration.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R09-foreground",
+      "semanticIdentity": "spec001:LAYER-R09-foreground",
+      "kind": "scene-layer",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-LAYER-R09-background"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R09/originals/background.png",
+            "bytes": 2395359,
+            "sha256": "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R09-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R09/reference/camera-guide.png",
+            "bytes": 172216,
+            "sha256": "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender with Pillow camera guide",
+          "version": "5.2.1 / 13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R09-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R09/originals/foreground.png",
+            "bytes": 934764,
+            "sha256": "e9310ea2d9cfc8342dc7864701245c9a0ba8ca60098f1b9ae520541c62b5fce2",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R09-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R09/foreground-allow-mask.png",
+            "bytes": 2091,
+            "sha256": "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Pillow from frozen T106 polygons",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R09-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R09/registered/foreground.png",
+            "bytes": 25664,
+            "sha256": "98411b6d34b053a60ec3fe94b0c994621d5a710810c7408b6fa755677865b227",
+            "format": "png"
+          },
+          "role": "master",
+          "application": "Pillow / registered PNG",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R09-foreground-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R09/foreground.webp",
+            "bytes": 9104,
+            "sha256": "9bf7f4c1b787a972d6c777faea496e48e6cf06267528e726cdeb67f016e0ef33",
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "98411b6d34b053a60ec3fe94b0c994621d5a710810c7408b6fa755677865b227"
+          ],
+          "tool": "Pillow 13.0.0 / WebP",
+          "preset": "1600x900, q91, method 6, alpha quality 100",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T119/R09-foreground-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R09-foreground-v1",
+          "settingsPath": "assets-src/images/R09/foreground.settings.json",
+          "promptOrScriptPath": "assets-src/images/R09/foreground.prompt.txt",
+          "referenceHashes": [
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d"
+          ],
+          "outputHashes": [
+            "e9310ea2d9cfc8342dc7864701245c9a0ba8ca60098f1b9ae520541c62b5fce2"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "manual-edit",
+          "tool": "Pillow",
+          "version": "13.0.0",
+          "modelRevision": "not-applicable",
+          "eventId": "T119-R09-foreground-registration-v1",
+          "settingsPath": "assets-src/rooms/R09-registration.json",
+          "promptOrScriptPath": "assets-src/images/T119/register-layers.py",
+          "referenceHashes": [
+            "e9310ea2d9cfc8342dc7864701245c9a0ba8ca60098f1b9ae520541c62b5fce2",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424"
+          ],
+          "outputHashes": [
+            "98411b6d34b053a60ec3fe94b0c994621d5a710810c7408b6fa755677865b227"
+          ],
+          "notes": "Scripted full-frame registration of the preserved OpenAI pixels into the editable registered PNG using the named transforms and masks."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest, original direction and registered Blender references",
+          "OpenAI built-in image generation with Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/T119/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T119/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T119/input-permissions.md"
+        ],
+        "aiDisclosure": "Artwork from actual OpenAI image generation, with deterministic camera registration, alpha cleanup and compression. Project-controlled rights only."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "98411b6d34b053a60ec3fe94b0c994621d5a710810c7408b6fa755677865b227",
+            "9bf7f4c1b787a972d6c777faea496e48e6cf06267528e726cdeb67f016e0ef33",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079",
+            "e9310ea2d9cfc8342dc7864701245c9a0ba8ca60098f1b9ae520541c62b5fce2"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-foreground-structure.json",
+          "findings": "Independent decode of source PNGs and registered 1600x900 WebP. Compared current sizes, alpha and hashes."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "98411b6d34b053a60ec3fe94b0c994621d5a710810c7408b6fa755677865b227",
+            "9bf7f4c1b787a972d6c777faea496e48e6cf06267528e726cdeb67f016e0ef33",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079",
+            "e9310ea2d9cfc8342dc7864701245c9a0ba8ca60098f1b9ae520541c62b5fce2"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-foreground-source-reopen.json",
+          "findings": "Pillow decoded sources, references and public WebP. Firefox independently decoded the web export and registered cast."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "98411b6d34b053a60ec3fe94b0c994621d5a710810c7408b6fa755677865b227",
+            "9bf7f4c1b787a972d6c777faea496e48e6cf06267528e726cdeb67f016e0ef33",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079",
+            "e9310ea2d9cfc8342dc7864701245c9a0ba8ca60098f1b9ae520541c62b5fce2"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-foreground-visual.json",
+          "findings": "The left whelk and right bivalves frame the lower edges on distinct counter corners. Their nacre and worn copper hardware stay separate from the real display case and Hermit."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "98411b6d34b053a60ec3fe94b0c994621d5a710810c7408b6fa755677865b227",
+            "9bf7f4c1b787a972d6c777faea496e48e6cf06267528e726cdeb67f016e0ef33",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079",
+            "e9310ea2d9cfc8342dc7864701245c9a0ba8ca60098f1b9ae520541c62b5fce2"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-foreground-rights.json",
+          "findings": "Project-owned input and generated output provenance reviewed against the linked public terms on 2026-11-27. Covers the interest held by the project."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "95a62d566e9be88e4e8c02d2e739f9eb3d8fd274d8fb4567445ecb1c45a38c0d",
+            "98411b6d34b053a60ec3fe94b0c994621d5a710810c7408b6fa755677865b227",
+            "9bf7f4c1b787a972d6c777faea496e48e6cf06267528e726cdeb67f016e0ef33",
+            "cdf73734407f3153f1e04db544af0c3ad30b478907bfd73b4273a5ff57aa1079",
+            "e9310ea2d9cfc8342dc7864701245c9a0ba8ca60098f1b9ae520541c62b5fce2"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R09-foreground-browser-comparison.json",
+          "findings": "Native isolated composition inspected. Finished-room interaction, low-detail behavior, footprint and owner review await integration."
+        }
+      ],
+      "image": {
+        "width": 1600,
+        "height": 900,
+        "colorSpace": "sRGB",
+        "alpha": true,
+        "cameraRecordPath": "assets-src/rooms/R09-camera.json",
+        "layerRole": "foreground",
+        "registrationPath": "assets-src/rooms/R09-registration.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R10-background",
+      "semanticIdentity": "spec001:LAYER-R10-background",
+      "kind": "scene-layer",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R10/reference/camera-guide.png",
+            "bytes": 182817,
+            "sha256": "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender with Pillow camera guide",
+          "version": "5.2.1 / 13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R10-background-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R10/originals/background.png",
+            "bytes": 2288952,
+            "sha256": "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R10-background-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R10/registered/background.png",
+            "bytes": 1986619,
+            "sha256": "82a450eb3ebf91ce55c8eacf8802fa71857ccbc3325022e15b57c22e4e8dedf4",
+            "format": "png"
+          },
+          "role": "master",
+          "application": "Pillow / registered PNG",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R10-background-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R10/background.webp",
+            "bytes": 231052,
+            "sha256": "743d1049c3cd76b46b278ead5f22683bb385444ee8ab4451bac7f90a31b0b3be",
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "82a450eb3ebf91ce55c8eacf8802fa71857ccbc3325022e15b57c22e4e8dedf4"
+          ],
+          "tool": "Pillow 13.0.0 / WebP",
+          "preset": "1600x900, q91, method 6, alpha quality 100",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T119/R10-background-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R10-background-v1",
+          "settingsPath": "assets-src/images/R10/background.settings.json",
+          "promptOrScriptPath": "assets-src/images/R10/background.prompt.txt",
+          "referenceHashes": [
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964"
+          ],
+          "outputHashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "manual-edit",
+          "tool": "Pillow",
+          "version": "13.0.0",
+          "modelRevision": "not-applicable",
+          "eventId": "T119-R10-background-registration-v1",
+          "settingsPath": "assets-src/rooms/R10-registration.json",
+          "promptOrScriptPath": "assets-src/images/T119/register-layers.py",
+          "referenceHashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a"
+          ],
+          "outputHashes": [
+            "82a450eb3ebf91ce55c8eacf8802fa71857ccbc3325022e15b57c22e4e8dedf4"
+          ],
+          "notes": "Scripted full-frame registration of the preserved OpenAI pixels into the editable registered PNG using the named transforms and masks."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest, original direction and registered Blender references",
+          "OpenAI built-in image generation with Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/T119/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T119/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T119/input-permissions.md"
+        ],
+        "aiDisclosure": "Artwork from actual OpenAI image generation, with deterministic camera registration, alpha cleanup and compression. Project-controlled rights only."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "743d1049c3cd76b46b278ead5f22683bb385444ee8ab4451bac7f90a31b0b3be",
+            "82a450eb3ebf91ce55c8eacf8802fa71857ccbc3325022e15b57c22e4e8dedf4",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-background-structure.json",
+          "findings": "Independent decode of source PNGs and registered 1600x900 WebP. Compared current sizes, alpha and hashes."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "743d1049c3cd76b46b278ead5f22683bb385444ee8ab4451bac7f90a31b0b3be",
+            "82a450eb3ebf91ce55c8eacf8802fa71857ccbc3325022e15b57c22e4e8dedf4",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-background-source-reopen.json",
+          "findings": "Pillow decoded sources, references and public WebP. Firefox independently decoded the web export and registered cast."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "743d1049c3cd76b46b278ead5f22683bb385444ee8ab4451bac7f90a31b0b3be",
+            "82a450eb3ebf91ce55c8eacf8802fa71857ccbc3325022e15b57c22e4e8dedf4",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-background-visual.json",
+          "findings": "The plumb-bob niche, two adjacent gallery recesses and brass floor joints remain visible behind the real master wheel. The left and lower-right approaches have clear paving and a warm entry. The frozen pose partly hides the wheel's lower face."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "743d1049c3cd76b46b278ead5f22683bb385444ee8ab4451bac7f90a31b0b3be",
+            "82a450eb3ebf91ce55c8eacf8802fa71857ccbc3325022e15b57c22e4e8dedf4",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-background-rights.json",
+          "findings": "Project-owned input and generated output provenance reviewed against the linked public terms on 2026-11-27. Covers the interest held by the project."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "743d1049c3cd76b46b278ead5f22683bb385444ee8ab4451bac7f90a31b0b3be",
+            "82a450eb3ebf91ce55c8eacf8802fa71857ccbc3325022e15b57c22e4e8dedf4",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-background-browser-comparison.json",
+          "findings": "Native isolated composition inspected. Finished-room interaction, low-detail behavior, footprint and owner review await integration."
+        }
+      ],
+      "image": {
+        "width": 1600,
+        "height": 900,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/rooms/R10-camera.json",
+        "layerRole": "background",
+        "registrationPath": "assets-src/rooms/R10-registration.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R10-midground",
+      "semanticIdentity": "spec001:LAYER-R10-midground",
+      "kind": "scene-layer",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-LAYER-R10-background"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R10/originals/background.png",
+            "bytes": 2288952,
+            "sha256": "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R10-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R10/reference/camera-guide.png",
+            "bytes": 182817,
+            "sha256": "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender with Pillow camera guide",
+          "version": "5.2.1 / 13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R10-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R10/originals/midground.png",
+            "bytes": 2145887,
+            "sha256": "85b7a016456105459b476ffc5e6435bec0d8bcdba0e55f2d0f04c3cd182ceed5",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R10-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R10/originals/passage.png",
+            "bytes": 1032436,
+            "sha256": "35e3d1fffa79e6439298909cd8e72bde53ccb8fa53e79b6233556fd721abcaf6",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R10-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R10/registered/midground.png",
+            "bytes": 126514,
+            "sha256": "bf6f89de79552373897795ba9cf53ecc05c17b4d1666ff7e04e65c369838e5c3",
+            "format": "png"
+          },
+          "role": "master",
+          "application": "Pillow / registered PNG",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R10-midground-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R10/midground.webp",
+            "bytes": 34794,
+            "sha256": "b92f0ed923303f67b84602531839165ef14694d7c31483cf3c8a03b75b588c4b",
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "bf6f89de79552373897795ba9cf53ecc05c17b4d1666ff7e04e65c369838e5c3"
+          ],
+          "tool": "Pillow 13.0.0 / WebP",
+          "preset": "1600x900, q91, method 6, alpha quality 100",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T119/R10-midground-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R10-midground-v1",
+          "settingsPath": "assets-src/images/R10/midground.settings.json",
+          "promptOrScriptPath": "assets-src/images/R10/midground.prompt.txt",
+          "referenceHashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964"
+          ],
+          "outputHashes": [
+            "85b7a016456105459b476ffc5e6435bec0d8bcdba0e55f2d0f04c3cd182ceed5"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R10-passage-v1",
+          "settingsPath": "assets-src/images/R10/passage.settings.json",
+          "promptOrScriptPath": "assets-src/images/R10/passage.prompt.txt",
+          "referenceHashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a"
+          ],
+          "outputHashes": [
+            "35e3d1fffa79e6439298909cd8e72bde53ccb8fa53e79b6233556fd721abcaf6"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "manual-edit",
+          "tool": "Pillow",
+          "version": "13.0.0",
+          "modelRevision": "not-applicable",
+          "eventId": "T119-R10-midground-registration-v1",
+          "settingsPath": "assets-src/rooms/R10-registration.json",
+          "promptOrScriptPath": "assets-src/images/T119/register-layers.py",
+          "referenceHashes": [
+            "85b7a016456105459b476ffc5e6435bec0d8bcdba0e55f2d0f04c3cd182ceed5",
+            "35e3d1fffa79e6439298909cd8e72bde53ccb8fa53e79b6233556fd721abcaf6"
+          ],
+          "outputHashes": [
+            "bf6f89de79552373897795ba9cf53ecc05c17b4d1666ff7e04e65c369838e5c3"
+          ],
+          "notes": "Scripted full-frame registration of the preserved OpenAI pixels into the editable registered PNG using the named transforms and masks."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest, original direction and registered Blender references",
+          "OpenAI built-in image generation with Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/T119/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T119/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T119/input-permissions.md"
+        ],
+        "aiDisclosure": "Artwork from actual OpenAI image generation, with deterministic camera registration, alpha cleanup and compression. Project-controlled rights only."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "35e3d1fffa79e6439298909cd8e72bde53ccb8fa53e79b6233556fd721abcaf6",
+            "85b7a016456105459b476ffc5e6435bec0d8bcdba0e55f2d0f04c3cd182ceed5",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964",
+            "b92f0ed923303f67b84602531839165ef14694d7c31483cf3c8a03b75b588c4b",
+            "bf6f89de79552373897795ba9cf53ecc05c17b4d1666ff7e04e65c369838e5c3"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-midground-structure.json",
+          "findings": "Independent decode of source PNGs and registered 1600x900 WebP. Compared current sizes, alpha and hashes."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "35e3d1fffa79e6439298909cd8e72bde53ccb8fa53e79b6233556fd721abcaf6",
+            "85b7a016456105459b476ffc5e6435bec0d8bcdba0e55f2d0f04c3cd182ceed5",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964",
+            "b92f0ed923303f67b84602531839165ef14694d7c31483cf3c8a03b75b588c4b",
+            "bf6f89de79552373897795ba9cf53ecc05c17b4d1666ff7e04e65c369838e5c3"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-midground-source-reopen.json",
+          "findings": "Pillow decoded sources, references and public WebP. Firefox independently decoded the web export and registered cast."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "35e3d1fffa79e6439298909cd8e72bde53ccb8fa53e79b6233556fd721abcaf6",
+            "85b7a016456105459b476ffc5e6435bec0d8bcdba0e55f2d0f04c3cd182ceed5",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964",
+            "b92f0ed923303f67b84602531839165ef14694d7c31483cf3c8a03b75b588c4b",
+            "bf6f89de79552373897795ba9cf53ecc05c17b4d1666ff7e04e65c369838e5c3"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-midground-visual.json",
+          "findings": "A three-wheel frieze sits within the empty upper-right recess, well above and to the right of the interactive timing wheel. Two slim bronze sills ground the approaches. Their camera-aligned placement stays independent of timing or a pass condition."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "35e3d1fffa79e6439298909cd8e72bde53ccb8fa53e79b6233556fd721abcaf6",
+            "85b7a016456105459b476ffc5e6435bec0d8bcdba0e55f2d0f04c3cd182ceed5",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964",
+            "b92f0ed923303f67b84602531839165ef14694d7c31483cf3c8a03b75b588c4b",
+            "bf6f89de79552373897795ba9cf53ecc05c17b4d1666ff7e04e65c369838e5c3"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-midground-rights.json",
+          "findings": "Project-owned input and generated output provenance reviewed against the linked public terms on 2026-11-27. Covers the interest held by the project."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "35e3d1fffa79e6439298909cd8e72bde53ccb8fa53e79b6233556fd721abcaf6",
+            "85b7a016456105459b476ffc5e6435bec0d8bcdba0e55f2d0f04c3cd182ceed5",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964",
+            "b92f0ed923303f67b84602531839165ef14694d7c31483cf3c8a03b75b588c4b",
+            "bf6f89de79552373897795ba9cf53ecc05c17b4d1666ff7e04e65c369838e5c3"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-midground-browser-comparison.json",
+          "findings": "Native isolated composition inspected. Finished-room interaction, low-detail behavior, footprint and owner review await integration."
+        }
+      ],
+      "image": {
+        "width": 1600,
+        "height": 900,
+        "colorSpace": "sRGB",
+        "alpha": true,
+        "cameraRecordPath": "assets-src/rooms/R10-camera.json",
+        "layerRole": "midground",
+        "registrationPath": "assets-src/rooms/R10-registration.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R10-foreground",
+      "semanticIdentity": "spec001:LAYER-R10-foreground",
+      "kind": "scene-layer",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-LAYER-R10-background"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R10/originals/background.png",
+            "bytes": 2288952,
+            "sha256": "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R10-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R10/reference/camera-guide.png",
+            "bytes": 182817,
+            "sha256": "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender with Pillow camera guide",
+          "version": "5.2.1 / 13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R10-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R10/originals/foreground.png",
+            "bytes": 881471,
+            "sha256": "82ce857f34861262a234358e88b9f5cc760f0a441f8fa1572da1563875b54d30",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R10-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R10/foreground-allow-mask.png",
+            "bytes": 2091,
+            "sha256": "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Pillow from frozen T106 polygons",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R10-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R10/registered/foreground.png",
+            "bytes": 21776,
+            "sha256": "d5c8bab6c76f5e8fe4d04cb0db12ae3fbe25da5cb1a774284c5b3ca723392f2c",
+            "format": "png"
+          },
+          "role": "master",
+          "application": "Pillow / registered PNG",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R10-foreground-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R10/foreground.webp",
+            "bytes": 7946,
+            "sha256": "0f22a189cc0a175755767f7a1b112084518f7fb5a388ef7344b8169f854758ef",
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "d5c8bab6c76f5e8fe4d04cb0db12ae3fbe25da5cb1a774284c5b3ca723392f2c"
+          ],
+          "tool": "Pillow 13.0.0 / WebP",
+          "preset": "1600x900, q91, method 6, alpha quality 100",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T119/R10-foreground-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R10-foreground-v1",
+          "settingsPath": "assets-src/images/R10/foreground.settings.json",
+          "promptOrScriptPath": "assets-src/images/R10/foreground.prompt.txt",
+          "referenceHashes": [
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964"
+          ],
+          "outputHashes": [
+            "82ce857f34861262a234358e88b9f5cc760f0a441f8fa1572da1563875b54d30"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "manual-edit",
+          "tool": "Pillow",
+          "version": "13.0.0",
+          "modelRevision": "not-applicable",
+          "eventId": "T119-R10-foreground-registration-v1",
+          "settingsPath": "assets-src/rooms/R10-registration.json",
+          "promptOrScriptPath": "assets-src/images/T119/register-layers.py",
+          "referenceHashes": [
+            "82ce857f34861262a234358e88b9f5cc760f0a441f8fa1572da1563875b54d30",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424"
+          ],
+          "outputHashes": [
+            "d5c8bab6c76f5e8fe4d04cb0db12ae3fbe25da5cb1a774284c5b3ca723392f2c"
+          ],
+          "notes": "Scripted full-frame registration of the preserved OpenAI pixels into the editable registered PNG using the named transforms and masks."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest, original direction and registered Blender references",
+          "OpenAI built-in image generation with Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/T119/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T119/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T119/input-permissions.md"
+        ],
+        "aiDisclosure": "Artwork from actual OpenAI image generation, with deterministic camera registration, alpha cleanup and compression. Project-controlled rights only."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "0f22a189cc0a175755767f7a1b112084518f7fb5a388ef7344b8169f854758ef",
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "82ce857f34861262a234358e88b9f5cc760f0a441f8fa1572da1563875b54d30",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964",
+            "d5c8bab6c76f5e8fe4d04cb0db12ae3fbe25da5cb1a774284c5b3ca723392f2c"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-foreground-structure.json",
+          "findings": "Independent decode of source PNGs and registered 1600x900 WebP. Compared current sizes, alpha and hashes."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "0f22a189cc0a175755767f7a1b112084518f7fb5a388ef7344b8169f854758ef",
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "82ce857f34861262a234358e88b9f5cc760f0a441f8fa1572da1563875b54d30",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964",
+            "d5c8bab6c76f5e8fe4d04cb0db12ae3fbe25da5cb1a774284c5b3ca723392f2c"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-foreground-source-reopen.json",
+          "findings": "Pillow decoded sources, references and public WebP. Firefox independently decoded the web export and registered cast."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "0f22a189cc0a175755767f7a1b112084518f7fb5a388ef7344b8169f854758ef",
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "82ce857f34861262a234358e88b9f5cc760f0a441f8fa1572da1563875b54d30",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964",
+            "d5c8bab6c76f5e8fe4d04cb0db12ae3fbe25da5cb1a774284c5b3ca723392f2c"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-foreground-visual.json",
+          "findings": "Two deep green and brass toothed arcs sit low in opposing corners. Their blunt teeth have clean open edges on light and dark mattes. Neither overlaps the actual wheel, loom or side passage."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "0f22a189cc0a175755767f7a1b112084518f7fb5a388ef7344b8169f854758ef",
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "82ce857f34861262a234358e88b9f5cc760f0a441f8fa1572da1563875b54d30",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964",
+            "d5c8bab6c76f5e8fe4d04cb0db12ae3fbe25da5cb1a774284c5b3ca723392f2c"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-foreground-rights.json",
+          "findings": "Project-owned input and generated output provenance reviewed against the linked public terms on 2026-11-27. Covers the interest held by the project."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "0f22a189cc0a175755767f7a1b112084518f7fb5a388ef7344b8169f854758ef",
+            "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "82ce857f34861262a234358e88b9f5cc760f0a441f8fa1572da1563875b54d30",
+            "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964",
+            "d5c8bab6c76f5e8fe4d04cb0db12ae3fbe25da5cb1a774284c5b3ca723392f2c"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R10-foreground-browser-comparison.json",
+          "findings": "Native isolated composition inspected. Finished-room interaction, low-detail behavior, footprint and owner review await integration."
+        }
+      ],
+      "image": {
+        "width": 1600,
+        "height": 900,
+        "colorSpace": "sRGB",
+        "alpha": true,
+        "cameraRecordPath": "assets-src/rooms/R10-camera.json",
+        "layerRole": "foreground",
+        "registrationPath": "assets-src/rooms/R10-registration.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R11-background",
+      "semanticIdentity": "spec001:LAYER-R11-background",
+      "kind": "scene-layer",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R11/reference/camera-guide.png",
+            "bytes": 170128,
+            "sha256": "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender with Pillow camera guide",
+          "version": "5.2.1 / 13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R11-background-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R11/originals/background.png",
+            "bytes": 2029839,
+            "sha256": "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R11-background-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R11/registered/background.png",
+            "bytes": 1778157,
+            "sha256": "6c64c3063c05698535f89d9af32215ed66c9d819a165ee29df7035c65293453b",
+            "format": "png"
+          },
+          "role": "master",
+          "application": "Pillow / registered PNG",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R11-background-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R11/background.webp",
+            "bytes": 176594,
+            "sha256": "c88be645b950433837b360a436d1e0286d9e7e77d69c9cee432503fe006139dc",
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "6c64c3063c05698535f89d9af32215ed66c9d819a165ee29df7035c65293453b"
+          ],
+          "tool": "Pillow 13.0.0 / WebP",
+          "preset": "1600x900, q91, method 6, alpha quality 100",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T119/R11-background-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R11-background-v1",
+          "settingsPath": "assets-src/images/R11/background.settings.json",
+          "promptOrScriptPath": "assets-src/images/R11/background.prompt.txt",
+          "referenceHashes": [
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245"
+          ],
+          "outputHashes": [
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "manual-edit",
+          "tool": "Pillow",
+          "version": "13.0.0",
+          "modelRevision": "not-applicable",
+          "eventId": "T119-R11-background-registration-v1",
+          "settingsPath": "assets-src/rooms/R11-registration.json",
+          "promptOrScriptPath": "assets-src/images/T119/register-layers.py",
+          "referenceHashes": [
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185"
+          ],
+          "outputHashes": [
+            "6c64c3063c05698535f89d9af32215ed66c9d819a165ee29df7035c65293453b"
+          ],
+          "notes": "Scripted full-frame registration of the preserved OpenAI pixels into the editable registered PNG using the named transforms and masks."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest, original direction and registered Blender references",
+          "OpenAI built-in image generation with Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/T119/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T119/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T119/input-permissions.md"
+        ],
+        "aiDisclosure": "Artwork from actual OpenAI image generation, with deterministic camera registration, alpha cleanup and compression. Project-controlled rights only."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "6c64c3063c05698535f89d9af32215ed66c9d819a165ee29df7035c65293453b",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "c88be645b950433837b360a436d1e0286d9e7e77d69c9cee432503fe006139dc",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-background-structure.json",
+          "findings": "Independent decode of source PNGs and registered 1600x900 WebP. Compared current sizes, alpha and hashes."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "6c64c3063c05698535f89d9af32215ed66c9d819a165ee29df7035c65293453b",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "c88be645b950433837b360a436d1e0286d9e7e77d69c9cee432503fe006139dc",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-background-source-reopen.json",
+          "findings": "Pillow decoded sources, references and public WebP. Firefox independently decoded the web export and registered cast."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "6c64c3063c05698535f89d9af32215ed66c9d819a165ee29df7035c65293453b",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "c88be645b950433837b360a436d1e0286d9e7e77d69c9cee432503fe006139dc",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-background-visual.json",
+          "findings": "Broad strata and the orange diagonal shaft of light place the rift beyond the safe inspection slab. The excavator towers over the deck and its upper arm stays separate from the canyon skyline. A player can see open paving between all three stations."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "6c64c3063c05698535f89d9af32215ed66c9d819a165ee29df7035c65293453b",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "c88be645b950433837b360a436d1e0286d9e7e77d69c9cee432503fe006139dc",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-background-rights.json",
+          "findings": "Project-owned input and generated output provenance reviewed against the linked public terms on 2026-11-27. Covers the interest held by the project."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "6c64c3063c05698535f89d9af32215ed66c9d819a165ee29df7035c65293453b",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "c88be645b950433837b360a436d1e0286d9e7e77d69c9cee432503fe006139dc",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-background-browser-comparison.json",
+          "findings": "Native isolated composition inspected. Finished-room interaction, low-detail behavior, footprint and owner review await integration."
+        }
+      ],
+      "image": {
+        "width": 1600,
+        "height": 900,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/rooms/R11-camera.json",
+        "layerRole": "background",
+        "registrationPath": "assets-src/rooms/R11-registration.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R11-midground",
+      "semanticIdentity": "spec001:LAYER-R11-midground",
+      "kind": "scene-layer",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-LAYER-R11-background"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R11/originals/background.png",
+            "bytes": 2029839,
+            "sha256": "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R11-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R11/reference/camera-guide.png",
+            "bytes": 170128,
+            "sha256": "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender with Pillow camera guide",
+          "version": "5.2.1 / 13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R11-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R11/originals/midground.png",
+            "bytes": 1242267,
+            "sha256": "a10bdaf3fb0ffcf2d0f1c8b51955dfbd253b76ec18078e82fff9faa9d2e435aa",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R11-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R11/originals/passage.png",
+            "bytes": 1391938,
+            "sha256": "84eccbcf916f44ff8bfb1b59ecead9eedfde95768cceeb0a8d87a288b1988ccd",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R11-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R11/registered/midground.png",
+            "bytes": 77030,
+            "sha256": "9aa1ee98e4ad0057478f0e25631273fc3da3faf48f7dcfc6e61afe6ad20a89f4",
+            "format": "png"
+          },
+          "role": "master",
+          "application": "Pillow / registered PNG",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R11-midground-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R11/midground.webp",
+            "bytes": 26624,
+            "sha256": "f7257dd745adc890d6e60d2d050bed169e4abe718f872b7ece29f54212d48a8e",
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "9aa1ee98e4ad0057478f0e25631273fc3da3faf48f7dcfc6e61afe6ad20a89f4"
+          ],
+          "tool": "Pillow 13.0.0 / WebP",
+          "preset": "1600x900, q91, method 6, alpha quality 100",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T119/R11-midground-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R11-midground-v1",
+          "settingsPath": "assets-src/images/R11/midground.settings.json",
+          "promptOrScriptPath": "assets-src/images/R11/midground.prompt.txt",
+          "referenceHashes": [
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245"
+          ],
+          "outputHashes": [
+            "a10bdaf3fb0ffcf2d0f1c8b51955dfbd253b76ec18078e82fff9faa9d2e435aa"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R11-passage-v1",
+          "settingsPath": "assets-src/images/R11/passage.settings.json",
+          "promptOrScriptPath": "assets-src/images/R11/passage.prompt.txt",
+          "referenceHashes": [
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185"
+          ],
+          "outputHashes": [
+            "84eccbcf916f44ff8bfb1b59ecead9eedfde95768cceeb0a8d87a288b1988ccd"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "manual-edit",
+          "tool": "Pillow",
+          "version": "13.0.0",
+          "modelRevision": "not-applicable",
+          "eventId": "T119-R11-midground-registration-v1",
+          "settingsPath": "assets-src/rooms/R11-registration.json",
+          "promptOrScriptPath": "assets-src/images/T119/register-layers.py",
+          "referenceHashes": [
+            "a10bdaf3fb0ffcf2d0f1c8b51955dfbd253b76ec18078e82fff9faa9d2e435aa",
+            "84eccbcf916f44ff8bfb1b59ecead9eedfde95768cceeb0a8d87a288b1988ccd"
+          ],
+          "outputHashes": [
+            "9aa1ee98e4ad0057478f0e25631273fc3da3faf48f7dcfc6e61afe6ad20a89f4"
+          ],
+          "notes": "Scripted full-frame registration of the preserved OpenAI pixels into the editable registered PNG using the named transforms and masks."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest, original direction and registered Blender references",
+          "OpenAI built-in image generation with Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/T119/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T119/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T119/input-permissions.md"
+        ],
+        "aiDisclosure": "Artwork from actual OpenAI image generation, with deterministic camera registration, alpha cleanup and compression. Project-controlled rights only."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "84eccbcf916f44ff8bfb1b59ecead9eedfde95768cceeb0a8d87a288b1988ccd",
+            "9aa1ee98e4ad0057478f0e25631273fc3da3faf48f7dcfc6e61afe6ad20a89f4",
+            "a10bdaf3fb0ffcf2d0f1c8b51955dfbd253b76ec18078e82fff9faa9d2e435aa",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185",
+            "f7257dd745adc890d6e60d2d050bed169e4abe718f872b7ece29f54212d48a8e"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-midground-structure.json",
+          "findings": "Independent decode of source PNGs and registered 1600x900 WebP. Compared current sizes, alpha and hashes."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "84eccbcf916f44ff8bfb1b59ecead9eedfde95768cceeb0a8d87a288b1988ccd",
+            "9aa1ee98e4ad0057478f0e25631273fc3da3faf48f7dcfc6e61afe6ad20a89f4",
+            "a10bdaf3fb0ffcf2d0f1c8b51955dfbd253b76ec18078e82fff9faa9d2e435aa",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185",
+            "f7257dd745adc890d6e60d2d050bed169e4abe718f872b7ece29f54212d48a8e"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-midground-source-reopen.json",
+          "findings": "Pillow decoded sources, references and public WebP. Firefox independently decoded the web export and registered cast."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "84eccbcf916f44ff8bfb1b59ecead9eedfde95768cceeb0a8d87a288b1988ccd",
+            "9aa1ee98e4ad0057478f0e25631273fc3da3faf48f7dcfc6e61afe6ad20a89f4",
+            "a10bdaf3fb0ffcf2d0f1c8b51955dfbd253b76ec18078e82fff9faa9d2e435aa",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185",
+            "f7257dd745adc890d6e60d2d050bed169e4abe718f872b7ece29f54212d48a8e"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-midground-visual.json",
+          "findings": "The revised scaffold is smaller and cooler on the far-right rock wall, with its short disused conduit away from the repair stations. The five room-specific inset traction plates lie at distinct approach footpoints and survive the posed cast."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "84eccbcf916f44ff8bfb1b59ecead9eedfde95768cceeb0a8d87a288b1988ccd",
+            "9aa1ee98e4ad0057478f0e25631273fc3da3faf48f7dcfc6e61afe6ad20a89f4",
+            "a10bdaf3fb0ffcf2d0f1c8b51955dfbd253b76ec18078e82fff9faa9d2e435aa",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185",
+            "f7257dd745adc890d6e60d2d050bed169e4abe718f872b7ece29f54212d48a8e"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-midground-rights.json",
+          "findings": "Project-owned input and generated output provenance reviewed against the linked public terms on 2026-11-27. Covers the interest held by the project."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "84eccbcf916f44ff8bfb1b59ecead9eedfde95768cceeb0a8d87a288b1988ccd",
+            "9aa1ee98e4ad0057478f0e25631273fc3da3faf48f7dcfc6e61afe6ad20a89f4",
+            "a10bdaf3fb0ffcf2d0f1c8b51955dfbd253b76ec18078e82fff9faa9d2e435aa",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185",
+            "f7257dd745adc890d6e60d2d050bed169e4abe718f872b7ece29f54212d48a8e"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-midground-browser-comparison.json",
+          "findings": "Native isolated composition inspected. Finished-room interaction, low-detail behavior, footprint and owner review await integration."
+        }
+      ],
+      "image": {
+        "width": 1600,
+        "height": 900,
+        "colorSpace": "sRGB",
+        "alpha": true,
+        "cameraRecordPath": "assets-src/rooms/R11-camera.json",
+        "layerRole": "midground",
+        "registrationPath": "assets-src/rooms/R11-registration.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R11-foreground",
+      "semanticIdentity": "spec001:LAYER-R11-foreground",
+      "kind": "scene-layer",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-LAYER-R11-background"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R11/originals/background.png",
+            "bytes": 2029839,
+            "sha256": "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R11-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R11/reference/camera-guide.png",
+            "bytes": 170128,
+            "sha256": "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender with Pillow camera guide",
+          "version": "5.2.1 / 13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R11-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R11/originals/foreground.png",
+            "bytes": 846909,
+            "sha256": "91f0f5c0660537538ddaa57c9948434b2d47165e9e2d3d10deed230e5c1ef361",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R11-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R11/foreground-allow-mask.png",
+            "bytes": 2091,
+            "sha256": "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Pillow from frozen T106 polygons",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R11-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R11/registered/foreground.png",
+            "bytes": 27297,
+            "sha256": "b0716e18669f3755d994ad87ae01f6db12a4227ab03ad1968972d59b4d309f92",
+            "format": "png"
+          },
+          "role": "master",
+          "application": "Pillow / registered PNG",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R11-foreground-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R11/foreground.webp",
+            "bytes": 11646,
+            "sha256": "28cdd57989e0ef419f1ba0442b85a9dc36558fd2fa987d445b731fd98f20d9db",
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "b0716e18669f3755d994ad87ae01f6db12a4227ab03ad1968972d59b4d309f92"
+          ],
+          "tool": "Pillow 13.0.0 / WebP",
+          "preset": "1600x900, q91, method 6, alpha quality 100",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T119/R11-foreground-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R11-foreground-v1",
+          "settingsPath": "assets-src/images/R11/foreground.settings.json",
+          "promptOrScriptPath": "assets-src/images/R11/foreground.prompt.txt",
+          "referenceHashes": [
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245"
+          ],
+          "outputHashes": [
+            "91f0f5c0660537538ddaa57c9948434b2d47165e9e2d3d10deed230e5c1ef361"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "manual-edit",
+          "tool": "Pillow",
+          "version": "13.0.0",
+          "modelRevision": "not-applicable",
+          "eventId": "T119-R11-foreground-registration-v1",
+          "settingsPath": "assets-src/rooms/R11-registration.json",
+          "promptOrScriptPath": "assets-src/images/T119/register-layers.py",
+          "referenceHashes": [
+            "91f0f5c0660537538ddaa57c9948434b2d47165e9e2d3d10deed230e5c1ef361",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424"
+          ],
+          "outputHashes": [
+            "b0716e18669f3755d994ad87ae01f6db12a4227ab03ad1968972d59b4d309f92"
+          ],
+          "notes": "Scripted full-frame registration of the preserved OpenAI pixels into the editable registered PNG using the named transforms and masks."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest, original direction and registered Blender references",
+          "OpenAI built-in image generation with Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/T119/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T119/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T119/input-permissions.md"
+        ],
+        "aiDisclosure": "Artwork from actual OpenAI image generation, with deterministic camera registration, alpha cleanup and compression. Project-controlled rights only."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "28cdd57989e0ef419f1ba0442b85a9dc36558fd2fa987d445b731fd98f20d9db",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "91f0f5c0660537538ddaa57c9948434b2d47165e9e2d3d10deed230e5c1ef361",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "b0716e18669f3755d994ad87ae01f6db12a4227ab03ad1968972d59b4d309f92",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-foreground-structure.json",
+          "findings": "Independent decode of source PNGs and registered 1600x900 WebP. Compared current sizes, alpha and hashes."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "28cdd57989e0ef419f1ba0442b85a9dc36558fd2fa987d445b731fd98f20d9db",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "91f0f5c0660537538ddaa57c9948434b2d47165e9e2d3d10deed230e5c1ef361",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "b0716e18669f3755d994ad87ae01f6db12a4227ab03ad1968972d59b4d309f92",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-foreground-source-reopen.json",
+          "findings": "Pillow decoded sources, references and public WebP. Firefox independently decoded the web export and registered cast."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "28cdd57989e0ef419f1ba0442b85a9dc36558fd2fa987d445b731fd98f20d9db",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "91f0f5c0660537538ddaa57c9948434b2d47165e9e2d3d10deed230e5c1ef361",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "b0716e18669f3755d994ad87ae01f6db12a4227ab03ad1968972d59b4d309f92",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-foreground-visual.json",
+          "findings": "Two worn industrial rail ends sit inside the lower edge wedges. Their horizontal stubs point away from the main slab, and their separation holds against dark and pale backgrounds."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "28cdd57989e0ef419f1ba0442b85a9dc36558fd2fa987d445b731fd98f20d9db",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "91f0f5c0660537538ddaa57c9948434b2d47165e9e2d3d10deed230e5c1ef361",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "b0716e18669f3755d994ad87ae01f6db12a4227ab03ad1968972d59b4d309f92",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-foreground-rights.json",
+          "findings": "Project-owned input and generated output provenance reviewed against the linked public terms on 2026-11-27. Covers the interest held by the project."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "28cdd57989e0ef419f1ba0442b85a9dc36558fd2fa987d445b731fd98f20d9db",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "91f0f5c0660537538ddaa57c9948434b2d47165e9e2d3d10deed230e5c1ef361",
+            "a7e1727bcd62a067ecda4cb916e6c0160d3fb80f5e54b86e21de26f861ea8245",
+            "b0716e18669f3755d994ad87ae01f6db12a4227ab03ad1968972d59b4d309f92",
+            "d9eaf711f3ff52e91b8e0cc5e29938b8f83d8f97506c5d2d777350b263939185"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R11-foreground-browser-comparison.json",
+          "findings": "Native isolated composition inspected. Finished-room interaction, low-detail behavior, footprint and owner review await integration."
+        }
+      ],
+      "image": {
+        "width": 1600,
+        "height": 900,
+        "colorSpace": "sRGB",
+        "alpha": true,
+        "cameraRecordPath": "assets-src/rooms/R11-camera.json",
+        "layerRole": "foreground",
+        "registrationPath": "assets-src/rooms/R11-registration.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R12-background",
+      "semanticIdentity": "spec001:LAYER-R12-background",
+      "kind": "scene-layer",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R12/reference/camera-guide.png",
+            "bytes": 191998,
+            "sha256": "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender with Pillow camera guide",
+          "version": "5.2.1 / 13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R12-background-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R12/originals/background.png",
+            "bytes": 2085798,
+            "sha256": "bb0d7a75c57f9aab895402173b0db82e78b1e9e18261f89bf0948db46ee76d76",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R12-background-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R12/originals/background-repair.png",
+            "bytes": 1945044,
+            "sha256": "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R12-background-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R12/registered/background.png",
+            "bytes": 1691342,
+            "sha256": "eb3933f66a203a23b594b64972a749562442c586624900616b1727aa550025cb",
+            "format": "png"
+          },
+          "role": "master",
+          "application": "Pillow / registered PNG",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R12-background-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R12/background.webp",
+            "bytes": 155034,
+            "sha256": "06f10e46181bb9f52274baa8040b49f5cc3f0a33c38de436196f6bedf9ff175e",
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "eb3933f66a203a23b594b64972a749562442c586624900616b1727aa550025cb"
+          ],
+          "tool": "Pillow 13.0.0 / WebP",
+          "preset": "1600x900, q91, method 6, alpha quality 100",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T119/R12-background-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R12-background-v1",
+          "settingsPath": "assets-src/images/R12/background.settings.json",
+          "promptOrScriptPath": "assets-src/images/R12/background.prompt.txt",
+          "referenceHashes": [
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f"
+          ],
+          "outputHashes": [
+            "bb0d7a75c57f9aab895402173b0db82e78b1e9e18261f89bf0948db46ee76d76"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R12-background-repair-v1",
+          "settingsPath": "assets-src/images/R12/background-repair.settings.json",
+          "promptOrScriptPath": "assets-src/images/R12/background-repair.prompt.txt",
+          "referenceHashes": [
+            "bb0d7a75c57f9aab895402173b0db82e78b1e9e18261f89bf0948db46ee76d76"
+          ],
+          "outputHashes": [
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "manual-edit",
+          "tool": "Pillow",
+          "version": "13.0.0",
+          "modelRevision": "not-applicable",
+          "eventId": "T119-R12-background-registration-v1",
+          "settingsPath": "assets-src/rooms/R12-registration.json",
+          "promptOrScriptPath": "assets-src/images/T119/register-layers.py",
+          "referenceHashes": [
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "outputHashes": [
+            "eb3933f66a203a23b594b64972a749562442c586624900616b1727aa550025cb"
+          ],
+          "notes": "Scripted full-frame registration of the preserved OpenAI pixels into the editable registered PNG using the named transforms and masks."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest, original direction and registered Blender references",
+          "OpenAI built-in image generation with Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/T119/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T119/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T119/input-permissions.md"
+        ],
+        "aiDisclosure": "Artwork from actual OpenAI image generation, with deterministic camera registration, alpha cleanup and compression. Project-controlled rights only."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "06f10e46181bb9f52274baa8040b49f5cc3f0a33c38de436196f6bedf9ff175e",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "bb0d7a75c57f9aab895402173b0db82e78b1e9e18261f89bf0948db46ee76d76",
+            "eb3933f66a203a23b594b64972a749562442c586624900616b1727aa550025cb",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-background-structure.json",
+          "findings": "Independent decode of source PNGs and registered 1600x900 WebP. Compared current sizes, alpha and hashes."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "06f10e46181bb9f52274baa8040b49f5cc3f0a33c38de436196f6bedf9ff175e",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "bb0d7a75c57f9aab895402173b0db82e78b1e9e18261f89bf0948db46ee76d76",
+            "eb3933f66a203a23b594b64972a749562442c586624900616b1727aa550025cb",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-background-source-reopen.json",
+          "findings": "Pillow decoded sources, references and public WebP. Firefox independently decoded the web export and registered cast."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "06f10e46181bb9f52274baa8040b49f5cc3f0a33c38de436196f6bedf9ff175e",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "bb0d7a75c57f9aab895402173b0db82e78b1e9e18261f89bf0948db46ee76d76",
+            "eb3933f66a203a23b594b64972a749562442c586624900616b1727aa550025cb",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-background-visual.json",
+          "findings": "The revised plain dark ashlar wall receives the one modeled closed gate. The skyline and warm return arcade remain visible; no painted gate competes with the future-realm sign. The Titan covers some of the modeled gate's lower-right edge."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "06f10e46181bb9f52274baa8040b49f5cc3f0a33c38de436196f6bedf9ff175e",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "bb0d7a75c57f9aab895402173b0db82e78b1e9e18261f89bf0948db46ee76d76",
+            "eb3933f66a203a23b594b64972a749562442c586624900616b1727aa550025cb",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-background-rights.json",
+          "findings": "Project-owned input and generated output provenance reviewed against the linked public terms on 2026-11-27. Covers the interest held by the project."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "06f10e46181bb9f52274baa8040b49f5cc3f0a33c38de436196f6bedf9ff175e",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "bb0d7a75c57f9aab895402173b0db82e78b1e9e18261f89bf0948db46ee76d76",
+            "eb3933f66a203a23b594b64972a749562442c586624900616b1727aa550025cb",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-background-browser-comparison.json",
+          "findings": "Native isolated composition inspected. Finished-room interaction, low-detail behavior, footprint and owner review await integration."
+        }
+      ],
+      "image": {
+        "width": 1600,
+        "height": 900,
+        "colorSpace": "sRGB",
+        "alpha": false,
+        "cameraRecordPath": "assets-src/rooms/R12-camera.json",
+        "layerRole": "background",
+        "registrationPath": "assets-src/rooms/R12-registration.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R12-midground",
+      "semanticIdentity": "spec001:LAYER-R12-midground",
+      "kind": "scene-layer",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-LAYER-R12-background"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R12/originals/background-repair.png",
+            "bytes": 1945044,
+            "sha256": "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R12-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R12/reference/camera-guide.png",
+            "bytes": 191998,
+            "sha256": "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender with Pillow camera guide",
+          "version": "5.2.1 / 13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R12-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R12/originals/midground.png",
+            "bytes": 1010952,
+            "sha256": "7fc2a2f96f8a6d262b2ad827d20d1dbaabe719df212366bf858f45fb08c3f686",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R12-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R12/originals/passage.png",
+            "bytes": 935712,
+            "sha256": "316108c6aefd80c155be757a316454caf568ed220615de59475050331a8ff9ed",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R12-midground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R12/registered/midground.png",
+            "bytes": 72860,
+            "sha256": "aa7fd9c85d44229baf8d9a28ff90c03d6dadfef916b30ca79fb5f48b9c12f3d5",
+            "format": "png"
+          },
+          "role": "master",
+          "application": "Pillow / registered PNG",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R12-midground-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R12/midground.webp",
+            "bytes": 21286,
+            "sha256": "f9055c694dbc0008ef22534b4ba6f711786b7a5cb5a5c0c29af07978f8f058fb",
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "aa7fd9c85d44229baf8d9a28ff90c03d6dadfef916b30ca79fb5f48b9c12f3d5"
+          ],
+          "tool": "Pillow 13.0.0 / WebP",
+          "preset": "1600x900, q91, method 6, alpha quality 100",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T119/R12-midground-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R12-midground-v1",
+          "settingsPath": "assets-src/images/R12/midground.settings.json",
+          "promptOrScriptPath": "assets-src/images/R12/midground.prompt.txt",
+          "referenceHashes": [
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f"
+          ],
+          "outputHashes": [
+            "7fc2a2f96f8a6d262b2ad827d20d1dbaabe719df212366bf858f45fb08c3f686"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R12-passage-v1",
+          "settingsPath": "assets-src/images/R12/passage.settings.json",
+          "promptOrScriptPath": "assets-src/images/R12/passage.prompt.txt",
+          "referenceHashes": [
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "outputHashes": [
+            "316108c6aefd80c155be757a316454caf568ed220615de59475050331a8ff9ed"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "manual-edit",
+          "tool": "Pillow",
+          "version": "13.0.0",
+          "modelRevision": "not-applicable",
+          "eventId": "T119-R12-midground-registration-v1",
+          "settingsPath": "assets-src/rooms/R12-registration.json",
+          "promptOrScriptPath": "assets-src/images/T119/register-layers.py",
+          "referenceHashes": [
+            "7fc2a2f96f8a6d262b2ad827d20d1dbaabe719df212366bf858f45fb08c3f686",
+            "316108c6aefd80c155be757a316454caf568ed220615de59475050331a8ff9ed"
+          ],
+          "outputHashes": [
+            "aa7fd9c85d44229baf8d9a28ff90c03d6dadfef916b30ca79fb5f48b9c12f3d5"
+          ],
+          "notes": "Scripted full-frame registration of the preserved OpenAI pixels into the editable registered PNG using the named transforms and masks."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest, original direction and registered Blender references",
+          "OpenAI built-in image generation with Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/T119/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T119/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T119/input-permissions.md"
+        ],
+        "aiDisclosure": "Artwork from actual OpenAI image generation, with deterministic camera registration, alpha cleanup and compression. Project-controlled rights only."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "316108c6aefd80c155be757a316454caf568ed220615de59475050331a8ff9ed",
+            "7fc2a2f96f8a6d262b2ad827d20d1dbaabe719df212366bf858f45fb08c3f686",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "aa7fd9c85d44229baf8d9a28ff90c03d6dadfef916b30ca79fb5f48b9c12f3d5",
+            "f9055c694dbc0008ef22534b4ba6f711786b7a5cb5a5c0c29af07978f8f058fb",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-midground-structure.json",
+          "findings": "Independent decode of source PNGs and registered 1600x900 WebP. Compared current sizes, alpha and hashes."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "316108c6aefd80c155be757a316454caf568ed220615de59475050331a8ff9ed",
+            "7fc2a2f96f8a6d262b2ad827d20d1dbaabe719df212366bf858f45fb08c3f686",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "aa7fd9c85d44229baf8d9a28ff90c03d6dadfef916b30ca79fb5f48b9c12f3d5",
+            "f9055c694dbc0008ef22534b4ba6f711786b7a5cb5a5c0c29af07978f8f058fb",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-midground-source-reopen.json",
+          "findings": "Pillow decoded sources, references and public WebP. Firefox independently decoded the web export and registered cast."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "316108c6aefd80c155be757a316454caf568ed220615de59475050331a8ff9ed",
+            "7fc2a2f96f8a6d262b2ad827d20d1dbaabe719df212366bf858f45fb08c3f686",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "aa7fd9c85d44229baf8d9a28ff90c03d6dadfef916b30ca79fb5f48b9c12f3d5",
+            "f9055c694dbc0008ef22534b4ba6f711786b7a5cb5a5c0c29af07978f8f058fb",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-midground-visual.json",
+          "findings": "A broad quatrefoil pilaster and a narrower companion mark the balcony at the foot of the buttresses. The grooved stone return sill lies on the walking plane beneath the real open return arch. The live beacon base and the Golem overlap at arrival."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "316108c6aefd80c155be757a316454caf568ed220615de59475050331a8ff9ed",
+            "7fc2a2f96f8a6d262b2ad827d20d1dbaabe719df212366bf858f45fb08c3f686",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "aa7fd9c85d44229baf8d9a28ff90c03d6dadfef916b30ca79fb5f48b9c12f3d5",
+            "f9055c694dbc0008ef22534b4ba6f711786b7a5cb5a5c0c29af07978f8f058fb",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-midground-rights.json",
+          "findings": "Project-owned input and generated output provenance reviewed against the linked public terms on 2026-11-27. Covers the interest held by the project."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "316108c6aefd80c155be757a316454caf568ed220615de59475050331a8ff9ed",
+            "7fc2a2f96f8a6d262b2ad827d20d1dbaabe719df212366bf858f45fb08c3f686",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "aa7fd9c85d44229baf8d9a28ff90c03d6dadfef916b30ca79fb5f48b9c12f3d5",
+            "f9055c694dbc0008ef22534b4ba6f711786b7a5cb5a5c0c29af07978f8f058fb",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-midground-browser-comparison.json",
+          "findings": "Native isolated composition inspected. Finished-room interaction, low-detail behavior, footprint and owner review await integration."
+        }
+      ],
+      "image": {
+        "width": 1600,
+        "height": 900,
+        "colorSpace": "sRGB",
+        "alpha": true,
+        "cameraRecordPath": "assets-src/rooms/R12-camera.json",
+        "layerRole": "midground",
+        "registrationPath": "assets-src/rooms/R12-registration.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R12-foreground",
+      "semanticIdentity": "spec001:LAYER-R12-foreground",
+      "kind": "scene-layer",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-LAYER-R12-background"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/images/R12/originals/background-repair.png",
+            "bytes": 1945044,
+            "sha256": "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R12-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R12/reference/camera-guide.png",
+            "bytes": 191998,
+            "sha256": "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender with Pillow camera guide",
+          "version": "5.2.1 / 13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R12-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R12/originals/foreground.png",
+            "bytes": 838794,
+            "sha256": "420f868e6dedcc020dcd0725f42f2904986dbc12838d0c816b60286f4a255df2",
+            "format": "png"
+          },
+          "role": "raw-generation",
+          "application": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R12-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R12/foreground-allow-mask.png",
+            "bytes": 2091,
+            "sha256": "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Pillow from frozen T106 polygons",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R12-foreground-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/images/R12/registered/foreground.png",
+            "bytes": 18419,
+            "sha256": "3a9477f784cdffc83a34a735e5227ba314918604c3830ff65a903c68baa175ed",
+            "format": "png"
+          },
+          "role": "master",
+          "application": "Pillow / registered PNG",
+          "version": "13.0.0",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T119/R12-foreground-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/images/R12/foreground.webp",
+            "bytes": 7674,
+            "sha256": "cdae80fc680aea929a6a8afb644926ef00ee2b8b9e4d8538569940e06df8ae85",
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "3a9477f784cdffc83a34a735e5227ba314918604c3830ff65a903c68baa175ed"
+          ],
+          "tool": "Pillow 13.0.0 / WebP",
+          "preset": "1600x900, q91, method 6, alpha quality 100",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T119/R12-foreground-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "openai-generated",
+          "tool": "OpenAI image_gen__imagegen",
+          "version": "not-exposed",
+          "modelRevision": "not-exposed",
+          "eventId": "T119-R12-foreground-v1",
+          "settingsPath": "assets-src/images/R12/foreground.settings.json",
+          "promptOrScriptPath": "assets-src/images/R12/foreground.prompt.txt",
+          "referenceHashes": [
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f"
+          ],
+          "outputHashes": [
+            "420f868e6dedcc020dcd0725f42f2904986dbc12838d0c816b60286f4a255df2"
+          ],
+          "notes": "Image returned by the actual built-in tool, retained verbatim. Registration and WebP encoding follow in the export pipeline."
+        },
+        {
+          "method": "manual-edit",
+          "tool": "Pillow",
+          "version": "13.0.0",
+          "modelRevision": "not-applicable",
+          "eventId": "T119-R12-foreground-registration-v1",
+          "settingsPath": "assets-src/rooms/R12-registration.json",
+          "promptOrScriptPath": "assets-src/images/T119/register-layers.py",
+          "referenceHashes": [
+            "420f868e6dedcc020dcd0725f42f2904986dbc12838d0c816b60286f4a255df2",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424"
+          ],
+          "outputHashes": [
+            "3a9477f784cdffc83a34a735e5227ba314918604c3830ff65a903c68baa175ed"
+          ],
+          "notes": "Scripted full-frame registration of the preserved OpenAI pixels into the editable registered PNG using the named transforms and masks."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest, original direction and registered Blender references",
+          "OpenAI built-in image generation with Codex-assisted production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "assets-src/images/T119/NOTICE.md",
+          "LICENSE-ASSETS"
+        ],
+        "sourceUrls": [
+          "https://openai.com/policies/terms-of-use/",
+          "https://openai.com/policies/services-agreement/",
+          "https://openai.com/policies/service-terms/"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/images/T119/terms-review.md"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/images/T119/input-permissions.md"
+        ],
+        "aiDisclosure": "Artwork from actual OpenAI image generation, with deterministic camera registration, alpha cleanup and compression. Project-controlled rights only."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "3a9477f784cdffc83a34a735e5227ba314918604c3830ff65a903c68baa175ed",
+            "420f868e6dedcc020dcd0725f42f2904986dbc12838d0c816b60286f4a255df2",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "cdae80fc680aea929a6a8afb644926ef00ee2b8b9e4d8538569940e06df8ae85",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-foreground-structure.json",
+          "findings": "Independent decode of source PNGs and registered 1600x900 WebP. Compared current sizes, alpha and hashes."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "3a9477f784cdffc83a34a735e5227ba314918604c3830ff65a903c68baa175ed",
+            "420f868e6dedcc020dcd0725f42f2904986dbc12838d0c816b60286f4a255df2",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "cdae80fc680aea929a6a8afb644926ef00ee2b8b9e4d8538569940e06df8ae85",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-foreground-source-reopen.json",
+          "findings": "Pillow decoded sources, references and public WebP. Firefox independently decoded the web export and registered cast."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "3a9477f784cdffc83a34a735e5227ba314918604c3830ff65a903c68baa175ed",
+            "420f868e6dedcc020dcd0725f42f2904986dbc12838d0c816b60286f4a255df2",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "cdae80fc680aea929a6a8afb644926ef00ee2b8b9e4d8538569940e06df8ae85",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-foreground-visual.json",
+          "findings": "A strapped run of stone and an individual chipped wedge sit at opposite bottom corners. The little brass fastener glints on the right and the clear center preserves the epilogue and terminal exhibits."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "3a9477f784cdffc83a34a735e5227ba314918604c3830ff65a903c68baa175ed",
+            "420f868e6dedcc020dcd0725f42f2904986dbc12838d0c816b60286f4a255df2",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "cdae80fc680aea929a6a8afb644926ef00ee2b8b9e4d8538569940e06df8ae85",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-foreground-rights.json",
+          "findings": "Project-owned input and generated output provenance reviewed against the linked public terms on 2026-11-27. Covers the interest held by the project."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "pending",
+          "reviewer": "Codex agent loop136/T119",
+          "date": "2026-11-27",
+          "hashes": [
+            "3a9477f784cdffc83a34a735e5227ba314918604c3830ff65a903c68baa175ed",
+            "420f868e6dedcc020dcd0725f42f2904986dbc12838d0c816b60286f4a255df2",
+            "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+            "8f0cd5bfa100d604587489700938582a3c297a6178012abf98e1e40cbdf6207f",
+            "cdae80fc680aea929a6a8afb644926ef00ee2b8b9e4d8538569940e06df8ae85",
+            "fabe132d1125a2c7e0c446ebc1aed2de6d6979112e174a58820c86825cd62cd7"
+          ],
+          "environment": "macOS arm64; Blender 5.2.1 LTS; OpenAI built-in image generation; Pillow 13.0.0; native Firefox 159.0 via Playwright",
+          "evidencePath": "docs/evidence/spec001/assets/T119/R12-foreground-browser-comparison.json",
+          "findings": "Native isolated composition inspected. Finished-room interaction, low-detail behavior, footprint and owner review await integration."
+        }
+      ],
+      "image": {
+        "width": 1600,
+        "height": 900,
+        "colorSpace": "sRGB",
+        "alpha": true,
+        "cameraRecordPath": "assets-src/rooms/R12-camera.json",
+        "layerRole": "foreground",
+        "registrationPath": "assets-src/rooms/R12-registration.json"
+      }
+    }
+  ]
+}

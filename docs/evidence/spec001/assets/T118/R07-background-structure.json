@@ -1,0 +1,132 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-LAYER-R07-background",
+  "hashes": [
+    "1943329770c508951140668105173a935d998be3a5ab35fe3b55196a941eb275",
+    "747073700a70f0b174060b1cfdb9f1c1c3dd88b342cdd6d6e3bf5f85f405b308",
+    "c26f777c1a7c1af59bc74d8e571af840f2cb9f0d9cc422ee3ee0fe0c1965a6cf",
+    "e0c35fc7e4a08c10e271c3792b4e7ac9619399deda90581501cfc3e0df704f9e"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex agent loop135/T118",
+  "date": "2026-11-27",
+  "environment": "Blender 5.2.1 LTS, Pillow 12.1.0, Firefox 159.0, standalone camera composition on macOS arm64",
+  "details": {
+    "findings": "Raw sources, registered master and WebP reopened. Export geometry, channels and straight alpha verified by scanning the decoded pixels.",
+    "decodedPixelReport": "docs/evidence/spec001/image-production/T118/R07/pixels.json",
+    "artifacts": [
+      {
+        "path": "assets-src/images/R07/originals/background.png",
+        "sha256": "1943329770c508951140668105173a935d998be3a5ab35fe3b55196a941eb275",
+        "bytes": 2565977,
+        "pixels": [
+          1672,
+          941
+        ],
+        "mode": "RGB",
+        "format": "PNG",
+        "metadataKeys": [],
+        "alphaExtrema": [
+          255,
+          255
+        ],
+        "nonzeroAlpha": 1573352,
+        "partialAlpha": 0,
+        "visibleBoundsAt8": [
+          0,
+          0,
+          1672,
+          941
+        ]
+      },
+      {
+        "path": "assets-src/images/R07/registered/background.png",
+        "sha256": "e0c35fc7e4a08c10e271c3792b4e7ac9619399deda90581501cfc3e0df704f9e",
+        "bytes": 2226261,
+        "pixels": [
+          1600,
+          900
+        ],
+        "mode": "RGB",
+        "format": "PNG",
+        "metadataKeys": [],
+        "alphaExtrema": [
+          255,
+          255
+        ],
+        "nonzeroAlpha": 1440000,
+        "partialAlpha": 0,
+        "visibleBoundsAt8": [
+          0,
+          0,
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "assets-src/images/R07/reference/camera-guide.png",
+        "sha256": "747073700a70f0b174060b1cfdb9f1c1c3dd88b342cdd6d6e3bf5f85f405b308",
+        "bytes": 161414,
+        "pixels": [
+          1280,
+          720
+        ],
+        "mode": "RGB",
+        "format": "PNG",
+        "metadataKeys": [],
+        "alphaExtrema": [
+          255,
+          255
+        ],
+        "nonzeroAlpha": 921600,
+        "partialAlpha": 0,
+        "visibleBoundsAt8": [
+          0,
+          0,
+          1280,
+          720
+        ]
+      },
+      {
+        "path": "public/assets/images/R07/background.webp",
+        "sha256": "c26f777c1a7c1af59bc74d8e571af840f2cb9f0d9cc422ee3ee0fe0c1965a6cf",
+        "bytes": 346254,
+        "pixels": [
+          1600,
+          900
+        ],
+        "mode": "RGB",
+        "format": "WEBP",
+        "metadataKeys": [
+          "background",
+          "duration",
+          "loop",
+          "timestamp"
+        ],
+        "alphaExtrema": [
+          255,
+          255
+        ],
+        "nonzeroAlpha": 1440000,
+        "partialAlpha": 0,
+        "visibleBoundsAt8": [
+          0,
+          0,
+          1600,
+          900
+        ]
+      }
+    ],
+    "masterToExport": {
+      "role": "background",
+      "masterExportMaxAlphaDelta": 0,
+      "rmsRGBonBlack": [
+        4.0563491898504,
+        2.1255786793770355,
+        5.915180036238214
+      ]
+    }
+  },
+  "check": "structure"
+}

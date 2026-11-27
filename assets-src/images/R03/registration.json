@@ -1,0 +1,280 @@
+{
+  "roomId": "spec001:R03",
+  "camera": "camera.json",
+  "generationGuide": "reference/camera-guide.png",
+  "layerOrder": [
+    "background",
+    "midground",
+    "realtime cast or R04 sprites",
+    "foreground"
+  ],
+  "transforms": {
+    "background": {
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "destinationSize": [
+        1600,
+        900
+      ],
+      "frame": "Entire opaque image projected on the 16:9 stage."
+    },
+    "midground": {
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "destinationSize": [
+        1600,
+        900
+      ],
+      "placement": {
+        "sourceBox": [
+          0,
+          0,
+          1672,
+          941
+        ],
+        "destRect": [
+          488,
+          -90,
+          1152,
+          648
+        ]
+      },
+      "alpha": "Straight alpha. Remove non-subject alpha values 0\u20133 before premultiplied Lanczos resizing. All other retained alpha is original antialiasing, transformed with its subject."
+    },
+    "foreground": {
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "destinationSize": [
+        1600,
+        900
+      ],
+      "placements": [
+        {
+          "sourceBox": [
+            0,
+            574,
+            398,
+            941
+          ],
+          "destRect": [
+            0,
+            836,
+            69,
+            64
+          ]
+        },
+        {
+          "sourceBox": [
+            1367,
+            664,
+            1672,
+            941
+          ],
+          "destRect": [
+            1531,
+            837,
+            69,
+            63
+          ]
+        }
+      ],
+      "mask": "foreground-allow-mask.png",
+      "alpha": "Straight alpha. Remove non-subject alpha values 0\u20133 before premultiplied Lanczos resizing. All other retained alpha is original antialiasing, transformed with its subject."
+    }
+  },
+  "layerPurpose": [
+    "Warm copper seams braid through dark rock, like roots built by electricians",
+    "Separated cable trays and motor recess; keep the inspection strip unobscured",
+    "Large cable-spool rim and short loose wire tips, clear of continuity pedestal"
+  ],
+  "frozenFloorAnchors": [
+    {
+      "name": "floor-corner-1",
+      "world": [
+        0,
+        0,
+        0
+      ],
+      "uvAt16by9": [
+        0.284326,
+        0.339755
+      ]
+    },
+    {
+      "name": "floor-corner-2",
+      "world": [
+        10,
+        0,
+        0
+      ],
+      "uvAt16by9": [
+        0.860697,
+        0.551189
+      ]
+    },
+    {
+      "name": "floor-corner-3",
+      "world": [
+        10,
+        0,
+        6
+      ],
+      "uvAt16by9": [
+        0.715674,
+        0.853704
+      ]
+    },
+    {
+      "name": "floor-corner-4",
+      "world": [
+        0,
+        0,
+        6
+      ],
+      "uvAt16by9": [
+        0.139303,
+        0.642269
+      ]
+    }
+  ],
+  "foregroundAllowRegionsUV": [
+    [
+      [
+        0,
+        0.78
+      ],
+      [
+        0.045,
+        0.94
+      ],
+      [
+        0.045,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    [
+      [
+        0.955,
+        0.94
+      ],
+      [
+        1,
+        0.78
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0.955,
+        1
+      ]
+    ]
+  ],
+  "exits": [
+    {
+      "id": "exit:spec001:R03:spec001:R02",
+      "uv": [
+        0.158546,
+        0.50205
+      ]
+    },
+    {
+      "id": "exit:spec001:R03:spec001:R04",
+      "uv": [
+        0.706099,
+        0.702913
+      ]
+    }
+  ],
+  "targets": [
+    {
+      "id": "spec001:HOTSPOT-copper-bench-cards",
+      "uv": [
+        0.457888,
+        0.30242
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-original-section",
+      "uv": [
+        0.251417,
+        0.517334
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-replacement",
+      "uv": [
+        0.602724,
+        0.69972
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-alternate-path",
+      "uv": [
+        0.620945,
+        0.384545
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-continuity-pedestal",
+      "uv": [
+        0.670308,
+        0.559262
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-pair-cutaway",
+      "uv": [
+        0.303848,
+        0.311532
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-pair-separator",
+      "uv": [
+        0.290182,
+        0.420472
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-motor",
+      "uv": [
+        0.779912,
+        0.452658
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-copperhead",
+      "uv": [
+        0.389932,
+        0.516833
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-crosstalk-twins",
+      "uv": [
+        0.74691,
+        0.587424
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-recovery-card",
+      "uv": [
+        0.332109,
+        0.528557
+      ]
+    }
+  ],
+  "export": "Pillow WebP quality 91 method 6, lossless alpha quality 100, sRGB interpretation. No painted semantic labels. Separate standard images, identical 1600x900 registration."
+}

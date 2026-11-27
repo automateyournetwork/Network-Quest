@@ -1,0 +1,26 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-LAYER-R08-midground",
+  "hashes": [
+    "39f1cc03c8e9173982e699903f3ba209ea6b2a50712b1e85814d9f09a5f1308c",
+    "724f7eef5131d6feeed1d9fa33646ac1b52f34207a473d6dd8a49648720e391a",
+    "89303c83e2812499499163c6bea0c351895f797f2eeb62f50dc30b0d9444917a",
+    "95321ca1ef4660a57d623c8449b19f58ca390858b72cd03d0bdd3c0bc6340b75",
+    "95bf416950a2bfa0420c4d36e14f1a49e71d1741d44b469c9d0ed134d13f5ffa",
+    "bc6612d9ee354b3f6709068e4e139afe5a5048c8ed6933164868e349e464c3ea"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex agent loop135/T118",
+  "date": "2026-11-27",
+  "environment": "Blender 5.2.1 LTS, Pillow 12.1.0, Firefox 159.0, standalone camera composition on macOS arm64",
+  "details": {
+    "findings": "A separate process decoded and hashed each preserved source. Firefox decoded the room WebPs and cast at all review sizes.",
+    "reports": [
+      "docs/evidence/spec001/image-production/T118/R08/pixels.json",
+      "docs/evidence/spec001/image-production/T118/R08/browser.json"
+    ],
+    "inspector": "assets-src/images/T118/inspect.py"
+  },
+  "check": "source-reopen"
+}
