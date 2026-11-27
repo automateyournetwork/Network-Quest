@@ -1,4 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import { opticalAudioEvents } from './optical-audio-events';
 import type { RuntimeState } from '../state/types';
 import type { SemanticAction, ActionResult } from '../ui/action-bus';
 import type { ContentRegistry } from '../content/registry';
@@ -37,6 +38,7 @@ export function committedSoundEvents(before: RuntimeState | undefined, after: Ru
   const events = new Set<string>(), old = before?.game, game = after.game;
   if (!game || !old || game.adventureId !== old.adventureId || game.world.roomId !== old.world.roomId ||
     game.world.attemptId !== old.world.attemptId || before.auth.clientGeneration !== after.auth.clientGeneration) return events;
+  for (const event of opticalAudioEvents(old, game)) events.add(event);
   for (const id of game.notebook.factIds) if (!old.notebook.factIds.includes(id)) { events.add('fact/' + id); events.add('added/fact'); }
   if (game.notebook.hypotheses.some(h => !old.notebook.hypotheses.some(p => p.id === h.id))) events.add('added/hypothesis');
   if (game.notebook.hypotheses.some(h => h.status === 'rejected' && old.notebook.hypotheses.some(p => p.id === h.id && p.status !== h.status))) events.add('hypothesis-rejected');
@@ -64,7 +66,7 @@ export function actionSoundEvents(input: SemanticAction, result: ActionResult, s
   if (input.kind === 'open-panel' && state.ui?.panel === input.panel) events.add('panel/' + input.panel);
   if (input.kind === 'interact' || input.kind === 'choose-hotspot-action') {
     events.add(input.verb + '/' + input.targetId);
-    if (input.verb === 'walk' && !input.targetId.startsWith('exit:')) events.add('walk');
+    if (input.verb === 'walk' && !/^spec001:R(?:0[1-9]|1[0-2])$/.test(input.targetId)) events.add('walk');
   }
   if (input.kind === 'inspect-evidence' && state.game?.notebook.measurements.some(m => m.id === input.evidenceId && m.stale)) events.add('inspect-stale');
   return events;

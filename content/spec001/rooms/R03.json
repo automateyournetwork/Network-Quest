@@ -164,13 +164,16 @@
       "label": "Interference motor and shielding sample",
       "description": "The motor rattles under a shielding cross-section. Its maintenance card asks you to consider the physical surroundings; it supplies no interference measurement or shielding score. Noise you can hear is not a measurement of electrical interference. The diagnosed open conductor remains a separate, testable fault even while the motor makes its theatrical complaint.",
       "verbs": [
-        "look"
+        "look",
+        "use"
       ],
       "unsupportedVerbText": "Look at the card and test the path. Silencing this motor is not a substitute for repairing the documented open conductor.",
       "evidenceIds": [
         "spec001:FACT-O03-defect"
       ],
-      "actionIds": []
+      "actionIds": [
+        "spec001:ACTION-copper-isolate-demonstration"
+      ]
     },
     {
       "id": "spec001:HOTSPOT-copperhead",
@@ -375,7 +378,9 @@
   ],
   "ambience": {
     "text": "The motor rattles, the twins whisper, and the cable tags tap together. These sounds are described here; no clue depends on hearing them.",
-    "assetIds": []
+    "assetIds": [
+      "spec001:ASSET-AMBIENCE-R03"
+    ]
   },
   "futureDoorIds": [],
   "illustrationBindings": [
@@ -546,6 +551,111 @@
       "contentId": "spec001:R03",
       "use": "foreground",
       "exportPath": "public/assets/images/R03/foreground.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-ARCH-R03",
+      "contentId": "spec001:R03",
+      "use": "room-architecture",
+      "exportPath": "public/assets/models/R03-architecture.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH03",
+      "contentId": "spec001:R03",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH03.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH05",
+      "contentId": "spec001:R03",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH05.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH06",
+      "contentId": "spec001:R03",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH06.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH07",
+      "contentId": "spec001:R03",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH07.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH16",
+      "contentId": "spec001:R03",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH16.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH19",
+      "contentId": "spec001:R03",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH19.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH20",
+      "contentId": "spec001:R03",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH20.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH22",
+      "contentId": "spec001:R03",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH22.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-MUSIC-copper",
+      "contentId": "spec001:R03",
+      "use": "music",
+      "exportPath": "public/assets/audio/music/copper.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R03",
+      "contentId": "spec001:R03",
+      "use": "ambience",
+      "exportPath": "public/assets/audio/ambience/r03.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-010",
+      "contentId": "spec001:R03",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/fx-010.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-015",
+      "contentId": "spec001:R03",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/fx-015.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-024",
+      "contentId": "spec001:R03",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/effect-024.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-007",
+      "contentId": "spec001:DIALOGUE-VOICE-007",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-007.mp3",
       "interactiveOrEvidence": false
     }
   ]

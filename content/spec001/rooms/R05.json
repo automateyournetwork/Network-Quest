@@ -5,7 +5,7 @@
   "contentVersion": "1.0.0",
   "id": "spec001:R05",
   "presentationMode": "hybrid",
-  "description": "Luminous branches arch over a dock where Photon has organized a brush, a replacement tray and an absurdly serious inspection log. The original connection awaits inspection, while the selected candidate has a wavelength-direction mismatch. Both interventions remain available without another media branch. The scene uses temporary scenery and prop references; none count as finished media.",
+  "description": "Luminous branches arch over a dock where Photon has organized a brush, a replacement tray and an absurdly serious inspection log. The original connection awaits inspection, while the selected candidate has a wavelength-direction mismatch. Both interventions remain available without another media branch.",
   "walkRegions": [
     {
       "id": "spec001:WALK-R05",
@@ -237,61 +237,79 @@
       "instanceId": "r05-pr041",
       "propId": "spec001:PR041",
       "description": "Fiber grove trunk.",
-      "assetId": "spec001:DEV-PR041"
+      "assetId": "spec001:ASSET-PR041"
     },
     {
       "instanceId": "r05-pr042",
       "propId": "spec001:PR042",
       "description": "Light blossom cluster.",
-      "assetId": "spec001:DEV-PR042"
+      "assetId": "spec001:ASSET-PR042"
     },
     {
       "instanceId": "r05-pr043",
       "propId": "spec001:PR043",
       "description": "Connector inspection dock.",
-      "assetId": "spec001:DEV-PR043"
+      "assetId": "spec001:ASSET-PR043"
     },
     {
       "instanceId": "r05-pr044",
       "propId": "spec001:PR044",
       "description": "Cleaning station.",
-      "assetId": "spec001:DEV-PR044"
+      "assetId": "spec001:ASSET-PR044"
     },
     {
       "instanceId": "r05-pr045",
       "propId": "spec001:PR045",
       "description": "Optical patch shelf and profile cards.",
-      "assetId": "spec001:DEV-PR045"
+      "assetId": "spec001:ASSET-PR045"
     },
     {
       "instanceId": "r05-pr046",
       "propId": "spec001:PR046",
       "description": "Fiber bend exhibit.",
-      "assetId": "spec001:DEV-PR046"
+      "assetId": "spec001:ASSET-PR046"
     },
     {
       "instanceId": "r05-pr047",
       "propId": "spec001:PR047",
       "description": "Split fiber coupler.",
-      "assetId": "spec001:DEV-PR047"
+      "assetId": "spec001:ASSET-PR047"
     },
     {
       "instanceId": "r05-pr048",
       "propId": "spec001:PR048",
       "description": "Broken fiber stump.",
-      "assetId": "spec001:DEV-PR048"
+      "assetId": "spec001:ASSET-PR048"
     },
     {
       "instanceId": "r05-pr049",
       "propId": "spec001:PR049",
       "description": "Optical receiver altar.",
-      "assetId": "spec001:DEV-PR049"
+      "assetId": "spec001:ASSET-PR049"
     },
     {
       "instanceId": "r05-pr050",
       "propId": "spec001:PR050",
       "description": "Photon lantern and maintenance ribbon.",
-      "assetId": "spec001:DEV-PR050"
+      "assetId": "spec001:ASSET-PR050"
+    },
+    {
+      "instanceId": "r05-pr126",
+      "propId": "spec001:PR126",
+      "description": "Inspection lens mounted at its optical station.",
+      "assetId": "spec001:ASSET-PR126"
+    },
+    {
+      "instanceId": "r05-pr127",
+      "propId": "spec001:PR127",
+      "description": "Cleaning wand mounted at its optical station.",
+      "assetId": "spec001:ASSET-PR127"
+    },
+    {
+      "instanceId": "r05-pr149",
+      "propId": "spec001:PR149",
+      "description": "Magnifying visor mounted at its optical station.",
+      "assetId": "spec001:ASSET-PR149"
     }
   ],
   "safePositions": [
@@ -338,7 +356,9 @@
   ],
   "ambience": {
     "text": "Leaves rustle like paper and the cleaning station hums. These sounds are described here; every diagnostic clue and action is available in text.",
-    "assetIds": []
+    "assetIds": [
+      "spec001:ASSET-AMBIENCE-R05"
+    ]
   },
   "futureDoorIds": [],
   "illustrationBindings": [
@@ -361,6 +381,288 @@
       "surface": "diagnostic",
       "alt": "The Unicorn and three-headed Hydra occupy separate profile cards with a triangular key and a rectangular key.",
       "caption": "Use the supplied single-mode or multimode profile card and compare every required field. The fictional keys distinguish the cards. Matching the shape alone cannot establish compatibility, and propagation modes do not promise independent data channels."
+    }
+  ],
+  "mediaBindings": [
+    {
+      "assetId": "spec001:ASSET-ARCH-R05",
+      "contentId": "spec001:R05",
+      "use": "room-architecture",
+      "exportPath": "public/assets/models/R05-architecture.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH01",
+      "contentId": "spec001:R05",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH01.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH03",
+      "contentId": "spec001:R05",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH03-inspection.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH05",
+      "contentId": "spec001:R05",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH05.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH06",
+      "contentId": "spec001:R05",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH06.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-PR041",
+      "contentId": "spec001:R05",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR041.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR042",
+      "contentId": "spec001:R05",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR042.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR043",
+      "contentId": "spec001:R05",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR043.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR044",
+      "contentId": "spec001:R05",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR044.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR045",
+      "contentId": "spec001:R05",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR045.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR046",
+      "contentId": "spec001:R05",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR046.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR047",
+      "contentId": "spec001:R05",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR047.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR048",
+      "contentId": "spec001:R05",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR048.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR049",
+      "contentId": "spec001:R05",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR049.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR050",
+      "contentId": "spec001:R05",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR050.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR126",
+      "contentId": "spec001:R05",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/shared/PR126.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-PR127",
+      "contentId": "spec001:R05",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/shared/PR127.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-PR149",
+      "contentId": "spec001:R05",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/shared/PR149.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R05-background",
+      "contentId": "spec001:R05",
+      "use": "background",
+      "exportPath": "public/assets/images/R05/background.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R05-midground",
+      "contentId": "spec001:R05",
+      "use": "midground",
+      "exportPath": "public/assets/images/R05/midground.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R05-foreground",
+      "contentId": "spec001:R05",
+      "use": "foreground",
+      "exportPath": "public/assets/images/R05/foreground.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH04",
+      "contentId": "spec001:R05",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH04.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH07",
+      "contentId": "spec001:R05",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH07.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH16",
+      "contentId": "spec001:R05",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH16.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH19",
+      "contentId": "spec001:R05",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH19.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH20",
+      "contentId": "spec001:R05",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH20.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH22",
+      "contentId": "spec001:R05",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH22.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-MUSIC-fiber",
+      "contentId": "spec001:R05",
+      "use": "music",
+      "exportPath": "public/assets/audio/music/fiber.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R05",
+      "contentId": "spec001:R05",
+      "use": "ambience",
+      "exportPath": "public/assets/audio/ambience/r05.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-011",
+      "contentId": "spec001:R05",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/fx-011.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-017",
+      "contentId": "spec001:R05",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/fx-017.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-023",
+      "contentId": "spec001:R05",
+      "use": "effect",
+      "exportPath": "public/assets/audio/auditions/effect-023.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-025",
+      "contentId": "spec001:R05",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/effect-025.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-026",
+      "contentId": "spec001:R05",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/effect-026.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-039",
+      "contentId": "spec001:DIALOGUE-VOICE-039",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-039.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-040",
+      "contentId": "spec001:DIALOGUE-VOICE-040",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-040.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-041",
+      "contentId": "spec001:DIALOGUE-VOICE-041",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-041.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-042",
+      "contentId": "spec001:DIALOGUE-VOICE-042",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/auditions/photon-042.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-043",
+      "contentId": "spec001:DIALOGUE-VOICE-043",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-043.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-044",
+      "contentId": "spec001:DIALOGUE-VOICE-044",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-044.mp3",
+      "interactiveOrEvidence": false
     }
   ]
 }

@@ -1,0 +1,90 @@
+[
+  {
+    "assetId": "spec001:ASSET-AMBIENCE-R06",
+    "roomId": "spec001:R06",
+    "exportPath": "public/assets/audio/ambience/r06.mp3",
+    "channel": "effects",
+    "label": "The Prism Vault ambience",
+    "text": "Low resonant glass tone with occasional mechanical shutter breath.",
+    "loop": true,
+    "trigger": "arrival",
+    "captionId": "spec001:AMBIENCE-R06"
+  },
+  {
+    "assetId": "spec001:ASSET-EFFECT-018",
+    "roomId": "spec001:R06",
+    "exportPath": "public/assets/audio/effects/fx-018.mp3",
+    "channel": "effects",
+    "label": "Prism shutter",
+    "text": "Optical filter position changed",
+    "loop": false,
+    "trigger": "choice/spec001:ACTION-fiber-filter-shutter",
+    "captionId": "spec001:EFFECT-018"
+  },
+  {
+    "assetId": "spec001:ASSET-EFFECT-032",
+    "roomId": "spec001:R06",
+    "exportPath": "public/assets/audio/effects/effect-032.mp3",
+    "channel": "effects",
+    "label": "Measurement sampling",
+    "text": "Measurement taken; inspect values and freshness",
+    "loop": false,
+    "trigger": "measurement/O06",
+    "captionId": "spec001:EFFECT-032"
+  },
+  {
+    "assetId": "spec001:ASSET-EFFECT-034",
+    "roomId": "spec001:R06",
+    "exportPath": "public/assets/audio/effects/effect-034.mp3",
+    "channel": "effects",
+    "label": "Measurement outside bounds",
+    "text": "Measurement outside the stated range",
+    "loop": false,
+    "trigger": "measurement/O06-outside-bounds",
+    "captionId": "spec001:EFFECT-034"
+  },
+  {
+    "assetId": "spec001:ASSET-VOICE-009",
+    "roomId": "spec001:R06",
+    "exportPath": "public/assets/audio/voices/voice-009.mp3",
+    "channel": "voice",
+    "label": "Narrator — key-clue 009",
+    "text": "Compare the received level with both receiver bounds, then check the required reserve margin.",
+    "loop": false,
+    "trigger": "look/spec001:HOTSPOT-fiber-r06-pr057",
+    "captionId": "spec001:DIALOGUE-VOICE-009"
+  },
+  {
+    "assetId": "spec001:ASSET-VOICE-056",
+    "roomId": "spec001:R06",
+    "exportPath": "public/assets/audio/voices/voice-056.mp3",
+    "channel": "voice",
+    "label": "Hermit — key-clue 056",
+    "text": "An adequate optical budget cannot rescue an incompatible optic and fiber pair. Check both.",
+    "loop": false,
+    "trigger": "fact/spec001:FACT-O06-compatibility",
+    "captionId": "spec001:DIALOGUE-VOICE-056"
+  },
+  {
+    "assetId": "spec001:ASSET-VOICE-057",
+    "roomId": "spec001:R06",
+    "exportPath": "public/assets/audio/auditions/hermit-057.mp3",
+    "channel": "voice",
+    "label": "Hermit — key-clue 057",
+    "text": "D B M is a power level. D B expresses a difference or ratio. Keep their labels attached to the numbers.",
+    "loop": false,
+    "trigger": "look/spec001:HOTSPOT-fiber-r06-pr059",
+    "captionId": "spec001:DIALOGUE-VOICE-057"
+  },
+  {
+    "assetId": "spec001:ASSET-VOICE-058",
+    "roomId": "spec001:R06",
+    "exportPath": "public/assets/audio/voices/voice-058.mp3",
+    "channel": "voice",
+    "label": "Hermit — key-clue 058",
+    "text": "Above sensitivity is not the whole test. Leave the stated reserve margin, and do not exceed the stated maximum receive level.",
+    "loop": false,
+    "trigger": "look/spec001:HOTSPOT-fiber-r06-ch16",
+    "captionId": "spec001:DIALOGUE-VOICE-058"
+  }
+]

@@ -113,6 +113,15 @@
               },
               "nextNodeId": null,
               "effects": []
+            },
+            {
+              "id": "spec001:ACTION-copper-isolate-demonstration",
+              "text": "Release the demonstration motor switch. The isolated motor coasts to a stop. The conductor still needs its own test.",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": []
             }
           ],
           "effects": [],
@@ -207,6 +216,25 @@
               "text": "Leave everything as it is",
               "condition": {
                 "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": []
+            },
+            {
+              "id": "spec001:ACTION-copper-echo-relay-demonstration",
+              "text": "Press the momentary repeater relay. The input lamp pulses and the intact display lead repeats the pulse. The broken test span stays open.",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": []
+            },
+            {
+              "id": "spec001:ACTION-copper-echo-bat-demonstration",
+              "text": "Ask Echo Bat to repeat the pulse on the intact exhibit lead. The second lamp flashes. Across the broken lead the lamp stays dark.",
+              "condition": {
+                "kind": "character-recruited",
+                "characterId": "spec001:CH20"
               },
               "nextNodeId": null,
               "effects": []

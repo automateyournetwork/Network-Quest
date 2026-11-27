@@ -122,11 +122,15 @@ export function validateAssetObservations(manifest: unknown, evidence: AssetEvid
   // One identity can have an audition or a new animation with separate bytes.
   // Each version must prove its own production, export, use and reviews below.
   const versions = manifestRenditions(manifest);
+  const lineageFiles = new Map<string, Asset['sources'][number]['file'][]>();
   const seenExports = new Map<string, Set<string>>();
   const exportOwners = new Map<string, Asset>();
   for (const a of versions) {
     const primary = byId.get(a.assetId);
     if (primary?.kind !== a.kind || primary.semanticIdentity !== a.semanticIdentity) add('RENDITION_IDENTITY_MISMATCH', a.assetId);
+    const lineage = lineageFiles.get(a.assetId) ?? [];
+    lineage.push(...[...a.sources, ...a.exports].map(entry => entry.file));
+    lineageFiles.set(a.assetId, lineage);
     const seen = seenExports.get(a.assetId) ?? new Set<string>();
     for (const { file } of a.exports) {
       if (a !== primary && (seen.has(file.path) || seen.has(file.sha256))) add('RENDITION_EXPORT_DUPLICATE', a.assetId, file.path);
@@ -191,11 +195,11 @@ export function validateAssetObservations(manifest: unknown, evidence: AssetEvid
     for (const e of a.exports) if (!e.sourceHashes.length || !covers(sourceHashes, e.sourceHashes)) add('EXPORT_SOURCE_HASH', a.assetId, e.file.path);
     const references = [...new Set(a.production.flatMap(p => p.referenceHashes))];
     if (accepted || a.production.length) for (const parentId of a.derivedFrom) {
-      const parent = byId.get(parentId);
-      if (parent && ![...parent.sources, ...parent.exports].some(s => references.includes(s.file.sha256) && hashAt(s.file.path) === s.file.sha256)) add('DERIVATION_INPUT_UNBOUND', a.assetId);
+      const files = lineageFiles.get(parentId);
+      if (files && !files.some(file => references.includes(file.sha256) && hashAt(file.path) === file.sha256)) add('DERIVATION_INPUT_UNBOUND', a.assetId);
     }
-    const preservedReferences = [...a.sources, ...a.derivedFrom.flatMap(id => { const parent = byId.get(id); return parent ? [...parent.sources, ...parent.exports] : []; })];
-    for (const reference of references) if (!preservedReferences.some(s => s.file.sha256 === reference && hashAt(s.file.path) === reference)) add('PRODUCTION_REFERENCE_HASH', a.assetId);
+    const preservedReferences = [...a.sources.map(s => s.file), ...a.derivedFrom.flatMap(id => lineageFiles.get(id) ?? [])];
+    for (const reference of references) if (!preservedReferences.some(file => file.sha256 === reference && hashAt(file.path) === reference)) add('PRODUCTION_REFERENCE_HASH', a.assetId);
     const voiceEvents = new Map<string, AssetEvidenceRecord>();
     for (const p of a.production) {
       if (!p.outputHashes.length || !covers(sourceHashes, p.outputHashes)) add('PRODUCTION_OUTPUT_HASH', a.assetId);
@@ -282,11 +286,11 @@ export function validateAssetObservations(manifest: unknown, evidence: AssetEvid
       const target = entities.get(use.contentId);
       if (!target) add('USE_TARGET_UNRESOLVED', a.assetId);
       const allowed: Record<string, [string[], string[]]> = {
-        'character-model': [['character-placement'], ['room']], 'prop-model': [['prop-placement'], ['room']],
+        'character-model': [['character-placement', 'party-placement'], ['room']], 'prop-model': [['prop-placement'], ['room']],
         'room-model': [['room-architecture'], ['room']],
         'scene-layer': [['background', 'midground', 'foreground', 'atmosphere'], ['room']],
         'portrait': [['compendium-portrait'], ['character']], 'illustration': [['inventory-illustration', 'diagnostic-illustration'], ['item', 'evidence', 'diagnostic', 'objective']],
-        'sprite-sheet': [['sprite-animation'], ['room', 'character']], music: [['music'], ['room', 'title']], ambience: [['ambience'], ['room']], effect: [['effect'], ['action']], voice: [['voice-line'], ['dialogue-line']],
+        'sprite-sheet': [['sprite-animation'], ['room', 'character']], music: [['music'], ['room', 'title']], ambience: [['ambience'], ['room']], effect: [['effect'], ['action', 'room']], voice: [['voice-line'], ['dialogue-line']],
       };
       const [verbs, kinds] = allowed[a.kind]!;
       if (!verbs.includes(use.use) || (target && !kinds.includes(target.kind)) || (a.kind === 'scene-layer' && use.use !== a.image?.layerRole)) add('USE_KIND_MISMATCH', a.assetId);

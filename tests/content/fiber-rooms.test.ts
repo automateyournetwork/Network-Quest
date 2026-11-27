@@ -92,7 +92,7 @@ describe('T079 Photon Gardens and Prism Vault authored contracts', () => {
   });
   it('states the numeric model, inspection order and independent overload exhibit honestly', () => {
     const garden = JSON.stringify(room('R05')), vault = JSON.stringify(room('R06'));
-    for (const phrase of ['inspect', 'before', 'reinspect', 'wavelength', 'polarity', 'host', 'propagation', 'tool', 'temporary']) expect(garden).toContain(phrase);
+    for (const phrase of ['inspect', 'before', 'reinspect', 'wavelength', 'polarity', 'host', 'propagation', 'tool']) expect(garden).toContain(phrase);
     for (const phrase of ['−3 dBm', '−14 dBm', '−1 dBm', '8 dB', '9 dB', '10 dB', '−11 dBm', '−12 dBm', '−13 dBm', '2 dB', '0 dBm', 'independent', 'fictional', 'measure again', 'service']) expect(vault).toContain(phrase);
     expect(vault).toContain('not produced by the passive');
   });
@@ -102,7 +102,8 @@ describe('T079 Photon Gardens and Prism Vault authored contracts', () => {
     for (const id of ['R05', 'R06']) {
       const value = room(id), metadata = world.rooms.find(r => r.id === value.id)!;
       expect(value.characterIds).toEqual(metadata.characterIds);
-      expect(value.propInstances.map(p => p.propId)).toEqual(metadata.propIds);
+      const mountedTools = id === 'R05' ? ['PR126', 'PR127', 'PR149'] : ['PR123'];
+      expect(value.propInstances.map(p => p.propId)).toEqual([...metadata.propIds, ...mountedTools.map(q)]);
       expect(value.safePositions.map(p => p.id)).toEqual(metadata.safePositionIds);
       for (const subject of [...metadata.propIds, ...metadata.characterIds]) expect(value.hotspots.some(h => h.subjectId === subject && h.verbs.includes('look')), subject).toBe(true);
       expect(value.futureDoorIds).toEqual([]);
@@ -115,12 +116,17 @@ describe('T079 Photon Gardens and Prism Vault authored contracts', () => {
     expect(kit.acquisition.condition).toEqual({ kind: 'always' }); expect(kit.acquisition.roomId).toBe(q('R01'));
     expect(kit.consumption).toBe('never'); expect(kit.recovery.policy).toBe('not-consumed');
   });
-  it('uses readable semantic text, no inert Talk controls and explicit zero-quota temporary art', () => {
+  it('keeps readable optical evidence and registers exact native props, scenery and ambience', () => {
     for (const id of ['R05', 'R06']) {
       const value = room(id);
-      expect(value.description).toContain('temporary');
-      expect(value.mediaBindings).toBeUndefined(); expect(value.ambience.assetIds).toEqual([]);
-      expect(value.propInstances.every(p => p.assetId.startsWith(q('DEV-')))).toBe(true);
+      const code = value.id.slice(8);
+      expect(value.ambience.assetIds).toEqual([q('ASSET-AMBIENCE-' + code)]);
+      for (const p of value.propInstances) expect(value.mediaBindings).toContainEqual(expect.objectContaining({
+        assetId: p.assetId, contentId: value.id, use: 'prop-placement',
+      }));
+      for (const plane of ['background', 'midground', 'foreground']) expect(value.mediaBindings).toContainEqual(expect.objectContaining({
+        contentId: value.id, use: plane, exportPath: 'public/assets/images/' + code + '/' + plane + '.webp',
+      }));
       const prose = [value.description, value.ambience.text, ...value.exits.map(e => e.label), ...value.hotspots.flatMap(h => [h.label, h.description, h.unsupportedVerbText])].join('\n');
       expect(prose).not.toMatch(/spec001:|\b(?:O0[56]|R0[56]|PR0\d\d|CH\d\d|configurationRevision|attemptId|controller|schema)\b/);
       for (const h of value.hotspots) {

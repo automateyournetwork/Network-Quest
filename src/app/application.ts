@@ -90,6 +90,8 @@ export function createIntroductionApplication(host: HTMLElement) {
     ['R03', 'copper-alternate-path', 'alternate-path'], ['R04', 'echo-before-case', 'read-before'],
     ['R04', 'echo-repeater-core', 'read-repeater'], ['R04', 'echo-repeater-core', 'repeater-requires-continuity'],
     ['R04', 'echo-repeater-core', 'repeater-bridges-open'],
+    ['R03', 'copper-motor', 'isolate-demonstration'], ['R04', 'echo-repeater-core', 'echo-relay-demonstration'],
+    ['R04', 'echo-bat', 'echo-bat-demonstration'],
   ].map(([room, hotspot, choice]) => ({ roomId: q<'room'>(room!), hotspotId: q(`HOTSPOT-${hotspot}`), verb: 'use', itemId: null,
     actionId: q(`ACTION-copper-${choice}`), sourceId: q(`DIALOGUE-copper-${room === 'R03' ? 'bench' : 'exhibit'}`), mode: 'effects' }));
   const copperScenario = createCopperScenarioResolver(registry), equipmentScenario = createEquipmentScenarioResolver(registry);
@@ -124,7 +126,7 @@ export function createIntroductionApplication(host: HTMLElement) {
   ] as const).flatMap(([roomId, sourceId, prepare]) => {
     const room = registry.record(q(roomId)), source = registry.record(q(sourceId));
     if (room?.kind !== 'room' || source?.kind !== 'dialogue' || source.nodes.length !== 1) throw new Error('An authored branch interaction is missing.');
-    return room.hotspots.flatMap(hotspot => source.nodes[0]!.choices.filter(choice => choice.effects.length && hotspot.actionIds.includes(choice.id)).map(choice => ({
+    return room.hotspots.flatMap(hotspot => source.nodes[0]!.choices.filter(choice => hotspot.actionIds.includes(choice.id) && (choice.effects.length || choice.id === 'spec001:ACTION-fiber-filter-shutter')).map(choice => ({
       roomId: q<'room'>(roomId), hotspotId: hotspot.id as QualifiedId, verb: 'use' as const, itemId: null,
       actionId: choice.id as QualifiedId, sourceId: q(sourceId), mode: 'port' as const,
       plan: (_interaction, action, before) => {
@@ -254,10 +256,10 @@ export function createIntroductionApplication(host: HTMLElement) {
       dispatch: command => command(), isCurrent: projection => projection === narrativeProjection && state === narrativeState,
     });
     if (retainedEpilogue) epilogue.mount(shell.panelHost);
-    return { shell, sound, react(kind: 'walk' | 'reaction') {
+    return { shell, sound, playResidentAbility: (assetId: string) => { if (roomId && layered.supports(roomId)) layered.playAbility(assetId); }, react(kind: 'walk' | 'reaction', target?: string) {
       if (roomId === 'spec001:R01') finished.react(kind);
-      else if (roomId && layered.supports(roomId)) layered.react(kind);
-      else if (visualMode() === 'sprite') sprite?.react(kind);
+      else if (roomId && layered.supports(roomId)) layered.react(kind, target);
+      else if (visualMode() === 'sprite') sprite?.react(kind, target);
     }, show: (view: IntroductionGrayboxView) => {
       if (roomId !== view.roomId) { activeAdapter().hide(); failedRoom = null; roomId = view.roomId; }
       activeAdapter().show(view, { mode: selectedMode(), detail, reducedMotion: reducedMotion() });
@@ -555,8 +557,10 @@ export function createIntroductionApplication(host: HTMLElement) {
     if (result.status !== 'handled') return;
     const input = action.input;
     if (input.kind === 'interact' || input.kind === 'choose-hotspot-action') {
-      panels.react(input.verb === 'walk' ? 'walk' : 'reaction');
+      panels.react(input.verb === 'walk' ? 'walk' : 'reaction', input.targetId);
     }
+    if (input.kind === 'use-ally-ability' && state.runtime.game?.world.roomId === q('R05')
+      && String(input.abilityId) === 'spec001:ABILITY-CH03-optical-checklist') panels.playResidentAbility('spec001:ASSET-CH03');
     if (state.runtime.game?.world.roomId !== q('R01')) return;
     if (input.kind === 'interact' || input.kind === 'choose-hotspot-action') {
       if (input.verb === 'look' && input.targetId === 'spec001:HOTSPOT-power') panels.sound.trigger('control');

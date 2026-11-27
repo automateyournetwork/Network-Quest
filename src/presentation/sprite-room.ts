@@ -3,23 +3,27 @@ import authored from '../../content/spec001/presentation/R04.json';
 import type { ContentRegistry } from '../content/registry';
 import type { RoomRenderer, RoomView } from './room-adapter';
 import type { RoomResource } from './three-room';
-import { createRoomResource } from './three-room';
+import { createRoomResource, modelResidency } from './three-room';
 import { createGrayboxPointer } from './introduction-graybox';
+import { createRoomWalk } from './room-walk';
+import { createSpriteStageModels } from './sprite-stage-models';
+import type { Triple } from './room-media';
 import './sprite-room.css';
 
 interface SpriteFrame { at: number; offset: number[] }
 interface Clip { end: number; frames: SpriteFrame[] }
 interface Subject {
   id: string; assetId: string; objectId: string | null; atlasId: string;
-  footpoint: number[]; pivot: number[]; size: number[]; depth: number; clips: Record<string, Clip>;
+  position: Triple; footpoint: number[]; pivot: number[]; size: number[]; depth: number; clips: Record<string, Clip>;
 }
 interface Stage {
+  walkStops: { objectId: string; position: Triple }[]; architectureId: string; partyPositions: Triple[]; camera: { position: Triple; target: Triple; near: number; far: number; plateSpan: readonly [number, number] };
   version: number; roomId: string; stageSize: number[]; fps: number;
   layers: { assetId: string; plane: string }[];
   atlases: {assetId: string; width: number; height: number}[];
   subjects: Subject[]; anchors: {objectId: string; point: number[]}[];
 }
-const stageData: Stage = authored as Stage;
+const stageData = authored as unknown as Stage;
 
 function verifyStage(room: Exclude<ReturnType<ContentRegistry['record']>, undefined>, view: RoomView) {
   const { fps, layers, subjects, anchors, atlases, stageSize } = stageData;
@@ -46,15 +50,15 @@ function verifyStage(room: Exclude<ReturnType<ContentRegistry['record']>, undefi
 }
 
 export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, gameBase: string): RoomRenderer<RoomResource> & {
-  dispose(): void; react(kind: 'walk' | 'reaction'): void;
+  dispose(): void; react(kind: 'walk' | 'reaction', target?: string): void;
 } {
   const doc = host.ownerDocument, win = doc.defaultView!;
-  let active: { react(kind: 'walk'|'reaction'): void; dispose(): void } | null = null;
+  let active: { react(kind: 'walk'|'reaction', target?: string): void; dispose(): void } | null = null;
   let disposed = false;
   return {
     reuseView: true,
     dispose() { disposed = true; active?.dispose(); },
-    react(kind) { active?.react(kind); },
+    react(kind, target) { active?.react(kind, target); },
     async prepare(request) {
       const room = registry.record(request.view.roomId);
       if (disposed || room?.kind !== 'room' || !room.mediaBindings) throw new Error('Sprite room is unavailable');
@@ -64,6 +68,10 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
         ...stageData.layers.map(layer => ({ ...layer, use: layer.plane, width: 1600, height: 900 })),
         ...stageData.atlases.map(atlas => ({ ...atlas, use: 'sprite-animation' })),
       ];
+      const archBinding = bindings.find(b => b.assetId === stageData.architectureId && b.contentId === room.id && b.use === 'room-architecture');
+      if (!archBinding || archBinding.assetId !== room.id.replace(':', ':ASSET-ARCH-')) throw new Error('Unregistered sprite room architecture');
+      const architecture = await request.resources.acquire(createRoomResource(archBinding, gameBase, doc, { bytes: 4_194_304 })).ready;
+      if (architecture.kind !== 'model' || request.signal.aborted) throw new Error('Sprite architecture unavailable');
       const images = new Map<string, HTMLImageElement>();
       await Promise.all(entries.map(async entry => {
         const binding = bindings.find(b => b.assetId === entry.assetId && b.use === entry.use && b.contentId === room.id);
@@ -97,8 +105,10 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
       stage.setAttribute('aria-hidden','true');
       stage.append(canvas,pins); root.append(stage, choices);
       root.dataset['roomId'] = room.id; root.dataset['mode'] = 'sprite';
+      root.dataset['modelDecodedBytes'] = String(modelResidency(architecture.gltf));
+      root.dataset['modelCount'] = '1';
       root.dataset['detail'] = request.settings.detail; root.dataset['reducedMotion'] = String(request.settings.reducedMotion);
-      root.dataset['assetIds'] = entries.map(e => e.assetId).join(' ');
+      root.dataset['assetIds'] = [archBinding.assetId, ...entries.map(e => e.assetId)].join(' ');
       root.dataset['layerDecodedBytes'] = String(entries.reduce((sum,e) => sum+e.width*e.height*4,0));
       let view = request.view, selected: string | undefined;
       for (const [index, anchor] of stageData.anchors.entries()) {
@@ -124,23 +134,43 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
 
       // All visual coordinates are integer stage pixels; the captured pivot is continuous.
       const sprites = stageData.subjects.map(subject => ({
-        subject, image: images.get(subject.atlasId)!, sx:0, sy:0, w:subject.size[0]!, h:subject.size[1]!,
+        subject, depth: subject.depth, image: images.get(subject.atlasId)!, sx:0, sy:0, w:subject.size[0]!, h:subject.size[1]!,
         x:Math.round(subject.footpoint[0]!-subject.pivot[0]!), y:Math.round(subject.footpoint[1]!-subject.pivot[1]!),
         clip: subject.clips['idle'] ? 'idle' : 'rest', started:0,
       }));
+      const hero = sprites.find(s => s.subject.id === 'CH01')!;
+      const walk = createRoomWalk(hero.subject.position, new Map(stageData.walkStops.map(stop => [stop.objectId, stop.position])));
       let attached = false, alive = true, paused = false, timer: number | undefined;
       let clock = 0, last: number | null = null, draws = 0;
       const motion = !request.settings.reducedMotion && request.settings.detail !== 'low';
+      const media = { bindings: new Map(bindings.map(b => [b.assetId, b])), composition: {
+        partyPositions: stageData.partyPositions, models: room.characterIds.map(semanticId => ({ character: true, semanticId })),
+      } };
+      const models = createSpriteStageModels(doc, root, request, media, stageData.camera, architecture, gameBase, draw);
       function stopTimer() { if (timer !== undefined) win.clearTimeout(timer); timer = undefined; }
       function draw() {
         stopTimer();
         if (!alive || !attached || request.signal.aborted) return;
         const now = win.performance.now();
-        if (last !== null && !paused) clock += now-last;
+        if (last !== null && !paused) {
+          const elapsed = Math.min((now - last) / 1000, .25);
+          walk.advance(elapsed);
+          if (motion) models.party.animate(elapsed);
+          clock += now-last;
+        }
         last = paused ? null : now;
         let next = Infinity;
         ctx!.clearRect(0,0,canvas.width,canvas.height);
+        ctx!.drawImage(models.plate, 0, 0);
+        const foot = models.project(walk.position);
+        hero.x = Math.round(foot.x - hero.subject.pivot[0]!); hero.y = Math.round(foot.y - hero.subject.pivot[1]!);
+        hero.depth = foot.depth;
+        sprites.sort((a,b) => b.depth - a.depth);
+        root.dataset['playerFoot'] = walk.position.toArray().map(v => v.toFixed(3)).join(',');
+        const allies = models.layers(ctx!);
+        let allyIndex = 0;
         for (const sprite of sprites) {
+          while (allies[allyIndex] && allies[allyIndex]!.depth > sprite.depth) allies[allyIndex++]!.draw();
           let clip = sprite.subject.clips[sprite.clip]!;
           let elapsed = (clock-sprite.started)*stageData.fps/1000;
           if (sprite.clip !== 'rest' && sprite.clip !== 'idle' && elapsed >= clip.end) {
@@ -156,12 +186,15 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
             next = Math.min(next,((following < 0 ? clip.end : clip.frames[following]!.at)-time)*1000/stageData.fps);
           }
         }
+        for (; allyIndex < allies.length; allyIndex++) allies[allyIndex]!.draw();
         root.dataset['rendered'] = 'true'; root.dataset['renderCount'] = String(++draws);
         root.dataset['animatedActors'] = motion && !paused ? String(sprites.filter(s => s.clip !== 'rest').length) : '0';
         if (motion && !paused && Number.isFinite(next)) timer = win.setTimeout(draw,Math.max(1,Math.ceil(next)));
       }
-      function react(kind: 'walk'|'reaction') {
-        if (!alive || !motion || paused) return;
+      function react(kind: 'walk'|'reaction', target?: string) {
+        if (!alive || paused) return;
+        if (kind === 'walk') walk.begin(target, !motion);
+        if (!motion) { draw(); return; }
         if (last !== null) { const now = win.performance.now(); clock += now-last; last = now; }
         for (const sprite of sprites) if (sprite.subject.clips[kind]) { sprite.clip = kind; sprite.started=clock; }
         root.dataset['reaction'] = kind; draw();
@@ -176,7 +209,8 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
           hit!.clearRect(0,0,1,1); hit!.drawImage(sprite.image,sprite.sx+x,sprite.sy+y,1,1,0,0,1,1);
           if (hit!.getImageData(0,0,1,1).data[3]!>=128) return sprite.subject.objectId;
         }
-        return null;
+        const exit = stageData.anchors.find(a => a.objectId.startsWith('exit:') && Math.abs(px-a.point[0]!) <= 18 && Math.abs(py-a.point[1]!) <= 15);
+        return exit?.objectId ?? null;
       }
       const pointer = createGrayboxPointer(request.capture), events = new AbortController(), listener = {signal: events.signal};
       root.addEventListener('pointerdown', e => {
@@ -198,14 +232,14 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
       function disposeSession() {
         if (!alive) return;
         alive = false; if (active?.dispose === disposeSession) active = null;
-        events.abort(); pointer.dispose(); stopTimer(); root.remove();
+        events.abort(); pointer.dispose(); stopTimer(); models.dispose(); root.remove();
       }
       return {
         attach() {
           if (!alive || request.signal.aborted) return;
-          active = {react,dispose: disposeSession}; attached = true; host.replaceChildren(root); draw();
+          active = {react,dispose: disposeSession}; attached = true; host.replaceChildren(root); models.party.updateView(view); draw();
         },
-        updateView(next) { pointer.cancel(); view = next; updateChoices(); },
+        updateView(next) { pointer.cancel(); view = next; models.party.updateView(view); updateChoices(); },
         setPaused(value) {
           paused = value; last = null; root.dataset['paused'] = String(paused);
           if (paused) { pointer.cancel(); stopTimer(); root.dataset['animatedActors'] = '0'; }

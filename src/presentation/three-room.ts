@@ -6,13 +6,14 @@ import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUnifo
 import type { mediaBinding } from '../content/schema-types.generated';
 import type { RoomRenderer, RoomView } from './room-adapter';
 import type { ResourceSpec } from './resource-pool';
+import { createRoomWalk } from './room-walk';
 import { createRoomParty } from './room-party';
 import { createGrayboxPointer } from './introduction-graybox';
 import { publicMediaUrl, roomFraming, type RoomMedia } from './room-media';
 
 let areaLightsInitialized = false;
 export type RoomResource = { kind: 'model'; gltf: GLTF } | { kind: 'image'; url: string; width: number; height: number };
-function modelResidency(gltf: GLTF): number {
+export function modelResidency(gltf: GLTF): number {
   const arrays = new Set<ArrayBufferLike>();
   gltf.scene.traverse(object => { if (object instanceof THREE.Mesh) { for (const attribute of Object.values((object.geometry as THREE.BufferGeometry).attributes)) arrays.add(attribute.array.buffer); if (object.geometry.index) arrays.add(object.geometry.index.array.buffer); } });
   return [...arrays].reduce((sum, value) => sum + value.byteLength, 0);
@@ -57,14 +58,16 @@ export interface RoomDecoration {
 export type RoomDecorationFactory = (scene: THREE.Scene, stage: HTMLElement, gameBase: string) => RoomDecoration;
 
 /** Registered 3D cast and imagery. Only the action dispatcher owns gameplay changes. */
-export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: string, layered?: { framing: typeof roomFraming; mode?: 'layered' | 'three'; decorate?: RoomDecorationFactory }): RoomRenderer<RoomResource> & { dispose(): void; react(kind: 'walk' | 'reaction'): void } {
+export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: string, layered?: { framing: typeof roomFraming; mode?: 'layered' | 'three'; decorate?: RoomDecorationFactory }): RoomRenderer<RoomResource> & { dispose(): void; react(kind: 'walk' | 'reaction', target?: string): void; playAbility(assetId: string): void } {
   const document = host.ownerDocument, window = document.defaultView!, composition = media.composition;
   const specs = new Map([...media.bindings.values()].filter(b => b.exportPath.endsWith('.glb') || /\.(?:png|webp)$/.test(b.exportPath)).map(b => [b.assetId, createRoomResource(b, gameBase, document, layered && b.exportPath.endsWith('.glb') ? { bytes: 4_194_304 } : {})]));
-  let renderer: THREE.WebGLRenderer | null = null, disposed = false, reaction: ((kind: 'walk' | 'reaction') => void) | null = null;
+  let renderer: THREE.WebGLRenderer | null = null, disposed = false, reaction: ((kind: 'walk' | 'reaction', target?: string) => void) | null = null;
+  let residentAbility: ((assetId: string) => void) | undefined;
   const destroy = () => { const old = renderer; renderer = null; if (old) { old.dispose(); old.forceContextLoss(); old.domElement.remove(); } };
   return {
     reuseView: true,
-    react(kind) { reaction?.(kind); },
+    react(kind, target) { reaction?.(kind, target); },
+    playAbility(assetId) { residentAbility?.(assetId); },
     async prepare(request) {
       if (disposed || request.view.roomId !== composition.roomId || (request.view as RoomView & { safePositionId?: string }).safePositionId !== composition.safePositionId) throw new Error('Room projection and media disagree');
       const models = composition.models.filter(m => !(layered && request.settings.detail === 'low' && !m.character && !m.objectId && m.position[1] > 0));
@@ -87,7 +90,16 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
         vertexShader: 'varying vec2 point; void main(){point=uv*2.-1.;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
         fragmentShader: 'varying vec2 point; void main(){float alpha=0.48*(1.-smoothstep(0.12,1.,dot(point,point)));gl_FragColor=vec4(0.055,0.033,0.025,alpha);}',
       }) : null;
+      function contactShadow(size: THREE.Vector3, center: THREE.Vector3) {
+        if (!contactGeometry || !contactMaterial) return undefined;
+        const shadow = new THREE.Mesh(contactGeometry, contactMaterial);
+        shadow.rotation.x = -Math.PI / 2;
+        shadow.scale.set(Math.max(.45, size.x * 1.25), Math.max(.44, size.z * 1.32), 1);
+        shadow.position.set(center.x, .008, center.z);
+        return shadow;
+      }
       const supports: THREE.Mesh<THREE.CylinderGeometry, THREE.MeshStandardMaterial>[] = [];
+      let heroShadow: THREE.Mesh | undefined;
       for (const model of models) {
         const resource = resources.get(model.assetId)!; if (resource.kind !== 'model') throw new Error('Room model binding mismatch');
         const root = clone(resource.gltf.scene); root.position.set(...model.position);
@@ -103,11 +115,17 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
             stand.position.set(center.x, model.supportHeight / 2, center.z);
             scene.add(stand); supports.push(stand);
           }
-          const shadow = new THREE.Mesh(contactGeometry!, contactMaterial!);
-          shadow.rotation.x = -Math.PI / 2; shadow.scale.set(Math.max(.45, size.x * 1.25), Math.max(.44, size.z * 1.32), 1);
-          shadow.position.set(center.x, .008, center.z); scene.add(shadow);
+          const shadow = contactShadow(size, center)!;
+          scene.add(shadow);
+          if (model.semanticId === 'spec001:CH01') heroShadow = shadow;
         }
-        root.traverse(object => { if (model.objectId && object instanceof THREE.Mesh) { object.userData['objectId'] = model.objectId; pickable.push(object); } });
+        root.traverse(object => {
+          if (!(object instanceof THREE.Mesh)) return;
+          const exit = media.bindings.get(model.assetId)?.use === 'room-architecture' && composition.anchors.find(a =>
+            a.objectId.startsWith('exit:') && a.objectId === object.userData['objectId']);
+          const target = model.objectId ?? (exit ? exit.objectId : null);
+          if (target) { object.userData['objectId'] = target; pickable.push(object); }
+        });
         if (model.character) actors.push({ mixer: new THREE.AnimationMixer(root), root, clips: resource.gltf.animations, id: model.assetId, current: null, remaining: 0 });
       }
       const play = (actor: typeof actors[number], clipName: string, transient = false) => {
@@ -175,7 +193,10 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
       root.addEventListener('click', event => { const result = pointer.click((event as PointerEvent).pointerId); if (result?.message) feedback.textContent = result.message; }, { signal: events.signal });
       canvas.addEventListener('webglcontextlost', event => { event.preventDefault(); if (alive) { request.contextLost(); destroy(); } }, { signal: events.signal });
       const player = composition.models.find(m => m.semanticId === 'spec001:CH01')!;
-      const playerLabelPosition = [player.position[0], player.position[1] + 2.2, player.position[2]] as const;
+      const hero = actors.find(actor => actor.id === player.assetId)!;
+      const stops = composition.anchors.filter(a => composition.walkStops?.includes(a.objectId));
+      const walk = createRoomWalk(player.position, new Map(stops.map(a => [a.objectId, a.position])));
+      const shadowOffset = heroShadow?.position.clone().sub(hero.root.position);
       const decodedLayerBytes = [...resources.values()].reduce((sum, r) => sum + (r.kind === 'image' ? r.width * r.height * 4 : 0), 0);
       const samples: number[] = [];
       function draw(now = 0) {
@@ -183,6 +204,9 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
         const elapsed = last ? Math.min((now - last) / 1000, 0.05) : 0; if (last && now > last) { samples.push(now - last); if (samples.length > 300) samples.shift(); } last = now;
         if (!request.settings.reducedMotion) for (const actor of actors) { actor.mixer.update(elapsed); if (actor.remaining > 0 && (actor.remaining -= elapsed) <= 0) play(actor, 'idle'); }
         if (!request.settings.reducedMotion) party?.animate(elapsed);
+        walk.advance(elapsed);
+        hero.root.position.copy(walk.position);
+        if (heroShadow && shadowOffset) heroShadow.position.copy(walk.position).add(shadowOffset);
         const contained = host.dataset['contained'] === 'true';
         const width = Math.max(1, Math.round(stage.getBoundingClientRect().width)), height = contained ? Math.max(1, Math.round(host.clientHeight)) : Math.round(Math.max(230, Math.min(640, width * 9 / 16)));
         const framing = (layered?.framing ?? roomFraming)(width, height, composition.camera); if (!contained) stage.style.height = `${height}px`;
@@ -195,7 +219,8 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
         decoration?.layout(camera, width, height);
         const project = (element: HTMLElement, position: readonly [number, number, number]) => { const p = new THREE.Vector3(...position).project(camera); element.style.left = `${(p.x + 1) * 50}%`; element.style.top = `${(1 - p.y) * 50}%`; };
         for (const anchor of composition.anchors) project(pinNodes.get(anchor.objectId)!, anchor.position);
-        project(markerLabel, playerLabelPosition);
+        project(markerLabel, [walk.position.x, walk.position.y + 2.2, walk.position.z]);
+        if (stops.length) root.dataset['playerFoot'] = walk.position.toArray().map(v => v.toFixed(3)).join(',');
         root.dataset['rendered'] = 'true'; root.dataset['renderCount'] = String(++renders); root.dataset['triangles'] = String(webgl.info.render.triangles); root.dataset['drawCalls'] = String(webgl.info.render.calls);
         root.dataset['geometries'] = String(webgl.info.memory.geometries); root.dataset['textures'] = String(webgl.info.memory.textures);
         root.dataset['layerDecodedBytes'] = String(decodedLayerBytes); root.dataset['modelDecodedBytes'] = String(decodedModelBytes); root.dataset['modelCount'] = String(models.length); root.dataset['assetIds'] = [...resources.keys()].join(' ');
@@ -204,18 +229,30 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
         if (!request.settings.reducedMotion) frame = window.requestAnimationFrame(draw);
       }
       const schedule = () => { if (alive && attached && !paused && !frame) frame = window.requestAnimationFrame(draw); };
-      const react = (kind: 'walk' | 'reaction') => { if (!alive || paused || request.settings.reducedMotion) return; for (const actor of actors) {
+      const react = (kind: 'walk' | 'reaction', target?: string) => {
+        if (!alive || paused) return;
+        if (kind === 'walk') walk.begin(target, request.settings.reducedMotion);
+        if (request.settings.reducedMotion) { schedule(); return; }
+        for (const actor of actors) {
         const clip = kind === 'walk' && actor.id.endsWith('CH03') ? 'fly' : kind;
         if (actor.clips.some(c => c.name === clip)) play(actor, clip, true);
       }
       root.dataset['reaction'] = kind; schedule(); };
+      const playAbility = (assetId: string) => {
+        if (!alive || request.signal.aborted || request.settings.reducedMotion) return;
+        const actor = actors.find(a => a.id === assetId && a.clips.some(c => c.name === 'ability'));
+        if (!actor) return;
+        play(actor, 'ability', true);
+        root.dataset['lastAbilityActor'] = assetId;
+        schedule();
+      };
       const observer = new window.ResizeObserver(schedule);
-      const party = composition.partyPositions?.length ? createRoomParty(scene, media, gameBase, document, request, root, schedule) : undefined;
+      const party = composition.partyPositions?.length ? createRoomParty(scene, media, gameBase, document, request, root, schedule, contactShadow) : undefined;
       return {
-        attach() { if (!alive || request.signal.aborted) return; attached = true; reaction = react; host.replaceChildren(root); party?.updateView(currentView); observer.observe(stage); draw(); },
+        attach() { if (!alive || request.signal.aborted) return; attached = true; reaction = react; residentAbility = playAbility; host.replaceChildren(root); party?.updateView(currentView); observer.observe(stage); draw(); },
         updateView(view) { pointer.cancel(); currentView = view; decoration?.updateView(view); party?.updateView(view); updateChoices(); schedule(); },
         setPaused(value) { paused = value; last = 0; root.dataset['paused'] = String(value); if (value) { pointer.cancel(); window.cancelAnimationFrame(frame); frame = 0; } else schedule(); },
-        dispose() { if (!alive) return; alive = false; if (reaction === react) reaction = null; pointer.dispose(); events.abort(); observer.disconnect(); window.cancelAnimationFrame(frame); for (const actor of actors) { actor.mixer.stopAllAction(); actor.mixer.uncacheRoot(actor.root); } party?.dispose(); decoration?.dispose(); scene.clear(); contactGeometry?.dispose(); contactMaterial?.dispose(); for (const stand of supports) { stand.geometry.dispose(); stand.material.dispose(); } webgl.renderLists.dispose(); root.remove(); if (layered) destroy(); },
+        dispose() { if (!alive) return; alive = false; if (reaction === react) { reaction = null; residentAbility = undefined; } pointer.dispose(); events.abort(); observer.disconnect(); window.cancelAnimationFrame(frame); for (const actor of actors) { actor.mixer.stopAllAction(); actor.mixer.uncacheRoot(actor.root); } party?.dispose(); decoration?.dispose(); scene.clear(); contactGeometry?.dispose(); contactMaterial?.dispose(); for (const stand of supports) { stand.geometry.dispose(); stand.material.dispose(); } webgl.renderLists.dispose(); root.remove(); if (layered) destroy(); },
       };
     },
     dispose() { if (disposed) return; disposed = true; reaction = null; destroy(); },

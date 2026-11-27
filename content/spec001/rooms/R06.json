@@ -5,7 +5,7 @@
   "contentVersion": "1.0.0",
   "id": "spec001:R06",
   "presentationMode": "hybrid",
-  "description": "The Prism Vault glows around a slow engine and a briskly judgmental abacus. A meter cradle faces two reviewed paths and one high-loss comparison. The selected path initially has 10 dB total loss. Printed labels carry every number. This temporary scene contributes no finished media count; the supplied teaching evidence remains fully readable.",
+  "description": "The Prism Vault glows around a slow engine and a briskly judgmental abacus. A meter cradle faces two reviewed paths and one high-loss comparison. The selected path initially has 10 dB total loss. Printed labels carry every number.",
   "walkRegions": [
     {
       "id": "spec001:WALK-R06",
@@ -147,13 +147,16 @@
       "label": "Wavelength-filter door",
       "description": "The door’s transparent leaves stand beside an ordinary walking entrance. They demonstrate a filter, not a lock requiring an ally or another media branch. Return to the gardens whenever you need to restore, inspect or change a candidate profile. A past preparation award does not establish the current connection’s condition.",
       "verbs": [
-        "look"
+        "look",
+        "use"
       ],
-      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "unsupportedVerbText": "Look to read the filter card or Use to operate its demonstration shutter. Walk to the separate Rift entrance to leave.",
       "evidenceIds": [
         "spec001:FACT-O06-compatibility"
       ],
-      "actionIds": []
+      "actionIds": [
+        "spec001:ACTION-fiber-filter-shutter"
+      ]
     },
     {
       "id": "spec001:HOTSPOT-fiber-r06-pr059",
@@ -215,61 +218,67 @@
       "instanceId": "r06-pr051",
       "propId": "spec001:PR051",
       "description": "Prism engine.",
-      "assetId": "spec001:DEV-PR051"
+      "assetId": "spec001:ASSET-PR051"
     },
     {
       "instanceId": "r06-pr052",
       "propId": "spec001:PR052",
       "description": "Wavelength combiner.",
-      "assetId": "spec001:DEV-PR052"
+      "assetId": "spec001:ASSET-PR052"
     },
     {
       "instanceId": "r06-pr053",
       "propId": "spec001:PR053",
       "description": "Spectrum window.",
-      "assetId": "spec001:DEV-PR053"
+      "assetId": "spec001:ASSET-PR053"
     },
     {
       "instanceId": "r06-pr054",
       "propId": "spec001:PR054",
       "description": "Attenuation dial and passive-path selector.",
-      "assetId": "spec001:DEV-PR054"
+      "assetId": "spec001:ASSET-PR054"
     },
     {
       "instanceId": "r06-pr055",
       "propId": "spec001:PR055",
       "description": "Splice enclosure.",
-      "assetId": "spec001:DEV-PR055"
+      "assetId": "spec001:ASSET-PR055"
     },
     {
       "instanceId": "r06-pr056",
       "propId": "spec001:PR056",
       "description": "Optical attenuator and overload comparison.",
-      "assetId": "spec001:DEV-PR056"
+      "assetId": "spec001:ASSET-PR056"
     },
     {
       "instanceId": "r06-pr057",
       "propId": "spec001:PR057",
       "description": "Receiver threshold gauge.",
-      "assetId": "spec001:DEV-PR057"
+      "assetId": "spec001:ASSET-PR057"
     },
     {
       "instanceId": "r06-pr058",
       "propId": "spec001:PR058",
       "description": "Wavelength-filter door.",
-      "assetId": "spec001:DEV-PR058"
+      "assetId": "spec001:ASSET-PR058"
     },
     {
       "instanceId": "r06-pr059",
       "propId": "spec001:PR059",
       "description": "Link budget abacus.",
-      "assetId": "spec001:DEV-PR059"
+      "assetId": "spec001:ASSET-PR059"
     },
     {
       "instanceId": "r06-pr060",
       "propId": "spec001:PR060",
       "description": "Power meter cradle.",
-      "assetId": "spec001:DEV-PR060"
+      "assetId": "spec001:ASSET-PR060"
+    },
+    {
+      "instanceId": "r06-pr123",
+      "propId": "spec001:PR123",
+      "description": "Optical power meter mounted at its optical station.",
+      "assetId": "spec001:ASSET-PR123"
     }
   ],
   "safePositions": [
@@ -332,7 +341,9 @@
   ],
   "ambience": {
     "text": "A soft mechanical chord accompanies the prism engine. Text states every threshold and result, so silence never hides the evidence.",
-    "assetIds": []
+    "assetIds": [
+      "spec001:ASSET-AMBIENCE-R06"
+    ]
   },
   "futureDoorIds": [],
   "illustrationBindings": [
@@ -355,6 +366,246 @@
       "surface": "journal",
       "alt": "Two brass stops enclose the receiver band. A hatched strip at its low end and a bolt above the high end distinguish reserve and overload.",
       "caption": "Receiver limits in this exercise are −14 through −1 dBm inclusive with at least 2 dB reserve above sensitivity. At −13 dBm the reserve is only 1 dB. A separate 0 dBm observation exceeds the maximum by 1 dB. Compare the actual reading and freshness recorded alongside this guide."
+    }
+  ],
+  "mediaBindings": [
+    {
+      "assetId": "spec001:ASSET-ARCH-R06",
+      "contentId": "spec001:R06",
+      "use": "room-architecture",
+      "exportPath": "public/assets/models/R06-architecture.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH01",
+      "contentId": "spec001:R06",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH01.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH16",
+      "contentId": "spec001:R06",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH16.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH18",
+      "contentId": "spec001:R06",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH18.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-PR051",
+      "contentId": "spec001:R06",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR051.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR052",
+      "contentId": "spec001:R06",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR052.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR053",
+      "contentId": "spec001:R06",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR053.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR054",
+      "contentId": "spec001:R06",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR054.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR055",
+      "contentId": "spec001:R06",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR055.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR056",
+      "contentId": "spec001:R06",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR056.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR057",
+      "contentId": "spec001:R06",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR057.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR058",
+      "contentId": "spec001:R06",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR058.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR059",
+      "contentId": "spec001:R06",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR059.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR060",
+      "contentId": "spec001:R06",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR060.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR123",
+      "contentId": "spec001:R06",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/shared/PR123.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R06-background",
+      "contentId": "spec001:R06",
+      "use": "background",
+      "exportPath": "public/assets/images/R06/background.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R06-midground",
+      "contentId": "spec001:R06",
+      "use": "midground",
+      "exportPath": "public/assets/images/R06/midground.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R06-foreground",
+      "contentId": "spec001:R06",
+      "use": "foreground",
+      "exportPath": "public/assets/images/R06/foreground.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH03",
+      "contentId": "spec001:R06",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH03.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH04",
+      "contentId": "spec001:R06",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH04.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH05",
+      "contentId": "spec001:R06",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH05.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH06",
+      "contentId": "spec001:R06",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH06.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH07",
+      "contentId": "spec001:R06",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH07.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH19",
+      "contentId": "spec001:R06",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH19.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH20",
+      "contentId": "spec001:R06",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH20.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH22",
+      "contentId": "spec001:R06",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH22.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R06",
+      "contentId": "spec001:R06",
+      "use": "ambience",
+      "exportPath": "public/assets/audio/ambience/r06.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-018",
+      "contentId": "spec001:R06",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/fx-018.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-032",
+      "contentId": "spec001:R06",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/effect-032.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-034",
+      "contentId": "spec001:R06",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/effect-034.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-009",
+      "contentId": "spec001:DIALOGUE-VOICE-009",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-009.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-056",
+      "contentId": "spec001:DIALOGUE-VOICE-056",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-056.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-057",
+      "contentId": "spec001:DIALOGUE-VOICE-057",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/auditions/hermit-057.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-058",
+      "contentId": "spec001:DIALOGUE-VOICE-058",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-058.mp3",
+      "interactiveOrEvidence": false
     }
   ]
 }

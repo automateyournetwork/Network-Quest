@@ -93,7 +93,8 @@
       "actionIds": [
         "spec001:ACTION-copper-read-repeater",
         "spec001:ACTION-copper-repeater-requires-continuity",
-        "spec001:ACTION-copper-repeater-bridges-open"
+        "spec001:ACTION-copper-repeater-bridges-open",
+        "spec001:ACTION-copper-echo-relay-demonstration"
       ]
     },
     {
@@ -156,13 +157,16 @@
       "label": "Echo Bat",
       "description": "Echo Bat has written a modest advertisement: RECEIVED SIGNALS REPEATED. GAPS STILL REQUIRE COPPER. Below it, in smaller lettering: No address learning. No route selection. The ordinary continuity tool can provide the same required evidence; you do not need to recruit a companion to finish this investigation.",
       "verbs": [
-        "look"
+        "look",
+        "use"
       ],
       "unsupportedVerbText": "Read Echo Bat's role card, then inspect the connected path. A companion cannot turn an unchanged severed conductor into a correct repair.",
       "evidenceIds": [
         "spec001:FACT-O04-repeater-limit"
       ],
-      "actionIds": []
+      "actionIds": [
+        "spec001:ACTION-copper-echo-bat-demonstration"
+      ]
     },
     {
       "id": "spec001:HOTSPOT-echo-tortoise",
@@ -359,7 +363,9 @@
   ],
   "ambience": {
     "text": "A small sound returns as a long echo, and the message printer occasionally clicks. All teaching and comparison information is available as text without these sounds.",
-    "assetIds": []
+    "assetIds": [
+      "spec001:ASSET-AMBIENCE-R04"
+    ]
   },
   "futureDoorIds": [],
   "illustrationBindings": [
@@ -433,6 +439,97 @@
       "use": "sprite-animation",
       "exportPath": "public/assets/sprites/R04/props.webp",
       "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-ARCH-R04",
+      "contentId": "spec001:R04",
+      "use": "room-architecture",
+      "exportPath": "public/assets/models/R04-architecture.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH03",
+      "contentId": "spec001:R04",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH03.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH04",
+      "contentId": "spec001:R04",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH04.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH05",
+      "contentId": "spec001:R04",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH05.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH06",
+      "contentId": "spec001:R04",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH06.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH07",
+      "contentId": "spec001:R04",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH07.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH16",
+      "contentId": "spec001:R04",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH16.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH19",
+      "contentId": "spec001:R04",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH19.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH22",
+      "contentId": "spec001:R04",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH22.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R04",
+      "contentId": "spec001:R04",
+      "use": "ambience",
+      "exportPath": "public/assets/audio/ambience/r04.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-016",
+      "contentId": "spec001:R04",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/fx-016.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-030",
+      "contentId": "spec001:R04",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/effect-030.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-008",
+      "contentId": "spec001:DIALOGUE-VOICE-008",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-008.mp3",
+      "interactiveOrEvidence": false
     }
   ]
 }

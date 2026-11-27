@@ -81,7 +81,8 @@ export function createRegisteredLayeredRooms(host: HTMLElement, registry: Conten
         room?.kind === 'room' && room.presentationMode === 'realtime-3d' ? 'three' : 'layered', decorations[id]);
       return active.prepare(request);
     },
-    react(kind: 'walk' | 'reaction') { active?.react(kind); },
+    playAbility(assetId: string) { active?.playAbility(assetId); },
+    react(kind: 'walk' | 'reaction', target?: string) { active?.react(kind, target); },
     dispose() { active?.dispose(); active = undefined; },
   };
 }

@@ -41,6 +41,7 @@ const contracts: readonly Contract[] = [
   { name: 'read-compatibility', room: 'R06', condition: { kind: 'always' }, effects: [fact('read-compatibility', 'FACT-O06-compatibility')] },
   ...paths.map((value, index) => ({ name: `path-${['A', 'B', 'high-loss'][index]}`, room: 'R06' as const, condition: kit,
     effects: [flag(`path-${['A', 'B', 'high-loss'][index]}`, 'path', value)] })),
+  { name: 'filter-shutter', room: 'R06', condition: { kind: 'always' }, effects: [] },
   { name: 'leave-vault', room: 'R06', condition: { kind: 'always' }, effects: [] },
 ];
 const sourceId = (room: Contract['room']) => q(`DIALOGUE-fiber-${room === 'R05' ? 'gardens' : 'vault'}`);

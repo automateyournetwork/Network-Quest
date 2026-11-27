@@ -1,0 +1,33 @@
+{
+  "type": "usage",
+  "assetId": "spec001:ASSET-EFFECT-010",
+  "hashes": [
+    "3ca8ab3242ad75670097bbfb40787a30738cba02039d4c0b20cc2c5d1f88f232"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex loop 153/T136",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0 and Firefox 159.0 with Playwright 1.65.1.",
+  "details": {
+    "bindings": [
+      {
+        "assetId": "spec001:ASSET-EFFECT-010",
+        "contentId": "spec001:R03",
+        "use": "effect",
+        "exportPath": "public/assets/audio/effects/fx-010.mp3",
+        "interactiveOrEvidence": false
+      }
+    ],
+    "visible": true,
+    "meaningful": true,
+    "findings": "The registered trigger walk exposed the control in R03. Firefox replay reached playing, showed the exact caption “Footsteps on stone” and accepted Skip. The recorded MP3 response matched the export digest.",
+    "tool": "Playwright in native Firefox, normal guest controls, live per-scene metrics and response-body SHA-256",
+    "observedPaths": [
+      "public/assets/audio/effects/fx-010.mp3",
+      "docs/evidence/spec001/final-rooms/T136/browser.json",
+      "content/spec001/presentation/R03.audio.json"
+    ],
+    "runtimeEvidencePath": "docs/evidence/spec001/final-rooms/T136/browser.json"
+  }
+}

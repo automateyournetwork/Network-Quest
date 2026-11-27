@@ -1,0 +1,99 @@
+{
+  "scope": "Loop 152 / T135 local, sealed source and scoped room evidence. The browser uses normal new guest, separate synthetic-account PHP fixtures or the independently completed SQ02 quest, as specified below.",
+  "environment": {
+    "device": "Mac16,7",
+    "system": "macOS 26.6.2",
+    "memoryGiB": 48,
+    "node": "26.13.1",
+    "php": "8.4.28",
+    "firefox": "159.0",
+    "blender": "5.2.1 LTS",
+    "date": "2026-11-27"
+  },
+  "sealedGameInputs": {
+    "assets-src/rooms/R02.blend": "2b97ba6fe0e792c3b70ea05a516b2a07edd72a803265e8be146527b6d045f640",
+    "assets-src/rooms/R02-camera.json": "331ab8bacdc0ffdbfe07ff354326cac705050224b60becafce42e308bc115524",
+    "assets-src/rooms/R02-registration.json": "d84e39e8838a2e0ecca8191113487eea38da8da5670daa9174db164223269bdd",
+    "assets-src/rooms/R02-browser.mjs": "76f9438dafa1ae43170092e0b8c5e8816e9dc1ea699a8b848ad6ef8815100b1e",
+    "public/assets/models/R02-architecture.glb": "7201716f7ce537d4cbad51f86ba45915542c9ef63a63ed3b8809e01c0da0d81e",
+    "content/spec001/rooms/R01.json": "a0424f7988aedee7e52b1ecd3d8a05b6dbbfa17b06504990a3ecc629c25bbd68",
+    "content/spec001/rooms/R02.json": "b661af9ec5a8c6944bac3c844fcabcf2488c794b23786a3fd7d5cad4174a9594",
+    "content/spec001/presentation/R01.json": "68a3f1b3c3ab5a092c5a7ec675f12970e1c91afd67a6eb9c39236294fc183d25",
+    "content/spec001/presentation/R02.json": "47484d694ec854ab2a31c71f1b5712d8e97e8bf9a4652890265b3768ff90bd45",
+    "content/spec001/presentation/R01.audio.json": "b8a1e5ae15b5ead435adfaad6f2edcb48b30893c46efc50dafc7393652689965",
+    "content/spec001/presentation/R02.audio.json": "1b5860e31438da34a47d85514a7daa34090ecc0af6d0935136c91bc90181ddc8",
+    "src/app/application.ts": "a15a7e6787373c1d9f9e48a0e17c1a9206b98e805297e90e17850850f10bbb24",
+    "src/presentation/room-audio.ts": "e6f4d6c1dfafe8abd6a6a2432979fc76ff4a999b7498dab7da26ae30766725e3",
+    "src/presentation/room-party.ts": "3609bc09f02bef3ecf6410c022931e0ad03e03f5fd8d411fe16a9196d92b8da3",
+    "src/presentation/contextual-audio.ts": "4e4da497652c1f3e346c2a82960e6f48d9ef05188045caab171e924cde06adf2",
+    "src/presentation/workshop-decoration.ts": "dacea611681b5fe38b2366a9bbd5b3a61c9d3ce8d9122de6949e44ca5177e308",
+    "src/presentation/three-room.ts": "0c6b37af2f845cf50feea0fb86b09afb7cecd220bbcc150a99f50cc1030d7f7f",
+    "src/presentation/room-walk.ts": "a5376b5ce41e77be42d1c356ca9e96687bf5cc2d13487566ed36f300c12c4748"
+  },
+  "checks": [
+    {
+      "command": "npm run check",
+      "outcome": "passed",
+      "authoredRecords": 115,
+      "rooms": 12,
+      "policy": "Matching sealed policy generated with node tools/generate-save-content-policy.ts --generate prior to comparison."
+    },
+    {
+      "command": "npm run build",
+      "outcome": "passed",
+      "observations": [
+        "Vite reported the existing large entry chunk."
+      ]
+    },
+    {
+      "command": "vitest run tests/content/workshop-media.test.ts tests/presentation/room-media.test.ts",
+      "outcome": "passed",
+      "tests": 7
+    },
+    {
+      "suites": [
+        "tests/e2e/finished-room.spec.ts",
+        "tests/e2e/introduction-graybox.spec.ts"
+      ],
+      "outcome": "passed",
+      "tests": [
+        "one contained desktop frame gives the room most of the screen and keeps reading on demand (4.7s)",
+        "in-frame windows contain focus, restore their opener, and remain scrollable at 390/768 with 200% text (6.2s)",
+        "confirmed New and Restore dismiss Game, return usable focus, and preserve explicit save decisions (4.4s)",
+        "loads exact source exports, preserves same-room residency and pauses/reclaims real animation (5.9s)",
+        "reviewed audio has text, replay, skip, explicit trigger and account preferences survive reload without a save (5.5s)",
+        "conflicting account preferences require an explicit read and fresh choice without replacing either adventure (4.8s)",
+        "a later synthetic account with the same preference etag gets its own values after explicit session adoption (5.1s)",
+        "missing image/model and media decode failures keep actionable text and permit explicit retry (3.8s)",
+        "visual pointer and semantic keyboard share evidence, O01/O02, movement and actual packet state (5.4s)",
+        "canceled and stale visual presses cannot affect a new adventure; repeated room swaps keep one canvas (4.5s)",
+        "real WebGL loss preserves text actions and retry restores the same state (3.6s)",
+        "390 px, touch, 200% text and reduced motion retain readable controls without a render loop (9.6s)",
+        "visual pointer observations equal a fresh keyboard investigation (3.8s)",
+        "simulated visibility input pauses the actual renderer and resumes without changing evidence (3.4s)"
+      ],
+      "environment": "Real local HTTPS PHP harness, synthetic signed-in accounts and guests, native Firefox."
+    },
+    {
+      "command": "node assets-src/rooms/R02-browser.mjs",
+      "outcome": "passed",
+      "directionsTested": 12,
+      "distinctDestinations": 6,
+      "walkedFloor": "3.120,0.000,4.990",
+      "exactBaseVisualResources": 24,
+      "servedBytes": 3877622,
+      "contextualAndBenchmarkCuesReplayedAndSkipped": 31,
+      "evidence": "browser.json"
+    },
+    {
+      "command": "node assets-src/images/T122/workshop.mjs",
+      "outcome": "passed",
+      "evidence": "ledger/browser.json"
+    },
+    {
+      "scope": "Existing canonical assets + T135 overlay in isolated inventory; reverse lookup over all R01/R02 bindings",
+      "outcome": "passed",
+      "evidence": "inventory.json"
+    }
+  ]
+}

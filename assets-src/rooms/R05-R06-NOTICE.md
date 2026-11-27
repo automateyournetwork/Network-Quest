@@ -1,0 +1,5 @@
+# Photon Gardens and Prism Vault
+
+Copyright 2026 John Capobianco. The original garden terraces, drainage channels, instrument seats, threshold inlays, lighting and native room compositions use CC BY 4.0. OpenAI Codex assisted the Blender construction code and scene placement. The builder, verification code and browser harness use Apache-2.0. [Project notice](../../NOTICE) · [Asset license](../../LICENSE-ASSETS)
+
+Each Blender project embeds the three previously generated and registered room plates and the original project GLB cast. The architecture exports contain only the new support meshes, exit inlays and two local lights per room. The source-reopen reports identify every individual placement and exact export. The garden uses the separately authored Photon inspection rendition. Individual character, prop and generated-image source records retain their original authorship, terms, source files and review history. [Plate lineage](../images/rooms-05-08.json) · [Photon derivative](../characters/photon-inspection/manifest.json) · [Canonical artist and rights records](../manifest.json)

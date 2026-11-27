@@ -1,5 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
-import { AnimationMixer, type Object3D, type Scene } from 'three';
+import { AnimationMixer, Box3, Vector3, type Object3D, type Scene } from 'three';
 import { clone } from 'three/addons/utils/SkeletonUtils.js';
 import type { RoomRenderRequest, RoomView } from './room-adapter';
 import type { RoomMedia, Triple } from './room-media';
@@ -10,7 +10,7 @@ import type { ResourceLease, ResourceSpec } from './resource-pool';
 export function createRoomParty(scene: Scene, media: {
   bindings: RoomMedia['bindings']; composition: { partyPositions?: readonly Triple[]; models: readonly { character: boolean; semanticId: string }[] };
 }, gameBase: string, document: Document,
-  request: RoomRenderRequest<RoomResource>, element: HTMLElement, redraw: () => void) {
+  request: RoomRenderRequest<RoomResource>, element: HTMLElement, redraw: () => void, contactShadow?: (size: Vector3, center: Vector3) => Object3D | undefined) {
   const placements = media.composition.partyPositions ?? [];
   const recruits = new Map([...media.bindings.values()].filter(b => b.use === 'party-placement').map(b => [b.assetId.replace(':ASSET-', ':'), b]));
   const residents = new Set(media.composition.models.filter(m => m.character).map(m => m.semanticId));
@@ -57,6 +57,11 @@ export function createRoomParty(scene: Scene, media: {
             if (g.index) arrays.add(g.index.array.buffer);
           } });
           member.bytes = [...arrays].reduce((sum, a) => sum + a.byteLength, 0);
+          if (contactShadow) {
+            const bounds = new Box3().setFromObject(root);
+            const shadow = contactShadow(bounds.getSize(new Vector3()), bounds.getCenter(new Vector3()));
+            if (shadow) { root.worldToLocal(shadow.position); root.add(shadow); }
+          }
           report(); redraw();
         }).catch(() => {
           if (members.get(id) !== member || request.signal.aborted) return;

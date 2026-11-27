@@ -6,6 +6,7 @@ import type { mediaBinding } from '../content/schema-types.generated';
 export type Triple = readonly [number, number, number];
 export interface RoomComposition {
   version: 1; roomId: string; safePositionId: string;
+  walkStops?: readonly string[];
   partyPositions?: readonly Triple[];
   camera: { position: Triple; target: Triple; near: number; far: number; span: number; minimumHeightSpan: number; plateSpan: readonly [number, number] };
   models: readonly { assetId: string; semanticId: string; position: Triple; objectId: string | null; character: boolean; rotation?: Triple; scale?: number; supportHeight?: number }[];

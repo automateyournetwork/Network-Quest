@@ -7,7 +7,7 @@ import { dirname, relative, resolve, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateContent } from '../src/content/registry.ts';
 import { emptyCounts, manifestRenditions } from './asset-types.ts';
-import type { AssetEvidenceSnapshot, AssetFileDigest, AssetEntity, AssetIssue, AssetUse, AssetManifest, AssetValidationResult } from './asset-types.ts';
+import type { AssetEvidenceSnapshot, AssetFileDigest, AssetEntity, AssetIssue, AssetUse, ConditionalBinding, AssetManifest, AssetValidationResult } from './asset-types.ts';
 import { isAssetManifest, isEvidenceRecord, validateAssetObservations } from './validate-assets.ts';
 
 const jsonLimit = 4_194_304, fileLimit = 268_435_456, totalLimit = 1_073_741_824;
@@ -135,7 +135,7 @@ function issueFor(error: unknown, fallback: string, path?: string): AssetIssue {
  * Existing graybox asset IDs alone never invent a runtime export path. Final
  * presentation integration must author exact asset/export/use bindings in the
  * registered content schema before this adapter can observe them. */
-async function loadContent(reader: AssetFileReader): Promise<AssetEvidenceSnapshot['content']> {
+export async function loadAuthoredAssetContent(reader: AssetFileReader): Promise<AssetEvidenceSnapshot['content']> {
   const world = await reader.json('content/spec001/world.json'), sources = await reader.json('content/spec001/sources.json');
   const initial = validateContent({ world, sources, documents: {}, allowUnloadedDocuments: true });
   if (!initial.ok) throw new AuditError('CONTENT_INVALID');
@@ -143,7 +143,26 @@ async function loadContent(reader: AssetFileReader): Promise<AssetEvidenceSnapsh
   for (const path of initial.documentPaths) documents[path] = await reader.json(path);
   const checked = validateContent({ world, sources, documents });
   if (!checked.ok) throw new AuditError('CONTENT_INVALID');
-  return extractAuthoredAssetContent(world, Object.values(documents));
+  const result = extractAuthoredAssetContent(world, Object.values(documents));
+  const conditionalBindings: ConditionalBinding[] = [];
+  for (const room of Object.values(documents)) {
+    if (!isObject(room) || room['kind'] !== 'room' || typeof room['id'] !== 'string' || !Array.isArray(room['mediaBindings'])) continue;
+    const roomId = room['id'], code = roomId.slice(8);
+    let audio: unknown = [];
+    try { audio = await reader.json(`content/spec001/presentation/${code}.audio.json`); }
+    catch (error) { if (!isMissing(error)) throw error; }
+    if (!Array.isArray(audio)) throw new AuditError('CONDITIONAL_AUDIO_INVALID', code);
+    for (const b of room['mediaBindings'] as AssetUse[]) {
+      let trigger: string | undefined;
+      if (b.use === 'party-placement') trigger = 'active-party/' + b.assetId.replace(':ASSET-', ':');
+      if (['effect','voice-line','music','ambience'].includes(b.use)) {
+        const row = audio.find(row => isObject(row) && row['roomId'] === roomId && row['assetId'] === b.assetId && row['exportPath'] === b.exportPath);
+        if (row && typeof row['trigger'] === 'string' && row['trigger'] !== 'arrival') trigger = row['trigger'];
+      }
+      if (trigger) conditionalBindings.push({roomId, assetId:b.assetId, contentId:b.contentId, use:b.use, exportPath:b.exportPath, trigger});
+    }
+  }
+  return {...result, conditionalBindings};
 }
 
 export function extractAuthoredAssetContent(world: unknown, documents: unknown[]): AssetEvidenceSnapshot['content'] {
@@ -196,7 +215,7 @@ function manifestPaths(manifest: AssetManifest): { files: Set<string>; records: 
 
 /** Batch fragments can be partial. The canonical inventory must also cover
  * every exact registered export/use exposed by the game, in the reverse direction. */
-export function missingRegisteredAssetUses(manifest: AssetManifest, uses: readonly AssetUse[]): AssetIssue[] {
+export function missingRegisteredAssetUses(manifest: AssetManifest, uses: readonly AssetUse[], authored: readonly ConditionalBinding[] = [], mode: 'inventory' | 'release' = 'inventory'): AssetIssue[] {
   const represented = new Map<string, Set<string>>();
   for (const a of manifestRenditions(manifest)) {
     const locations = new Set(a.usedBy.map(u => JSON.stringify([u.contentId, u.use])));
@@ -204,8 +223,23 @@ export function missingRegisteredAssetUses(manifest: AssetManifest, uses: readon
       represented.set(JSON.stringify([a.assetId, file.path]), locations);
     }
   }
-  return uses.filter(u => !represented.get(JSON.stringify([u.assetId, u.exportPath]))?.has(JSON.stringify([u.contentId, u.use])))
+  const key = (u: Pick<AssetUse, 'assetId' | 'contentId' | 'use' | 'exportPath'>) => JSON.stringify([u.assetId, u.contentId, u.use, u.exportPath]);
+  const pending = new Set<string>(), issues: AssetIssue[] = [];
+  for (const declaration of manifest.conditionalBindings ?? []) {
+    const id = key(declaration);
+    const registered = authored.some(row => row.roomId === declaration.roomId && row.trigger === declaration.trigger && key(row) === id);
+    const locations = represented.get(JSON.stringify([declaration.assetId, declaration.exportPath]));
+    if (!registered || !uses.some(u => key(u) === id) || !locations || !['party-placement','effect','voice-line','music','ambience'].includes(declaration.use) ||
+      locations.has(JSON.stringify([declaration.contentId, declaration.use])) || pending.has(id)) {
+      issues.push({ code:'CONDITIONAL_BINDING_MISMATCH', assetId:declaration.assetId, path:declaration.exportPath });
+    } else {
+      pending.add(id);
+      if (mode === 'release') issues.push({ code:'CONDITIONAL_USE_UNOBSERVED', assetId:declaration.assetId, path:declaration.exportPath });
+    }
+  }
+  const missing = uses.filter(u => !pending.has(key(u)) && !represented.get(JSON.stringify([u.assetId, u.exportPath]))?.has(JSON.stringify([u.contentId, u.use])))
     .map(u => ({ code: 'REGISTERED_USE_MISSING', assetId: u.assetId, path: u.exportPath }));
+  return [...issues, ...missing];
 }
 
 export async function auditAssetRepository(root: string, mode: 'inventory' | 'release', manifestPath = 'assets-src/manifest.json'): Promise<AssetValidationResult> {
@@ -241,8 +275,8 @@ export async function auditAssetRepository(root: string, mode: 'inventory' | 're
         else files[path] = await reader.read(path);
       } catch (error) { failures.push(issueFor(error, 'FILE_READ_FAILED', path)); }
     }
-    snapshot.content = await loadContent(reader);
-    if (manifestPath === 'assets-src/manifest.json') failures.push(...missingRegisteredAssetUses(manifest, snapshot.content.uses));
+    snapshot.content = await loadAuthoredAssetContent(reader);
+    if (manifestPath === 'assets-src/manifest.json') failures.push(...missingRegisteredAssetUses(manifest, snapshot.content.uses, snapshot.content.conditionalBindings, mode));
     const validated = validateAssetObservations(manifest, { ...snapshot, files, records }, { mode }, media);
     // An adapter failure cannot yield accepted counts, even if unreferenced
     // evidence was malformed or a content dependency could not be read safely.

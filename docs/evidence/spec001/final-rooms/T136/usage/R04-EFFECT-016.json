@@ -1,0 +1,33 @@
+{
+  "type": "usage",
+  "assetId": "spec001:ASSET-EFFECT-016",
+  "hashes": [
+    "689c3f1afcc7958609bcdf63a21f0ae9de5b365cb6bdf3373435f918ce8b8410"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex loop 153/T136",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0 and Firefox 159.0 with Playwright 1.65.1.",
+  "details": {
+    "bindings": [
+      {
+        "assetId": "spec001:ASSET-EFFECT-016",
+        "contentId": "spec001:R04",
+        "use": "effect",
+        "exportPath": "public/assets/audio/effects/fx-016.mp3",
+        "interactiveOrEvidence": false
+      }
+    ],
+    "visible": true,
+    "meaningful": true,
+    "findings": "The registered trigger choice/spec001:ACTION-copper-echo-relay-demonstration exposed the control in R04. Firefox replay reached playing, showed the exact caption “Repeater activated; inspect the resulting signal” and accepted Skip. The recorded MP3 response matched the export digest.",
+    "tool": "Playwright in native Firefox, normal guest controls, live per-scene metrics and response-body SHA-256",
+    "observedPaths": [
+      "public/assets/audio/effects/fx-016.mp3",
+      "docs/evidence/spec001/final-rooms/T136/browser.json",
+      "content/spec001/presentation/R04.audio.json"
+    ],
+    "runtimeEvidencePath": "docs/evidence/spec001/final-rooms/T136/browser.json"
+  }
+}

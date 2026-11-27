@@ -13,7 +13,10 @@ const input = structuredClone(authoredInput);
 const replaced = input.world.documents.filter(r => r.kind === 'objective' || r.kind === 'profile');
 input.world.documents = input.world.documents.filter(r => !replaced.includes(r));
 for (const { path } of replaced) delete input.documents[path];
-for (const path of ['content/spec001/objectives.json', 'content/spec001/profiles.json', 'content/spec001/dialogue/copper-actions.json', 'content/spec001/dialogue/fiber-actions.json', 'content/spec001/dialogue/radio-actions.json', 'content/spec001/dialogue/equipment-actions.json', 'content/spec001/dialogue/repair-plan-actions.json', 'content/spec001/dialogue/packet-r12.json', ...['R03', 'R04', 'R05', 'R06', 'R07', 'R08', 'R09', 'R10', 'R11', 'R12'].map(id => `content/spec001/rooms/${id}.json`)]) {
+// A room's caption binding resolves to a real line even in this route-only projection.
+const episode = JSON.parse(await readFile(new URL('../../content/spec001/world.json', import.meta.url), 'utf8')) as S.world;
+const captionFiles = new Set(episode.documents.filter(d => d.id.startsWith('spec001:DIALOGUE-media-') && !input.documents[d.path]).map(d => d.path));
+for (const path of [...captionFiles, 'content/spec001/objectives.json', 'content/spec001/profiles.json', 'content/spec001/dialogue/copper-actions.json', 'content/spec001/dialogue/fiber-actions.json', 'content/spec001/dialogue/radio-actions.json', 'content/spec001/dialogue/equipment-actions.json', 'content/spec001/dialogue/repair-plan-actions.json', 'content/spec001/dialogue/packet-r12.json', ...['R03', 'R04', 'R05', 'R06', 'R07', 'R08', 'R09', 'R10', 'R11', 'R12'].map(id => `content/spec001/rooms/${id}.json`)]) {
   const value = JSON.parse(await readFile(new URL(`../../${path}`, import.meta.url), 'utf8')) as S.collection | S.room;
   input.documents[path] = routeDocument(value);
   input.world.documents.push(...(value.kind === 'collection' ? value.records : [value]).map(r => ({ kind: r.kind, id: r.id, path })));

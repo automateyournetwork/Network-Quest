@@ -1,0 +1,33 @@
+{
+  "type": "usage",
+  "assetId": "spec001:ASSET-EFFECT-024",
+  "hashes": [
+    "541d86168a3412e7eedcc910f3db4985a78806b90be0d9901ed6d7278a13249a"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex loop 153/T136",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0 and Firefox 159.0 with Playwright 1.65.1.",
+  "details": {
+    "bindings": [
+      {
+        "assetId": "spec001:ASSET-EFFECT-024",
+        "contentId": "spec001:R03",
+        "use": "effect",
+        "exportPath": "public/assets/audio/effects/effect-024.mp3",
+        "interactiveOrEvidence": false
+      }
+    ],
+    "visible": true,
+    "meaningful": true,
+    "findings": "The registered trigger ability/spec001:ABILITY-CH04-continuity-comparison exposed the control in R03. Firefox replay reached playing, showed the exact caption “Copperhead traces the selected copper path” and accepted Skip. The recorded MP3 response matched the export digest.",
+    "tool": "Playwright in native Firefox, normal guest controls, live per-scene metrics and response-body SHA-256",
+    "observedPaths": [
+      "public/assets/audio/effects/effect-024.mp3",
+      "docs/evidence/spec001/final-rooms/T136/browser.json",
+      "content/spec001/presentation/R03.audio.json"
+    ],
+    "runtimeEvidencePath": "docs/evidence/spec001/final-rooms/T136/browser.json"
+  }
+}

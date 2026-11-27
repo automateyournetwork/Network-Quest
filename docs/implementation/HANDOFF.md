@@ -26,7 +26,9 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**154 loops started; 121/170 tasks accepted; no deployment.** The [independent room-mode check](../evidence/spec001/presentation/modes-join.json) verified the Copper Warrens in Firefox and Chromium and the Echo Cavern over local HTTPS. All 4,340 executable domain tests passed.
+**157 loops started; 124/170 tasks accepted; no deployment.** The first six rooms passed the [combined guest, source and media check](../evidence/spec001/final-rooms/first-six-join.json). Three independent Firefox tours and 4,347 executable domain tests passed, with 360 existing TODOs.
+
+The room-mode checkpoint reached the remote at `3646ad9c3294b2994469ad7f8bbd6c9ecdc181b8`. The [independent room-mode check](../evidence/spec001/presentation/modes-join.json) verified the Copper Warrens in Firefox and Chromium and the Echo Cavern over local HTTPS. All 4,340 executable domain tests passed.
 
 The [canonical media inventory](../evidence/spec001/media-consolidation/verification.json) reached the remote at `a3bcedd3102a38fd84c0ab89b37681a51926fd03`. It reconciles 380 allocated identities and R01 architecture, preserves two alternate renditions and every previous live use, and checks 1,323 distinct source/export paths. The full domain suite passed 4,339 executable tests and retains 360 TODOs.
 
@@ -147,8 +149,14 @@ Loop 151/T134: The normal Echo Cavern guest room played all three Blender-derive
 
 Loop 150/T133: Registered hybrid scenes passed normal Copper Warrens guest play in Chromium and Firefox, including all 21 bindings, touch and keyboard selection, low detail and recovery. The alternate Photon Gardens probe is reserved for T137 final integration. [Verification](loops/150-T133.md).
 
+Loop 152/T135: Arrival Lift and Workshop passed scoped native composition and normal guest checks. All six destinations work at either viewport, all 15 registered markers agree within 0.296 pixels, 14 signed-in/guest regressions pass, and 15 conditional uses remain open for release. [Verification](loops/152-T135.md).
+
+Loop 153/T136: Copper Warrens and Echo Cavern have reopened native compositions. The ordinary guest tour exercised all nine recruits, ten contextual cues and the actual unlocked Rift exit. All 56 registered room bindings and 152 scoped tests passed. [Verification](loops/153-T136.md).
+
+Loop 154/T137: Photon Gardens and Prism Vault passed normal guest verification, incorporating 39 registered visual exports, 21 contextual cues, all 14 eligible party placements, real context loss recovery and the conditional Rift exit. No conditional registration was left unobserved in this room pair. [Verification](loops/154-T137.md).
+
 <!-- current production assignments -->
-Active assignments: 152/T135, 153/T136, 154/T137.
+Active assignments: 155/T138, 156/T139, 157/T140.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

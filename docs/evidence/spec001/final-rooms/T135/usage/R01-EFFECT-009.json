@@ -1,0 +1,34 @@
+{
+  "type": "usage",
+  "assetId": "spec001:ASSET-EFFECT-009",
+  "hashes": [
+    "f1fb09b9121852f4779a86aa81f4be84a6a539923325c26d48532e610c4fa0bf"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex loop152/T135",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64 macOS 26.6.2; Blender 5.2.1 LTS; Node 26.13.1; Three.js 0.187.0 and native Firefox 159 via Playwright 1.65.1.",
+  "details": {
+    "bindings": [
+      {
+        "assetId": "spec001:ASSET-EFFECT-009",
+        "contentId": "spec001:R01",
+        "use": "effect",
+        "exportPath": "public/assets/audio/effects/fx-009.mp3",
+        "interactiveOrEvidence": false
+      }
+    ],
+    "visible": true,
+    "meaningful": true,
+    "findings": "Actual contextual control appeared after the registered trigger. Replay reached playing or ended in native Firefox, Skip stopped it, and response bytes matched the registered file. Human listening remains pending.",
+    "tool": "Playwright native Firefox; response-byte SHA-256 and frame inspection",
+    "observedPaths": [
+      "public/assets/audio/effects/fx-009.mp3",
+      "docs/evidence/spec001/final-rooms/T135/browser.json",
+      "docs/evidence/spec001/final-rooms/T135/workshop-1280.png",
+      "docs/evidence/spec001/final-rooms/T135/workshop-390.png"
+    ],
+    "runtimeEvidencePath": "docs/evidence/spec001/final-rooms/T135/browser.json"
+  }
+}

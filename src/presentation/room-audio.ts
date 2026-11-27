@@ -19,38 +19,53 @@ export function createRoomAudioPanel(host: HTMLElement, media: RoomMedia, gameBa
   refreshButton.addEventListener('click', refresh, { signal: events.signal });
   const preferencesStatus = node('p'); preferencesStatus.className = 'nq-media-preferences-status';
   const rows = new Map<string, { element: HTMLElement; status: HTMLElement; replay: HTMLButtonElement }>();
+  const cueStatuses = new Map<string, AudioState['status']>();
+  let captionId: string | undefined, transientCaption: number | undefined;
+  const clearCaption = () => {
+    document.defaultView?.clearTimeout(transientCaption); transientCaption = undefined;
+    captionId = undefined; caption.textContent = ''; caption.tabIndex = -1;
+  };
   const update = (state: AudioState) => {
+    const changed = state.status !== cueStatuses.get(state.id);
+    cueStatuses.set(state.id, state.status);
     const row = rows.get(state.id); if (row) { row.status.textContent = state.status === 'awaiting-gesture' ? 'Select Replay to enable sound.' : state.status === 'unavailable' ? 'Audio unavailable. The transcript remains available.' : state.status; row.element.dataset['audioStatus'] = state.status; }
-    if (['playing', 'loading', 'awaiting-gesture'].includes(state.status)) { caption.textContent = state.text; caption.tabIndex = 0; caption.hidden = !settings.captions; }
+    if (changed && ['playing', 'loading', 'awaiting-gesture'].includes(state.status)) {
+      clearCaption(); captionId = state.id; caption.textContent = state.text; caption.tabIndex = 0; caption.hidden = !settings.captions;
+      if (room !== media.composition.roomId && state.channel !== 'voice') {
+        transientCaption = document.defaultView?.setTimeout(() => { if (document.activeElement !== caption) clearCaption(); }, 3500);
+      }
+    } else if (room !== media.composition.roomId && changed && captionId === state.id && document.activeElement !== caption && ['stopped','disposed','ended'].includes(state.status)) clearCaption();
     if (state.status === 'unavailable' || state.status === 'awaiting-gesture') status.textContent = state.status === 'unavailable' ? 'Audio unavailable. Read the transcript or retry playback.' : 'Sound waits for your choice. Select a Replay button.';
   };
   const adapter = createAudioAdapter({ backend: createHtmlAudioBackend(document), volumes: volumesFromSettings(settings), maxCues: 64, maxVoices: 5, maxPendingPlays: 5, onChange: update });
   const handles = new Map(media.composition.audio.map(cue => [cue.assetId, adapter.present({ id: cue.assetId, channel: cue.channel, src: publicMediaUrl(media.bindings.get(cue.assetId)!, gameBase), text: cue.text, loop: false })]));
   const contextual = new Map<string, ContextualCue>();
   let activeCues: readonly ContextualCue[] = [], previous: RuntimeState | undefined;
+  const benchmark = new Map(media.composition.audio.map(cue => [cue.assetId, cue]));
+  const scopedId = (cue: ContextualCue) => cue.roomId + '/' + cue.assetId;
   const stopVoice = () => {
-    for (const cue of [...media.composition.audio, ...contextual.values()]) if (cue.channel === 'voice') handles.get(cue.assetId)?.stop();
+    for (const [key, cue] of [...benchmark, ...contextual]) if (cue.channel === 'voice') handles.get(key)?.stop();
   };
   const play = (id: string) => {
-    const cue = contextual.get(id) ?? media.composition.audio.find(c => c.assetId === id);
+    const cue = contextual.get(id) ?? benchmark.get(id);
     if (!cue) return;
     if (cue.channel === 'voice') stopVoice();
     if (cue.channel === 'effects' && !cue.loop) {
-      for (const other of [...media.composition.audio, ...contextual.values()]) {
-        if (other.channel === 'effects' && !other.loop && other.assetId !== id) handles.get(other.assetId)?.stop();
+      for (const [key, other] of [...benchmark, ...contextual]) {
+        if (other.channel === 'effects' && !other.loop && key !== id) handles.get(key)?.stop();
       }
     }
     const handle = handles.get(id)!; handle.stop(); void handle.play();
   };
-  const addRow = (cue: { assetId: string; text: string }, label: string, exportPath: string) => {
+  const addRow = (cue: { assetId: string; text: string }, label: string, exportPath: string, key = cue.assetId) => {
     const section = node('div'); section.className = 'nq-media-cue'; section.dataset['assetId'] = cue.assetId; section.dataset['exportPath'] = exportPath;
     const heading = node('strong'); heading.textContent = label;
     const transcript = node('p'); transcript.textContent = cue.text;
     const replay = node('button'); replay.type = 'button'; replay.textContent = `Replay ${label.split(' ·')[0]}`;
-    replay.onclick = () => { if (root.contains(replay)) play(cue.assetId); };
+    replay.onclick = () => { if (root.contains(replay)) play(key); };
     const skip = node('button'); skip.type = 'button'; skip.textContent = `Skip ${label.split(' ·')[0]}`;
-    skip.onclick = () => { if (root.contains(skip)) handles.get(cue.assetId)?.stop(); };
-    const cueStatus = node('span'); cueStatus.textContent = 'idle'; section.append(heading, transcript, replay, skip, cueStatus); details.append(section); rows.set(cue.assetId, { element: section, status: cueStatus, replay });
+    skip.onclick = () => { if (root.contains(skip)) handles.get(key)?.stop(); };
+    const cueStatus = node('span'); cueStatus.textContent = 'idle'; section.append(heading, transcript, replay, skip, cueStatus); details.append(section); rows.set(key, { element: section, status: cueStatus, replay });
   }
   for (const cue of media.composition.audio) {
     const label = cue.channel === 'music' ? 'Title theme · 20-second excerpt' : cue.assetId.endsWith('VOICE-001') ? 'Narrator' : cue.assetId.endsWith('VOICE-035') ? 'Photon' : cue.trigger === 'photon' ? 'Photon glimmer' : 'Control click';
@@ -60,10 +75,11 @@ export function createRoomAudioPanel(host: HTMLElement, media: RoomMedia, gameBa
     if (!triggers.size) return;
     const selected = activeCues.filter(cue => triggers.has(cue.trigger));
     for (const cue of selected) {
-      if (!contextual.has(cue.assetId)) {
-        contextual.set(cue.assetId, cue);
-        const handle = adapter.present({ id: cue.assetId, src: gameBase + cue.exportPath.slice('public/'.length), channel: cue.channel, text: cue.text, loop: cue.loop });
-        handles.set(cue.assetId, handle); addRow(cue, cue.label, cue.exportPath);
+      const key = scopedId(cue);
+      if (!contextual.has(key)) {
+        contextual.set(key, cue);
+        const handle = adapter.present({ id: key, src: gameBase + cue.exportPath.slice('public/'.length), channel: cue.channel, text: cue.text, loop: cue.loop });
+        handles.set(key, handle); addRow(cue, cue.label, cue.exportPath, key);
       }
     }
     // When two contextual readings become available together, keep both transcripts
@@ -71,7 +87,7 @@ export function createRoomAudioPanel(host: HTMLElement, media: RoomMedia, gameBa
     const channels = new Set<string>();
     for (const cue of [...selected].reverse()) {
       const channel = cue.loop ? cue.assetId : cue.channel;
-      if (!channels.has(channel)) { channels.add(channel); play(cue.assetId); }
+      if (!channels.has(channel)) { channels.add(channel); play(scopedId(cue)); }
     }
   }
   function clearContext() {
@@ -120,6 +136,6 @@ export function createRoomAudioPanel(host: HTMLElement, media: RoomMedia, gameBa
     },
     trigger(trigger: 'photon' | 'control') { if (disposed || room !== media.composition.roomId) return; for (const cue of media.composition.audio.filter(c => c.trigger === trigger)) play(cue.assetId); },
     stopVoice,
-    dispose() { if (disposed) return; disposed = true; events.abort(); adapter.dispose(); root.remove(); },
+    dispose() { if (disposed) return; disposed = true; clearCaption(); events.abort(); adapter.dispose(); root.remove(); },
   };
 }

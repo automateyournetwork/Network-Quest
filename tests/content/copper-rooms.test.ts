@@ -144,11 +144,20 @@ describe('T075 Copper Warrens and Echo Cavern authored room contract', () => {
       }
     }
   });
-  it('keeps visual bindings separate from audio, recruitment and completion', () => {
+  it('targets room visuals and contextual sound independently of recruitment and completion', async () => {
     for (const id of ['R03', 'R04']) {
       const value = room(id);
-      expect((value.mediaBindings ?? []).every(b => b.contentId === value.id && !['music', 'effect', 'voice-line'].includes(b.use))).toBe(true);
-      expect(value.ambience.assetIds).toEqual([]);
+      const sounds = await read<{ assetId: string; exportPath: string; captionId: string; channel: string; loop: boolean }[]>(`content/spec001/presentation/${id}.audio.json`);
+      const bindings = value.mediaBindings ?? [];
+      const audioUses = ['ambience', 'effect', 'music', 'voice-line'];
+      expect(bindings.filter(b => !audioUses.includes(b.use)).every(b => b.contentId === value.id)).toBe(true);
+      expect(bindings.filter(b => audioUses.includes(b.use))).toHaveLength(sounds.length);
+      for (const sound of sounds) {
+        const use = sound.channel === 'voice' ? 'voice-line' : sound.channel === 'music' ? 'music' : sound.loop ? 'ambience' : 'effect';
+        expect(bindings).toContainEqual({ assetId: sound.assetId, exportPath: sound.exportPath, use,
+          interactiveOrEvidence: false, contentId: use === 'voice-line' ? sound.captionId : value.id });
+      }
+      expect(value.ambience.assetIds).toEqual(bindings.filter(b => b.use === 'ambience').map(b => b.assetId));
       expect(value.propInstances.every(p => p.assetId === p.propId.replace(':', value.mediaBindings ? ':ASSET-' : ':DEV-'))).toBe(true);
       expect(JSON.stringify(value)).not.toMatch(/"(?:effects|acceptedEffects|recruitment)"|"complete-objective"|"grant-item"/);
     }

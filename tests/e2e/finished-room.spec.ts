@@ -170,7 +170,7 @@ test.describe('T066 finished R01', () => {
     await j.page.evaluate(() => { Reflect.deleteProperty(document,'hidden');document.dispatchEvent(new Event('visibilitychange')); });
     await expect(audio('MUSIC-title')).toHaveAttribute('data-audio-status','paused');
     await Promise.all(audioLoads);
-    for (const binding of arrival.mediaBindings.filter(b=>b.exportPath.endsWith('.mp3'))) {
+    for (const binding of arrival.mediaBindings.filter(b => composition.audio.some(cue => cue.assetId === b.assetId))) {
       const hash = createHash('sha256').update(await readFile(binding.exportPath)).digest('hex');
       expect(audioResponses.some(r=>r.path.endsWith(binding.exportPath.slice(7)) && r.sha256===hash)).toBe(true);
     }

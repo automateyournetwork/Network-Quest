@@ -17,6 +17,24 @@
       },
       "maxItems": 5000
     },
+    "conditionalBindings": {
+      "description": "Exact room-local registrations still awaiting observation. These never grant acceptance or quota, and release requires the corresponding observed usedBy evidence.",
+      "type": "array",
+      "maxItems": 512,
+      "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["assetId", "roomId", "contentId", "use", "exportPath", "trigger"],
+        "properties": {
+          "assetId": { "type": "string", "pattern": "^spec001:ASSET-[A-Za-z0-9-]+$" },
+          "roomId": { "type": "string", "pattern": "^spec001:R(0[1-9]|1[0-2])$" },
+          "contentId": { "type": "string", "minLength": 1, "maxLength": 96 },
+          "use": { "enum": ["party-placement", "effect", "voice-line", "music", "ambience"] },
+          "exportPath": { "type": "string", "pattern": "^public/assets/[A-Za-z0-9_./-]+$", "maxLength": 512 },
+          "trigger": { "type": "string", "minLength": 1, "maxLength": 128 }
+        }
+      }
+    },
     "additionalRenditions": {
       "description": "Separately produced versions of an existing primary identity. Each has its own sources, exports, rights, review and use evidence. Only a primary identity may count toward a quota.",
       "type": "array",

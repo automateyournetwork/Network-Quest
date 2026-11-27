@@ -6,6 +6,7 @@ export type AssetIssue = { code: string; assetId?: string; path?: string };
 export type AssetValidationResult = { valid: boolean; issues: AssetIssue[]; counts: AssetCounts };
 export type AssetEntity = { id: string; kind: string; speakerId?: string; text?: string };
 export type AssetUse = { assetId: string; contentId: string; use: string; exportPath: string; interactiveOrEvidence: boolean };
+export type ConditionalBinding = Pick<AssetUse, 'assetId' | 'contentId' | 'use' | 'exportPath'> & { roomId: string; trigger: string };
 export type AssetEvidenceRecord = {
   type: 'review' | 'production' | 'rights' | 'usage' | 'retrieval'; assetId: string;
   hashes: string[]; status: 'passed' | 'pending' | 'failed'; actor: 'human' | 'agent' | 'tool';
@@ -13,7 +14,7 @@ export type AssetEvidenceRecord = {
 };
 export type AssetEvidenceSnapshot = {
   files: Readonly<Record<string, Uint8Array>>; records: Readonly<Record<string, AssetEvidenceRecord>>;
-  content: { entities: AssetEntity[]; uses: AssetUse[] };
+  content: { entities: AssetEntity[]; uses: AssetUse[]; conditionalBindings?: ConditionalBinding[] };
 };
 export type AssetFileDigest = { sha256: string; bytes: number };
 export type AssetFile = AssetFileDigest & { path: string; format: string };
@@ -38,7 +39,7 @@ export type Asset = {
   image?: { width: number; height: number; colorSpace: string; alpha: boolean; cameraRecordPath: string; layerRole: string; registrationPath: string };
   audio?: { nativeProjectPath: string; masterPath: string; codec: string; sampleRate: number; channels: number; durationSeconds: number; loopStartSample: number | null; loopEndSample: number | null; loudnessLufs: number; peakDbfs: number; captionId: string | null; voiceRecordPath?: string };
 };
-export type AssetManifest = { schemaVersion: 1; episodeId: 'spec001'; assets: Asset[]; additionalRenditions?: Asset[] };
+export type AssetManifest = { schemaVersion: 1; episodeId: 'spec001'; assets: Asset[]; additionalRenditions?: Asset[]; conditionalBindings?: ConditionalBinding[] };
 export const manifestRenditions = (manifest: AssetManifest): Asset[] => [...manifest.assets, ...(manifest.additionalRenditions ?? [])];
 export const minimums: Readonly<AssetCounts> = Object.freeze({ characterModels: 25, props: 150, interactiveProps: 50, roomsWithImageSet: 12, sceneLayers: 36, portraits: 25, illustrations: 24, music: 8, ambience: 12, effects: 40, voices: 60 });
 export const emptyCounts = (): AssetCounts => ({ characterModels: 0, props: 0, interactiveProps: 0, roomsWithImageSet: 0, sceneLayers: 0, portraits: 0, illustrations: 0, music: 0, ambience: 0, effects: 0, voices: 0 });

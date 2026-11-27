@@ -481,7 +481,8 @@ function checkRecord(r: S.authoredRecord, w: S.world, records: S.authoredRecord[
         const code = binding.assetId.replace('spec001:ASSET-', '');
         const identity = `spec001:${code}`;
         if (binding.use === 'character-placement') {
-          if ((identity !== 'spec001:CH01' && !r.characterIds.includes(identity)) || binding.exportPath !== `public/assets/models/${code}.glb`) fail('media-binding', binding.assetId, 'Character export must match the apprentice or an authored local character');
+          const isGardenInspection = roomCode === 'R05' && code === 'CH03' && binding.exportPath === 'public/assets/models/CH03-inspection.glb';
+          if ((identity !== 'spec001:CH01' && !r.characterIds.includes(identity)) || (!isGardenInspection && binding.exportPath !== `public/assets/models/${code}.glb`)) fail('media-binding', binding.assetId, 'Character export must match the apprentice or an authored local character');
         } else if (!r.propInstances.some(p => p.propId === identity && p.assetId === binding.assetId) ||
           !(binding.exportPath.endsWith(`/${code}.glb`) || (roomCode === 'R01' && binding.exportPath === `public/assets/models/R01-${code}.glb`))) fail('media-binding', binding.assetId, 'Prop export must match the registered prop identity');
       } else {

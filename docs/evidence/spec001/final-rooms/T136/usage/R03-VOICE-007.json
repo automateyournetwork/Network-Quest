@@ -1,0 +1,33 @@
+{
+  "type": "usage",
+  "assetId": "spec001:ASSET-VOICE-007",
+  "hashes": [
+    "c99c74883b8c3a946841ceec29ba26acc10bd9ab25255b5305fbad925a656ce8"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex loop 153/T136",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0 and Firefox 159.0 with Playwright 1.65.1.",
+  "details": {
+    "bindings": [
+      {
+        "assetId": "spec001:ASSET-VOICE-007",
+        "contentId": "spec001:DIALOGUE-VOICE-007",
+        "use": "voice-line",
+        "exportPath": "public/assets/audio/voices/voice-007.mp3",
+        "interactiveOrEvidence": false
+      }
+    ],
+    "visible": true,
+    "meaningful": true,
+    "findings": "The registered trigger fact/spec001:FACT-O03-compatibility exposed the control in R03. Firefox replay reached playing, showed the exact caption “This fictional copper profile permits one hundred metres. Count the whole declared path before you choose.” and accepted Skip. The recorded MP3 response matched the export digest.",
+    "tool": "Playwright in native Firefox, normal guest controls, live per-scene metrics and response-body SHA-256",
+    "observedPaths": [
+      "public/assets/audio/voices/voice-007.mp3",
+      "docs/evidence/spec001/final-rooms/T136/browser.json",
+      "content/spec001/presentation/R03.audio.json"
+    ],
+    "runtimeEvidencePath": "docs/evidence/spec001/final-rooms/T136/browser.json"
+  }
+}

@@ -7,7 +7,7 @@ import { writeFile } from 'node:fs/promises';
 import { localTls } from './support/local-tls';
 
 /** Actual app acceptance: no replacement main, injected gameplay or mocked evaluator. */
-test.describe('T035/T066 actual playable R01 media and R02 graybox', () => {
+test.describe('T035/T066/T135 actual playable Arrival Lift and Workshop', () => {
   test.describe.configure({ mode: 'default' });
   let local: Awaited<ReturnType<typeof localTls>>, context: BrowserContext, page: Page;
   let errors: string[], writes: string[], external: string[];
@@ -50,10 +50,19 @@ test.describe('T035/T066 actual playable R01 media and R02 graybox', () => {
       if (sample.room === 'spec001:R01') {
         expect(sample.triangles).toBe(70_716); expect(sample.drawCalls).toBeLessThan(600); expect(sample.geometries).toBeGreaterThan(100); expect(sample.geometries).toBeLessThan(600);
         expect(await visual().locator('img')).toHaveCount(3);
-      } else { expect(sample.triangles).toBeLessThan(2_000); expect(sample.drawCalls).toBeLessThan(100); expect(sample.geometries).toBe(2); }
+      } else {
+        await expect(visual()).toHaveAttribute('data-presentation','three');
+        await expect(visual()).toHaveAttribute('data-model-count','21');
+        await expect(visual().locator('.nq-room-layer')).toHaveCount(3);
+        await expect(visual().locator('.nq-workshop-decoration')).toHaveCount(0);
+        await expect(visual()).toHaveAttribute('data-party-cast','');
+        expect(sample.triangles).toBeGreaterThan(10_000);
+        expect(sample.triangles).toBeLessThan(250_000);
+        expect(sample.drawCalls).toBeLessThan(800);
+      }
       // R01's three image planes live in DOM memory (measured separately).
       // Three's RectAreaLight lookup textures and internal texture are counted here.
-      expect(sample.textures).toBeLessThanOrEqual(sample.room === 'spec001:R01' ? 3 : 2); budgets.push(sample);
+      expect(sample.textures).toBeLessThanOrEqual(3); budgets.push(sample);
     }
     await budget();
     await act('Look', 'spec001:HOTSPOT-power');
@@ -142,7 +151,10 @@ test.describe('T035/T066 actual playable R01 media and R02 graybox', () => {
   test('visual pointer observations equal a fresh keyboard investigation', async () => {
     const observations: string[][] = [];
     for (const input of ['visual', 'keyboard']) {
-      if (input === 'keyboard') { await clickButton(page, 'New Adventure'); await clickButton(page, 'Start new adventure'); await ready('spec001:R01'); }
+      if (input === 'keyboard') {
+        await clickButton(page, 'New Adventure'); await clickButton(page, 'Start new adventure'); await ready('spec001:R01');
+        await expect(page.locator('.nq-shell-evidence li')).toHaveCount(0);
+      }
       await pressButton(page, 'Look', 'Enter');
       for (const [id, label] of [['power', 'Power indication'], ['link', 'Link indication']] as const) {
         if (input === 'visual' && id === 'power') {
@@ -158,16 +170,13 @@ test.describe('T035/T066 actual playable R01 media and R02 graybox', () => {
         await visual().locator('[data-graybox-control]').filter({ hasText: 'Inspect physical path' }).click();
       } else { await pressButton(page, 'Take inspection kit', 'Enter'); await pressButton(page, 'Inspect physical path', 'Enter'); }
       const rows = await page.locator('.nq-shell-evidence li').allTextContents();
-      // A fresh adventure has a distinct attempt UUID; compare the complete
-      // evidence apart from that identity, and separately require it to change.
       observations.push(rows);
       await expect(page.locator('.nq-shell-captions')).toContainText('End-to-end service is not proven');
     }
-    const attempt = /attempt ([a-f0-9-]{36})/;
-    expect(observations[0]!.join().match(attempt)?.[1]).toBeTruthy();
-    expect(observations[0]!.join().match(attempt)?.[1]).not.toBe(observations[1]!.join().match(attempt)?.[1]);
-    const comparable = (rows: string[]) => rows.map(row => row.replace(attempt, 'attempt <fresh-adventure>'));
-    expect(observations[0]!.length).toBeGreaterThanOrEqual(3); expect(comparable(observations[0]!)).toEqual(comparable(observations[1]!));
+    // Notebook presentation gives the current-attempt relationship in readable text.
+    expect(observations[0]!.length).toBeGreaterThanOrEqual(3);
+    expect(observations[0]!.join()).toContain('this attempt');
+    expect(observations[0]).toEqual(observations[1]);
   });
   test('simulated visibility input pauses the actual renderer and resumes without changing evidence', async () => {
     await act('Look', 'spec001:HOTSPOT-power'); const evidence = await page.locator('.nq-shell-evidence').innerText();

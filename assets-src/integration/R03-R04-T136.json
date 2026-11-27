@@ -1,0 +1,803 @@
+{
+  "schemaVersion": 1,
+  "task": "T136",
+  "roomIds": [
+    "spec001:R03",
+    "spec001:R04"
+  ],
+  "assets": [
+    {
+      "assetId": "spec001:ASSET-ARCH-R03",
+      "semanticIdentity": "spec001:R03",
+      "kind": "room-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-CH01",
+        "spec001:ASSET-CH04",
+        "spec001:ASSET-CH24",
+        "spec001:ASSET-PR021",
+        "spec001:ASSET-PR022",
+        "spec001:ASSET-PR023",
+        "spec001:ASSET-PR024",
+        "spec001:ASSET-PR025",
+        "spec001:ASSET-PR026",
+        "spec001:ASSET-PR027",
+        "spec001:ASSET-PR028",
+        "spec001:ASSET-PR029",
+        "spec001:ASSET-PR030",
+        "spec001:ASSET-PR122",
+        "spec001:ASSET-PR125",
+        "spec001:ASSET-PR128",
+        "spec001:ASSET-PR133",
+        "spec001:ASSET-PR148",
+        "spec001:ASSET-LAYER-R03-background",
+        "spec001:ASSET-LAYER-R03-midground",
+        "spec001:ASSET-LAYER-R03-foreground"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R03.blend",
+            "sha256": "257a86e4ea34529cd6f4c51b0c375ed2040a45b39a3c807fa25919a8107a0c13",
+            "bytes": 2161809,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t136/R03-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R03-architecture.glb",
+            "sha256": "10a785db81a605d46c6fa9a3279487087f021f68868cd73f4234b551ef3c0e6d",
+            "bytes": 95380,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "257a86e4ea34529cd6f4c51b0c375ed2040a45b39a3c807fa25919a8107a0c13"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Architecture collection, Y up, object extras and punctual lights, static meshes",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t136/R03-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T136-R03-native-composition",
+          "settingsPath": "content/spec001/presentation/R03.json",
+          "promptOrScriptPath": "assets-src/rooms/R03-R04-build.py",
+          "referenceHashes": [
+            "96dcd62c617a019b29728afa5dc8839568eaa43cd101ccfabc53c37da3f504c9",
+            "9fad4cb57422b455bf289350bb1fdaa75a7c07d78891bf0b635d00956757c33c",
+            "717294818661f8d63d8ca826ef438a603766bfcf3c59c5e127d2049333ac2f9c",
+            "b7b4b1baef7a20f50f3350a169426fa9df312636db6c4c6323306848904f8343",
+            "6e33e8beab83a55794a09048648313ba456765a7e6adb7fc74ece03fe01de14e",
+            "e446487bca399637d3c19596c5ee46f46eaee454a8661ca1a5473c6e4927ced6",
+            "27d968a768c5b608fbd5d494208673de58e44c6b05b547ee768542e29812aa45",
+            "cd7d5d77a077387e0b93cdc127af2f5167611ea4d67f3b647a426afc55636ee9",
+            "2febfe230ba50ba7bf8d209af02cd1c4415df135199fd76932ac2aef2c9de06b",
+            "2923f81cec4caa9d6089e43715cb22d41fd11683bfcebac8335e99a722e452ba",
+            "bb342829e1b255bf3134e18b0503a03d88b738458640e5ea9d19d20916caf99f",
+            "a97c1affe5238c490a8fc51bf2655d2328cc86b3d0c0db658884faaf79b50a58",
+            "c53a7871fbb4f6df2f55b09c3b94d5581ad5411e4d055d764e11e31ad5d3363e",
+            "444db127bf782eb7d3a47a4f47a52c868d548fa217715d908500318b97296ca3",
+            "e1ef9669d6cc519a5395cbe012ff85d143177c45237aa98a0649c9962958ac13",
+            "890707a88943822b67b5494df49c20333c2fb6372a04452b60e0fe82eb7dfe2c",
+            "9752a7bc0c0d89b60bd178d457396e7c5bd67a8aba5df04abfde28d8eedfc1ec",
+            "f3d489107208c39ed30d925828ac5e157d3ee203193fd65dc9d0fc9287419922",
+            "ee20adfab7e723b64fd4e3358a3fcc22bd904c85fa0c41f9dac4a8fb5bc43d26",
+            "4ae910fff6d029d0e44d5f062dfcea491a2dde619e8d0ab905f012cafd4cada9",
+            "af2cdefc240f705f3350cf56ea9eda7a46b7946aa2f0bb65654a8879beef3b22"
+          ],
+          "outputHashes": [
+            "257a86e4ea34529cd6f4c51b0c375ed2040a45b39a3c807fa25919a8107a0c13"
+          ],
+          "notes": "Native camera composition with packed independent plates, 18 editable cast placements, floor contacts, fitted apparatus supports, exit treads and named lighting. The runtime glTF selects the new architecture collection."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling and composition)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/R03-R04-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [
+          "assets-src/rooms/R03-R04-NOTICE.md"
+        ],
+        "aiDisclosure": "Original architecture was modeled locally in Blender with Codex assistance. Cast and three existing generated plates retain their separate project provenance."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R03",
+          "use": "room-architecture",
+          "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-ARCH-R03.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop 153/T136",
+          "date": "2026-11-27",
+          "hashes": [
+            "257a86e4ea34529cd6f4c51b0c375ed2040a45b39a3c807fa25919a8107a0c13",
+            "10a785db81a605d46c6fa9a3279487087f021f68868cd73f4234b551ef3c0e6d"
+          ],
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0 and Firefox 159.0 with Playwright 1.65.1.",
+          "evidencePath": "docs/evidence/spec001/assets/t136/R03-source-reopen.json",
+          "findings": "Blender reopened the saved scene, 18 cast placements, 15 semantic empties, two party berths, 5 named lights and three individually packed 1600×900 camera plates. Mounts and positions matched the registered room."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop 153/T136",
+          "date": "2026-11-27",
+          "hashes": [
+            "257a86e4ea34529cd6f4c51b0c375ed2040a45b39a3c807fa25919a8107a0c13",
+            "10a785db81a605d46c6fa9a3279487087f021f68868cd73f4234b551ef3c0e6d"
+          ],
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0 and Firefox 159.0 with Playwright 1.65.1.",
+          "evidencePath": "docs/evidence/spec001/assets/t136/R03-structure.json",
+          "findings": "The architecture GLB has 51 named nodes and 908 triangles. The export carries six selectable exit mesh objects and the fitted apparatus supports."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop 153/T136",
+          "date": "2026-11-27",
+          "hashes": [
+            "257a86e4ea34529cd6f4c51b0c375ed2040a45b39a3c807fa25919a8107a0c13",
+            "10a785db81a605d46c6fa9a3279487087f021f68868cd73f4234b551ef3c0e6d"
+          ],
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0 and Firefox 159.0 with Playwright 1.65.1.",
+          "evidencePath": "docs/evidence/spec001/assets/t136/R03-visual.json",
+          "findings": "The grounded apparatus, raised repair sample, twin and shielding fixture, bronze thresholds and moving cast stay distinct in the native and browser views."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop 153/T136",
+          "date": "2026-11-27",
+          "hashes": [
+            "257a86e4ea34529cd6f4c51b0c375ed2040a45b39a3c807fa25919a8107a0c13",
+            "10a785db81a605d46c6fa9a3279487087f021f68868cd73f4234b551ef3c0e6d"
+          ],
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0 and Firefox 159.0 with Playwright 1.65.1.",
+          "evidencePath": "docs/evidence/spec001/assets/t136/R03-browser-comparison.json",
+          "findings": "Both guest viewports and the earned-party view used the registered camera and matched the photographed mount layout. The normal tour used all eight optional nonresident rigs in this room, with each resident remaining in place."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R03.blend",
+        "objectIds": [
+          "Armature vibration bed • binding strap",
+          "Armature vibration bed • binding strap.001",
+          "Armature vibration bed • chamfered flagstone",
+          "Armature vibration bed • dark foundation",
+          "Continuity column seat • binding strap",
+          "Continuity column seat • binding strap.001",
+          "Continuity column seat • chamfered flagstone",
+          "Continuity column seat • dark foundation",
+          "Docket shelf • angle iron foot",
+          "Docket shelf • angle iron foot.001",
+          "Docket shelf • brace",
+          "Docket shelf • brace.001",
+          "Exit • bronze tread 1",
+          "Exit • bronze tread 1.001",
+          "Exit • bronze tread 2",
+          "Exit • bronze tread 2.001",
+          "Exit • bronze tread 3",
+          "Exit • bronze tread 3.001",
+          "Motor service lamp",
+          "Motor service lamp • bracket",
+          "Motor service lamp • hood",
+          "Motor service lamp • upright",
+          "Panel inspection lamp",
+          "Panel inspection lamp • bracket",
+          "Panel inspection lamp • hood",
+          "Panel inspection lamp • upright",
+          "Patch rack sill • binding strap",
+          "Patch rack sill • binding strap.001",
+          "Patch rack sill • chamfered flagstone",
+          "Patch rack sill • dark foundation",
+          "Rack feed • drop",
+          "Rack feed • drop.001",
+          "Rack feed • horizontal return",
+          "Rack feed • horizontal return.001",
+          "Recovery docket • wooden ledger shelf",
+          "Route wheel seat • binding strap",
+          "Route wheel seat • binding strap.001",
+          "Route wheel seat • chamfered flagstone",
+          "Route wheel seat • dark foundation",
+          "Sample frame sill • binding strap",
+          "Sample frame sill • binding strap.001",
+          "Sample frame sill • chamfered flagstone",
+          "Sample frame sill • dark foundation",
+          "Spool winch seat • binding strap",
+          "Spool winch seat • binding strap.001",
+          "Spool winch seat • chamfered flagstone",
+          "Spool winch seat • dark foundation",
+          "Store elbow footing • binding strap",
+          "Store elbow footing • binding strap.001",
+          "Store elbow footing • chamfered flagstone",
+          "Store elbow footing • dark foundation"
+        ],
+        "units": "metres",
+        "axes": "Z up/-Y front to Y up/+Z front",
+        "pivot": "World origin of spec001:R03 registered camera composition",
+        "collisionProxy": "Room walkable polygon and semantic safe point in R03.json",
+        "animationClips": [],
+        "triangles": 908,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-ARCH-R04",
+      "semanticIdentity": "spec001:R04",
+      "kind": "room-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-CH20",
+        "spec001:ASSET-PR037",
+        "spec001:ASSET-PR036",
+        "spec001:ASSET-PR038",
+        "spec001:ASSET-PR031",
+        "spec001:ASSET-PR034",
+        "spec001:ASSET-PR135",
+        "spec001:ASSET-PR033",
+        "spec001:ASSET-CH01",
+        "spec001:ASSET-PR039",
+        "spec001:ASSET-PR032",
+        "spec001:ASSET-CH13",
+        "spec001:ASSET-PR035",
+        "spec001:ASSET-PR134",
+        "spec001:ASSET-PR040",
+        "spec001:ASSET-LAYER-R04-background",
+        "spec001:ASSET-LAYER-R04-midground",
+        "spec001:ASSET-LAYER-R04-foreground",
+        "spec001:ASSET-SPRITE-R04-CH01",
+        "spec001:ASSET-SPRITE-R04-CH13",
+        "spec001:ASSET-SPRITE-R04-CH20",
+        "spec001:ASSET-SPRITE-R04-props"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R04.blend",
+            "sha256": "02c918abf4a638f34e597e8d4e9fdcbc581715a7efd6528a0e6043485d26720e",
+            "bytes": 1498237,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t136/R04-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R04-architecture.glb",
+            "sha256": "41890af324a36c8c41753e2438b2f107d7c8951685f184e3336ee065871d3921",
+            "bytes": 68700,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "02c918abf4a638f34e597e8d4e9fdcbc581715a7efd6528a0e6043485d26720e"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Architecture collection, Y up, object extras and punctual lights, static meshes",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t136/R04-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T136-R04-native-composition",
+          "settingsPath": "content/spec001/presentation/R04.json",
+          "promptOrScriptPath": "assets-src/rooms/R03-R04-build.py",
+          "referenceHashes": [
+            "da01e9e572e524ceb91d379659f10006043b67ba95221c0e82881578a9479657",
+            "b533e3ce90a9c11047eaa82919c93256967d6332eb12528a63ae60fe6c5c5b4a",
+            "ea593aa0615a8cd9a0ca7e53fa0076790fa0c03937918c0de8fd86e09a75d151",
+            "b1fd21b161d78ced58be1ad0d6765f4de4edb44b2202ca8a6cc8edbee58508d8",
+            "2488e77d38bb47fc951c9f6f85a16993704be2465466f219601d51d68c29cb96",
+            "042aed8c6bea81807340c783859cd7a09934d12df94c01e205a040179f60dd4f",
+            "2ff99aa72a654c6decab070b20de3bc3b060e15d4a004624ef861ff7429c246b",
+            "cd7a1cc674c07bf0cb5c4f556f883a6896860d9c3cd63687170cb5aae3ecda19",
+            "85236060e9cfcb199c318496c80d750d04ef7798bdf5cd9626eefce8dbb89903",
+            "cc6b535c9f2bd1343499ffb9b1b49d61d06219e34d25d42b9af1113a2aa2c402",
+            "c642ec195c7524130e3d409e0509d886c69478358467a8944718a0c4ed76a898",
+            "91b684b7f675b996a3c8611e05661040fbbcffa5efecd91d652057b7f79a3078",
+            "215a97806a5b8b3021b99b421af2b4220d5cbcd2d56e39e23d24b4508da95bc2",
+            "99ad6fe62f0bd3a1d5161803598d97d44053f9fa8fa4b169329af16c414e23ea",
+            "cafb2af96422c3f8639058d9a7fdfc25bc95734c149012d1ba1f932518d15c57",
+            "6cefd3d420a6962d65658d289393b575bb46faf382d174cc4cc917750ff5f301",
+            "2cb6410f51180c986b0cf0a29c08758fdedcb8d042d30b8a0ef422d5db73b08e",
+            "4135aaa9cc2c2c06c673cd5f803782050d089288ee0db291f2ab304b8c003a34",
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6"
+          ],
+          "outputHashes": [
+            "02c918abf4a638f34e597e8d4e9fdcbc581715a7efd6528a0e6043485d26720e"
+          ],
+          "notes": "Native camera composition with packed independent plates, 15 editable cast placements, floor contacts, fitted apparatus supports, exit treads and named lighting. The runtime glTF selects the new architecture collection."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling and composition)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/R03-R04-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [
+          "assets-src/rooms/R03-R04-NOTICE.md"
+        ],
+        "aiDisclosure": "Original architecture was modeled locally in Blender with Codex assistance. Cast and three existing generated plates retain their separate project provenance."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R04",
+          "use": "room-architecture",
+          "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R04-ARCH-R04.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop 153/T136",
+          "date": "2026-11-27",
+          "hashes": [
+            "02c918abf4a638f34e597e8d4e9fdcbc581715a7efd6528a0e6043485d26720e",
+            "41890af324a36c8c41753e2438b2f107d7c8951685f184e3336ee065871d3921"
+          ],
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0 and Firefox 159.0 with Playwright 1.65.1.",
+          "evidencePath": "docs/evidence/spec001/assets/t136/R04-source-reopen.json",
+          "findings": "Blender reopened the saved scene, 15 cast placements, 16 semantic empties, two party berths, 3 named lights and three individually packed 1600×900 camera plates. Mounts and positions matched the registered room."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop 153/T136",
+          "date": "2026-11-27",
+          "hashes": [
+            "02c918abf4a638f34e597e8d4e9fdcbc581715a7efd6528a0e6043485d26720e",
+            "41890af324a36c8c41753e2438b2f107d7c8951685f184e3336ee065871d3921"
+          ],
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0 and Firefox 159.0 with Playwright 1.65.1.",
+          "evidencePath": "docs/evidence/spec001/assets/t136/R04-structure.json",
+          "findings": "The architecture GLB has 40 named nodes and 512 triangles. The export carries six selectable exit mesh objects and the fitted apparatus supports."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop 153/T136",
+          "date": "2026-11-27",
+          "hashes": [
+            "02c918abf4a638f34e597e8d4e9fdcbc581715a7efd6528a0e6043485d26720e",
+            "41890af324a36c8c41753e2438b2f107d7c8951685f184e3336ee065871d3921"
+          ],
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0 and Firefox 159.0 with Playwright 1.65.1.",
+          "evidencePath": "docs/evidence/spec001/assets/t136/R04-visual.json",
+          "findings": "The dedicated cells give the ladder, telegraph, tortoise and printer separate silhouettes in the native camera, desktop and 390-pixel layouts. The blue cavern ribs frame the bat and the floor treads remain accessible."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop 153/T136",
+          "date": "2026-11-27",
+          "hashes": [
+            "02c918abf4a638f34e597e8d4e9fdcbc581715a7efd6528a0e6043485d26720e",
+            "41890af324a36c8c41753e2438b2f107d7c8951685f184e3336ee065871d3921"
+          ],
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0 and Firefox 159.0 with Playwright 1.65.1.",
+          "evidencePath": "docs/evidence/spec001/assets/t136/R04-browser-comparison.json",
+          "findings": "Both guest viewports and the earned-party view used the registered camera and matched the photographed mount layout. The normal tour used all eight optional nonresident rigs in this room, with each resident remaining in place."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R04.blend",
+        "objectIds": [
+          "After-reading station • binding strap",
+          "After-reading station • binding strap.001",
+          "After-reading station • chamfered flagstone",
+          "After-reading station • dark foundation",
+          "Broken-span isolation bay • binding strap",
+          "Broken-span isolation bay • binding strap.001",
+          "Broken-span isolation bay • chamfered flagstone",
+          "Broken-span isolation bay • dark foundation",
+          "Exit • bronze tread 1",
+          "Exit • bronze tread 1.001",
+          "Exit • bronze tread 2",
+          "Exit • bronze tread 2.001",
+          "Exit • bronze tread 3",
+          "Exit • bronze tread 3.001",
+          "Pendant rib • mounting socket",
+          "Post shelf • radial drain slot",
+          "Post shelf • radial drain slot.001",
+          "Post shelf • radial drain slot.002",
+          "Post shelf • radial drain slot.003",
+          "Post shelf • radial drain slot.004",
+          "Post shelf • radial drain slot.005",
+          "Post shelf • radial drain slot.006",
+          "Post shelf • radial drain slot.007",
+          "Post shelf • radial drain slot.008",
+          "Printer drying bed • binding strap",
+          "Printer drying bed • binding strap.001",
+          "Printer drying bed • chamfered flagstone",
+          "Printer drying bed • dark foundation",
+          "Relay test bed • binding strap",
+          "Relay test bed • binding strap.001",
+          "Relay test bed • chamfered flagstone",
+          "Relay test bed • dark foundation",
+          "Signal ladder sill • binding strap",
+          "Signal ladder sill • binding strap.001",
+          "Signal ladder sill • chamfered flagstone",
+          "Signal ladder sill • dark foundation",
+          "Telegraph tapping station • binding strap",
+          "Telegraph tapping station • binding strap.001",
+          "Telegraph tapping station • chamfered flagstone",
+          "Telegraph tapping station • dark foundation"
+        ],
+        "units": "metres",
+        "axes": "Z up/-Y front to Y up/+Z front",
+        "pivot": "World origin of spec001:R04 registered camera composition",
+        "collisionProxy": "Room walkable polygon and semantic safe point in R04.json",
+        "animationClips": [],
+        "triangles": 512,
+        "textureBytes": 0
+      }
+    }
+  ],
+  "updates": [
+    {
+      "assetId": "spec001:ASSET-CH03",
+      "exportPath": "public/assets/models/CH03.glb",
+      "sha256": "12c7d7d0d65e444211899b227de54a461f4bf790e8996747673bac369bcefc36",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R03",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-CH03.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH05",
+      "exportPath": "public/assets/models/CH05.glb",
+      "sha256": "f5601c055bc91d9b93e2e96403f56286d41f967810662c71eb53403a7297bafa",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R03",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-CH05.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH06",
+      "exportPath": "public/assets/models/CH06.glb",
+      "sha256": "ae3765afa2e5330f3b6ceed7ad9c9e836b679c8e503cd9ad27d66a1a3181cf2b",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R03",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-CH06.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH07",
+      "exportPath": "public/assets/models/CH07.glb",
+      "sha256": "09ba8964ab932acbb910c0ae7dfb3add291bdd94fa4a292175af49dc852d1294",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R03",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-CH07.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH16",
+      "exportPath": "public/assets/models/CH16.glb",
+      "sha256": "ea7894723dca60148e1381e0a7908dcc562be8bc807c1de43c737986d8194c61",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R03",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-CH16.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH19",
+      "exportPath": "public/assets/models/CH19.glb",
+      "sha256": "86b7aff1dd47620d54b1fc8c3a44f0370a98fa0e06019c84f70db3ee33d83e5a",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R03",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-CH19.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH20",
+      "exportPath": "public/assets/models/CH20.glb",
+      "sha256": "ff21cee2331ddb5744e923032a3e8248e2ffd023f2351826cb802209fefb2967",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R03",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-CH20.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH22",
+      "exportPath": "public/assets/models/CH22.glb",
+      "sha256": "83550edacfc805f2322e9ed48541792d1adf1aa6b255051e999aab2e534f3399",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R03",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-CH22.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-MUSIC-copper",
+      "exportPath": "public/assets/audio/music/copper.mp3",
+      "sha256": "803d05749c5a784aa0213585286e82837fc9d17a97a185b7f7d42fbd44df1ade",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R03",
+        "use": "music",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-MUSIC-copper.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R03",
+      "exportPath": "public/assets/audio/ambience/r03.mp3",
+      "sha256": "5c79700817acf108a9cb7c472fb5982e0567abe0e2822a8b7b42d6fb99da29c2",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R03",
+        "use": "ambience",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-AMBIENCE-R03.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-010",
+      "exportPath": "public/assets/audio/effects/fx-010.mp3",
+      "sha256": "3ca8ab3242ad75670097bbfb40787a30738cba02039d4c0b20cc2c5d1f88f232",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R03",
+        "use": "effect",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-EFFECT-010.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-015",
+      "exportPath": "public/assets/audio/effects/fx-015.mp3",
+      "sha256": "7233ca1a7bfe6bee01e76dd40651aa6cf8cc4f4a45013d7d9471e9054c812924",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R03",
+        "use": "effect",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-EFFECT-015.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-024",
+      "exportPath": "public/assets/audio/effects/effect-024.mp3",
+      "sha256": "541d86168a3412e7eedcc910f3db4985a78806b90be0d9901ed6d7278a13249a",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R03",
+        "use": "effect",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-EFFECT-024.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-007",
+      "exportPath": "public/assets/audio/voices/voice-007.mp3",
+      "sha256": "c99c74883b8c3a946841ceec29ba26acc10bd9ab25255b5305fbad925a656ce8",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:DIALOGUE-VOICE-007",
+        "use": "voice-line",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R03-VOICE-007.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH03",
+      "exportPath": "public/assets/models/CH03.glb",
+      "sha256": "12c7d7d0d65e444211899b227de54a461f4bf790e8996747673bac369bcefc36",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R04",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R04-CH03.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH04",
+      "exportPath": "public/assets/models/CH04.glb",
+      "sha256": "9fad4cb57422b455bf289350bb1fdaa75a7c07d78891bf0b635d00956757c33c",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R04",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R04-CH04.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH05",
+      "exportPath": "public/assets/models/CH05.glb",
+      "sha256": "f5601c055bc91d9b93e2e96403f56286d41f967810662c71eb53403a7297bafa",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R04",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R04-CH05.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH06",
+      "exportPath": "public/assets/models/CH06.glb",
+      "sha256": "ae3765afa2e5330f3b6ceed7ad9c9e836b679c8e503cd9ad27d66a1a3181cf2b",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R04",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R04-CH06.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH07",
+      "exportPath": "public/assets/models/CH07.glb",
+      "sha256": "09ba8964ab932acbb910c0ae7dfb3add291bdd94fa4a292175af49dc852d1294",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R04",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R04-CH07.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH16",
+      "exportPath": "public/assets/models/CH16.glb",
+      "sha256": "ea7894723dca60148e1381e0a7908dcc562be8bc807c1de43c737986d8194c61",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R04",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R04-CH16.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH19",
+      "exportPath": "public/assets/models/CH19.glb",
+      "sha256": "86b7aff1dd47620d54b1fc8c3a44f0370a98fa0e06019c84f70db3ee33d83e5a",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R04",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R04-CH19.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH22",
+      "exportPath": "public/assets/models/CH22.glb",
+      "sha256": "83550edacfc805f2322e9ed48541792d1adf1aa6b255051e999aab2e534f3399",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R04",
+        "use": "party-placement",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R04-CH22.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R04",
+      "exportPath": "public/assets/audio/ambience/r04.mp3",
+      "sha256": "11758699231c68cb4ec216830b772e56ee2a2f00d0b22ca720bd9b6717c840fc",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R04",
+        "use": "ambience",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R04-AMBIENCE-R04.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-016",
+      "exportPath": "public/assets/audio/effects/fx-016.mp3",
+      "sha256": "689c3f1afcc7958609bcdf63a21f0ae9de5b365cb6bdf3373435f918ce8b8410",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R04",
+        "use": "effect",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R04-EFFECT-016.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-030",
+      "exportPath": "public/assets/audio/effects/effect-030.mp3",
+      "sha256": "2cc9d02a11404cbd2eafd2afc82d977930e066d2c8c26b5215ac1319157a2e2f",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:R04",
+        "use": "effect",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R04-EFFECT-030.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-008",
+      "exportPath": "public/assets/audio/voices/voice-008.mp3",
+      "sha256": "2aca0c9ff06c3b2413fac17f2cbd4f9488dbfe89e10482fae6e383d17c31c953",
+      "status": "integrated",
+      "interactiveOrEvidence": false,
+      "appendUsedBy": {
+        "contentId": "spec001:DIALOGUE-VOICE-008",
+        "use": "voice-line",
+        "evidencePath": "docs/evidence/spec001/final-rooms/T136/usage/R04-VOICE-008.json"
+      }
+    }
+  ],
+  "conditionalBindings": []
+}

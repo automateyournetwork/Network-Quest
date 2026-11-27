@@ -94,6 +94,30 @@ describe('additional asset semantic boundaries', () => {
     alternate.exports = primary.exports;
     expect(audit().issues.map(i => i.code)).toContain('RENDITION_EXPORT_DUPLICATE');
   });
+  it('binds a derived scene to the actual bytes at the alternate parent export path', () => {
+    const f = images(), [parent, child] = f.input.assets;
+    const alternate = structuredClone(parent!);
+    alternate.status = 'exported';
+    alternate.countsTowardQuota = false;
+    alternate.verification = [];
+    alternate.usedBy = [];
+    alternate.rights.reviewStatus = 'pending';
+    const bytes = new TextEncoder().encode('SYNTHETIC inspected model variant');
+    const file = { ...alternate.exports[0]!.file, path: 'public/assets/images/inspected.webp', bytes: bytes.length, sha256: hash(bytes) };
+    alternate.exports[0]!.file = file;
+    f.files[file.path] = bytes;
+    f.input.additionalRenditions = [alternate];
+    child!.production[0]!.referenceHashes = [file.sha256];
+    for (const [path, r] of Object.entries(f.records)) if (r.assetId === child!.assetId && (r.type === 'production' || r.type === 'rights')) {
+      f.record(path, { ...r, details: { ...r.details, referenceHashes: [file.sha256] } });
+    }
+    const audit = () => validateAssetManifest(f.input, f.evidence, { mode: 'inventory' });
+    expect(audit().issues).toEqual([]);
+    alternate.exports[0]!.file = { ...file, path: parent!.exports[0]!.file.path };
+    const issues = audit().issues.filter(i => i.assetId === child!.assetId).map(i => i.code);
+    expect(issues).toContain('DERIVATION_INPUT_UNBOUND');
+    expect(issues).toContain('PRODUCTION_REFERENCE_HASH');
+  });
   it('an exact registered use survives only on the rendition whose export was bound', () => {
     const f = images(), primary = f.input.assets[0]!;
     const use = f.evidence.content.uses[0]!;

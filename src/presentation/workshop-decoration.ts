@@ -30,7 +30,7 @@ export function createWorkshopDecoration(_scene: Scene, stage: HTMLElement, game
         const p = new Vector3(x, y, -.98).project(camera);
         return new Vector2((1 + p.x) * width / 2, (1 - p.y) * height / 2);
       };
-      const origin = project(6.55, 3.72), across = project(8.35, 3.72).sub(origin), down = project(6.55, 2.52).sub(origin);
+      const origin = project(6.55, 3.12), across = project(8.35, 3.12).sub(origin), down = project(6.55, 1.92).sub(origin);
       image.style.transform = `matrix(${across.x / 180},${across.y / 180},${down.x / 120},${down.y / 120},${origin.x},${origin.y})`;
     },
     dispose() { image?.remove(); image = null; },

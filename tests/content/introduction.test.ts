@@ -42,11 +42,17 @@ describe('T023 authored introduction and retained independent requirements', () 
       expect(room.walkRegions[0]?.vertices.length).toBeGreaterThanOrEqual(3);
       expect(room.exits.some(e => e.toRoomId === q(id === 'R01' ? 'R02' : 'R01'))).toBe(true);
       expect(room.hotspots.every(h => h.unsupportedVerbText.trim().length > 20)).toBe(true);
-      expect(room.ambience.assetIds).toEqual([]);
-      if (id === 'R01') for (const prop of room.propInstances) {
+      expect(room.ambience.assetIds).toEqual([q('ASSET-AMBIENCE-' + id)]);
+      expect(room.mediaBindings?.filter(b => b.use === 'ambience').map(b => b.assetId)).toEqual(room.ambience.assetIds);
+      for (const prop of room.propInstances) {
         expect(prop.assetId).toBe(prop.propId.replace('spec001:', 'spec001:ASSET-'));
-        expect(room.mediaBindings).toContainEqual({ assetId: prop.assetId, contentId: room.id, use: 'prop-placement', exportPath: `public/assets/models/R01-${prop.propId.slice(8)}.glb`, interactiveOrEvidence: ['PR002', 'PR003', 'PR004', 'PR005', 'PR006', 'PR009'].includes(prop.propId.slice(8)) });
-      } else expect(room.propInstances.every(p => p.assetId.startsWith(q('DEV-')))).toBe(true);
+        const shortId = prop.propId.slice(8);
+        const shared = world.props.find(p => p.id === prop.propId)?.allocation === 'Shared';
+        const path = id === 'R01' ? 'R01-' + shortId : (shared ? 'shared/' : 'R02/') + shortId;
+        const binding = room.mediaBindings?.find(b => b.assetId === prop.assetId);
+        expect(binding).toMatchObject({contentId: room.id, use: 'prop-placement', exportPath: 'public/assets/models/' + path + '.glb'});
+        if (id === 'R01') expect(binding?.interactiveOrEvidence).toBe(['PR002', 'PR003', 'PR004', 'PR005', 'PR006', 'PR009'].includes(shortId));
+      }
     }
   });
   it('keeps prepared lit power and unlit link distinct, with no service inference', () => {
