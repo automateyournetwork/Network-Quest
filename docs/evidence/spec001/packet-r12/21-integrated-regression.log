@@ -1,0 +1,57 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/domain/packet-journey-boundaries.test.ts (56 tests) 9ms
+ ✓ tests/ui/packet-journey.test.ts (20 tests) 16ms
+ ✓ tests/domain/packet-journey.test.ts (120 tests) 20ms
+ ❯ tests/state/repair-plan.test.ts (0 test)
+ ✓ tests/ui/recovery.test.ts (23 tests) 99ms
+ ✓ tests/state/packet-activity-r12.test.ts (18 tests) 180ms
+ ✓ tests/state/encounter-world.test.ts (10 tests) 105ms
+ ✓ tests/state/repair-packet.test.ts (32 tests) 182ms
+ ✓ tests/state/outcome-classification.test.ts (66 tests) 498ms
+ ✓ tests/state/packet-activity.test.ts (28 tests) 10072ms
+   ✓ T034 actual R01 packet activity (21)
+     ✓ opens from the real capsule, records its authored context, and holds a reducer unsafe lock before controls exist 695ms
+     ✓ evaluates the actual default 105 m path and uses only the separately declared toy trace 522ms
+     ✓ replay and every control leave the opened adventure, inventory, measurements, progress and persistence unchanged 429ms
+     ✓ reopens after the real direct-path selection with a new 95 m evaluation; the old displayed evidence keeps its original version 427ms
+     ✓ agrees with the actual notebook evaluator for ACTION-path-long without relabeling or adding its readings 422ms
+     ✓ agrees with the actual notebook evaluator for ACTION-path-short without relabeling or adding its readings 423ms
+     ✓ shows failed length with no recovered trace when the authored optional substitution is null 436ms
+     ✓ refuses concurrent scene actions and notebook writes while its lock is held 431ms
+     ✓ releases only its own lock on close, invalidate and dispose and never advances dirty state for returning 1354ms
+     ✓ invalidates same-save replacement; old callbacks cannot release replacement state 405ms
+     ✓ invalidates new-adventure replacement; old callbacks cannot release replacement state 408ms
+     ✓ invalidates logout replacement; old callbacks cannot release replacement state 405ms
+     ✓ invalidates new-account replacement; old callbacks cannot release replacement state 406ms
+     ✓ invalidates revision replacement; old callbacks cannot release replacement state 430ms
+     ✓ invalidates attempt replacement; old callbacks cannot release replacement state 410ms
+     ✓ invalidates other-lock replacement; old callbacks cannot release replacement state 403ms
+     ✓ a captured return from the prior activity cannot close a later activity in the same restored adventure 423ms
+     ✓ does not commit context or a lock if the store changed before commit 406ms
+     ✓ fails truthfully and atomically on missing actual physical profile 412ms
+     ✓ fails truthfully and atomically on invalid actual physical profile 410ms
+     ✓ rejects unsupported actual path modes rather than defaulting them to a passing path 411ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/repair-plan.test.ts [ tests/state/repair-plan.test.ts ]
+Error: [{"code":"unknown-reference","path":"spec001:R12/hotspots/2/actionIds","message":"Unknown action: spec001:ACTION-packet-r12"}]
+ ❯ tests/state/repair-plan-fixture.ts:22:49
+     20|   input.world.documents.push(...(value.kind === 'collection' ? value.r…
+     21| const validated = validateContent(input);
+     22| if (!validated.ok || !validated.registry) throw new Error(JSON.stringi…
+       |                                                 ^
+     23| export const registry = validated.registry;
+     24| export function fixture(route: 'copper' | 'fiber' | 'radio' = 'copper'…
+ ❯ tests/state/repair-plan.test.ts:3:1
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 9 passed (10)
+      Tests  373 passed (373)
+   Start at  08:09:04
+   Duration  10.29s (tests 71%, import 25%, transform 4%)
+

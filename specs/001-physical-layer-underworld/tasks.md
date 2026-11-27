@@ -507,8 +507,8 @@ Keep candidate files outside shared build/test discovery until T089 freezes;
 actual R12 execution and acceptance still require reviewed T090 integration.
 This preparation does not replace independent technical or human review.
 
-- [ ] T090 [US3] Connect the R12 journey to actual branch repair/impairment state in `src/state/packet-activity.ts` and `content/spec001/rooms/R12.json`; the apprentice and packet perspectives must agree after repair, retry and safe shutdown.
-- [ ] T091 [US3] Run controlled R01/R12 keyboard/pointer pause/step/replay and mismatch cases in `tests/e2e/packet-journey.spec.ts`; obtain technical review of the payload, toy mapping and upper-layer caveats in `docs/evidence/spec001/US3.md` (AC21).
+- [X] T090 [US3] Connect the R12 journey to actual branch repair/impairment state in `src/state/packet-activity.ts` and `content/spec001/rooms/R12.json`; the apprentice and packet perspectives must agree after repair, retry and safe shutdown.
+- [X] T091 [US3] Run controlled R01/R12 keyboard/pointer pause/step/replay and mismatch cases in `tests/e2e/packet-journey.spec.ts`; obtain technical review of the payload, toy mapping and upper-layer caveats in `docs/evidence/spec001/US3.md` (AC21).
 
 ## Phase 6: User Story 4 — Save and resume one trustworthy adventure (P1)
 
@@ -628,6 +628,18 @@ a consumption or reward handler solely to manufacture an acceptance result.
 **Ready after**: T090–T091.
 
 - [X] T092 [US7] Create independent ability/equivalent-tool and optional-activity completion/retry/exit expectations in `tests/fixtures/companions.json` and `tests/fixtures/optional-activities.json`; any new scored rule needs source/correct/incorrect/boundary review before its handler.
+
+T093 may prepare the original character descriptions, limitations and existing
+recruit/progression contracts against SPEC and accepted T092 while T090/T091
+finish. Keep drafts outside the loaded content and build; do not mark media
+references produced or add effects during authoring. Final content integration
+and acceptance remain ordered after the reviewed packet journey.
+
+T094 may prepare independent party/controller tests and a proposed interface
+using T092's fixed expectations and T093's reviewed draft contracts. Keep these
+candidates outside shared build discovery while packet tests run. Actual party
+effects, UI and save-policy composition require the accepted T093 content.
+
 - [ ] T093 [US7] Author all CH01–CH25 roles, limitations, realm notes, recruitment/progression and portrait/source references in `content/spec001/characters.json`; preserve nine recruits (Photon, Copperhead, Unicorn, optical Hydra, Thunderbird, Hermit, Eel, Echo Bat, Chameleon).
 - [ ] T094 [US7] Implement demonstrated recruitment, meaningful progression, max-two active allies and free preparation swaps in `src/state/party.ts` and `src/ui/party.ts`; abilities apply the same validated physical effects as conventional tools.
 - [ ] T095 [US7] Build the illustrated discovered-entry compendium and cross-room evidence navigation in `src/ui/compendium.ts`; retain source/freshness and distinguish notes/hypotheses from fact, without exposing undiscovered content as completed.

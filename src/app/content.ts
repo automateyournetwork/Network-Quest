@@ -26,6 +26,7 @@ import copperActions from '../../content/spec001/dialogue/copper-actions.json' w
 import fiberActions from '../../content/spec001/dialogue/fiber-actions.json' with { type: 'json' };
 import radioActions from '../../content/spec001/dialogue/radio-actions.json' with { type: 'json' };
 import equipmentActions from '../../content/spec001/dialogue/equipment-actions.json' with { type: 'json' };
+import packetRepair from '../../content/spec001/dialogue/packet-r12.json' with { type: 'json' };
 import repairActions from '../../content/spec001/dialogue/repair-plan-actions.json' with { type: 'json' };
 
 /** Explicit public authored documents; metadata reservations never become rooms. */
@@ -47,6 +48,7 @@ export function loadIntroductionContent() {
     'content/spec001/dialogue/radio-actions.json': radioActions,
     'content/spec001/dialogue/equipment-actions.json': equipmentActions,
     'content/spec001/dialogue/repair-plan-actions.json': repairActions,
+    'content/spec001/dialogue/packet-r12.json': packetRepair,
   };
   const canonicalWorld = structuredClone(world) as S.world;
   const result = validateContent({ world: canonicalWorld, sources, documents });

@@ -23,10 +23,13 @@ export function allowRiftEncounterAction(state: ReducerState, input: SemanticAct
     if (!isActiveRiftEncounter(state)) return false;
     const notebookOpen = state.runtime.ui?.panel === 'notebook';
     switch (input.kind) {
-      case 'select-verb': return input.verb === 'walk';
+      case 'select-verb': return input.verb === 'walk' || (isRiftValidationContext(state) && input.verb === 'look');
       case 'open-panel': return input.panel === 'notebook';
       case 'close-panel': return notebookOpen;
-      case 'interact': return state.runtime.game!.world.roomId === q('R11') && input.verb === 'walk' && input.itemId === null && input.targetId === q('R12');
+      case 'interact': return (state.runtime.game!.world.roomId === q('R11') && input.verb === 'walk' && input.itemId === null && input.targetId === q('R12'))
+        || (isRiftValidationContext(state) && input.verb === 'look' && input.itemId === null && input.targetId === q('HOTSPOT-r12-3'));
+      case 'choose-hotspot-action': return isRiftValidationContext(state) && input.verb === 'look' && input.itemId === null
+        && input.targetId === q('HOTSPOT-r12-3') && input.choiceId === q('ACTION-packet-r12');
       case 'edit-personal-notes': return notebookOpen && allowRiftEncounterInput(state, { kind: 'notebook', operation: { kind: 'notes', text: input.text } });
       case 'pin-objective': return notebookOpen && allowRiftEncounterInput(state, { kind: 'objective', operation: { kind: 'hint', objectiveId: input.objectiveId } });
       case 'highlight-map-room': return notebookOpen && state.runtime.game!.notebook.mapRoomIds.includes(input.roomId);

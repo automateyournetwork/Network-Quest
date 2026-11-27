@@ -1,0 +1,252 @@
+// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+// T091 preparation candidate. Not registered, compiled, or executed.
+// Intended target: tests/e2e/packet-journey.spec.ts after coordinator GO.
+import { type Locator, type Page } from '@playwright/test';
+import { closeFrame, openFrame, pressButton } from './support/adventure-controls';
+import { test, expect, dialog, type OutcomeJourney } from './support/outcome-journey';
+import { mountRepairPacketFixture } from './support/packet-fixture';
+
+// Independent T031/SPEC expectations, never derived from application output.
+const nqPairs = ['01', '00', '11', '10', '01', '01', '00', '01'];
+const nqLevels = ['−1', '−3', '+3', '+1', '−1', '−1', '−3', '−1'];
+const r12Action = 'Follow the test message through the current route';
+const packet = (page: Page) => dialog(page, 'Packet journey');
+const activate = async (control: Locator, keyboard: boolean) => {
+  if (keyboard) await control.press('Enter'); else await control.click();
+};
+async function openPacket(j: OutcomeJourney, room: 'R01' | 'R12', keyboard: boolean) {
+  if (keyboard) {
+    await pressButton(j.page, 'Look');
+    await pressButton(j.page, room === 'R01' ? 'Look at message capsule' : r12Action);
+  } else {
+    await j.click('Look'); await j.click(room === 'R01' ? 'Look at message capsule' : r12Action);
+  }
+  await expect(packet(j.page)).toBeVisible();
+  await expect(packet(j.page).getByRole('heading')).toContainText('payload (1 of 5)');
+  await expect(packet(j.page)).toContainText('Paused. Step through the evidence at your own pace.');
+}
+async function pausedPreview(j: OutcomeJourney, keyboard: boolean) {
+  const panel = packet(j.page);
+  await j.page.emulateMedia({ reducedMotion: 'no-preference' });
+  await activate(panel.getByRole('button', { name: 'Play preview', exact: true }), keyboard);
+  await expect(panel).toContainText('Preview playing. Pause or step at any time.');
+  await activate(panel.getByRole('button', { name: 'Pause journey', exact: true }), keyboard);
+  const phase = await panel.getByRole('heading').textContent();
+  // Intentional stability interval longer than the production 1500 ms preview.
+  // No timer or score is a learner requirement; manual Step remains available.
+  await j.page.waitForTimeout(1700);
+  await expect(panel.getByRole('heading')).toHaveText(phase!);
+  await expect(panel.getByRole('button', { name: 'Play preview', exact: true })).toBeEnabled();
+  await activate(panel.getByRole('button', { name: 'Replay journey', exact: true }), keyboard);
+  await expect(panel.getByRole('heading')).toContainText('payload (1 of 5)');
+}
+async function compare(j: OutcomeJourney, keyboard: boolean) {
+  const panel = packet(j.page);
+  for (const phase of ['encode (2 of 5)', 'transmit (3 of 5)', 'decode (4 of 5)', 'compare (5 of 5)']) {
+    await activate(panel.getByRole('button', { name: 'Step journey', exact: true }), keyboard);
+    await expect(panel.getByRole('heading')).toContainText(phase);
+    await expect(panel.getByRole('button', { name: 'Return to investigation', exact: true })).toHaveCount(1);
+    if (phase.startsWith('encode')) {
+      const rows = panel.getByRole('table', { name: 'Declared toy encoding in supplied order', exact: true }).getByRole('row');
+      await expect(rows).toHaveCount(9);
+      for (let position = 0; position < 8; position++) {
+        await expect(rows.nth(position + 1).getByRole('cell')).toHaveText([String(position), nqPairs[position]!, nqLevels[position]!, 'Not available']);
+      }
+    }
+  }
+  await expect(panel.getByRole('button', { name: 'Step journey', exact: true })).toHaveCount(0);
+}
+async function caveats(j: OutcomeJourney) {
+  const panel = packet(j.page);
+  for (const text of ['0x4E 0x51: 01001110 01010001 (NQ)', 'opaque upper-interface frame',
+    'not the whole Ethernet frame', 'most-significant-bit first', 'not a complete PAM4 PHY',
+    'not universal Layer 1 error detection or Ethernet FCS validation', 'no playable higher-layer simulation']) {
+    await expect(panel).toContainText(text);
+  }
+  await expect(panel.getByRole('table', { name: 'Seven-realm context', exact: true })
+    .getByRole('cell', { name: 'Future content — context only', exact: true })).toHaveCount(6);
+}
+async function matching(j: OutcomeJourney) {
+  const panel = packet(j.page);
+  await expect(panel).toContainText('Recovered bits: 01001110 01010001.');
+  await expect(panel).toContainText('Recovered highlighted bytes: 0x4E 0x51. Differing bits: 0. Zero-based mismatch positions: none.');
+  await expect(panel).toContainText('Known highlighted pattern matches on this current controlled path.');
+}
+async function returnFromPacket(j: OutcomeJourney, keyboard: boolean) {
+  await activate(packet(j.page).getByRole('button', { name: 'Return to investigation', exact: true }), keyboard);
+  await expect(packet(j.page)).toBeHidden();
+}
+async function unsafeSave(j: OutcomeJourney) {
+  await j.click('Save'); await expect(j.page.getByText('Finish the current activity before saving.', { exact: true })).toBeVisible();
+  expect(j.writes).toEqual([]); expect(await j.local.inspectSlot()).toBeNull(); await closeFrame(j.page);
+}
+async function balcony(j: OutcomeJourney) { await j.walk('The Iron Threshold', 'Walk to the validation balcony'); }
+
+test.describe('T091 actual R01 and R12 journeys — New Adventure and native controls only', () => {
+  test.setTimeout(180_000);
+  for (const keyboard of [false, true]) test(`R01 ${keyboard ? 'keyboard' : 'pointer'}: pause, ordered symbols, mismatch, replay and real repair`, async ({ outcome: j }, info) => {
+    await j.page.goto(j.local.url);
+    if (keyboard) await pressButton(j.page, 'New Adventure'); else await j.click('New Adventure');
+    await j.room('The Arrival Lift'); await openPacket(j, 'R01', keyboard);
+    await pausedPreview(j, keyboard); await compare(j, keyboard); await caveats(j);
+    await expect(packet(j.page)).toContainText('Length only: 105 m; declared fictional maximum 100 m. Excess 5 m.');
+    await expect(packet(j.page)).toContainText('Recovered bits: 01001110 01010000.');
+    await expect(packet(j.page)).toContainText('Recovered highlighted bytes: 0x4E 0x50. Differing bits: 1. Zero-based mismatch positions: 15.');
+    await expect(packet(j.page)).toContainText('Declared toy substitution applied at position 7: −1 → −3. This trace is supplied separately; length does not predict it.');
+    await j.page.screenshot({ path: info.outputPath(`R01-${keyboard ? 'keyboard' : 'pointer'}-mismatch.png`), fullPage: true });
+    await unsafeSave(j); await returnFromPacket(j, keyboard);
+    await j.objective('Read the silent link in R01', false);
+    if (keyboard) { await pressButton(j.page, 'Use'); await pressButton(j.page, 'Change physical path'); }
+    else { await j.click('Use'); await j.click('Change physical path'); }
+    await openPacket(j, 'R01', keyboard); await compare(j, keyboard); await matching(j);
+    await expect(packet(j.page)).toContainText('Length only: 95 m; declared fictional maximum 100 m. Headroom 5 m.');
+    await expect(packet(j.page)).not.toContainText('Declared toy substitution applied');
+    await activate(packet(j.page).getByRole('button', { name: 'Replay journey', exact: true }), keyboard);
+    await expect(packet(j.page).getByRole('heading')).toContainText('payload (1 of 5)');
+    await expect(packet(j.page)).toContainText('Recovered bits: not available at this checkpoint.');
+    await returnFromPacket(j, keyboard); expect(j.writes).toEqual([]);
+  });
+
+  const repaired = [
+    { branch: 'copper', keyboard: false, reading: ['Total channel length', '95', 'm'] },
+    { branch: 'fiber', keyboard: true, reading: ['Sensitivity reserve', '2', 'dB'] },
+    { branch: 'radio', keyboard: false, reading: ['Signal-to-noise ratio', '20', 'dB'] },
+  ] as const;
+  for (const variant of repaired) test(`R12 ${variant.branch}: actual current repair, independent readings and no automatic O12`, async ({ outcome: j }, info) => {
+    await j.prepare(variant.branch, false, variant.keyboard); await j.choosePlan(variant.branch, 'permanent'); await j.execute(); await balcony(j);
+    await j.click('Validate repair');
+    const priorReadings = await dialog(j.page, 'Validate repair').locator('ol[aria-label="Repair observations"] > li').allTextContents();
+    await j.click('Close repair controls');
+    if (variant.branch === 'fiber') {
+      await openFrame(j.page, 'Sound and reading'); await j.page.getByRole('slider', { name: 'Text size', exact: true }).fill('2');
+      await closeFrame(j.page); await j.page.setViewportSize({ width: 390, height: 844 });
+    }
+    await j.objective('Validate at R12', false); await openPacket(j, 'R12', variant.keyboard);
+    await pausedPreview(j, variant.keyboard); await compare(j, variant.keyboard); await caveats(j); await matching(j);
+    await expect(packet(j.page)).toContainText(`Current ${variant.branch} physical checks: correct.`);
+    const row = packet(j.page).getByRole('row').filter({ has: j.page.getByRole('cell', { name: variant.reading[0], exact: true }) });
+    await expect(row.getByRole('cell')).toHaveText([...variant.reading]);
+    await expect(packet(j.page)).toContainText('Separate supplied endpoint response: service acknowledged.');
+    if (variant.branch !== 'copper') {
+      await expect(packet(j.page)).not.toContainText('Current physical result: correct. Length only:');
+      await expect(packet(j.page)).not.toContainText('This controlled bench separately declares');
+    }
+    await unsafeSave(j);
+    expect(await j.page.evaluate(() => document.documentElement.scrollHeight <= innerHeight + 1 && document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+    await j.page.screenshot({ path: info.outputPath(`R12-${variant.branch}-compare.png`), fullPage: true });
+    await returnFromPacket(j, variant.keyboard); await unsafeSave(j); // still the original active encounter
+    await j.objective('Validate at R12', false); await j.click('Validate repair');
+    await expect(dialog(j.page, 'Validate repair').locator('ol[aria-label="Repair observations"] > li')).toHaveText(priorReadings);
+    await j.click('Read classification criteria'); await j.click('Classify permanent restoration');
+    await expect(dialog(j.page, 'Validate repair')).toContainText('No restored service has been awarded.');
+    expect(j.writes).toEqual([]); expect(await j.local.inspectSlot()).toBeNull();
+  });
+
+  test('R12 temporary outcome permits current packet inspection after explicit Continue and a real revisit', async ({ outcome: j }) => {
+    await j.prepare('copper', false); await j.choosePlan('copper', 'temporary'); await j.execute(); await j.validate('temporary');
+    await dialog(j.page, 'The Borrowed Dawn').getByRole('button', { name: 'Continue', exact: true }).click();
+    await openPacket(j, 'R12', false); await compare(j, false); await matching(j); await returnFromPacket(j, false);
+    await j.walk('The Backhoe Rift', 'Return toward preparation'); await balcony(j);
+    await openPacket(j, 'R12', true); await compare(j, true); await matching(j); await returnFromPacket(j, true);
+    await j.objective('Validate at R12', true); expect(j.writes).toEqual([]);
+  });
+
+  for (const branch of ['copper', 'fiber', 'radio'] as const) test(`R12 ${branch} isolation has no received trace; actual E03 rewind retires it before a new repair`, async ({ outcome: j }, info) => {
+    const keyboard = branch === 'radio';
+    await j.prepare(branch, false, keyboard); await j.choosePlan(branch, 'shutdown'); await j.execute(); await balcony(j);
+    await openPacket(j, 'R12', keyboard); await compare(j, keyboard); await caveats(j);
+    await expect(packet(j.page)).toContainText('Recovered bits: not available at this checkpoint.');
+    await expect(packet(j.page)).toContainText('Current path: deliberately isolated. No transmission is attempted.');
+    await expect(packet(j.page)).toContainText('No received trace is available because the current route is deliberately isolated.');
+    await expect(packet(j.page)).not.toContainText('Known highlighted pattern matches on this current controlled path.');
+    const oldReplay = await packet(j.page).getByRole('button', { name: 'Replay journey', exact: true }).elementHandle();
+    await j.page.screenshot({ path: info.outputPath(`R12-${branch}-shutdown.png`), fullPage: true });
+    await returnFromPacket(j, keyboard); await j.click('Validate repair'); await j.click('Read classification criteria'); await j.click('Record unresolved isolation');
+    await expect(dialog(j.page, 'The Honest Shutdown')).toBeVisible(); await expect(packet(j.page)).toBeHidden();
+    await oldReplay!.evaluate(element => (element as HTMLElement).click()); await expect(packet(j.page)).toBeHidden();
+    await dialog(j.page, 'The Honest Shutdown').getByRole('button', { name: 'Continue', exact: true }).press('Enter');
+    await dialog(j.page, 'Continue from Encounter Preparation?').getByRole('button', { name: 'Confirm Continue to Encounter Preparation', exact: true }).press('Enter');
+    await j.room('The Backhoe Rift'); await j.objective('Resolve the intervention in R11', false); await j.objective('Validate at R12', false);
+    await oldReplay!.evaluate(element => (element as HTMLElement).click()); await expect(packet(j.page)).toBeHidden();
+    await j.choosePlan(branch, 'permanent'); await j.execute(); await balcony(j);
+    await openPacket(j, 'R12', keyboard); await compare(j, keyboard); await matching(j); await returnFromPacket(j, keyboard);
+    expect(j.writes).toEqual([]); expect(await j.local.inspectSlot()).toBeNull();
+  });
+
+  test('real fatal Retry clears the attempt before fresh R12 inspection', async ({ outcome: j }) => {
+    await j.prepare('fiber', false, true); await j.hazard();
+    await j.click('Retry from Encounter Preparation');
+    await dialog(j.page, 'Retry from Encounter Preparation?').getByRole('button', { name: 'Confirm Retry from Encounter Preparation', exact: true }).press('Enter');
+    await j.room('The Backhoe Rift'); await expect(packet(j.page)).toBeHidden();
+    await j.choosePlan('fiber', 'permanent'); await j.execute(); await balcony(j);
+    await openPacket(j, 'R12', true); await compare(j, true); await matching(j); await returnFromPacket(j, true);
+    await j.objective('Validate at R12', false); expect(j.writes).toEqual([]);
+  });
+});
+
+test.describe('T091 isolated production controller — supplied receiver and fault scenarios, not full app play', () => {
+  test.setTimeout(45_000);
+  test('usable fiber shows the supplied one-bit mismatch and replay resamples the receiver', async ({ outcome: j }, info) => {
+    await mountRepairPacketFixture(j.page, j.local.url, 'fiber');
+    const before = await j.page.evaluate(() => window.isolatedRepairPacket.snapshot());
+    await j.page.evaluate(() => window.isolatedRepairPacket.setFault('mismatch'));
+    await j.page.getByRole('button', { name: 'Open isolated repair inspection', exact: true }).press('Enter');
+    await compare(j, true); await caveats(j);
+    await expect(packet(j.page)).toContainText('Current fiber physical checks: correct.');
+    await expect(packet(j.page)).toContainText('Recovered bits: 01001110 01010000.');
+    await expect(packet(j.page)).toContainText('Recovered highlighted bytes: 0x4E 0x50. Differing bits: 1. Zero-based mismatch positions: 15.');
+    await expect(packet(j.page)).toContainText('Physical metrics do not predict which bits differ');
+    await expect(packet(j.page)).not.toContainText('Known highlighted pattern matches on this current controlled path.');
+    await j.page.screenshot({ path: info.outputPath('isolated-fiber-supplied-mismatch.png'), fullPage: true });
+    await j.page.evaluate(() => window.isolatedRepairPacket.setFault('none'));
+    await packet(j.page).getByRole('button', { name: 'Replay journey', exact: true }).press('Enter');
+    await expect(packet(j.page).getByRole('heading')).toContainText('payload (1 of 5)');
+    await compare(j, false); await matching(j);
+    expect(await j.page.evaluate(() => window.isolatedRepairPacket.snapshot())).toEqual(before);
+  });
+
+  test('matching radio bits coexist with separately unavailable endpoint service', async ({ outcome: j }) => {
+    await mountRepairPacketFixture(j.page, j.local.url, 'radio');
+    const before = await j.page.evaluate(() => window.isolatedRepairPacket.snapshot());
+    await j.page.evaluate(() => window.isolatedRepairPacket.setFault('endpoint'));
+    await j.page.getByRole('button', { name: 'Open isolated repair inspection', exact: true }).click();
+    await compare(j, false); await matching(j);
+    await expect(packet(j.page)).toContainText('Separate supplied endpoint response: service unavailable.');
+    await expect(packet(j.page)).toContainText('this preview does not classify the repair');
+    expect(await j.page.evaluate(() => window.isolatedRepairPacket.view().result?.observations[0])).toMatchObject({
+      transmissionSucceeded: true, higherLayerServiceProven: false, wholeRouteProven: false, progressAward: 0,
+      endpointResponse: 'service-unavailable',
+    });
+    expect(await j.page.evaluate(() => window.isolatedRepairPacket.snapshot())).toEqual(before);
+  });
+
+  for (const fault of ['power', 'capability', 'symbols', 'role'] as const) test(`current ${fault} fault suppresses reception despite previously passing branch and NQ`, async ({ outcome: j }) => {
+    await mountRepairPacketFixture(j.page, j.local.url, 'fiber');
+    const before = await j.page.evaluate(() => window.isolatedRepairPacket.snapshot());
+    await j.page.getByRole('button', { name: 'Open isolated repair inspection', exact: true }).click();
+    await compare(j, false); await matching(j);
+    await j.page.evaluate(value => window.isolatedRepairPacket.setFault(value), fault);
+    await packet(j.page).getByRole('button', { name: 'Replay journey', exact: true }).click();
+    await compare(j, false);
+    await expect(packet(j.page)).toContainText('Current fiber physical checks: incorrect.');
+    await expect(packet(j.page)).toContainText('No received trace is available.');
+    await expect(packet(j.page)).toContainText('Recovered bits: not available at this checkpoint.');
+    const observation = await j.page.evaluate(() => window.isolatedRepairPacket.view().result?.observations[0]);
+    expect(observation).toMatchObject({ recoveredBits: null, recoveredSymbolValues: null, comparison: null,
+      knownPatternMatches: null, transmissionSucceeded: false, progressAward: 0 });
+    expect(await j.page.evaluate(() => window.isolatedRepairPacket.snapshot())).toEqual(before);
+  });
+
+  for (const route of ['copper', 'fiber', 'radio'] as const) test(`${route} physical failure never turns supplied matching bits into reception`, async ({ outcome: j }) => {
+    await mountRepairPacketFixture(j.page, j.local.url, route);
+    const before = await j.page.evaluate(() => window.isolatedRepairPacket.snapshot());
+    await j.page.evaluate(() => window.isolatedRepairPacket.setFault('physical'));
+    await j.page.getByRole('button', { name: 'Open isolated repair inspection', exact: true }).click();
+    await compare(j, false);
+    await expect(packet(j.page)).toContainText(`Current ${route} physical checks: incorrect.`);
+    await expect(packet(j.page)).toContainText('Recovered bits: not available at this checkpoint.');
+    await expect(packet(j.page)).toContainText('No received trace is available.');
+    await expect(packet(j.page)).not.toContainText('Known highlighted pattern matches on this current controlled path.');
+    expect(await j.page.evaluate(() => window.isolatedRepairPacket.snapshot())).toEqual(before);
+  });
+});

@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**104 loops started; 85 of 170 tasks accepted.** T085–T089 are accepted
+**106 loops started; 87 of 170 tasks accepted.** T085–T089 are accepted
 for their documented local scope. T089 final12native cases PASS in2.6minutes;
 root final85client suites3065PASS/360unchangedTODO (35.33s), check/buildPASS.
 Root matched61finalpublicseal entries and inspected narrow/desktop recovery
@@ -38,13 +38,29 @@ nonempty party/quest recovery bindings remain assigned to T104/T105; no gate or
 finished-media acceptance is inferred.
 
 Loop103/T090 has49new candidate tests plus224prior packet regressions passing;
-its ordered shared-source join follows this reviewed publication checkpoint.
-Loop104/T091 has19 independent browser contracts and an identified agent
-technical review prepared outside discovery. Human technical/owner/beginner
+its ordered shared-source join is complete and88seals match. Rootglobalcheck
+passed;86suites3112PASS/360TODO plus a missing authored dependency in one
+notebook test loader. The single dependency path was added and its3tests passed,
+accounting for3115distinct passing tests in87suites. Original failedrun retained.
+Loop104/T091 now runs19nativecases on frozen integrated sources and has an
+identified independent agent technical review. Fresh106/T094 prepares party
+contracts/tests outside shared build; actual composition waitsacceptedT093. Human technical/owner/beginner
 reviews remain separate. Preserve owner previews63366/54594. All raw T089 traces
 and contexts stay local; only sanitized logs and selected screenshots publish.
-G0 blocked; aggregate G1–G7 acceptance pending. Latest pushed checkpoint remains
-`c986d3412145ea921cc29aaf3024990e3dcbbaf0` until the pending scoped push.
+T091 native10actualPASS; nine isolatedcases initiallyfailedbeforeassertions because
+public test-module imports correctly404, then9PASS withNode-preparedisolateddata.
+Three scrolledmedia viewsPASS. Root inspected copper/fiber and removed duplicate
+packet/shellstatus text only in adventure-frame.ts; buildPASS. Four affectedviews
+PASS48.591s; root matched127source+43artifact hashes and inspected corrected
+390/200%initial/result captures. T090/T091accepted fordocumentedlocalscope;
+nohuman/provider/media/gate approval inferred. See packet-join-review.md. Fresh105/T093 drafts25characters and a
+bounded schemaextension;106 preparespartytests. Historicalvaliddemonstration may
+support explicit learning/invitation atauthoredcharacterroom, never currentrepair
+proof; avoid impossible fresh-after-walk recruitment gates. OriginalT092schemahash
+must continue checking preservedbaseline; otheroraclehashes remaincurrent. G0 blocked; aggregate G1–G7 acceptance pending. Latest pushed
+checkpoint `d1f6f66644fa7e6f60b2b2d098fca30ed8873cc9`:219reviewed paths,
+6,994,370bytes; exactindex/hash/private scansPASS. Raw runner whitespace is
+preserved (42trailing/47blankEOF findings); authored source whitespacePASS.
 No release deployed.
 
 ## Earlier position and retained progress history — 2026-11-26

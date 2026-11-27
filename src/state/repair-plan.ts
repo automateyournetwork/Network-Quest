@@ -342,3 +342,27 @@ export function prepareRepairPlanChange(registry: ContentRegistry, resolver: Rep
     [{ kind: 'service-classification', classification: operation.selection === 'permanent' ? 'E01' : 'E02', restoredService: true,
       permanentRepair: operation.selection === 'permanent', assistanceRecorded: game.assistance.length > 0, assistanceDowngradesEnding: false }]));
 }
+
+/**
+ * Read-only inspection of an actually executed current route. This shares the
+ * exact apprentice physical/common-preparation checks, without notebook proof,
+ * endpoint inference, effect application or classification finalization.
+ */
+export function inspectExecutedRepair(registry: ContentRegistry, game: GameState, scenario: RepairScenario | null): Proof {
+  try {
+    if (!configured(registry)) return { evaluation: error('configuration'), readings: [] };
+    const o11 = registry.record(q('O11')), o12 = registry.record(q('O12'));
+    if (o11?.kind !== 'objective' || o12?.kind !== 'objective' || o11.contentVersion !== game.contentVersion
+      || o12.contentVersion !== game.contentVersion || !scenario) return { evaluation: error('executed-scenario'), readings: [] };
+    const plan = repairPlans.find(p => p.id === game.world.flags[repairFlags.executed]);
+    if (!plan || game.world.roomId !== q('R12') || !game.world.completedObjectiveIds.includes(q('O11'))
+      || !game.notebook.factIds.includes(q('FACT-O11-execution')) || game.world.flags[repairFlags.selected] !== plan.id
+      || repairMeasurementDuration(plan.id, game.world) === null || (plan.route !== null && game.world.route !== plan.route)
+      || !conditionSatisfied(o11.prerequisite, game.world)) return { evaluation: invalidInput('executed-repair-required'), readings: [] };
+    const proof = physical(registry, game, plan.id, scenario, false);
+    if (proof.evaluation.status === 'content-error' || proof.evaluation.status === 'invalid-input' || plan.id !== 'shutdown') return proof;
+    // Reviewing deliberate isolation is a valid plan, but it never transmits a
+    // packet. Retain its observed installation readings without inventing bits.
+    return { ...proof, evaluation: decision('incorrect', 'service-deliberately-isolated', [], proof.evaluation.observations) };
+  } catch { return { evaluation: error('executed-scenario'), readings: [] }; }
+}

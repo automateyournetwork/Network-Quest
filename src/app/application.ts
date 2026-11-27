@@ -134,7 +134,7 @@ export function createIntroductionApplication(host: HTMLElement) {
     executePlan: (action, before, message) => createEncounterExecutionPlan({ registry, store, action, before, message }),
     classifyPlan: (action, before, message) => createEncounterClassificationPlan({ controller: outcomes, store, action, before, message }) });
   const inventory = createInventoryController({ registry, store, bus });
-  const packet = createPacketActivityController({ registry, store, bus });
+  const packet = createPacketActivityController({ registry, store, bus, resolveRepairScenario: repairScenario });
   const sceneBindings = bindings.hotspots.filter(binding => !(binding.roomId === q('R01') && binding.hotspotId === q('HOTSPOT-capsule') && binding.actionId === q('ACTION-packet-context')));
   const normalWalk = createNavigationPlanner({ navigation, store }), encounterNavigation = createRiftEncounterNavigation({ navigation, store });
   const verbs = createVerbController({ registry, store, bus, allowDuringEncounter: allowRiftEncounterAction,
@@ -425,6 +425,7 @@ export function createIntroductionApplication(host: HTMLElement) {
     panels.notebook.render(notebookView.view, notebookView.capture);
     const dialogueView = dialogue.project(); panels.dialogue.render(dialogueView.view, dialogueView.capture);
     const packetView = packet.project(); panels.packet.render(packetView.view, packetView.capture);
+    if (packetView.view.open && game?.world.roomId === q('R12')) activityPanel = null;
     const objectiveId = routeObjective(game?.world.roomId);
     panels.diagnostics.render(activityPanel === 'diagnostics' && objectiveId ? diagnostics.project(objectiveId) : null);
     panels.repair.render(activityPanel === 'repair' ? repair.project() : null);

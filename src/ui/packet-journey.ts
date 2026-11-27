@@ -1,7 +1,9 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import { evaluatePacketJourney } from '../domain/packet-journey';
 import type { JourneyObservation, JourneyPhase, PacketJourneyChallenge, PacketJourneyWorld, PacketResult } from '../domain/packet-journey';
-import type { ActionId } from '../domain/types';
+import type { ActionId, WorldVersion } from '../domain/types';
+import { inspectRepairPacketJourney } from '../state/repair-packet';
+import type { RepairJourneyObservation, RepairPacketSource } from '../state/repair-packet';
 import type { ActionBus, ActionCapture, ActionContext, ActionDispatcher, ActionPlan, ActionResult, CapturedAction } from './action-bus';
 import type { SemanticControl } from './app-shell';
 
@@ -32,18 +34,24 @@ export function validatePacketContext(input: unknown): PacketContext {
 
 /** Trusted activity adapter: identity changes on restore, logout, exit or new activity. */
 export interface PacketJourneyBinding {
+  readonly kind?: 'introduction';
   readonly identity: object; readonly context: ActionContext;
   readonly challenge: PacketJourneyChallenge; readonly world: PacketJourneyWorld;
 }
+export interface RepairPacketJourneyBinding {
+  readonly kind: 'repair'; readonly identity: object; readonly context: ActionContext;
+  readonly source: RepairPacketSource; readonly world: WorldVersion;
+}
+export type CurrentPacketJourneyBinding = PacketJourneyBinding | RepairPacketJourneyBinding;
 export interface PacketJourneyView {
   readonly open: boolean; readonly phase: JourneyPhase; readonly paused: boolean;
-  readonly context: PacketContext; readonly result: PacketResult<JourneyObservation> | null;
+  readonly context: PacketContext; readonly result: PacketResult<JourneyObservation | RepairJourneyObservation> | null;
   readonly message: string; readonly controls: readonly SemanticControl[];
 }
 export interface PacketJourneyOptions {
-  readonly bus: ActionBus; readonly context: unknown;
+  readonly bus: ActionBus; readonly context: unknown; readonly repairContext?: unknown;
   /** Must return null unless this exact trusted activity remains eligible. */
-  readonly read: () => PacketJourneyBinding | null;
+  readonly read: () => CurrentPacketJourneyBinding | null;
   /** T034 releases only the matching owned activity; this controller never writes game state. */
   readonly onClose?: (reason: 'close' | 'invalidated' | 'disposed', identity: object) => void;
 }
@@ -54,6 +62,7 @@ interface Session { readonly id: string; readonly identity: object; readonly con
 /** No persistence, game effects, physical repairs, timers or renderer-completion authority. */
 export function createPacketJourneyController(options: PacketJourneyOptions) {
   const context = validatePacketContext(options.context), { bus, read } = options;
+  const repairContext = options.repairContext === undefined ? null : validatePacketContext(options.repairContext);
   let session: Session | null = null, disposed = false, message = '';
   const emptyCapture = bus.captureScope(null);
   const finish = (reason: 'close' | 'invalidated' | 'disposed') => {
@@ -62,11 +71,14 @@ export function createPacketJourneyController(options: PacketJourneyOptions) {
   };
   const current = () => {
     const binding = read();
-    if (session && (!binding || binding.identity !== session.identity || !sameContext(binding.context, session.context))) finish('invalidated');
+    if (session && (!binding || (binding.kind === 'repair' && !repairContext) || binding.identity !== session.identity || !sameContext(binding.context, session.context))) finish('invalidated');
     return session && binding ? { session, binding } : null;
   };
-  const evaluate = (s: Session, binding: PacketJourneyBinding, phase = s.phase) => evaluatePacketJourney(binding.challenge,
-    { actionId: crypto.randomUUID() as ActionId, expectedVersion: s.context, input: { kind: 'inspect', phase } }, binding.world);
+  const evaluate = (s: Session, binding: CurrentPacketJourneyBinding, phase = s.phase) => {
+    const action = { actionId: crypto.randomUUID() as ActionId, expectedVersion: s.context, input: { kind: 'inspect' as const, phase } };
+    return binding.kind === 'repair' ? inspectRepairPacketJourney(binding.source, action, binding.world)
+      : evaluatePacketJourney(binding.challenge, action, binding.world);
+  };
   const handle = (action: CapturedAction): ActionPlan => {
     const input = action.input;
     if (input.kind !== 'step-packet' && input.kind !== 'pause-packet' && input.kind !== 'resume-packet' && input.kind !== 'replay-packet' && input.kind !== 'close-packet') return reject('packet-intent', 'That control does not belong to this journey.');
@@ -99,7 +111,7 @@ export function createPacketJourneyController(options: PacketJourneyOptions) {
     open(): ActionResult {
       if (disposed) return reject('packet-disposed', 'This journey is closed.');
       if (current()) return reject('packet-open', 'The journey is already open.');
-      const binding = read(); if (!binding) return reject('packet-unavailable', 'This journey is not available here.');
+      const binding = read(); if (!binding || (binding.kind === 'repair' && !repairContext)) return reject('packet-unavailable', 'This journey is not available here.');
       session = { id: crypto.randomUUID(), identity: binding.identity, context: Object.freeze({ ...binding.context }), capture: bus.captureScope(binding.context), phase: 'payload', paused: true };
       evaluate(session, binding); message = 'Paused. Step through the evidence at your own pace.';
       return { status: 'handled', message };
@@ -121,7 +133,7 @@ export function createPacketJourneyController(options: PacketJourneyOptions) {
         { id: 'packet-close', label: 'Return to investigation', action: { kind: 'close-packet', sessionId } });
       const status = result.status === 'content-error' ? 'The demonstration content needs correction. No learner result was awarded.'
         : result.status === 'invalid-input' ? 'Current physical evidence is unavailable or stale. Return to the investigation and measure again.' : message;
-      return { view: frozen({ open: true, phase, paused, context, result, message: status, controls }), capture: found.session.capture };
+      return { view: frozen({ open: true, phase, paused, context: found.binding.kind === 'repair' ? repairContext! : context, result, message: status, controls }), capture: found.session.capture };
     },
     invalidate() { finish('invalidated'); },
     dispose() { if (disposed) return; disposed = true; finish('disposed'); off.forEach(remove => remove()); },
@@ -178,18 +190,29 @@ export function createPacketJourneyPanel(host: HTMLElement, bus: Pick<ActionDisp
     paragraph(c.payload); paragraph(c.model);
     paragraph('On narrow screens, tables scroll sideways. Focus a table and use the arrow keys to see every column.');
     const observation = view.result?.observations[0];
-    if (observation?.kind === 'packet-journey') {
-      const physical = observation.physicalObservation;
-      paragraph(physical.kind === 'copper-length' ? `Current physical result: ${observation.physicalStatus}. Length only: ${physical.total.value} m; declared fictional maximum ${physical.maximum.value} m. ${'headroom' in physical ? `Headroom ${physical.headroom.value} m.` : `Excess ${physical.excess.value} m.`}` : 'Physical result: unsupported scope.');
+    if (observation?.kind === 'packet-journey' || observation?.kind === 'repair-packet-journey') {
+      if (observation.kind === 'packet-journey') {
+        const physical = observation.physicalObservation;
+        paragraph(physical.kind === 'copper-length' ? `Current physical result: ${observation.physicalStatus}. Length only: ${physical.total.value} m; declared fictional maximum ${physical.maximum.value} m. ${'headroom' in physical ? `Headroom ${physical.headroom.value} m.` : `Excess ${physical.excess.value} m.`}` : 'Physical result: unsupported scope.');
+      } else {
+        paragraph(observation.planId === 'shutdown' ? 'Current path: deliberately isolated. No transmission is attempted.'
+          : `Current ${observation.route} physical checks: ${observation.physicalStatus}. These are the same scoped path, equipment and calibration checks used by the apprentice.`);
+        table('Current repair readings', ['Observation', 'Value', 'Unit'], observation.physicalReadings.map(reading => [reading.name, String(reading.value), reading.unit]));
+        paragraph(observation.endpointResponse === null ? 'The route is deliberately isolated. Service remains unresolved; no received trace is supplied.'
+          : `Separate supplied endpoint response: ${observation.endpointResponse === 'service-acknowledged' ? 'service acknowledged' : 'service unavailable'}. This cross-layer observation is separate from the physical checks and highlighted pattern; this preview does not classify the repair.`);
+      }
       table('Highlighted payload bytes', ['Hex', 'Letter', 'Bits'], [['0x4E', 'N', '01001110'], ['0x51', 'Q', '01010001']]);
       if (observation.encoded) table('Declared toy encoding in supplied order', ['Position (zero-based)', 'Bits', 'Sent toy level', 'Received toy level'], observation.encoded.samples.map((sample, i) => [String(sample.position), observation.encoded!.pairs[i]!, level(sample.value), observation.recoveredSymbolValues ? level(observation.recoveredSymbolValues[i]!) : 'Not available']));
       paragraph(observation.recoveredBits === null ? 'Recovered bits: not available at this checkpoint.' : `Recovered bits: ${groupedBits(observation.recoveredBits)}.`);
-      if (observation.impairmentApplied) paragraph('Declared toy substitution applied at position 7: −1 → −3. This trace is supplied separately; length does not predict it.');
+      if (observation.impairmentApplied) paragraph(observation.kind === 'packet-journey' ? 'Declared toy substitution applied at position 7: −1 → −3. This trace is supplied separately; length does not predict it.'
+        : 'The separately supplied receiver trace differs from the sent pattern. Physical metrics do not predict which bits differ; the displayed toy samples represent only this supplied trace.');
       if (observation.phase === 'compare') {
         if (observation.comparison) {
           paragraph(observation.transmissionSucceeded ? 'Known highlighted pattern matches on this current controlled path.' : 'Known highlighted pattern does not establish transmission success. Return to the investigation.');
           paragraph(`Recovered highlighted bytes: ${observation.comparison.recoveredHex.map(h => `0x${h}`).join(' ')}. Differing bits: ${observation.comparison.differingBits}. Zero-based mismatch positions: ${observation.comparison.differingBitPositions.join(', ') || 'none'}.`);
-        } else paragraph('No received trace is available. The failed physical result cannot supply recovered bits or a successful comparison. Return to the investigation.');
+        } else paragraph(observation.kind === 'repair-packet-journey' && observation.planId === 'shutdown'
+          ? 'No received trace is available because the current route is deliberately isolated. Service remains unresolved. Return to the investigation.'
+          : 'No received trace is available. The failed physical result cannot supply recovered bits or a successful comparison. Return to the investigation.');
       }
     } else if (observation?.kind === 'packet-error') paragraph(`Evidence unavailable: ${observation.reason}. No transmission success or progress is awarded.`);
     paragraph(c.comparison); paragraph(c.impairment); paragraph(c.premises); paragraph(c.overview);

@@ -12,7 +12,7 @@ export const q = <T extends string = string>(id: string) => `spec001:${id}` as Q
 export const uuid = (n: number) => `00000000-0000-4000-8000-${String(n).padStart(12, '0')}` as MeasurementId;
 const read = async <T>(path: string): Promise<T> => JSON.parse(await readFile(new URL(`../../${path}`, import.meta.url), 'utf8')) as T;
 export const input = structuredClone(authoredInput);
-const paths = ['content/spec001/profiles.json', 'content/spec001/objectives.json', 'content/spec001/dialogue/repair-plan-actions.json', 'content/spec001/dialogue/equipment-actions.json', 'content/spec001/rooms/R09.json', 'content/spec001/rooms/R10.json', 'content/spec001/rooms/R11.json', 'content/spec001/rooms/R12.json'];
+const paths = ['content/spec001/profiles.json', 'content/spec001/objectives.json', 'content/spec001/dialogue/repair-plan-actions.json', 'content/spec001/dialogue/equipment-actions.json', 'content/spec001/dialogue/packet-r12.json', 'content/spec001/rooms/R09.json', 'content/spec001/rooms/R10.json', 'content/spec001/rooms/R11.json', 'content/spec001/rooms/R12.json'];
 const removed = input.world.documents.filter(r => r.kind === 'profile' || r.kind === 'objective' || paths.includes(r.path));
 input.world.documents = input.world.documents.filter(r => !removed.includes(r));
 for (const { path } of removed) delete input.documents[path];

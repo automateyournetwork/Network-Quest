@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "id": "spec001:PACKET-CONTEXT",
+  "title": "Inside the current repair",
+  "payload": "The lab highlights 0x4E 0x51: 01001110 01010001 (NQ) inside an opaque upper-interface frame. These two payload bytes are not the whole Ethernet frame. The displayed order is most-significant-bit first within each highlighted byte, a teaching convention for this view.",
+  "model": "Our declared toy mapping uses −3 → 00, −1 → 01, +1 → 10 and +3 → 11. Positions are zero-based ordinals in the supplied order, not time. One symbol represents two bits here; this is not a complete PAM4 PHY, a voltage scale or a bitrate/throughput calculation.",
+  "comparison": "Compare the recovered bits with the known laboratory pattern. This comparison is not universal Layer 1 error detection or Ethernet FCS validation. A matching highlighted pattern does not prove the whole route or any higher-layer service.",
+  "impairment": "This view uses the actual supplied receiver trace from the current repair exercise. Failed path, equipment or calibration checks suppress recovery; their metrics do not predict damaged bits. Deliberate isolation supplies no trace and never reports delivery. A mismatch is shown only when a separate received pattern is supplied over a currently usable scoped path.",
+  "premises": "The current executed copper, fiber or radio plan supplies its actual path and carried equipment/calibration checks. These use the same reviewed physical evaluators as the apprentice. The separate endpoint response is a supplied cross-layer observation; upper dependencies are known good only for this fictional exercise. A preview creates no notebook proof, outcome or save. Close it to take the required fresh measurements and endpoint test.",
+  "overview": "The seven realms are a conceptual teaching map. Application meaning, representation, conversations, transport, networking and link framing provide context above physical signals. Real stacks group these functions differently; we do not invent seven mandatory wire headers. The upper realms below are future content, with no playable higher-layer simulation here.",
+  "realms": [
+    {
+      "layer": 7,
+      "name": "The Citadel",
+      "role": "Application meaning and services",
+      "available": false
+    },
+    {
+      "layer": 6,
+      "name": "The Mirror Realm",
+      "role": "Representation of information",
+      "available": false
+    },
+    {
+      "layer": 5,
+      "name": "The Gateway Realm",
+      "role": "Conversation continuity",
+      "available": false
+    },
+    {
+      "layer": 4,
+      "name": "The Great Crossing",
+      "role": "Transport delivery",
+      "available": false
+    },
+    {
+      "layer": 3,
+      "name": "The Endless Wilderness",
+      "role": "Network forwarding",
+      "available": false
+    },
+    {
+      "layer": 2,
+      "name": "The Iron City",
+      "role": "Link framing",
+      "available": false
+    },
+    {
+      "layer": 1,
+      "name": "The Underworld",
+      "role": "Physical signals representing bits",
+      "available": true
+    }
+  ],
+  "sources": [
+    {
+      "id": "S01",
+      "title": "ITU-T X.200, 7.7",
+      "claim": "Physical entities transmit bits over physical media; conceptual architecture, not a universal numeric PHY."
+    },
+    {
+      "id": "S02",
+      "title": "RFC 1122, 1.1.3",
+      "claim": "The Internet suite groups application, transport, Internet and link functions differently from the seven teaching realms."
+    },
+    {
+      "id": "S13",
+      "title": "Altera AN 835, 4.2.3 — Clock and Data Recovery",
+      "claim": "High-speed serial reception includes clock/data recovery. Our explicit discrete sample positions do not implement CDR, analog jitter or a timing reflex challenge. The exact toy map is authored in PROFILE-SYMBOLS, not taken from this source."
+    }
+  ]
+}

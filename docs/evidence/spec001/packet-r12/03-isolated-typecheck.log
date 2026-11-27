@@ -1,0 +1,24 @@
+.local/t090/repair-packet.test.ts(105,32): error TS2352: Conversion of type '{ attemptId: AttemptId; roomId: RoomId; position: SafePosition; flags: Readonly<Record<FlagId, FlagValue>>; ... 10 more ...; configurationRevision: number; } | { ...; }' to type 'WorldVersion' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type '{ configurationRevision: ConfigurationRevision; roomId: RoomId; position: SafePosition; flags: Readonly<Record<FlagId, FlagValue>>; completedObjectiveIds: readonly ObjectiveId[]; ... 9 more ...; attemptId: `${string}-${string}-${string}-${string}-${string}`; }' is not comparable to type 'WorldVersion'.
+    Types of property 'attemptId' are incompatible.
+      Type '`${string}-${string}-${string}-${string}-${string}`' is not comparable to type 'AttemptId'.
+        Type '`${string}-${string}-${string}-${string}-${string}`' is not comparable to type '{ readonly [nominal]: "attempt-uuid"; }'.
+.local/t090/repair-packet.test.ts(115,31): error TS2352: Conversion of type 'GameState' to type 'Mutable<GameState>' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  The types of 'notebook.factIds' are incompatible between these types.
+    The type 'readonly FactId[]' is 'readonly' and cannot be assigned to the mutable type 'Mutable<FactId>[]'.
+.local/t090/repair-packet.test.ts(116,42): error TS7053: Element implicitly has an 'any' type because expression of type 'QualifiedId<string>' can't be used to index type 'Mutable<Readonly<Record<FlagId, FlagValue>>>'.
+.local/t090/repair-packet.test.ts(117,99): error TS2367: This comparison appears to be unintentional because the types 'Mutable<FactId>' and 'QualifiedId<string>' have no overlap.
+.local/t090/repair-packet.test.ts(118,114): error TS2367: This comparison appears to be unintentional because the types 'Mutable<ObjectiveId>' and 'QualifiedId<string>' have no overlap.
+.local/t090/repair-packet.test.ts(120,86): error TS2322: Type 'Mutable<GameState>' is not assignable to type 'GameState'.
+  Types of property 'contentVersion' are incompatible.
+    Type 'Mutable<ContentVersion>' is not assignable to type 'ContentVersion'.
+      Type 'Mutable<ContentVersion>' is not assignable to type '`${number}.${number}.${number}`'.
+.local/t090/repair-packet.test.ts(121,54): error TS2345: Argument of type 'Mutable<WorldState>' is not assignable to parameter of type 'WorldVersion'.
+  Types of property 'configurationRevision' are incompatible.
+    Type 'Mutable<ConfigurationRevision>' is not assignable to type 'ConfigurationRevision'.
+      Type 'Mutable<ConfigurationRevision>' is not assignable to type 'number'.
+.local/t090/repair-packet.test.ts(121,67): error TS2345: Argument of type 'Mutable<WorldState>' is not assignable to parameter of type 'WorldVersion'.
+  Types of property 'configurationRevision' are incompatible.
+    Type 'Mutable<ConfigurationRevision>' is not assignable to type 'ConfigurationRevision'.
+      Type 'Mutable<ConfigurationRevision>' is not assignable to type 'number'.
+.local/t090/repair-packet.ts(62,16): error TS2367: This comparison appears to be unintentional because the types 'RoomId' and '"spec001:R12"' have no overlap.

@@ -1,0 +1,26 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ .local/t090/original-packet-ui.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  .local/t090/original-packet-ui.test.ts [ .local/t090/original-packet-ui.test.ts ]
+Error: ENOENT: no such file or directory, open '/Users/john.capobianco/Network-Quest/.local/fixtures/packet-journey.json'
+ ❯ read .local/t090/original-packet-ui.test.ts:9:43
+      7| import { copySemanticAction, createActionBus, type ActionContext, type…
+      8| import { createPacketJourneyController, validatePacketContext, type Pa…
+      9| const read = (path: string) => JSON.parse(readFileSync(new URL(path, i…
+       |                                           ^
+     10| const authored = read('../fixtures/packet-journey.json'), source = rea…
+     11| const contextData = () => read('../../content/spec001/packet-context.j…
+ ❯ .local/t090/original-packet-ui.test.ts:10:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  248 passed (248)
+   Start at  08:02:16
+   Duration  12.29s (tests 90%, import 9%, transform 1%)
+

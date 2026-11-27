@@ -124,6 +124,12 @@ export function createAdventureFrame(host: HTMLElement, ports: {
       if (feedback.parentElement !== target) {
         if (target === reading) target.insertBefore(feedback, target.children[1] ?? null); else target.append(feedback);
       }
+      // Packet controls already announce their current status. Keep a different
+      // action error visible, but do not repeat an identical live message.
+      const packetStatus = reading?.getAttribute('aria-label') === 'Packet journey'
+        ? reading.querySelector<HTMLElement>('[role="status"]:not(.nq-shell-status)') : null;
+      const message = (node: HTMLElement | null) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+      feedback.hidden = !!packetStatus && message(packetStatus) !== '' && message(packetStatus) === message(feedback);
     }
     if (active) {
       if (active === panel && !active.querySelector('.nq-panel-game')) { const button = makeButton('Game', () => open('game'), attachment.signal); button.className = 'nq-panel-game'; active.querySelector('h2')?.after(button); }
