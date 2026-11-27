@@ -26,6 +26,8 @@ export interface SaveContentPolicy {
   itemMaxQuantities: Record<string, number>;
   recruits: Record<string, { maxLevel: number; abilityIds: readonly string[]; progressFlagIds: readonly string[]; abilityIdsByLevel: Readonly<Record<string, readonly string[]>> }>;
   hints: Record<string, { objectiveId: string; level: number }>;
+  /** Actual authored hint owners; legacy wire objectiveId does not grant an objective. */
+  lessonSources: readonly string[];
   objectivePrerequisites: Record<string, CompletionDependency>;
   measurementRules: Record<string, MeasurementRulePolicy>;
   unsafeFlags: Record<string, readonly FlagValue[]>;
@@ -90,7 +92,11 @@ export class SaveValidator {
   private readonly policies: readonly SaveContentPolicy[];
   constructor(policies: readonly SaveContentPolicy[]) {
     if (new Set(policies.map(p => p.contentVersion)).size !== policies.length) throw new Error('Duplicate save policy version');
-    for (const policy of policies) for (const expression of Object.values(policy.objectivePrerequisites)) checkDependency(expression);
+    for (const policy of policies) {
+      if (!Array.isArray(policy.lessonSources) || new Set(policy.lessonSources).size !== policy.lessonSources.length
+        || Object.values(policy.hints).some(hint => !policy.lessonSources.includes(hint.objectiveId))) throw new Error('Invalid lesson source policy');
+      for (const expression of Object.values(policy.objectivePrerequisites)) checkDependency(expression);
+    }
     this.policies = freeze(structuredClone(policies));
   }
 
@@ -126,9 +132,10 @@ export class SaveValidator {
     w.recruits.forEach((r, i) => refs.push(['ability', r.abilityIds, `/world/recruits/${i}/abilityIds`], ['flag', r.progressFlags, `/world/recruits/${i}/progressFlags`]));
     n.hypotheses.forEach((r, i) => refs.push(['subject', r.subjectIds, `/notebook/hypotheses/${i}/subjectIds`]));
     n.measurements.forEach((r, i) => refs.push(['rule', [r.ruleId], `/notebook/measurements/${i}/ruleId`], ['room', [r.roomId], `/notebook/measurements/${i}/roomId`], ['subject', r.subjectIds, `/notebook/measurements/${i}/subjectIds`]));
-    s.assistance.forEach((r, i) => refs.push(['objective', [r.objectiveId], `/assistance/${i}/objectiveId`], ['hint', [r.hintId], `/assistance/${i}/hintId`]));
+    s.assistance.forEach((r, i) => refs.push(['hint', [r.hintId], `/assistance/${i}/hintId`]));
     s.outcomeHistory.forEach((r, i) => refs.push(['caveat', r.caveatIds, `/outcomeHistory/${i}/caveatIds`]));
     for (const [kind, ids, path] of refs) if (ids.some(id => !has(kind, id))) return fail('reference', path);
+    for (const [index, hint] of s.assistance.entries()) if (!p.lessonSources.includes(hint.objectiveId)) return fail('reference', `/assistance/${index}/objectiveId`);
     const anchor = own(p.safePositions, w.position.safePositionId);
     if (!anchor || anchor.roomId !== w.roomId || !anchor.eligibleStates.includes(s.safeState)
       || (w.continueOutcome !== null && s.safeState !== 'safe-continue')) return fail('safe-state', '/world/position');
@@ -228,12 +235,12 @@ export interface SavePolicyRules {
 /**
  * Bridge an already validated ContentRegistry into portable JSON for either runtime.
  * Metadata reserves identities; only authored rooms/anchors/objectives/items can be
- * current progress. Missing definitions never become permissions. Achievement
- * membership stays empty; caveats require an explicit reviewed authored-fact map.
+ * current progress. Missing definitions never become permissions. Minigame
+ * achievements require explicit authored binding; caveats require a reviewed fact map.
  */
 export function createSaveContentPolicy(registry: ContentRegistry, world: Readonly<S.world>, rules: SavePolicyRules): SaveContentPolicy {
   const members = Object.fromEntries(kinds.map(kind => [kind, []])) as unknown as SaveContentPolicy['members'];
-  const p: SaveContentPolicy = { contentVersion: world.contentVersion, members, safePositions: {}, itemMaxQuantities: {}, recruits: {}, hints: {}, objectivePrerequisites: {}, measurementRules: {}, unsafeFlags: {} };
+  const p: SaveContentPolicy = { contentVersion: world.contentVersion, members, safePositions: {}, itemMaxQuantities: {}, recruits: {}, hints: {}, lessonSources: [], objectivePrerequisites: {}, measurementRules: {}, unsafeFlags: {} };
   const add = (kind: SaveMemberKind, id: string, registryKind: string = kind) => {
     if (!registry.has(registryKind, id)) throw new Error('Save policy references unregistered content');
     const values = p.members[kind] as string[];
@@ -280,11 +287,15 @@ export function createSaveContentPolicy(registry: ContentRegistry, world: Readon
       // Check BOTH declarations; silently dropping a stronger authored prerequisite
       // would grant unsupported completion. Alternative solutions are not regraded.
       p.objectivePrerequisites[record.id] = { kind: 'all', conditions: [dependency(meta.prerequisite), dependency(record.prerequisite)] };
+    }
+    if (record.kind === 'objective' || record.kind === 'quest' || record.kind === 'minigame') {
+      (p.lessonSources as string[]).push(record.id);
       for (const [index, hint] of [record.hints.method, record.hints.workedStep, record.hints.solution].entries()) {
         add('hint', hint.id); p.hints[hint.id] = { objectiveId: record.id, level: index + 1 };
       }
     }
     if (record.kind === 'quest') add('quest', record.id);
+    if (record.kind === 'minigame') add('achievement', record.completionAchievementId);
     if (record.kind === 'item') { add('item', record.id); add('subject', record.id, 'item'); }
     if (record.kind === 'character') {
       add('compendium', record.compendium.id);

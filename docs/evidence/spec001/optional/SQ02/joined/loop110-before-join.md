@@ -1,0 +1,50 @@
+# Loop 110 — T097: Eel's Energy Audit
+
+Copyright 2026 John Capobianco. SPDX-License-Identifier: CC-BY-4.0.
+
+This fresh worker owns only the SQ02 candidate/projection, isolated tests,
+evidence and this note. The coordinator owns tracking, publication and shared
+joins. T094 owns the current party/reducer join; T100 owns the common optional
+framework. No shared runtime/schema/loader/policy/manifest changes or Git
+operations are performed here.
+
+The assessed requirement is an optional delivered-power diagnosis in R09 with
+only a cosmetic Workshop decoration. The implementation proposal uses the
+existing PROFILE-POWER/PHY08/S10, actual `evaluatePower`, and exact C-POWER,
+T10 and B-POWER-30 inputs. The answer distinguishes within/over budget and
+the watt difference. Correctly diagnosing 33 W against 30 W is learner success
+while the physical plan stays over budget; no power/data/main-objective repair
+is awarded. Practice and the equality example remain help without completion.
+
+The common adapter must select the exact fact+quest receipt batch only for a
+matching full audit. Existing reducer checks prove atomicity, replay deduplication,
+no raw evaluator award, preserved required progress, and an actual rewind that
+retains the audit fact while removing its completion. The proposed decoration
+predicate requires both records. Full optional-controller/browser/save-policy
+integration remains T100/T104 work and must return to this same worker for join
+verification before T097 is marked complete.
+
+Asset inspection found no dedicated named Workshop decoration. The existing
+planned ILLUSTRATION-18 “Delivered-power ledger” explicitly covers T10/SQ02 as
+an R09 journal image. The coordinator approved reuse as a cosmetic R02 wall
+print, preserving the original allocation and asset count. Root/T106 must
+reconcile its planned secondary use before production; no `usedBy`, export URL,
+produced artwork or functioning inventory item is invented.
+
+Verification is isolated outside global discovery and uses the pinned Node
+runtime. The first focused run passed 55 tests. Expanded per-port/source-boundary
+coverage passed 57 tests. Strict TypeScript initially passed, then caught a real
+possibly-undefined source-demands access after semantic property-order handling
+was added; `04-boundary-typecheck.log` preserves that failure. Binding the optional
+source demands before comparison fixes the narrowing. Final results and hashes
+are recorded in the adjacent verification and source-seal files. No browser,
+provider, production OAuth or account data is involved.
+
+The candidate and consumer contract are under
+`docs/evidence/spec001/optional/SQ02/`. The coordinator reviewed the full candidate
+and contract, approved the closed variant for T100 review, and authorized the
+ordinary projection at `content/spec001/quests/SQ02.json`. It is byte-equal to
+the reviewed current-schema projection. Registration remains a separate common
+join. The added canonical equality check brings final scoped coverage to 58
+tests. T092 fixtures, source cases and R09 content stay unchanged. T097, G4,
+media, human learning and release acceptance remain pending.

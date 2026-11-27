@@ -1,0 +1,49 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ docs/evidence/spec001/optional/framework/policy.test.ts (2 tests | 2 failed) 1313ms
+   ❯ T100 real optional lesson policy in JS and PHP (2)
+     × registers real lesson sources without broadening completed-objective membership 521ms
+     × round-trips SQ01 progress and assistance, rejecting forged source, hint and main progress 791ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/evidence/spec001/optional/framework/policy.test.ts > T100 real optional lesson policy in JS and PHP > registers real lesson sources without broadening completed-objective membership
+AssertionError: the given combination of arguments (undefined and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string
+ ❯ docs/evidence/spec001/optional/framework/policy.test.ts:43:36
+     41|   it('registers real lesson sources without broadening completed-objec…
+     42|     const { policy } = setup(), expanded = policy as SaveContentPolicy…
+     43|     expect(expanded.lessonSources).toContain(q('SQ01'));
+       |                                    ^
+     44|     expect(policy.members.objective).toEqual(Array.from({ length: 12 }…
+     45|     expect(policy.hints[q('HINT-SQ01-step')]).toEqual({ objectiveId: q…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  docs/evidence/spec001/optional/framework/policy.test.ts > T100 real optional lesson policy in JS and PHP > round-trips SQ01 progress and assistance, rejecting forged source, hint and main progress
+AssertionError: expected [ false, false, false, false, …(2) ] to deeply equal [ true, false, false, false, …(2) ]
+
+- Expected
++ Received
+
+@@ -1,7 +1,7 @@
+  [
+-   true,
++   false,
+    false,
+    false,
+    false,
+    false,
+    true,
+
+ ❯ docs/evidence/spec001/optional/framework/policy.test.ts:58:46
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  09:13:14
+   Duration  1.42s (tests 96%, import 2%, transform 2%)
+

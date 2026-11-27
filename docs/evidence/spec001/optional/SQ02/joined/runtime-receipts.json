@@ -1,0 +1,280 @@
+{
+  "scope": "Actual production SQ02 rule/controller/bus/reducer/CAS/snapshot and isolated JS/PHP validator observations. Safe R09 starting state is scaffolded; no browser or provider execution in this test.",
+  "receipts": {
+    "OPT-SQ02-DIAGNOSE": {
+      "evaluation": {
+        "status": "correct",
+        "reasonCode": "delivered-power-diagnosis-correct",
+        "acceptedEffects": [
+          {
+            "kind": "record-fact",
+            "effectId": "spec001:EFFECT-SQ02-audit",
+            "factId": "spec001:FACT-SQ02-audit"
+          },
+          {
+            "kind": "complete-quest",
+            "effectId": "spec001:EFFECT-SQ02-complete",
+            "questId": "spec001:SQ02"
+          }
+        ],
+        "observations": [
+          {
+            "kind": "power-audit-answer",
+            "sourceCaseId": "T10",
+            "planStatus": "incorrect",
+            "plan": {
+              "kind": "delivered-power",
+              "profileId": "spec001:PROFILE-POWER",
+              "scope": "delivered power allocation only",
+              "accountingBoundary": "delivered-after-losses",
+              "constraints": {
+                "otherConstraints": true
+              },
+              "version": {
+                "configurationRevision": 0,
+                "attemptId": "d3e0737e-a7d1-4caf-9df9-1052a2344de4"
+              },
+              "wholeRouteProven": false,
+              "total": {
+                "value": 33,
+                "unit": "W"
+              },
+              "budget": {
+                "value": 30,
+                "unit": "W"
+              },
+              "budgetFits": false,
+              "excess": {
+                "value": 3,
+                "unit": "W"
+              }
+            },
+            "expectedAssessment": "over-budget",
+            "expectedDifference": {
+              "value": 3,
+              "unit": "W"
+            },
+            "learnerStatus": "correct",
+            "dataLinkProven": false,
+            "repaired": false,
+            "attemptPenalty": 0,
+            "progressAward": 0
+          }
+        ]
+      },
+      "feedback": "“Three watts too ambitious,” says the Eel, stamping the ledger. “Your addition has saved my reputation.” You identified 33 W of demand against 30 W delivered: a 3 W shortfall. Your workshop ledger decoration is earned. The audit records a diagnosis; the proposal remains over budget and data connectivity is unproven.",
+      "assistanceLevel": null
+    },
+    "C-POWER-practice": {
+      "evaluation": {
+        "status": "correct",
+        "reasonCode": "delivered-power-diagnosis-correct",
+        "acceptedEffects": [],
+        "observations": [
+          {
+            "kind": "power-audit-answer",
+            "sourceCaseId": "C-POWER",
+            "planStatus": "correct",
+            "plan": {
+              "kind": "delivered-power",
+              "profileId": "spec001:PROFILE-POWER",
+              "scope": "delivered power allocation only",
+              "accountingBoundary": "delivered-after-losses",
+              "constraints": {
+                "otherConstraints": true
+              },
+              "version": {
+                "configurationRevision": 0,
+                "attemptId": "d3e0737e-a7d1-4caf-9df9-1052a2344de4"
+              },
+              "wholeRouteProven": false,
+              "total": {
+                "value": 23,
+                "unit": "W"
+              },
+              "budget": {
+                "value": 30,
+                "unit": "W"
+              },
+              "budgetFits": true,
+              "headroom": {
+                "value": 7,
+                "unit": "W"
+              }
+            },
+            "expectedAssessment": "within-budget",
+            "expectedDifference": {
+              "value": 7,
+              "unit": "W"
+            },
+            "learnerStatus": "correct",
+            "dataLinkProven": false,
+            "repaired": false,
+            "attemptPenalty": 0,
+            "progressAward": 0
+          }
+        ]
+      },
+      "feedback": "Yes: 23 W fits the delivered 30 W allowance with 7 W headroom. The full audit is still waiting.",
+      "assistanceLevel": 2
+    },
+    "B-POWER-30": {
+      "status": "correct",
+      "reasonCode": "delivered-power-diagnosis-correct",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "power-audit-answer",
+          "sourceCaseId": "B-POWER-30",
+          "planStatus": "correct",
+          "plan": {
+            "kind": "delivered-power",
+            "profileId": "spec001:PROFILE-POWER",
+            "scope": "delivered power allocation only",
+            "accountingBoundary": "delivered-after-losses",
+            "constraints": {
+              "otherConstraints": true
+            },
+            "version": {
+              "configurationRevision": 0,
+              "attemptId": "d3e0737e-a7d1-4caf-9df9-1052a2344de4"
+            },
+            "wholeRouteProven": false,
+            "total": {
+              "value": 30,
+              "unit": "W"
+            },
+            "budget": {
+              "value": 30,
+              "unit": "W"
+            },
+            "budgetFits": true,
+            "headroom": {
+              "value": 0,
+              "unit": "W"
+            }
+          },
+          "expectedAssessment": "within-budget",
+          "expectedDifference": {
+            "value": 0,
+            "unit": "W"
+          },
+          "learnerStatus": "correct",
+          "dataLinkProven": false,
+          "repaired": false,
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "full-captured-flow-snapshot": {
+      "saveSchemaVersion": 1,
+      "safeState": "stable-exploration",
+      "contentVersion": "1.0.0",
+      "episodeId": "spec001",
+      "adventureId": "a7fb1b71-641f-4a2d-ae97-412137658508",
+      "world": {
+        "roomId": "spec001:R09",
+        "position": {
+          "safePositionId": "spec001:R09.entry"
+        },
+        "attemptId": "6ff4666b-937d-404d-b731-e12720dcdf51",
+        "configurationRevision": 0,
+        "flags": {},
+        "completedObjectiveIds": [
+          "spec001:O01",
+          "spec001:O02"
+        ],
+        "completedQuestIds": [
+          "spec001:SQ02"
+        ],
+        "achievementIds": [],
+        "dialogueEffectIds": [],
+        "inventory": [
+          {
+            "itemId": "spec001:ITEM-inspection-kit",
+            "quantity": 1
+          }
+        ],
+        "recruits": [],
+        "activeAllyIds": [],
+        "compendiumIds": [
+          "spec001:COMPENDIUM-CH01"
+        ],
+        "route": null,
+        "continueOutcome": null
+      },
+      "notebook": {
+        "factIds": [
+          "spec001:FACT-SQ02-audit"
+        ],
+        "mapRoomIds": [
+          "spec001:R01"
+        ],
+        "personalNotes": "Keep this independent audit note.",
+        "hypotheses": [],
+        "measurements": []
+      },
+      "assistance": [
+        {
+          "objectiveId": "spec001:SQ02",
+          "hintId": "spec001:HINT-SQ02-step",
+          "level": 2,
+          "attemptId": "6ff4666b-937d-404d-b731-e12720dcdf51"
+        },
+        {
+          "objectiveId": "spec001:SQ02",
+          "hintId": "spec001:HINT-SQ02-solution",
+          "level": 3,
+          "attemptId": "6ff4666b-937d-404d-b731-e12720dcdf51"
+        }
+      ],
+      "outcomeHistory": []
+    },
+    "JS-PHP-policy": {
+      "php": "8.4.28",
+      "rows": [
+        {
+          "name": "ordinary-before-audit",
+          "ok": true,
+          "code": null
+        },
+        {
+          "name": "earned-audit",
+          "ok": true,
+          "code": null
+        },
+        {
+          "name": "wrong-hint-owner",
+          "ok": false,
+          "code": "relationship"
+        },
+        {
+          "name": "wrong-hint-level",
+          "ok": false,
+          "code": "relationship"
+        },
+        {
+          "name": "other-quest-hint",
+          "ok": false,
+          "code": "relationship"
+        },
+        {
+          "name": "quest-as-main-objective",
+          "ok": false,
+          "code": "reference"
+        },
+        {
+          "name": "invented-reward-fact",
+          "ok": false,
+          "code": "reference"
+        },
+        {
+          "name": "retained-fact-only-valid-no-reward",
+          "ok": true,
+          "code": null
+        }
+      ]
+    }
+  }
+}

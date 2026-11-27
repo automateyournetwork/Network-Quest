@@ -1,0 +1,27 @@
+{
+  "recordedAt": "2026-11-27T13:55:09.478607+00:00",
+  "task": "T096",
+  "scope": "Canonical authored projection; staged common contract; existing evaluator and reducer boundary checks only",
+  "checks": [
+    {
+      "command": "PATH=\"$PWD/.runtime/node-v26.13.1-darwin-arm64/bin:$PATH\" npx vitest run --config docs/evidence/spec001/optional/SQ01/vitest.config.ts",
+      "exitCode": 0,
+      "testsPassed": 34,
+      "durationSeconds": 3.37,
+      "log": "docs/evidence/spec001/optional/SQ01/05-final-focused.log"
+    },
+    {
+      "command": "PATH=\"$PWD/.runtime/node-v26.13.1-darwin-arm64/bin:$PATH\" npx tsc --project docs/evidence/spec001/optional/SQ01/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/evidence/spec001/optional/SQ01/06-final-typecheck.log"
+    }
+  ],
+  "retainedFailure": "docs/evidence/spec001/optional/SQ01/02-feedback-red.log",
+  "pending": [
+    "World/loader/common-schema integration",
+    "T100 controller and JS/PHP save-policy binding",
+    "Eight SQ01 lifecycle runtime cases and T104 browser/keyboard/focus verification",
+    "Actual illustration08 production/integration/visual review",
+    "Human learning and aggregate gates"
+  ]
+}

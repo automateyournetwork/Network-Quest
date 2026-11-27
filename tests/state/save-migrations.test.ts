@@ -18,7 +18,7 @@ const q = (suffix: string) => `spec001:fixture.${suffix}`;
  * inferred from either expected output or real episode metadata memberships. */
 function fixturePolicy(version: string): SaveContentPolicy {
   const old = version === '0.9.0', probe = q(old ? 'old-probe' : 'probe');
-  return { contentVersion: version, members: {
+  return { contentVersion: version, lessonSources: [q('inspect')], members: {
     room: [q('workshop')], objective: [q('inspect')], quest: [q('quest')], achievement: [q('achievement')],
     effect: [q('dialogue-grant')], item: [probe], character: [q('helper')], ability: [q('observe')],
     flag: [q('powered'), q('trained')], compendium: [q('helper')], fact: [q('power-fact')],

@@ -77,6 +77,12 @@ async function main(): Promise<void> {
   for (const path of preliminary.documentPaths) documents[path] = await loadDocument(root, path);
   const result = validateContent({ world, sources, documents });
   if (!result.ok) throw new Error(JSON.stringify(result.issues, null, 2));
+  const { optionalRewardAllocationMatches } = await import('../src/content/optional-activities.ts');
+  const manifest = JSON.parse(await readFile(resolve(root, 'assets-src/manifest.json'), 'utf8'));
+  for (const document of Object.values(documents)) {
+    if (document && typeof document === 'object' && 'kind' in document && document.kind === 'quest' && 'optionalActivity' in document
+      && !optionalRewardAllocationMatches(document as import('../src/state/optional-activities').OptionalActivityDefinition, manifest)) throw new Error('Optional reward does not resolve to its canonical asset allocation');
+  }
   process.stdout.write(`Content validation passed: ${result.roomCount} room identities, ${result.authoredRecordCount} authored records; independent routes: ${result.routes.join(', ')}. Metadata is not playable-content acceptance.\n`);
 }
 

@@ -13,6 +13,7 @@ const json = (path: string): any => JSON.parse(read(path));
 const world = json('content/spec001/world.json');
 const sources = json('content/spec001/sources.json');
 const originalSchema = json('docs/evidence/spec001/characters/content-schema-before-T093.json');
+const beforeOptionalSchema = json('docs/evidence/spec001/optional/framework/content-schema-before-T100.json');
 const schema = json('content/schemas/content.schema.json');
 const fixture = json('tests/fixtures/companions.json');
 const manifest = json('assets-src/manifest.json');
@@ -122,11 +123,12 @@ describe('T093 canonical authored character roster', () => {
 });
 
 describe('T093 bounded schema evolution preserves T092 provenance', () => {
-  it('retains the exact original authoring schema and changes only the three reviewed definitions', () => {
+  it('retains the exact original authoring schema and the three reviewed T093 changes before T100', () => {
     expect(createHash('sha256').update(read('docs/evidence/spec001/characters/content-schema-before-T093.json')).digest('hex')).toBe('712297ffb45b2d1fa9abf75ff042ca1c50a58610d077a61cc1dc13688afbb27b');
     expect(fixture.frozenArtifacts['content/schemas/content.schema.json']).toBe('712297ffb45b2d1fa9abf75ff042ca1c50a58610d077a61cc1dc13688afbb27b');
-    const changed=Object.keys(schema.$defs).filter(k=>JSON.stringify(schema.$defs[k])!==JSON.stringify(originalSchema.$defs[k]));
+    const changed=Object.keys(beforeOptionalSchema.$defs).filter(k=>JSON.stringify(beforeOptionalSchema.$defs[k])!==JSON.stringify(originalSchema.$defs[k]));
     expect(changed).toEqual(['ability','character','characterDemonstration']);
+    for (const key of ['ability','character','characterDemonstration']) expect(schema.$defs[key]).toEqual(beforeOptionalSchema.$defs[key]);
     expect(schema.$defs.ability.anyOf).toBeUndefined();
     // The generated editor type must keep the complete ability object.
     const ability = char(input()).abilities[0] as S.ability;
@@ -138,7 +140,11 @@ describe('T093 bounded schema evolution preserves T092 provenance', () => {
     const old=compile(originalSchema),current=compile(schema);
     for(const [path,document] of Object.entries(documents)) {
       if(path==='content/spec001/characters.json')continue;
-      expect(old(document),path).toBe(true);expect(current(document),path).toBe(true);
+      // New T100 payloads are tested against their explicitly retained old-shaped
+      // projections. The immutable T092 schema is never rehashed or refreshed.
+      const optional = /^content\/spec001\/quests\/(SQ0[12])\.json$/.exec(path);
+      const oldShaped = optional ? json(`docs/evidence/spec001/optional/${optional[1]}/${optional[1]}.current-schema.json`) : document;
+      expect(old(oldShaped),path).toBe(true);expect(current(document),path).toBe(true);
     }
   });
 });

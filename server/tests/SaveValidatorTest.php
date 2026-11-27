@@ -21,6 +21,7 @@ final class SaveValidatorTest extends TestCase
     {
         // Explicit trusted test projection; the original oracle bytes stay intact.
         $fixture = self::doc('tests/services/save-validator-policy.json');
+        $fixture->policy->lessonSources = $fixture->policy->members->objective;
         $fixture->policy->recruits->{'spec001:fixture.helper'}->abilityIdsByLevel = (object) [
             '1' => [], '2' => ['spec001:fixture.measure'],
         ];

@@ -20,6 +20,8 @@ export type SafePositionId = QualifiedId<'safe-position'>;
 export type ObjectiveId = QualifiedId<'objective'>;
 export type QuestId = QualifiedId<'quest'>;
 export type MinigameId = QualifiedId<'minigame'>;
+/** Legacy save-v1 hint objectiveId is the actual authored lesson source. */
+export type LessonSourceId = ObjectiveId | QuestId | MinigameId;
 export type CharacterId = QualifiedId<'character'>;
 export type PropId = QualifiedId<'prop'>;
 export type ItemId = QualifiedId<'item'>;

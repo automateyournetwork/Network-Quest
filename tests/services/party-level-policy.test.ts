@@ -1,6 +1,6 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 // Production JS/PHP differential tests. Synthetic snapshots test validation only.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
@@ -9,9 +9,14 @@ import type { SaveContentPolicy as ProposedPolicy } from '../../src/services/sav
 const target = 'production';
 const module = await import('../../src/services/save-validator');
 type Result = { id: string; ok: boolean; code: string | null; provisional: boolean; exactBytesPreserved: boolean };
-const input = JSON.parse(readFileSync(new URL('../../docs/evidence/spec001/party/level-policy-cases.json', import.meta.url), 'utf8')) as {
+const fixture = JSON.parse(readFileSync(new URL('../../docs/evidence/spec001/party/level-policy-cases.json', import.meta.url), 'utf8')) as {
   policies: ProposedPolicy[]; cases: { id: string; body: string; expectedCode: string | null; policies?: ProposedPolicy[] }[];
 };
+// Explicit trusted projection of the immutable pre-T100 policy fixture. Its
+// lesson owners were exclusively objectives; candidate bytes stay untouched.
+const lessonPolicy = (policy: ProposedPolicy): ProposedPolicy => ({ ...policy, lessonSources: [...policy.members.objective] });
+const input = { ...fixture, policies: fixture.policies.map(lessonPolicy),
+  cases: fixture.cases.map(row => row.policies ? { ...row, policies: row.policies.map(lessonPolicy) } : row) };
 const originalInput = JSON.stringify(input);
 const php = spawnSync('/opt/homebrew/opt/php@8.4/bin/php', ['-d', 'auto_prepend_file=', '-d', 'auto_append_file=',
   fileURLToPath(new URL('./party-level-policy.php', import.meta.url)), target], {
@@ -26,10 +31,7 @@ const jsResults: Result[] = input.cases.map(row => {
   return { id: row.id, ok: result.ok, code: result.ok ? null : result.code, provisional: result.provisional,
     exactBytesPreserved: !result.ok || result.json === row.body };
 });
-writeFileSync(new URL(`../../docs/evidence/spec001/party/level-policy-${target}-matrix.json`, import.meta.url), JSON.stringify({ target,
-  node: process.version, php: phpOutput.phpVersion, scope: input.cases.length + ' synthetic new-write candidates, not party gameplay',
-  cases: input.cases.map((row, i) => ({ id: row.id, expectedCode: row.expectedCode, js: jsResults[i], php: phpOutput.results[i] })),
-}, null, 2) + '\n');
+// Historical T094 matrices are sealed evidence, not test output destinations.
 
 describe(`T094 ${target} level policy, unchanged save-v1 bytes`, () => {
   it('uses pinned real runtimes and does not mutate test policy or candidate bytes', () => {

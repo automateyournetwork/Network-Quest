@@ -4,9 +4,11 @@ import { validNotebookText } from '../state/notebook';
 import type { ReducerCommand, ReducerInput, ReducerState, Reduction } from '../state/reducer';
 import type { RuntimeState, UiState } from '../state/types';
 import type { RepairClassification } from '../state/repair-plan';
+import type { OptionalActivityIntent } from './optional-activities';
 
 /** Intent only. Renderers cannot submit evaluations, effects or arbitrary payloads. */
 export type SemanticAction =
+  | OptionalActivityIntent
   | { readonly kind: 'invite-ally' | 'begin-ally-practice' | 'review-ally-practice'; readonly characterId: CharacterId }
   | { readonly kind: 'set-active-allies'; readonly characterIds: readonly CharacterId[] }
   | { readonly kind: 'use-ally-ability'; readonly characterId: CharacterId; readonly abilityId: AbilityId; readonly actionId: QualifiedId }
@@ -93,6 +95,10 @@ function sameContext(a: ActionContext | null, b: ActionContext | null): boolean 
 const verbs = new Set<string>(['walk', 'look', 'talk', 'use']);
 const panels = new Set<string>(['inventory', 'notebook', 'compendium', 'party', 'settings', 'save']);
 const fields: Record<SemanticAction['kind'], readonly string[]> = {
+  'start-optional': ['kind', 'activityId', 'hotspotId'], 'choose-optional-mode': ['kind', 'sessionId', 'mode'],
+  'submit-optional': ['kind', 'sessionId', 'bits'], 'submit-optional-power': ['kind', 'sessionId', 'answer'],
+  'hint-optional': ['kind', 'sessionId'], 'retry-optional': ['kind', 'sessionId'], 'explain-optional': ['kind', 'sessionId'],
+  'boundary-optional': ['kind', 'sessionId'], 'exit-optional': ['kind', 'sessionId'],
   'invite-ally': ['kind', 'characterId'], 'begin-ally-practice': ['kind', 'characterId'], 'review-ally-practice': ['kind', 'characterId'],
   'set-active-allies': ['kind', 'characterIds'], 'use-ally-ability': ['kind', 'characterId', 'abilityId', 'actionId'],
   'commit-rift-hazard': ['kind', 'hazardId', 'warningAcknowledged'],
@@ -123,6 +129,20 @@ export function copySemanticAction(input: SemanticAction): SemanticAction {
   const keys = fields[input.kind];
   if (Object.keys(input).length !== keys.length || Object.keys(input).some(key => !keys.includes(key))) throw new TypeError('Semantic actions contain intent only.');
   switch (input.kind) {
+    case 'start-optional': if (!qualifiedIdentity(input.activityId) || !qualifiedIdentity(input.hotspotId)) throw new TypeError('Invalid optional activity entry.'); break;
+    case 'choose-optional-mode': if (!dialogueSession(input.sessionId) || !['practice', 'delivery'].includes(input.mode)) throw new TypeError('Invalid optional mode.'); break;
+    case 'submit-optional': if (!dialogueSession(input.sessionId) || typeof input.bits !== 'string' || input.bits.length > 512) throw new TypeError('Invalid optional answer.'); break;
+    case 'submit-optional-power': {
+      const answer: unknown = input.answer, object = (value: unknown): value is Record<string, unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
+      if (!dialogueSession(input.sessionId) || !object(answer) || Object.keys(answer).length !== 2 || !Object.hasOwn(answer, 'assessment') || !Object.hasOwn(answer, 'difference')) throw new TypeError('Invalid power audit answer.');
+      if (answer['assessment'] === null && answer['difference'] === null) return Object.freeze({ ...input, answer: Object.freeze({ assessment: null, difference: null }) });
+      const assessment = answer['assessment'], difference = answer['difference'];
+      if ((assessment !== 'within-budget' && assessment !== 'over-budget') || !object(difference) || Object.keys(difference).length !== 2
+        || difference['unit'] !== 'W' || typeof difference['value'] !== 'number' || !Number.isFinite(difference['value']) || difference['value'] < 0) throw new TypeError('Invalid power audit answer.');
+      return Object.freeze({ ...input, answer: Object.freeze({ assessment, difference: Object.freeze({ value: difference['value'], unit: 'W' as const }) }) });
+    }
+    case 'hint-optional': case 'retry-optional': case 'explain-optional': case 'boundary-optional': case 'exit-optional':
+      if (!dialogueSession(input.sessionId)) throw new TypeError('Invalid optional activity session.'); break;
     case 'invite-ally': case 'begin-ally-practice': case 'review-ally-practice':
       if (!qualifiedIdentity(input.characterId)) throw new TypeError('Invalid ally identity.'); break;
     case 'set-active-allies': if (!Array.isArray(input.characterIds) || input.characterIds.length > 2

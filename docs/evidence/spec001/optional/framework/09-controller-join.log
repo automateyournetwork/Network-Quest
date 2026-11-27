@@ -1,0 +1,40 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ docs/evidence/spec001/optional/framework/controller.test.ts (15 tests | 2 failed) 21ms
+   ❯ T100 actual authored optional controller and canonical reducer (15)
+     × uses the same captured action path for practice, wrong answer and exact once-only full delivery 4ms
+     × copies the typed power answer and rejects caller verdict/effect fields 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/evidence/spec001/optional/framework/controller.test.ts > T100 actual authored optional controller and canonical reducer > uses the same captured action path for practice, wrong answer and exact once-only full delivery
+AssertionError: expected 'handled' to be 'rejected' // Object.is equality
+
+Expected: "rejected"
+Received: "handled"
+
+ ❯ docs/evidence/spec001/optional/framework/controller.test.ts:57:45
+     55|     const completed = f.state(); expect(completed.runtime.game!.world.…
+     56|     expect(completed.runtime.game!.notebook.factIds).toContain(q('FACT…
+     57|     expect(f.bus.dispatch(captured).status).toBe('rejected'); expect(f…
+       |                                             ^
+     58|     expect(f.bits('00101101').status).toBe('handled'); expect(f.state(…
+     59|     expect(f.state().runtime.game!.world.inventory).toEqual(original.w…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  docs/evidence/spec001/optional/framework/controller.test.ts > T100 actual authored optional controller and canonical reducer > copies the typed power answer and rejects caller verdict/effect fields
+TypeError: Invalid power audit answer.
+ ❯ copySemanticAction src/ui/action-bus.ts:137:187
+
+ ❯ docs/evidence/spec001/optional/framework/controller.test.ts:127:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  2 failed | 57 passed (59)
+   Start at  09:35:55
+   Duration  1.54s (tests 67%, import 25%, transform 8%)
+

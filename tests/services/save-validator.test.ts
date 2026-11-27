@@ -18,7 +18,7 @@ const root = new URL('../../', import.meta.url);
 const base = readFileSync(new URL(conformance.schemaBase, root), 'utf8');
 const bytes = (text: string) => new TextEncoder().encode(text);
 // Explicit projection of the synthetic helper, preserving original fixture bytes.
-const policy = { ...structuredClone(fixture.policy), recruits: {
+const policy = { ...structuredClone(fixture.policy), lessonSources: [...fixture.policy.members.objective], recruits: {
   'spec001:fixture.helper': { ...fixture.policy.recruits['spec001:fixture.helper'], abilityIdsByLevel: {
     '1': [], '2': ['spec001:fixture.measure'],
   } },

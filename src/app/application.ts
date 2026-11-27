@@ -15,6 +15,8 @@ import { createDialogueController, createDialoguePanel, introductionDialogueBind
 import { createInventoryController, createInventoryPanel, inventoryView } from '../ui/inventory';
 import { createNotebookController, createNotebookPanel } from '../ui/notebook';
 import { createCompendiumController, createCompendiumPanel } from '../ui/compendium';
+import { createOptionalActivitiesController, createOptionalActivityPanel } from '../ui/optional-activities';
+import { optionalActivityDefinition, optionalEffectBindings } from '../state/optional-activities';
 import { createPacketJourneyPanel } from '../ui/packet-journey';
 import { createNavigationPlanner, createSceneObjectProjection } from '../ui/scene-objects';
 import { createTitleController, createTitlePanel } from '../ui/title';
@@ -70,6 +72,7 @@ export function createIntroductionApplication(host: HTMLElement) {
   const { registry, world } = loadIntroductionContent(), bindings = introductionBindings(registry), media = resolveRoomMedia(registry);
   const equipmentBindings = equipmentInteractionBindings(registry), copperEffects = copperEffectBindings(registry);
   const fiberEffects = fiberEffectBindings(registry), radioEffects = radioEffectBindings(registry);
+  const optionalDefinitions = world.optionalActivities.flatMap(entry => { const definition = optionalActivityDefinition(registry, entry.id); return definition ? [definition] : []; });
   if (!copperEffects.length) throw new Error('The copper preparation actions could not be validated.');
   if (!fiberEffects.length || !radioEffects.length) throw new Error('The branch preparation actions could not be validated.');
   const copperBindings: HotspotBinding[] = [
@@ -84,7 +87,7 @@ export function createIntroductionApplication(host: HTMLElement) {
   const fiberScenario = createFiberScenarioResolver(registry), radioScenario = createRadioScenarioResolver(registry);
   const objectiveScenario: ObjectiveScenarioResolver = (game, id) => copperScenario(game, id) ?? fiberScenario(game, id) ?? radioScenario(game, id) ?? equipmentScenario(game, id);
   const repairScenario = createRepairScenarioResolver(registry);
-  const effectBindings = [...bindings.effects, ...copperEffects, ...fiberEffects, ...radioEffects, ...equipmentBindings.effects,
+  const effectBindings = [...bindings.effects, ...copperEffects, ...fiberEffects, ...radioEffects, ...equipmentBindings.effects, ...optionalDefinitions.flatMap(optionalEffectBindings),
     ...objectiveEffectBindings(registry, ['O03', 'O04', 'O05', 'O06', 'O07', 'O08', 'O09', 'O10'].map(id => q<'objective'>(id))), ...repairEffectBindings(registry)];
   const routeObjective = (room: string | undefined): ObjectiveId | null => {
     const id = ({ 'spec001:R03': 'O03', 'spec001:R04': 'O04', 'spec001:R05': 'O05', 'spec001:R06': 'O06', 'spec001:R07': 'O07', 'spec001:R08': 'O08', 'spec001:R09': 'O09', 'spec001:R10': 'O10', 'spec001:R11': 'O11', 'spec001:R12': 'O12' } as Record<string, string>)[room ?? ''];
@@ -124,10 +127,15 @@ export function createIntroductionApplication(host: HTMLElement) {
       },
     })));
   });
-  const notebook = createNotebookController({ registry, store, bus, presentation: routeNotebook, allowDuringEncounter: allowRiftEncounterAction });
+  const notebookPresentation = { ...routeNotebook, facts: [...routeNotebook.facts, ...optionalDefinitions.flatMap(definition => definition.evidence.map(fact => ({
+    id: fact.id, heading: `${world.optionalActivities.find(entry => entry.id === definition.id)!.name}: ${fact.kind === 'observation' ? 'journal entry' : 'instructions'}`,
+    sourceId: definition.id, kind: fact.kind === 'observation' ? 'Observation' : 'Scenario context',
+  })))] };
+  const notebook = createNotebookController({ registry, store, bus, presentation: notebookPresentation, allowDuringEncounter: allowRiftEncounterAction });
   const compendium = createCompendiumController({ registry, store, bus, metadata: world, navigation, notebook, sourceCatalog: technicalSources.sources,
     gameBase: import.meta.env.BASE_URL, allowDuringEncounter: allowRiftEncounterAction });
   const party = createPartyController({ registry, world, store, bus, resolveScenario: objectiveScenario });
+  const optional = createOptionalActivitiesController({ registry, store, bus, activityIds: optionalDefinitions.map(definition => definition.id as QualifiedId), sources: technicalSources.sources });
   const dialogue = createDialogueController({ registry, store, bus, bindings: introductionDialogueBindings, effectBindings });
   const diagnostics = createDiagnosticsController({ registry, store, bus, resolveScenario: objectiveScenario, allowDuringEncounter: allowRiftEncounterAction });
   const outcomes = createOutcomeController({ registry, repairScenario });
@@ -188,7 +196,9 @@ export function createIntroductionApplication(host: HTMLElement) {
     diagnosticButton.type = repairButton.type = 'button'; diagnosticButton.textContent = 'Diagnostics';
     diagnosticButton.hidden = repairButton.hidden = true;
     const contextControls = shell.element.querySelector('.nq-frame-tools')!;
-    contextControls.append(diagnosticButton, repairButton);
+    const optionalOpeners = host.ownerDocument.createElement('span'); optionalOpeners.className = 'nq-optional-openers';
+    let optionalOpenerEvents = new AbortController();
+    contextControls.append(diagnosticButton, repairButton, optionalOpeners);
     diagnosticButton.addEventListener('click', () => { activityPanel = 'diagnostics'; render(); }, { signal: events.signal });
     repairButton.addEventListener('click', () => { activityPanel = 'repair'; render(); }, { signal: events.signal });
     const closeActivity = () => { activityPanel = null; render(); };
@@ -223,17 +233,31 @@ export function createIntroductionApplication(host: HTMLElement) {
         diagnosticButton.hidden = !routeObjective(currentRoom);
         repairButton.hidden = currentRoom !== q('R11') && currentRoom !== q('R12');
         repairButton.textContent = currentRoom === q('R12') ? 'Validate repair' : 'Repair plan';
+        const projected = optional.project();
+        optionalOpenerEvents.abort(); optionalOpenerEvents = new AbortController();
+        const buttons = projected.entries.map(entry => {
+          const button = [...optionalOpeners.querySelectorAll('button')].find(node => node.dataset['activity'] === entry.activityId)
+            ?? host.ownerDocument.createElement('button');
+          button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = entry.activityId === q('SQ01') ? 'Serial Post' : 'Energy audit';
+          button.setAttribute('aria-label', `Open ${button.textContent}`);
+          button.addEventListener('click', () => {
+            if (button.isConnected && optionalOpeners.contains(button) && !button.closest('[hidden], [inert]'))
+              bus.dispatch(projected.capture({ kind: 'start-optional', activityId: entry.activityId, hotspotId: entry.hotspotId }));
+          }, { signal: optionalOpenerEvents.signal }); return button;
+        });
+        if (buttons.length !== optionalOpeners.children.length || buttons.some((button, index) => optionalOpeners.children[index] !== button)) optionalOpeners.replaceChildren(...buttons);
       },
-      disposeScene: () => { events.abort(); grayAdapter.dispose(); finishedAdapter.dispose(); graybox.dispose(); finished.dispose(); pool.dispose(); mediaPool.dispose(); sound.dispose(); visualControls.remove(); },
+      disposeScene: () => { events.abort(); optionalOpenerEvents.abort(); grayAdapter.dispose(); finishedAdapter.dispose(); graybox.dispose(); finished.dispose(); pool.dispose(); mediaPool.dispose(); sound.dispose(); visualControls.remove(); },
       epilogue, recovery: recoveryPanel,
       notebook: createNotebookPanel(shell.panelHost, bus), compendium: createCompendiumPanel(shell.panelHost, bus), party: createPartyPanel(shell.panelHost, bus), dialogue: createDialoguePanel(shell.panelHost, bus), inventory: createInventoryPanel(shell.panelHost, bus),
+      optional: createOptionalActivityPanel(shell.panelHost, bus),
       diagnostics: createDiagnosticsPanel(shell.panelHost, bus, closeActivity), repair: createRepairPlanPanel(shell.panelHost, bus, closeActivity),
       packet: createPacketJourneyPanel(shell.panelHost, bus, { reducedMotion: () => {
         const preference = presentation.reducedMotion;
         return preference === 'on' || (preference === 'system' && host.ownerDocument.defaultView?.matchMedia('(prefers-reduced-motion: reduce)').matches === true);
       } }) };
   };
-  const disposePanels = (retainEpilogue = false) => { panels.disposeScene(); panels.packet.dispose(); panels.inventory.dispose(); panels.dialogue.dispose(); panels.notebook.dispose(); panels.compendium.dispose(); panels.party.dispose(); panels.diagnostics.dispose(); panels.repair.dispose(); panels.recovery.dispose(); if (!retainEpilogue) panels.epilogue.dispose(); panels.shell.dispose(); };
+  const disposePanels = (retainEpilogue = false) => { panels.disposeScene(); panels.optional.dispose(); panels.packet.dispose(); panels.inventory.dispose(); panels.dialogue.dispose(); panels.notebook.dispose(); panels.compendium.dispose(); panels.party.dispose(); panels.diagnostics.dispose(); panels.repair.dispose(); panels.recovery.dispose(); if (!retainEpilogue) panels.epilogue.dispose(); panels.shell.dispose(); };
   let panels = createPanels();
   let projectedGame = state.runtime.game, capture = bus.captureScope(contextFromRuntime(state.runtime)), disposed = false, focusRoom = false, installing = false;
   const window = host.ownerDocument.defaultView!;
@@ -250,7 +274,7 @@ export function createIntroductionApplication(host: HTMLElement) {
     accountScope = {}; if (preferenceOperation) preferenceMessage = 'Preferences apply in this tab. Account confirmation was interrupted.'; preferenceOperation = null;
     if (!settingsInstallation) accountSettings?.invalidateView();
     autosave?.invalidateView(); dismissedCompletions.clear();
-    activityPanel = null; activityRoom = null; diagnostics.invalidate(); repair.invalidate(); packet.invalidate(); dialogue.invalidate(); notebook.invalidate(); compendium.invalidate(); party.invalidate(); bus.invalidate();
+    activityPanel = null; activityRoom = null; diagnostics.invalidate(); repair.invalidate(); packet.invalidate(); dialogue.invalidate(); notebook.invalidate(); compendium.invalidate(); party.invalidate(); optional.invalidate(); bus.invalidate();
     recovery?.invalidate(); narrativeProjection = null; narrativeState = null;
     const retainedEpilogue = panels.epilogue;
     // Capture presentation before removing the old shell; moving a focused DOM
@@ -287,7 +311,7 @@ export function createIntroductionApplication(host: HTMLElement) {
       // intermediate renders would exhaust the bounded room preparation pool.
       installing = true;
       try {
-        activityPanel = null; activityRoom = null; diagnostics.invalidate(); repair.invalidate(); packet.invalidate(); dialogue.invalidate(); notebook.invalidate(); compendium.invalidate(); party.invalidate(); bus.invalidate();
+        activityPanel = null; activityRoom = null; diagnostics.invalidate(); repair.invalidate(); packet.invalidate(); dialogue.invalidate(); notebook.invalidate(); compendium.invalidate(); party.invalidate(); optional.invalidate(); bus.invalidate();
         saves.retireAdventureReview();
         narrativeProjection = null; narrativeState = null; projectedGame = null;
         // Preserve this adventure's already-declined guest sign-in invitation.
@@ -425,7 +449,10 @@ export function createIntroductionApplication(host: HTMLElement) {
       panels.show({ roomId: game.world.roomId, safePositionId: game.world.position.safePositionId,
         context: contextFromRuntime(state.runtime), title: name, description: room.description, controls: verbs.controls(), objects: verbs.objects(),
         evidence: notebookView.view.evidence.map(entry => ({ id: entry.id, label: entry.heading, text: entry.text, source: `${entry.sourceRoom} · ${entry.kind}`, freshness: entry.freshness })),
-        captions: [{ id: `ambience:${room.id}`, text: room.ambience.text }, ...sampling, ...completions] });
+        captions: [{ id: `ambience:${room.id}`, text: room.ambience.text }, ...sampling, ...completions, ...optionalDefinitions.flatMap(definition => {
+          const reward = definition.optionalActivity.reward; return reward.kind === 'workshop-decoration' && reward.roomId === String(game.world.roomId)
+            && game.world.completedQuestIds.some(id => id === definition.id) && game.notebook.factIds.some(id => String(id) === reward.factId)
+            ? [{ id: `decoration:${definition.id}`, speaker: 'Workshop ledger decoration', text: `${reward.alternativeText} ${reward.unavailableText}` }] : []; })] });
     }
     frame.preparePanels();
     panels.inventory.render(inventoryView(registry, state, [q('ITEM-inspection-kit')]), capture);
@@ -434,6 +461,8 @@ export function createIntroductionApplication(host: HTMLElement) {
     const compendiumView = compendium.project(); panels.compendium.render(compendiumView.view, compendiumView.open, compendiumView.capture);
     const dialogueView = dialogue.project(); panels.dialogue.render(dialogueView.view, dialogueView.capture);
     const packetView = packet.project(); panels.packet.render(packetView.view, packetView.capture);
+    const optionalView = optional.project(); panels.optional.render(optionalView.view, optionalView.capture);
+    if (optionalView.view) activityPanel = null;
     if (packetView.view.open && game?.world.roomId === q('R12')) activityPanel = null;
     const objectiveId = routeObjective(game?.world.roomId);
     panels.diagnostics.render(activityPanel === 'diagnostics' && objectiveId ? diagnostics.project(objectiveId) : null);
@@ -486,7 +515,7 @@ export function createIntroductionApplication(host: HTMLElement) {
     if (input.kind === 'replay-dialogue' && input.dialogueId === q('DIALOGUE-photon-intro')) panels.sound.trigger('photon');
   }), unsubscribeAutosave = autosave?.subscribe(() => render()); render(); void saves.bootstrap();
   return { dispose() {
-    if (disposed) return; disposed = true; unsubscribe(); unsubscribeHazard(); diagnostics.dispose(); repair.dispose(); packet.dispose(); dialogue.dispose(); notebook.dispose(); compendium.dispose(); party.dispose(); inventory.dispose(); verbs.dispose();
+    if (disposed) return; disposed = true; unsubscribe(); unsubscribeHazard(); diagnostics.dispose(); repair.dispose(); packet.dispose(); dialogue.dispose(); notebook.dispose(); compendium.dispose(); party.dispose(); optional.dispose(); inventory.dispose(); verbs.dispose();
     unsubscribeAutosave?.(); recovery?.dispose(); accountSettings?.dispose(); autosavePanel?.dispose(); settingsPanel?.dispose(); autosave?.dispose(); saves.dispose(); saveDialogs.dispose(); menu.dispose(); disposePanels(); frame.dispose(); bus.dispose();
   } };
 }

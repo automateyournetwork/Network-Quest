@@ -1,0 +1,498 @@
+{
+  "scope": "Actual evaluatePower returns plus isolated diagnosis proposal and existing reducer boundaries. No shared controller/browser/media acceptance.",
+  "protectedInputs": {
+    "tests/fixtures/optional-activities.json": "d29ef77428a61f8b6c92dc4fd17e99cd6b8a10a738e68171e1bad59eab9917cb",
+    "tests/fixtures/companions.json": "adce95202c355fcb4e24ef1fca657aab5b8dbf6f36675ccfdd9fcacc6c18db8f",
+    "tests/fixtures/physical-cases.json": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1",
+    "content/spec001/rooms/R09.json": "b04b9799022e53ca8d9f0de83ee7346313683b837e7a79728ae19dd57276a3b1",
+    "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116"
+  },
+  "receipts": {
+    "C-POWER": {
+      "status": "correct",
+      "reasonCode": "delivered-power-within-budget",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "delivered-power",
+          "profileId": "spec001:PROFILE-POWER",
+          "scope": "delivered power allocation only",
+          "accountingBoundary": "delivered-after-losses",
+          "constraints": {
+            "otherConstraints": true
+          },
+          "version": {
+            "configurationRevision": 3,
+            "attemptId": "00000000-0000-4000-8000-000000000097"
+          },
+          "wholeRouteProven": false,
+          "total": {
+            "value": 23,
+            "unit": "W"
+          },
+          "budget": {
+            "value": 30,
+            "unit": "W"
+          },
+          "budgetFits": true,
+          "headroom": {
+            "value": 7,
+            "unit": "W"
+          }
+        }
+      ]
+    },
+    "T10": {
+      "status": "incorrect",
+      "reasonCode": "delivered-power-budget-exceeded",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "delivered-power",
+          "profileId": "spec001:PROFILE-POWER",
+          "scope": "delivered power allocation only",
+          "accountingBoundary": "delivered-after-losses",
+          "constraints": {
+            "otherConstraints": true
+          },
+          "version": {
+            "configurationRevision": 3,
+            "attemptId": "00000000-0000-4000-8000-000000000097"
+          },
+          "wholeRouteProven": false,
+          "total": {
+            "value": 33,
+            "unit": "W"
+          },
+          "budget": {
+            "value": 30,
+            "unit": "W"
+          },
+          "budgetFits": false,
+          "excess": {
+            "value": 3,
+            "unit": "W"
+          }
+        }
+      ]
+    },
+    "B-POWER-30": {
+      "status": "correct",
+      "reasonCode": "delivered-power-within-budget",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "delivered-power",
+          "profileId": "spec001:PROFILE-POWER",
+          "scope": "delivered power allocation only",
+          "accountingBoundary": "delivered-after-losses",
+          "constraints": {
+            "otherConstraints": true
+          },
+          "version": {
+            "configurationRevision": 3,
+            "attemptId": "00000000-0000-4000-8000-000000000097"
+          },
+          "wholeRouteProven": false,
+          "total": {
+            "value": 30,
+            "unit": "W"
+          },
+          "budget": {
+            "value": 30,
+            "unit": "W"
+          },
+          "budgetFits": true,
+          "headroom": {
+            "value": 0,
+            "unit": "W"
+          }
+        }
+      ]
+    },
+    "OPT-SQ02-DIAGNOSE": {
+      "status": "correct",
+      "reasonCode": "delivered-power-diagnosis-correct",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "power-audit-answer",
+          "sourceCaseId": "T10",
+          "planStatus": "incorrect",
+          "plan": {
+            "kind": "delivered-power",
+            "profileId": "spec001:PROFILE-POWER",
+            "scope": "delivered power allocation only",
+            "accountingBoundary": "delivered-after-losses",
+            "constraints": {
+              "otherConstraints": true
+            },
+            "version": {
+              "configurationRevision": 3,
+              "attemptId": "00000000-0000-4000-8000-000000000097"
+            },
+            "wholeRouteProven": false,
+            "total": {
+              "value": 33,
+              "unit": "W"
+            },
+            "budget": {
+              "value": 30,
+              "unit": "W"
+            },
+            "budgetFits": false,
+            "excess": {
+              "value": 3,
+              "unit": "W"
+            }
+          },
+          "expectedAssessment": "over-budget",
+          "expectedDifference": {
+            "value": 3,
+            "unit": "W"
+          },
+          "learnerStatus": "correct",
+          "dataLinkProven": false,
+          "repaired": false,
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "OPT-SQ02-POWER-BOUNDARIES-practice": {
+      "status": "correct",
+      "reasonCode": "delivered-power-diagnosis-correct",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "power-audit-answer",
+          "sourceCaseId": "C-POWER",
+          "planStatus": "correct",
+          "plan": {
+            "kind": "delivered-power",
+            "profileId": "spec001:PROFILE-POWER",
+            "scope": "delivered power allocation only",
+            "accountingBoundary": "delivered-after-losses",
+            "constraints": {
+              "otherConstraints": true
+            },
+            "version": {
+              "configurationRevision": 3,
+              "attemptId": "00000000-0000-4000-8000-000000000097"
+            },
+            "wholeRouteProven": false,
+            "total": {
+              "value": 23,
+              "unit": "W"
+            },
+            "budget": {
+              "value": 30,
+              "unit": "W"
+            },
+            "budgetFits": true,
+            "headroom": {
+              "value": 7,
+              "unit": "W"
+            }
+          },
+          "expectedAssessment": "within-budget",
+          "expectedDifference": {
+            "value": 7,
+            "unit": "W"
+          },
+          "learnerStatus": "correct",
+          "dataLinkProven": false,
+          "repaired": false,
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "OPT-SQ02-POWER-BOUNDARIES-boundaryExample": {
+      "status": "correct",
+      "reasonCode": "delivered-power-diagnosis-correct",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "power-audit-answer",
+          "sourceCaseId": "B-POWER-30",
+          "planStatus": "correct",
+          "plan": {
+            "kind": "delivered-power",
+            "profileId": "spec001:PROFILE-POWER",
+            "scope": "delivered power allocation only",
+            "accountingBoundary": "delivered-after-losses",
+            "constraints": {
+              "otherConstraints": true
+            },
+            "version": {
+              "configurationRevision": 3,
+              "attemptId": "00000000-0000-4000-8000-000000000097"
+            },
+            "wholeRouteProven": false,
+            "total": {
+              "value": 30,
+              "unit": "W"
+            },
+            "budget": {
+              "value": 30,
+              "unit": "W"
+            },
+            "budgetFits": true,
+            "headroom": {
+              "value": 0,
+              "unit": "W"
+            }
+          },
+          "expectedAssessment": "within-budget",
+          "expectedDifference": {
+            "value": 0,
+            "unit": "W"
+          },
+          "learnerStatus": "correct",
+          "dataLinkProven": false,
+          "repaired": false,
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "OPT-SQ02-WRONG-DIAGNOSIS": {
+      "status": "incorrect",
+      "reasonCode": "delivered-power-diagnosis-incorrect",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "power-audit-answer",
+          "sourceCaseId": "T10",
+          "planStatus": "incorrect",
+          "plan": {
+            "kind": "delivered-power",
+            "profileId": "spec001:PROFILE-POWER",
+            "scope": "delivered power allocation only",
+            "accountingBoundary": "delivered-after-losses",
+            "constraints": {
+              "otherConstraints": true
+            },
+            "version": {
+              "configurationRevision": 3,
+              "attemptId": "00000000-0000-4000-8000-000000000097"
+            },
+            "wholeRouteProven": false,
+            "total": {
+              "value": 33,
+              "unit": "W"
+            },
+            "budget": {
+              "value": 30,
+              "unit": "W"
+            },
+            "budgetFits": false,
+            "excess": {
+              "value": 3,
+              "unit": "W"
+            }
+          },
+          "expectedAssessment": "over-budget",
+          "expectedDifference": {
+            "value": 3,
+            "unit": "W"
+          },
+          "learnerStatus": "incorrect",
+          "dataLinkProven": false,
+          "repaired": false,
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "content-demand": {
+      "status": "content-error",
+      "reasonCode": "malformed-authored-challenge",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "content-error",
+          "reason": "malformed-authored-challenge",
+          "issue": {
+            "code": "audit-source-mismatch",
+            "field": "demands",
+            "message": "Retain the reviewed demand cards and independent compatibility/per-port assumptions."
+          },
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "content-unit": {
+      "status": "content-error",
+      "reasonCode": "malformed-authored-challenge",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "content-error",
+          "reason": "malformed-authored-challenge",
+          "issue": {
+            "code": "audit-source-mismatch",
+            "field": "demands",
+            "message": "Retain the reviewed demand cards and independent compatibility/per-port assumptions."
+          },
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "content-source": {
+      "status": "content-error",
+      "reasonCode": "malformed-authored-challenge",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "content-error",
+          "reason": "malformed-authored-challenge",
+          "issue": {
+            "code": "unsupported-audit-case",
+            "field": "sourceCaseId",
+            "message": "Supply one of the three reviewed ledger cases."
+          },
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "content-boundary": {
+      "status": "content-error",
+      "reasonCode": "malformed-authored-challenge",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "content-error",
+          "reason": "malformed-authored-challenge",
+          "issue": {
+            "code": "incomparable-power-boundaries",
+            "field": "accountingBoundary",
+            "message": "Budget and every demand must explicitly use delivered power after losses."
+          },
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "content-assumption": {
+      "status": "content-error",
+      "reasonCode": "malformed-authored-challenge",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "content-error",
+          "reason": "malformed-authored-challenge",
+          "issue": {
+            "code": "audit-source-mismatch",
+            "field": "demands",
+            "message": "Retain the reviewed demand cards and independent compatibility/per-port assumptions."
+          },
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "content-hidden-loss": {
+      "status": "content-error",
+      "reasonCode": "malformed-authored-challenge",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "content-error",
+          "reason": "malformed-authored-challenge",
+          "issue": {
+            "code": "unsupported-audit-case",
+            "field": "sourceCaseId",
+            "message": "Supply one of the three reviewed ledger cases."
+          },
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "changed-budget": {
+      "status": "content-error",
+      "reasonCode": "malformed-authored-challenge",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "content-error",
+          "reason": "malformed-authored-challenge",
+          "issue": {
+            "code": "profile-review-mismatch",
+            "field": "profile.parameters",
+            "message": "The reviewed fictional limit is exactly 30 W inclusive, after losses."
+          },
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "existing-per-port-boundary": {
+      "status": "incorrect",
+      "reasonCode": "per-port-constraint-fails",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "delivered-power",
+          "profileId": "spec001:PROFILE-POWER",
+          "scope": "delivered power allocation only",
+          "accountingBoundary": "delivered-after-losses",
+          "constraints": {
+            "perPortConstraintsMet": false
+          },
+          "version": {
+            "configurationRevision": 3,
+            "attemptId": "00000000-0000-4000-8000-000000000097"
+          },
+          "wholeRouteProven": false,
+          "equipmentReady": false,
+          "budgetCannotOverride": true
+        }
+      ]
+    },
+    "B-POWER-COMPAT": {
+      "status": "incorrect",
+      "reasonCode": "incompatible-port",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "delivered-power",
+          "profileId": "spec001:PROFILE-POWER",
+          "scope": "delivered power allocation only",
+          "accountingBoundary": "delivered-after-losses",
+          "constraints": {
+            "portPowerCompatible": false
+          },
+          "version": {
+            "configurationRevision": 3,
+            "attemptId": "00000000-0000-4000-8000-000000000097"
+          },
+          "wholeRouteProven": false,
+          "equipmentReady": false,
+          "budgetCannotOverride": true
+        }
+      ]
+    },
+    "stale-answer": {
+      "status": "invalid-input",
+      "reasonCode": "stale-action",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "invalid-input",
+          "reason": "stale-action",
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "existing-rollback-boundary": {
+      "status": "applied"
+    }
+  }
+}

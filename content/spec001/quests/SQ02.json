@@ -1,0 +1,257 @@
+{
+  "kind": "quest",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:SQ02",
+  "prerequisite": {
+    "kind": "always"
+  },
+  "evidence": [
+    {
+      "id": "spec001:FACT-SQ02-instructions",
+      "roomId": "spec001:R09",
+      "subjectIds": [
+        "spec001:CH19",
+        "spec001:PR089"
+      ],
+      "kind": "context",
+      "text": "The Eel slides over a ledger. “Three customers, one allowance. Please check my addition before I become a very embarrassed night-light.” Compare the supplied endpoint demands with the delivered budget. You can practice, ask for help, retry or leave. No timer, tool or recruited ally is required.",
+      "ruleIds": [
+        "spec001:PHY08"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-SQ02-ledger",
+      "roomId": "spec001:R09",
+      "subjectIds": [
+        "spec001:PR084",
+        "spec001:PR085",
+        "spec001:PR089",
+        "spec001:PROFILE-POWER"
+      ],
+      "kind": "context",
+      "text": "The fictional allowance is 30 W delivered to the endpoints after losses. The audit cards request 12 W, 11 W and 10 W at that same delivered boundary. Each occupied port and every other compatibility requirement is already checked for this exercise. The aggregate total still needs checking. A power or link lamp cannot enlarge the budget; adequate power alone does not prove data connectivity.",
+      "ruleIds": [
+        "spec001:PHY08"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-SQ02-audit",
+      "roomId": "spec001:R09",
+      "subjectIds": [
+        "spec001:CH19",
+        "spec001:PR089",
+        "spec001:PROFILE-POWER"
+      ],
+      "kind": "observation",
+      "text": "You identified the ledger’s shortfall: 12 W + 11 W + 10 W = 33 W, exceeding the fictional delivered 30 W budget by 3 W. The Eel recorded the diagnosis and dedicated a ledger decoration to the Workshop. The proposal remains over budget; the audit changes no equipment and proves no data link.",
+      "ruleIds": [
+        "spec001:PHY08"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "alternatives": [
+    {
+      "id": "spec001:ACTION-SQ02-audit",
+      "label": "Submit the energy audit",
+      "method": "direct-action",
+      "itemIds": [],
+      "abilityIds": [],
+      "condition": {
+        "kind": "always"
+      },
+      "ruleIds": [
+        "spec001:PHY08"
+      ],
+      "evidenceIds": [
+        "spec001:FACT-SQ02-ledger"
+      ],
+      "effects": [],
+      "explanation": "Identify whether the full ledger fits its delivered allowance, and state the headroom or excess in watts. Correctly identifying the 3 W excess completes this optional diagnosis once. Practice does not award the workshop decoration."
+    }
+  ],
+  "ruleIds": [
+    "spec001:PHY08"
+  ],
+  "profileIds": [
+    "spec001:PROFILE-POWER"
+  ],
+  "sourceClaims": [
+    {
+      "sourceId": "spec001:S10",
+      "section": "Introductory PSE/PD definitions; PoE budget; PoE class, table headings for power delivered to PD versus switch-port output",
+      "supportedClaim": "PSE output and power delivered to a PD are distinct accounting boundaries. Multiple devices must fit the available aggregate budget.",
+      "limitations": [
+        "Only this distinction and aggregate-budget concept are used. No table wattages, PoE class allocation, priority behavior or detection timing are used by the fiction."
+      ]
+    }
+  ],
+  "model": {
+    "label": "fictional-teaching-profile",
+    "scope": "An optional diagnosis of the reviewed 30 W delivered-power ledger. Reuse C-POWER, T10 and B-POWER-30 without changing their demands, units, inclusive ceiling or accounting boundary.",
+    "assumptions": [
+      "Budget and every endpoint demand are supplied at the delivered endpoint boundary after losses.",
+      "Each occupied port and all other compatibility checks are independently satisfied in these three reviewed examples.",
+      "The activity is available at the Shell Market without recruitment, inventory, another optional activity, a main-objective completion or a score."
+    ],
+    "limitations": [
+      "The 30 W value is a fictional teaching allowance, not a universal PoE standard or product rating.",
+      "No PoE class, voltage negotiation, inrush model, per-port wattage threshold or extra PSE-to-PD loss subtraction is modeled.",
+      "An acceptable aggregate total cannot override an independently failed port or compatibility check.",
+      "Correctly diagnosing the 33 W plan leaves it over budget; the diagnosis does not repair equipment or complete O09.",
+      "Adequate power alone does not prove a data link or end-to-end service. No fiber electrical-power delivery is modeled."
+    ]
+  },
+  "effects": [
+    {
+      "kind": "record-fact",
+      "effectId": "spec001:EFFECT-SQ02-audit",
+      "factId": "spec001:FACT-SQ02-audit"
+    },
+    {
+      "kind": "complete-quest",
+      "effectId": "spec001:EFFECT-SQ02-complete",
+      "questId": "spec001:SQ02"
+    }
+  ],
+  "hints": {
+    "method": {
+      "id": "spec001:HINT-SQ02-method",
+      "text": "Keep the same accounting boundary: every figure is delivered watts after losses. Add the demand cards, compare the sum with 30 W, then report the spare watts or shortfall."
+    },
+    "workedStep": {
+      "id": "spec001:HINT-SQ02-step",
+      "text": "The first two cards total 12 W + 11 W = 23 W. That leaves 7 W of the 30 W allowance. The last audit card asks for 10 W. Compare that demand with the remaining 7 W."
+    },
+    "solution": {
+      "id": "spec001:HINT-SQ02-solution",
+      "text": "12 W + 11 W + 10 W = 33 W. Choose “Over budget” and enter 3 W excess. This correctly diagnoses an over-budget plan; it does not repair it. Using this answer records assisted completion and earns the same decoration."
+    }
+  },
+  "observableOutcome": "A correct full audit records one diagnosis and one cosmetic workshop reward. The ledger remains over budget. Wrong answers receive an explanation and retry; practice awards nothing. Exit closes the ledger at the captured Shell Market location with required inventory and main progress intact.",
+  "completionExplanation": "“Three watts too ambitious,” says the Eel, stamping the ledger. “Your addition has saved my reputation.” You identified 33 W of demand against 30 W delivered: a 3 W shortfall. Your workshop ledger decoration is earned. The audit records a diagnosis; the proposal remains over budget and data connectivity is unproven.",
+  "requiresReflexTiming": false,
+  "requiredForMainStory": false,
+  "skippable": true,
+  "optionalActivity": {
+    "kind": "delivered-power-audit",
+    "speakerId": "spec001:CH19",
+    "instructions": [
+      "The Eel has three demand cards and one allowance. “Would you audit these before I sign something luminous?”",
+      "For the full audit, add 12 W, 11 W and 10 W. The fictional allowance is 30 W delivered after losses. Choose within budget or over budget, then enter the headroom or excess in watts.",
+      "Every occupied port and other compatibility check is already satisfied for this exercise. Practice, hints, retry and exit are always available. Take your time."
+    ],
+    "profileId": "spec001:PROFILE-POWER",
+    "practice": {
+      "sourceCaseId": "C-POWER",
+      "demands": [
+        {
+          "value": 12,
+          "unit": "W"
+        },
+        {
+          "value": 11,
+          "unit": "W"
+        }
+      ],
+      "budgetBoundary": "delivered-after-losses",
+      "demandBoundary": "delivered-after-losses",
+      "otherConstraints": true,
+      "explanation": "12 W + 11 W = 23 W. The 30 W delivered allowance leaves 7 W headroom. Practice changes no equipment and does not complete the full audit."
+    },
+    "delivery": {
+      "sourceCaseId": "T10",
+      "demands": [
+        {
+          "value": 12,
+          "unit": "W"
+        },
+        {
+          "value": 11,
+          "unit": "W"
+        },
+        {
+          "value": 10,
+          "unit": "W"
+        }
+      ],
+      "budgetBoundary": "delivered-after-losses",
+      "demandBoundary": "delivered-after-losses",
+      "otherConstraints": true,
+      "actionId": "spec001:ACTION-SQ02-audit"
+    },
+    "boundaryExample": {
+      "sourceCaseId": "B-POWER-30",
+      "demands": [
+        {
+          "value": 12,
+          "unit": "W"
+        },
+        {
+          "value": 11,
+          "unit": "W"
+        },
+        {
+          "value": 7,
+          "unit": "W"
+        }
+      ],
+      "budgetBoundary": "delivered-after-losses",
+      "demandBoundary": "delivered-after-losses",
+      "otherConstraints": true,
+      "explanation": "12 W + 11 W + 7 W = 30 W. Equality fits the fictional inclusive allowance, with 0 W headroom. Independent port and compatibility checks still matter; adequate power does not prove data connectivity."
+    },
+    "answerControls": {
+      "assessmentLabel": "Does this ledger fit its delivered allowance?",
+      "withinBudget": "Within budget",
+      "overBudget": "Over budget",
+      "differenceLabel": "Headroom or excess (W)"
+    },
+    "feedback": {
+      "practice": {
+        "correct": "Yes: 23 W fits the delivered 30 W allowance with 7 W headroom. The full audit is still waiting.",
+        "incorrect": "The practice cards total 23 W, leaving 7 W headroom. Choose “Within budget” and enter 7 W. No audit or reward has been recorded.",
+        "invalidInput": "Choose within budget or over budget and enter a nonnegative number of watts for this practice answer. No answer has been judged."
+      },
+      "delivery": {
+        "correct": "“Three watts too ambitious,” says the Eel, stamping the ledger. “Your addition has saved my reputation.” You identified 33 W of demand against 30 W delivered: a 3 W shortfall. Your workshop ledger decoration is earned. The audit records a diagnosis; the proposal remains over budget and data connectivity is unproven.",
+        "incorrect": "The full ledger asks for 33 W against a delivered 30 W allowance: 3 W too much. A lamp does not add watts. Choose “Over budget” and enter 3 W. You can retry or leave; no audit reward has been recorded.",
+        "invalidInput": "Choose within budget or over budget and enter a nonnegative number of watts for the audit. No answer has been judged or reward recorded."
+      },
+      "contentError": "The ledger’s supplied figures cannot be checked. This is a problem with the exhibit, not your answer. No penalty or reward was recorded. You can leave safely.",
+      "alreadyCompleted": "Your audit and workshop ledger decoration are already recorded. Read the explanation or practice again whenever you like."
+    },
+    "controls": {
+      "practice": "Practice with two demand cards",
+      "delivery": "Audit the three-card ledger",
+      "submit": "Check the audit",
+      "retry": "Try the audit again",
+      "exit": "Close the ledger"
+    },
+    "recovery": {
+      "retryExplanation": "Begin a new ledger attempt. Keep clues, personal notes and hint history; previous-attempt measurements remain visibly stale. Retry does not consume a tool, alter main progress or save the adventure.",
+      "exitExplanation": "Close the ledger at the same Shell Market place where you opened it. Keep required inventory, main progress and party. Leaving does not move you, refresh a measurement or save the adventure."
+    },
+    "reward": {
+      "kind": "workshop-decoration",
+      "factId": "spec001:FACT-SQ02-audit",
+      "assetId": "spec001:ASSET-ILLUSTRATION-18",
+      "roomId": "spec001:R02",
+      "alternativeText": "A framed delivered-power ledger: one 30 W allowance tray faces three demand tiles labeled 12 W, 11 W and 10 W; their 33 W total is marked 3 W over budget.",
+      "unavailableText": "Your workshop ledger decoration is recorded. Its picture cannot be displayed here; the description and audit remain readable."
+    },
+    "entryContexts": [
+      {
+        "roomId": "spec001:R09",
+        "safePositionId": "spec001:R09.entry",
+        "hotspotId": "spec001:HOTSPOT-market-eel"
+      }
+    ],
+    "returnPolicy": "captured-entry",
+    "timingDefault": "off"
+  }
+}

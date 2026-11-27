@@ -16,6 +16,7 @@ import type {
   HypothesisId,
   InstanceId,
   ItemId,
+  LessonSourceId,
   MeasurementId,
   ObjectiveId,
   Opaque,
@@ -102,7 +103,7 @@ export interface NotebookState {
 
 export type HintLevel = 1 | 2 | 3;
 export interface HintUse {
-  readonly objectiveId: ObjectiveId;
+  readonly objectiveId: LessonSourceId;
   readonly hintId: HintId;
   readonly level: HintLevel;
   readonly attemptId: AttemptId;
@@ -167,6 +168,7 @@ export type ActivityState =
         | 'room-transition'
         | 'cutscene'
         | 'active-encounter'
+        | 'active-optional'
         | 'terminal-failure'
         | 'shutdown';
     };

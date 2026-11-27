@@ -1,0 +1,242 @@
+{
+  "scope": "Actual production module/controller/reducer operations on independently prepared guest states. No browser, network save, live provider, media or human acceptance.",
+  "observations": {
+    "OPT-SQ01-FINISH": {
+      "questCount": 1,
+      "journalFactCount": 1,
+      "rewardText": "The Tortoise’s telegraph beside a continuous message strip; four ordered marks are labeled 00, 10, 11 and 01. The Antique serial message strip illustration is not available in this build. Its text description and your delivery record remain readable.",
+      "mainProgressUnchanged": true
+    },
+    "OPT-SQ01-RETRY": {
+      "currentAttemptChanged": true,
+      "revisionAdvanced": true,
+      "noteRetained": true,
+      "hintsRetained": [
+        1,
+        3
+      ],
+      "retainedFactGrantsReward": false,
+      "measurementStale": true,
+      "limitation": "SQ01 does not change physical configuration. The changed-physical-attempt branch is verified separately by T100 shared recovery; this case uses a prepared current measurement."
+    },
+    "OPT-SQ01-UNTIMED": {
+      "timersScheduled": 0,
+      "fakeClockAdvancedSeconds": 3600,
+      "completionStillAvailable": true,
+      "limitation": "Module fake clock only; an actual hidden-tab/browser wait remains T104."
+    },
+    "OPT-SQ01-DECODE": {
+      "evaluation": {
+        "status": "correct",
+        "reasonCode": "symbol-answer-matches",
+        "observations": [
+          {
+            "kind": "symbol-answer",
+            "attemptPenalty": 0,
+            "progressAward": 0,
+            "expectedBits": "00101101",
+            "submittedBits": "00101101",
+            "trace": {
+              "kind": "toy-trace",
+              "attemptPenalty": 0,
+              "progressAward": 0,
+              "bits": "00101101",
+              "pairs": [
+                "00",
+                "10",
+                "11",
+                "01"
+              ],
+              "samples": [
+                {
+                  "position": 0,
+                  "value": -3,
+                  "unit": "toy-level"
+                },
+                {
+                  "position": 1,
+                  "value": 1,
+                  "unit": "toy-level"
+                },
+                {
+                  "position": 2,
+                  "value": 3,
+                  "unit": "toy-level"
+                },
+                {
+                  "position": 3,
+                  "value": -1,
+                  "unit": "toy-level"
+                }
+              ],
+              "symbolValues": [
+                -3,
+                1,
+                3,
+                -1
+              ],
+              "samplePositions": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "symbolUnit": "toy-level",
+              "representedBits": 8,
+              "symbols": 4,
+              "roundTripSymbolValues": [
+                -3,
+                1,
+                3,
+                -1
+              ]
+            }
+          }
+        ],
+        "acceptedEffects": [
+          {
+            "kind": "record-fact",
+            "effectId": "spec001:EFFECT-SQ01-journal",
+            "factId": "spec001:FACT-SQ01-delivery"
+          },
+          {
+            "kind": "complete-quest",
+            "effectId": "spec001:EFFECT-SQ01-complete",
+            "questId": "spec001:SQ01"
+          }
+        ]
+      },
+      "completed": true,
+      "assistanceLevels": []
+    },
+    "OPT-SQ01-WRONG-ORDER": {
+      "evaluation": {
+        "status": "incorrect",
+        "reasonCode": "symbol-answer-differs",
+        "observations": [
+          {
+            "kind": "symbol-answer",
+            "attemptPenalty": 0,
+            "progressAward": 0,
+            "expectedBits": "00101101",
+            "submittedBits": "00011011",
+            "trace": {
+              "kind": "toy-trace",
+              "attemptPenalty": 0,
+              "progressAward": 0,
+              "bits": "00101101",
+              "pairs": [
+                "00",
+                "10",
+                "11",
+                "01"
+              ],
+              "samples": [
+                {
+                  "position": 0,
+                  "value": -3,
+                  "unit": "toy-level"
+                },
+                {
+                  "position": 1,
+                  "value": 1,
+                  "unit": "toy-level"
+                },
+                {
+                  "position": 2,
+                  "value": 3,
+                  "unit": "toy-level"
+                },
+                {
+                  "position": 3,
+                  "value": -1,
+                  "unit": "toy-level"
+                }
+              ],
+              "symbolValues": [
+                -3,
+                1,
+                3,
+                -1
+              ],
+              "samplePositions": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "symbolUnit": "toy-level",
+              "representedBits": 8,
+              "symbols": 4,
+              "roundTripSymbolValues": [
+                -3,
+                1,
+                3,
+                -1
+              ]
+            }
+          }
+        ],
+        "acceptedEffects": []
+      },
+      "completed": false,
+      "assistanceLevels": [
+        3
+      ]
+    },
+    "OPT-SQ01-ONE-SYMBOL": {
+      "evaluation": {
+        "status": "correct",
+        "reasonCode": "symbol-answer-matches",
+        "observations": [
+          {
+            "kind": "symbol-answer",
+            "attemptPenalty": 0,
+            "progressAward": 0,
+            "expectedBits": "11",
+            "submittedBits": "11",
+            "trace": {
+              "kind": "toy-trace",
+              "attemptPenalty": 0,
+              "progressAward": 0,
+              "bits": "11",
+              "pairs": [
+                "11"
+              ],
+              "samples": [
+                {
+                  "position": 0,
+                  "value": 3,
+                  "unit": "toy-level"
+                }
+              ],
+              "symbolValues": [
+                3
+              ],
+              "samplePositions": [
+                0
+              ],
+              "symbolUnit": "toy-level",
+              "representedBits": 2,
+              "symbols": 1,
+              "roundTripSymbolValues": [
+                3
+              ]
+            }
+          }
+        ],
+        "acceptedEffects": []
+      },
+      "completed": false,
+      "assistanceLevels": [
+        2
+      ]
+    },
+    "snapshot-restore": {
+      "currentPolicyAccepted": true,
+      "restoredQuestReceiptCount": 1,
+      "restoredJournalFactCount": 1,
+      "limitation": "In-memory validated snapshot reader only, not HTTP/storage/provider evidence."
+    }
+  }
+}

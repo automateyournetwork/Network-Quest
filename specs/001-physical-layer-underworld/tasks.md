@@ -655,6 +655,19 @@ application and save-policy changes after T094's coherent join. Other optional
 activities stay unavailable until their actual authored variants are integrated;
 shared framework checks do not accept those activities, portraits or rewards.
 
+T100 is locally accepted for the reviewed SQ01/SQ02 runtime. T096/T097 gameplay
+components are verified separately, but their checkboxes remain open until their
+promised illustration/decoration is produced and integrated in the media batch.
+Those absent pictures do not block independent later content or local T104
+gameplay checks; they remain required for reward and episode acceptance.
+
+T101–T103 may prepare disjoint minigame candidates, reviewed-evaluator adapters
+and isolated tests from the accepted T092 oracle while T100 completes its actual
+controller/browser join. Shared schema, registry, reducer, UI and save-policy
+changes remain serialized under the current owner. Canonical promotion and task
+acceptance wait for their reviewed common runtime binding; this preparation
+exception does not execute unreviewed activities or pass any gate.
+
 - [X] T093 [US7] Author all CH01–CH25 roles, limitations, realm notes, recruitment/progression and portrait/source references in `content/spec001/characters.json`; preserve nine recruits (Photon, Copperhead, Unicorn, optical Hydra, Thunderbird, Hermit, Eel, Echo Bat, Chameleon).
 - [X] T094 [US7] Implement demonstrated recruitment, meaningful progression, max-two active allies and free preparation swaps in `src/state/party.ts` and `src/ui/party.ts`; abilities apply the same validated physical effects as conventional tools.
 - [X] T095 [US7] Build the illustrated discovered-entry compendium and cross-room evidence navigation in `src/ui/compendium.ts`; retain source/freshness and distinguish notes/hypotheses from fact, without exposing undiscovered content as completed.
@@ -662,7 +675,7 @@ shared framework checks do not accept those activities, portraits or rewards.
 - [ ] T097 [P] [US7] Implement Eel's Energy Audit SQ02 in `content/spec001/quests/SQ02.json`; reuse supplied delivered-power rules and award only the optional workshop decoration.
 - [ ] T098 [P] [US7] Implement Skywell Weather Diary SQ03 in `content/spec001/quests/SQ03.json`; compare time-separated observations with honest freshness and unlock optional radio depth.
 - [ ] T099 [P] [US7] Implement Lost Maintenance Record SQ04 in `content/spec001/quests/SQ04.json`; combine R03/R05/R09 notebook clues and personalize maintenance history without gating a main route.
-- [ ] T100 [US7] Implement shared optional activity instructions/practice/explanation/retry/exit and default-off timing in `src/state/optional-activities.ts` and `src/ui/optional-activities.ts`; leaving or skipping never loses required items.
+- [X] T100 [US7] Implement shared optional activity instructions/practice/explanation/retry/exit and default-off timing in `src/state/optional-activities.ts` and `src/ui/optional-activities.ts`; leaving or skipping never loses required items.
 - [ ] T101 [P] [US7] Author Clockworks Bit Loom MG01 in `content/spec001/minigames/MG01.json`, reusing the toy decoder with untimed practice and no score requirement for O10.
 - [ ] T102 [P] [US7] Author Prism Budget Bench MG02 in `content/spec001/minigames/MG02.json`, reusing reviewed optical rules after O06 with independent boundaries and no mandatory reward.
 - [ ] T103 [P] [US7] Author Channel Scout MG03 in `content/spec001/minigames/MG03.json`, reusing scoped radio rules after O08 with predict/measure/compare explanations and safe exit.

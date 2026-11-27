@@ -60,6 +60,10 @@ final class SaveValidator
             throw new InvalidArgumentException('Duplicate save policy version.');
         }
         foreach ($policies as $policy) {
+            if (!isset($policy->lessonSources) || !is_array($policy->lessonSources) || count(array_unique($policy->lessonSources)) !== count($policy->lessonSources)) {
+                throw new InvalidArgumentException('Invalid lesson source policy.');
+            }
+            foreach ($policy->hints as $hint) { if (!in_array($hint->objectiveId, $policy->lessonSources, true)) { throw new InvalidArgumentException('Invalid lesson source policy.'); } }
             foreach ($policy->objectivePrerequisites as $expression) { self::checkDependency($expression); }
         }
         $this->policies = json_decode(json_encode($policies, JSON_THROW_ON_ERROR), false, 64, JSON_THROW_ON_ERROR);
@@ -134,13 +138,13 @@ final class SaveValidator
             $refs[] = ['subject', $r->subjectIds, "/notebook/measurements/$i/subjectIds"];
         }
         foreach ($s->assistance as $i => $r) {
-            $refs[] = ['objective', [$r->objectiveId], "/assistance/$i/objectiveId"];
             $refs[] = ['hint', [$r->hintId], "/assistance/$i/hintId"];
         }
         foreach ($s->outcomeHistory as $i => $r) { $refs[] = ['caveat', $r->caveatIds, "/outcomeHistory/$i/caveatIds"]; }
         foreach ($refs as [$kind, $ids, $path]) {
             foreach ($ids as $id) { if (!in_array($id, $p->members->{$kind}, true)) { return self::fail('reference', $path); } }
         }
+        foreach ($s->assistance as $i => $hint) { if (!in_array($hint->objectiveId, $p->lessonSources, true)) { return self::fail('reference', "/assistance/$i/objectiveId"); } }
         $anchor = $p->safePositions->{$w->position->safePositionId} ?? null;
         if ($anchor === null || $anchor->roomId !== $w->roomId || !in_array($s->safeState, $anchor->eligibleStates, true)
             || ($w->continueOutcome !== null && $s->safeState !== 'safe-continue')) {

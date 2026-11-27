@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**112 loops started; 90 of 170 tasks accepted.** T085–T089 are accepted
+**115 loops started; 91 of 170 tasks accepted.** T085–T089 are accepted
 for their documented local scope. T089 final12native cases PASS in2.6minutes;
 root final85client suites3065PASS/360unchangedTODO (35.33s), check/buildPASS.
 Root matched61finalpublicseal entries and inspected narrow/desktop recovery
@@ -103,6 +103,50 @@ appassertions; normalproductionpreview then3actualguestRift/discoverychecksPASS,
 zeroobservedpageerrors/APIrequests. Rootinspectedtemporaryscene and200%party.
 Originalfailures retained; nofinishedmedia/provider/gateacceptance. See
 party-join-review.md. Rootwillpublishfrozencopywithoutstaging109workingedits.
+
+Published and remoteverified `989d0e4aaf147654fc1928f503eb6b949b176729`:132reviewedpaths,
+2,258,249bytes;exactindex/hash/private/header/authoredwhitespacePASS.32rawrunner
+/patchwhitespacefindings retained. OngoingT100workingedits preservedunstaged;
+indexempty.112loops/90accepted. Threeworkers109/111/112remainactive.
+
+SQ03reviewed:60focusedPASS/strictTS;43rootmatchingsealentries. Originalover-
+restrictionto3fixtureexamplescorrected:actual19.99dBrecordsremaineligible;
+noinventedmeasurementprovenance/currentproof/weathercause. Unloadedcanonical
+projectionsealed;111awaitssame-loopcommonjoin. Fresh113/T101 preparesdisjoint
+MG01content/tests underexplicitpreparationexception;109ownssharedruntime.
+
+SQ04candidate51focusedPASS/strictTS;root23ownedsealsmatch,132dependencies
+matchedatactualrunwith3later109drifts explicit. Legacyprojectionfailedschema;
+fullnotebookvariant usesboundedempty-scoredruleexception, onlyS04/S10context.
+NoSQ04canonicalfile yet. Exactepiloguequest+factjoin identified.112pendinglater
+same-taskjoin. Same108resumedfinalSQ01 tests(no counterincrement);109owns
+sharedsource/nativebrowser and113MG01independentauthoring.
+
+Root full client regression after normal-discovery optional wrappers: 99 suites,
+3755 PASS / 360 existing TODO, 40.19s. Source/schema/policy review is complete;
+root screenshot inspection found the number input retained default browser font
+at 200% text. Same109 owns its bounded UI correction and native rerun. Same108
+SQ01 final45 checks/strictTS and84 sealed inputs ready for root review. Same110
+now verifies SQ02 common join. MG01 candidate/projection56 focusedPASS/strictTS,
+91 seals; actual runtime still pending. Fresh114/T102 independently authors MG02.
+Counters are114/90; no media, provider, aggregate gate or deployment acceptance.
+
+T100 final113 source/artifact hashes match root review. Final10 native groupsPASS;
+input now inherits32px text with69.6px height atboth widths; root inspected final
+image. Original screenshots/seal retained. Fresh115/T103 prepares independent
+MG03 while root reviews coherent publication and110 finishes SQ02.115/90.
+
+T100 accepted after root source review,113 matching final hashes and corrected
+native input inspection. Root3755PASS/360TODO; final10nativegroupsPASS; fullPHP
+908/19138PASS; check/buildPASS. See optional/common-join-review.md. SQ01 runtime
+45PASS/strictTS reviewed; SQ01/SQ02 task checkboxes stay open for their actual
+illustrated rewards. Verified gameplay permits independent content/localtests;
+no reward quantity, aggregate gate or deployment acceptance.115/91.
+
+SQ02 same110 join approved:9 scenario checksPASS,8 actual JS/PHP policycases,
+strictTS;root57 final hashes match and native27 source14matches. Runtime is
+ready; T097 remains open for its actual cosmetic reward. Root publishes the
+coherent optional checkpoint next, then111 owns SQ03 common integration.
 
 ## Earlier position and retained progress history — 2026-11-26
 

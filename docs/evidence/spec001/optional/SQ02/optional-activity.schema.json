@@ -1,0 +1,372 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://network-quest.example/proposals/optional-power-audit.schema.json",
+  "$comment": "Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0. T097 isolated proposal only. Typed source cases retain the reviewed values; runtime source/profile/receipt semantics belong to the common join.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "speakerId",
+    "instructions",
+    "profileId",
+    "delivery",
+    "practice",
+    "feedback",
+    "controls",
+    "recovery",
+    "reward",
+    "entryContexts",
+    "returnPolicy",
+    "timingDefault",
+    "boundaryExample",
+    "answerControls"
+  ],
+  "properties": {
+    "kind": {
+      "const": "delivered-power-audit"
+    },
+    "speakerId": {
+      "const": "spec001:CH19"
+    },
+    "instructions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "profileId": {
+      "const": "spec001:PROFILE-POWER"
+    },
+    "delivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceCaseId": {
+          "const": "T10"
+        },
+        "demands": {
+          "type": "array",
+          "const": [
+            {
+              "value": 12,
+              "unit": "W"
+            },
+            {
+              "value": 11,
+              "unit": "W"
+            },
+            {
+              "value": 10,
+              "unit": "W"
+            }
+          ]
+        },
+        "budgetBoundary": {
+          "const": "delivered-after-losses"
+        },
+        "demandBoundary": {
+          "const": "delivered-after-losses"
+        },
+        "otherConstraints": {
+          "const": true
+        },
+        "actionId": {
+          "const": "spec001:ACTION-SQ02-audit"
+        }
+      },
+      "required": [
+        "sourceCaseId",
+        "demands",
+        "budgetBoundary",
+        "demandBoundary",
+        "otherConstraints",
+        "actionId"
+      ]
+    },
+    "practice": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceCaseId": {
+          "const": "C-POWER"
+        },
+        "demands": {
+          "type": "array",
+          "const": [
+            {
+              "value": 12,
+              "unit": "W"
+            },
+            {
+              "value": 11,
+              "unit": "W"
+            }
+          ]
+        },
+        "budgetBoundary": {
+          "const": "delivered-after-losses"
+        },
+        "demandBoundary": {
+          "const": "delivered-after-losses"
+        },
+        "otherConstraints": {
+          "const": true
+        },
+        "explanation": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "required": [
+        "sourceCaseId",
+        "demands",
+        "budgetBoundary",
+        "demandBoundary",
+        "otherConstraints",
+        "explanation"
+      ]
+    },
+    "feedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "practice",
+        "delivery",
+        "contentError",
+        "alreadyCompleted"
+      ],
+      "properties": {
+        "practice": {
+          "$ref": "#/$defs/modeFeedback"
+        },
+        "delivery": {
+          "$ref": "#/$defs/modeFeedback"
+        },
+        "contentError": {
+          "$ref": "#/$defs/text"
+        },
+        "alreadyCompleted": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "practice",
+        "delivery",
+        "submit",
+        "retry",
+        "exit"
+      ],
+      "properties": {
+        "practice": {
+          "$ref": "#/$defs/label"
+        },
+        "delivery": {
+          "$ref": "#/$defs/label"
+        },
+        "submit": {
+          "$ref": "#/$defs/label"
+        },
+        "retry": {
+          "$ref": "#/$defs/label"
+        },
+        "exit": {
+          "$ref": "#/$defs/label"
+        }
+      }
+    },
+    "recovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exitExplanation",
+        "retryExplanation"
+      ],
+      "properties": {
+        "exitExplanation": {
+          "$ref": "#/$defs/text"
+        },
+        "retryExplanation": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "reward": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "factId",
+        "assetId",
+        "alternativeText",
+        "unavailableText",
+        "roomId"
+      ],
+      "properties": {
+        "kind": {
+          "const": "workshop-decoration"
+        },
+        "factId": {
+          "const": "spec001:FACT-SQ02-audit"
+        },
+        "assetId": {
+          "const": "spec001:ASSET-ILLUSTRATION-18"
+        },
+        "alternativeText": {
+          "$ref": "#/$defs/text"
+        },
+        "unavailableText": {
+          "$ref": "#/$defs/text"
+        },
+        "roomId": {
+          "const": "spec001:R02"
+        }
+      }
+    },
+    "entryContexts": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "roomId",
+          "safePositionId",
+          "hotspotId"
+        ],
+        "properties": {
+          "roomId": {
+            "$ref": "#/$defs/id"
+          },
+          "safePositionId": {
+            "$ref": "#/$defs/id"
+          },
+          "hotspotId": {
+            "$ref": "#/$defs/id"
+          }
+        }
+      }
+    },
+    "returnPolicy": {
+      "const": "captured-entry"
+    },
+    "timingDefault": {
+      "const": "off"
+    },
+    "boundaryExample": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceCaseId": {
+          "const": "B-POWER-30"
+        },
+        "demands": {
+          "type": "array",
+          "const": [
+            {
+              "value": 12,
+              "unit": "W"
+            },
+            {
+              "value": 11,
+              "unit": "W"
+            },
+            {
+              "value": 7,
+              "unit": "W"
+            }
+          ]
+        },
+        "budgetBoundary": {
+          "const": "delivered-after-losses"
+        },
+        "demandBoundary": {
+          "const": "delivered-after-losses"
+        },
+        "otherConstraints": {
+          "const": true
+        },
+        "explanation": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "required": [
+        "sourceCaseId",
+        "demands",
+        "budgetBoundary",
+        "demandBoundary",
+        "otherConstraints",
+        "explanation"
+      ]
+    },
+    "answerControls": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "assessmentLabel": {
+          "$ref": "#/$defs/label"
+        },
+        "withinBudget": {
+          "$ref": "#/$defs/label"
+        },
+        "overBudget": {
+          "$ref": "#/$defs/label"
+        },
+        "differenceLabel": {
+          "$ref": "#/$defs/label"
+        }
+      },
+      "required": [
+        "assessmentLabel",
+        "withinBudget",
+        "overBudget",
+        "differenceLabel"
+      ]
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^spec001:[A-Za-z0-9][A-Za-z0-9._-]{0,55}$"
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "\\S"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "pattern": "\\S"
+    },
+    "modeFeedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "correct",
+        "incorrect",
+        "invalidInput"
+      ],
+      "properties": {
+        "correct": {
+          "$ref": "#/$defs/text"
+        },
+        "incorrect": {
+          "$ref": "#/$defs/text"
+        },
+        "invalidInput": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    }
+  }
+}

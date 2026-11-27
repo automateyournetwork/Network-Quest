@@ -1,0 +1,214 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ docs/evidence/spec001/optional/framework/logic.test.ts (21 tests | 13 failed) 10339ms
+   ❯ T100 real SQ01 shared logic before shared-schema join (21)
+     × starts at the exact authored origin with instructions, practice and untimed exit 637ms
+     × practice cannot select delivery rewards for answer 11 530ms
+     × practice cannot select delivery rewards for answer 00101101 531ms
+     × invalid answer null cannot award progress 481ms
+     × invalid answer "" cannot award progress 445ms
+     × invalid answer "2" cannot award progress 468ms
+     × invalid answer "0010 1101" cannot award progress 460ms
+     × selects the actual full quest/fact batch only after correct delivery 452ms
+     × binds the original reward once and rejects a partial batch 910ms
+     × never treats a retained journal fact as completed delivery 449ms
+     × exits all phases without replacing the current world or returning to another room 479ms
+     × requests a new retry attempt and preserved preparation without granting anything 448ms
+     × rejects wrong entry or wrong activity session 450ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 13 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/evidence/spec001/optional/framework/logic.test.ts > T100 real SQ01 shared logic before shared-schema join > starts at the exact authored origin with instructions, practice and untimed exit
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ start docs/evidence/spec001/optional/framework/logic.test.ts:41:18
+     39|   const out = prepareOptionalActivityChange(ctx.registry, ctx.game, { …
+     40|     { kind: 'start', activityId: q('SQ01'), hotspotId: q('HOTSPOT-echo…
+     41|   expect(out.ok).toBe(true); if (!out.ok || !out.session) throw Error(…
+       |                  ^
+     42|   return { ...ctx, session: out.session };
+     43| }
+ ❯ docs/evidence/spec001/optional/framework/logic.test.ts:51:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  docs/evidence/spec001/optional/framework/logic.test.ts > T100 real SQ01 shared logic before shared-schema join > practice cannot select delivery rewards for answer 11
+ FAIL  docs/evidence/spec001/optional/framework/logic.test.ts > T100 real SQ01 shared logic before shared-schema join > practice cannot select delivery rewards for answer 00101101
+AssertionError: expected null to be 2 // Object.is equality
+
+- Expected:
+2
+
++ Received:
+null
+
+ ❯ docs/evidence/spec001/optional/framework/logic.test.ts:58:81
+     56|   it.each(['11', '00101101'])('practice cannot select delivery rewards…
+     57|     const out = check(bits, 'practice'); expect(out.evaluation.accepte…
+     58|     expect(out.feedback).not.toContain('00101101'); expect(out.assista…
+       |                                                                                 ^
+     59|   });
+     60|   it.each([null, '', '2', '0010 1101'])('invalid answer %j cannot awar…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  docs/evidence/spec001/optional/framework/logic.test.ts > T100 real SQ01 shared logic before shared-schema join > invalid answer null cannot award progress
+ FAIL  docs/evidence/spec001/optional/framework/logic.test.ts > T100 real SQ01 shared logic before shared-schema join > invalid answer "" cannot award progress
+ FAIL  docs/evidence/spec001/optional/framework/logic.test.ts > T100 real SQ01 shared logic before shared-schema join > invalid answer "2" cannot award progress
+ FAIL  docs/evidence/spec001/optional/framework/logic.test.ts > T100 real SQ01 shared logic before shared-schema join > invalid answer "0010 1101" cannot award progress
+AssertionError: expected 'content-error' to be 'invalid-input' // Object.is equality
+
+Expected: "invalid-input"
+Received: "content-error"
+
+ ❯ docs/evidence/spec001/optional/framework/logic.test.ts:61:72
+     59|   });
+     60|   it.each([null, '', '2', '0010 1101'])('invalid answer %j cannot awar…
+     61|     const out = check(bits, 'delivery'); expect(out.evaluation.status)…
+       |                                                                        ^
+     62|     expect(out.assistanceLevel).toBeNull();
+     63|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  docs/evidence/spec001/optional/framework/logic.test.ts > T100 real SQ01 shared logic before shared-schema join > selects the actual full quest/fact batch only after correct delivery
+AssertionError: expected { evaluation: { …(4) }, …(2) } to match object { evaluation: { …(2) }, …(1) }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "assistanceLevel": 3,
++   "assistanceLevel": null,
+    "evaluation": {
+      "acceptedEffects": [],
+-     "status": "incorrect",
++     "status": "content-error",
+    },
+  }
+
+ ❯ docs/evidence/spec001/optional/framework/logic.test.ts:65:43
+     63|   });
+     64|   it('selects the actual full quest/fact batch only after correct deli…
+     65|     expect(check('00011011', 'delivery')).toMatchObject({ evaluation: …
+       |                                           ^
+     66|     expect(check('11', 'delivery').evaluation.acceptedEffects).toEqual…
+     67|     const out = check('00101101', 'delivery'); expect(out.evaluation.s…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  docs/evidence/spec001/optional/framework/logic.test.ts > T100 real SQ01 shared logic before shared-schema join > binds the original reward once and rejects a partial batch
+AssertionError: expected 'no-op' to be 'rejected' // Object.is equality
+
+Expected: "rejected"
+Received: "no-op"
+
+ ❯ docs/evidence/spec001/optional/framework/logic.test.ts:77:69
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  docs/evidence/spec001/optional/framework/logic.test.ts > T100 real SQ01 shared logic before shared-schema join > never treats a retained journal fact as completed delivery
+AssertionError: expected [] to deeply equal [ { kind: 'record-fact', …(2) }, …(1) ]
+
+- Expected
++ Received
+
+- [
+-   {
+-     "effectId": "spec001:EFFECT-SQ01-journal",
+-     "factId": "spec001:FACT-SQ01-delivery",
+-     "kind": "record-fact",
+-   },
+-   {
+-     "effectId": "spec001:EFFECT-SQ01-complete",
+-     "kind": "complete-quest",
+-     "questId": "spec001:SQ01",
+-   },
+- ]
++ []
+
+ ❯ docs/evidence/spec001/optional/framework/logic.test.ts:86:44
+     84|     const ctx = fixture(), game = { ...ctx.game, notebook: { ...ctx.ga…
+     85|     const out = evaluateOptionalAnswer(ctx.registry, definition, 'deli…
+     86|     expect(out.evaluation.acceptedEffects).toEqual(candidate.effects);
+       |                                            ^
+     87|   });
+     88|   it('exits all phases without replacing the current world or returnin…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL  docs/evidence/spec001/optional/framework/logic.test.ts > T100 real SQ01 shared logic before shared-schema join > exits all phases without replacing the current world or returning to another room
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ start docs/evidence/spec001/optional/framework/logic.test.ts:41:18
+     39|   const out = prepareOptionalActivityChange(ctx.registry, ctx.game, { …
+     40|     { kind: 'start', activityId: q('SQ01'), hotspotId: q('HOTSPOT-echo…
+     41|   expect(out.ok).toBe(true); if (!out.ok || !out.session) throw Error(…
+       |                  ^
+     42|   return { ...ctx, session: out.session };
+     43| }
+ ❯ docs/evidence/spec001/optional/framework/logic.test.ts:90:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL  docs/evidence/spec001/optional/framework/logic.test.ts > T100 real SQ01 shared logic before shared-schema join > requests a new retry attempt and preserved preparation without granting anything
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ start docs/evidence/spec001/optional/framework/logic.test.ts:41:18
+     39|   const out = prepareOptionalActivityChange(ctx.registry, ctx.game, { …
+     40|     { kind: 'start', activityId: q('SQ01'), hotspotId: q('HOTSPOT-echo…
+     41|   expect(out.ok).toBe(true); if (!out.ok || !out.session) throw Error(…
+       |                  ^
+     42|   return { ...ctx, session: out.session };
+     43| }
+ ❯ docs/evidence/spec001/optional/framework/logic.test.ts:97:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ FAIL  docs/evidence/spec001/optional/framework/logic.test.ts > T100 real SQ01 shared logic before shared-schema join > rejects wrong entry or wrong activity session
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ start docs/evidence/spec001/optional/framework/logic.test.ts:41:18
+     39|   const out = prepareOptionalActivityChange(ctx.registry, ctx.game, { …
+     40|     { kind: 'start', activityId: q('SQ01'), hotspotId: q('HOTSPOT-echo…
+     41|   expect(out.ok).toBe(true); if (!out.ok || !out.session) throw Error(…
+       |                  ^
+     42|   return { ...ctx, session: out.session };
+     43| }
+ ❯ docs/evidence/spec001/optional/framework/logic.test.ts:104:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  13 failed | 8 passed (21)
+   Start at  09:02:46
+   Duration  10.52s (tests 99%, transform 1%)
+

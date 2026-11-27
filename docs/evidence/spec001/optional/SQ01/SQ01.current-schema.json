@@ -1,0 +1,155 @@
+{
+  "kind": "quest",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:SQ01",
+  "prerequisite": {
+    "kind": "always"
+  },
+  "evidence": [
+    {
+      "id": "spec001:FACT-SQ01-instructions",
+      "roomId": "spec001:R04",
+      "subjectIds": [
+        "spec001:CH13",
+        "spec001:PR033"
+      ],
+      "kind": "context",
+      "text": "The Ancient Tortoise has an unclaimed message strip. Read its four marks from left to right and copy each two-bit pair in the same order. This is a toy ordered-bit message. You can practice, retry, or leave the post without surrendering a tool. There is no timer or score.",
+      "ruleIds": [
+        "spec001:PHY10"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-SQ01-symbol-strip",
+      "roomId": "spec001:R04",
+      "subjectIds": [
+        "spec001:PR033",
+        "spec001:PR034",
+        "spec001:PROFILE-SYMBOLS"
+      ],
+      "kind": "context",
+      "text": "The display labels the toy map: −3 → 00; −1 → 01; +1 → 10; +3 → 11. The message strip has four ordered samples: position 0 = −3, position 1 = +1, position 2 = +3, position 3 = −1, all in toy-level units. Positions are supplied, not a reflex test. These labels are not measured volts, baud rates, or a real connector pinout.",
+      "ruleIds": [
+        "spec001:PHY10"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-SQ01-delivery",
+      "roomId": "spec001:R04",
+      "subjectIds": [
+        "spec001:CH13",
+        "spec001:PR040",
+        "spec001:PROFILE-SYMBOLS"
+      ],
+      "kind": "observation",
+      "text": "You copied the Tortoise’s full strip in order: 00 | 10 | 11 | 01, or 00101101. Four toy symbols represent eight bits. The Tortoise filed the delivered strip in your journal beside a description of the telegraph and its sequential marks. This is an optional toy-message delivery, not a live link measurement.",
+      "ruleIds": [
+        "spec001:PHY10"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "alternatives": [
+    {
+      "id": "spec001:ACTION-SQ01-deliver",
+      "label": "Deliver the copied message",
+      "method": "direct-action",
+      "itemIds": [],
+      "abilityIds": [],
+      "condition": {
+        "kind": "always"
+      },
+      "ruleIds": [
+        "spec001:PHY10"
+      ],
+      "evidenceIds": [
+        "spec001:FACT-SQ01-symbol-strip"
+      ],
+      "effects": [],
+      "explanation": "Submit the entire four-symbol strip using the displayed map and its supplied order. A correct full message earns the optional journal reward once. Practice, looking at the exhibit, and an incorrect answer do not complete the delivery."
+    }
+  ],
+  "ruleIds": [
+    "spec001:PHY10"
+  ],
+  "profileIds": [
+    "spec001:PROFILE-SYMBOLS"
+  ],
+  "sourceClaims": [
+    {
+      "sourceId": "spec001:S01",
+      "section": "7.7.2; 7.7.3.3–7.7.3.4; 7.7.4.4; printed pages 49–51, PDF pages 53–55",
+      "supportedClaim": "Physical entities transmit bits over physical media and can relay interconnected circuits; transmission may be synchronous or asynchronous.",
+      "limitations": [
+        "Conceptual architecture only. No universal medium, numeric threshold, wire header, or claim that PHYs never have their own error mechanisms."
+      ]
+    },
+    {
+      "sourceId": "spec001:S12",
+      "section": "2.1 Naming Conventions; Table 4 Linear and Gray Coding",
+      "supportedClaim": "Four amplitude levels can represent four two-bit combinations; the source distinguishes linear and Gray coding.",
+      "limitations": [
+        "T12 deliberately uses the declared linear toy labels. Do not substitute a real PHY map, count useful bitrate from symbol count, or imply the toy implements PAM4."
+      ]
+    },
+    {
+      "sourceId": "spec001:S13",
+      "section": "4.2.3 Clock and Data Recovery (CDR)",
+      "supportedClaim": "High-speed serial reception includes clock/data recovery; multilevel signaling requires appropriate timing recovery.",
+      "limitations": [
+        "Physical timing context only. The toy uses explicit discrete sampling; no analog jitter model, NTP synchronization, timing reflex requirement or CDR implementation."
+      ]
+    }
+  ],
+  "model": {
+    "label": "toy-symbol-map",
+    "scope": "An optional ordered-bit message at the Antique Serial Post. Reuse the exact reviewed four-level toy map and positioned discrete samples; do not simulate an electrical serial interface.",
+    "assumptions": [
+      "Discrete exact samples are provided in order with explicit sample positions; player may step, pause and replay.",
+      "The full message uses the reviewed T12 strip; B-SYMBOL is a separate one-symbol practice example.",
+      "No recruited ally, inventory item, main objective, other optional activity, clock, score or physical repair is required once the player is at the post."
+    ],
+    "limitations": [
+      "No analog voltage claim, complete PAM4 PHY, clock-rate/throughput inference or timing score.",
+      "Unknown authored symbols/missing sample positions are content-error; missing learner answer is invalid-input.",
+      "This activity is not UART, RS-232, an ASCII decoder or a complete PAM4 PHY. Serial context means inspecting symbols in the supplied order only.",
+      "Eight represented bits in four symbols does not establish useful bits per second; no elapsed transmission time is supplied.",
+      "Delivery is optional story progress only. It does not repair copper, complete O04 or O10, or prove end-to-end service."
+    ]
+  },
+  "effects": [
+    {
+      "kind": "record-fact",
+      "effectId": "spec001:EFFECT-SQ01-journal",
+      "factId": "spec001:FACT-SQ01-delivery"
+    },
+    {
+      "kind": "complete-quest",
+      "effectId": "spec001:EFFECT-SQ01-complete",
+      "questId": "spec001:SQ01"
+    }
+  ],
+  "hints": {
+    "method": {
+      "id": "spec001:HINT-SQ01-method",
+      "text": "Keep the strip’s order. Match one mark to the displayed map, copy its pair, then move to the next position. You can take as long as you need."
+    },
+    "workedStep": {
+      "id": "spec001:HINT-SQ01-step",
+      "text": "At position 0, −3 maps to 00. At position 1, +1 maps to 10. The first four bits are therefore 0010. Continue with positions 2 and 3."
+    },
+    "solution": {
+      "id": "spec001:HINT-SQ01-solution",
+      "text": "The full strip is −3, +1, +3, −1 → 00 | 10 | 11 | 01 → 00101101. Copying the worked solution is assisted completion, with the same optional reward and no punishment."
+    }
+  },
+  "observableOutcome": "For the correct full message, the Tortoise files one delivery and adds one journal entry. An incorrect copy leaves the message open with an explanation and retry. Practice only explains its sample. Leaving closes the post at the captured Echo Cavern location with required inventory and main progress intact.",
+  "completionExplanation": "“Delivered,” says the Tortoise. “Promptness is relative; order is indispensable.” The four toy symbols give 00101101: eight represented bits. Your journal records the delivery.",
+  "requiresReflexTiming": false,
+  "requiredForMainStory": false,
+  "skippable": true
+}

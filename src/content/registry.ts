@@ -1,6 +1,7 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import validateSchema from './schema.generated.js';
 import type * as S from './schema-types.generated';
+import { optionalActivityContentIssues } from './optional-activities.ts';
 
 export interface ContentIssue { code: string; path: string; message: string }
 export interface ContentInput {
@@ -227,6 +228,7 @@ export function validateContent(input: ContentInput): ContentResult {
   }
   if (!sameSet(world.reviewedRegistry.profileIds, review.profiles.map(x => x.id))) fail('review-mapping', 'world/reviewedRegistry/profileIds', 'Reviewed profiles differ');
   for (const record of records) {
+    if (record.kind === 'minigame') add('achievement', [{ id: record.completionAchievementId }]);
     if ('evidence' in record) add('fact', record.evidence, true);
     if ('hints' in record) add('hint', Object.values(record.hints));
     if ('alternatives' in record) add('action', record.alternatives);
@@ -255,6 +257,7 @@ export function validateContent(input: ContentInput): ContentResult {
     objectiveId: 'objective', objectiveIds: 'objective', commonObjectiveIds: 'objective',
     characterId: 'character', characterIds: 'character', speakerId: 'character',
     propId: 'prop', propIds: 'prop', questId: 'quest', minigameId: 'minigame',
+    completionAchievementId: 'achievement', hotspotId: 'hotspot', profileId: 'profile',
     safePositionId: 'safe-position', safePositionIds: 'safe-position', futureDoorId: 'future-door', futureDoorIds: 'future-door',
     ruleIds: 'rule', sourceId: 'source', profileIds: 'profile', reviewedProfileId: 'profile',
     itemId: 'item', itemIds: 'item', withItemId: 'item', conventionalEquivalentItemIds: 'item',
@@ -282,6 +285,13 @@ export function validateContent(input: ContentInput): ContentResult {
   if (issues.length) return { ok: false, issues };
   checkWorld(world, review, fail);
   for (const record of records) checkRecord(record, world, records, review, fail);
+  const optionalRegistry: ContentRegistry = { has, record: id => records.find(record => record.id === id), safePosition: id => world.safePositions.find(position => position.id === id) };
+  for (const record of records) {
+    if ((record.kind === 'quest' || record.kind === 'minigame') && record.optionalActivity) {
+      for (const issue of optionalActivityContentIssues(record, optionalRegistry)) fail(issue, record.id, 'Optional activity does not match its reviewed source, entry, controls or reward.');
+    }
+    if (record.kind === 'minigame' && !record.effects.some(effect => effect.kind === 'complete-minigame' && effect.minigameId === record.id)) fail('minigame-effect', record.id, 'Minigame completion must bind its own declared achievement.');
+  }
   if (world.documents.some(d => d.path === 'content/spec001/characters.json')) checkCharacterRoster(world, records, review, fail);
   const routes = checkRoutes(world, records, fail);
   checkOptionalDependencies(world, records, fail);
@@ -352,6 +362,7 @@ function checkRecord(r: S.authoredRecord, w: S.world, records: S.authoredRecord[
     if (node['kind'] === 'unlock-ability' && !records.some(rec => rec.kind === 'character' && rec.id === node['characterId'] && rec.abilities.some(a => a.id === node['abilityId']))) fail('ability-owner', `${r.id}${path}`, 'Unlock effect targets an ability not owned by this character');
     if (node['kind'] === 'recruit-character' && !w.characters.some(c => c.id === node['characterId'] && c.recruitable)) fail('recruit-effect', `${r.id}${path}`, 'Effect recruits a non-recruitable character');
     if (node['kind'] === 'complete-objective' && ((r.kind === 'objective' && node['objectiveId'] !== r.id) || r.kind === 'quest' || r.kind === 'minigame')) fail('objective-effect', `${r.id}${path}`, 'Effect bypasses another mandatory objective');
+    if (node['kind'] === 'complete-minigame' && (r.kind !== 'minigame' || node['minigameId'] !== r.id)) fail('minigame-effect', `${r.id}${path}`, 'Only the declaring minigame can complete its achievement.');
   });
   if ('evidence' in r) for (const evidence of r.evidence) {
     // Dimensional outputs reviewed by T006. Source toy-level codes are never

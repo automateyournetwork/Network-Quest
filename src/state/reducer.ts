@@ -3,11 +3,14 @@ import type { ContentRegistry } from '../content/registry';
 import type * as S from '../content/schema-types.generated';
 import type {
   ActionId, AdventureId, AttemptId, ConfigurationRevision, DialogueEffectId, DomainAction,
-  EffectId, EvaluationResult, FlagId, IdentifiedEffect, ItemId, ObjectiveId, QualifiedId,
+  EffectId, EvaluationResult, FlagId, IdentifiedEffect, ItemId, MinigameId, ObjectiveId, QualifiedId,
   QuestId, RoomId, SafePositionId, WorldVersion,
 } from '../domain/types';
 import type { ActivityState, DirtyGeneration, GameState, Measurement, RuntimeState, SafeState, WorldState } from './types';
 import { conditionSupported as supportedCondition, conditionSatisfied as conditionMet } from './conditions';
+import { minigameAchievement } from './conditions';
+import { prepareOptionalActivityChange, finalizeOptionalSession, rewindOptionalPreparation } from './optional-activities';
+import type { OptionalActivityOperation, OptionalActivitySession } from './optional-activities';
 import { prepareNotebookChange } from './notebook';
 import type { NotebookOperation } from './notebook';
 import { prepareObjectiveChange } from './objectives';
@@ -22,6 +25,7 @@ export type StateEffect = S.effect & IdentifiedEffect;
 export type CompletionReceipt =
   | { readonly kind: 'objective'; readonly id: ObjectiveId }
   | { readonly kind: 'quest'; readonly id: QuestId }
+  | { readonly kind: 'minigame'; readonly id: MinigameId }
   | { readonly kind: 'dialogue-effect'; readonly id: DialogueEffectId }
   | { readonly kind: 'flag'; readonly id: FlagId };
 
@@ -48,6 +52,7 @@ interface EffectRequest {
   readonly destination?: Destination;
 }
 export type ReducerInput =
+  | { readonly kind: 'optional-activity'; readonly operation: OptionalActivityOperation }
   | { readonly kind: 'party'; readonly operation: PartyOperation }
   | { readonly kind: 'repair-plan'; readonly operation: RepairPlanOperation }
   | { readonly kind: 'objective'; readonly operation: ObjectiveOperation }
@@ -79,6 +84,7 @@ export interface ReducerState {
     readonly usedAttemptIds: readonly AttemptId[];
     /** Unfinished demonstrated learning is transient and retires on restore/retry. */
     readonly partyPractice?: PartyPractice | null;
+    readonly optionalActivity?: OptionalActivitySession | null;
   };
 }
 export type RejectionReason =
@@ -140,6 +146,7 @@ export function createReducerState(runtime: RuntimeState): ReducerState {
     usedAttemptIds: [...new Set([...worlds.map(w => w.attemptId), ...measurements.map(m => m.attemptId),
       ...(runtime.game?.assistance.map(h => h.attemptId) ?? []), ...(runtime.game?.outcomeHistory.map(o => o.attemptId) ?? [])])],
     partyPractice: null,
+    optionalActivity: null,
   } };
 }
 
@@ -148,10 +155,11 @@ function canonical(value: unknown): string {
   if (value && typeof value === 'object') return `{${Object.entries(value).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([k, v]) => `${JSON.stringify(k)}:${canonical(v)}`).join(',')}}`;
   return JSON.stringify(value);
 }
-function receiptApplied(world: WorldState, receipt: CompletionReceipt): boolean {
+function receiptApplied(world: WorldState, receipt: CompletionReceipt, registry: ContentRegistry): boolean {
   switch (receipt.kind) {
     case 'objective': return world.completedObjectiveIds.includes(receipt.id);
     case 'quest': return world.completedQuestIds.includes(receipt.id);
+    case 'minigame': { const id = minigameAchievement(registry, receipt.id); return id !== null && world.achievementIds.includes(id); }
     case 'dialogue-effect': return world.dialogueEffectIds.includes(receipt.id);
     case 'flag': return world.flags[receipt.id] === true;
   }
@@ -179,7 +187,7 @@ function resolveBindings(options: ReducerOptions): Map<EffectId, ResolvedBinding
     if (!source || !idPattern.test(binding.effectId) || !options.registry.has('effect', binding.effectId)) return null;
     const matches = findEffects(source, binding.effectId);
     const first = matches[0];
-    if (!first || matches.some(m => canonical(m.effect) !== canonical(first.effect) || !m.conditions.every(supportedCondition))) return null;
+    if (!first || matches.some(m => canonical(m.effect) !== canonical(first.effect) || !m.conditions.every(condition => supportedCondition(condition, options.registry)))) return null;
     // Content's broad ID allowance is larger than save v1's. Reject a binding
     // that would insert a non-serializable ID before it can award anything.
     if (Object.entries(first.effect).some(([key, value]) => key.endsWith('Id') && (typeof value !== 'string' || !idPattern.test(value)))) return null;
@@ -187,13 +195,14 @@ function resolveBindings(options: ReducerOptions): Map<EffectId, ResolvedBinding
     // Shared authored definitions may have one canonical binding, never two
     // different receipt anchors or a repeatable alias for a one-time reward.
     if (existing && canonical(existing.binding) !== canonical(binding)) return null;
-    if (binding.mode === 'repeatable' && ['grant-item', 'consume-item', 'complete-objective', 'complete-quest'].includes(first.effect.kind)) return null;
+    if (binding.mode === 'repeatable' && ['grant-item', 'consume-item', 'complete-objective', 'complete-quest', 'complete-minigame'].includes(first.effect.kind)) return null;
     if (binding.mode === 'once') {
       const r = binding.receipt;
       if (!idPattern.test(r.id)) return null;
       if (r.kind === 'dialogue-effect') {
         if (source.kind !== 'dialogue' || !findEffects(source, r.id as unknown as EffectId).length) return null;
       } else if (!options.registry.has(r.kind, r.id)) return null;
+      if (r.kind === 'minigame' && !minigameAchievement(options.registry, r.id)) return null;
     }
     resolved.set(binding.effectId, { binding, effect: structuredClone(first.effect), conditions: structuredClone(matches.map(m => m.conditions)) });
   }
@@ -204,6 +213,7 @@ function resolveBindings(options: ReducerOptions): Map<EffectId, ResolvedBinding
     const group = [...resolved.values()].filter(e => e.binding.mode === 'once' && receiptKey(e.binding.receipt) === receiptKey(receipt));
     if (!group.some(({ effect: e }) => (receipt.kind === 'objective' && e.kind === 'complete-objective' && e.objectiveId === receipt.id)
       || (receipt.kind === 'quest' && e.kind === 'complete-quest' && e.questId === receipt.id)
+      || (receipt.kind === 'minigame' && e.kind === 'complete-minigame' && e.minigameId === receipt.id)
       || (receipt.kind === 'flag' && e.kind === 'set-flag' && e.flagId === receipt.id && e.value === true)
       || (receipt.kind === 'dialogue-effect' && e.effectId === (receipt.id as unknown as EffectId)))) return null;
   }
@@ -235,7 +245,7 @@ function legalWorld(world: WorldState): boolean {
     && world.recruits.every(r => r.level >= 1 && r.level <= 100 && Number.isInteger(r.level) && r.abilityIds.length <= 32 && new Set(r.abilityIds).size === r.abilityIds.length)
     && world.activeAllyIds.length <= 2 && new Set(world.activeAllyIds).size === world.activeAllyIds.length
     && world.activeAllyIds.every(id => world.recruits.some(r => r.characterId === id))
-    && world.completedObjectiveIds.length <= 64 && world.completedQuestIds.length <= 64 && world.dialogueEffectIds.length <= 1024
+    && world.completedObjectiveIds.length <= 64 && world.completedQuestIds.length <= 64 && world.achievementIds.length <= 128 && world.dialogueEffectIds.length <= 1024
     && Object.keys(world.flags).length <= 512;
 }
 
@@ -243,8 +253,8 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
   const resolved = resolveBindings(options);
   const { registry } = options;
   const canReach = options.canReachRoom ?? ((world: WorldState, roomId: RoomId) => world.roomId === roomId);
-  const recoveryAvailable = (recovery: S.recovery, world: WorldState, atSource: boolean) => recovery.policy !== 'not-consumed' && supportedCondition(recovery.condition)
-    && registry.has('room', recovery.roomId) && conditionMet(recovery.condition, world)
+  const recoveryAvailable = (recovery: S.recovery, world: WorldState, atSource: boolean) => recovery.policy !== 'not-consumed' && supportedCondition(recovery.condition, registry)
+    && registry.has('room', recovery.roomId) && conditionMet(recovery.condition, world, registry)
     && (atSource ? world.roomId === recovery.roomId : canReach(world, recovery.roomId as RoomId));
   const items = [...new Set([...(resolved?.values() ?? [])].flatMap(e => e.effect.kind === 'consume-item' || e.effect.kind === 'grant-item' ? [e.effect.itemId] : []))]
     .map(id => registry.record(id)).filter((record): record is S.item => record?.kind === 'item');
@@ -253,7 +263,7 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
   const combinations = items.flatMap(owner => owner.combinations.map(combination => ({ owner, combination })));
 
   function batches(receipt: CompletionReceipt): readonly AtomicBatch[] {
-    if (receipt.kind === 'objective' || receipt.kind === 'quest') {
+    if (receipt.kind === 'objective' || receipt.kind === 'quest' || receipt.kind === 'minigame') {
       const source = registry.record(receipt.id);
       if (source?.kind !== receipt.kind) return [];
       if (source.alternatives?.length) return source.alternatives.map(alternative => ({
@@ -268,7 +278,7 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
 
   function transformation(item: S.item, effects: readonly StateEffect[], before: WorldState, after: WorldState): S.combination | undefined {
     return combinations.find(({ owner, combination: c }) => [owner.id, c.withItemId].includes(item.id)
-      && c.consumesInputs && supportedCondition(c.condition) && conditionMet(c.condition, before)
+      && c.consumesInputs && supportedCondition(c.condition, registry) && conditionMet(c.condition, before, registry)
       && [owner.id, c.withItemId].every(itemId => effects.some(e => e.kind === 'consume-item' && e.itemId === itemId))
       && c.effects.some(e => e.kind === 'grant-item')
       && c.effects.every(e => effects.some(actual => canonical(actual) === canonical(e)))
@@ -276,7 +286,7 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
   }
   function consumedRecovery(item: S.item, world: WorldState, atSource: boolean): boolean {
     return recoveryAvailable(item.recovery, world, atSource) && [...(resolved?.values() ?? [])].some(e => e.effect.kind === 'consume-item' && e.effect.itemId === item.id
-      && e.binding.mode === 'once' && receiptApplied(world, e.binding.receipt)
+      && e.binding.mode === 'once' && receiptApplied(world, e.binding.receipt, registry)
       && combinations.some(({ owner, combination: c }) => [owner.id, c.withItemId].includes(item.id) && c.consumesInputs
         && c.effects.some(effect => canonical(effect) === canonical(e.effect)) && recoveryAvailable(c.recovery, world, atSource)));
   }
@@ -292,13 +302,13 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
     for (const effect of supplied) {
       const entry = resolved.get(effect.effectId);
       if (!entry || canonical(effect) !== canonical(entry.effect)) return failure('content-error');
-      if (entry.binding.mode === 'once' && receiptApplied(game.world, entry.binding.receipt)) continue;
-      if (!entry.conditions.some(conditions => conditions.every(c => conditionMet(c, game.world)))) return failure('precondition');
+      if (entry.binding.mode === 'once' && receiptApplied(game.world, entry.binding.receipt, registry)) continue;
+      if (!entry.conditions.some(conditions => conditions.every(c => conditionMet(c, game.world, registry)))) return failure('precondition');
       selected.push(entry);
     }
     for (const { binding } of selected) if (binding.mode === 'once') {
       const group = selected.filter(e => e.binding.mode === 'once' && receiptKey(e.binding.receipt) === receiptKey(binding.receipt));
-      const completeBatch = batches(binding.receipt).some(batch => batch.conditions.every(c => supportedCondition(c) && conditionMet(c, game.world))
+      const completeBatch = batches(binding.receipt).some(batch => batch.conditions.every(c => supportedCondition(c, registry) && conditionMet(c, game.world, registry))
         && batch.effectIds.every(id => supplied.some(e => e.effectId === id)) && group.every(e => batch.effectIds.includes(e.effect.effectId)));
       if (!completeBatch) return failure('content-error');
     }
@@ -333,6 +343,10 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
         case 'complete-quest':
           if (!registry.has('quest', e.questId)) return failure('content-error');
           world = { ...world, completedQuestIds: [...new Set([...world.completedQuestIds, e.questId as QuestId])] }; break;
+        case 'complete-minigame': {
+          const id = minigameAchievement(registry, e.minigameId); if (!id) return failure('content-error');
+          world = { ...world, achievementIds: [...new Set([...world.achievementIds, id])] }; break;
+        }
         case 'record-fact':
           if (!registry.has('fact', e.factId)) return failure('content-error');
           notebook = { ...notebook, factIds: [...new Set([...notebook.factIds, e.factId as GameState['notebook']['factIds'][number]])] }; break;
@@ -374,7 +388,7 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
     }
     for (const item of items) if (item.essentialForRoutes.length && !world.inventory.some(i => i.itemId === item.id)) {
       const consumed = [...resolved.values()].some(e => e.effect.kind === 'consume-item' && e.effect.itemId === item.id
-        && e.binding.mode === 'once' && receiptApplied(world, e.binding.receipt));
+        && e.binding.mode === 'once' && receiptApplied(world, e.binding.receipt, registry));
       if (consumed && !consumedRecovery(item, world, false)) return failure('unrecoverable-item');
     }
     const physical = (w: WorldState) => [w.flags, w.inventory, w.recruits, w.activeAllyIds, w.route, w.roomId, w.position];
@@ -431,6 +445,35 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
       return accept(state, command.actionId, { ...result.value, activity: pending.request.destination ? result.value.activity : pending.previousActivity }, true);
     }
     if (pending) return reject('transition-pending');
+    if (input.kind === 'optional-activity') {
+      const result = prepareOptionalActivityChange(registry, game, state.runtime.activity, state.control.optionalActivity ?? null,
+        input.operation, command, state.runtime.auth.clientGeneration);
+      if (!result.ok) return reject(result.reason);
+      let candidateGame = result.game, control = state.control;
+      if (result.retry) {
+        const session = state.control.optionalActivity;
+        if (!session) return reject('invalid-state');
+        const retried = rewindOptionalPreparation(candidateGame, session, result.retry.nextAttemptId, control);
+        if (!retried.ok) return reject(retried.reason);
+        candidateGame = retried.game; control = { ...control, highestRevision: retried.highestRevision, usedAttemptIds: retried.usedAttemptIds, partyPractice: null };
+      }
+      // Invalid learner input/content reports feedback with no effects. Only a
+      // valid full-delivery selection reaches the canonical atomic batch check.
+      if (result.evaluation.acceptedEffects.length) {
+        const prepared = prepare({ ...state, runtime: { ...state.runtime, game: candidateGame } }, { evaluation: result.evaluation });
+        if (!prepared.ok) return reject(prepared.reason);
+        candidateGame = prepared.value.game;
+      }
+      if (!legalWorld(candidateGame.world) || candidateGame.assistance.length > 2048) return reject('invalid-state');
+      const session = finalizeOptionalSession(result.session, candidateGame);
+      const reduced = accept(state, command.actionId, { game: candidateGame, activity: result.activity,
+        changed: canonical(candidateGame) !== canonical(game), revision: candidateGame.world.configurationRevision });
+      if (reduced.status === 'rejected') return reduced;
+      return { status: reduced.status === 'no-op' && session !== state.control.optionalActivity ? 'applied' : reduced.status,
+        state: { ...reduced.state, runtime: input.operation.kind === 'start' && reduced.state.runtime.ui ? { ...reduced.state.runtime, ui: { ...reduced.state.runtime.ui, panel: 'none' } } : reduced.state.runtime,
+          control: { ...reduced.state.control, highestRevision: Math.max(control.highestRevision, reduced.state.control.highestRevision),
+          usedAttemptIds: control.usedAttemptIds, partyPractice: control.partyPractice ?? null, optionalActivity: session } } };
+    }
     if (input.kind === 'party') {
       // Party work never broadens the committed-encounter action admission.
       const anchor = registry.safePosition(game.world.position.safePositionId);
@@ -489,7 +532,7 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
       if (revision === null) return reject('generation-exhausted');
       const world: WorldState = { ...structuredClone(checkpoint.world), attemptId: input.nextAttemptId, configurationRevision: revision };
       const result = accept(state, command.actionId, { game: { ...game, world, notebook: staleMeasurements(game) }, activity: { kind: 'safe-preparation' }, changed: true, revision });
-      return result.status === 'rejected' ? result : { ...result, state: { ...result.state, control: { ...result.state.control, usedAttemptIds: [...state.control.usedAttemptIds, input.nextAttemptId], partyPractice: null } } };
+      return result.status === 'rejected' ? result : { ...result, state: { ...result.state, control: { ...result.state.control, usedAttemptIds: [...state.control.usedAttemptIds, input.nextAttemptId], partyPractice: null, optionalActivity: null } } };
     }
     if (!safeKinds.has(state.runtime.activity.kind) && state.runtime.activity.kind !== 'active-encounter') return reject('invalid-state');
     if (input.kind === 'recover-item') {

@@ -1,7 +1,7 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 // The canonical content is read only. Corruption tests are explicit generator
 // defense inputs, not player-earned state or acceptance of malformed content.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
@@ -14,11 +14,16 @@ import type { SaveContentPolicy } from '../../src/services/save-validator';
 const { registry, world } = loadIntroductionContent();
 const rules = { itemMaxQuantities: { 'spec001:ITEM-inspection-kit': 1 }, measurementRules: {}, unsafeFlags: {} };
 const generated = createSaveContentPolicy(registry, world, rules);
-const input = JSON.parse(readFileSync(new URL('../../docs/evidence/spec001/party/level-policy-cases.json', import.meta.url), 'utf8')) as {
+const fixture = JSON.parse(readFileSync(new URL('../../docs/evidence/spec001/party/level-policy-cases.json', import.meta.url), 'utf8')) as {
   policies: SaveContentPolicy[]; cases: { id: string; body: string; expectedCode: string | null; policies?: SaveContentPolicy[] }[];
 };
+// Keep the sealed T094 input unchanged; only its old objective lesson policy
+// receives the explicit T100 trusted-fixture projection.
+const lessonPolicy = (policy: SaveContentPolicy): SaveContentPolicy => ({ ...policy, lessonSources: [...policy.members.objective] });
+const input = { ...fixture, policies: fixture.policies.map(lessonPolicy),
+  cases: fixture.cases.map(row => row.policies ? { ...row, policies: row.policies.map(lessonPolicy) } : row) };
 const canonicalInput = { ...input, policies: [generated] };
-writeFileSync(new URL('../../docs/evidence/spec001/party/level-policy-production-generated.json', import.meta.url), JSON.stringify(generated, null, 2) + '\n');
+// Do not rewrite historical T094 evidence during regression checks.
 const php = spawnSync('/opt/homebrew/opt/php@8.4/bin/php', ['-d', 'auto_prepend_file=', '-d', 'auto_append_file=',
   fileURLToPath(new URL('./party-level-policy.php', import.meta.url)), 'production'], {
   encoding: 'utf8', input: JSON.stringify(canonicalInput), maxBuffer: 8 * 1024 * 1024,

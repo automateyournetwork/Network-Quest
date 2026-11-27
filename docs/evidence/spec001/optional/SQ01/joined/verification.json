@@ -1,0 +1,29 @@
+{
+  "task": "T096",
+  "loop": 108,
+  "stage": "same-loop final common controller join",
+  "recordedAt": "2026-11-27T14:47:20.488706+00:00",
+  "checks": [
+    {
+      "command": "PATH=\"$PWD/.runtime/node-v26.13.1-darwin-arm64/bin:$PATH\" npx vitest run --config docs/evidence/spec001/optional/SQ01/joined/vitest.config.ts",
+      "exitCode": 0,
+      "testsPassed": 45,
+      "durationSeconds": 3.66,
+      "log": "docs/evidence/spec001/optional/SQ01/joined/05-final-integrated.log"
+    },
+    {
+      "command": "PATH=\"$PWD/.runtime/node-v26.13.1-darwin-arm64/bin:$PATH\" npx tsc --project docs/evidence/spec001/optional/SQ01/joined/tsconfig.json --noEmit",
+      "exitCode": 0,
+      "log": "docs/evidence/spec001/optional/SQ01/joined/06-final-typecheck.log"
+    }
+  ],
+  "retainedFailure": "docs/evidence/spec001/optional/SQ01/joined/02-typecheck.log",
+  "sourceMatchesT100NativeReport": true,
+  "scopeLimits": [
+    "Prepared guest states and one prepared current measurement",
+    "One-hour fake-clock advance, no actual hidden-tab wait",
+    "Validated in-memory snapshot restore, no HTTP save",
+    "No image production or review",
+    "Root owns task/gate acceptance"
+  ]
+}
