@@ -1,0 +1,55 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PR035",
+  "hashes": [
+    "9a74f647c8d5138f54b52f2d85e9fec7c67d0ea7336134ff086f59cb4c341d25",
+    "215a97806a5b8b3021b99b421af2b4220d5cbcd2d56e39e23d24b4508da95bc2"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop128_t111",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; strict local HTTPS, Firefox 159.0, Node 26.13.1, Three.js 0.187.0.",
+  "details": {
+    "findings": "The bronze disc hangs clear of the gantry on thin slings. Its raised boss, mallet and OPTIONAL notice read separately. The room's text carries the complete evidence requirement. The two studio lighting rigs yield different highlight intensity.",
+    "methods": [
+      "browser-inspection",
+      "image-inspection"
+    ],
+    "tool": "Firefox 159.0, Three.js GLTFLoader r187; Blender 5.2.1 LTS native reference",
+    "observedPaths": [
+      "assets-src/props/R03-R04/PR035.blend",
+      "public/assets/models/R03-R04/PR035.glb",
+      "docs/evidence/spec001/prop-production/T111/PR035-source.png",
+      "docs/evidence/spec001/prop-production/T111/PR035-browser.png",
+      "docs/evidence/spec001/prop-production/T111/PR031-PR035.jpg"
+    ],
+    "browserMeasurement": "docs/evidence/spec001/prop-production/T111/PR035-browser.json",
+    "browserRenderSha256": "1a82dbc303fcfeb2d039a02a321b619aa457489b027117bdc1d3a7fc0bbe7702",
+    "nativeRenderSha256": "43de665c3148988588777d78fbb2d2d08c76d98d0bde23bb83ecdeea56176a8b",
+    "projection": {
+      "silhouetteIoU": 0.994932,
+      "pixelSize": [
+        540,
+        540
+      ],
+      "alphaThreshold": 128,
+      "sourceBoundsPixels": [
+        115,
+        45,
+        425,
+        495
+      ],
+      "browserBoundsPixels": [
+        115,
+        45,
+        425,
+        495
+      ],
+      "bothInsideFrame": true,
+      "comparedSourceSha256": "9a74f647c8d5138f54b52f2d85e9fec7c67d0ea7336134ff086f59cb4c341d25",
+      "comparedGLBSha256": "215a97806a5b8b3021b99b421af2b4220d5cbcd2d56e39e23d24b4508da95bc2"
+    }
+  },
+  "check": "browser-comparison"
+}

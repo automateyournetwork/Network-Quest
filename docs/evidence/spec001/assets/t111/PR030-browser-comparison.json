@@ -1,0 +1,55 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PR030",
+  "hashes": [
+    "99ebb90fa95924086e7814ddb4255bb1f32e5d92495c353c2b40040cff8eed06",
+    "a687a2bbb8523fed5fed1bb59d78527b840d845c0ebcc31e1ac8b393a9ae7689"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop128_t111",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; strict local HTTPS, Firefox 159.0, Node 26.13.1, Three.js 0.187.0.",
+  "details": {
+    "findings": "The tire, individual spokes and fork silhouette separate against the slate sheet. The revised counter shows the two path lengths and metre unit on its cream plate. The two studio lighting rigs yield different highlight intensity.",
+    "methods": [
+      "browser-inspection",
+      "image-inspection"
+    ],
+    "tool": "Firefox 159.0, Three.js GLTFLoader r187; Blender 5.2.1 LTS native reference",
+    "observedPaths": [
+      "assets-src/props/R03-R04/PR030.blend",
+      "public/assets/models/R03-R04/PR030.glb",
+      "docs/evidence/spec001/prop-production/T111/PR030-source.png",
+      "docs/evidence/spec001/prop-production/T111/PR030-browser.png",
+      "docs/evidence/spec001/prop-production/T111/PR026-PR030.jpg"
+    ],
+    "browserMeasurement": "docs/evidence/spec001/prop-production/T111/PR030-browser.json",
+    "browserRenderSha256": "064d7c93d47cbe27887b884c05948bea669ec90fde04b0fdbd0017c4c7404a99",
+    "nativeRenderSha256": "f301e56c3387fd16c5f3b0f51579e910c60fac534fd5a8073e766a0d0453eb79",
+    "projection": {
+      "silhouetteIoU": 0.990593,
+      "pixelSize": [
+        540,
+        540
+      ],
+      "alphaThreshold": 128,
+      "sourceBoundsPixels": [
+        122,
+        45,
+        418,
+        495
+      ],
+      "browserBoundsPixels": [
+        122,
+        45,
+        418,
+        495
+      ],
+      "bothInsideFrame": true,
+      "comparedSourceSha256": "99ebb90fa95924086e7814ddb4255bb1f32e5d92495c353c2b40040cff8eed06",
+      "comparedGLBSha256": "a687a2bbb8523fed5fed1bb59d78527b840d845c0ebcc31e1ac8b393a9ae7689"
+    }
+  },
+  "check": "browser-comparison"
+}

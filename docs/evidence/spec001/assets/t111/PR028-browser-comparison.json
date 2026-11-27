@@ -1,0 +1,55 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PR028",
+  "hashes": [
+    "adb89a09d5a89da2689b909b96d2ce207d6df02efaf07647d260dd7e2e1a958e",
+    "bb342829e1b255bf3134e18b0503a03d88b738458640e5ea9d19d20916caf99f"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop128_t111",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; strict local HTTPS, Firefox 159.0, Node 26.13.1, Three.js 0.187.0.",
+  "details": {
+    "findings": "A bent copper contact stands among the straight contact lands. The broken latch stub, cable boot and RETURN plate stay visible from the raised inspection view. The two studio lighting rigs yield different highlight intensity.",
+    "methods": [
+      "browser-inspection",
+      "image-inspection"
+    ],
+    "tool": "Firefox 159.0, Three.js GLTFLoader r187; Blender 5.2.1 LTS native reference",
+    "observedPaths": [
+      "assets-src/props/R03-R04/PR028.blend",
+      "public/assets/models/R03-R04/PR028.glb",
+      "docs/evidence/spec001/prop-production/T111/PR028-source.png",
+      "docs/evidence/spec001/prop-production/T111/PR028-browser.png",
+      "docs/evidence/spec001/prop-production/T111/PR026-PR030.jpg"
+    ],
+    "browserMeasurement": "docs/evidence/spec001/prop-production/T111/PR028-browser.json",
+    "browserRenderSha256": "2aef1702080aa5b0de4df12b7a00326590e1f0004f93daa38714363fc3114d70",
+    "nativeRenderSha256": "05f5d79224b7975ab7fc041dbf5e8d1ef0c24ef0f88b63c9eddd24f57f3b59d0",
+    "projection": {
+      "silhouetteIoU": 0.998966,
+      "pixelSize": [
+        540,
+        540
+      ],
+      "alphaThreshold": 128,
+      "sourceBoundsPixels": [
+        53,
+        45,
+        487,
+        495
+      ],
+      "browserBoundsPixels": [
+        53,
+        45,
+        487,
+        495
+      ],
+      "bothInsideFrame": true,
+      "comparedSourceSha256": "adb89a09d5a89da2689b909b96d2ce207d6df02efaf07647d260dd7e2e1a958e",
+      "comparedGLBSha256": "bb342829e1b255bf3134e18b0503a03d88b738458640e5ea9d19d20916caf99f"
+    }
+  },
+  "check": "browser-comparison"
+}

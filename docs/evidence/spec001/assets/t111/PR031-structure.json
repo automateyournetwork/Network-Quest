@@ -1,0 +1,50 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PR031",
+  "hashes": [
+    "d544bfd934288bd56155cdd6d1569dcbe9774e9932b531fe8abd1efc1085d38e",
+    "2488e77d38bb47fc951c9f6f85a16993704be2465466f219601d51d68c29cb96"
+  ],
+  "status": "passed",
+  "actor": "tool",
+  "reviewer": "/root/loop128_t111",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; strict local HTTPS, Firefox 159.0, Node 26.13.1, Three.js 0.187.0.",
+  "details": {
+    "findings": "Decoded embedded GLB positions and triangle indices. The export fits the native bounds after the Y-up axis conversion and fits the frozen candidate envelope.",
+    "methods": [
+      "binary-inspection",
+      "native-browser-decode"
+    ],
+    "tool": "Python struct, Firefox 159.0, Three.js 0.187.0",
+    "observedPaths": [
+      "assets-src/props/R03-R04/PR031.blend",
+      "public/assets/models/R03-R04/PR031.glb"
+    ],
+    "binaryReport": "docs/evidence/spec001/prop-production/T111/glb-structure.json",
+    "measurement": {
+      "glbSha256": "2488e77d38bb47fc951c9f6f85a16993704be2465466f219601d51d68c29cb96",
+      "rootIdentity": "PR031",
+      "glbBoundsYUp": [
+        [
+          -0.7797529697418213,
+          0.0,
+          -0.32962286612018943
+        ],
+        [
+          0.7797529697418213,
+          1.2000000476837158,
+          0.3296228633262217
+        ]
+      ],
+      "nativeAxisConversionMaxErrorMetres": 4.768371586472142e-08,
+      "embeddedImages": 0,
+      "drawPrimitives": 8,
+      "trianglesAcrossIndexedPrimitives": 2806,
+      "positionAndIndexDecoded": true,
+      "withinCandidateEnvelope": true,
+      "materialAlphaModeVerified": true
+    }
+  },
+  "check": "structure"
+}

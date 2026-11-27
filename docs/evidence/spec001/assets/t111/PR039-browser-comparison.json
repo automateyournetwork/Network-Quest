@@ -1,0 +1,55 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PR039",
+  "hashes": [
+    "71a6a8f1fce2f45ccda12d420531548332cf49e47f1dd288163847fea6b2f104",
+    "cc6b535c9f2bd1343499ffb9b1b49d61d06219e34d25d42b9af1113a2aa2c402"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop128_t111",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; strict local HTTPS, Firefox 159.0, Node 26.13.1, Three.js 0.187.0.",
+  "details": {
+    "findings": "Upper and lower framed slates carry distinct imperfect and squared traces. INPUT and OUTPUT captions remain legible in close view. No numerical limits are drawn. The two studio lighting rigs yield different highlight intensity.",
+    "methods": [
+      "browser-inspection",
+      "image-inspection"
+    ],
+    "tool": "Firefox 159.0, Three.js GLTFLoader r187; Blender 5.2.1 LTS native reference",
+    "observedPaths": [
+      "assets-src/props/R03-R04/PR039.blend",
+      "public/assets/models/R03-R04/PR039.glb",
+      "docs/evidence/spec001/prop-production/T111/PR039-source.png",
+      "docs/evidence/spec001/prop-production/T111/PR039-browser.png",
+      "docs/evidence/spec001/prop-production/T111/PR036-PR040.jpg"
+    ],
+    "browserMeasurement": "docs/evidence/spec001/prop-production/T111/PR039-browser.json",
+    "browserRenderSha256": "98945814c492fcce7727f9fab776988e7a606484fcdca201489227824ccb1707",
+    "nativeRenderSha256": "ea6a3b400ced969dc2e85ec6f39cea73c075c6a370fadd73345e513943adb0fe",
+    "projection": {
+      "silhouetteIoU": 0.998094,
+      "pixelSize": [
+        540,
+        540
+      ],
+      "alphaThreshold": 128,
+      "sourceBoundsPixels": [
+        107,
+        45,
+        433,
+        495
+      ],
+      "browserBoundsPixels": [
+        107,
+        45,
+        433,
+        495
+      ],
+      "bothInsideFrame": true,
+      "comparedSourceSha256": "71a6a8f1fce2f45ccda12d420531548332cf49e47f1dd288163847fea6b2f104",
+      "comparedGLBSha256": "cc6b535c9f2bd1343499ffb9b1b49d61d06219e34d25d42b9af1113a2aa2c402"
+    }
+  },
+  "check": "browser-comparison"
+}

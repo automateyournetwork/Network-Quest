@@ -1,0 +1,55 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PR026",
+  "hashes": [
+    "0105ab58ab68882a059a219b9049304ca14e881e9b54d7fe349bf230f4b16019",
+    "2febfe230ba50ba7bf8d209af02cd1c4415df135199fd76932ac2aef2c9de06b"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop128_t111",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; strict local HTTPS, Firefox 159.0, Node 26.13.1, Three.js 0.187.0.",
+  "details": {
+    "findings": "The two bronze rings frame the finned stator. The shaft pulley, terminal box lid and cable loop retain separate profiles. The revised wider maintenance plate reads UNMEASURED in the final Firefox render. The two studio lighting rigs yield different highlight intensity.",
+    "methods": [
+      "browser-inspection",
+      "image-inspection"
+    ],
+    "tool": "Firefox 159.0, Three.js GLTFLoader r187; Blender 5.2.1 LTS native reference",
+    "observedPaths": [
+      "assets-src/props/R03-R04/PR026.blend",
+      "public/assets/models/R03-R04/PR026.glb",
+      "docs/evidence/spec001/prop-production/T111/PR026-source.png",
+      "docs/evidence/spec001/prop-production/T111/PR026-browser.png",
+      "docs/evidence/spec001/prop-production/T111/PR026-PR030.jpg"
+    ],
+    "browserMeasurement": "docs/evidence/spec001/prop-production/T111/PR026-browser.json",
+    "browserRenderSha256": "974f0e9e5df1fcb7d9f9d5ee68313f98119c4839ae84119cd2c041f368803851",
+    "nativeRenderSha256": "e2c4ee827191d0c4941a3ace7396a68d8b765bf3d4dc7d25a7d01bed8c7e6562",
+    "projection": {
+      "silhouetteIoU": 0.997915,
+      "pixelSize": [
+        540,
+        540
+      ],
+      "alphaThreshold": 128,
+      "sourceBoundsPixels": [
+        76,
+        45,
+        464,
+        495
+      ],
+      "browserBoundsPixels": [
+        76,
+        45,
+        464,
+        495
+      ],
+      "bothInsideFrame": true,
+      "comparedSourceSha256": "0105ab58ab68882a059a219b9049304ca14e881e9b54d7fe349bf230f4b16019",
+      "comparedGLBSha256": "2febfe230ba50ba7bf8d209af02cd1c4415df135199fd76932ac2aef2c9de06b"
+    }
+  },
+  "check": "browser-comparison"
+}

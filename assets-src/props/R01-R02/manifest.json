@@ -1,0 +1,4045 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "assets": [
+    {
+      "assetId": "spec001:ASSET-PR001",
+      "semanticIdentity": "spec001:PR001",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR001-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR001.glb",
+            "sha256": "58f01f47d9a39b01ba5aef7bb9e08b9b94f2789a13bc0d82cd0f320980abef09",
+            "bytes": 196108,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR001-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR001-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR001-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "58f01f47d9a39b01ba5aef7bb9e08b9b94f2789a13bc0d82cd0f320980abef09"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR001-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "58f01f47d9a39b01ba5aef7bb9e08b9b94f2789a13bc0d82cd0f320980abef09"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR001-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "58f01f47d9a39b01ba5aef7bb9e08b9b94f2789a13bc0d82cd0f320980abef09"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR001-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "58f01f47d9a39b01ba5aef7bb9e08b9b94f2789a13bc0d82cd0f320980abef09"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR001-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR001_base",
+          "PR001_upright",
+          "PR001_brace",
+          "PR001_brace.001",
+          "PR001_brace.002",
+          "PR001_brace.003",
+          "PR001_upright.001",
+          "PR001_brace.004",
+          "PR001_brace.005",
+          "PR001_brace.006",
+          "PR001_brace.007",
+          "PR001_gate_bar",
+          "PR001_gate_bar.001",
+          "PR001_gate_bar.002",
+          "PR001_gate_bar.003",
+          "PR001_gate_bar.004",
+          "PR001_crown",
+          "PR001_header",
+          "PR001_header_rivet",
+          "PR001_header_rivet.001",
+          "PR001_header_rivet.002"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR001 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 4804,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR002",
+      "semanticIdentity": "spec001:PR002",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR002-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR002.glb",
+            "sha256": "eaf272a73ab3130714412a7a186061c59cbf793d512d87d004cd0c27fa9cc53a",
+            "bytes": 109540,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR002-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR002-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR002-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "eaf272a73ab3130714412a7a186061c59cbf793d512d87d004cd0c27fa9cc53a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR002-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "eaf272a73ab3130714412a7a186061c59cbf793d512d87d004cd0c27fa9cc53a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR002-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "eaf272a73ab3130714412a7a186061c59cbf793d512d87d004cd0c27fa9cc53a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR002-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "eaf272a73ab3130714412a7a186061c59cbf793d512d87d004cd0c27fa9cc53a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR002-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR002_flanged_foot",
+          "PR002_stem",
+          "PR002_cabinet",
+          "PR002_face",
+          "PR002_power_bezel",
+          "PR002_power_lens",
+          "PR002_call_button",
+          "PR002_face_bolt",
+          "PR002_face_bolt.001",
+          "PR002_face_bolt.002",
+          "PR002_face_bolt.003",
+          "PR002_power_feed"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR002 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 2884,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR003",
+      "semanticIdentity": "spec001:PR003",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR003-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR003.glb",
+            "sha256": "c188b411dd0449f7e21c8f49d1df88f4ae36a131524ff38d1c06aa5869e4373f",
+            "bytes": 148116,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR003-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR003-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR003-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "c188b411dd0449f7e21c8f49d1df88f4ae36a131524ff38d1c06aa5869e4373f"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR003-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "c188b411dd0449f7e21c8f49d1df88f4ae36a131524ff38d1c06aa5869e4373f"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR003-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "c188b411dd0449f7e21c8f49d1df88f4ae36a131524ff38d1c06aa5869e4373f"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR003-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "c188b411dd0449f7e21c8f49d1df88f4ae36a131524ff38d1c06aa5869e4373f"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR003-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR003_foot",
+          "PR003_stanchion",
+          "PR003_foot.001",
+          "PR003_stanchion.001",
+          "PR003_tube",
+          "PR003_clamp",
+          "PR003_clamp.001",
+          "PR003_clamp.002",
+          "PR003_clamp.003",
+          "PR003_socket",
+          "PR003_socket_lip",
+          "PR003_cable"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR003 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 4136,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR004",
+      "semanticIdentity": "spec001:PR004",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR004-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR004.glb",
+            "sha256": "79245fd56f3ad483cbbe2b4a11320a551bb9f582e1e636dc8ce472ce0c7486c2",
+            "bytes": 106188,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR004-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR004-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR004-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "79245fd56f3ad483cbbe2b4a11320a551bb9f582e1e636dc8ce472ce0c7486c2"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR004-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "79245fd56f3ad483cbbe2b4a11320a551bb9f582e1e636dc8ce472ce0c7486c2"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR004-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "79245fd56f3ad483cbbe2b4a11320a551bb9f582e1e636dc8ce472ce0c7486c2"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR004-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "79245fd56f3ad483cbbe2b4a11320a551bb9f582e1e636dc8ce472ce0c7486c2"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR004-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR004_plinth",
+          "PR004_stem",
+          "PR004_frame",
+          "PR004_inset",
+          "PR004_verb_icon",
+          "PR004_verb_icon.001",
+          "PR004_verb_icon.002",
+          "PR004_verb_icon.003",
+          "PR004_decorative_rule",
+          "PR004_decorative_rule.001"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR004 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 2696,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR005",
+      "semanticIdentity": "spec001:PR005",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR005-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR005.glb",
+            "sha256": "e3d21e1e42c10f046203213980d6901a5d71b8ba58d1b1fd669c0360fe63094d",
+            "bytes": 91088,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR005-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR005-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR005-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "e3d21e1e42c10f046203213980d6901a5d71b8ba58d1b1fd669c0360fe63094d"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR005-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "e3d21e1e42c10f046203213980d6901a5d71b8ba58d1b1fd669c0360fe63094d"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR005-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "e3d21e1e42c10f046203213980d6901a5d71b8ba58d1b1fd669c0360fe63094d"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR005-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "e3d21e1e42c10f046203213980d6901a5d71b8ba58d1b1fd669c0360fe63094d"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR005-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR005_bag",
+          "PR005_fold",
+          "PR005_strap",
+          "PR005_buckle",
+          "PR005_strap.001",
+          "PR005_buckle.001",
+          "PR005_handle",
+          "PR005_notebook"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR005 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 2140,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR006",
+      "semanticIdentity": "spec001:PR006",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR006-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR006.glb",
+            "sha256": "89987342205c4e651fc354e6b7cee7ff096c2475241750f479a03502b4595f65",
+            "bytes": 101756,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR006-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR006-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR006-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "89987342205c4e651fc354e6b7cee7ff096c2475241750f479a03502b4595f65"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR006-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "89987342205c4e651fc354e6b7cee7ff096c2475241750f479a03502b4595f65"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR006-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "89987342205c4e651fc354e6b7cee7ff096c2475241750f479a03502b4595f65"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR006-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "89987342205c4e651fc354e6b7cee7ff096c2475241750f479a03502b4595f65"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR006-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR006_base",
+          "PR006_column",
+          "PR006_body",
+          "PR006_bezel",
+          "PR006_unlit_lens",
+          "PR006_lens_grille",
+          "PR006_lens_grille.001",
+          "PR006_lens_grille.002",
+          "PR006_lower_slot",
+          "PR006_bolt",
+          "PR006_bolt.001"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR006 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 2388,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR007",
+      "semanticIdentity": "spec001:PR007",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR007-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR007.glb",
+            "sha256": "7a0f826c5fc0204affc1577540d5a5176a9ba90da7bc5920b81bfeb8bb66777b",
+            "bytes": 88184,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR007-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR007-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR007-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "7a0f826c5fc0204affc1577540d5a5176a9ba90da7bc5920b81bfeb8bb66777b"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR007-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "7a0f826c5fc0204affc1577540d5a5176a9ba90da7bc5920b81bfeb8bb66777b"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR007-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "7a0f826c5fc0204affc1577540d5a5176a9ba90da7bc5920b81bfeb8bb66777b"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR007-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "7a0f826c5fc0204affc1577540d5a5176a9ba90da7bc5920b81bfeb8bb66777b"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR007-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR007_post",
+          "PR007_foot",
+          "PR007_post.001",
+          "PR007_foot.001",
+          "PR007_grip",
+          "PR007_insulation",
+          "PR007_insulation.001",
+          "PR007_insulation.002"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR007 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 2956,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR008",
+      "semanticIdentity": "spec001:PR008",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR008-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR008.glb",
+            "sha256": "f8bfe1b487e13f18eb577f8e294334a90cad75d3b69e8ffe98a8f9ff0d8f5c0a",
+            "bytes": 45256,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR008-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR008-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR008-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "f8bfe1b487e13f18eb577f8e294334a90cad75d3b69e8ffe98a8f9ff0d8f5c0a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR008-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "f8bfe1b487e13f18eb577f8e294334a90cad75d3b69e8ffe98a8f9ff0d8f5c0a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR008-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "f8bfe1b487e13f18eb577f8e294334a90cad75d3b69e8ffe98a8f9ff0d8f5c0a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR008-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "f8bfe1b487e13f18eb577f8e294334a90cad75d3b69e8ffe98a8f9ff0d8f5c0a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR008-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR008_pillar",
+          "PR008_hub",
+          "PR008_arm",
+          "PR008_arm.001",
+          "PR008_arm.002"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR008 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 1252,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR009",
+      "semanticIdentity": "spec001:PR009",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR009-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR009.glb",
+            "sha256": "6b90e1885348224b50c5cc388d9c3b53824cfbcb5069eb885abb2b70d314889c",
+            "bytes": 78968,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR009-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR009-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR009-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "6b90e1885348224b50c5cc388d9c3b53824cfbcb5069eb885abb2b70d314889c"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR009-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "6b90e1885348224b50c5cc388d9c3b53824cfbcb5069eb885abb2b70d314889c"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR009-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "6b90e1885348224b50c5cc388d9c3b53824cfbcb5069eb885abb2b70d314889c"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR009-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "6b90e1885348224b50c5cc388d9c3b53824cfbcb5069eb885abb2b70d314889c"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR009-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR009_cradle_leg",
+          "PR009_cradle_leg.001",
+          "PR009_cradle_leg.002",
+          "PR009_vessel",
+          "PR009_ring",
+          "PR009_ring.001",
+          "PR009_handle",
+          "PR009_seal"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR009 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 2052,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR010",
+      "semanticIdentity": "spec001:PR010",
+      "kind": "prop-model",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/rooms/R01.blend",
+            "sha256": "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "bytes": 403487,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t063-PR010-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R01-PR010.glb",
+            "sha256": "589a1e5b5373b7e1935b1ef5591b2fe501308de9e317f40a30c39835671c01d5",
+            "bytes": 89384,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "T063 selected Y-up GLB, PBR, NLA_TRACKS, 24fps sampled",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t063-PR010-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T063-original-model-PR010-20261126-final",
+          "settingsPath": "assets-src/rooms/R01-production-settings.json",
+          "promptOrScriptPath": "assets-src/rooms/R01-build.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf"
+          ],
+          "notes": "Original procedural modeling in actual Blender; separate source reopen/export/import. Shared room source contains ten separately identified prop hierarchies; no duplicated prop identities."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original agent-authored Blender construction code executed locally. No imported geometry/textures or generated images. Native media licensed CC BY 4.0 to extent controlled; final owner/rights acceptance pending."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R01",
+          "use": "prop-placement",
+          "evidencePath": "docs/evidence/spec001/assets/t066/PR010-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "589a1e5b5373b7e1935b1ef5591b2fe501308de9e317f40a30c39835671c01d5"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR010-source-reopen.json",
+          "findings": "Actual native source opened in fresh Blender5.2.1, rendered and exported; final SHA recorded."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "589a1e5b5373b7e1935b1ef5591b2fe501308de9e317f40a30c39835671c01d5"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR010-structure.json",
+          "findings": "Actual fresh Blender glTF reimport; mesh triangles/UVs/materials and GLB embedded buffer integrity verified. Required character clips have moving mesh descendants and stable roots."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "589a1e5b5373b7e1935b1ef5591b2fe501308de9e317f40a30c39835671c01d5"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR010-visual.json",
+          "findings": "Agent inspected actual source and export/browser captures: distinct construction/materials; no placeholder recolor identity; corrected cropping and articulation gaps. Owner art acceptance remains pending."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop068_t063",
+          "date": "2026-11-26",
+          "hashes": [
+            "0a69b267431b5348bad642b3cf0b514beb1fb8184758053254fa01f765964dbf",
+            "589a1e5b5373b7e1935b1ef5591b2fe501308de9e317f40a30c39835671c01d5"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7; Blender5.2.1 9e2066aef7ef; Node26.13.1; Three0.187.0; native headless Firefox159 strict local TLS",
+          "evidencePath": "docs/evidence/spec001/assets/t063-PR010-browser-comparison.json",
+          "findings": "Actual Firefox159 loaded this GLB and rendered it in isolated inspection harness; 14 exports loaded, no page errors. Source and browser geometry/poses compared; no integrated gameplay use claimed."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/rooms/R01.blend",
+        "objectIds": [
+          "PR010_stone",
+          "PR010_reader",
+          "PR010_eye_rim",
+          "PR010_eye",
+          "PR010_eye_rim.001",
+          "PR010_eye.001",
+          "PR010_neck"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "named prop parent origin; local GLB parent reset to zero; room placement retained in native R01 source",
+        "collisionProxy": "COLLISION_PR010 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [],
+        "triangles": 2632,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR011",
+      "semanticIdentity": "spec001:PR011",
+      "kind": "prop-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/props/R01-R02/PR011.blend",
+            "sha256": "968b613a6f0ab08ab7d72c8b2d7e7e3e28434a9c261bcfba98b564c357b9dd74",
+            "bytes": 129383,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t110/PR011/source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t063-R01-source.png",
+            "sha256": "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "bytes": 852447,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "T063 Cycles"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t107/CH02-poses.png",
+            "sha256": "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "bytes": 145518,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender and Firefox",
+          "version": "T107 Titan sheet"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/layouts-t106/diagram-contact-sheet.png",
+            "sha256": "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a",
+            "bytes": 383230,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "T106 layout renderer",
+          "version": "T106 freeze"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R02/PR011.glb",
+            "sha256": "6eb5d9d4d4804c7f2101b9c4604f3c599b5a9c606f01f7443b996c017d7dedc2",
+            "bytes": 179620,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "968b613a6f0ab08ab7d72c8b2d7e7e3e28434a9c261bcfba98b564c357b9dd74"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected joined static mesh, embedded PBR and Y-up; metre scale, no cameras or lights.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t110/PR011/browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T110-workshop-PR011-20261127",
+          "settingsPath": "assets-src/props/R01-R02/settings.json",
+          "promptOrScriptPath": "assets-src/props/R01-R02/model.py",
+          "referenceHashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "outputHashes": [
+            "968b613a6f0ab08ab7d72c8b2d7e7e3e28434a9c261bcfba98b564c357b9dd74"
+          ],
+          "notes": "Original Titan workbench with separate editable parts. Project images provided scale, scheme and composition guidance."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "Network Quest — John Capobianco and contributors",
+          "OpenAI Codex (assisted original modeling and inspection code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "aiDisclosure": "Agent-assisted original Blender geometry and material authoring. Project references informed design. Owner release review remains pending."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "968b613a6f0ab08ab7d72c8b2d7e7e3e28434a9c261bcfba98b564c357b9dd74",
+            "6eb5d9d4d4804c7f2101b9c4604f3c599b5a9c606f01f7443b996c017d7dedc2",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR011/source-reopen.json",
+          "findings": "Fresh Blender opened the named source, rendered 54 editable components, inspected their materials and exported the selected hierarchy."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "968b613a6f0ab08ab7d72c8b2d7e7e3e28434a9c261bcfba98b564c357b9dd74",
+            "6eb5d9d4d4804c7f2101b9c4604f3c599b5a9c606f01f7443b996c017d7dedc2",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR011/structure.json",
+          "findings": "Reimported GLB and browser rendered 5112 triangles and 8 material regions. Blender material region areas, triangle counts, base colors and bounds agree."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "968b613a6f0ab08ab7d72c8b2d7e7e3e28434a9c261bcfba98b564c357b9dd74",
+            "6eb5d9d4d4804c7f2101b9c4604f3c599b5a9c606f01f7443b996c017d7dedc2",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR011/visual.json",
+          "findings": "The vise, sliding front handle, brass graduations and bench cable on two guides remain distinct above the dark apron. The lower shelf receives more fill in Firefox."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "968b613a6f0ab08ab7d72c8b2d7e7e3e28434a9c261bcfba98b564c357b9dd74",
+            "6eb5d9d4d4804c7f2101b9c4604f3c599b5a9c606f01f7443b996c017d7dedc2",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR011/browser-comparison.json",
+          "findings": "The vise, sliding front handle, brass graduations and bench cable on two guides remain distinct above the dark apron. The lower shelf receives more fill in Firefox. Observed browser bounds agree within 6e-08 m."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "968b613a6f0ab08ab7d72c8b2d7e7e3e28434a9c261bcfba98b564c357b9dd74",
+            "6eb5d9d4d4804c7f2101b9c4604f3c599b5a9c606f01f7443b996c017d7dedc2",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR011/rights.json",
+          "findings": "Original CC BY 4.0 equipment with project references and original geometry. Attribution, indication of changes and license retention apply."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/props/R01-R02/PR011.blend",
+        "objectIds": [
+          "PR011_Anvil-leg sole",
+          "PR011_Anvil-leg sole.001",
+          "PR011_Anvil-leg sole.002",
+          "PR011_Anvil-leg sole.003",
+          "PR011_Apron tension rod",
+          "PR011_Apron tension rod.001",
+          "PR011_Brass foot collar",
+          "PR011_Brass foot collar.001",
+          "PR011_Brass foot collar.002",
+          "PR011_Brass foot collar.003",
+          "PR011_Cable comb foot",
+          "PR011_Cable comb foot.001",
+          "PR011_Cable saddle tine",
+          "PR011_Cable saddle tine.001",
+          "PR011_Cable saddle tine.002",
+          "PR011_Cable saddle tine.003",
+          "PR011_Forged edge apron",
+          "PR011_Handle ball stop",
+          "PR011_Handle ball stop.001",
+          "PR011_Handle barrel",
+          "PR011_Length division",
+          "PR011_Length division.001",
+          "PR011_Length division.002",
+          "PR011_Length division.003",
+          "PR011_Length division.004",
+          "PR011_Length division.005",
+          "PR011_Length division.006",
+          "PR011_Length division.007",
+          "PR011_Length division.008",
+          "PR011_Length division.009",
+          "PR011_Length division.010",
+          "PR011_Length division.011",
+          "PR011_Length division.012",
+          "PR011_Length division.013",
+          "PR011_Length division.014",
+          "PR011_Loose bench specimen",
+          "PR011_Oiled laminated bench timber",
+          "PR011_Oiled laminated bench timber.001",
+          "PR011_Oiled laminated bench timber.002",
+          "PR011_Raked iron support",
+          "PR011_Raked iron support.001",
+          "PR011_Raked iron support.002",
+          "PR011_Raked iron support.003",
+          "PR011_Scribed measurement rail",
+          "PR011_Sliding tommy bar",
+          "PR011_Steel jaw liner",
+          "PR011_Steel jaw liner.001",
+          "PR011_Tie shelf",
+          "PR011_Top bearer",
+          "PR011_Top bearer.001",
+          "PR011_Vise jaw casting",
+          "PR011_Vise jaw casting.001",
+          "PR011_Vise lead screw",
+          "PR011_Vise swivel shoe"
+        ],
+        "units": "metres",
+        "axes": "Z up/-Y front to Y up/+Z front",
+        "pivot": "Floor-centred stationary root PR011_pivot with identity rotation and unit scale.",
+        "collisionProxy": "Visual mesh only. Authored room walk regions and safe positions govern movement.",
+        "animationClips": [],
+        "triangles": 5112,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR012",
+      "semanticIdentity": "spec001:PR012",
+      "kind": "prop-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/props/R01-R02/PR012.blend",
+            "sha256": "db8145dc4c2e2bfd8ea53de4eef3861f57f7a68a842fe3178252e10719ca4a7a",
+            "bytes": 130213,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t110/PR012/source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t063-R01-source.png",
+            "sha256": "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "bytes": 852447,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "T063 Cycles"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t107/CH02-poses.png",
+            "sha256": "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "bytes": 145518,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender and Firefox",
+          "version": "T107 Titan sheet"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/layouts-t106/diagram-contact-sheet.png",
+            "sha256": "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a",
+            "bytes": 383230,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "T106 layout renderer",
+          "version": "T106 freeze"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R02/PR012.glb",
+            "sha256": "409f5970ef84b96f0d8a1660eab6f2fe2d3b8e313202abd78a30f0263966b6be",
+            "bytes": 136220,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "db8145dc4c2e2bfd8ea53de4eef3861f57f7a68a842fe3178252e10719ca4a7a"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected joined static mesh, embedded PBR and Y-up; metre scale, no cameras or lights.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t110/PR012/browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T110-workshop-PR012-20261127",
+          "settingsPath": "assets-src/props/R01-R02/settings.json",
+          "promptOrScriptPath": "assets-src/props/R01-R02/model.py",
+          "referenceHashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "outputHashes": [
+            "db8145dc4c2e2bfd8ea53de4eef3861f57f7a68a842fe3178252e10719ca4a7a"
+          ],
+          "notes": "Original topology relief table with separate editable parts. Project images provided scale, scheme and composition guidance."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "Network Quest — John Capobianco and contributors",
+          "OpenAI Codex (assisted original modeling and inspection code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "aiDisclosure": "Agent-assisted original Blender geometry and material authoring. Project references informed design. Owner release review remains pending."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "db8145dc4c2e2bfd8ea53de4eef3861f57f7a68a842fe3178252e10719ca4a7a",
+            "409f5970ef84b96f0d8a1660eab6f2fe2d3b8e313202abd78a30f0263966b6be",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR012/source-reopen.json",
+          "findings": "Fresh Blender opened the named source, rendered 43 editable components, inspected their materials and exported the selected hierarchy."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "db8145dc4c2e2bfd8ea53de4eef3861f57f7a68a842fe3178252e10719ca4a7a",
+            "409f5970ef84b96f0d8a1660eab6f2fe2d3b8e313202abd78a30f0263966b6be",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR012/structure.json",
+          "findings": "Reimported GLB and browser rendered 4348 triangles and 8 material regions. Blender material region areas, triangle counts, base colors and bounds agree."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "db8145dc4c2e2bfd8ea53de4eef3861f57f7a68a842fe3178252e10719ca4a7a",
+            "409f5970ef84b96f0d8a1660eab6f2fe2d3b8e313202abd78a30f0263966b6be",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR012/visual.json",
+          "findings": "The raised A and B cards flank the two conduit choices. Their lengths and shapes differ and both end at the same dark socket before the cream final lead. All pieces are visible in both renders."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "db8145dc4c2e2bfd8ea53de4eef3861f57f7a68a842fe3178252e10719ca4a7a",
+            "409f5970ef84b96f0d8a1660eab6f2fe2d3b8e313202abd78a30f0263966b6be",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR012/browser-comparison.json",
+          "findings": "The raised A and B cards flank the two conduit choices. Their lengths and shapes differ and both end at the same dark socket before the cream final lead. All pieces are visible in both renders. Observed browser bounds agree within 1.1e-08 m."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "db8145dc4c2e2bfd8ea53de4eef3861f57f7a68a842fe3178252e10719ca4a7a",
+            "409f5970ef84b96f0d8a1660eab6f2fe2d3b8e313202abd78a30f0263966b6be",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR012/rights.json",
+          "findings": "Original CC BY 4.0 equipment with project references and original geometry. Attribution, indication of changes and license retention apply."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/props/R01-R02/PR012.blend",
+        "objectIds": [
+          "PR012_Alternative direct conduit",
+          "PR012_Card fastening",
+          "PR012_Card fastening.001",
+          "PR012_Card fastening.002",
+          "PR012_Card fastening.003",
+          "PR012_Curved service conduit on the plan",
+          "PR012_Embossed endpoint A",
+          "PR012_Embossed endpoint A.001",
+          "PR012_Embossed endpoint B",
+          "PR012_Embossed endpoint B.001",
+          "PR012_Endpoint beacon",
+          "PR012_Endpoint beacon.001",
+          "PR012_Endpoint collar",
+          "PR012_Endpoint collar.001",
+          "PR012_Endpoint monument base",
+          "PR012_Endpoint monument base.001",
+          "PR012_Engraved survey graduation",
+          "PR012_Engraved survey graduation.001",
+          "PR012_Engraved survey graduation.002",
+          "PR012_Engraved survey graduation.003",
+          "PR012_Engraved survey graduation.004",
+          "PR012_Engraved survey graduation.005",
+          "PR012_Engraved survey graduation.006",
+          "PR012_Inset plan field",
+          "PR012_Interchange socket",
+          "PR012_Longitudinal stretcher",
+          "PR012_Map rim casting",
+          "PR012_Raised endpoint block",
+          "PR012_Raised endpoint block.001",
+          "PR012_Short final patch lead",
+          "PR012_Signed bench card",
+          "PR012_Signed bench card.001",
+          "PR012_Splayed bronze leg",
+          "PR012_Splayed bronze leg.001",
+          "PR012_Splayed bronze leg.002",
+          "PR012_Splayed bronze leg.003",
+          "PR012_Table shoe",
+          "PR012_Table shoe.001",
+          "PR012_Table shoe.002",
+          "PR012_Table shoe.003",
+          "PR012_Trestle saddle",
+          "PR012_Trestle saddle.001",
+          "PR012_Warm inlaid border"
+        ],
+        "units": "metres",
+        "axes": "Z up/-Y front to Y up/+Z front",
+        "pivot": "Floor-centred stationary root PR012_pivot with identity rotation and unit scale.",
+        "collisionProxy": "Visual mesh only. Authored room walk regions and safe positions govern movement.",
+        "animationClips": [],
+        "triangles": 4348,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR013",
+      "semanticIdentity": "spec001:PR013",
+      "kind": "prop-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/props/R01-R02/PR013.blend",
+            "sha256": "fad5c638b2a011ea40a6cc5386d5b9ccd10788566ea2cb92f34e55ba8cf607b9",
+            "bytes": 120129,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t110/PR013/source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t063-R01-source.png",
+            "sha256": "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "bytes": 852447,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "T063 Cycles"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t107/CH02-poses.png",
+            "sha256": "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "bytes": 145518,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender and Firefox",
+          "version": "T107 Titan sheet"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/layouts-t106/diagram-contact-sheet.png",
+            "sha256": "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a",
+            "bytes": 383230,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "T106 layout renderer",
+          "version": "T106 freeze"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R02/PR013.glb",
+            "sha256": "85e2e6216c718a61bf2061087cd26ac0169705a42f40723df55d57e5f15af496",
+            "bytes": 136340,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "fad5c638b2a011ea40a6cc5386d5b9ccd10788566ea2cb92f34e55ba8cf607b9"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected joined static mesh, embedded PBR and Y-up; metre scale, no cameras or lights.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t110/PR013/browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T110-workshop-PR013-20261127",
+          "settingsPath": "assets-src/props/R01-R02/settings.json",
+          "promptOrScriptPath": "assets-src/props/R01-R02/model.py",
+          "referenceHashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "outputHashes": [
+            "fad5c638b2a011ea40a6cc5386d5b9ccd10788566ea2cb92f34e55ba8cf607b9"
+          ],
+          "notes": "Original tool cabinet with separate editable parts. Project images provided scale, scheme and composition guidance."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "Network Quest — John Capobianco and contributors",
+          "OpenAI Codex (assisted original modeling and inspection code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "aiDisclosure": "Agent-assisted original Blender geometry and material authoring. Project references informed design. Owner release review remains pending."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "fad5c638b2a011ea40a6cc5386d5b9ccd10788566ea2cb92f34e55ba8cf607b9",
+            "85e2e6216c718a61bf2061087cd26ac0169705a42f40723df55d57e5f15af496",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR013/source-reopen.json",
+          "findings": "Fresh Blender opened the named source, rendered 34 editable components, inspected their materials and exported the selected hierarchy."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "fad5c638b2a011ea40a6cc5386d5b9ccd10788566ea2cb92f34e55ba8cf607b9",
+            "85e2e6216c718a61bf2061087cd26ac0169705a42f40723df55d57e5f15af496",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR013/structure.json",
+          "findings": "Reimported GLB and browser rendered 4080 triangles and 8 material regions. Blender material region areas, triangle counts, base colors and bounds agree."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "fad5c638b2a011ea40a6cc5386d5b9ccd10788566ea2cb92f34e55ba8cf607b9",
+            "85e2e6216c718a61bf2061087cd26ac0169705a42f40723df55d57e5f15af496",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR013/visual.json",
+          "findings": "Three differently shaped tools hang above four drawers with brass pulls and separate slip holders. The native cabinet recess is darker than the Firefox recess."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "fad5c638b2a011ea40a6cc5386d5b9ccd10788566ea2cb92f34e55ba8cf607b9",
+            "85e2e6216c718a61bf2061087cd26ac0169705a42f40723df55d57e5f15af496",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR013/browser-comparison.json",
+          "findings": "Three differently shaped tools hang above four drawers with brass pulls and separate slip holders. The native cabinet recess is darker than the Firefox recess. Observed browser bounds agree within 8.9e-08 m."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "fad5c638b2a011ea40a6cc5386d5b9ccd10788566ea2cb92f34e55ba8cf607b9",
+            "85e2e6216c718a61bf2061087cd26ac0169705a42f40723df55d57e5f15af496",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR013/rights.json",
+          "findings": "Original CC BY 4.0 equipment with project references and original geometry. Attribution, indication of changes and license retention apply."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/props/R01-R02/PR013.blend",
+        "objectIds": [
+          "PR013_Arched cabinet toe",
+          "PR013_Brass stile inlay",
+          "PR013_Brass stile inlay.001",
+          "PR013_Cabinet back",
+          "PR013_Drawer box and fascia",
+          "PR013_Drawer box and fascia.001",
+          "PR013_Drawer box and fascia.002",
+          "PR013_Drawer box and fascia.003",
+          "PR013_Drawer label slip",
+          "PR013_Drawer label slip.001",
+          "PR013_Drawer label slip.002",
+          "PR013_Drawer label slip.003",
+          "PR013_Driver shank",
+          "PR013_Fluted driver handle",
+          "PR013_Label slot frame",
+          "PR013_Label slot frame.001",
+          "PR013_Label slot frame.002",
+          "PR013_Label slot frame.003",
+          "PR013_Peg well shelf",
+          "PR013_Pliers hinge",
+          "PR013_Pliers moving arm",
+          "PR013_Pliers moving arm.001",
+          "PR013_Raised drawer pull",
+          "PR013_Raised drawer pull.001",
+          "PR013_Raised drawer pull.002",
+          "PR013_Raised drawer pull.003",
+          "PR013_Rounded cabinet stile",
+          "PR013_Rounded cabinet stile.001",
+          "PR013_Shadow-board open end spanner",
+          "PR013_Stepped toolhouse pediment",
+          "PR013_Tool hanger stud",
+          "PR013_Tool hanger stud.001",
+          "PR013_Tool hanger stud.002",
+          "PR013_Tool well dark back"
+        ],
+        "units": "metres",
+        "axes": "Z up/-Y front to Y up/+Z front",
+        "pivot": "Floor-centred stationary root PR013_pivot with identity rotation and unit scale.",
+        "collisionProxy": "Visual mesh only. Authored room walk regions and safe positions govern movement.",
+        "animationClips": [],
+        "triangles": 4080,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR014",
+      "semanticIdentity": "spec001:PR014",
+      "kind": "prop-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/props/R01-R02/PR014.blend",
+            "sha256": "3898c3890712a39066ec1809f9e913b3215e151aa61c6109cb1370a0fb33dce9",
+            "bytes": 117966,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t110/PR014/source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t063-R01-source.png",
+            "sha256": "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "bytes": 852447,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "T063 Cycles"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t107/CH02-poses.png",
+            "sha256": "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "bytes": 145518,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender and Firefox",
+          "version": "T107 Titan sheet"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/layouts-t106/diagram-contact-sheet.png",
+            "sha256": "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a",
+            "bytes": 383230,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "T106 layout renderer",
+          "version": "T106 freeze"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R02/PR014.glb",
+            "sha256": "78fc7aa7d9f024b744d1077af949b85d7ea2b9aef45b5bca0b41210780ca6129",
+            "bytes": 112296,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "3898c3890712a39066ec1809f9e913b3215e151aa61c6109cb1370a0fb33dce9"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected joined static mesh, embedded PBR and Y-up; metre scale, no cameras or lights.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t110/PR014/browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T110-workshop-PR014-20261127",
+          "settingsPath": "assets-src/props/R01-R02/settings.json",
+          "promptOrScriptPath": "assets-src/props/R01-R02/model.py",
+          "referenceHashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "outputHashes": [
+            "3898c3890712a39066ec1809f9e913b3215e151aa61c6109cb1370a0fb33dce9"
+          ],
+          "notes": "Original dispatch console with separate editable parts. Project images provided scale, scheme and composition guidance."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "Network Quest — John Capobianco and contributors",
+          "OpenAI Codex (assisted original modeling and inspection code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "aiDisclosure": "Agent-assisted original Blender geometry and material authoring. Project references informed design. Owner release review remains pending."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "3898c3890712a39066ec1809f9e913b3215e151aa61c6109cb1370a0fb33dce9",
+            "78fc7aa7d9f024b744d1077af949b85d7ea2b9aef45b5bca0b41210780ca6129",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR014/source-reopen.json",
+          "findings": "Fresh Blender opened the named source, rendered 26 editable components, inspected their materials and exported the selected hierarchy."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "3898c3890712a39066ec1809f9e913b3215e151aa61c6109cb1370a0fb33dce9",
+            "78fc7aa7d9f024b744d1077af949b85d7ea2b9aef45b5bca0b41210780ca6129",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR014/structure.json",
+          "findings": "Reimported GLB and browser rendered 2912 triangles and 9 material regions. Blender material region areas, triangle counts, base colors and bounds agree."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "3898c3890712a39066ec1809f9e913b3215e151aa61c6109cb1370a0fb33dce9",
+            "78fc7aa7d9f024b744d1077af949b85d7ea2b9aef45b5bca0b41210780ca6129",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR014/visual.json",
+          "findings": "The receiver has a rolled-paper support, printed slip, three separate keys and B card on the front, with a terminated socket at the right. The front controls retain their spacing."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "3898c3890712a39066ec1809f9e913b3215e151aa61c6109cb1370a0fb33dce9",
+            "78fc7aa7d9f024b744d1077af949b85d7ea2b9aef45b5bca0b41210780ca6129",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR014/browser-comparison.json",
+          "findings": "The receiver has a rolled-paper support, printed slip, three separate keys and B card on the front, with a terminated socket at the right. The front controls retain their spacing. Observed browser bounds agree within 6e-08 m."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "3898c3890712a39066ec1809f9e913b3215e151aa61c6109cb1370a0fb33dce9",
+            "78fc7aa7d9f024b744d1077af949b85d7ea2b9aef45b5bca0b41210780ca6129",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR014/rights.json",
+          "findings": "Original CC BY 4.0 equipment with project references and original geometry. Attribution, indication of changes and license retention apply."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/props/R01-R02/PR014.blend",
+        "objectIds": [
+          "PR014_Ebony inset control plate",
+          "PR014_Front fascia surround",
+          "PR014_Insulated inset",
+          "PR014_Paper feed cheek",
+          "PR014_Paper feed cheek.001",
+          "PR014_Paper feed drum",
+          "PR014_Pedestal band",
+          "PR014_Physical patch socket",
+          "PR014_Printed message rule",
+          "PR014_Printed message rule.001",
+          "PR014_Printed message rule.002",
+          "PR014_Raised signed dispatch slip",
+          "PR014_Receiver B",
+          "PR014_Receiver B card",
+          "PR014_Receiver B.001",
+          "PR014_Receiver chassis",
+          "PR014_Receiver key bezel",
+          "PR014_Receiver key bezel.001",
+          "PR014_Receiver key bezel.002",
+          "PR014_Receiving console pedestal",
+          "PR014_Separate raised key",
+          "PR014_Separate raised key.001",
+          "PR014_Separate raised key.002",
+          "PR014_Speaker slot",
+          "PR014_Speaker slot.001",
+          "PR014_Speaker slot.002"
+        ],
+        "units": "metres",
+        "axes": "Z up/-Y front to Y up/+Z front",
+        "pivot": "Floor-centred stationary root PR014_pivot with identity rotation and unit scale.",
+        "collisionProxy": "Visual mesh only. Authored room walk regions and safe positions govern movement.",
+        "animationClips": [],
+        "triangles": 2912,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR015",
+      "semanticIdentity": "spec001:PR015",
+      "kind": "prop-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/props/R01-R02/PR015.blend",
+            "sha256": "d6f955ee31413b6c068da16cb5393961a5abe1d8037e46c364e9a93bd873275a",
+            "bytes": 112515,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t110/PR015/source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t063-R01-source.png",
+            "sha256": "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "bytes": 852447,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "T063 Cycles"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t107/CH02-poses.png",
+            "sha256": "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "bytes": 145518,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender and Firefox",
+          "version": "T107 Titan sheet"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/layouts-t106/diagram-contact-sheet.png",
+            "sha256": "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a",
+            "bytes": 383230,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "T106 layout renderer",
+          "version": "T106 freeze"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R02/PR015.glb",
+            "sha256": "20036b4221d0309ea2009f7cd92054c4a4f62c894d9f3d21b526ef0bac89ecea",
+            "bytes": 69440,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "d6f955ee31413b6c068da16cb5393961a5abe1d8037e46c364e9a93bd873275a"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected joined static mesh, embedded PBR and Y-up; metre scale, no cameras or lights.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t110/PR015/browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T110-workshop-PR015-20261127",
+          "settingsPath": "assets-src/props/R01-R02/settings.json",
+          "promptOrScriptPath": "assets-src/props/R01-R02/model.py",
+          "referenceHashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "outputHashes": [
+            "d6f955ee31413b6c068da16cb5393961a5abe1d8037e46c364e9a93bd873275a"
+          ],
+          "notes": "Original recruit perch with separate editable parts. Project images provided scale, scheme and composition guidance."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "Network Quest — John Capobianco and contributors",
+          "OpenAI Codex (assisted original modeling and inspection code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "aiDisclosure": "Agent-assisted original Blender geometry and material authoring. Project references informed design. Owner release review remains pending."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "d6f955ee31413b6c068da16cb5393961a5abe1d8037e46c364e9a93bd873275a",
+            "20036b4221d0309ea2009f7cd92054c4a4f62c894d9f3d21b526ef0bac89ecea",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR015/source-reopen.json",
+          "findings": "Fresh Blender opened the named source, rendered 16 editable components, inspected their materials and exported the selected hierarchy."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "d6f955ee31413b6c068da16cb5393961a5abe1d8037e46c364e9a93bd873275a",
+            "20036b4221d0309ea2009f7cd92054c4a4f62c894d9f3d21b526ef0bac89ecea",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR015/structure.json",
+          "findings": "Reimported GLB and browser rendered 2088 triangles and 6 material regions. Blender material region areas, triangle counts, base colors and bounds agree."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "d6f955ee31413b6c068da16cb5393961a5abe1d8037e46c364e9a93bd873275a",
+            "20036b4221d0309ea2009f7cd92054c4a4f62c894d9f3d21b526ef0bac89ecea",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR015/visual.json",
+          "findings": "A forked saddle supports the wrapped landing bar and a separate hanging bell. The stepped foot and the hollow space between the two fork branches read in both views."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "d6f955ee31413b6c068da16cb5393961a5abe1d8037e46c364e9a93bd873275a",
+            "20036b4221d0309ea2009f7cd92054c4a4f62c894d9f3d21b526ef0bac89ecea",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR015/browser-comparison.json",
+          "findings": "A forked saddle supports the wrapped landing bar and a separate hanging bell. The stepped foot and the hollow space between the two fork branches read in both views. Observed browser bounds agree within 0 m."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "d6f955ee31413b6c068da16cb5393961a5abe1d8037e46c364e9a93bd873275a",
+            "20036b4221d0309ea2009f7cd92054c4a4f62c894d9f3d21b526ef0bac89ecea",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR015/rights.json",
+          "findings": "Original CC BY 4.0 equipment with project references and original geometry. Attribution, indication of changes and license retention apply."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/props/R01-R02/PR015.blend",
+        "objectIds": [
+          "PR015_Bell bracket",
+          "PR015_Bell tether",
+          "PR015_Column ferrule",
+          "PR015_Column ferrule.001",
+          "PR015_Fork beneath landing rail",
+          "PR015_Fork beneath landing rail.001",
+          "PR015_Raised foot-grip wrap",
+          "PR015_Raised foot-grip wrap.001",
+          "PR015_Raised foot-grip wrap.002",
+          "PR015_Raised foot-grip wrap.003",
+          "PR015_Raised foot-grip wrap.004",
+          "PR015_Raised foot-grip wrap.005",
+          "PR015_Recruit call bell",
+          "PR015_Soft wrapped landing rail",
+          "PR015_Three-stepped rookery foot",
+          "PR015_Turned perch column"
+        ],
+        "units": "metres",
+        "axes": "Z up/-Y front to Y up/+Z front",
+        "pivot": "Floor-centred stationary root PR015_pivot with identity rotation and unit scale.",
+        "collisionProxy": "Visual mesh only. Authored room walk regions and safe positions govern movement.",
+        "animationClips": [],
+        "triangles": 2088,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR016",
+      "semanticIdentity": "spec001:PR016",
+      "kind": "prop-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/props/R01-R02/PR016.blend",
+            "sha256": "a56320b4d7303438ca9940c4bf23d8bc5e1e47971dda9290fef394c26a05927d",
+            "bytes": 117394,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t110/PR016/source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t063-R01-source.png",
+            "sha256": "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "bytes": 852447,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "T063 Cycles"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t107/CH02-poses.png",
+            "sha256": "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "bytes": 145518,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender and Firefox",
+          "version": "T107 Titan sheet"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/layouts-t106/diagram-contact-sheet.png",
+            "sha256": "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a",
+            "bytes": 383230,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "T106 layout renderer",
+          "version": "T106 freeze"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R02/PR016.glb",
+            "sha256": "b0487b82c7adc85f58809291be912559cc9dd15e4daf65fc455bca0c720d6c6a",
+            "bytes": 83056,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "a56320b4d7303438ca9940c4bf23d8bc5e1e47971dda9290fef394c26a05927d"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected joined static mesh, embedded PBR and Y-up; metre scale, no cameras or lights.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t110/PR016/browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T110-workshop-PR016-20261127",
+          "settingsPath": "assets-src/props/R01-R02/settings.json",
+          "promptOrScriptPath": "assets-src/props/R01-R02/model.py",
+          "referenceHashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "outputHashes": [
+            "a56320b4d7303438ca9940c4bf23d8bc5e1e47971dda9290fef394c26a05927d"
+          ],
+          "notes": "Original repair-plan easel with separate editable parts. Project images provided scale, scheme and composition guidance."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "Network Quest — John Capobianco and contributors",
+          "OpenAI Codex (assisted original modeling and inspection code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "aiDisclosure": "Agent-assisted original Blender geometry and material authoring. Project references informed design. Owner release review remains pending."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "a56320b4d7303438ca9940c4bf23d8bc5e1e47971dda9290fef394c26a05927d",
+            "b0487b82c7adc85f58809291be912559cc9dd15e4daf65fc455bca0c720d6c6a",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR016/source-reopen.json",
+          "findings": "Fresh Blender opened the named source, rendered 23 editable components, inspected their materials and exported the selected hierarchy."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "a56320b4d7303438ca9940c4bf23d8bc5e1e47971dda9290fef394c26a05927d",
+            "b0487b82c7adc85f58809291be912559cc9dd15e4daf65fc455bca0c720d6c6a",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR016/structure.json",
+          "findings": "Reimported GLB and browser rendered 3556 triangles and 6 material regions. Blender material region areas, triangle counts, base colors and bounds agree."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "a56320b4d7303438ca9940c4bf23d8bc5e1e47971dda9290fef394c26a05927d",
+            "b0487b82c7adc85f58809291be912559cc9dd15e4daf65fc455bca0c720d6c6a",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR016/visual.json",
+          "findings": "Three equal-height emblems share the junction below. The revised easel legs stay behind the repair sheet. Copper braid, angled ray and radio arcs remain distinguishable in the full-size GLB view."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "a56320b4d7303438ca9940c4bf23d8bc5e1e47971dda9290fef394c26a05927d",
+            "b0487b82c7adc85f58809291be912559cc9dd15e4daf65fc455bca0c720d6c6a",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR016/browser-comparison.json",
+          "findings": "Three equal-height emblems share the junction below. The revised easel legs stay behind the repair sheet. Copper braid, angled ray and radio arcs remain distinguishable in the full-size GLB view. Observed browser bounds agree within 2.2e-08 m."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "a56320b4d7303438ca9940c4bf23d8bc5e1e47971dda9290fef394c26a05927d",
+            "b0487b82c7adc85f58809291be912559cc9dd15e4daf65fc455bca0c720d6c6a",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR016/rights.json",
+          "findings": "Original CC BY 4.0 equipment with project references and original geometry. Attribution, indication of changes and license retention apply."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/props/R01-R02/PR016.blend",
+        "objectIds": [
+          "PR016_Adjustable rear leg",
+          "PR016_Clamp screw",
+          "PR016_Copper twisted strand",
+          "PR016_Copper twisted strand.001",
+          "PR016_Easel shoe",
+          "PR016_Easel shoe.001",
+          "PR016_Equal option bezel",
+          "PR016_Equal option bezel.001",
+          "PR016_Equal option bezel.002",
+          "PR016_Equal repair branch",
+          "PR016_Equal repair branch.001",
+          "PR016_Equal repair branch.002",
+          "PR016_Optical ray",
+          "PR016_Radio arc",
+          "PR016_Radio arc.001",
+          "PR016_Rear leg restraint",
+          "PR016_Repair plan carrier",
+          "PR016_Route junction pin",
+          "PR016_Sheet ledge",
+          "PR016_Sheet of repair vellum",
+          "PR016_Splayed easel leg",
+          "PR016_Splayed easel leg.001",
+          "PR016_Top clamp"
+        ],
+        "units": "metres",
+        "axes": "Z up/-Y front to Y up/+Z front",
+        "pivot": "Floor-centred stationary root PR016_pivot with identity rotation and unit scale.",
+        "collisionProxy": "Visual mesh only. Authored room walk regions and safe positions govern movement.",
+        "animationClips": [],
+        "triangles": 3556,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR017",
+      "semanticIdentity": "spec001:PR017",
+      "kind": "prop-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/props/R01-R02/PR017.blend",
+            "sha256": "3c81dad9d8d6fd759cc7d5e485e2fe6b0eca8311bacf387ff1849e55aa48b113",
+            "bytes": 126262,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t110/PR017/source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t063-R01-source.png",
+            "sha256": "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "bytes": 852447,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "T063 Cycles"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t107/CH02-poses.png",
+            "sha256": "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "bytes": 145518,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender and Firefox",
+          "version": "T107 Titan sheet"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/layouts-t106/diagram-contact-sheet.png",
+            "sha256": "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a",
+            "bytes": 383230,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "T106 layout renderer",
+          "version": "T106 freeze"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R02/PR017.glb",
+            "sha256": "a622a469d0cd17c754a5c82ee751ec80bd4abb0093c3885db4aca8af029095f6",
+            "bytes": 117988,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "3c81dad9d8d6fd759cc7d5e485e2fe6b0eca8311bacf387ff1849e55aa48b113"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected joined static mesh, embedded PBR and Y-up; metre scale, no cameras or lights.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t110/PR017/browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T110-workshop-PR017-20261127",
+          "settingsPath": "assets-src/props/R01-R02/settings.json",
+          "promptOrScriptPath": "assets-src/props/R01-R02/model.py",
+          "referenceHashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "outputHashes": [
+            "3c81dad9d8d6fd759cc7d5e485e2fe6b0eca8311bacf387ff1849e55aa48b113"
+          ],
+          "notes": "Original media comparison rack with separate editable parts. Project images provided scale, scheme and composition guidance."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "Network Quest — John Capobianco and contributors",
+          "OpenAI Codex (assisted original modeling and inspection code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "aiDisclosure": "Agent-assisted original Blender geometry and material authoring. Project references informed design. Owner release review remains pending."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "3c81dad9d8d6fd759cc7d5e485e2fe6b0eca8311bacf387ff1849e55aa48b113",
+            "a622a469d0cd17c754a5c82ee751ec80bd4abb0093c3885db4aca8af029095f6",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR017/source-reopen.json",
+          "findings": "Fresh Blender opened the named source, rendered 29 editable components, inspected their materials and exported the selected hierarchy."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "3c81dad9d8d6fd759cc7d5e485e2fe6b0eca8311bacf387ff1849e55aa48b113",
+            "a622a469d0cd17c754a5c82ee751ec80bd4abb0093c3885db4aca8af029095f6",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR017/structure.json",
+          "findings": "Reimported GLB and browser rendered 4140 triangles and 7 material regions. Blender material region areas, triangle counts, base colors and bounds agree."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "3c81dad9d8d6fd759cc7d5e485e2fe6b0eca8311bacf387ff1849e55aa48b113",
+            "a622a469d0cd17c754a5c82ee751ec80bd4abb0093c3885db4aca8af029095f6",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR017/visual.json",
+          "findings": "The upper twisted conductors, the jacketed middle strand and the opposed lower apertures create three different profiles with a visible air gap in the bottom bay."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "3c81dad9d8d6fd759cc7d5e485e2fe6b0eca8311bacf387ff1849e55aa48b113",
+            "a622a469d0cd17c754a5c82ee751ec80bd4abb0093c3885db4aca8af029095f6",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR017/browser-comparison.json",
+          "findings": "The upper twisted conductors, the jacketed middle strand and the opposed lower apertures create three different profiles with a visible air gap in the bottom bay. Observed browser bounds agree within 1.5e-08 m."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "3c81dad9d8d6fd759cc7d5e485e2fe6b0eca8311bacf387ff1849e55aa48b113",
+            "a622a469d0cd17c754a5c82ee751ec80bd4abb0093c3885db4aca8af029095f6",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR017/rights.json",
+          "findings": "Original CC BY 4.0 equipment with project references and original geometry. Attribution, indication of changes and license retention apply."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/props/R01-R02/PR017.blend",
+        "objectIds": [
+          "PR017_Brass upright seam",
+          "PR017_Brass upright seam.001",
+          "PR017_Crest rail",
+          "PR017_Dark horn aperture",
+          "PR017_Dark horn aperture.001",
+          "PR017_Exposed twisted conductor",
+          "PR017_Exposed twisted conductor.001",
+          "PR017_Fiber strain-relief boot",
+          "PR017_Fiber strain-relief boot.001",
+          "PR017_Guided fiber sample",
+          "PR017_Horn flare step",
+          "PR017_Horn flare step.001",
+          "PR017_Horn flare step.002",
+          "PR017_Horn flare step.003",
+          "PR017_Horn flare step.004",
+          "PR017_Horn flare step.005",
+          "PR017_Isolated bay cross-rail",
+          "PR017_Isolated bay cross-rail.001",
+          "PR017_Isolated bay cross-rail.002",
+          "PR017_Open test frame upright",
+          "PR017_Open test frame upright.001",
+          "PR017_Sled foot",
+          "PR017_Sled foot.001",
+          "PR017_Specimen grip",
+          "PR017_Specimen grip.001",
+          "PR017_Specimen grip.002",
+          "PR017_Specimen grip.003",
+          "PR017_Specimen grip.004",
+          "PR017_Specimen grip.005"
+        ],
+        "units": "metres",
+        "axes": "Z up/-Y front to Y up/+Z front",
+        "pivot": "Floor-centred stationary root PR017_pivot with identity rotation and unit scale.",
+        "collisionProxy": "Visual mesh only. Authored room walk regions and safe positions govern movement.",
+        "animationClips": [],
+        "triangles": 4140,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR018",
+      "semanticIdentity": "spec001:PR018",
+      "kind": "prop-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/props/R01-R02/PR018.blend",
+            "sha256": "073a64523a63f31644a02f6b604f2513dfaaabda513cce2fbaa4f971ddc5c209",
+            "bytes": 113972,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t110/PR018/source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t063-R01-source.png",
+            "sha256": "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "bytes": 852447,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "T063 Cycles"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t107/CH02-poses.png",
+            "sha256": "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "bytes": 145518,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender and Firefox",
+          "version": "T107 Titan sheet"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/layouts-t106/diagram-contact-sheet.png",
+            "sha256": "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a",
+            "bytes": 383230,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "T106 layout renderer",
+          "version": "T106 freeze"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R02/PR018.glb",
+            "sha256": "d0d8842ae251142738601b898cab4a2f61d1f52d982419839aeb18a93607195f",
+            "bytes": 91368,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "073a64523a63f31644a02f6b604f2513dfaaabda513cce2fbaa4f971ddc5c209"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected joined static mesh, embedded PBR and Y-up; metre scale, no cameras or lights.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t110/PR018/browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T110-workshop-PR018-20261127",
+          "settingsPath": "assets-src/props/R01-R02/settings.json",
+          "promptOrScriptPath": "assets-src/props/R01-R02/model.py",
+          "referenceHashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "outputHashes": [
+            "073a64523a63f31644a02f6b604f2513dfaaabda513cce2fbaa4f971ddc5c209"
+          ],
+          "notes": "Original hypothesis board with separate editable parts. Project images provided scale, scheme and composition guidance."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "Network Quest — John Capobianco and contributors",
+          "OpenAI Codex (assisted original modeling and inspection code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "aiDisclosure": "Agent-assisted original Blender geometry and material authoring. Project references informed design. Owner release review remains pending."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "073a64523a63f31644a02f6b604f2513dfaaabda513cce2fbaa4f971ddc5c209",
+            "d0d8842ae251142738601b898cab4a2f61d1f52d982419839aeb18a93607195f",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR018/source-reopen.json",
+          "findings": "Fresh Blender opened the named source, rendered 24 editable components, inspected their materials and exported the selected hierarchy."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "073a64523a63f31644a02f6b604f2513dfaaabda513cce2fbaa4f971ddc5c209",
+            "d0d8842ae251142738601b898cab4a2f61d1f52d982419839aeb18a93607195f",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR018/structure.json",
+          "findings": "Reimported GLB and browser rendered 2520 triangles and 7 material regions. Blender material region areas, triangle counts, base colors and bounds agree."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "073a64523a63f31644a02f6b604f2513dfaaabda513cce2fbaa4f971ddc5c209",
+            "d0d8842ae251142738601b898cab4a2f61d1f52d982419839aeb18a93607195f",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR018/visual.json",
+          "findings": "The pinned question sheet sits separately from two observation slips. Two visible threads branch toward the slips and the chalk rests on its own ledge."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "073a64523a63f31644a02f6b604f2513dfaaabda513cce2fbaa4f971ddc5c209",
+            "d0d8842ae251142738601b898cab4a2f61d1f52d982419839aeb18a93607195f",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR018/browser-comparison.json",
+          "findings": "The pinned question sheet sits separately from two observation slips. Two visible threads branch toward the slips and the chalk rests on its own ledge. Observed browser bounds agree within 1.1e-07 m."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "073a64523a63f31644a02f6b604f2513dfaaabda513cce2fbaa4f971ddc5c209",
+            "d0d8842ae251142738601b898cab4a2f61d1f52d982419839aeb18a93607195f",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR018/rights.json",
+          "findings": "Original CC BY 4.0 equipment with project references and original geometry. Attribution, indication of changes and license retention apply."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/props/R01-R02/PR018.blend",
+        "objectIds": [
+          "PR018_Board foot",
+          "PR018_Board foot.001",
+          "PR018_Board upright",
+          "PR018_Board upright.001",
+          "PR018_Chalk stub",
+          "PR018_Drawing pin",
+          "PR018_Drawing pin.001",
+          "PR018_Drawing pin.002",
+          "PR018_Paper note",
+          "PR018_Paper note.001",
+          "PR018_Paper note.002",
+          "PR018_Pinning felt field",
+          "PR018_Question dot",
+          "PR018_Raised question mark",
+          "PR018_Rounded pinboard frame",
+          "PR018_Separate chalk trough",
+          "PR018_Thread tack",
+          "PR018_Thread tack.001",
+          "PR018_Uncommitted thread",
+          "PR018_Uncommitted thread.001",
+          "PR018_Written observation line",
+          "PR018_Written observation line.001",
+          "PR018_Written observation line.002",
+          "PR018_Written observation line.003"
+        ],
+        "units": "metres",
+        "axes": "Z up/-Y front to Y up/+Z front",
+        "pivot": "Floor-centred stationary root PR018_pivot with identity rotation and unit scale.",
+        "collisionProxy": "Visual mesh only. Authored room walk regions and safe positions govern movement.",
+        "animationClips": [],
+        "triangles": 2520,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR019",
+      "semanticIdentity": "spec001:PR019",
+      "kind": "prop-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/props/R01-R02/PR019.blend",
+            "sha256": "e887c22f4c2bf3231538a74912bd2806448bfb5c06dfcf5b59536733422553e0",
+            "bytes": 125759,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t110/PR019/source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t063-R01-source.png",
+            "sha256": "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "bytes": 852447,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "T063 Cycles"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t107/CH02-poses.png",
+            "sha256": "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "bytes": 145518,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender and Firefox",
+          "version": "T107 Titan sheet"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/layouts-t106/diagram-contact-sheet.png",
+            "sha256": "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a",
+            "bytes": 383230,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "T106 layout renderer",
+          "version": "T106 freeze"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R02/PR019.glb",
+            "sha256": "489a77cf33b3669ad01589534803e392c3c4ffdbdbdeaeea7aa8c1f4adc9c690",
+            "bytes": 108844,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "e887c22f4c2bf3231538a74912bd2806448bfb5c06dfcf5b59536733422553e0"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected joined static mesh, embedded PBR and Y-up; metre scale, no cameras or lights.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t110/PR019/browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T110-workshop-PR019-20261127",
+          "settingsPath": "assets-src/props/R01-R02/settings.json",
+          "promptOrScriptPath": "assets-src/props/R01-R02/model.py",
+          "referenceHashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "outputHashes": [
+            "e887c22f4c2bf3231538a74912bd2806448bfb5c06dfcf5b59536733422553e0"
+          ],
+          "notes": "Original parts carousel with separate editable parts. Project images provided scale, scheme and composition guidance."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "Network Quest — John Capobianco and contributors",
+          "OpenAI Codex (assisted original modeling and inspection code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "aiDisclosure": "Agent-assisted original Blender geometry and material authoring. Project references informed design. Owner release review remains pending."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "e887c22f4c2bf3231538a74912bd2806448bfb5c06dfcf5b59536733422553e0",
+            "489a77cf33b3669ad01589534803e392c3c4ffdbdbdeaeea7aa8c1f4adc9c690",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR019/source-reopen.json",
+          "findings": "Fresh Blender opened the named source, rendered 48 editable components, inspected their materials and exported the selected hierarchy."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "e887c22f4c2bf3231538a74912bd2806448bfb5c06dfcf5b59536733422553e0",
+            "489a77cf33b3669ad01589534803e392c3c4ffdbdbdeaeea7aa8c1f4adc9c690",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR019/structure.json",
+          "findings": "Reimported GLB and browser rendered 3560 triangles and 6 material regions. Blender material region areas, triangle counts, base colors and bounds agree."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "e887c22f4c2bf3231538a74912bd2806448bfb5c06dfcf5b59536733422553e0",
+            "489a77cf33b3669ad01589534803e392c3c4ffdbdbdeaeea7aa8c1f4adc9c690",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR019/visual.json",
+          "findings": "Two different diameter trays have individual curved lips, radial dividers and groups of hexagonal ferrules or brass contacts. The axle and turn handle extend above them."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "e887c22f4c2bf3231538a74912bd2806448bfb5c06dfcf5b59536733422553e0",
+            "489a77cf33b3669ad01589534803e392c3c4ffdbdbdeaeea7aa8c1f4adc9c690",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR019/browser-comparison.json",
+          "findings": "Two different diameter trays have individual curved lips, radial dividers and groups of hexagonal ferrules or brass contacts. The axle and turn handle extend above them. Observed browser bounds agree within 0 m."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "e887c22f4c2bf3231538a74912bd2806448bfb5c06dfcf5b59536733422553e0",
+            "489a77cf33b3669ad01589534803e392c3c4ffdbdbdeaeea7aa8c1f4adc9c690",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR019/rights.json",
+          "findings": "Original CC BY 4.0 equipment with project references and original geometry. Attribution, indication of changes and license retention apply."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/props/R01-R02/PR019.blend",
+        "objectIds": [
+          "PR019_Counterweighted swivel foot",
+          "PR019_Curved bin lip",
+          "PR019_Curved bin lip.001",
+          "PR019_Curved bin lip.002",
+          "PR019_Curved bin lip.003",
+          "PR019_Curved bin lip.004",
+          "PR019_Curved bin lip.005",
+          "PR019_Curved bin lip.006",
+          "PR019_Curved bin lip.007",
+          "PR019_Curved bin lip.008",
+          "PR019_Curved bin lip.009",
+          "PR019_Curved bin lip.010",
+          "PR019_Curved bin lip.011",
+          "PR019_Index-wheel crown",
+          "PR019_Radial parts divider",
+          "PR019_Radial parts divider.001",
+          "PR019_Radial parts divider.002",
+          "PR019_Radial parts divider.003",
+          "PR019_Radial parts divider.004",
+          "PR019_Radial parts divider.005",
+          "PR019_Radial parts divider.006",
+          "PR019_Radial parts divider.007",
+          "PR019_Radial parts divider.008",
+          "PR019_Radial parts divider.009",
+          "PR019_Radial parts divider.010",
+          "PR019_Radial parts divider.011",
+          "PR019_Shallow carousel pan",
+          "PR019_Shallow carousel pan.001",
+          "PR019_Spinning handle",
+          "PR019_Stored brass contact",
+          "PR019_Stored brass contact.001",
+          "PR019_Stored brass contact.002",
+          "PR019_Stored brass contact.003",
+          "PR019_Stored brass contact.004",
+          "PR019_Stored brass contact.005",
+          "PR019_Stored hex ferrule",
+          "PR019_Stored hex ferrule.001",
+          "PR019_Stored hex ferrule.002",
+          "PR019_Stored hex ferrule.003",
+          "PR019_Stored hex ferrule.004",
+          "PR019_Stored hex ferrule.005",
+          "PR019_Stored hex ferrule.006",
+          "PR019_Stored hex ferrule.007",
+          "PR019_Stored hex ferrule.008",
+          "PR019_Stored hex ferrule.009",
+          "PR019_Stored hex ferrule.010",
+          "PR019_Stored hex ferrule.011",
+          "PR019_Turned axle"
+        ],
+        "units": "metres",
+        "axes": "Z up/-Y front to Y up/+Z front",
+        "pivot": "Floor-centred stationary root PR019_pivot with identity rotation and unit scale.",
+        "collisionProxy": "Visual mesh only. Authored room walk regions and safe positions govern movement.",
+        "animationClips": [],
+        "triangles": 3560,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-PR020",
+      "semanticIdentity": "spec001:PR020",
+      "kind": "prop-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/props/R01-R02/PR020.blend",
+            "sha256": "86a11b70d3c3aaa2b0dab30bd6eb43b6c93998a3623ec70b910634fc0284691d",
+            "bytes": 139578,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t110/PR020/source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t063-R01-source.png",
+            "sha256": "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "bytes": 852447,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "T063 Cycles"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/assets/t107/CH02-poses.png",
+            "sha256": "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "bytes": 145518,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "Blender and Firefox",
+          "version": "T107 Titan sheet"
+        },
+        {
+          "file": {
+            "path": "docs/evidence/spec001/layouts-t106/diagram-contact-sheet.png",
+            "sha256": "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a",
+            "bytes": 383230,
+            "format": "png"
+          },
+          "role": "reference",
+          "application": "T106 layout renderer",
+          "version": "T106 freeze"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/R02/PR020.glb",
+            "sha256": "a1fb28ca858cd25196db3c18c10c3c056e6780c6daae4d1e9b5cba59d3cbbb0b",
+            "bytes": 227220,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "86a11b70d3c3aaa2b0dab30bd6eb43b6c93998a3623ec70b910634fc0284691d"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected joined static mesh, embedded PBR and Y-up; metre scale, no cameras or lights.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t110/PR020/browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T110-workshop-PR020-20261127",
+          "settingsPath": "assets-src/props/R01-R02/settings.json",
+          "promptOrScriptPath": "assets-src/props/R01-R02/model.py",
+          "referenceHashes": [
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "outputHashes": [
+            "86a11b70d3c3aaa2b0dab30bd6eb43b6c93998a3623ec70b910634fc0284691d"
+          ],
+          "notes": "Original workshop furnace with separate editable parts. Project images provided scale, scheme and composition guidance."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "Network Quest — John Capobianco and contributors",
+          "OpenAI Codex (assisted original modeling and inspection code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/props/R01-R02/NOTICE.md"
+        ],
+        "aiDisclosure": "Agent-assisted original Blender geometry and material authoring. Project references informed design. Owner release review remains pending."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "86a11b70d3c3aaa2b0dab30bd6eb43b6c93998a3623ec70b910634fc0284691d",
+            "a1fb28ca858cd25196db3c18c10c3c056e6780c6daae4d1e9b5cba59d3cbbb0b",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR020/source-reopen.json",
+          "findings": "Fresh Blender opened the named source, rendered 50 editable components, inspected their materials and exported the selected hierarchy."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "86a11b70d3c3aaa2b0dab30bd6eb43b6c93998a3623ec70b910634fc0284691d",
+            "a1fb28ca858cd25196db3c18c10c3c056e6780c6daae4d1e9b5cba59d3cbbb0b",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR020/structure.json",
+          "findings": "Reimported GLB and browser rendered 7172 triangles and 10 material regions. Blender material region areas, triangle counts, base colors and bounds agree."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "86a11b70d3c3aaa2b0dab30bd6eb43b6c93998a3623ec70b910634fc0284691d",
+            "a1fb28ca858cd25196db3c18c10c3c056e6780c6daae4d1e9b5cba59d3cbbb0b",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR020/visual.json",
+          "findings": "The revised forge shows a layered red, orange and luminous core behind banked clinker, with a masonry arch and a separate draft wheel. The shortened top flue clears the frozen camera. Native indirect glow is stronger than isolated WebGL lighting."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "86a11b70d3c3aaa2b0dab30bd6eb43b6c93998a3623ec70b910634fc0284691d",
+            "a1fb28ca858cd25196db3c18c10c3c056e6780c6daae4d1e9b5cba59d3cbbb0b",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR020/browser-comparison.json",
+          "findings": "The revised forge shows a layered red, orange and luminous core behind banked clinker, with a masonry arch and a separate draft wheel. The shortened top flue clears the frozen camera. Native indirect glow is stronger than isolated WebGL lighting. Observed browser bounds agree within 3e-08 m."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop127/T110",
+          "date": "2026-11-27",
+          "environment": "Mac16,7 arm64 macOS 26.6.2, Blender 5.2.1 LTS 9e2066aef7ef, Firefox 159.0, Three r187, Node v26.13.1.",
+          "hashes": [
+            "86a11b70d3c3aaa2b0dab30bd6eb43b6c93998a3623ec70b910634fc0284691d",
+            "a1fb28ca858cd25196db3c18c10c3c056e6780c6daae4d1e9b5cba59d3cbbb0b",
+            "692cd312571a79a86385e4fd4e23de554ed44aaf4b965ae9b39bc36f6c4e3a91",
+            "a684fff8f8c6933c4dbf922c37afd689ff45aa72339d183a453c35ffe1c339b1",
+            "7b9863ce74179b512111c8c6d4036fcadce32ba8d02536ff6e3dcd030910939a"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/t110/PR020/rights.json",
+          "findings": "Original CC BY 4.0 equipment with project references and original geometry. Attribution, indication of changes and license retention apply."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/props/R01-R02/PR020.blend",
+        "objectIds": [
+          "PR020_Ash-damper wheel",
+          "PR020_Banked clinker",
+          "PR020_Banked clinker.001",
+          "PR020_Banked clinker.002",
+          "PR020_Banked clinker.003",
+          "PR020_Banked clinker.004",
+          "PR020_Banked clinker.005",
+          "PR020_Banked clinker.006",
+          "PR020_Copper flue elbow",
+          "PR020_Copper flue elbow.001",
+          "PR020_Damper hub",
+          "PR020_Damper spoke",
+          "PR020_Damper spoke.001",
+          "PR020_Damper spoke.002",
+          "PR020_Dark outer flame",
+          "PR020_Flagstone hearth",
+          "PR020_Flared extraction hood",
+          "PR020_Flue strap",
+          "PR020_Flue strap.001",
+          "PR020_Flue strap.002",
+          "PR020_Grate bearer",
+          "PR020_Grate bearer.001",
+          "PR020_Grate bearer.002",
+          "PR020_Hearth apron",
+          "PR020_Individual refractory pier stone",
+          "PR020_Individual refractory pier stone.001",
+          "PR020_Individual refractory pier stone.002",
+          "PR020_Individual refractory pier stone.003",
+          "PR020_Individual refractory pier stone.004",
+          "PR020_Individual refractory pier stone.005",
+          "PR020_Individually cut arch stone",
+          "PR020_Individually cut arch stone.001",
+          "PR020_Individually cut arch stone.002",
+          "PR020_Individually cut arch stone.003",
+          "PR020_Individually cut arch stone.004",
+          "PR020_Individually cut arch stone.005",
+          "PR020_Individually cut arch stone.006",
+          "PR020_Individually cut arch stone.007",
+          "PR020_Individually cut arch stone.008",
+          "PR020_Iron hearth grate",
+          "PR020_Iron hearth grate.001",
+          "PR020_Iron hearth grate.002",
+          "PR020_Iron hearth grate.003",
+          "PR020_Iron hearth grate.004",
+          "PR020_Luminous flame heart",
+          "PR020_Masonry pier plinth",
+          "PR020_Masonry pier plinth.001",
+          "PR020_Molten rising flame",
+          "PR020_Rear soot lining",
+          "PR020_Smoke hood saddle"
+        ],
+        "units": "metres",
+        "axes": "Z up/-Y front to Y up/+Z front",
+        "pivot": "Floor-centred stationary root PR020_pivot with identity rotation and unit scale.",
+        "collisionProxy": "Visual mesh only. Authored room walk regions and safe positions govern movement.",
+        "animationClips": [],
+        "triangles": 7172,
+        "textureBytes": 0
+      }
+    }
+  ]
+}

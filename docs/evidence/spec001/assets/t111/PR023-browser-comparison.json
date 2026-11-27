@@ -1,0 +1,55 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PR023",
+  "hashes": [
+    "8d25071672446b0019c97f9407332e20e2024231f53ebcf369b1a5d0898c0947",
+    "e446487bca399637d3c19596c5ee46f46eaee454a8661ca1a5473c6e4927ced6"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop128_t111",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; strict local HTTPS, Firefox 159.0, Node 26.13.1, Three.js 0.187.0.",
+  "details": {
+    "findings": "The open wedge interrupts the spoked copper flange. The jacket ends below it in bare copper rather than returning to the drum. The small clamp above the left winding supports the later evidence tag. The two studio lighting rigs yield different highlight intensity.",
+    "methods": [
+      "browser-inspection",
+      "image-inspection"
+    ],
+    "tool": "Firefox 159.0, Three.js GLTFLoader r187; Blender 5.2.1 LTS native reference",
+    "observedPaths": [
+      "assets-src/props/R03-R04/PR023.blend",
+      "public/assets/models/R03-R04/PR023.glb",
+      "docs/evidence/spec001/prop-production/T111/PR023-source.png",
+      "docs/evidence/spec001/prop-production/T111/PR023-browser.png",
+      "docs/evidence/spec001/prop-production/T111/PR021-PR025.jpg"
+    ],
+    "browserMeasurement": "docs/evidence/spec001/prop-production/T111/PR023-browser.json",
+    "browserRenderSha256": "29e6495992d51b19542fb2081561ed5e6efade3e91cfb1637332e08aca4101d2",
+    "nativeRenderSha256": "0b8a50aab966aa1286c60a4a7409030f48f88cc85be14a39ade450d0b05c0d6b",
+    "projection": {
+      "silhouetteIoU": 0.998094,
+      "pixelSize": [
+        540,
+        540
+      ],
+      "alphaThreshold": 128,
+      "sourceBoundsPixels": [
+        64,
+        45,
+        476,
+        495
+      ],
+      "browserBoundsPixels": [
+        64,
+        45,
+        476,
+        495
+      ],
+      "bothInsideFrame": true,
+      "comparedSourceSha256": "8d25071672446b0019c97f9407332e20e2024231f53ebcf369b1a5d0898c0947",
+      "comparedGLBSha256": "e446487bca399637d3c19596c5ee46f46eaee454a8661ca1a5473c6e4927ced6"
+    }
+  },
+  "check": "browser-comparison"
+}

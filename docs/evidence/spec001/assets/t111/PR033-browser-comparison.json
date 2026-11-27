@@ -1,0 +1,55 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PR033",
+  "hashes": [
+    "538afe7cee2e94e2d7f6b17bace119d8ec87856bc4430f89a6f867bee8bacbb7",
+    "cd7a1cc674c07bf0cb5c4f556f883a6896860d9c3cd63687170cb5aae3ecda19"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop128_t111",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; strict local HTTPS, Firefox 159.0, Node 26.13.1, Three.js 0.187.0.",
+  "details": {
+    "findings": "The hand key remains separate from the twin wound sounder poles and overhead armature. Moving the POST plaque in front of the timber base exposes its lettering. The two studio lighting rigs yield different highlight intensity.",
+    "methods": [
+      "browser-inspection",
+      "image-inspection"
+    ],
+    "tool": "Firefox 159.0, Three.js GLTFLoader r187; Blender 5.2.1 LTS native reference",
+    "observedPaths": [
+      "assets-src/props/R03-R04/PR033.blend",
+      "public/assets/models/R03-R04/PR033.glb",
+      "docs/evidence/spec001/prop-production/T111/PR033-source.png",
+      "docs/evidence/spec001/prop-production/T111/PR033-browser.png",
+      "docs/evidence/spec001/prop-production/T111/PR031-PR035.jpg"
+    ],
+    "browserMeasurement": "docs/evidence/spec001/prop-production/T111/PR033-browser.json",
+    "browserRenderSha256": "b398b18a6473bed60f1996dfa850da3216fc8fd46be485ad8f860c958f9ada12",
+    "nativeRenderSha256": "35c277478fb9a31bc241c129ffe329c5fcdaa7dc732ec60ceb1bb8191a4e7557",
+    "projection": {
+      "silhouetteIoU": 0.997355,
+      "pixelSize": [
+        540,
+        540
+      ],
+      "alphaThreshold": 128,
+      "sourceBoundsPixels": [
+        45,
+        127,
+        495,
+        413
+      ],
+      "browserBoundsPixels": [
+        45,
+        127,
+        495,
+        413
+      ],
+      "bothInsideFrame": true,
+      "comparedSourceSha256": "538afe7cee2e94e2d7f6b17bace119d8ec87856bc4430f89a6f867bee8bacbb7",
+      "comparedGLBSha256": "cd7a1cc674c07bf0cb5c4f556f883a6896860d9c3cd63687170cb5aae3ecda19"
+    }
+  },
+  "check": "browser-comparison"
+}

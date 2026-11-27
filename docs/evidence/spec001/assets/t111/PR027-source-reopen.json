@@ -1,0 +1,27 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PR027",
+  "hashes": [
+    "1d1adb432640289f723fd27c3c5de38fdef43932342c8e6d7c4f0674418b807a",
+    "2923f81cec4caa9d6089e43715cb22d41fd11683bfcebac8335e99a722e452ba"
+  ],
+  "status": "passed",
+  "actor": "tool",
+  "reviewer": "/root/loop128_t111",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; strict local HTTPS, Firefox 159.0, Node 26.13.1, Three.js 0.187.0.",
+  "details": {
+    "findings": "Fresh Blender process opened the saved native at its ground root. Measured named meshes and material factors, rendered the source, and exported the selected static model.",
+    "methods": [
+      "native-source-reopen"
+    ],
+    "tool": "Blender 5.2.1 LTS",
+    "observedPaths": [
+      "assets-src/props/R03-R04/PR027.blend",
+      "docs/evidence/spec001/prop-production/T111/PR027-source.png"
+    ],
+    "report": "docs/evidence/spec001/prop-production/T111/PR027-native.json",
+    "reportSha256": "20af9509f8a66ee4f73bf44d9b22bbf268a0d29d81d2a407ca59b079b286c428"
+  },
+  "check": "source-reopen"
+}

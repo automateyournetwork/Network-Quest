@@ -1,0 +1,55 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PR038",
+  "hashes": [
+    "e3f85eee82183b4a67ca7f27aa27beb59b6aae63bc4cc052cb0f83c79781ad86",
+    "b1fd21b161d78ced58be1ad0d6765f4de4edb44b2202ca8a6cc8edbee58508d8"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop128_t111",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; strict local HTTPS, Firefox 159.0, Node 26.13.1, Three.js 0.187.0.",
+  "details": {
+    "findings": "The two exposed wire ends stop on opposing insulated supports, with open air between them. The BEFORE record pocket sits beneath the break, outside its silhouette. The two studio lighting rigs yield different highlight intensity.",
+    "methods": [
+      "browser-inspection",
+      "image-inspection"
+    ],
+    "tool": "Firefox 159.0, Three.js GLTFLoader r187; Blender 5.2.1 LTS native reference",
+    "observedPaths": [
+      "assets-src/props/R03-R04/PR038.blend",
+      "public/assets/models/R03-R04/PR038.glb",
+      "docs/evidence/spec001/prop-production/T111/PR038-source.png",
+      "docs/evidence/spec001/prop-production/T111/PR038-browser.png",
+      "docs/evidence/spec001/prop-production/T111/PR036-PR040.jpg"
+    ],
+    "browserMeasurement": "docs/evidence/spec001/prop-production/T111/PR038-browser.json",
+    "browserRenderSha256": "c087e5f204c823e3696d78dd77b4d4d59d9e51fee9bf070c51e34c4f7109dc9b",
+    "nativeRenderSha256": "8fb3ae83c2fa40173ce013afb34459289c2f2a641972a2d159d4c5ae6c352832",
+    "projection": {
+      "silhouetteIoU": 0.996524,
+      "pixelSize": [
+        540,
+        540
+      ],
+      "alphaThreshold": 128,
+      "sourceBoundsPixels": [
+        45,
+        86,
+        495,
+        454
+      ],
+      "browserBoundsPixels": [
+        45,
+        86,
+        495,
+        454
+      ],
+      "bothInsideFrame": true,
+      "comparedSourceSha256": "e3f85eee82183b4a67ca7f27aa27beb59b6aae63bc4cc052cb0f83c79781ad86",
+      "comparedGLBSha256": "b1fd21b161d78ced58be1ad0d6765f4de4edb44b2202ca8a6cc8edbee58508d8"
+    }
+  },
+  "check": "browser-comparison"
+}
