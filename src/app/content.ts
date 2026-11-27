@@ -28,6 +28,7 @@ import radioActions from '../../content/spec001/dialogue/radio-actions.json' wit
 import equipmentActions from '../../content/spec001/dialogue/equipment-actions.json' with { type: 'json' };
 import packetRepair from '../../content/spec001/dialogue/packet-r12.json' with { type: 'json' };
 import repairActions from '../../content/spec001/dialogue/repair-plan-actions.json' with { type: 'json' };
+import characters from '../../content/spec001/characters.json' with { type: 'json' };
 
 /** Explicit public authored documents; metadata reservations never become rooms. */
 export function loadIntroductionContent() {
@@ -49,6 +50,7 @@ export function loadIntroductionContent() {
     'content/spec001/dialogue/equipment-actions.json': equipmentActions,
     'content/spec001/dialogue/repair-plan-actions.json': repairActions,
     'content/spec001/dialogue/packet-r12.json': packetRepair,
+    'content/spec001/characters.json': characters,
   };
   const canonicalWorld = structuredClone(world) as S.world;
   const result = validateContent({ world: canonicalWorld, sources, documents });

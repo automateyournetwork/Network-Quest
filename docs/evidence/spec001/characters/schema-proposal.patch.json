@@ -1,0 +1,517 @@
+[
+  {
+    "op": "replace",
+    "path": "/$defs/ability",
+    "value": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/abilityId"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleId"
+          },
+          "minItems": 1,
+          "maxItems": 15,
+          "uniqueItems": true
+        },
+        "conventionalEquivalentItemIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/itemId"
+          },
+          "minItems": 0,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/effect"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "conventionalEquivalentActionIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "profileIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/profileId"
+          },
+          "minItems": 1,
+          "maxItems": 7,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "limitations",
+        "ruleIds",
+        "conventionalEquivalentItemIds",
+        "effects"
+      ],
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "required": [
+                "conventionalEquivalentItemIds"
+              ],
+              "properties": {
+                "conventionalEquivalentItemIds": {
+                  "type": "array",
+                  "minItems": 1
+                }
+              }
+            },
+            {
+              "required": [
+                "conventionalEquivalentActionIds"
+              ],
+              "properties": {
+                "conventionalEquivalentActionIds": {
+                  "type": "array",
+                  "minItems": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/$defs/character",
+    "value": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "character"
+        },
+        "$schema": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "episodeId": {
+          "const": "spec001"
+        },
+        "contentVersion": {
+          "$ref": "#/$defs/contentVersion"
+        },
+        "id": {
+          "$ref": "#/$defs/characterId"
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "dialogueIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 64,
+          "uniqueItems": true,
+          "description": "Only implemented character conversations. An empty list is honest for the player, non-speaking opponents or unimplemented conversations; do not borrow narrator action collections as dialogue."
+        },
+        "compendium": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/id"
+            },
+            "technology": {
+              "$ref": "#/$defs/text"
+            },
+            "abilitySummary": {
+              "$ref": "#/$defs/text"
+            },
+            "limitations": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/text"
+              },
+              "minItems": 1,
+              "maxItems": 32,
+              "uniqueItems": true
+            },
+            "realmNote": {
+              "$ref": "#/$defs/text"
+            },
+            "sourceClaims": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/sourceClaim"
+              },
+              "minItems": 1,
+              "maxItems": 32,
+              "uniqueItems": true
+            },
+            "rpgAttributesLabel": {
+              "const": "fictional-balancing-values"
+            },
+            "portraitAssetId": {
+              "$ref": "#/$defs/id"
+            },
+            "portraitText": {
+              "$ref": "#/$defs/text"
+            },
+            "discovery": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "roomIds": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/roomId"
+                  },
+                  "minItems": 1,
+                  "maxItems": 12,
+                  "uniqueItems": true
+                },
+                "explanation": {
+                  "$ref": "#/$defs/text"
+                }
+              },
+              "required": [
+                "roomIds",
+                "explanation"
+              ]
+            },
+            "recruitmentSummary": {
+              "$ref": "#/$defs/text"
+            },
+            "progressionSummary": {
+              "$ref": "#/$defs/text"
+            },
+            "contextSources": {
+              "type": "array",
+              "minItems": 0,
+              "maxItems": 8,
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "title": {
+                    "$ref": "#/$defs/text"
+                  },
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://",
+                    "maxLength": 2048
+                  },
+                  "section": {
+                    "$ref": "#/$defs/text"
+                  },
+                  "supportedClaim": {
+                    "$ref": "#/$defs/text"
+                  },
+                  "limitations": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/text"
+                    },
+                    "minItems": 1,
+                    "maxItems": 8,
+                    "uniqueItems": true
+                  },
+                  "retrievedDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "scope": {
+                    "const": "descriptive-only-not-scored"
+                  }
+                },
+                "required": [
+                  "title",
+                  "url",
+                  "section",
+                  "supportedClaim",
+                  "limitations",
+                  "retrievedDate",
+                  "scope"
+                ]
+              },
+              "description": "Primary references for non-scored character/exhibit context only. These cannot be selected by ruleIds/sourceId or introduce new thresholds/profile behavior; the reviewed sources.json remains authoritative for scored rules."
+            }
+          },
+          "required": [
+            "id",
+            "technology",
+            "abilitySummary",
+            "limitations",
+            "realmNote",
+            "sourceClaims",
+            "rpgAttributesLabel"
+          ]
+        },
+        "recruitable": {
+          "type": "boolean"
+        },
+        "recruitment": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "condition": {
+              "$ref": "#/$defs/condition"
+            },
+            "demonstratedInteraction": {
+              "$ref": "#/$defs/text"
+            },
+            "effects": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/effect"
+              },
+              "minItems": 1,
+              "maxItems": 16,
+              "uniqueItems": true
+            },
+            "roomIds": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/roomId"
+              },
+              "minItems": 1,
+              "maxItems": 12,
+              "uniqueItems": true
+            },
+            "demonstration": {
+              "$ref": "#/$defs/characterDemonstration"
+            }
+          },
+          "required": [
+            "condition",
+            "demonstratedInteraction",
+            "effects"
+          ]
+        },
+        "abilities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ability"
+          },
+          "minItems": 0,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "progression": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "level": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              },
+              "condition": {
+                "$ref": "#/$defs/condition"
+              },
+              "abilityIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/abilityId"
+                },
+                "minItems": 0,
+                "maxItems": 16,
+                "uniqueItems": true
+              },
+              "explanation": {
+                "$ref": "#/$defs/text"
+              },
+              "demonstration": {
+                "$ref": "#/$defs/characterDemonstration"
+              }
+            },
+            "required": [
+              "level",
+              "condition",
+              "abilityIds",
+              "explanation"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 10,
+          "uniqueItems": true
+        },
+        "assetIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "episodeId",
+        "contentVersion",
+        "id",
+        "description",
+        "dialogueIds",
+        "compendium",
+        "recruitable",
+        "abilities",
+        "progression",
+        "assetIds"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "recruitable": {
+                "const": true
+              }
+            },
+            "required": [
+              "recruitable"
+            ]
+          },
+          "then": {
+            "required": [
+              "recruitment"
+            ],
+            "properties": {
+              "abilities": {
+                "minItems": 1,
+                "type": "array"
+              },
+              "progression": {
+                "minItems": 1,
+                "type": "array"
+              },
+              "recruitment": {}
+            }
+          },
+          "else": {
+            "not": {
+              "required": [
+                "recruitment"
+              ],
+              "properties": {
+                "recruitment": {}
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "path": "/$defs/characterDemonstration",
+    "value": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "objectiveIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/objectiveId"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "uniqueItems": true
+        },
+        "actionIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/factId"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleId"
+          },
+          "minItems": 1,
+          "maxItems": 15,
+          "uniqueItems": true
+        },
+        "profileIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/profileId"
+          },
+          "minItems": 1,
+          "maxItems": 7,
+          "uniqueItems": true
+        },
+        "evidencePolicy": {
+          "const": "accepted-demonstration-is-learning-only"
+        },
+        "explanation": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "required": [
+        "objectiveIds",
+        "actionIds",
+        "evidenceIds",
+        "ruleIds",
+        "profileIds",
+        "evidencePolicy",
+        "explanation"
+      ],
+      "description": "An authored learning-review contract for T094. Conditions alone never prove a demonstration. A trusted actual canonical evaluation, accepted conclusion and appropriate readings must have been fresh and valid when demonstrated. Its historical receipt can support invitation/progression after movement, never current repair proof. objectiveIds names canonical provenance; a composite objective result need not carry each scoped ability ruleId. Fact membership or caller-supplied history is not a receipt. A distinct level-2 demonstration occurs after recruitment. actionIds names relevant alternatives/steps, not an unconditional all-actions sequence. Contrasts can explain a failed case without calling it a successful repair. Current ability application always performs fresh canonical physical checks."
+    }
+  }
+]

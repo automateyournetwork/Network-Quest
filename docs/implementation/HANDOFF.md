@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**106 loops started; 87 of 170 tasks accepted.** T085–T089 are accepted
+**108 loops started; 88 of 170 tasks accepted.** T085–T089 are accepted
 for their documented local scope. T089 final12native cases PASS in2.6minutes;
 root final85client suites3065PASS/360unchangedTODO (35.33s), check/buildPASS.
 Root matched61finalpublicseal entries and inspected narrow/desktop recovery
@@ -58,10 +58,20 @@ bounded schemaextension;106 preparespartytests. Historicalvaliddemonstration may
 support explicit learning/invitation atauthoredcharacterroom, never currentrepair
 proof; avoid impossible fresh-after-walk recruitment gates. OriginalT092schemahash
 must continue checking preservedbaseline; otheroraclehashes remaincurrent. G0 blocked; aggregate G1–G7 acceptance pending. Latest pushed
-checkpoint `d1f6f66644fa7e6f60b2b2d098fca30ed8873cc9`:219reviewed paths,
-6,994,370bytes; exactindex/hash/private scansPASS. Raw runner whitespace is
-preserved (42trailing/47blankEOF findings); authored source whitespacePASS.
-No release deployed.
+checkpoint `b31a37970638d9bced6d54fae5d86e80e93b3615`:110reviewed paths,
+6,065,026bytes; exactindex/hash/private/header scansPASS. Raw runner whitespace
+is preserved (3trailing/20blankEOF findings); authored source whitespacePASS.
+105hasGO actualcharacter/schema/registry/loader/generatedartifact join;106holds
+partysharedsource untilaccepted105. Fresh107 prepares containedcompendiumviews
+without claimingplannedportraitsproduced; discoveryownership coordinateswith106.
+T093 accepted after root source/prose review and36 matching seal entries.
+Root client3139PASS/2PHP-path setupfailures/360TODO; affected3testsPASS with
+correct PHP, accounting for3141distinctPASS in88suites. FullPHP908tests/19138
+assertionsPASS40.837s; check/buildPASS. Original failures retained. See
+character-join-review.md. 106 now owns actualparty/reducer/actions/application/
+level-policy join;107 owns disjointcompendium/notebook, app composition coordinated.
+Fresh108 independently authors SQ01 using unchanged reviewed R04/T092 toy rules.
+No source count or portrait/gate acceptance is inferred. No release deployed.
 
 ## Earlier position and retained progress history — 2026-11-26
 

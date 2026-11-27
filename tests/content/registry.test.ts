@@ -215,6 +215,33 @@ describe('authored reachability, equivalents, recovery and safe positions', () =
     d.nodes[1].effects = [setFlag('intro-complete', 'intro', true)];
     const result = validateContent(input([o, d, character(), item()])); expect(result.ok, JSON.stringify(result)).toBe(true);
   });
+  it('retains an entry grant while closing only its terminating fact-only conversation tail', () => {
+    const o = objective(), d = dialogue(), i = item();
+    i.acquisition.condition = complete('O12');
+    o.alternatives[0].itemIds = [i.id];
+    d.nodes[0].effects = [{ kind: 'grant-item', effectId: q('EFFECT-dialogue-grant'), itemId: i.id, quantity: 1 }];
+    d.evidence = [evidence()];
+    d.nodes[0].choices[0].effects = [{ kind: 'record-fact', effectId: q('EFFECT-dialogue-choice-fact'), factId: q('FACT-power') }];
+    d.nodes[1].effects = [{ kind: 'record-fact', effectId: q('EFFECT-dialogue-tail-fact'), factId: q('FACT-power') }];
+    expect(validateContent(input([o, d, i, character()])).ok).toBe(true);
+    // Both conditional choice and conditional target prevent returning to use
+    // the granted item. Neither may be silently normalized past the condition.
+    d.nodes[0].choices[0].condition = complete('O12');
+    rejects(input([o, d, i, character()]), 'route-unreachable');
+    d.nodes[0].choices[0].condition = always(); d.nodes[1].condition = complete('O12');
+    rejects(input([o, d, i, character()]), 'route-unreachable');
+  });
+  it('does not reorder consumption ahead of a later dialogue grant or erase an inert cycle', () => {
+    const o = objective(), d = dialogue(), i = item();
+    i.acquisition.condition = complete('O12'); i.consumption = 'on-documented-transformation'; i.recovery.policy = 'return-to-source';
+    o.alternatives[0].itemIds = [i.id];
+    d.nodes[0].choices[0].effects = [{ kind: 'consume-item', effectId: q('EFFECT-dialogue-consume'), itemId: i.id, quantity: 1 }];
+    d.nodes[1].effects = [{ kind: 'grant-item', effectId: q('EFFECT-dialogue-late-grant'), itemId: i.id, quantity: 1 }];
+    rejects(input([o, d, i, character()]), 'route-unreachable');
+    d.nodes[0].choices[0].effects = []; d.nodes[1].effects = [];
+    d.nodes[1].choices = [{ id: q('CHOICE-inert-cycle'), text: 'Repeat', condition: always(), nextNodeId: d.nodes[0].id, effects: [] }];
+    rejects(input([d, i, character()]), 'dialogue-cycle');
+  });
   it('rejects an authored optional self-cycle independently of the metadata graph', () => {
     const quest = objectiveFor('O02'); quest.kind = 'quest'; quest.id = q('SQ01'); quest.requiredForMainStory = false; quest.skippable = true;
     quest.prerequisite = { kind: 'quest-complete', questId: q('SQ01') };

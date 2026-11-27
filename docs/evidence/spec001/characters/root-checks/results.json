@@ -1,0 +1,49 @@
+{
+  "scope": "Root frozen T093 local integration review; no gameplay/media/provider/human acceptance",
+  "sourceInputs": {
+    "content/schemas/content.schema.json": "f6b522c83d5cb0a202acbb94fc2587eddfadde5494593647b88610aaa4ae194e",
+    "content/spec001/characters.json": "19cbf408aa10470db71b184e4be74a0fbc8b31f37dfb108df156447c1a19004d",
+    "content/spec001/world.json": "91c820e72fc773066172591398da912fda32dfe1d31db1fe81fca0084e00366f",
+    "src/app/content.ts": "3f275a8bd4e31f21e72170f055c699ef503f76d7e5c1c2c2b360ba5e7ea7b737",
+    "src/content/registry.ts": "14fd0816fa06780b0910d8b3bad3f0fb181750c17f75e6c20e65d5181bd77ea7",
+    "src/content/schema-types.generated.ts": "d394e229d73b2125c1f7c6dd2dd4cf5b6b95e5b4b240c38c5daa824b9c5278d9",
+    "src/content/schema.generated.js": "2580cc4fe5265b3111cb3f2ce80d599e90e7724837ccd72b1cd03e1c91117596",
+    "server/content/save-policy.generated.json": "0d4afecf06055a87416666d19713f7e8bc60e5b33222fab1b346b1ac1cdf7a0e",
+    "tests/content/characters.test.ts": "0cf22d628fb6b9c9d5ec51b44070eb30c864cd961e95f5e91b7b28b79851ac8d",
+    "tests/content/registry.test.ts": "0c99713b537bd9b9f88319d7cf94c5aab3e81bec7610be5d576ce22662e9e7a0",
+    "tests/content/companion-activity-oracles.test.ts": "5450764c708e624abbaa9d1c50bfe8c97485d03e177cc8982b9204fa67d9b846",
+    "tests/tools/save-content-policy.test.ts": "7e7ee8f6a077880243fb888aaf76e8f355d5e99dc4dbca3617016b14d3fa58e9"
+  },
+  "domainInitial": {
+    "passed": 3139,
+    "failed": 2,
+    "todo": 360,
+    "seconds": 38.27,
+    "reason": "Root omitted NQ_PHP_BIN; only the generated-policy PHP adapter tests failed before checking application behavior."
+  },
+  "domainAffectedRerun": {
+    "suite": "tests/tools/save-content-policy.test.ts",
+    "passed": 3,
+    "failed": 0,
+    "seconds": 3.36,
+    "NQ_PHP_BIN": "/opt/homebrew/opt/php@8.4/bin/php"
+  },
+  "domainDistinctPassingTests": 3141,
+  "domainSuites": 88,
+  "php": {
+    "tests": 908,
+    "assertions": 19138,
+    "seconds": 40.837,
+    "result": "PASS"
+  },
+  "check": "PASS",
+  "build": "PASS",
+  "largeChunkAdvisoryRetained": true,
+  "artifactHashes": {
+    "domain.log": "6238669a0e6ffac26ea2baa7da00599da5b5d33daaf0cd7fc5e061bf819aa45f",
+    "domain-php-correction.log": "01ff4186066e73a502211d7474d1f5699c90b31f2dc513ef67168bddcf6989a0",
+    "api.log": "29eace39fd947f1a53d972db87567cde716ef9ed3c1a5c58e767168ab8a8001c",
+    "check.log": "47242922f0f8c6c0954eabe995ae7455ca0376c53ae085583d894d280c725d36",
+    "build.log": "150f9c1487c4a3e87fbb384aa747674d8893461d62bf0b18662f670f9ddd7bd6"
+  }
+}

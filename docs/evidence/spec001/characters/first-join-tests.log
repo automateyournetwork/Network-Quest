@@ -1,0 +1,141 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/content/characters.test.ts (22 tests | 8 failed) 3372ms
+   ❯ T093 canonical authored character roster (20)
+     × loads exactly the specified 25 identities and nine recruit contracts into the actual registry 459ms
+     ✓ spec001:CH03 preserves independently authored demonstration, progression and source-backed rules 2ms
+     ✓ spec001:CH04 preserves independently authored demonstration, progression and source-backed rules 1ms
+     ✓ spec001:CH05 preserves independently authored demonstration, progression and source-backed rules 1ms
+     ✓ spec001:CH06 preserves independently authored demonstration, progression and source-backed rules 1ms
+     ✓ spec001:CH07 preserves independently authored demonstration, progression and source-backed rules 1ms
+     ✓ spec001:CH16 preserves independently authored demonstration, progression and source-backed rules 1ms
+     ✓ spec001:CH19 preserves independently authored demonstration, progression and source-backed rules 1ms
+     ✓ spec001:CH20 preserves independently authored demonstration, progression and source-backed rules 1ms
+     ✓ spec001:CH22 preserves independently authored demonstration, progression and source-backed rules 1ms
+     ✓ binds each portrait/model to its actual manifest identity without declaring production acceptance 2ms
+     ✓ keeps sixteen nonrecruits free of recruitment or ability progression 1ms
+     × requires all 25 even if both one record and its document reference are removed together 429ms
+     × rejects a borrowed portrait and a missing complete compendium contract 388ms
+     × rejects added recruitment/levels on a nonrecruit without changing the nine-recruit roster 392ms
+     × rejects unknown and circular ally action equivalents 382ms
+     × rejects optional/future dependencies in invitation and a fabricated home room 390ms
+     × rejects missing proof, wrong canonical evidence and reused base ability as progression 384ms
+     × rejects unreviewed rule/profile refs, incomplete source coverage and altered reviewed claims 414ms
+     ✓ cannot put a new scored rule into a descriptive reference 10ms
+   ✓ T093 bounded schema evolution preserves T092 provenance (2)
+     ✓ retains the exact original authoring schema and changes only the three reviewed definitions 2ms
+     ✓ accepts every old-shaped current document with both schemas 106ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/content/characters.test.ts > T093 canonical authored character roster > loads exactly the specified 25 identities and nine recruit contracts into the actual registry
+Error: The authored episode could not be validated. No adventure was started.
+ ❯ loadIntroductionContent src/app/content.ts:57:45
+     55|   const canonicalWorld = structuredClone(world) as S.world;
+     56|   const result = validateContent({ world: canonicalWorld, sources, doc…
+     57|   if (!result.ok || !result.registry) throw new Error('The authored ep…
+       |                                             ^
+     58|   return { registry: result.registry, world: canonicalWorld };
+     59| }
+ ❯ tests/content/characters.test.ts:32:43
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  tests/content/characters.test.ts > T093 canonical authored character roster > requires all 25 even if both one record and its document reference are removed together
+AssertionError: expected [ Array(3) ] to include 'character-roster'
+ ❯ reject tests/content/characters.test.ts:26:58
+     24|   const result = validateContent(data);
+     25|   expect(result.ok, JSON.stringify(result)).toBe(false);
+     26|   if (!result.ok) expect(result.issues.map(i => i.code)).toContain(cod…
+       |                                                          ^
+     27| };
+     28| const recruitIds = ['CH03','CH04','CH05','CH06','CH07','CH16','CH19','…
+ ❯ tests/content/characters.test.ts:75:86
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  tests/content/characters.test.ts > T093 canonical authored character roster > rejects a borrowed portrait and a missing complete compendium contract
+AssertionError: expected [ Array(3) ] to include 'character-portrait'
+ ❯ reject tests/content/characters.test.ts:26:58
+     24|   const result = validateContent(data);
+     25|   expect(result.ok, JSON.stringify(result)).toBe(false);
+     26|   if (!result.ok) expect(result.issues.map(i => i.code)).toContain(cod…
+       |                                                          ^
+     27| };
+     28| const recruitIds = ['CH03','CH04','CH05','CH06','CH07','CH16','CH19','…
+ ❯ tests/content/characters.test.ts:78:90
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  tests/content/characters.test.ts > T093 canonical authored character roster > rejects added recruitment/levels on a nonrecruit without changing the nine-recruit roster
+AssertionError: expected [ Array(3) ] to include 'character-nonrecruit'
+ ❯ reject tests/content/characters.test.ts:26:58
+     24|   const result = validateContent(data);
+     25|   expect(result.ok, JSON.stringify(result)).toBe(false);
+     26|   if (!result.ok) expect(result.issues.map(i => i.code)).toContain(cod…
+       |                                                          ^
+     27| };
+     28| const recruitIds = ['CH03','CH04','CH05','CH06','CH07','CH16','CH19','…
+ ❯ tests/content/characters.test.ts:83:70
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  tests/content/characters.test.ts > T093 canonical authored character roster > rejects unknown and circular ally action equivalents
+AssertionError: expected [ Array(3) ] to include 'unknown-reference'
+ ❯ reject tests/content/characters.test.ts:26:58
+     24|   const result = validateContent(data);
+     25|   expect(result.ok, JSON.stringify(result)).toBe(false);
+     26|   if (!result.ok) expect(result.issues.map(i => i.code)).toContain(cod…
+       |                                                          ^
+     27| };
+     28| const recruitIds = ['CH03','CH04','CH05','CH06','CH07','CH16','CH19','…
+ ❯ tests/content/characters.test.ts:86:105
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  tests/content/characters.test.ts > T093 canonical authored character roster > rejects optional/future dependencies in invitation and a fabricated home room
+AssertionError: expected [ Array(3) ] to include 'character-dependency'
+ ❯ reject tests/content/characters.test.ts:26:58
+     24|   const result = validateContent(data);
+     25|   expect(result.ok, JSON.stringify(result)).toBe(false);
+     26|   if (!result.ok) expect(result.issues.map(i => i.code)).toContain(cod…
+       |                                                          ^
+     27| };
+     28| const recruitIds = ['CH03','CH04','CH05','CH06','CH07','CH16','CH19','…
+ ❯ tests/content/characters.test.ts:92:102
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  tests/content/characters.test.ts > T093 canonical authored character roster > rejects missing proof, wrong canonical evidence and reused base ability as progression
+AssertionError: expected [ Array(3) ] to include 'character-demonstration'
+ ❯ reject tests/content/characters.test.ts:26:58
+     24|   const result = validateContent(data);
+     25|   expect(result.ok, JSON.stringify(result)).toBe(false);
+     26|   if (!result.ok) expect(result.issues.map(i => i.code)).toContain(cod…
+       |                                                          ^
+     27| };
+     28| const recruitIds = ['CH03','CH04','CH05','CH06','CH07','CH16','CH19','…
+ ❯ tests/content/characters.test.ts:96:66
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  tests/content/characters.test.ts > T093 canonical authored character roster > rejects unreviewed rule/profile refs, incomplete source coverage and altered reviewed claims
+AssertionError: expected [ Array(3) ] to include 'source-coverage'
+ ❯ reject tests/content/characters.test.ts:26:58
+     24|   const result = validateContent(data);
+     25|   expect(result.ok, JSON.stringify(result)).toBe(false);
+     26|   if (!result.ok) expect(result.issues.map(i => i.code)).toContain(cod…
+       |                                                          ^
+     27| };
+     28| const recruitIds = ['CH03','CH04','CH05','CH06','CH07','CH16','CH19','…
+ ❯ tests/content/characters.test.ts:102:132
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 14 passed (22)
+   Start at  08:31:38
+   Duration  3.61s (tests 95%, transform 4%, import 1%)
+

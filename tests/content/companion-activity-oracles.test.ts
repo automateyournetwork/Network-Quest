@@ -82,7 +82,13 @@ describe('T092 frozen oracle inputs — no application execution', () => {
   });
   it.each(Object.entries(companions.frozenArtifacts))('%s retains its sealed bytes', (path, hash) => {
     expect(hash).toMatch(/^[a-f0-9]{64}$/);
-    expect(createHash('sha256').update(read(path)).digest('hex')).toBe(hash);
+    // T093 extends only character authoring. Preserve the exact T092 schema
+    // used to author these independent expectations; never refresh its hash.
+    // The dedicated characters suite validates the additive live schema and
+    // production roster. All ten other frozen inputs still check current bytes.
+    const authoringInput = path === 'content/schemas/content.schema.json'
+      ? 'docs/evidence/spec001/characters/content-schema-before-T093.json' : path;
+    expect(createHash('sha256').update(read(authoringInput)).digest('hex')).toBe(hash);
   });
   it.each([companions, activities])('keeps authoring checks separate from runtime claims', fixture => {
     expect(fixture.fixtureVersion).toBe(1);

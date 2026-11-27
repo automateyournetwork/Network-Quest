@@ -1,0 +1,80 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/content/companion-activity-oracles.test.ts (192 tests | 140 todo) 15ms
+ ✓ tests/content/world-graph.test.ts (40 tests) 560ms
+   ✓ T081 canonical twelve-room selection and exact SPEC graph (15)
+     ✓ validates the canonical document selection without a replacement projection 534ms
+ ✓ tests/services/save-validator.test.ts (109 tests) 1389ms
+   ✓ T042 new-write validation, without account/HTTP/transaction claims (109)
+     ✓ bridges all authored rooms and rejects unavailable rooms/anchors, out-of-order objectives and unauthored recruits 776ms
+     ✓ accepts an actual reducer inspection with explicit reviewed measurement policy and rejects wrong units 563ms
+ ✓ tests/state/outcome-save-policy.test.ts (14 tests) 797ms
+   ✓ T086 actual outcome portable save policy (14)
+     ✓ copper E01 and E02 save only after dismissal, then preserve history after ordinary authored walking 376ms
+ ✓ tests/content/registry.test.ts (67 tests) 2663ms
+ ❯ tests/tools/save-content-policy.test.ts (3 tests | 1 failed) 3247ms
+   ❯ actual authored save content policy artifact (3)
+     × regenerates deterministically without a listener, project config or ambient env files 1992ms
+     ✓ validates real initial state and real kit/105 m/95 m reducer observations in TypeScript and PHP 669ms
+     ✓ does not turn metadata reservations, future progression or unsupported safety into write permissions 585ms
+ ✓ tests/content/characters.test.ts (24 tests) 8432ms
+   ✓ T093 canonical authored character roster (22)
+     ✓ loads exactly the specified 25 identities and nine recruit contracts into the actual registry 794ms
+     ✓ binds Hermit’s five-field demonstration to the actual optical evaluator, not the market power result 537ms
+     ✓ requires all 25 even if both one record and its document reference are removed together 505ms
+     ✓ rejects a borrowed portrait and a missing complete compendium contract 978ms
+     ✓ rejects added recruitment/levels on a nonrecruit without changing the nine-recruit roster 466ms
+     ✓ rejects unknown and circular ally action equivalents 471ms
+     ✓ rejects optional/future dependencies in invitation and a fabricated home room 928ms
+     ✓ rejects missing proof, wrong canonical evidence and reused base ability as progression 1372ms
+     ✓ rejects existing but unrelated evidence, rules and profiles as demonstration provenance 1346ms
+     ✓ rejects unreviewed rule/profile refs, incomplete source coverage and altered reviewed claims 898ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/tools/save-content-policy.test.ts > actual authored save content policy artifact > regenerates deterministically without a listener, project config or ambient env files
+AssertionError: expected [ Array(9) ] to deeply equal [ 'spec001:CH01', …(24) ]
+
+- Expected
++ Received
+
+  [
+-   "spec001:CH01",
+-   "spec001:CH02",
+    "spec001:CH03",
+    "spec001:CH04",
+    "spec001:CH05",
+    "spec001:CH06",
+    "spec001:CH07",
+-   "spec001:CH08",
+-   "spec001:CH09",
+-   "spec001:CH10",
+-   "spec001:CH11",
+-   "spec001:CH12",
+-   "spec001:CH13",
+-   "spec001:CH14",
+-   "spec001:CH15",
+    "spec001:CH16",
+-   "spec001:CH17",
+-   "spec001:CH18",
+    "spec001:CH19",
+    "spec001:CH20",
+-   "spec001:CH21",
+    "spec001:CH22",
+-   "spec001:CH23",
+-   "spec001:CH24",
+-   "spec001:CH25",
+  ]
+
+ ❯ tests/tools/save-content-policy.test.ts:51:52
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 6 passed (7)
+      Tests  1 failed | 308 passed | 140 todo (449)
+   Start at  08:41:27
+   Duration  8.61s (tests 88%, import 10%, transform 2%)
+

@@ -1,0 +1,228 @@
+{
+  "task": "T093",
+  "preparedBy": "/root/loop105_t093",
+  "sealedAtUtc": "2026-11-27T13:44:05.746461+00:00",
+  "status": "implementation frozen for coordinator review; not self-accepted",
+  "scope": "authored content/schema/provenance/structural route proof only; no party/UI runtime or native browser acceptance",
+  "implementationInputs": {
+    "content/schemas/content.schema.json": "f6b522c83d5cb0a202acbb94fc2587eddfadde5494593647b88610aaa4ae194e",
+    "content/spec001/characters.json": "19cbf408aa10470db71b184e4be74a0fbc8b31f37dfb108df156447c1a19004d",
+    "content/spec001/world.json": "91c820e72fc773066172591398da912fda32dfe1d31db1fe81fca0084e00366f",
+    "src/app/content.ts": "3f275a8bd4e31f21e72170f055c699ef503f76d7e5c1c2c2b360ba5e7ea7b737",
+    "src/content/registry.ts": "14fd0816fa06780b0910d8b3bad3f0fb181750c17f75e6c20e65d5181bd77ea7",
+    "src/content/schema-types.generated.ts": "d394e229d73b2125c1f7c6dd2dd4cf5b6b95e5b4b240c38c5daa824b9c5278d9",
+    "src/content/schema.generated.js": "2580cc4fe5265b3111cb3f2ce80d599e90e7724837ccd72b1cd03e1c91117596",
+    "server/content/save-policy.generated.json": "0d4afecf06055a87416666d19713f7e8bc60e5b33222fab1b346b1ac1cdf7a0e",
+    "tests/content/characters.test.ts": "0cf22d628fb6b9c9d5ec51b44070eb30c864cd961e95f5e91b7b28b79851ac8d",
+    "tests/content/registry.test.ts": "0c99713b537bd9b9f88319d7cf94c5aab3e81bec7610be5d576ce22662e9e7a0",
+    "tests/content/companion-activity-oracles.test.ts": "5450764c708e624abbaa9d1c50bfe8c97485d03e177cc8982b9204fa67d9b846",
+    "tests/tools/save-content-policy.test.ts": "7e7ee8f6a077880243fb888aaf76e8f355d5e99dc4dbca3617016b14d3fa58e9"
+  },
+  "evidenceInputs": {
+    "docs/evidence/spec001/characters.md": "0b24db23b60b90f89eb7b9d03797b3feee6edf0a941fc5227064b6a0fbc2060f",
+    "docs/implementation/loops/105-T093.md": "690b6708353361c3a8c6652bfba6ec875c7800264cff23ea52a07ac853f28559",
+    "docs/evidence/spec001/characters/author-draft.py": "181d060b8494ad8ade3e21512fcb3d2c54e2cc57d06cfcc1920cb62638577db6",
+    "docs/evidence/spec001/characters/build.log": "46f7904de4aaceabdc63fe79180abfcc22898bd3bbd48794e3b3448570ed3267",
+    "docs/evidence/spec001/characters/characters.json.draft": "19cbf408aa10470db71b184e4be74a0fbc8b31f37dfb108df156447c1a19004d",
+    "docs/evidence/spec001/characters/check.log": "47242922f0f8c6c0954eabe995ae7455ca0376c53ae085583d894d280c725d36",
+    "docs/evidence/spec001/characters/content-schema-T093.json.draft": "f6b522c83d5cb0a202acbb94fc2587eddfadde5494593647b88610aaa4ae194e",
+    "docs/evidence/spec001/characters/content-schema-before-T093.json": "712297ffb45b2d1fa9abf75ff042ca1c50a58610d077a61cc1dc13688afbb27b",
+    "docs/evidence/spec001/characters/context-sources.json": "036192f96a55fabcd80a337d327e2d6b01ae6c889e5b58faca45b6026c62390e",
+    "docs/evidence/spec001/characters/first-join-tests.log": "614fd40aa75ae27cad265af8e0b7a865edb5527408e62c24c58be3c4b45af1c2",
+    "docs/evidence/spec001/characters/graph-counterexample.json": "dbe86e64b35227b44bd7728ae2433ef8e02219835fb1126453e034cd1b65c4aa",
+    "docs/evidence/spec001/characters/initial-draft-schema-check.json": "c5eb5d76c6e7a465b2aab06f6dd59314d996b8d93b5aeff4cbf32895c6b4ceea",
+    "docs/evidence/spec001/characters/join-contract-rerun.log": "40c4f738c20762db2d935c6ec3d438381ee3e15fddf575f789eed820830601ad",
+    "docs/evidence/spec001/characters/join-contract-tests.log": "670b014f3b80e31f49a00f3ea5b4bcbead304a55dddedb690997c4d10937068e",
+    "docs/evidence/spec001/characters/join-scoped-rerun.log": "e6805b5bfc41da578cae9db97c4d03ba9682000e65a59e743df30f2b32aa0102",
+    "docs/evidence/spec001/characters/join-scoped-tests.log": "f9f37f532f48547fb93a5cbb0a5911acae99a47c80b51ca0366960916ddc3906",
+    "docs/evidence/spec001/characters/preparation-checks.json": "6a768c78e5a0ae2672c0e0d4e2ef718cdf1c002658b6cb261f7c89d3c0dbc990",
+    "docs/evidence/spec001/characters/preparation-inputs.json": "6f61d0b231ed84ad3da4600cfee6418ed51723cd1ea93a83e14b45d348ee5e4c",
+    "docs/evidence/spec001/characters/prepare-schema.py": "f6cd8b3b606ec8c0e9743c8b79f455d635b0ba0bd1ea651b6da6b3b5b4005579",
+    "docs/evidence/spec001/characters/reference-source-checks.json": "81b2acb1690c4af102328f86f61d0b167b38cd6bde4b414165fd2cfa1a30fd54",
+    "docs/evidence/spec001/characters/save-policy-generate-rerun.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/evidence/spec001/characters/save-policy-generate.log": "69e57e937f5133e6e26cc560c4b759400f120a2fb8fab59e31b6060694a91433",
+    "docs/evidence/spec001/characters/save-policy-test-final.log": "13b47da8c72d55581ddacd579195e0b4fce141a67cc7512afa1a491b414ae134",
+    "docs/evidence/spec001/characters/schema-proposal.patch.json": "32897a92d5e8ab0bb4d99a2e820412345dde9484a721daa8811b3a3014323243"
+  },
+  "frozenT092Audit": [
+    {
+      "originalPath": ".specify/memory/constitution.md",
+      "checkedPath": ".specify/memory/constitution.md",
+      "expectedSha256": "6d576e5b66eda15325b80f0dd6342cbc826804b3f6f10a81edd824656a56c39a",
+      "actualSha256": "6d576e5b66eda15325b80f0dd6342cbc826804b3f6f10a81edd824656a56c39a",
+      "matches": true
+    },
+    {
+      "originalPath": "SPEC.md",
+      "checkedPath": "SPEC.md",
+      "expectedSha256": "67fecc690bad020b8a3aa0590e6d394ff3a3a3bece14001efb1d5955a3bd448c",
+      "actualSha256": "67fecc690bad020b8a3aa0590e6d394ff3a3a3bece14001efb1d5955a3bd448c",
+      "matches": true
+    },
+    {
+      "originalPath": "PLAN.md",
+      "checkedPath": "PLAN.md",
+      "expectedSha256": "fa3ef64053d72f51402bd5e637b91c5ddf6853430e114e64ec2b3c0df7773302",
+      "actualSha256": "fa3ef64053d72f51402bd5e637b91c5ddf6853430e114e64ec2b3c0df7773302",
+      "matches": true
+    },
+    {
+      "originalPath": "specs/001-physical-layer-underworld/spec.md",
+      "checkedPath": "specs/001-physical-layer-underworld/spec.md",
+      "expectedSha256": "8500b835c59eb7a7ee11b89b14121e84b27385fe3a837f23511fbe7f35d145d7",
+      "actualSha256": "8500b835c59eb7a7ee11b89b14121e84b27385fe3a837f23511fbe7f35d145d7",
+      "matches": true
+    },
+    {
+      "originalPath": "specs/001-physical-layer-underworld/data-model.md",
+      "checkedPath": "specs/001-physical-layer-underworld/data-model.md",
+      "expectedSha256": "2aace177a2fa208e4cb3226f82cbb5f9bf17843329c7f68580d3d77e5473cee7",
+      "actualSha256": "2aace177a2fa208e4cb3226f82cbb5f9bf17843329c7f68580d3d77e5473cee7",
+      "matches": true
+    },
+    {
+      "originalPath": "specs/001-physical-layer-underworld/contracts/gameplay.md",
+      "checkedPath": "specs/001-physical-layer-underworld/contracts/gameplay.md",
+      "expectedSha256": "afb6314a9519446ec6d296eb4d27827f82b99e1c0adad6e5bc45082cb0033bb2",
+      "actualSha256": "afb6314a9519446ec6d296eb4d27827f82b99e1c0adad6e5bc45082cb0033bb2",
+      "matches": true
+    },
+    {
+      "originalPath": "content/schemas/content.schema.json",
+      "checkedPath": "docs/evidence/spec001/characters/content-schema-before-T093.json",
+      "expectedSha256": "712297ffb45b2d1fa9abf75ff042ca1c50a58610d077a61cc1dc13688afbb27b",
+      "actualSha256": "712297ffb45b2d1fa9abf75ff042ca1c50a58610d077a61cc1dc13688afbb27b",
+      "matches": true
+    },
+    {
+      "originalPath": "specs/001-physical-layer-underworld/contracts/save.schema.json",
+      "checkedPath": "specs/001-physical-layer-underworld/contracts/save.schema.json",
+      "expectedSha256": "5323dfc5986f5a70ff7d331e3a756f434d6993ce19aecdfa04745156096fb710",
+      "actualSha256": "5323dfc5986f5a70ff7d331e3a756f434d6993ce19aecdfa04745156096fb710",
+      "matches": true
+    },
+    {
+      "originalPath": "content/spec001/sources.json",
+      "checkedPath": "content/spec001/sources.json",
+      "expectedSha256": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
+      "actualSha256": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
+      "matches": true
+    },
+    {
+      "originalPath": "tests/fixtures/physical-cases.json",
+      "checkedPath": "tests/fixtures/physical-cases.json",
+      "expectedSha256": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1",
+      "actualSha256": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1",
+      "matches": true
+    },
+    {
+      "originalPath": "tests/fixtures/repair-routes.json",
+      "checkedPath": "tests/fixtures/repair-routes.json",
+      "expectedSha256": "ed3a083828188a34fd6f5f345cbd4c69fe8ebb140ea903dbafd9b3f464639877",
+      "actualSha256": "ed3a083828188a34fd6f5f345cbd4c69fe8ebb140ea903dbafd9b3f464639877",
+      "matches": true
+    }
+  ],
+  "protectedCurrentFiles": {
+    "tests/fixtures/companions.json": "adce95202c355fcb4e24ef1fca657aab5b8dbf6f36675ccfdd9fcacc6c18db8f",
+    "tests/fixtures/optional-activities.json": "d29ef77428a61f8b6c92dc4fd17e99cd6b8a10a738e68171e1bad59eab9917cb",
+    "tests/fixtures/physical-cases.json": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1",
+    "tests/fixtures/repair-routes.json": "ed3a083828188a34fd6f5f345cbd4c69fe8ebb140ea903dbafd9b3f464639877",
+    "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
+    "assets-src/manifest.json": "80d3d139dc3e8bb9a98964fab8e78072a9e2ae947ccc436ae40fed7412a543e2"
+  },
+  "results": {
+    "schemaAndContent": "PASS:12 rooms/76 authored records/3 independent routes",
+    "scopedSuites": 7,
+    "scopedPassed": 309,
+    "unchangedRuntimeTodos": 140,
+    "method": "Broad run308 PASS/1new incorrect membership assertion; affected3-test suite rerunPASS after correction. All6other suites passed in broad run. Earlier logs retained.",
+    "check": "PASS",
+    "build": "PASS;122modules;large-chunk advisory",
+    "nativeBrowser": "not run; outside T093 content scope",
+    "schemaChangedDefinitions": [
+      "ability",
+      "character",
+      "characterDemonstration"
+    ],
+    "routeProofBound": 4096,
+    "t092OriginalHashesChanged": false,
+    "canonicalAssetManifestEdited": false
+  },
+  "savePolicyMembership": {
+    "compendium": 25,
+    "recruitEligibleCharacter": 9,
+    "ability": 18,
+    "recruits": {
+      "spec001:CH03": {
+        "maxLevel": 2,
+        "abilityIds": [
+          "spec001:ABILITY-CH03-optical-checklist",
+          "spec001:ABILITY-CH03-explain"
+        ]
+      },
+      "spec001:CH04": {
+        "maxLevel": 2,
+        "abilityIds": [
+          "spec001:ABILITY-CH04-continuity-comparison",
+          "spec001:ABILITY-CH04-explain"
+        ]
+      },
+      "spec001:CH05": {
+        "maxLevel": 2,
+        "abilityIds": [
+          "spec001:ABILITY-CH05-optical-budget",
+          "spec001:ABILITY-CH05-explain"
+        ]
+      },
+      "spec001:CH06": {
+        "maxLevel": 2,
+        "abilityIds": [
+          "spec001:ABILITY-CH06-optical-budget",
+          "spec001:ABILITY-CH06-explain"
+        ]
+      },
+      "spec001:CH07": {
+        "maxLevel": 2,
+        "abilityIds": [
+          "spec001:ABILITY-CH07-radio-observation",
+          "spec001:ABILITY-CH07-explain"
+        ]
+      },
+      "spec001:CH16": {
+        "maxLevel": 2,
+        "abilityIds": [
+          "spec001:ABILITY-CH16-module-checklist",
+          "spec001:ABILITY-CH16-explain"
+        ]
+      },
+      "spec001:CH19": {
+        "maxLevel": 2,
+        "abilityIds": [
+          "spec001:ABILITY-CH19-delivered-power",
+          "spec001:ABILITY-CH19-explain"
+        ]
+      },
+      "spec001:CH20": {
+        "maxLevel": 2,
+        "abilityIds": [
+          "spec001:ABILITY-CH20-regeneration-limit",
+          "spec001:ABILITY-CH20-explain"
+        ]
+      },
+      "spec001:CH22": {
+        "maxLevel": 2,
+        "abilityIds": [
+          "spec001:ABILITY-CH22-capability-intersection",
+          "spec001:ABILITY-CH22-explain"
+        ]
+      }
+    }
+  },
+  "remaining": [
+    "Root independent review and task acceptance",
+    "T094 actual demonstrated recruitment/progression and exact-level save policy/lifecycle implementation",
+    "T095 compendium presentation/discovery implementation",
+    "Portrait production and human media/technical review remain separate"
+  ]
+}

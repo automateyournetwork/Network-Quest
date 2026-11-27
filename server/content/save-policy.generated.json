@@ -59,7 +59,8 @@
       "B-ENDPOINT"
     ],
     "inputs": {
-      "content/schemas/content.schema.json": "712297ffb45b2d1fa9abf75ff042ca1c50a58610d077a61cc1dc13688afbb27b",
+      "content/schemas/content.schema.json": "f6b522c83d5cb0a202acbb94fc2587eddfadde5494593647b88610aaa4ae194e",
+      "content/spec001/characters.json": "19cbf408aa10470db71b184e4be74a0fbc8b31f37dfb108df156447c1a19004d",
       "content/spec001/dialogue/copper-actions.json": "e41e67089e559f78771d2e4b64acd53382b67bd6edf145749d155ef7fbb3a982",
       "content/spec001/dialogue/equipment-actions.json": "391585a743b58e6a252206814e380f73a867b02debe07a33d31b152ea405f2b3",
       "content/spec001/dialogue/fiber-actions.json": "c7060a4630e47f4d420ec561cf7c0d91361cace7d5ecb33f06489f9d504283a0",
@@ -84,11 +85,11 @@
       "content/spec001/rooms/R11.json": "5d676054d686724f8f720b3447226d44ba58b10d5a11c5e6d50fe5af64cba932",
       "content/spec001/rooms/R12.json": "992b15c0fb0aac58a6001530af03b9889b2d230741254ab8a583cea89100721e",
       "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
-      "content/spec001/world.json": "930fad92de5f6918b2519349b532e4cf35538e311742acd9a4faca9e4833e2ce",
+      "content/spec001/world.json": "91c820e72fc773066172591398da912fda32dfe1d31db1fe81fca0084e00366f",
       "docs/evidence/spec001/rule-source-review.md": "5e22c7cab28d5f4d559b6a2601e381d34acec7306b5247bcfdb24e200cbd2319",
-      "src/app/content.ts": "f7296c44cda041fc55ae1864eb9243412df564821228190ddb70bcbb032b3409",
+      "src/app/content.ts": "3f275a8bd4e31f21e72170f055c699ef503f76d7e5c1c2c2b360ba5e7ea7b737",
       "src/app/save-policy.ts": "3a093b605c501a74deea8d434af748bfa3cb45fd10af3c04d47739bf5c19291d",
-      "src/content/registry.ts": "bd8a5b2988b48f88b9c1cebb41540db33a95be9b2e3d86d93c43a0050b604c17",
+      "src/content/registry.ts": "14fd0816fa06780b0910d8b3bad3f0fb181750c17f75e6c20e65d5181bd77ea7",
       "src/domain/capabilities.ts": "a4b4d1e1edcc8d4249d9be477ad0735fd65b0c2e2adbc3879ce195310b5ce40d",
       "src/domain/copper.ts": "7f80a79f306242d993489de97fc41402eb1295e29b274d39bee951dc37494d89",
       "src/domain/optics.ts": "3d4622cba1cb724837322bdd7499e60607b852f1f289b306116d19b84f766c92",
@@ -286,13 +287,51 @@
           "spec001:EFFECT-repair-execute-record-shutdown",
           "spec001:EFFECT-repair-classify-permanent",
           "spec001:EFFECT-repair-classify-temporary",
-          "spec001:EFFECT-repair-classify-shutdown"
+          "spec001:EFFECT-repair-classify-shutdown",
+          "spec001:EFFECT-recruit-CH03",
+          "spec001:EFFECT-recruit-CH04",
+          "spec001:EFFECT-recruit-CH05",
+          "spec001:EFFECT-recruit-CH06",
+          "spec001:EFFECT-recruit-CH07",
+          "spec001:EFFECT-recruit-CH16",
+          "spec001:EFFECT-recruit-CH19",
+          "spec001:EFFECT-recruit-CH20",
+          "spec001:EFFECT-recruit-CH22"
         ],
         "item": [
           "spec001:ITEM-inspection-kit"
         ],
-        "character": [],
-        "ability": [],
+        "character": [
+          "spec001:CH03",
+          "spec001:CH04",
+          "spec001:CH05",
+          "spec001:CH06",
+          "spec001:CH07",
+          "spec001:CH16",
+          "spec001:CH19",
+          "spec001:CH20",
+          "spec001:CH22"
+        ],
+        "ability": [
+          "spec001:ABILITY-CH03-optical-checklist",
+          "spec001:ABILITY-CH03-explain",
+          "spec001:ABILITY-CH04-continuity-comparison",
+          "spec001:ABILITY-CH04-explain",
+          "spec001:ABILITY-CH05-optical-budget",
+          "spec001:ABILITY-CH05-explain",
+          "spec001:ABILITY-CH06-optical-budget",
+          "spec001:ABILITY-CH06-explain",
+          "spec001:ABILITY-CH07-radio-observation",
+          "spec001:ABILITY-CH07-explain",
+          "spec001:ABILITY-CH16-module-checklist",
+          "spec001:ABILITY-CH16-explain",
+          "spec001:ABILITY-CH19-delivered-power",
+          "spec001:ABILITY-CH19-explain",
+          "spec001:ABILITY-CH20-regeneration-limit",
+          "spec001:ABILITY-CH20-explain",
+          "spec001:ABILITY-CH22-capability-intersection",
+          "spec001:ABILITY-CH22-explain"
+        ],
         "flag": [
           "spec001:FLAG-kit-issued",
           "spec001:FLAG-power-observed",
@@ -325,7 +364,33 @@
           "spec001:FLAG-repair-executed",
           "spec001:FLAG-repair-classification"
         ],
-        "compendium": [],
+        "compendium": [
+          "spec001:COMPENDIUM-CH01",
+          "spec001:COMPENDIUM-CH02",
+          "spec001:COMPENDIUM-CH03",
+          "spec001:COMPENDIUM-CH04",
+          "spec001:COMPENDIUM-CH05",
+          "spec001:COMPENDIUM-CH06",
+          "spec001:COMPENDIUM-CH07",
+          "spec001:COMPENDIUM-CH08",
+          "spec001:COMPENDIUM-CH09",
+          "spec001:COMPENDIUM-CH10",
+          "spec001:COMPENDIUM-CH11",
+          "spec001:COMPENDIUM-CH12",
+          "spec001:COMPENDIUM-CH13",
+          "spec001:COMPENDIUM-CH14",
+          "spec001:COMPENDIUM-CH15",
+          "spec001:COMPENDIUM-CH16",
+          "spec001:COMPENDIUM-CH17",
+          "spec001:COMPENDIUM-CH18",
+          "spec001:COMPENDIUM-CH19",
+          "spec001:COMPENDIUM-CH20",
+          "spec001:COMPENDIUM-CH21",
+          "spec001:COMPENDIUM-CH22",
+          "spec001:COMPENDIUM-CH23",
+          "spec001:COMPENDIUM-CH24",
+          "spec001:COMPENDIUM-CH25"
+        ],
         "fact": [
           "spec001:FACT-power",
           "spec001:FACT-link",
@@ -720,7 +785,80 @@
       "itemMaxQuantities": {
         "spec001:ITEM-inspection-kit": 1
       },
-      "recruits": {},
+      "recruits": {
+        "spec001:CH03": {
+          "maxLevel": 2,
+          "abilityIds": [
+            "spec001:ABILITY-CH03-optical-checklist",
+            "spec001:ABILITY-CH03-explain"
+          ],
+          "progressFlagIds": []
+        },
+        "spec001:CH04": {
+          "maxLevel": 2,
+          "abilityIds": [
+            "spec001:ABILITY-CH04-continuity-comparison",
+            "spec001:ABILITY-CH04-explain"
+          ],
+          "progressFlagIds": []
+        },
+        "spec001:CH05": {
+          "maxLevel": 2,
+          "abilityIds": [
+            "spec001:ABILITY-CH05-optical-budget",
+            "spec001:ABILITY-CH05-explain"
+          ],
+          "progressFlagIds": []
+        },
+        "spec001:CH06": {
+          "maxLevel": 2,
+          "abilityIds": [
+            "spec001:ABILITY-CH06-optical-budget",
+            "spec001:ABILITY-CH06-explain"
+          ],
+          "progressFlagIds": []
+        },
+        "spec001:CH07": {
+          "maxLevel": 2,
+          "abilityIds": [
+            "spec001:ABILITY-CH07-radio-observation",
+            "spec001:ABILITY-CH07-explain"
+          ],
+          "progressFlagIds": []
+        },
+        "spec001:CH16": {
+          "maxLevel": 2,
+          "abilityIds": [
+            "spec001:ABILITY-CH16-module-checklist",
+            "spec001:ABILITY-CH16-explain"
+          ],
+          "progressFlagIds": []
+        },
+        "spec001:CH19": {
+          "maxLevel": 2,
+          "abilityIds": [
+            "spec001:ABILITY-CH19-delivered-power",
+            "spec001:ABILITY-CH19-explain"
+          ],
+          "progressFlagIds": []
+        },
+        "spec001:CH20": {
+          "maxLevel": 2,
+          "abilityIds": [
+            "spec001:ABILITY-CH20-regeneration-limit",
+            "spec001:ABILITY-CH20-explain"
+          ],
+          "progressFlagIds": []
+        },
+        "spec001:CH22": {
+          "maxLevel": 2,
+          "abilityIds": [
+            "spec001:ABILITY-CH22-capability-intersection",
+            "spec001:ABILITY-CH22-explain"
+          ],
+          "progressFlagIds": []
+        }
+      },
       "hints": {
         "spec001:HINT-O01-method": {
           "objectiveId": "spec001:O01",

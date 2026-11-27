@@ -1,0 +1,145 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/content/companion-activity-oracles.test.ts (192 tests | 140 todo) 15ms
+ ❯ tests/content/characters.test.ts (22 tests | 1 failed) 1241ms
+   ❯ T093 canonical authored character roster (20)
+     ✓ loads exactly the specified 25 identities and nine recruit contracts into the actual registry 543ms
+     ✓ spec001:CH03 preserves independently authored demonstration, progression and source-backed rules 2ms
+     ✓ spec001:CH04 preserves independently authored demonstration, progression and source-backed rules 2ms
+     ✓ spec001:CH05 preserves independently authored demonstration, progression and source-backed rules 2ms
+     ✓ spec001:CH06 preserves independently authored demonstration, progression and source-backed rules 2ms
+     ✓ spec001:CH07 preserves independently authored demonstration, progression and source-backed rules 2ms
+     ✓ spec001:CH16 preserves independently authored demonstration, progression and source-backed rules 1ms
+     ✓ spec001:CH19 preserves independently authored demonstration, progression and source-backed rules 1ms
+     ✓ spec001:CH20 preserves independently authored demonstration, progression and source-backed rules 1ms
+     ✓ spec001:CH22 preserves independently authored demonstration, progression and source-backed rules 1ms
+     ✓ binds each portrait/model to its actual manifest identity without declaring production acceptance 3ms
+     ✓ keeps sixteen nonrecruits free of recruitment or ability progression 2ms
+     ✓ requires all 25 even if both one record and its document reference are removed together 56ms
+     ✓ rejects a borrowed portrait and a missing complete compendium contract 98ms
+     ✓ rejects added recruitment/levels on a nonrecruit without changing the nine-recruit roster 55ms
+     ✓ rejects unknown and circular ally action equivalents 60ms
+     ✓ rejects optional/future dependencies in invitation and a fabricated home room 94ms
+     × rejects missing proof, wrong canonical evidence and reused base ability as progression 94ms
+     ✓ rejects unreviewed rule/profile refs, incomplete source coverage and altered reviewed claims 99ms
+     ✓ cannot put a new scored rule into a descriptive reference 10ms
+   ✓ T093 bounded schema evolution preserves T092 provenance (2)
+     ✓ retains the exact original authoring schema and changes only the three reviewed definitions 2ms
+     ✓ accepts every old-shaped current document with both schemas 112ms
+ ❯ tests/content/registry.test.ts (67 tests | 1 failed) 2219ms
+   ❯ content registry foundation and independent quest graph (16)
+     ✓ accepts the actual metadata registry without pretending it contains scenes 55ms
+     ✓ accepts reordered metadata and logically equivalent prerequisites 29ms
+     ✓ rejects a cross-branch dependency on O04 28ms
+     ✓ rejects a cross-branch dependency on O06 24ms
+     ✓ rejects a cross-branch dependency on O08 22ms
+     ✓ requires the common O09 before O11 24ms
+     ✓ requires the common O10 before O11 23ms
+     ✓ rejects self cycle gating a mandatory objective 23ms
+     ✓ rejects optional quest gating a mandatory objective 25ms
+     ✓ rejects optional minigame gating a mandatory objective 26ms
+     ✓ rejects future door gating a mandatory objective 4ms
+     × detects unreachable walk prerequisites independently of objective metadata 28ms
+     ✓ rejects early walk access and cross-objective completion effects 48ms
+     ✓ rejects altered edge, branch allocation and optional cycles 71ms
+     ✓ rejects ID duplicates, suffix mismatch, mismapped source and unknown profiles 12ms
+     ✓ rejects deep or cyclic input before schema recursion 2ms
+   ✓ authored records resolve by kind and id, including collections (6)
+     ✓ accepts actual schema-shaped room, objective, dialogue, item and recruit records 26ms
+     ✓ owns an immutable snapshot after validation 23ms
+     ✓ rejects missing, unlisted, wrong-kind and version-mismatched collection records 11ms
+     ✓ accepts one record files and rejects metadata masquerading as authored records 26ms
+     ✓ rejects paths outside content and unknown generic subject/action IDs 9ms
+     ✓ rejects a generic dialogue ID colliding with an objective namespace 3ms
+   ✓ reviewed profiles and dimensional content (9)
+     ✓ preserves reviewed profile 0 and its source unit labels 27ms
+     ✓ preserves reviewed profile 1 and its source unit labels 26ms
+     ✓ preserves reviewed profile 2 and its source unit labels 25ms
+     ✓ preserves reviewed profile 3 and its source unit labels 24ms
+     ✓ preserves reviewed profile 4 and its source unit labels 26ms
+     ✓ preserves reviewed profile 5 and its source unit labels 26ms
+     ✓ preserves reviewed profile 6 and its source unit labels 26ms
+     ✓ rejects numeric, dimension, model, case and source-claim drift 125ms
+     ✓ requires known runtime dimensions and explicit Mb/s conversion; toy-level stays source-only 35ms
+   ✓ authored reachability, equivalents, recovery and safe positions (26)
+     ✓ accepts a viable second alternative when the first leads to a dead end 31ms
+     ✓ resolves a main-story flag produced by an accessible dialogue 28ms
+     ✓ retains an entry grant while closing only its terminating fact-only conversation tail 73ms
+     ✓ does not reorder consumption ahead of a later dialogue grant or erase an inert cycle 47ms
+     ✓ rejects an authored optional self-cycle independently of the metadata graph 25ms
+     ✓ never merges mutually exclusive alternative histories or retains overwritten flags 47ms
+     ✓ finds a valid common-objective ordering despite the catalog order 25ms
+     ✓ reacquires consumed inventory only through a currently available recovery 48ms
+     ✓ reports an explicit proof bound rather than passing or claiming unreachable 61ms
+     ✓ proves routes without enumerating diagnostic flags or fact receipts that no condition reads 25ms
+     ✓ still keeps overwritten prerequisite flags distinct beside independent diagnostic controls 24ms
+     ✓ projects closed conditional diagnostic controls without hiding choices or increasing the bound 23ms
+     ✓ retains both levels of a conditional flag chain that enables an objective 25ms
+     ✓ does not combine an overwritten flag with a later prerequisite through a conditional gate 24ms
+     ✓ retains a flag used only to guard consumption and detects the reachable unrecoverable loss 31ms
+     ✓ keeps conditional continuation dialogue histories concrete beside closed diagnostics 24ms
+     ✓ accepts an optional extra solution while retaining an ordinary independent route 23ms
+     ✓ rejects self/circular, contradictory and optional-only authored prerequisites 47ms
+     ✓ rejects absent alternatives, absent conventional tools and ally-only solutions 29ms
+     ✓ accepts a named ally alternative with an equivalent ordinary action 23ms
+     ✓ rejects essential item self-acquisition and recovery requiring the lost item 67ms
+     ✓ rejects contradictory effects and consumption of a never-consumed item 25ms
+     ✓ does not invent inventory quantities or postpone essential recovery until the ending 44ms
+     ✓ rejects unknown nodes, isolated nodes and an inescapable dialogue loop 46ms
+     ✓ rejects wrong-room anchors, outside safe positions and degenerate polygons 65ms
+     ✓ accepts a safe anchor exactly on the walk boundary 23ms
+   ✓ room hotspot dialogue-choice reachability (7)
+     ✓ follows the exposed entry choice with entry effects before choice conditions 23ms
+     ✓ cannot obtain unexposed sibling choice effects 23ms
+     ✓ does not jump from a hotspot directly into a non-entry node choice 22ms
+     ✓ reports a corrupt cross-dialogue entry without throwing during route analysis 22ms
+     ✓ preserves the entry condition and checks next-node conditions after selected effects 44ms
+     ✓ follows actual subsequent choices but cannot retain an overwritten flag 22ms
+     ✓ cannot replay a one-time hotspot grant into a required second item 22ms
+   ✓ tool boundary and schema provenance (3)
+     ✓ bundles the runtime without Node APIs and executes with dynamic code generation disabled 136ms
+     ✓ keeps generated validators/types exactly synchronized with the schema 62ms
+     ✓ loads UTF-8 JSON under content/spec001 and rejects traversal/symlink escapes 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/content/characters.test.ts > T093 canonical authored character roster > rejects missing proof, wrong canonical evidence and reused base ability as progression
+AssertionError: expected [ 'json-bounds' ] to include 'character-progression'
+ ❯ reject tests/content/characters.test.ts:26:58
+     24|   const result = validateContent(data);
+     25|   expect(result.ok, JSON.stringify(result)).toBe(false);
+     26|   if (!result.ok) expect(result.issues.map(i => i.code)).toContain(cod…
+       |                                                          ^
+     27| };
+     28| const recruitIds = ['CH03','CH04','CH05','CH06','CH07','CH16','CH19','…
+ ❯ tests/content/characters.test.ts:98:92
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/content/registry.test.ts > content registry foundation and independent quest graph > detects unreachable walk prerequisites independently of objective metadata
+AssertionError: [{"code":"walk-prerequisite","path":"spec001:R01/spec001:R02","message":"Walk access changes the specified preparation/return graph"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ rejects tests/content/registry.test.ts:95:91
+     93|   const result = validateContent(data);
+     94|   expect(result.ok, JSON.stringify(result)).toBe(false);
+     95|   expect(result.issues.some(issue => issue.code === code), JSON.string…
+       |                                                                                           ^
+     96| }
+     97|
+ ❯ tests/content/registry.test.ts:128:90
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 1 passed (3)
+      Tests  2 failed | 139 passed | 140 todo (281)
+   Start at  08:37:46
+   Duration  2.38s (tests 94%, import 3%, transform 3%)
+

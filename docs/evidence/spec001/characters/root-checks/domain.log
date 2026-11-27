@@ -1,0 +1,507 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/state/navigation.test.ts (21 tests) 8025ms
+   ✓ T028 authored safe navigation policy (18)
+     ✓ resolves actual R01/R02 exits and explicitly bound entry anchors 965ms
+     ✓ rejects global actions, remote anchors, nonlocal rooms and metadata-only starting worlds 1525ms
+     ✓ maps floor only to the explicit entry; self-position remains a genuine no-op target 682ms
+     ✓ does not use a safe anchor registered only in metadata or eligible for a different activity 542ms
+     ✓ fails closed on outside geometry without changing a world 356ms
+     ✓ fails closed on no-region geometry without changing a world 366ms
+     ✓ fails closed on wrong-exit-region geometry without changing a world 315ms
+     ✓ fails closed on no-anchor geometry without changing a world 426ms
+     ✓ requires both directed paths for recovery, even when the return-policy direction itself is available 340ms
+     ✓ requires physical authored exits in both directions for reversible recovery 385ms
+     ✓ never authorizes consumed-tool transformation when actual recovery is unavailable or one-way 403ms
+ ✓ tests/state/fiber-scenario.test.ts (24 tests) 8637ms
+   ✓ T079 actual fiber actions and T074 controller join (24)
+     ✓ rejects schema-valid direct-award authored actions 1914ms
+     ✓ rejects schema-valid unconditional-award authored actions 800ms
+     ✓ rejects schema-valid manufactured-reading authored actions 794ms
+     ✓ rejects schema-valid unreviewed-profile authored actions 635ms
+     ✓ rejects schema-valid weakened-inspection authored actions 600ms
+ ✓ tests/state/radio-scenario.test.ts (36 tests) 9170ms
+   ✓ T080 actual radio actions with T074 controller and reducer (36)
+     ✓ hints are nonpunitive and returned scenarios cannot mutate future samples or game state 329ms
+     ✓ does not bind schema-valid unreviewed-value authoring 658ms
+     ✓ does not bind schema-valid direct-completion authoring 782ms
+     ✓ does not bind schema-valid measurement-fact authoring 619ms
+     ✓ does not bind schema-valid unguarded-node authoring 697ms
+ ✓ tests/state/repair-plan.test.ts (52 tests) 11356ms
+   ✓ T077 executed intervention and fresh final proof (52)
+     ✓ rejects structurally valid but unreviewed action-effect content 691ms
+     ✓ rejects structurally valid but unreviewed weakened-prerequisite content 689ms
+     ✓ rejects structurally valid but unreviewed alternate-condition content 602ms
+ ✓ tests/content/characters.test.ts (24 tests) 12790ms
+   ✓ T093 canonical authored character roster (22)
+     ✓ loads exactly the specified 25 identities and nine recruit contracts into the actual registry 1204ms
+     ✓ binds Hermit’s five-field demonstration to the actual optical evaluator, not the market power result 843ms
+     ✓ requires all 25 even if both one record and its document reference are removed together 722ms
+     ✓ rejects a borrowed portrait and a missing complete compendium contract 1534ms
+     ✓ rejects added recruitment/levels on a nonrecruit without changing the nine-recruit roster 654ms
+     ✓ rejects unknown and circular ally action equivalents 681ms
+     ✓ rejects optional/future dependencies in invitation and a fabricated home room 1331ms
+     ✓ rejects missing proof, wrong canonical evidence and reused base ability as progression 2161ms
+     ✓ rejects existing but unrelated evidence, rules and profiles as demonstration provenance 2120ms
+     ✓ rejects unreviewed rule/profile refs, incomplete source coverage and altered reviewed claims 1335ms
+ ✓ tests/ui/encounter.test.ts (57 tests) 11998ms
+   ✓ T085 shared committed encounter policy, closed until outcome acceptance (26)
+     ✓ permits actual notes at both anchors and only the four R12 validation operations 338ms
+     ✓ admits only exact active UI intents and requires the actual notebook to be open for its controls 390ms
+     ✓ active repair UI admission shares exactly the domain policy and dies with its owning phase 932ms
+ ✓ tests/state/notebook.test.ts (24 tests) 5212ms
+   ✓ T027 notebook writes through the canonical reducer (24)
+     ✓ never fabricates an inspection from the authored flag or records without the kit/current room 380ms
+     ✓ rejects unsupported path values before awarding any flag or journal change 589ms
+     ✓ accepts the 512-character Unicode hypothesis boundary and enforces collection capacity before markers 390ms
+ ✓ tests/state/copper-scenario.test.ts (16 tests) 4422ms
+   ✓ T075 actual copper room scenario adapter (16)
+     ✓ rejects unreviewed-path in authored action data without binding it 582ms
+     ✓ rejects direct-completion in authored action data without binding it 777ms
+     ✓ rejects manufactured-reading in authored action data without binding it 588ms
+ ✓ tests/state/equipment-scenarios.test.ts (22 tests) 4437ms
+   ✓ T076 actual world-choice resolver joined to T074 and the real reducer (22)
+     ✓ does not fill missing choices with a correct kit, mode, decoded answer or role 379ms
+ ✓ tests/state/packet-activity.test.ts (28 tests) 16528ms
+   ✓ T034 actual R01 packet activity (21)
+     ✓ opens from the real capsule, records its authored context, and holds a reducer unsafe lock before controls exist 1264ms
+     ✓ evaluates the actual default 105 m path and uses only the separately declared toy trace 810ms
+     ✓ replay and every control leave the opened adventure, inventory, measurements, progress and persistence unchanged 748ms
+     ✓ reopens after the real direct-path selection with a new 95 m evaluation; the old displayed evidence keeps its original version 728ms
+     ✓ agrees with the actual notebook evaluator for ACTION-path-long without relabeling or adding its readings 694ms
+     ✓ agrees with the actual notebook evaluator for ACTION-path-short without relabeling or adding its readings 682ms
+     ✓ shows failed length with no recovered trace when the authored optional substitution is null 626ms
+     ✓ refuses concurrent scene actions and notebook writes while its lock is held 707ms
+     ✓ releases only its own lock on close, invalidate and dispose and never advances dirty state for returning 2054ms
+     ✓ invalidates same-save replacement; old callbacks cannot release replacement state 650ms
+     ✓ invalidates new-adventure replacement; old callbacks cannot release replacement state 708ms
+     ✓ invalidates logout replacement; old callbacks cannot release replacement state 744ms
+     ✓ invalidates new-account replacement; old callbacks cannot release replacement state 682ms
+     ✓ invalidates revision replacement; old callbacks cannot release replacement state 654ms
+     ✓ invalidates attempt replacement; old callbacks cannot release replacement state 633ms
+     ✓ invalidates other-lock replacement; old callbacks cannot release replacement state 634ms
+     ✓ a captured return from the prior activity cannot close a later activity in the same restored adventure 722ms
+     ✓ does not commit context or a lock if the store changed before commit 635ms
+     ✓ fails truthfully and atomically on missing actual physical profile 754ms
+     ✓ fails truthfully and atomically on invalid actual physical profile 685ms
+     ✓ rejects unsupported actual path modes rather than defaulting them to a passing path 712ms
+ ✓ tests/state/objectives.test.ts (59 tests) 16022ms
+   ✓ T074 objective evaluation through canonical state (15)
+     ✓ O03 accepts both independently reviewed ordinary alternatives 423ms
+     ✓ O05 accepts both independently reviewed ordinary alternatives 484ms
+     ✓ O06 accepts both independently reviewed ordinary alternatives 387ms
+     ✓ O07 accepts both independently reviewed ordinary alternatives 384ms
+     ✓ O08 accepts both independently reviewed ordinary alternatives 399ms
+     ✓ O09 accepts both independently reviewed ordinary alternatives 397ms
+     ✓ O10 accepts both independently reviewed ordinary alternatives 348ms
+   ✓ T074 content and observation provenance (22)
+     ✓ rejects O07 nested path.kind overrides before missing input 322ms
+     ✓ requires prerequisite, actual tool and observed facts independently 547ms
+   ✓ T074 actual copper before/after comparison (9)
+     ✓ accepts a real historical stale open and a fresh current intact result 426ms
+     ✓ rejects historical baseline with invalid room 400ms
+     ✓ rejects historical baseline with invalid profile 375ms
+     ✓ rejects historical baseline with invalid objective 363ms
+     ✓ rejects historical baseline with invalid reading 351ms
+     ✓ rejects historical baseline with invalid conclusion 365ms
+     ✓ rejects historical baseline with invalid future 362ms
+     ✓ rejects the claim that a repeater can bridge an open despite passing after arithmetic 346ms
+   ✓ T074 persisted measurements and assistance fit the unchanged save-v1 contract 1675ms
+ ✓ tests/content/assets.test.ts (249 tests) 4097ms
+ ✓ tests/content/asset-adapter.test.ts (41 tests) 4532ms
+   ✓ bounded rooted asset filesystem adapter (23)
+     ✓ actual repository planned inventory passes while release fails with zero accepted counts 2555ms
+     ✓ external evidence is parsed from actual JSON bytes, never a script or a second normalized sidecar 797ms
+     ✓ a retrieval record cannot read an arbitrary archive outside the approved roots 786ms
+ ❯ tests/tools/save-content-policy.test.ts (3 tests | 2 failed) 4126ms
+   ❯ actual authored save content policy artifact (3)
+     ✓ regenerates deterministically without a listener, project config or ambient env files 2524ms
+     × validates real initial state and real kit/105 m/95 m reducer observations in TypeScript and PHP 826ms
+     × does not turn metadata reservations, future progression or unsupported safety into write permissions 776ms
+ ✓ tests/ui/inventory.test.ts (10 tests) 2701ms
+   ✓ T025 inventory intent and actual reducer boundary (10)
+     ✓ refuses duplicate inventory rows and unknown records instead of making ambiguous quantities usable 345ms
+     ✓ sums same-item debits before rewards and rejects insufficient quantities atomically 369ms
+     ✓ keeps unheld, unrelated, ineligible and unrecoverable transformations unchanged 554ms
+ ✓ tests/state/rift-hazard.test.ts (10 tests) 2618ms
+   ✓ T085 reviewed fictional ledge hazard, not a networking verdict (10)
+     ✓ requires exact reviewed content, version and real local prop placements 769ms
+ ✓ tests/state/introduction.test.ts (4 tests) 3052ms
+   ✓ T030 joined introduction state acceptance (4)
+     ✓ satchel first: real objectives, both dialogue topics and nonempty inventory survive skip/replay and return travel 792ms
+     ✓ Photon first: real objectives, both dialogue topics and nonempty inventory survive skip/replay and return travel 710ms
+     ✓ invalidates a captured inspection across real path changes and preserves every old result until a new current measurement 800ms
+     ✓ cannot bypass a live clue conversation with inspection or travel; skipping unlocks the same real investigation 749ms
+ ✓ tests/state/snapshot.test.ts (27 tests) 19291ms
+   ✓ T048 immutable safe snapshot captures and generation accounting (27)
+     ✓ captures the real introduction anchor and generation without serializing runtime or incrementing it 1155ms
+     ✓ freezes old bytes while a real reducer edit advances dirty generation once 848ms
+     ✓ owns nested snapshot data even if the source is later mutated outside the reducer 719ms
+     ✓ E01 requires a declared safe Continue anchor 701ms
+     ✓ E02 requires a declared safe Continue anchor 715ms
+     ✓ rejects dialogue-transaction without falling back to preparation or a prior safe snapshot 670ms
+     ✓ rejects pending-effect without falling back to preparation or a prior safe snapshot 669ms
+     ✓ rejects room-transition without falling back to preparation or a prior safe snapshot 731ms
+     ✓ rejects cutscene without falling back to preparation or a prior safe snapshot 643ms
+     ✓ rejects active-encounter without falling back to preparation or a prior safe snapshot 684ms
+     ✓ rejects terminal-failure without falling back to preparation or a prior safe snapshot 691ms
+     ✓ rejects shutdown without falling back to preparation or a prior safe snapshot 727ms
+     ✓ rejects null without falling back to preparation or a prior safe snapshot 682ms
+     ✓ rejects a pending reducer transition even if a caller incorrectly labels the activity safe 742ms
+     ✓ rejects title state, unavailable rooms/anchors, incompatible anchors and a current E03 marker 691ms
+     ✓ does not silently coerce malformed runtime numbers or drop undefined data 612ms
+     ✓ keeps a stale observation stale even when its recorded revision and attempt match 655ms
+     ✓ rejects invalid dirty generation -1 645ms
+     ✓ rejects invalid dirty generation 1.5 719ms
+     ✓ rejects invalid dirty generation NaN 625ms
+     ✓ rejects invalid dirty generation Infinity 711ms
+     ✓ rejects invalid dirty generation 9007199254740992 634ms
+     ✓ bounds generation advancement without wrapping; captures do not require another increment 670ms
+     ✓ rejects malformed account generation before creating a capture 721ms
+     ✓ rejects another account, new adventure, regressed generation or inconsistent acknowledgement 796ms
+     ✓ acknowledges UUID case parity and never regresses a later acknowledged generation 763ms
+     ✓ captures the actual post-retry generation and retains journal/history only after the reducer returns to preparation 671ms
+ ✓ tests/content/repair-definitions.test.ts (14 tests) 2530ms
+   ✓ T069 authored physical profiles and objective obligations (14)
+     ✓ preserves the existing introduction records and validates the current runtime selection 866ms
+     ✓ rejects a missing final hint, nonfresh measurement or wrong measurement dimension 377ms
+ ✓ tests/ui/dialogue.test.ts (12 tests) 2075ms
+ ✓ tests/ui/diagnostics.test.ts (12 tests) 2172ms
+ ✓ tests/ui/verbs.test.ts (11 tests) 2047ms
+ ✓ tests/content/copper-rooms.test.ts (16 tests) 2210ms
+   ✓ T075 Copper Warrens and Echo Cavern authored room contract (16)
+     ✓ joins both rooms with the accepted complete definitions through the semantic registry 791ms
+     ✓ rejects wrong-exit authoring through the real registry 663ms
+     ✓ rejects outside-anchor authoring through the real registry 690ms
+ ✓ tests/presentation/room-media.test.ts (4 tests) 2914ms
+   ✓ actual R01 media admission (4)
+     ✓ rejects wrong authored use targets and export formats before starting an adventure 2906ms
+ ✓ tests/content/registry.test.ts (67 tests) 3616ms
+ ✓ tests/ui/save-dialogs.test.ts (24 tests) 20948ms
+   ✓ T050 save dialogs composed with accepted API/account/coordinator/reader (24)
+     ✓ requires explicit first adoption after authenticated GET and empty read; cancellation keeps memory and sends no write 1144ms
+     ✓ shows summary and explicit different-adventure load/replace/cancel; restore replaces exact notes and clears transient state 842ms
+     ✓ rejects a stale local-edit load or replacement confirmation 1513ms
+     ✓ binds replacement to reviewed ETag, server adventure and a new request key 666ms
+     ✓ Continue reads and validates without starting a new run and warns before discarding unsaved progress 664ms
+     ✓ newer or invalid snapshots retain the read and offer neither load nor replacement 1392ms
+     ✓ ignores late slot reads after whole-view invalidation, even with the same adventure and counters 696ms
+     ✓ keeps an unknown write frozen after Keep Playing and retry sends identical bytes/key despite newer edits 743ms
+     ✓ 412 never reuses consent: a fresh review and second explicit replacement decision are required 646ms
+     ✓ unconfigured service leaves guest gameplay intact and performs no save or provider navigation 717ms
+     ✓ popup reservation is synchronous; blocked recovery is explicit, and cancellation retains notes 787ms
+     ✓ GET session alone establishes identity; identical provider/display labels never preserve an old owned view 714ms
+     ✓ ignores AccountService observations from a separate non-login flow 652ms
+     ✓ manual session recovery after a retained login adopts guest progress without writing 1305ms
+     ✓ New Adventure suppression survives binding an opted-in account and does not replace the slot 1375ms
+     ✓ read drift after a same-ID restore stays a conflict and cannot authorize an automatic overwrite 608ms
+     ✓ safe-state capture rejects dialogue transactions without writing 741ms
+     ✓ a late acknowledgement cannot paint Saved after explicit same-adventure view replacement 660ms
+     ✓ Cancel while a reviewed read is in flight prevents its late dialog or restore effect 1349ms
+     ✓ a read-only session check cannot discard an unresolved frozen write 828ms
+     ✓ an expired read offers sign-in while retaining the adventure 743ms
+     ✓ a failed provider start can be retried explicitly without an intervening game reset 673ms
+     ✓ an older retained receipt displays conflict rather than Saved and requires current review 714ms
+     ✓ a freshly reviewed empty slot after drift still needs explicit consent and uses create precondition 777ms
+ ✓ tests/content/fiber-rooms.test.ts (14 tests) 2502ms
+   ✓ T079 Photon Gardens and Prism Vault authored contracts (14)
+     ✓ joins independent fiber rooms through the semantic registry without changing shared content 818ms
+     ✓ rejects wrong-exit rather than silently accepting corrupt authored content 782ms
+     ✓ rejects outside-anchor rather than silently accepting corrupt authored content 829ms
+ ✓ tests/state/dialogue.test.ts (8 tests) 1960ms
+   ✓ T026 authored dialogue transitions through the actual reducer (8)
+     ✓ fails closed for cross-dialogue nodes, unoffered choices and missing canonical effect policies 416ms
+ ✓ tests/content/equipment-rooms.test.ts (19 tests) 1823ms
+   ✓ T076 Shell Market and Clockworks authored contracts (14)
+     ✓ joins both rooms and the accepted definitions through the real registry without changing the production world 902ms
+     ✓ rejects unsafe anchor in the actual content validator 830ms
+ ✓ tests/services/save-validator.test.ts (109 tests) 1810ms
+   ✓ T042 new-write validation, without account/HTTP/transaction claims (109)
+     ✓ bridges all authored rooms and rejects unavailable rooms/anchors, out-of-order objectives and unauthored recruits 918ms
+     ✓ accepts an actual reducer inspection with explicit reviewed measurement policy and rejects wrong units 797ms
+ ✓ tests/content/radio-rooms.test.ts (15 tests) 997ms
+   ✓ T080 radio room content contracts (15)
+     ✓ joins the semantic registry and leaves all three route proofs intact 346ms
+     ✓ rejects bad-exit through actual semantic validation 304ms
+     ✓ rejects bad-anchor through actual semantic validation 306ms
+ ✓ tests/ui/scene-objects.test.ts (8 tests) 1693ms
+ ✓ tests/ui/notebook.test.ts (10 tests) 1975ms
+ ✓ tests/state/save-migrations.test.ts (22 tests) 1173ms
+   ✓ T048 supported-version reading and explicit in-memory migration (22)
+     ✓ reads actual current content and does not grant fixture IDs or unavailable rooms 1070ms
+ ✓ tests/ui/rift-hazard.test.ts (4 tests) 1653ms
+   ✓ T085 actual captured fictional hazard intent (4)
+     ✓ canceled, unchecked, old-adventure, invalidated and lost-CAS intent preserve the exact preparation 1181ms
+ ✓ tests/ui/repair-plan.test.ts (9 tests) 1544ms
+   ✓ T077 captured repair controller (9)
+     ✓ retains a captured review ID and rejects it after a configuration change 349ms
+     ✓ canceled, invalidated and disposed controller captures cannot execute 324ms
+ ✓ tests/state/encounter.test.ts (59 tests) 1237ms
+   ✓ T084 preparation boundaries and captured installation (36)
+     ✓ actual T077 shutdown execution cannot replace precommit preparation 355ms
+     ✓ actual T077 permanent execution cannot replace precommit preparation 327ms
+ ✓ tests/state/reducer.test.ts (38 tests) 315ms
+ ✓ tests/content/repair-plan-rooms.test.ts (5 tests) 1171ms
+   ✓ T077 authored Rift and Threshold contract (5)
+     ✓ joins actual schema and semantic registry without changing the runtime world 1163ms
+ ✓ tests/state/outcome-save-policy.test.ts (14 tests) 551ms
+ ✓ tests/state/shutdown-duration.test.ts (25 tests) 547ms
+ ✓ tests/ui/recovery-save.test.ts (11 tests) 717ms
+ ✓ tests/services/account.test.ts (21 tests) 31ms
+ ✓ tests/state/outcome-classification.test.ts (66 tests) 952ms
+ ✓ tests/content/voice-evidence-binding.test.ts (47 tests) 33ms
+ ✓ tests/services/save-fixtures.test.ts (79 tests) 29ms
+ ✓ tests/content/world-graph.test.ts (40 tests) 1128ms
+   ✓ T081 canonical twelve-room selection and exact SPEC graph (15)
+     ✓ validates the canonical document selection without a replacement projection 1078ms
+ ✓ tests/state/repair-packet.test.ts (32 tests) 276ms
+ ✓ tests/services/game-api.test.ts (86 tests) 27ms
+ ✓ tests/ui/packet-journey.test.ts (20 tests) 16ms
+ ✓ tests/domain/packet-journey.test.ts (120 tests) 25ms
+ ✓ tests/content/room-models.test.ts (25 tests) 23ms
+ ✓ tests/domain/power.test.ts (58 tests) 20ms
+ ✓ tests/domain/repair-routes.test.ts (150 tests | 52 todo) 18ms
+ ✓ tests/ui/encounter-integration.test.ts (18 tests) 236ms
+ ✓ tests/state/packet-activity-r12.test.ts (18 tests) 259ms
+ ✓ tests/state/outcomes.test.ts (210 tests | 81 todo) 24ms
+ ✓ tests/ui/recovery.test.ts (23 tests) 216ms
+ ✓ tests/domain/copper-repair.test.ts (47 tests) 14ms
+ ✓ tests/domain/copper.test.ts (53 tests) 10ms
+ ✓ tests/ui/first-route-notebook.test.ts (3 tests) 632ms
+   ✓ T078 route notebook presentation over actual authored definitions (3)
+     ✓ does not relabel an unknown conclusion or foreign rule as a known copper reading 332ms
+ ✓ tests/content/endings.test.ts (48 tests) 16ms
+ ✓ tests/state/retry.test.ts (133 tests | 45 todo) 12ms
+ ✓ tests/domain/physical-cases.test.ts (207 tests | 42 todo) 32ms
+ ✓ tests/content/companion-activity-oracles.test.ts (192 tests | 140 todo) 22ms
+ ✓ tests/domain/optics.test.ts (62 tests) 10ms
+ ✓ tests/presentation/room-adapter.test.ts (9 tests) 17ms
+ ✓ tests/presentation/audio.test.ts (13 tests) 23ms
+ ✓ tests/domain/capabilities.test.ts (52 tests) 29ms
+ ✓ tests/ui/action-bus.test.ts (26 tests) 12ms
+ ✓ tests/domain/radio.test.ts (65 tests) 10ms
+ ✓ tests/domain/packet-journey-boundaries.test.ts (56 tests) 11ms
+ ✓ tests/domain/radio-repair.test.ts (12 tests) 5ms
+ ✓ tests/content/guest-investigation.test.ts (20 tests) 6ms
+ ✓ tests/presentation/resource-pool.test.ts (7 tests) 9ms
+ ✓ tests/presentation/introduction-graybox.test.ts (11 tests) 6ms
+ ✓ tests/domain/optics-repair.test.ts (28 tests) 5ms
+ ✓ tests/domain/power-capability-repair.test.ts (4 tests) 5ms
+ ✓ tests/presentation/first-route-graybox.test.ts (2 tests) 4ms
+ ✓ tests/ui/epilogue.test.ts (14 tests) 156ms
+ ✓ tests/state/tutorial.test.ts (7 tests) 16ms
+ ✓ tests/state/encounter-world.test.ts (10 tests) 70ms
+ ✓ tests/tools/measurement.test.ts (4 tests) 4ms
+ ✓ tests/ui/title.test.ts (7 tests) 5ms
+ ✓ tests/content/introduction.test.ts (11 tests) 8ms
+ ✓ tests/ui/account-settings.test.ts (42 tests) 29612ms
+   ✓ T052 account settings operation ownership (14)
+     ✓ discloses actual identity, one-slot data and unverified backup policy without invented expiry 1219ms
+     ✓ canceling the logout warning changes no runtime, API generation, outstanding work or requests 813ms
+     ✓ confirmed logout stops competing work and clears only after current 204, without save/delete 717ms
+     ✓ lost logout stays unconfirmed and preserves adventure; an explicit current guest GET can confirm revocation 816ms
+     ✓ ignores stale logout completion after a later account/view 717ms
+     ✓ opens delete-purpose auth only on confirmation; a hint only reads session and requires a second explicit deletion choice 624ms
+     ✓ does not claim a session observation proves fresh authentication; server rejection preserves adventure 672ms
+     ✓ uses one private canonical random 256-bit receipt on deletion/status and never auto-repeats DELETE/auth 813ms
+     ✓ keeps status 404 unconfirmed, never uses guest state as deletion proof 712ms
+     ✓ keeps status 503 unconfirmed, never uses guest state as deletion proof 703ms
+     ✓ bounds status backoff and obeys Retry-After including explicit checks 673ms
+     ✓ re-arms an early deletion-status timer without checking before its backoff 747ms
+     ✓ drops receipt polling and stale completion after disposal or an explicit later view 736ms
+     ✓ rechecks ownership after synchronous rendering callbacks before sending a confirmed action 749ms
+   ✓ T052 reentrant, credential and bounded recovery edges (20)
+     ✓ rejects confirm-logout when stopping competitors synchronously invalidates the settings view 620ms
+     ✓ rejects confirm-delete when stopping competitors synchronously invalidates the settings view 639ms
+     ✓ rejects logout success invalidated in the API/controller microtask gap 641ms
+     ✓ rejects deletion success invalidated in the API/controller microtask gap 728ms
+     ✓ requires still-current explicit logout confirmation and never treats equal provider labels as account continuity 723ms
+     ✓ keeps a later signed-in session and in-memory adventure when checking lost logout 685ms
+     ✓ reserves a deletion popup synchronously and permits only explicit blocked-tab fallback 713ms
+     ✓ never turns a guest deletion-reauth observation into deletion success or a fresh auth loop 725ms
+     ✓ rejects an observed different provider and preserves the original adventure 690ms
+     ✓ does not adopt an observed reauth session after the application rejects or invalidates its lifecycle CAS 761ms
+     ✓ accepts the exact observed session when the authorized adoption rotates the API lifecycle generation 781ms
+     ✓ rejects an unrelated API-only rotation after the adoption callback captured its owned generation 687ms
+     ✓ does not send DELETE after a reentrant cancellation during its pending projection 645ms
+     ✓ does not clear after a completed receipt invalidated between the API result and UI continuation 800ms
+     ✓ stops after exactly six pending status reads without repeating deletion or signin 775ms
+     ✓ honors a Retry-After longer than its checking window by stopping, never polling early 777ms
+     ✓ stops an expired pending receipt and treats unknown response data as unconfirmed 1098ms
+     ✓ forgets volatile receipt and stops pending status on close without reporting rollback 942ms
+     ✓ disposal during a pending logout keeps memory and cannot render or clear later 1029ms
+     ✓ refuses deletion when secure entropy is unavailable and never substitutes weak randomness 505ms
+   ✓ T052 status subscriber timing (8)
+     ✓ notifies the panel when an explicit logout check becomes available again without issuing a request 497ms
+     ✓ does not notify an old logout recovery view after close 490ms
+     ✓ does not notify an old logout recovery view after invalidate 496ms
+     ✓ does not notify an old logout recovery view after dispose 497ms
+     ✓ does not notify an old logout recovery view after api-generation 486ms
+     ✓ limits logout checks to six and does not re-enable or schedule another notification after exhaustion 490ms
+     ✓ does not overflow a long Retry-After timer or re-enable the logout control early 485ms
+     ✓ enforces backoff before notifying a subscriber that tries an immediate status check 488ms
+ ✓ tests/services/save-coordinator.test.ts (52 tests) 35435ms
+   ✓ T049 coordinator, actual API/reader/capture with synthetic transport only (52)
+     ✓ requires explicit current runtime/API binding and a full slot read before a new write 1202ms
+     ✓ manually adopts one confirmed-empty slot, with default autosave OFF and no dirty increment 856ms
+     ✓ requires manual first adoption even when the account has opted into autosave 723ms
+     ✓ uses one conditional slot for eligible automatic writes 719ms
+     ✓ serializes concurrent save/retry/read calls without queueing a recapture 820ms
+     ✓ UI-LATE-ACK acknowledges captured generation 4 while real reducer edits leave generation 5 dirty 679ms
+     ✓ SV-OLD-POLICY retries exact bytes/key/mode/precondition/confirmation without validating or capturing again 621ms
+     ✓ keep playing retains an unknown outcome and forbids a new overwrite 702ms
+     ✓ SV-REPLAY-OLDER records receipt 8, current slot 9 and requires a fresh read plus consent before overwrite 677ms
+     ✓ SV-STALE exposes 412 without replacing memory, then requires reviewed conditional explicit replacement 716ms
+     ✓ binds replacement consent to owned review, slot adventure, ETag and unchanged local capture 684ms
+     ✓ rejects actual dialogue-transaction state even when it has a safe preparation checkpoint 734ms
+     ✓ rejects actual pending-effect state even when it has a safe preparation checkpoint 715ms
+     ✓ rejects actual room-transition state even when it has a safe preparation checkpoint 726ms
+     ✓ rejects actual cutscene state even when it has a safe preparation checkpoint 646ms
+     ✓ rejects actual active-encounter state even when it has a safe preparation checkpoint 624ms
+     ✓ rejects actual terminal-failure state even when it has a safe preparation checkpoint 646ms
+     ✓ rejects actual shutdown state even when it has a safe preparation checkpoint 710ms
+     ✓ rejects pending reducer work even with a superficially safe runtime activity 762ms
+     ✓ preserves game/confirmed metadata on HTTP 401 without false acknowledgement or automatic sign-in 632ms
+     ✓ preserves game/confirmed metadata on HTTP 403 without false acknowledgement or automatic sign-in 684ms
+     ✓ preserves game/confirmed metadata on HTTP 422 without false acknowledgement or automatic sign-in 689ms
+     ✓ preserves game/confirmed metadata on HTTP 429 without false acknowledgement or automatic sign-in 693ms
+     ✓ preserves game/confirmed metadata on HTTP 503 without false acknowledgement or automatic sign-in 777ms
+     ✓ never acknowledges a mismatching request receipt 827ms
+     ✓ never acknowledges a mismatching adventure receipt 651ms
+     ✓ never acknowledges a mismatching revision receipt 672ms
+     ✓ passes exact unknown lexical snapshot bytes to SaveReader and blocks replacement/autosave 720ms
+     ✓ invalid supported saves also remain untouched; a session summary never grants replacement 754ms
+     ✓ UI-LATE-ACCOUNT ignores a late receipt after runtime generation invalidation, preserving later memory 768ms
+     ✓ UI-LATE-ACCOUNT ignores a late receipt after api generation invalidation, preserving later memory 1030ms
+     ✓ UI-LATE-ACCOUNT ignores a late receipt after view generation invalidation, preserving later memory 993ms
+     ✓ rejects stale session binding even when provider/display name are identical 1013ms
+     ✓ new run/restore invalidation discards the old view without applying its late read to a replacement runtime 1158ms
+     ✓ reentrant saving subscribers cannot send an invalidated write or release a later operation 502ms
+     ✓ reentrant read subscribers cannot send an invalidated GET 501ms
+     ✓ disposal and repeated invalidation preserve gameplay and never perform network mutations 499ms
+     ✓ a failed-notification retry keeps its own in-flight lock after the older send returns 494ms
+     ✓ disposal cannot be reentered through an unbound notification to send new requests 493ms
+     ✓ terminal disposal notifications cannot recurse or restart the coordinator 492ms
+     ✓ UI lifecycle and read-review tokens reject clones, edits and same-adventure rebinding 495ms
+     ✓ a receipt invalidated in the API-result microtask cannot acknowledge the replacement runtime 493ms
+     ✓ same-adventure restore invalidation rejects the old frozen pending handle 488ms
+     ✓ a timeout preserves frozen pending bytes and the in-memory adventure for explicit retry 493ms
+     ✓ E01 only writes at a declared safe Continue point (isolated fixture policy) 490ms
+     ✓ E02 only writes at a declared safe Continue point (isolated fixture policy) 491ms
+     ✓ never accepts E03 as a current Continue outcome even with safe-continue activity 490ms
+     ✓ read failure or mismatched summary cannot establish empty-slot or replacement authority 982ms
+     ✓ a later read that discovers another device write cannot silently authorize autosave over it 508ms
+     ✓ the current status projection reflects dirty edits after a successful acknowledgement 499ms
+     ✓ blocks interrupted reader results and retains their original bytes 507ms
+     ✓ blocks migration-failed reader results and retains their original bytes 492ms
+ ✓ tests/state/autosave.test.ts (54 tests) 38035ms
+   ✓ T051 safe-boundary debounce using the actual coordinator/API/reducer (39)
+     ✓ defaults off and explains the shared account slot without writing on room/objective changes 1242ms
+     ✓ waits the real debounce bound, then captures current bytes once without incrementing dirty twice 842ms
+     ✓ debounces repeated real arrivals and ignores no-op renders and notes-only dirtiness 696ms
+     ✓ never adopts/replaces an unread or different slot automatically: {"empty":true} 693ms
+     ✓ never adopts/replaces an unread or different slot automatically: {"otherAdventure":true} 710ms
+     ✓ never adopts/replaces an unread or different slot automatically: {"unread":true} 654ms
+     ✓ manual first adoption permits only a later eligible automatic write 632ms
+     ✓ cancels queued saves on dialogue-transaction, never resurrects them just by becoming stable 778ms
+     ✓ cancels queued saves on pending-effect, never resurrects them just by becoming stable 771ms
+     ✓ cancels queued saves on room-transition, never resurrects them just by becoming stable 745ms
+     ✓ cancels queued saves on cutscene, never resurrects them just by becoming stable 703ms
+     ✓ cancels queued saves on active-encounter, never resurrects them just by becoming stable 702ms
+     ✓ cancels queued saves on terminal-failure, never resurrects them just by becoming stable 746ms
+     ✓ cancels queued saves on shutdown, never resurrects them just by becoming stable 702ms
+     ✓ blocks a pending reducer transition even if its activity is incorrectly projected safe 650ms
+     ✓ does not treat feedback rendering or a bare dismissal as completion; requires the actual dismissal hook 652ms
+     ✓ does not save an unchanged acknowledged preparation, and delegates its authored anchor to current policy 719ms
+     ✓ includes earlier unsaved notes on a later real preparation entry without another game change 597ms
+     ✓ does not mistake a terminal-failure recovery for an eligible preparation entry 790ms
+     ✓ does not mistake a shutdown recovery for an eligible preparation entry 656ms
+     ✓ does not mistake a changed-attempt recovery for an eligible preparation entry 718ms
+     ✓ rechecks current authored policy for preparation and Continue anchors 1345ms
+     ✓ does not invent opt-in from server preference when a new run is locally held off 741ms
+     ✓ rejects a collapsed E03 transition even if an adapter labels the final room safe 804ms
+     ✓ does not autosave the terminal-failure rewind; a later independent arrival can save retained information 686ms
+     ✓ does not autosave the shutdown rewind; a later independent arrival can save retained information 705ms
+     ✓ E01 needs a declared safe Continue, without manufacturing ending content 769ms
+     ✓ E02 needs a declared safe Continue, without manufacturing ending content 809ms
+     ✓ refuses current E03 even if a caller forges safe-continue and a completed objective 807ms
+     ✓ invalidates same-adventure/counter queued callbacks on new-run 1074ms
+     ✓ invalidates same-adventure/counter queued callbacks on restore 1024ms
+     ✓ invalidates same-adventure/counter queued callbacks on account 1024ms
+     ✓ invalidates same-adventure/counter queued callbacks on logout 518ms
+     ✓ invalidates same-adventure/counter queued callbacks on dispose 513ms
+     ✓ rechecks safety at delivery even when no observer ran for the last change 498ms
+     ✓ cannot carry an old completion through reentrant invalidation while canceling a queue 512ms
+     ✓ manual saves cancel redundant queued saves and pending writes never gain an automatic follow-up 494ms
+     ✓ unknown outcomes retain exact pending bytes and never automatically retry or issue a fresh write 501ms
+     ✓ respects coordinator Keep Playing, conflict and unsupported-slot blocking 1494ms
+   ✓ T051 conditional account preference choice and stale response guards (15)
+     ✓ uses a reviewed ETag, refreshes the API session before enable, and preserves known slot/acknowledgement 496ms
+     ✓ immediately suppresses queued writes on opt-out even when its network result is unknown 488ms
+     ✓ does not claim an already sent save was undone by opt-out 498ms
+     ✓ never lets an older enable acknowledgement re-enable a later opt-out 490ms
+     ✓ ignores late preference responses after invalidate 496ms
+     ✓ ignores late preference responses after api-generation 493ms
+     ✓ ignores late preference responses after account 490ms
+     ✓ ignores late preference responses after dispose 494ms
+     ✓ rejects cloned reviews and stale reviewed ETags without writing preferences 491ms
+     ✓ a current owned opt-out with a stale ETag still stops this tab immediately 488ms
+     ✓ a reentrant later preference choice makes the earlier success result stale too 514ms
+     ✓ stays paused when PATCH succeeded but reconciliation failed or reveals a different choice 967ms
+     ✓ does not enable from an older GET revision or a changed session despite matching labels 950ms
+     ✓ allows an explicit read-only preference refresh after a conflict, without implicitly enabling local opt-out 476ms
+     ✓ guards reentrant subscribers before network and dispose remains terminal 487ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/tools/save-content-policy.test.ts > actual authored save content policy artifact > validates real initial state and real kit/105 m/95 m reducer observations in TypeScript and PHP
+AssertionError: NQ_PHP_BIN must select PHP 8.4.28 (README.md).: expected null to be +0 // Object.is equality
+
+- Expected:
+0
+
++ Received:
+null
+
+ ❯ phpValidate tests/tools/save-content-policy.test.ts:24:76
+     22|   const env = { PATH: process.env['PATH'] ?? '', LANG: 'C', LC_ALL: 'C…
+     23|   const version = spawnSync(php, ['-d', 'auto_prepend_file=', '-d', 'a…
+     24|   expect(version.status, 'NQ_PHP_BIN must select PHP 8.4.28 (README.md…
+       |                                                                            ^
+     25|   expect(version.stdout, 'NQ_PHP_BIN must select PHP 8.4.28 (README.md…
+     26|   const program = `require 'server/vendor/autoload.php'; require 'serv…
+ ❯ tests/tools/save-content-policy.test.ts:105:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/tools/save-content-policy.test.ts > actual authored save content policy artifact > does not turn metadata reservations, future progression or unsupported safety into write permissions
+AssertionError: NQ_PHP_BIN must select PHP 8.4.28 (README.md).: expected null to be +0 // Object.is equality
+
+- Expected:
+0
+
++ Received:
+null
+
+ ❯ phpValidate tests/tools/save-content-policy.test.ts:24:76
+     22|   const env = { PATH: process.env['PATH'] ?? '', LANG: 'C', LC_ALL: 'C…
+     23|   const version = spawnSync(php, ['-d', 'auto_prepend_file=', '-d', 'a…
+     24|   expect(version.status, 'NQ_PHP_BIN must select PHP 8.4.28 (README.md…
+       |                                                                            ^
+     25|   expect(version.stdout, 'NQ_PHP_BIN must select PHP 8.4.28 (README.md…
+     26|   const program = `require 'server/vendor/autoload.php'; require 'serv…
+ ❯ tests/tools/save-content-policy.test.ts:122:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 87 passed (88)
+      Tests  2 failed | 3139 passed | 360 todo (3501)
+   Start at  08:43:58
+   Duration  38.27s (tests 90%, import 9%)
+

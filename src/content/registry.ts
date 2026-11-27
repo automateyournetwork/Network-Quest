@@ -259,7 +259,7 @@ export function validateContent(input: ContentInput): ContentResult {
     ruleIds: 'rule', sourceId: 'source', profileIds: 'profile', reviewedProfileId: 'profile',
     itemId: 'item', itemIds: 'item', withItemId: 'item', conventionalEquivalentItemIds: 'item',
     abilityId: 'ability', abilityIds: 'ability', flagId: 'flag', factId: 'fact', evidenceIds: 'fact',
-    dialogueIds: 'dialogue', nextNodeId: 'dialogue-node', entryNodeId: 'dialogue-node', walkRegionId: 'walk-region', actionIds: 'action',
+    dialogueIds: 'dialogue', nextNodeId: 'dialogue-node', entryNodeId: 'dialogue-node', walkRegionId: 'walk-region', actionIds: 'action', conventionalEquivalentActionIds: 'action',
   };
   function references(value: unknown, prefix: string) {
     visit(value, (node, path) => {
@@ -282,6 +282,7 @@ export function validateContent(input: ContentInput): ContentResult {
   if (issues.length) return { ok: false, issues };
   checkWorld(world, review, fail);
   for (const record of records) checkRecord(record, world, records, review, fail);
+  if (world.documents.some(d => d.path === 'content/spec001/characters.json')) checkCharacterRoster(world, records, review, fail);
   const routes = checkRoutes(world, records, fail);
   checkOptionalDependencies(world, records, fail);
   if (issues.length) return { ok: false, issues };
@@ -405,6 +406,24 @@ function checkRecord(r: S.authoredRecord, w: S.world, records: S.authoredRecord[
     for (const ability of r.abilities) for (const id of ability.conventionalEquivalentItemIds) {
       if (!records.some(item => item.kind === 'item' && item.id === id && item.verbs.includes('use'))) fail('equivalent', ability.id, 'Conventional equivalent must be an authored usable item');
     }
+    for (const ability of r.abilities) for (const id of ability.conventionalEquivalentActionIds ?? []) {
+      let ordinary = false;
+      visit(records, node => {
+        if (node['id'] !== id) return;
+        if (node['method'] === 'ally-ability' || (Array.isArray(node['abilityIds']) && node['abilityIds'].length)) return;
+        // Authored objective/profile alternatives and dialogue choices expose
+        // real ordinary operations. A registered ability or arbitrary ID does not.
+        if (!('method' in node) && !('nextNodeId' in node)) return;
+        let dependent = false;
+        visit(node['condition'], condition => {
+          if (['character-recruited','quest-complete','minigame-complete','future-door-open'].includes(String(condition['kind']))) dependent = true;
+        });
+        if (!dependent) ordinary = true;
+      });
+      if (!ordinary) fail('equivalent', ability.id, 'Equivalent action must be an ordinary authored operation independent of allies, optional rewards and future content');
+    }
+    if (r.compendium.discovery && !sameSet(r.compendium.discovery.roomIds, w.characters.find(c => c.id === r.id)!.roomIds)) fail('character-discovery', r.id, 'Discovery rooms disagree with authored encounters');
+    if (r.recruitment?.roomIds && !r.recruitment.roomIds.every(id => w.characters.find(c => c.id === r.id)!.roomIds.includes(id))) fail('character-recruitment-room', r.id, 'Invitation invents a character encounter room');
   }
   if (r.kind === 'room') {
     checkRoom(r, w, fail);
@@ -435,6 +454,71 @@ function checkRecord(r: S.authoredRecord, w: S.world, records: S.authoredRecord[
     if (consumed && r.consumption === 'never') fail('item-recovery', r.id, 'Never-consumed item has a consuming effect');
     for (const c of r.combinations) if (c.consumesInputs && (c.recovery.policy === 'not-consumed' || !c.effects.some(e => e.kind === 'grant-item'))) fail('item-recovery', c.id, 'Consuming transformation requires a result and real recovery policy');
     for (const c of r.combinations) if (c.consumesInputs && (r.consumption === 'never' || records.some(item => item.kind === 'item' && item.id === c.withItemId && item.consumption === 'never'))) fail('item-recovery', c.id, 'Transformation consumes a never-consumed input');
+  }
+}
+
+/** Complete production collection, separate from generic partial authoring fixtures.
+ * This validates data contracts, not a player's discovery, learning or runtime
+ * execution. T094 alone consumes genuine demonstrated-learning receipts.
+ */
+function checkCharacterRoster(w: S.world, records: S.authoredRecord[], review: Review, fail: Fail): void {
+  const characters = records.filter((r): r is S.character => r.kind === 'character');
+  const expected = Array.from({ length: 25 }, (_, i) => q(`CH${String(i + 1).padStart(2, '0')}`));
+  const recruits = ['CH03','CH04','CH05','CH06','CH07','CH16','CH19','CH20','CH22'].map(q);
+  if (!sameSet(characters.map(c => c.id), expected) || characters.length !== 25) fail('character-roster', 'characters', 'Canonical roster requires exactly CH01–CH25');
+  if (!sameSet(characters.filter(c => c.recruitable).map(c => c.id), recruits)) fail('character-roster', 'characters', 'Canonical roster must preserve the nine specified recruits');
+  const canonicalObjective: Record<string, string> = { CH03:'O05', CH04:'O04', CH05:'O06', CH06:'O06', CH07:'O08', CH16:'O05', CH19:'O09', CH20:'O04', CH22:'O09' };
+  for (const c of characters) {
+    const short = c.id.slice(8), meta = w.characters.find(x => x.id === c.id)!;
+    const compendium = c.compendium;
+    if (!compendium.portraitText || !compendium.discovery || !compendium.recruitmentSummary || !compendium.progressionSummary || !compendium.contextSources) fail('character-compendium', c.id, 'Complete roster requires portrait text, discovery, recruitment/progression summaries and explicit contextual references');
+    if (compendium.portraitAssetId !== q(`ASSET-PORTRAIT-${short}`) || !sameSet(c.assetIds, [q(`ASSET-${short}`), q(`ASSET-PORTRAIT-${short}`)])) fail('character-portrait', c.id, 'Portrait and model identities must belong to this character; references do not assert production');
+    if (!c.recruitable) {
+      if (c.recruitment || c.abilities.length || c.progression.length) fail('character-nonrecruit', c.id, 'Nonrecruits cannot gain recruit abilities or levels');
+      continue;
+    }
+    const invitation = c.recruitment;
+    if (!invitation?.roomIds?.length || !invitation.roomIds.every(id => meta.roomIds.includes(id))) fail('character-recruitment-room', c.id, 'Recruitment requires an existing encounter room');
+    if (!invitation || invitation.effects.length !== 1 || invitation.effects[0]?.kind !== 'recruit-character' || invitation.effects[0].characterId !== c.id) fail('character-demonstration', c.id, 'Invitation has only its own once-only recruitment intent');
+    visit(invitation?.condition, node => {
+      if (['quest-complete','minigame-complete','future-door-open','character-recruited'].includes(String(node['kind']))) fail('character-dependency', c.id, 'Optional rewards, future content and other recruits cannot gate invitation');
+    });
+    const base = c.progression.find(p => p.level === 1), advanced = c.progression.find(p => p.level === 2);
+    if (c.abilities.length !== 2 || c.progression.length !== 2 || !base || !advanced || base.abilityIds.length !== 1 || advanced.abilityIds.length !== 1 || base.abilityIds[0] === advanced.abilityIds[0]) fail('character-progression', c.id, 'Canonical recruit needs a basic inspection and a distinct demonstrated explanation');
+    for (const stage of c.progression) {
+      if (stage.condition.kind !== 'character-recruited' || stage.condition.characterId !== c.id) fail('character-progression', c.id, 'Progression requires this recruited character without optional dependencies');
+    }
+    const objectiveId = q(canonicalObjective[short] ?? 'UNKNOWN');
+    const objective = records.find((r): r is S.objective => r.kind === 'objective' && r.id === objectiveId);
+    const teachingObjectives = new Set([objectiveId]);
+    // Canonical evaluation can depend on earlier, separately authored checks:
+    // O06's receiver budget retains O05's compatibility evidence, for example.
+    for (let pass = 0; pass < w.objectives.length; pass++) {
+      const size = teachingObjectives.size;
+      for (const o of w.objectives) if (teachingObjectives.has(o.id)) visit(o.prerequisite, node => {
+        if (node['kind'] === 'objective-complete') teachingObjectives.add(String(node['objectiveId']));
+      });
+      if (teachingObjectives.size === size) break;
+    }
+    const teachingEvidence = records.flatMap(r => r.kind === 'objective' && teachingObjectives.has(r.id) ? r.evidence : []);
+    const demonstrations = [invitation?.demonstration, advanced?.demonstration];
+    const teachingRules = new Set(demonstrations.flatMap(d => d?.ruleIds ?? []));
+    const teachingProfiles = new Set(w.objectives.filter(o => teachingObjectives.has(o.id)).flatMap(o => o.profileIds));
+    for (const demonstration of demonstrations) {
+      const referencedRules = new Set(teachingEvidence.filter(e => demonstration?.evidenceIds.includes(e.id)).flatMap(e => e.ruleIds));
+      if (!demonstration || !sameSet(demonstration.objectiveIds, [objectiveId]) || !objective
+        || !demonstration.evidenceIds.some(id => objective.evidence.some(e => e.id === id))
+        || demonstration.evidenceIds.some(id => !teachingEvidence.some(e => e.id === id))
+        || demonstration.ruleIds.some(id => !referencedRules.has(id))
+        || demonstration.profileIds.some(id => !teachingProfiles.has(id))) fail('character-demonstration', c.id, 'Demonstration must identify actual canonical objective provenance and relevant prerequisite evidence/rules/profiles');
+    }
+    const claims = new Set(compendium.sourceClaims.map(s => s.sourceId));
+    for (const ability of c.abilities) {
+      if (!ability.profileIds?.length || ability.profileIds.some(id => !teachingProfiles.has(id)) || ability.effects.length) fail('character-ability', ability.id, 'Inspection abilities declare related reviewed profiles and delegate actual physical effects to evaluated actions');
+      const requiredSources = review.rules.filter(rule => ability.ruleIds.includes(q(rule.id))).flatMap(rule => rule.sources.map(q));
+      if (requiredSources.some(id => !claims.has(id))) fail('source-coverage', ability.id, 'Character lacks a reviewed source required by its ability rules');
+      if (ability.ruleIds.some(id => !teachingRules.has(id))) fail('character-demonstration', ability.id, 'Ability rule is outside its canonical demonstration and prerequisite evidence');
+    }
   }
 }
 
@@ -611,6 +695,41 @@ function effectSuccessor(s: ProofState, effects: S.effect[], route: string): Pro
   }
   return next;
 }
+/** A terminating, unconditional fact-only continuation has no structural choice.
+ * Check the ENTIRE tail before applying its real once-only effects in order.
+ * A conditional, branch, cycle, grant, consumption or flag write stays concrete.
+ * This changes only proof memoization; authored conversations remain intact.
+ */
+function closeInertDialogueTail(s: ProofState, dialogues: ReadonlyMap<string, S.dialogue>, route: string): ProofState {
+  if (!s.dialogue) return s;
+  const dialogue = dialogues.get(s.dialogue.id);
+  const first = dialogue?.nodes.find(n => n.id === s.dialogue!.nodeId);
+  if (!dialogue || !first) return s;
+  let node: S.dialogueNode = first;
+  const visited = new Set<string>();
+  const batches: S.effect[][] = [];
+  for (;;) {
+    if (visited.has(node.id) || node.condition.kind !== 'always' || node.choices.length > 1) return s;
+    visited.add(node.id);
+    const choice: S.dialogueChoice | undefined = node.choices[0];
+    if (!choice) break;
+    if (choice.condition.kind !== 'always' || choice.effects.some(e => e.kind !== 'record-fact')) return s;
+    batches.push(choice.effects);
+    if (choice.nextNodeId === null) break;
+    const target: S.dialogueNode | undefined = dialogue.nodes.find(n => n.id === choice.nextNodeId);
+    if (!target || target.effects.some(e => e.kind !== 'record-fact')) return s;
+    batches.push(target.effects);
+    node = target;
+  }
+  let next = copyProof(s);
+  for (const effects of batches) {
+    const applied = effectSuccessor(next, effects, route);
+    if (!applied) return s;
+    next = applied;
+  }
+  next.dialogue = null;
+  return next;
+}
 function reachableRooms(w: S.world, s: State): Set<string> {
   const rooms = new Set([w.initialLocation.roomId]);
   for (let pass = 0; pass < w.rooms.length; pass++) for (const edge of w.walkEdges) {
@@ -660,6 +779,7 @@ function checkRoutes(w: S.world, records: S.authoredRecord[], fail: Fail): strin
     let bounded = false;
     const enqueue = (state: ProofState | null) => {
       if (!state || bounded) return;
+      state = closeInertDialogueTail(state, dialogues, branch.id);
       const key = proofKey(state, projection);
       if (visited.has(key)) return;
       if (visited.size >= MAX_PROOF_STATES) { bounded = true; return; }

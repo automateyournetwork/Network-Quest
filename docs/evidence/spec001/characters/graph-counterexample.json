@@ -1,0 +1,60 @@
+{
+  "scope": "Diagnostic partial registries only; not canonical roster acceptance. Same physical rooms/actions/oracles, unchanged 4096 bound.",
+  "results": [
+    {
+      "retainedCharacterDocuments": [],
+      "ok": true,
+      "routes": [
+        "copper",
+        "fiber",
+        "radio"
+      ]
+    },
+    {
+      "retainedCharacterDocuments": [
+        "spec001:CH02"
+      ],
+      "ok": true,
+      "routes": [
+        "copper",
+        "fiber",
+        "radio"
+      ]
+    },
+    {
+      "retainedCharacterDocuments": [
+        "spec001:CH03"
+      ],
+      "ok": true,
+      "routes": [
+        "copper",
+        "fiber",
+        "radio"
+      ]
+    },
+    {
+      "retainedCharacterDocuments": [
+        "spec001:CH02",
+        "spec001:CH03"
+      ],
+      "ok": false,
+      "issues": [
+        {
+          "code": "graph-bounds",
+          "path": "copper",
+          "message": "Concrete-state analysis exceeded 4096 states; reachability is unproved"
+        },
+        {
+          "code": "graph-bounds",
+          "path": "fiber",
+          "message": "Concrete-state analysis exceeded 4096 states; reachability is unproved"
+        },
+        {
+          "code": "graph-bounds",
+          "path": "radio",
+          "message": "Concrete-state analysis exceeded 4096 states; reachability is unproved"
+        }
+      ]
+    }
+  ]
+}
