@@ -8,7 +8,8 @@ import type { UiState } from '../state/types';
 import type { ActionBus, ActionPlan, CapturedAction } from './action-bus';
 import type { SceneObjectView, SemanticControl } from './app-shell';
 import type { GameplayStore } from './controller-store';
-import { guardedPlan, playable, rejected, reductionPlan, uiPlan, unavailable } from './controller-store';
+import { actionAvailable, guardedPlan, rejected, reductionPlan, uiPlan, unavailable } from './controller-store';
+import type { ActiveActionAdmission } from './controller-store';
 import { heldItems } from './inventory';
 
 export interface ResolvedInteraction {
@@ -31,13 +32,14 @@ export type PanelPlanner = (panel: Exclude<UiState['panel'], 'none' | 'inventory
 export interface VerbOptions {
   readonly bus: ActionBus; readonly registry: ContentRegistry; readonly store: GameplayStore;
   readonly bindings: readonly HotspotBinding[]; readonly walk?: WalkPlanner; readonly panels?: PanelPlanner;
+  readonly allowDuringEncounter?: ActiveActionAdmission;
   /** T028 shares these canonical hotspot choices with exits/floor presentation. */
   readonly sceneObjects?: (state: ReducerState, hotspots: readonly SceneObjectView[]) => readonly SceneObjectView[];
 }
 interface BindingEntry { readonly binding: HotspotBinding; readonly node: Readonly<S.dialogueNode>; readonly choice: Readonly<S.dialogueChoice> }
 const title = (text: string) => text[0]!.toUpperCase() + text.slice(1);
 
-export function createVerbController({ bus, registry, store, bindings, walk, panels, sceneObjects }: VerbOptions) {
+export function createVerbController({ bus, registry, store, bindings, walk, panels, sceneObjects, allowDuringEncounter }: VerbOptions) {
   // All mappings are explicit and detached before registering handlers. The
   // registry supplies the exact exposed entry choice, not a sibling/node jump.
   const entries: BindingEntry[] = bindings.map(raw => {
@@ -66,7 +68,8 @@ export function createVerbController({ bus, registry, store, bindings, walk, pan
     const input = action.input;
     if (input.kind !== 'interact' && input.kind !== 'choose-hotspot-action') return rejected('invalid-input', 'Choose a scene target.');
     const before = store.getState(), room = roomOf(before), items = heldItems(registry, before);
-    if (!playable(before) || !room) return unavailable('unavailable-state', 'Scene interactions are unavailable during this activity.');
+    if (!actionAvailable(before, input, allowDuringEncounter) || !room) return unavailable('unavailable-state', before.runtime.activity?.kind === 'active-encounter'
+      ? 'The intervention is committed. Walk to the Iron Threshold for validation; other exits and changes stay closed until the encounter is resolved.' : 'Scene interactions are unavailable during this activity.');
     if (!items || (input.itemId !== null && !items.some(r => r.item.id === input.itemId))) return rejected('item-not-held', 'The selected item is no longer in your inventory.');
     if (input.itemId !== null && input.verb !== 'use') return rejected('wrong-verb', 'Select Use to apply an inventory item.');
     const hotspot = room.hotspots.find(h => h.id === input.targetId);
@@ -101,14 +104,14 @@ export function createVerbController({ bus, registry, store, bindings, walk, pan
     register('select-verb', action => {
       if (action.input.kind !== 'select-verb') return rejected('invalid-input', 'Choose Walk, Look, Talk or Use.');
       const before = store.getState();
-      if (!playable(before)) return unavailable('unavailable-state', 'Choose a verb after the current activity finishes.');
+      if (!actionAvailable(before, action.input, allowDuringEncounter)) return unavailable('unavailable-state', 'Choose a verb after the current activity finishes.');
       return uiPlan(store, before, { selectedVerb: action.input.verb }, `${title(action.input.verb)} selected.`);
     });
     register('interact', interact); register('choose-hotspot-action', interact);
     register('open-panel', action => {
       if (action.input.kind !== 'open-panel') return rejected('invalid-input', 'Choose a panel.');
       const before = store.getState(), panel = action.input.panel;
-      if (!playable(before)) return unavailable('unavailable-state', 'This panel is unavailable during the current activity.');
+      if (!actionAvailable(before, action.input, allowDuringEncounter)) return unavailable('unavailable-state', 'This panel is unavailable during the current activity.');
       if (panel === 'inventory') return uiPlan(store, before, { panel }, 'Inventory opened.');
       return panels ? guardedPlan(store, before, panels(panel, action, before)) : unavailable('panel-unavailable', `${title(panel)} is unavailable until its controller is connected.`);
     });

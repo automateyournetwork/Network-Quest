@@ -1,0 +1,125 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/state/outcome-classification.test.ts --testNamePattern=harmless|Restore/new-run|before a missing|missing selection on valid --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/state/outcome-classification.test.ts (61 tests | 6 failed | 53 skipped) 1020ms
+   ↓ T086 isolated outcome classification — actual repair predicates and reducer (28)
+     ↓ copper reaches each outcome with only its required branch
+     ↓ fiber reaches each outcome with only its required branch
+     ↓ radio reaches each outcome with only its required branch
+     ↓ retains 1 levels of assistance without changing any outcome
+     ↓ retains 2 levels of assistance without changing any outcome
+     ↓ retains 3 levels of assistance without changing any outcome
+     ↓ does not infer permanence from passing checks with defect still present
+     ↓ does not infer permanence from passing checks with temporary still present
+     ↓ does not silently downgrade an incorrect permanent claim to temporary success
+     ↓ requires the separate fresh physical proof
+     ↓ requires the separate fresh endpoint proof
+     ↓ rejects each independent freshness corruption of physical evidence
+     ↓ rejects each independent freshness corruption of endpoint evidence
+     ↓ rechecks actual failed endpoint observations
+     ↓ rechecks actual failed pattern observations
+     ↓ rechecks actual failed conductor observations
+     ↓ keeps classification proof as historical evidence after the outcome advances the world revision
+     ↓ cannot classify shutdown from an accidental outage or missing execution
+     ↓ requires actual temporary dependency at classification
+     ↓ requires actual temporary maintenance at classification
+     ↓ requires a named unresolved fault, deliberate isolation and recovery record: fault
+     ↓ requires a named unresolved fault, deliberate isolation and recovery record: deliberate
+     ↓ requires a named unresolved fault, deliberate isolation and recovery record: record
+     ↓ requires exact canonical readings provenance instead of a passing-looking record
+     ↓ requires exact canonical conclusion provenance instead of a passing-looking record
+     ↓ requires exact canonical subjects provenance instead of a passing-looking record
+     ↓ requires exact canonical room provenance instead of a passing-looking record
+     ↓ rejects malformed authored scenario data without a learner failure event or mutation
+   ❯ T086 opaque atomic state and authored Continue boundary (33)
+     ↓ rejects forged/equal-copy contexts and prepared tokens
+     ↓ rejects a replacement adventure with equal version and a CAS race without partial events
+     ↓ discards interrupted preparation with no effect and accepts one entire result in one swap
+     ↓ cannot replay the event, attempt, or consumed prepared token
+     ↓ E01 becomes safe only when feedback closes at its authored anchor
+     ↓ E02 becomes safe only when feedback closes at its authored anchor
+     ↓ never dismisses E03 into a safe shutdown world
+     ↓ cannot use a safe panel or fabricated history as successful dismissal provenance
+     ↓ withholds safe Continue when the anchor is missing
+     ↓ withholds safe Continue when the anchor is wrong-room
+     ↓ withholds safe Continue when the anchor is wrong-state
+     ↓ rejects pending transitions, exhausted generation and full event histories before effects
+     ↓ rejects unsupported cutscene classification and snapshot capture
+     ↓ rejects unsupported terminal-failure classification and snapshot capture
+     ↓ rejects unsupported shutdown classification and snapshot capture
+     ↓ rejects unsupported active-encounter classification and snapshot capture
+     ↓ rejects unsupported dialogue-transaction classification and snapshot capture
+     ↓ keeps accepted permanent feedback unsaveable before any dismissal
+     ↓ keeps accepted temporary feedback unsaveable before any dismissal
+     ↓ keeps accepted shutdown feedback unsaveable before any dismissal
+     ↓ admits the last legal classification revision and rejects exhaustion without wrapping
+     ↓ rejects an old event UUID even when delivered with different case in a new attempt
+     ↓ rejects untrusted command fields and malformed IDs without calling them verdicts
+     ↓ samples the trusted scenario once and protects live state from a faulty adapter
+     × keeps accepted feedback across a harmless ui refresh while rejecting stale dismissal captures 132ms
+     × keeps accepted feedback across a harmless auth refresh while rejecting stale dismissal captures 122ms
+     × keeps accepted feedback across a harmless persistence refresh while rejecting stale dismissal captures 132ms
+     ✓ a same-version Restore/new-run cloned game never inherits a feedback receipt 136ms
+     × reports authored missing-unit before a missing classification selection 120ms
+     × reports authored negative-loss before a missing classification selection 120ms
+     × reports authored unknown-profile before a missing classification selection 120ms
+     ✓ a missing selection on valid authored content stays invalid-input without partial effects 135ms
+     ↓ binds caveats to exact reviewed authored evidence and rejects missing clauses as author errors
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/outcome-classification.test.ts > T086 opaque atomic state and authored Continue boundary > keeps accepted feedback across a harmless ui refresh while rejecting stale dismissal captures
+ FAIL  tests/state/outcome-classification.test.ts > T086 opaque atomic state and authored Continue boundary > keeps accepted feedback across a harmless auth refresh while rejecting stale dismissal captures
+ FAIL  tests/state/outcome-classification.test.ts > T086 opaque atomic state and authored Continue boundary > keeps accepted feedback across a harmless persistence refresh while rejecting stale dismissal captures
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/state/outcome-classification.test.ts:297:113
+    295|     expect(h.controller.prepareDismissal(refreshed, oldContext)).toMat…
+    296|     if (!oldDismissal.ok) throw new Error('dismissal'); expect(h.contr…
+    297|     const fresh = h.controller.prepareDismissal(refreshed, captureOutc…
+       |                                                                                                                 ^
+    298|     expect(f.state().runtime.activity?.kind).toBe('safe-continue'); ex…
+    299|     expect(f.state().runtime.auth).toBe(refreshed.runtime.auth);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/state/outcome-classification.test.ts > T086 opaque atomic state and authored Continue boundary > reports authored missing-unit before a missing classification selection
+ FAIL  tests/state/outcome-classification.test.ts > T086 opaque atomic state and authored Continue boundary > reports authored negative-loss before a missing classification selection
+ FAIL  tests/state/outcome-classification.test.ts > T086 opaque atomic state and authored Continue boundary > reports authored unknown-profile before a missing classification selection
+AssertionError: expected { ok: false, reason: 'invalid-input' } to match object { ok: false, reason: 'content-error' }
+
+- Expected
++ Received
+
+  {
+    "ok": false,
+-   "reason": "content-error",
++   "reason": "invalid-input",
+  }
+
+ ❯ tests/state/outcome-classification.test.ts:314:88
+    312|     } });
+    313|     const missing = { ...command(), operation: { ...command().operatio…
+    314|     expect(bad.prepareClassification(before, captureOutcomeContext(bef…
+       |                                                                                        ^
+    315|     expect(f.state()).toBe(before); expect(f.game().outcomeHistory).to…
+    316|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 2 passed | 53 skipped (61)
+   Start at  21:02:34
+   Duration  1.63s (tests 66%, import 32%, transform 2%)
+

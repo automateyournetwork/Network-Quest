@@ -1,0 +1,127 @@
+[WebServer] (node:11741) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:11742) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 copper: deliberate isolation, cancel, whole preparation rewind and fresh proof (15.9s)
+(node:11876) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 fiber: deliberate isolation, cancel, whole preparation rewind and fresh proof (15.3s)
+(node:11996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 radio: deliberate isolation, cancel, whole preparation rewind and fresh proof (13.6s)
+(node:12108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  4 [firefox-local-https] › tests/e2e/outcomes.spec.ts:166:3 › T089 real outcome and recovery integration › guest fatal Retry stays temporary; sign-in choice has no load/write and declined invitation stays declined (9.8s)
+  ✓  5 [firefox-local-https] › tests/e2e/outcomes.spec.ts:185:3 › T089 real outcome and recovery integration › a committed earlier save acknowledgement cannot mark the new Retry generation saved (13.1s)
+
+
+  1) [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 copper: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      123 |     const oldIds = new Set(rewound.snapshot.notebook.measurements.map(reading => reading.id));
+      124 |     expect(repaired.notebook.measurements.filter(reading => oldIds.has(reading.id)).every(reading => reading.stale)).toBe(true);
+    > 125 |     expect(repaired.notebook.measurements.some(reading => !reading.stale && reading.attemptId === repaired.world.attemptId)).toBe(true);
+          |                                                                                                                              ^
+      126 |   });
+      127 |
+      128 |   test('warned fatal choice: Retry cancel, stale controls, Restore review cancel and exact whole-journal replacement', async ({ outcome: j }, info) => {
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:125:126
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 fiber: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      123 |     const oldIds = new Set(rewound.snapshot.notebook.measurements.map(reading => reading.id));
+      124 |     expect(repaired.notebook.measurements.filter(reading => oldIds.has(reading.id)).every(reading => reading.stale)).toBe(true);
+    > 125 |     expect(repaired.notebook.measurements.some(reading => !reading.stale && reading.attemptId === repaired.world.attemptId)).toBe(true);
+          |                                                                                                                              ^
+      126 |   });
+      127 |
+      128 |   test('warned fatal choice: Retry cancel, stale controls, Restore review cancel and exact whole-journal replacement', async ({ outcome: j }, info) => {
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:125:126
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 radio: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      123 |     const oldIds = new Set(rewound.snapshot.notebook.measurements.map(reading => reading.id));
+      124 |     expect(repaired.notebook.measurements.filter(reading => oldIds.has(reading.id)).every(reading => reading.stale)).toBe(true);
+    > 125 |     expect(repaired.notebook.measurements.some(reading => !reading.stale && reading.attemptId === repaired.world.attemptId)).toBe(true);
+          |                                                                                                                              ^
+      126 |   });
+      127 |
+      128 |   test('warned fatal choice: Retry cancel, stale controls, Restore review cancel and exact whole-journal replacement', async ({ outcome: j }, info) => {
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:125:126
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/06-remaining-five/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 copper: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 fiber: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 radio: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+  2 passed (1.2m)

@@ -1,0 +1,472 @@
+{
+  "config": {
+    "argv": [
+      "/Users/john.capobianco/Network-Quest/.runtime/node-v26.13.1-darwin-arm64/bin/node",
+      "/Users/john.capobianco/Network-Quest/node_modules/@playwright/test/cli.js",
+      "test",
+      "tests/e2e/first-repair-route.spec.ts",
+      "tests/e2e/independent-repair-routes.spec.ts",
+      "--project=firefox-local-https",
+      "--workers=1",
+      "--reporter=json"
+    ],
+    "configFile": "/Users/john.capobianco/Network-Quest/playwright.config.ts",
+    "rootDir": "/Users/john.capobianco/Network-Quest/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": true,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/john.capobianco/Network-Quest/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium-static",
+        "name": "chromium-static",
+        "testDir": "/Users/john.capobianco/Network-Quest/tests/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/vendor/**",
+          "**/.local/**",
+          "**/.runtime/**",
+          "**/dist/**",
+          "**/build/**"
+        ],
+        "testMatch": [
+          "**/foundation.spec.ts"
+        ],
+        "timeout": 20000
+      },
+      {
+        "outputDir": "/Users/john.capobianco/Network-Quest/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox-static",
+        "name": "firefox-static",
+        "testDir": "/Users/john.capobianco/Network-Quest/tests/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/vendor/**",
+          "**/.local/**",
+          "**/.runtime/**",
+          "**/dist/**",
+          "**/build/**"
+        ],
+        "testMatch": [
+          "**/foundation.spec.ts"
+        ],
+        "timeout": 20000
+      },
+      {
+        "outputDir": "/Users/john.capobianco/Network-Quest/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox-local-https",
+        "name": "firefox-local-https",
+        "testDir": "/Users/john.capobianco/Network-Quest/tests/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/vendor/**",
+          "**/.local/**",
+          "**/.runtime/**",
+          "**/dist/**",
+          "**/build/**"
+        ],
+        "testMatch": [
+          "**/foundation-tls.spec.ts",
+          "**/ui-shell.spec.ts",
+          "**/presentation.spec.ts",
+          "**/guest-introduction.spec.ts",
+          "**/verbs-inventory.spec.ts",
+          "**/dialogue.spec.ts",
+          "**/notebook.spec.ts",
+          "**/navigation.spec.ts",
+          "**/packet-controls.spec.ts",
+          "**/title.spec.ts",
+          "**/packet-introduction.spec.ts",
+          "**/physical-boundaries.spec.ts",
+          "**/introduction-graybox.spec.ts",
+          "**/finished-room.spec.ts",
+          "**/save-dialogs.spec.ts",
+          "**/account-settings.spec.ts",
+          "**/single-save.spec.ts",
+          "**/logout.spec.ts",
+          "**/account-deletion.spec.ts",
+          "**/first-repair-route.spec.ts",
+          "**/independent-repair-routes.spec.ts"
+        ],
+        "timeout": 20000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/Users/john.capobianco/Network-Quest/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "firefox-local-https",
+        "testDir": "/Users/john.capobianco/Network-Quest/tests/e2e",
+        "snapshotDir": "/Users/john.capobianco/Network-Quest/tests/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/vendor/**",
+          "**/.local/**",
+          "**/.runtime/**",
+          "**/dist/**",
+          "**/build/**"
+        ],
+        "testMatch": [
+          "**/foundation-tls.spec.ts",
+          "**/ui-shell.spec.ts",
+          "**/presentation.spec.ts",
+          "**/guest-introduction.spec.ts",
+          "**/verbs-inventory.spec.ts",
+          "**/dialogue.spec.ts",
+          "**/notebook.spec.ts",
+          "**/navigation.spec.ts",
+          "**/packet-controls.spec.ts",
+          "**/title.spec.ts",
+          "**/packet-introduction.spec.ts",
+          "**/physical-boundaries.spec.ts",
+          "**/introduction-graybox.spec.ts",
+          "**/finished-room.spec.ts",
+          "**/save-dialogs.spec.ts",
+          "**/account-settings.spec.ts",
+          "**/single-save.spec.ts",
+          "**/logout.spec.ts",
+          "**/account-deletion.spec.ts",
+          "**/first-repair-route.spec.ts",
+          "**/independent-repair-routes.spec.ts"
+        ],
+        "timeout": 20000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4173/arcade/play/network-quest/",
+          "ignoreHTTPSErrors": false,
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:159.0) Gecko/20100101 Firefox/159.0",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "firefox"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "firefox-local-https"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.65.1",
+    "workers": 1,
+    "webServer": {
+      "command": "node node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 4173",
+      "url": "http://127.0.0.1:4173/arcade/play/network-quest/",
+      "reuseExistingServer": false,
+      "timeout": 20000,
+      "gracefulShutdown": {
+        "signal": "SIGTERM",
+        "timeout": 2000
+      },
+      "env": {
+        "VITE_GAME_BASE": "/arcade/play/network-quest/",
+        "VITE_API_BASE": "/arcade/play/network-quest/api/v1"
+      }
+    }
+  },
+  "suites": [
+    {
+      "title": "first-repair-route.spec.ts",
+      "file": "first-repair-route.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "T078 guest replacement route uses fresh real evidence through R12",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-local-https",
+              "projectName": "firefox-local-https",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 11781,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('[aria-modal=\"true\"]')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m3\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" locator('[aria-modal=\"true\"]') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[aria-modal=\"true\"]')\u001b[22m\n\u001b[2m    14 × locator resolved to 3 elements\u001b[22m\n\u001b[2m       - unexpected value \"3\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('[aria-modal=\"true\"]')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m3\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" locator('[aria-modal=\"true\"]') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[aria-modal=\"true\"]')\u001b[22m\n\u001b[2m    14 × locator resolved to 3 elements\u001b[22m\n\u001b[2m       - unexpected value \"3\"\u001b[22m\n\n    at Object.windowBehavior (/Users/john.capobianco/Network-Quest/tests/e2e/first-repair-route.spec.ts:294:55)\n    at /Users/john.capobianco/Network-Quest/tests/e2e/first-repair-route.spec.ts:82:19",
+                    "location": {
+                      "file": "/Users/john.capobianco/Network-Quest/tests/e2e/first-repair-route.spec.ts",
+                      "column": 55,
+                      "line": 294
+                    },
+                    "snippet": " \u001b[90m 292 |\u001b[39m   \u001b[36mconst\u001b[39m windowBehavior \u001b[33m=\u001b[39m \u001b[36masync\u001b[39m (name\u001b[33m:\u001b[39m \u001b[32m'Diagnostics'\u001b[39m \u001b[33m|\u001b[39m \u001b[32m'Validate repair'\u001b[39m) \u001b[33m=>\u001b[39m {\n \u001b[90m 293 |\u001b[39m     \u001b[36mconst\u001b[39m panel \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'dialog'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 294 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'[aria-modal=\"true\"]'\u001b[39m))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 295 |\u001b[39m     expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.nq-game-toolbar'\u001b[39m)\u001b[33m.\u001b[39mevaluate(el \u001b[33m=>\u001b[39m \u001b[33m!\u001b[39m\u001b[33m!\u001b[39mel\u001b[33m.\u001b[39mclosest(\u001b[32m'[inert]'\u001b[39m)))\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 296 |\u001b[39m     \u001b[36mconst\u001b[39m game \u001b[33m=\u001b[39m panel\u001b[33m.\u001b[39mlocator(\u001b[32m'.nq-panel-game'\u001b[39m)\u001b[33m;\u001b[39m \u001b[36mawait\u001b[39m game\u001b[33m.\u001b[39mpress(\u001b[32m'Enter'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 297 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'dialog'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Game menu'\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoHaveAttribute(\u001b[32m'aria-modal'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'true'\u001b[39m)\u001b[33m;\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/john.capobianco/Network-Quest/tests/e2e/first-repair-route.spec.ts",
+                        "column": 55,
+                        "line": 294
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('[aria-modal=\"true\"]')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m3\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" locator('[aria-modal=\"true\"]') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[aria-modal=\"true\"]')\u001b[22m\n\u001b[2m    14 × locator resolved to 3 elements\u001b[22m\n\u001b[2m       - unexpected value \"3\"\u001b[22m\n\n\n  292 |   const windowBehavior = async (name: 'Diagnostics' | 'Validate repair') => {\n  293 |     const panel = page.getByRole('dialog', { name, exact: true });\n> 294 |     await expect(page.locator('[aria-modal=\"true\"]')).toHaveCount(1);\n      |                                                       ^\n  295 |     expect(await page.locator('.nq-game-toolbar').evaluate(el => !!el.closest('[inert]'))).toBe(true);\n  296 |     const game = panel.locator('.nq-panel-game'); await game.press('Enter');\n  297 |     await expect(page.getByRole('dialog', { name: 'Game menu', exact: true })).toHaveAttribute('aria-modal', 'true');\n    at Object.windowBehavior (/Users/john.capobianco/Network-Quest/tests/e2e/first-repair-route.spec.ts:294:55)\n    at /Users/john.capobianco/Network-Quest/tests/e2e/first-repair-route.spec.ts:82:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-27T02:20:55.252Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/john.capobianco/Network-Quest/test-results/first-repair-route-T078-gu-29664-h-real-evidence-through-R12-firefox-local-https/test-failed-1.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/john.capobianco/Network-Quest/test-results/first-repair-route-T078-gu-29664-h-real-evidence-through-R12-firefox-local-https/test-failed-2.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/john.capobianco/Network-Quest/test-results/first-repair-route-T078-gu-29664-h-real-evidence-through-R12-firefox-local-https/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/john.capobianco/Network-Quest/test-results/first-repair-route-T078-gu-29664-h-real-evidence-through-R12-firefox-local-https/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/john.capobianco/Network-Quest/tests/e2e/first-repair-route.spec.ts",
+                    "column": 55,
+                    "line": 294
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "29c1fb4a1b2561abe65c-ac95539c4336c650339b",
+          "file": "first-repair-route.spec.ts",
+          "line": 26,
+          "column": 3
+        },
+        {
+          "title": "T078 keyboard alternate route with saved restoration uses fresh real evidence through R12",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-local-https",
+              "projectName": "firefox-local-https",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 10561,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('[aria-modal=\"true\"]')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m3\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" locator('[aria-modal=\"true\"]') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[aria-modal=\"true\"]')\u001b[22m\n\u001b[2m    14 × locator resolved to 3 elements\u001b[22m\n\u001b[2m       - unexpected value \"3\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('[aria-modal=\"true\"]')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m3\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" locator('[aria-modal=\"true\"]') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[aria-modal=\"true\"]')\u001b[22m\n\u001b[2m    14 × locator resolved to 3 elements\u001b[22m\n\u001b[2m       - unexpected value \"3\"\u001b[22m\n\n    at Object.windowBehavior (/Users/john.capobianco/Network-Quest/tests/e2e/first-repair-route.spec.ts:294:55)\n    at /Users/john.capobianco/Network-Quest/tests/e2e/first-repair-route.spec.ts:82:19",
+                    "location": {
+                      "file": "/Users/john.capobianco/Network-Quest/tests/e2e/first-repair-route.spec.ts",
+                      "column": 55,
+                      "line": 294
+                    },
+                    "snippet": " \u001b[90m 292 |\u001b[39m   \u001b[36mconst\u001b[39m windowBehavior \u001b[33m=\u001b[39m \u001b[36masync\u001b[39m (name\u001b[33m:\u001b[39m \u001b[32m'Diagnostics'\u001b[39m \u001b[33m|\u001b[39m \u001b[32m'Validate repair'\u001b[39m) \u001b[33m=>\u001b[39m {\n \u001b[90m 293 |\u001b[39m     \u001b[36mconst\u001b[39m panel \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'dialog'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 294 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'[aria-modal=\"true\"]'\u001b[39m))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 295 |\u001b[39m     expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.nq-game-toolbar'\u001b[39m)\u001b[33m.\u001b[39mevaluate(el \u001b[33m=>\u001b[39m \u001b[33m!\u001b[39m\u001b[33m!\u001b[39mel\u001b[33m.\u001b[39mclosest(\u001b[32m'[inert]'\u001b[39m)))\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 296 |\u001b[39m     \u001b[36mconst\u001b[39m game \u001b[33m=\u001b[39m panel\u001b[33m.\u001b[39mlocator(\u001b[32m'.nq-panel-game'\u001b[39m)\u001b[33m;\u001b[39m \u001b[36mawait\u001b[39m game\u001b[33m.\u001b[39mpress(\u001b[32m'Enter'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 297 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'dialog'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Game menu'\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoHaveAttribute(\u001b[32m'aria-modal'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'true'\u001b[39m)\u001b[33m;\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/john.capobianco/Network-Quest/tests/e2e/first-repair-route.spec.ts",
+                        "column": 55,
+                        "line": 294
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('[aria-modal=\"true\"]')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m3\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" locator('[aria-modal=\"true\"]') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[aria-modal=\"true\"]')\u001b[22m\n\u001b[2m    14 × locator resolved to 3 elements\u001b[22m\n\u001b[2m       - unexpected value \"3\"\u001b[22m\n\n\n  292 |   const windowBehavior = async (name: 'Diagnostics' | 'Validate repair') => {\n  293 |     const panel = page.getByRole('dialog', { name, exact: true });\n> 294 |     await expect(page.locator('[aria-modal=\"true\"]')).toHaveCount(1);\n      |                                                       ^\n  295 |     expect(await page.locator('.nq-game-toolbar').evaluate(el => !!el.closest('[inert]'))).toBe(true);\n  296 |     const game = panel.locator('.nq-panel-game'); await game.press('Enter');\n  297 |     await expect(page.getByRole('dialog', { name: 'Game menu', exact: true })).toHaveAttribute('aria-modal', 'true');\n    at Object.windowBehavior (/Users/john.capobianco/Network-Quest/tests/e2e/first-repair-route.spec.ts:294:55)\n    at /Users/john.capobianco/Network-Quest/tests/e2e/first-repair-route.spec.ts:82:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-27T02:21:07.778Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/john.capobianco/Network-Quest/test-results/first-repair-route-T078-ke-e1e3c-h-real-evidence-through-R12-firefox-local-https/test-failed-1.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/john.capobianco/Network-Quest/test-results/first-repair-route-T078-ke-e1e3c-h-real-evidence-through-R12-firefox-local-https/test-failed-2.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/john.capobianco/Network-Quest/test-results/first-repair-route-T078-ke-e1e3c-h-real-evidence-through-R12-firefox-local-https/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/john.capobianco/Network-Quest/test-results/first-repair-route-T078-ke-e1e3c-h-real-evidence-through-R12-firefox-local-https/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/john.capobianco/Network-Quest/tests/e2e/first-repair-route.spec.ts",
+                    "column": 55,
+                    "line": 294
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "29c1fb4a1b2561abe65c-9eeaa3cb81800a6752c7",
+          "file": "first-repair-route.spec.ts",
+          "line": 26,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "independent-repair-routes.spec.ts",
+      "file": "independent-repair-routes.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "T081 independent fiber route reaches validated R12 and restores its one PHP save",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-local-https",
+              "projectName": "firefox-local-https",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14780,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-27T02:21:18.768Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "be15dd5be0c755674354-fac9893d57f4b7e0a317",
+          "file": "independent-repair-routes.spec.ts",
+          "line": 12,
+          "column": 3
+        },
+        {
+          "title": "T081 independent radio route reaches validated R12 and restores its one PHP save",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-local-https",
+              "projectName": "firefox-local-https",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14902,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-27T02:21:33.556Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "be15dd5be0c755674354-c2e7bf9317154fbfc375",
+          "file": "independent-repair-routes.spec.ts",
+          "line": 12,
+          "column": 3
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-27T02:20:54.818Z",
+    "duration": 53695.322,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

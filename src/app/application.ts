@@ -30,6 +30,9 @@ import type { HotspotBinding } from '../ui/verbs';
 import { guardedPlan, reductionPlan, unavailable } from '../ui/controller-store';
 import { createDiagnosticsController, createDiagnosticsPanel } from '../ui/diagnostics';
 import { createRepairPlanController, createRepairPlanPanel } from '../ui/repair-plan';
+import { createEpiloguePanel, projectAcceptedNarrative } from '../ui/epilogue';
+import type { EpilogueProjection } from '../ui/epilogue';
+import { createRecoveryController, createRecoveryPanel } from '../ui/recovery';
 import { copperEffectBindings, createCopperScenarioResolver } from '../state/copper-scenario';
 import { fiberEffectBindings, createFiberScenarioResolver, prepareFiberAction } from '../state/fiber-scenario';
 import { radioEffectBindings, createRadioScenarioResolver, prepareRadioAction } from '../state/radio-scenario';
@@ -37,7 +40,14 @@ import { createEquipmentScenarioResolver, equipmentInteractionBindings, inspectC
 import { objectiveEffectBindings } from '../state/objectives';
 import type { ObjectiveScenarioResolver } from '../state/objectives';
 import { createRepairScenarioResolver, repairEffectBindings } from '../state/repair-plan';
+import { allowRiftEncounterInput, isActiveRiftEncounter } from '../state/rift-encounter';
+import { captureOutcomeContext, createOutcomeController } from '../state/outcomes';
+import { createRiftHazardController } from '../state/rift-hazard';
+import { validateEndingsContent } from '../content/endings';
+import { createRiftHazardPlan } from '../ui/rift-hazard';
+import { allowRiftEncounterAction, createEncounterClassificationPlan, createEncounterExecutionPlan, createRiftEncounterNavigation } from '../ui/encounter';
 import routeNotebook from '../../content/spec001/notebook-first-route.json';
+import endingsDocument from '../../content/spec001/endings.json';
 import introLayouts from '../../content/spec001/presentation/introduction-graybox.json';
 import routeLayouts from '../../content/spec001/presentation/first-route-graybox.json';
 import { createIntroductionGraybox, type GrayboxGeometry, type IntroductionGrayboxView } from '../presentation/introduction-graybox';
@@ -84,7 +94,8 @@ export function createIntroductionApplication(host: HTMLElement) {
   const navigation = createNavigation({ registry, world, entries: episodeNavigationEntries(registry, world) });
   let state = createReducerState(createIntroductionRuntime());
   const store = { getState: () => state,
-    reduce: createTutorialReducer({ registry, reduce: createReducer({ registry, bindings: effectBindings, objectiveScenario, repairScenario, canReachRoom: navigation.canReachRoom }), nextActionId: () => crypto.randomUUID() as ActionId }),
+    reduce: createTutorialReducer({ registry, reduce: createReducer({ registry, bindings: effectBindings, objectiveScenario, repairScenario, canReachRoom: navigation.canReachRoom,
+      allowDuringEncounter: allowRiftEncounterInput }), nextActionId: () => crypto.randomUUID() as ActionId }),
     // Controllers finish their own transient session updates after this returns.
     compareAndSet: (expected: ReducerState, next: ReducerState) => { if (state !== expected) return false; state = next; return true; },
   };
@@ -110,21 +121,34 @@ export function createIntroductionApplication(host: HTMLElement) {
       },
     })));
   });
-  const notebook = createNotebookController({ registry, store, bus, presentation: routeNotebook });
+  const notebook = createNotebookController({ registry, store, bus, presentation: routeNotebook, allowDuringEncounter: allowRiftEncounterAction });
   const dialogue = createDialogueController({ registry, store, bus, bindings: introductionDialogueBindings, effectBindings });
-  const diagnostics = createDiagnosticsController({ registry, store, bus, resolveScenario: objectiveScenario });
-  const repair = createRepairPlanController({ registry, store, bus, resolveScenario: repairScenario });
+  const diagnostics = createDiagnosticsController({ registry, store, bus, resolveScenario: objectiveScenario, allowDuringEncounter: allowRiftEncounterAction });
+  const outcomes = createOutcomeController({ registry, repairScenario });
+  const checkedEndings = validateEndingsContent(endingsDocument);
+  if (!checkedEndings.ok) throw new Error('The ending and fictional danger descriptions could not be validated.');
+  const endings = checkedEndings.value, hazards = createRiftHazardController({ registry, content: endings });
+  const unsubscribeHazard = bus.register('commit-rift-hazard', action => createRiftHazardPlan({ controller: hazards, store, action, before: store.getState() }));
+  const repair = createRepairPlanController({ registry, store, bus, resolveScenario: repairScenario, allowDuringEncounter: allowRiftEncounterAction,
+    hazard: hazards.offer,
+    executePlan: (action, before, message) => createEncounterExecutionPlan({ registry, store, action, before, message }),
+    classifyPlan: (action, before, message) => createEncounterClassificationPlan({ controller: outcomes, store, action, before, message }) });
   const inventory = createInventoryController({ registry, store, bus });
   const packet = createPacketActivityController({ registry, store, bus });
   const sceneBindings = bindings.hotspots.filter(binding => !(binding.roomId === q('R01') && binding.hotspotId === q('HOTSPOT-capsule') && binding.actionId === q('ACTION-packet-context')));
-  const verbs = createVerbController({ registry, store, bus, bindings: [...sceneBindings, ...copperBindings, ...branchBindings, ...equipmentBindings.hotspots, ...notebook.hotspotBindings, ...dialogue.hotspotBindings, ...packet.hotspotBindings],
-    walk: createNavigationPlanner({ navigation, store }), sceneObjects: createSceneObjectProjection({ registry, navigation }), panels: notebook.panels });
+  const normalWalk = createNavigationPlanner({ navigation, store }), encounterNavigation = createRiftEncounterNavigation({ navigation, store });
+  const verbs = createVerbController({ registry, store, bus, allowDuringEncounter: allowRiftEncounterAction,
+    bindings: [...sceneBindings, ...copperBindings, ...branchBindings, ...equipmentBindings.hotspots, ...notebook.hotspotBindings, ...dialogue.hotspotBindings, ...packet.hotspotBindings],
+    walk: (...args) => isActiveRiftEncounter(args[2]) ? encounterNavigation.plan(...args) : normalWalk(...args),
+    sceneObjects: createSceneObjectProjection({ registry, navigation, resolveDuringEncounter: encounterNavigation.resolve }), panels: notebook.panels });
   const mediaHost = host.ownerDocument.createElement('div');
   const menuHost = host.ownerDocument.createElement('div'), saveHost = host.ownerDocument.createElement('div'), settingsHost = host.ownerDocument.createElement('div'), adventureHost = host.ownerDocument.createElement('div'); host.replaceChildren(menuHost, mediaHost, saveHost, settingsHost, adventureHost);
   adventureHost.className = 'nq-adventure-host';
   const frame = createAdventureFrame(host, { menu: menuHost, saves: saveHost, settings: settingsHost, sound: mediaHost, adventure: adventureHost });
   const dismissedCompletions = new Set<string>();
-  const createPanels = () => {
+  let recovery: ReturnType<typeof createRecoveryController> | null = null;
+  let narrativeProjection: EpilogueProjection<() => void> | null = null, narrativeState: ReducerState | null = null;
+  const createPanels = (retainedEpilogue?: ReturnType<typeof createEpiloguePanel<() => void>>) => {
     const shell = createAppShell(adventureHost, bus);
     const pool = createResourcePool<GrayboxGeometry>({ maxEntries: 2, maxInFlight: 1, maxPrefetch: 0, maxLeases: 2, maxBytes: 32_768 });
     const layouts = { version: 1, rooms: [...introLayouts.rooms, ...routeLayouts.rooms] };
@@ -171,6 +195,18 @@ export function createIntroductionApplication(host: HTMLElement) {
     }, { signal: events.signal });
     const pause = () => { grayAdapter.setPaused(host.ownerDocument.hidden); finishedAdapter.setPaused(host.ownerDocument.hidden); };
     host.ownerDocument.addEventListener('visibilitychange', pause, { signal: events.signal }); pause();
+    // First visible gameplay dialog owns the frame. A recovery confirmation
+    // therefore precedes the epilogue that opened it, while both keep their own
+    // captured commands and local presentation state.
+    const recoveryPanel = createRecoveryPanel(shell.panelHost, {
+      confirm: confirmation => { const result = recovery?.confirm(confirmation); if (result?.ok && result.action === 'rollback') panels.shell.announce(result.message); },
+      cancel: confirmation => { recovery?.cancel(confirmation); },
+      isCurrent: confirmation => recovery?.project() === confirmation,
+    });
+    const epilogue = retainedEpilogue ?? createEpiloguePanel<() => void>(shell.panelHost, {
+      dispatch: command => command(), isCurrent: projection => projection === narrativeProjection && state === narrativeState,
+    });
+    if (retainedEpilogue) epilogue.mount(shell.panelHost);
     return { shell, sound, react: finished.react, show: (view: IntroductionGrayboxView) => {
       if (roomId !== view.roomId) { activeAdapter().hide(); roomId = view.roomId; }
       activeAdapter().show(view, { mode, detail, reducedMotion: reducedMotion() });
@@ -182,6 +218,7 @@ export function createIntroductionApplication(host: HTMLElement) {
         repairButton.textContent = currentRoom === q('R12') ? 'Validate repair' : 'Repair plan';
       },
       disposeScene: () => { events.abort(); grayAdapter.dispose(); finishedAdapter.dispose(); graybox.dispose(); finished.dispose(); pool.dispose(); mediaPool.dispose(); sound.dispose(); visualControls.remove(); },
+      epilogue, recovery: recoveryPanel,
       notebook: createNotebookPanel(shell.panelHost, bus), dialogue: createDialoguePanel(shell.panelHost, bus), inventory: createInventoryPanel(shell.panelHost, bus),
       diagnostics: createDiagnosticsPanel(shell.panelHost, bus, closeActivity), repair: createRepairPlanPanel(shell.panelHost, bus, closeActivity),
       packet: createPacketJourneyPanel(shell.panelHost, bus, { reducedMotion: () => {
@@ -189,7 +226,7 @@ export function createIntroductionApplication(host: HTMLElement) {
         return preference === 'on' || (preference === 'system' && host.ownerDocument.defaultView?.matchMedia('(prefers-reduced-motion: reduce)').matches === true);
       } }) };
   };
-  const disposePanels = () => { panels.disposeScene(); panels.packet.dispose(); panels.inventory.dispose(); panels.dialogue.dispose(); panels.notebook.dispose(); panels.diagnostics.dispose(); panels.repair.dispose(); panels.shell.dispose(); };
+  const disposePanels = (retainEpilogue = false) => { panels.disposeScene(); panels.packet.dispose(); panels.inventory.dispose(); panels.dialogue.dispose(); panels.notebook.dispose(); panels.diagnostics.dispose(); panels.repair.dispose(); panels.recovery.dispose(); if (!retainEpilogue) panels.epilogue.dispose(); panels.shell.dispose(); };
   let panels = createPanels();
   let projectedGame = state.runtime.game, capture = bus.captureScope(contextFromRuntime(state.runtime)), disposed = false, focusRoom = false, installing = false;
   const window = host.ownerDocument.defaultView!;
@@ -207,7 +244,12 @@ export function createIntroductionApplication(host: HTMLElement) {
     if (!settingsInstallation) accountSettings?.invalidateView();
     autosave?.invalidateView(); dismissedCompletions.clear();
     activityPanel = null; activityRoom = null; diagnostics.invalidate(); repair.invalidate(); packet.invalidate(); dialogue.invalidate(); notebook.invalidate(); bus.invalidate();
-    disposePanels(); panels = createPanels(); projectedGame = null; capture = bus.captureScope(contextFromRuntime(state.runtime));
+    recovery?.invalidate(); narrativeProjection = null; narrativeState = null;
+    const retainedEpilogue = panels.epilogue;
+    // Capture presentation before removing the old shell; moving a focused DOM
+    // node can otherwise send focus to body even when its story is unchanged.
+    retainedEpilogue.mount(adventureHost);
+    disposePanels(true); panels = createPanels(retainedEpilogue); projectedGame = null; capture = bus.captureScope(contextFromRuntime(state.runtime));
   };
   const saves = createSaveDialogsController({ api, account, coordinator, store, changed: () => render(), invalidateGameplay,
     restore: (review, view) => {
@@ -227,6 +269,25 @@ export function createIntroductionApplication(host: HTMLElement) {
     installing = false;
     return true;
   }, services: { available: !!api, save: () => { void saves.save(); }, continue: () => { void saves.continue(); }, signIn: provider => { void saves.signIn(provider); } } });
+  recovery = createRecoveryController({ registry, store, outcomes, hazards,
+    restore: { available: () => !!api && !!coordinator && !accountSettings?.busy,
+      continue: () => saves.continue(), signIn: () => { void saves.continue(); } },
+    changed: () => render(), afterRollback: () => {
+      // Keep the ordinary save coordinator and any prior pending write intact.
+      // Recovery installed its complete new attempt before this callback.
+      // These controllers notify synchronously. Reconcile the complete UI once
+      // through recovery.changed, after all old scopes have been retired; three
+      // intermediate renders would exhaust the bounded room preparation pool.
+      installing = true;
+      try {
+        activityPanel = null; activityRoom = null; diagnostics.invalidate(); repair.invalidate(); packet.invalidate(); dialogue.invalidate(); notebook.invalidate(); bus.invalidate();
+        saves.retireAdventureReview();
+        narrativeProjection = null; narrativeState = null; projectedGame = null;
+        // Preserve this adventure's already-declined guest sign-in invitation.
+        title.act('cancel');
+      } finally { installing = false; }
+    },
+  });
   const deletionAccount = api ? new AccountService(api, browserAccountWindowPort(window)) : null;
   accountSettings = api && deletionAccount ? createAccountSettingsController({ api, account: deletionAccount, getState: store.getState, changed: () => render(),
     lifecycle: {
@@ -334,6 +395,8 @@ export function createIntroductionApplication(host: HTMLElement) {
       preferenceReviewRequired = false; preferenceMessage = 'Account presentation preferences loaded.';
     }
     const game = state.runtime.game;
+    const narrative = projectAcceptedNarrative(endings, state, { outcomes, hazards });
+    if (narrative) activityPanel = null;
     if ((game?.world.roomId ?? null) !== activityRoom) { activityRoom = game?.world.roomId ?? null; activityPanel = null; }
     panels.contextual(game?.world.roomId);
     panels.sound.show(game?.world.roomId ?? null, presentation, preferenceMessage, { authenticated: matchingPreferenceSession(), busy: !!preferenceOperation || accountSettings?.busy === true, reviewRequired: preferenceReviewRequired });
@@ -365,6 +428,25 @@ export function createIntroductionApplication(host: HTMLElement) {
     const objectiveId = routeObjective(game?.world.roomId);
     panels.diagnostics.render(activityPanel === 'diagnostics' && objectiveId ? diagnostics.project(objectiveId) : null);
     panels.repair.render(activityPanel === 'repair' ? repair.project() : null);
+    narrativeState = state;
+    narrativeProjection = narrative && recovery ? { ...narrative, content: endings, ...recovery.availability(state), capture: intent => {
+      const before = state;
+      if (intent === 'continue' && narrative.view.kind === 'ending' && narrative.view.outcome !== 'E03') {
+        const context = captureOutcomeContext(before);
+        return () => {
+          if (disposed || state !== before || accountSettings?.busy || !context) { render(); return; }
+          const prepared = outcomes.prepareDismissal(before, context);
+          if (!prepared.ok || !outcomes.commit(store, prepared.change).ok) { render(); return; }
+          activityPanel = null; render();
+          // Only the actual successful Continue dismisses completion feedback.
+          autosave?.objectiveFeedbackDismissed();
+        };
+      }
+      const command = recovery!.capture(intent);
+      return () => { if (!disposed && state === before && !accountSettings?.busy && command) recovery!.request(command); else render(); };
+    } } : null;
+    panels.epilogue.render(narrativeProjection);
+    panels.recovery.render(recovery?.project() ?? null);
     // Focus the invitation only after the panel that just closed restores focus.
     menu.render(title.project());
     // Coordinator events and ordinary reducer edits both update save status.
@@ -394,7 +476,7 @@ export function createIntroductionApplication(host: HTMLElement) {
     if (input.kind === 'replay-dialogue' && input.dialogueId === q('DIALOGUE-photon-intro')) panels.sound.trigger('photon');
   }), unsubscribeAutosave = autosave?.subscribe(() => render()); render(); void saves.bootstrap();
   return { dispose() {
-    if (disposed) return; disposed = true; unsubscribe(); diagnostics.dispose(); repair.dispose(); packet.dispose(); dialogue.dispose(); notebook.dispose(); inventory.dispose(); verbs.dispose();
-    unsubscribeAutosave?.(); accountSettings?.dispose(); autosavePanel?.dispose(); settingsPanel?.dispose(); autosave?.dispose(); saves.dispose(); saveDialogs.dispose(); menu.dispose(); disposePanels(); frame.dispose(); bus.dispose();
+    if (disposed) return; disposed = true; unsubscribe(); unsubscribeHazard(); diagnostics.dispose(); repair.dispose(); packet.dispose(); dialogue.dispose(); notebook.dispose(); inventory.dispose(); verbs.dispose();
+    unsubscribeAutosave?.(); recovery?.dispose(); accountSettings?.dispose(); autosavePanel?.dispose(); settingsPanel?.dispose(); autosave?.dispose(); saves.dispose(); saveDialogs.dispose(); menu.dispose(); disposePanels(); frame.dispose(); bus.dispose();
   } };
 }

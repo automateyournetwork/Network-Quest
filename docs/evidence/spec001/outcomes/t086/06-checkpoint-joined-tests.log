@@ -1,0 +1,33 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/state/outcome-classification.test.ts tests/state/repair-plan.test.ts tests/state/encounter.test.ts tests/state/outcomes.test.ts tests/state/retry.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/state/repair-plan.test.ts (52 tests) 7779ms
+   ✓ T077 executed intervention and fresh final proof (52)
+     ✓ rejects structurally valid but unreviewed action-effect content 469ms
+     ✓ rejects structurally valid but unreviewed weakened-prerequisite content 469ms
+     ✓ rejects structurally valid but unreviewed alternate-condition content 469ms
+ ✓ tests/state/outcome-classification.test.ts (53 tests) 10946ms
+   ✓ T086 isolated outcome classification — actual repair predicates and reducer (28)
+     ✓ copper reaches each outcome with only its required branch 422ms
+     ✓ fiber reaches each outcome with only its required branch 406ms
+     ✓ radio reaches each outcome with only its required branch 423ms
+     ✓ retains 1 levels of assistance without changing any outcome 410ms
+     ✓ retains 2 levels of assistance without changing any outcome 400ms
+     ✓ retains 3 levels of assistance without changing any outcome 402ms
+     ✓ rejects each independent freshness corruption of physical evidence 808ms
+     ✓ rejects each independent freshness corruption of endpoint evidence 802ms
+   ✓ T086 opaque atomic state and authored Continue boundary (25)
+     ✓ rejects pending transitions, exhausted generation and full event histories before effects 600ms
+ ✓ tests/state/encounter.test.ts (59 tests) 570ms
+ ✓ tests/state/outcomes.test.ts (210 tests | 81 todo) 12ms
+ ✓ tests/state/retry.test.ts (133 tests | 45 todo) 10ms
+
+ Test Files  5 passed (5)
+      Tests  381 passed | 126 todo (507)
+   Start at  20:48:15
+   Duration  21.49s (tests 92%, import 8%)
+

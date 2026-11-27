@@ -1,0 +1,36 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/ui/recovery-save.test.ts (11 tests) 604ms
+ ✓ tests/ui/save-dialogs.test.ts (24 tests) 12225ms
+   ✓ T050 save dialogs composed with accepted API/account/coordinator/reader (24)
+     ✓ requires explicit first adoption after authenticated GET and empty read; cancellation keeps memory and sends no write 512ms
+     ✓ shows summary and explicit different-adventure load/replace/cancel; restore replaces exact notes and clears transient state 430ms
+     ✓ rejects a stale local-edit load or replacement confirmation 847ms
+     ✓ binds replacement to reviewed ETag, server adventure and a new request key 404ms
+     ✓ Continue reads and validates without starting a new run and warns before discarding unsaved progress 405ms
+     ✓ newer or invalid snapshots retain the read and offer neither load nor replacement 846ms
+     ✓ ignores late slot reads after whole-view invalidation, even with the same adventure and counters 446ms
+     ✓ keeps an unknown write frozen after Keep Playing and retry sends identical bytes/key despite newer edits 424ms
+     ✓ 412 never reuses consent: a fresh review and second explicit replacement decision are required 406ms
+     ✓ unconfigured service leaves guest gameplay intact and performs no save or provider navigation 409ms
+     ✓ popup reservation is synchronous; blocked recovery is explicit, and cancellation retains notes 402ms
+     ✓ GET session alone establishes identity; identical provider/display labels never preserve an old owned view 406ms
+     ✓ ignores AccountService observations from a separate non-login flow 406ms
+     ✓ manual session recovery after a retained login adopts guest progress without writing 877ms
+     ✓ New Adventure suppression survives binding an opted-in account and does not replace the slot 875ms
+     ✓ read drift after a same-ID restore stays a conflict and cannot authorize an automatic overwrite 412ms
+     ✓ safe-state capture rejects dialogue transactions without writing 434ms
+     ✓ a late acknowledgement cannot paint Saved after explicit same-adventure view replacement 406ms
+     ✓ Cancel while a reviewed read is in flight prevents its late dialog or restore effect 829ms
+     ✓ a read-only session check cannot discard an unresolved frozen write 418ms
+     ✓ an expired read offers sign-in while retaining the adventure 412ms
+     ✓ a failed provider start can be retried explicitly without an intervening game reset 406ms
+     ✓ an older retained receipt displays conflict rather than Saved and requires current review 407ms
+     ✓ a freshly reviewed empty slot after drift still needs explicit consent and uses create precondition 406ms
+
+ Test Files  2 passed (2)
+      Tests  35 passed (35)
+   Start at  21:26:07
+   Duration  12.39s (tests 95%, import 4%)
+

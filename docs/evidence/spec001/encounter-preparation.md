@@ -1,3 +1,147 @@
+# T085 encounter preparation — shared integration and optional danger
+
+Date: 2026-11-26 (America/Toronto). Same worker `/root/loop098_t085`.
+**Ready for coordinator review; no self-acceptance.** T081/T084 acceptance
+unblocked the explicitly authorized shared join. T086's outcome/save-policy
+implementation is now accepted. This report adds evidence to the original
+isolated baseline below; its historical “held” statements no longer describe
+these completed shared hooks.
+
+## Current implementation
+
+The actual application now replaces T077's warning fragment inside its existing
+repair dialog and uses the private-checkpoint/real-execution adapter. The adapter
+publishes the checkpoint and successful `active-encounter` in one CAS. No
+checkpoint-only or safe postcommit intermediate state is observable. Failed
+physical validation, cancellation and lost CAS retain the entire original state.
+The exact preparation predicate rejects raw T077 postexecution even when its
+old activity label still says safe-preparation.
+
+Shared `controller-store.actionAvailable` and reducer `allowDuringEncounter`
+ports default closed, accept only exact `true`, and deny exceptions. Generic
+`playable()` and safe-state sets remain unchanged. Actual verbs, notebook,
+diagnostics, repair and scene-object controllers use the reviewed closed policy.
+The notebook remains available for notes, actual O01–O12 hints, objective pins,
+visited-room map selection, and passive evidence. Hint evaluation was separately
+verified to grant no objective/world rewards. Other exits, plan edits and
+unsupported operations remain unavailable with explicit encounter narration.
+
+`createRiftEncounterNavigation` verifies the actual authored R11→R12 edge and
+R12.entry geometry, then performs one active-preserving CAS. Fresh R12 link and
+endpoint proofs and classification context remain usable. T086's opaque
+classification port runs before the old preparation call, sampling its trusted
+scenario once. Missing endpoint proof, temporary-as-permanent rejection and
+malformed authored content retain their distinct existing explanations through
+`src/ui/repair-feedback.ts`; content errors grant no penalty or outcome.
+
+After owned E01/E02 feedback dismissal, safe Continue is saveable. An ordinary
+walk to a non-Continue destination clears `continueOutcome` while preserving
+classification, O12 and outcome history. This fixes the otherwise unsaveable
+R12→R11 result. Returning to R11 after resolution also no longer falsely says
+that exits and saving remain blocked.
+
+## Reviewed fictional danger
+
+`src/state/rift-hazard.ts` accepts only the validated T087 descriptor for the
+optional unstable R11 inspection ledge. It verifies game/content/room version,
+actual PR101 trench and PR107 barrier placement, exact precommit boundary and
+strict boolean acknowledgement. It stages T084's opaque checkpoint privately,
+then installs terminal-failure and checkpoint in one CAS. Game/world, inventory,
+notebook, outcome history, rewards and persistence are unchanged. This is an
+explicit fictional story choice, never a networking mistake classifier.
+
+The opaque receipt binds the exact `GameState` and `PreparationCheckpoint` in
+terminal-failure. Auth/UI/persistence container refreshes retain it; cloned or
+restored state, another checkpoint, retry or another phase cannot inherit it.
+The typed `commit-rift-hazard` action carries only hazard identity and explicit
+acknowledgement; extra effects/verdict fields are rejected. Canceled, invalidated,
+old-adventure, unchecked, replayed and lost-CAS intents cannot add another change.
+
+The application has one `hazards` controller, validated `endings`, and an owned
+bus registration. Its offer is projected into the existing repair panel. The
+separate checkbox is independent of ordinary execution acknowledgement. The
+safe platform alternative retires the controls and returns without gameplay
+mutation. No timer or extra menu was introduced. Hidden, inert, detached,
+retired, moved-fragment and moved-holder controls fail closed. Source ownership
+of `application.ts` transferred to T087 after these hooks froze; that worker owns
+the subsequent accepted-receipt narrative mount.
+
+## Actual verification
+
+- Isolated policy/execution baseline: 57 focused PASS, with earlier joined
+  210 PASS / 45 existing TODO. Its original source seals and native16 results
+  remain in the historical section below.
+- `tests/ui/encounter-integration.test.ts`: **18 PASS** at21:08:27, actual
+  canonical twelve-room registry, bus/controllers/reducer/navigation and live
+  production save policy. Supplied branch/equipment prerequisites begin at R10;
+  all later operations use actual captured actions. All three media routes,
+  no-ally conventional kit, atomic execution/navigation, current proofs,
+  notes/hints/pins/map, other-exit denial, save barriers, E01/E02 Continue and
+  ordinary return, classification feedback and content-error distinctions pass.
+- Targeted existing UI/reducer regressions: **88 PASS** at21:05:39 (repair9,
+  verbs11, notebook10, diagnostics12, scene objects8, reducer38).
+- New hazard state10 plus actual bus/UI4: **14 PASS**, final rerun21:19:01,
+  3.69s. Missing-module REDs were observed before each implementation. This
+  validates private staging, one real CAS, actual props/version and precommit
+  negatives, strict intent shape, context identity, unchanged memory and receipt
+  lifetime.
+- Strict inherited TypeScript over owned modules, shared dependencies and new
+  tests: **exit0** after the final native containment guard changes. The
+  temporary local config is removed after verification. Initial branded literal
+  mismatch in a test was corrected with the existing qualified-ID type.
+- Native pinned Firefox1572 (reports version159.0), isolated real repair panel:
+  **20 PASS, 0 FAIL, 0 page errors**, own ephemeral Vite/browser closed. No build,
+  owner preview, Safari, host or production surface was used.
+
+Native artifacts: [final report](encounter-preparation/hazard-dom.json),
+[clean four-RED report](encounter-preparation/hazard-reparent-red.json),
+[initial reparent report](encounter-preparation/hazard-reparent-initial-red.json),
+[390px/200%-text image](encounter-preparation/hazard-200-percent.png).
+The image was visually inspected: warning/checkbox wrap, the disabled danger
+choice and safe platform/Close actions remain reachable inside the scrollable
+panel, and width assertions show no horizontal overflow.
+
+The first14 native cases passed. Root then requested whole-fragment/holder and
+child reparent negatives for both ordinary preparation and optional danger.
+The initial run mixed genuine fragment failures with fixture contamination from
+moved nodes. After resetting the fixture's separate outside holder, **16 PASS /
+4 genuine FAIL** remained: moving either entire fragment or its holder could
+still dispatch. Both controls now require `host.contains(element)` and the
+owner requires `body.contains(holder)`; the unchanged child containment checks
+already denied moved buttons. Final20 PASS follows those production fixes.
+
+Other shared RED/GREEN evidence: initial6cases5RED/1PASS and expanded13cases
+12RED/1PASS exposed missing real ports; after controller join12PASS/1navigationRED
+then13PASS. Actual outcome tests initially waited on T086 and its caveat policy.
+Actual E01 Continue→walk failed with stale continueOutcome before the minimal
+reducer fix (21:06:20→21:06:29). Three classification explanation tests failed
+before the shared feedback formatter extraction, then passed21:07:28. Final
+18integration PASS follows the accepted live caveat-policy bridge.
+
+## Remaining acceptance boundaries
+
+T087 owns the full application epilogue mount and short fictional scene, using
+actual `outcomes.feedback(state)` or `hazards.failure(state)` receipts. T088 owns
+Retry, E03 Continue, distinct account Restore and unsaved warnings. T089 owns
+full application journey/recovery/save races. The scoped DOM harness does not
+claim those flows, provider/production acceptance, assistive technology/human
+review, G4, media completion or release readiness. No task checkbox/counter,
+shared HANDOFF/state, accepted oracle, Git, publication or deployment was edited
+by this worker. Root retains task acceptance.
+
+The additive [shared source seal](encounter-preparation/shared-source-seal.json)
+records current owned/shared modules, tests and native evidence. Application,
+T086 outcome/policy and T087 content files remain separately owned and are not
+represented as a frozen T085 final application seal.
+
+---
+
+## Historical isolated baseline before shared GO
+
+The remaining original report is preserved verbatim as historical evidence.
+Its held-composition statements and original source hashes describe that earlier
+isolated revision, not the current shared implementation above.
+
 # T085 encounter preparation — isolated implementation
 
 Date: 2026-11-26 (America/Toronto). Worker: `/root/loop098_t085`.

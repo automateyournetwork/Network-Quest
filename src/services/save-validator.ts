@@ -218,13 +218,15 @@ export interface SavePolicyRules {
   itemMaxQuantities: SaveContentPolicy['itemMaxQuantities'];
   measurementRules: SaveContentPolicy['measurementRules'];
   unsafeFlags: SaveContentPolicy['unsafeFlags'];
+  /** Explicit reviewed caveats must resolve to loaded authored evidence facts. */
+  caveatFactIds?: readonly string[];
 }
 
 /**
  * Bridge an already validated ContentRegistry into portable JSON for either runtime.
  * Metadata reserves identities; only authored rooms/anchors/objectives/items can be
- * current progress. Missing definitions never become permissions. Achievement and
- * caveat memberships stay empty until the content registry actually models them.
+ * current progress. Missing definitions never become permissions. Achievement
+ * membership stays empty; caveats require an explicit reviewed authored-fact map.
  */
 export function createSaveContentPolicy(registry: ContentRegistry, world: Readonly<S.world>, rules: SavePolicyRules): SaveContentPolicy {
   const members = Object.fromEntries(kinds.map(kind => [kind, []])) as unknown as SaveContentPolicy['members'];
@@ -301,6 +303,14 @@ export function createSaveContentPolicy(registry: ContentRegistry, world: Readon
   for (const [id, values] of Object.entries(rules.unsafeFlags)) {
     if (!p.members.flag.includes(id)) throw new Error('Unregistered unsafe marker policy');
     p.unsafeFlags[id] = [...values];
+  }
+  const caveats = rules.caveatFactIds ?? [];
+  if (!Array.isArray(caveats) || new Set(caveats).size !== caveats.length) throw new Error('Invalid reviewed caveat fact policy');
+  for (const id of caveats) {
+    // Registry metadata alone is insufficient: the actual loaded authored
+    // evidence must have contributed this fact through the loop above.
+    if (typeof id !== 'string' || !p.members.fact.includes(id)) throw new Error('Caveat policy requires a loaded authored fact');
+    add('caveat', id, 'fact');
   }
   return freeze(p);
 }

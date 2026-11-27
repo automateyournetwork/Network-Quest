@@ -1,0 +1,146 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/state/outcome-save-policy.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/state/outcome-save-policy.test.ts (14 tests | 14 failed) 71ms
+   ❯ T086 actual outcome portable save policy (14)
+     × maps only the two reviewed actual authored caveat facts 4ms
+     × rejects missing caveat fact policy instead of creating membership 1ms
+     × rejects unloaded caveat fact policy instead of creating membership 1ms
+     × rejects duplicate caveat fact policy instead of creating membership 0ms
+     × rejects changed reviewed caveat text in actual application policy 1ms
+     × rejects changed reviewed caveat room in actual application policy 0ms
+     × rejects changed reviewed caveat subjects in actual application policy 0ms
+     × rejects changed reviewed caveat rules in actual application policy 0ms
+     × rejects changed reviewed caveat freshness in actual application policy 0ms
+     × copper E01 and E02 save only after dismissal, then preserve history after ordinary authored walking 25ms
+     × fiber E01 and E02 save only after dismissal, then preserve history after ordinary authored walking 13ms
+     × radio E01 and E02 save only after dismissal, then preserve history after ordinary authored walking 13ms
+     × E03 world stays unsafe while its history survives actual T084 preparation rollback and validates in JS/PHP 5ms
+     × generated production policy also accepts actual E02 and retained E03 history in JS/PHP 5ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 14 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/outcome-save-policy.test.ts > T086 actual outcome portable save policy > maps only the two reviewed actual authored caveat facts
+AssertionError: expected [] to deeply equal [ …(2) ]
+
+- Expected
++ Received
+
+- [
+-   "spec001:FACT-repair-maintenance",
+-   "spec001:FACT-repair-isolation",
+- ]
++ []
+
+ ❯ tests/state/outcome-save-policy.test.ts:58:35
+     56|   it('maps only the two reviewed actual authored caveat facts', () => {
+     57|     const policy = introductionSavePolicy(registry, world);
+     58|     expect(policy.members.caveat).toEqual([q('FACT-repair-maintenance'…
+       |                                   ^
+     59|     const empty = createSaveContentPolicy(registry, world, introductio…
+     60|     expect(empty.members.caveat).toEqual([]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/state/outcome-save-policy.test.ts > T086 actual outcome portable save policy > rejects missing caveat fact policy instead of creating membership
+ FAIL  tests/state/outcome-save-policy.test.ts > T086 actual outcome portable save policy > rejects unloaded caveat fact policy instead of creating membership
+ FAIL  tests/state/outcome-save-policy.test.ts > T086 actual outcome portable save policy > rejects duplicate caveat fact policy instead of creating membership
+AssertionError: expected [Function] to throw an error
+ ❯ tests/state/outcome-save-policy.test.ts:65:128
+     63|     const ids = fault === 'missing' ? [q('FACT-invented')] : fault ===…
+     64|     const content = fault === 'unloaded' ? { ...registry, has: (kind: …
+     65|     expect(() => createSaveContentPolicy(content, world, { ...introduc…
+       |                                                                                                                                ^
+     66|   });
+     67|   it.each(['text', 'room', 'subjects', 'rules', 'freshness'] as const)…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  tests/state/outcome-save-policy.test.ts > T086 actual outcome portable save policy > rejects changed reviewed caveat text in actual application policy
+ FAIL  tests/state/outcome-save-policy.test.ts > T086 actual outcome portable save policy > rejects changed reviewed caveat room in actual application policy
+ FAIL  tests/state/outcome-save-policy.test.ts > T086 actual outcome portable save policy > rejects changed reviewed caveat subjects in actual application policy
+ FAIL  tests/state/outcome-save-policy.test.ts > T086 actual outcome portable save policy > rejects changed reviewed caveat rules in actual application policy
+ FAIL  tests/state/outcome-save-policy.test.ts > T086 actual outcome portable save policy > rejects changed reviewed caveat freshness in actual application policy
+AssertionError: expected [Function] to throw an error
+ ❯ tests/state/outcome-save-policy.test.ts:74:58
+     72|           : field === 'rules' ? { ruleIds: [q('PHY11')] } : { requires…
+     73|     } };
+     74|     expect(() => introductionSavePolicy(content, world)).toThrow();
+       |                                                          ^
+     75|   });
+     76|   it.each(['copper', 'fiber', 'radio'] as const)('%s E01 and E02 save …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  tests/state/outcome-save-policy.test.ts > T086 actual outcome portable save policy > copper E01 and E02 save only after dismissal, then preserve history after ordinary authored walking
+ FAIL  tests/state/outcome-save-policy.test.ts > T086 actual outcome portable save policy > fiber E01 and E02 save only after dismissal, then preserve history after ordinary authored walking
+ FAIL  tests/state/outcome-save-policy.test.ts > T086 actual outcome portable save policy > radio E01 and E02 save only after dismissal, then preserve history after ordinary authored walking
+AssertionError: {"ok":false,"code":"reference","path":"/outcomeHistory/0/caveatIds"}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ capture tests/state/outcome-save-policy.test.ts:51:47
+     49| function capture(f: ReturnType<typeof fixture>, policy: SaveContentPol…
+     50|   const checked = captureSafeSnapshot(f.state(), new SaveValidator([po…
+     51|   expect(checked.ok, JSON.stringify(checked)).toBe(true);
+       |                                               ^
+     52|   if (!checked.ok) throw new Error(JSON.stringify(checked)); return ch…
+     53| }
+ ❯ tests/state/outcome-save-policy.test.ts:81:87
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  tests/state/outcome-save-policy.test.ts > T086 actual outcome portable save policy > E03 world stays unsafe while its history survives actual T084 preparation rollback and validates in JS/PHP
+AssertionError: {"ok":false,"code":"reference","path":"/outcomeHistory/0/caveatIds"}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ capture tests/state/outcome-save-policy.test.ts:51:47
+     49| function capture(f: ReturnType<typeof fixture>, policy: SaveContentPol…
+     50|   const checked = captureSafeSnapshot(f.state(), new SaveValidator([po…
+     51|   expect(checked.ok, JSON.stringify(checked)).toBe(true);
+       |                                               ^
+     52|   if (!checked.ok) throw new Error(JSON.stringify(checked)); return ch…
+     53| }
+ ❯ tests/state/outcome-save-policy.test.ts:103:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  tests/state/outcome-save-policy.test.ts > T086 actual outcome portable save policy > generated production policy also accepts actual E02 and retained E03 history in JS/PHP
+AssertionError: {"ok":false,"code":"reference","path":"/outcomeHistory/0/caveatIds"}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ capture tests/state/outcome-save-policy.test.ts:51:47
+     49| function capture(f: ReturnType<typeof fixture>, policy: SaveContentPol…
+     50|   const checked = captureSafeSnapshot(f.state(), new SaveValidator([po…
+     51|   expect(checked.ok, JSON.stringify(checked)).toBe(true);
+       |                                               ^
+     52|   if (!checked.ok) throw new Error(JSON.stringify(checked)); return ch…
+     53| }
+ ❯ tests/state/outcome-save-policy.test.ts:110:79
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  14 failed (14)
+   Start at  21:07:33
+   Duration  657ms (import 82%, tests 12%, transform 6%)
+

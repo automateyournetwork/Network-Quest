@@ -19,7 +19,7 @@ import { conditionSatisfied } from './conditions';
 import { resolveEquipmentPreparation } from './equipment-scenarios';
 import type { ObjectiveScenario } from './objectives';
 import type { EffectBinding, RejectionReason, StateEffect } from './reducer';
-import type { ActivityState, GameState, Measurement } from './types';
+import type { ActivityState, GameState, Measurement, WorldState } from './types';
 
 export type RepairPlanId = 'copper-section' | 'copper-alternate' | 'fiber-A' | 'fiber-B' | 'radio-A' | 'radio-B' | 'shutdown';
 export type RepairClassification = 'permanent' | 'temporary' | 'shutdown';
@@ -52,6 +52,13 @@ const q = <T extends string = string>(id: string) => `spec001:${id}` as Qualifie
 const sourceId = q('DIALOGUE-repair-plan');
 export const repairFlags = Object.freeze({ selected: q<'flag'>('FLAG-repair-selected'), duration: q<'flag'>('FLAG-repair-duration'),
   executed: q<'flag'>('FLAG-repair-executed'), classification: q<'flag'>('FLAG-repair-classification') });
+/** Isolation installs nothing. Canonical proof uses no duration, without inventing a world flag. */
+export function repairMeasurementDuration(plan: RepairPlanId, world: WorldState): 'permanent' | 'temporary' | 'not-applicable' | null {
+  if (!Object.hasOwn(world.flags, repairFlags.duration)) return plan === 'shutdown' ? 'not-applicable' : null;
+  const duration = world.flags[repairFlags.duration];
+  if (duration !== 'permanent' && duration !== 'temporary') return null;
+  return plan === 'shutdown' ? 'not-applicable' : duration;
+}
 /** Read a committed classification, never infer success from position or a lamp. */
 export function repairClassification(game: GameState): RepairClassification | null {
   if (!game.world.completedObjectiveIds.includes(q('O12'))) return null;
@@ -210,6 +217,23 @@ function physical(registry: ContentRegistry, game: GameState, plan: RepairPlanId
   const evaluation = results.find(r => r.status === 'content-error') ?? results.find(r => r.status === 'invalid-input') ?? results.find(r => r.status === 'incorrect') ?? decision('correct', 'current-physical-checks-pass');
   return { evaluation: { ...evaluation, observations: results.flatMap(r => r.observations) }, readings };
 }
+/**
+ * Authoring preflight for an already executed intervention, before validating a
+ * learner's classification selection. Uses the same scoped physical checks;
+ * incorrect/missing learner evidence is not an authoring error and grants no
+ * result. The caller supplies its single trusted raw observation sample, never
+ * a verdict. No measurement, action, effect or world change is recorded here.
+ */
+export function validateRepairClassificationContent(registry: ContentRegistry, game: GameState, scenario: RepairScenario | null): 'content-error' | null {
+  try {
+    if (!configured(registry)) return 'content-error';
+    const o11 = registry.record(q('O11')), o12 = registry.record(q('O12'));
+    if (o11?.contentVersion !== game.contentVersion || o12?.contentVersion !== game.contentVersion) return 'content-error';
+    const plan = repairPlans.find(p => p.id === game.world.flags[repairFlags.executed]);
+    if (!plan || !scenario) return 'content-error';
+    return physical(registry, game, plan.id, scenario, true).evaluation.status === 'content-error' ? 'content-error' : null;
+  } catch { return 'content-error'; }
+}
 const operationFields: Record<RepairPlanOperation['kind'], readonly string[]> = { choose: ['kind', 'actionId'], review: ['kind', 'id'],
   execute: ['kind', 'reviewId', 'warningAcknowledged'], 'measure-link': ['kind', 'id'], 'test-endpoint': ['kind', 'id'], classify: ['kind', 'selection', 'linkId', 'endpointId'] };
 const uuid = (value: unknown) => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
@@ -267,8 +291,8 @@ export function prepareRepairPlanChange(registry: ContentRegistry, resolver: Rep
   if (game.world.roomId !== q(atRift ? 'R11' : 'R12')) return { ok: false, reason: 'precondition' };
   if (game.world.completedObjectiveIds.includes(q(atRift ? 'O11' : 'O12'))) return unchanged(decision('correct', 'repair-already-complete'));
   const planValue = game.world.flags[atRift ? repairFlags.selected : repairFlags.executed];
-  const plan = repairPlans.find(p => p.id === planValue), duration = game.world.flags[repairFlags.duration];
-  if (!plan || (duration !== 'permanent' && duration !== 'temporary')) return { ok: false, reason: 'invalid-input' };
+  const plan = repairPlans.find(p => p.id === planValue), duration = plan ? repairMeasurementDuration(plan.id, game.world) : null;
+  if (!plan || duration === null) return { ok: false, reason: 'invalid-input' };
   const objective = atRift ? o11 : o12, alternative = atRift ? o11.alternatives.find(a => a.id === q(`ACTION-O11-${plan.route ?? 'shutdown'}`)) : null;
   if (!conditionSatisfied(objective.prerequisite, game.world) || (alternative && !conditionSatisfied(alternative.condition, game.world))) return fail('prerequisite-unmet');
   if (!atRift && (!has('FACT-O11-execution') || (plan.route !== null && game.world.route !== plan.route))) return fail('intervention-record-missing');

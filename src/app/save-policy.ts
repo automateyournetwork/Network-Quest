@@ -3,6 +3,7 @@ import type { ContentRegistry } from '../content/registry';
 import type { world as WorldDocument } from '../content/schema-types.generated';
 import { createSaveContentPolicy, type SavePolicyRules } from '../services/save-validator';
 import { repairFlags } from '../state/repair-plan';
+import { outcomeCaveats } from '../state/outcomes';
 
 /**
  * Reviewed current authored rules, not the synthetic validator fixture. Kit quantity is
@@ -46,7 +47,8 @@ export const introductionSaveRules: SavePolicyRules = {
     conclusionCodes: objectiveCodes('O10', ['step-and-decode', 'notebook-and-replay']),
   }, 'spec001:STATE04': {
     readings: { ...repairReadings, 'Deliberate isolation proposed': 'count', 'Endpoint service acknowledged': 'count' },
-    conclusionCodes: [...repairCodes('review', [...routePlans, 'shutdown']), ...repairCodes('endpoint', routePlans)],
+    conclusionCodes: [...repairCodes('review', [...routePlans, 'shutdown']),
+      'repair:review:shutdown:not-applicable:correct', 'repair:review:shutdown:not-applicable:incorrect', ...repairCodes('endpoint', routePlans)],
   }, 'spec001:PHY11': {
     readings: { ...repairReadings, 'Recovered highlighted bits': 'bit', 'Differing highlighted positions': 'count' },
     conclusionCodes: repairCodes('link', routePlans),
@@ -55,5 +57,8 @@ export const introductionSaveRules: SavePolicyRules = {
 };
 
 export function introductionSavePolicy(registry: ContentRegistry, world: Readonly<WorldDocument>) {
-  return createSaveContentPolicy(registry, world, introductionSaveRules);
+  const caveats = outcomeCaveats(registry);
+  if (!caveats) throw new Error('Reviewed outcome caveat evidence is missing or changed');
+  return createSaveContentPolicy(registry, world, { ...introductionSaveRules,
+    caveatFactIds: [...caveats.E02, ...caveats.E03].map(caveat => caveat.id) });
 }

@@ -7,8 +7,8 @@ import { isMeasurementCurrent } from '../state/reducer';
 import type { GameState } from '../state/types';
 import { contextFromRuntime } from './action-bus';
 import type { ActionBus, ActionCapture, ActionDispatcher, ActionPlan, CapturedAction } from './action-bus';
-import { playable, reductionPlan, rejected, unavailable } from './controller-store';
-import type { GameplayStore } from './controller-store';
+import { actionAvailable, playable, reductionPlan, rejected, unavailable } from './controller-store';
+import type { ActiveActionAdmission, GameplayStore } from './controller-store';
 
 export interface DiagnosticsView {
   readonly objectiveId: ObjectiveId;
@@ -62,12 +62,12 @@ function feedback(reason: string, status: string) {
         : 'The current physical checks do not pass. Inspect the recorded readings and the supplied compatibility requirements.');
 }
 /** Captured immutable intent enters the same reducer/CAS boundary as every other tool. */
-export function createDiagnosticsController(options: { readonly registry: ContentRegistry; readonly store: GameplayStore; readonly bus: ActionBus; readonly resolveScenario: ObjectiveScenarioResolver }) {
-  const { registry, store, bus, resolveScenario } = options;
+export function createDiagnosticsController(options: { readonly registry: ContentRegistry; readonly store: GameplayStore; readonly bus: ActionBus; readonly resolveScenario: ObjectiveScenarioResolver; readonly allowDuringEncounter?: ActiveActionAdmission }) {
+  const { registry, store, bus, resolveScenario, allowDuringEncounter } = options;
   let projection: { game: GameState | null; capture: ActionCapture } | null = null;
   const handle = (action: CapturedAction): ActionPlan => {
     const before = store.getState(), game = before.runtime.game, intent = action.input;
-    if (!playable(before) || !game) return unavailable('unavailable-state', 'Finish the current activity before using diagnostics.');
+    if (!actionAvailable(before, intent, allowDuringEncounter) || !game) return unavailable('unavailable-state', 'Finish the current activity before using diagnostics.');
     if (intent.kind !== 'measure-objective' && intent.kind !== 'submit-objective' && intent.kind !== 'request-objective-hint') return rejected('invalid-input', 'Choose a diagnostic action.');
     const input: ObjectiveInput = intent.kind === 'measure-objective' ? { kind: 'measure', alternativeId: intent.alternativeId, id: crypto.randomUUID() as MeasurementId }
       : intent.kind === 'submit-objective' ? { kind: 'submit', alternativeId: intent.alternativeId, measurementId: intent.measurementId } : { kind: 'hint' };

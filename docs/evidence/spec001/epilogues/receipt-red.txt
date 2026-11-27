@@ -1,0 +1,93 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/ui/epilogue.test.ts
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/ui/epilogue.test.ts (10 tests | 10 failed) 4ms
+   ❯ T087 receipt projection adapter (isolated ports; actual controller admission is T085/T086) (10)
+     × never reconstructs an accepted receipt from cutscene and history alone 2ms
+     × never reconstructs an accepted receipt from shutdown and history alone 0ms
+     × never reconstructs an accepted receipt from terminal-failure and history alone 0ms
+     × never reconstructs an accepted receipt from safe-continue and history alone 0ms
+     × projects E01 only with its accepted same-event receipt and preserves caveat text 0ms
+     × projects E02 only with its accepted same-event receipt and preserves caveat text 0ms
+     × projects E03 only with its accepted same-event receipt and preserves caveat text 0ms
+     × refuses mismatched outcome, incorrect feedback, wrong phase and missing game 0ms
+     × keeps E03 distinct from a dramatic failure receipt 0ms
+     × refuses a wrong hazard id and an outcome receipt in terminal-failure 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ui/epilogue.test.ts > T087 receipt projection adapter (isolated ports; actual controller admission is T085/T086) > never reconstructs an accepted receipt from cutscene and history alone
+ FAIL  tests/ui/epilogue.test.ts > T087 receipt projection adapter (isolated ports; actual controller admission is T085/T086) > never reconstructs an accepted receipt from shutdown and history alone
+ FAIL  tests/ui/epilogue.test.ts > T087 receipt projection adapter (isolated ports; actual controller admission is T085/T086) > never reconstructs an accepted receipt from terminal-failure and history alone
+ FAIL  tests/ui/epilogue.test.ts > T087 receipt projection adapter (isolated ports; actual controller admission is T085/T086) > never reconstructs an accepted receipt from safe-continue and history alone
+TypeError: projectAcceptedNarrative is not a function
+ ❯ tests/ui/epilogue.test.ts:24:12
+     22| describe('T087 receipt projection adapter (isolated ports; actual cont…
+     23|   it.each(['cutscene', 'shutdown', 'terminal-failure', 'safe-continue'…
+     24|     expect(projectAcceptedNarrative(content, state('E01', kind), sourc…
+       |            ^
+     25|   });
+     26|   it.each(['E01', 'E02', 'E03'] as const)('projects %s only with its a…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  tests/ui/epilogue.test.ts > T087 receipt projection adapter (isolated ports; actual controller admission is T085/T086) > projects E01 only with its accepted same-event receipt and preserves caveat text
+ FAIL  tests/ui/epilogue.test.ts > T087 receipt projection adapter (isolated ports; actual controller admission is T085/T086) > projects E02 only with its accepted same-event receipt and preserves caveat text
+ FAIL  tests/ui/epilogue.test.ts > T087 receipt projection adapter (isolated ports; actual controller admission is T085/T086) > projects E03 only with its accepted same-event receipt and preserves caveat text
+TypeError: projectAcceptedNarrative is not a function
+ ❯ tests/ui/epilogue.test.ts:28:20
+     26|   it.each(['E01', 'E02', 'E03'] as const)('projects %s only with its a…
+     27|     const before = state(outcome, outcome === 'E03' ? 'shutdown' : 'cu…
+     28|     const result = projectAcceptedNarrative(content, before, sources(a…
+       |                    ^
+     29|     expect(result?.view.kind).toBe('ending'); expect(result?.view.outc…
+     30|     expect(result?.caveats).toEqual(outcome === 'E01' ? [] : ['Exact a…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  tests/ui/epilogue.test.ts > T087 receipt projection adapter (isolated ports; actual controller admission is T085/T086) > refuses mismatched outcome, incorrect feedback, wrong phase and missing game
+TypeError: projectAcceptedNarrative is not a function
+ ❯ tests/ui/epilogue.test.ts:34:12
+     32|   });
+     33|   it('refuses mismatched outcome, incorrect feedback, wrong phase and …
+     34|     expect(projectAcceptedNarrative(content, state(), sources(accepted…
+       |            ^
+     35|     expect(projectAcceptedNarrative(content, state(), sources({ ...acc…
+     36|     expect(projectAcceptedNarrative(content, state('E01', 'safe-contin…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  tests/ui/epilogue.test.ts > T087 receipt projection adapter (isolated ports; actual controller admission is T085/T086) > keeps E03 distinct from a dramatic failure receipt
+TypeError: projectAcceptedNarrative is not a function
+ ❯ tests/ui/epilogue.test.ts:40:12
+     38|   });
+     39|   it('keeps E03 distinct from a dramatic failure receipt', () => {
+     40|     expect(projectAcceptedNarrative(content, state('E03', 'shutdown'),…
+       |            ^
+     41|     const failure = projectAcceptedNarrative(content, state('E01', 'te…
+     42|     expect(failure?.view.kind).toBe('failure'); expect(failure?.view.o…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  tests/ui/epilogue.test.ts > T087 receipt projection adapter (isolated ports; actual controller admission is T085/T086) > refuses a wrong hazard id and an outcome receipt in terminal-failure
+TypeError: projectAcceptedNarrative is not a function
+ ❯ tests/ui/epilogue.test.ts:47:12
+     45|   it('refuses a wrong hazard id and an outcome receipt in terminal-fai…
+     46|     const terminal = state('E01', 'terminal-failure');
+     47|     expect(projectAcceptedNarrative(content, terminal, sources(accepte…
+       |            ^
+     48|     expect(projectAcceptedNarrative(content, terminal, sources(null, {…
+     49|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  10 failed (10)
+   Start at  21:11:07
+   Duration  89ms (transform 57%, import 23%, tests 14%, worker 6%)
+

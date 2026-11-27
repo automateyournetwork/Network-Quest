@@ -1,0 +1,63 @@
+{
+  "observedAt": "2026-11-27T02:26:40.593526+00:00",
+  "checks": [
+    {
+      "name": "focused-final",
+      "command": [
+        "/Users/john.capobianco/Network-Quest/.runtime/node-v26.13.1-darwin-arm64/bin/node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "tests/content/endings.test.ts",
+        "tests/ui/epilogue.test.ts"
+      ],
+      "exitCode": 0,
+      "output": "docs/evidence/spec001/epilogues/focused-final.txt"
+    },
+    {
+      "name": "strict-final",
+      "command": [
+        "/Users/john.capobianco/Network-Quest/.runtime/node-v26.13.1-darwin-arm64/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "--ignoreConfig",
+        "--noEmit",
+        "--target",
+        "ES2022",
+        "--lib",
+        "ES2022,DOM,DOM.Iterable",
+        "--module",
+        "ESNext",
+        "--moduleResolution",
+        "Bundler",
+        "--resolveJsonModule",
+        "--types",
+        "vite/client,node",
+        "--strict",
+        "--noUncheckedIndexedAccess",
+        "--exactOptionalPropertyTypes",
+        "--noPropertyAccessFromIndexSignature",
+        "--noUnusedLocals",
+        "--noUnusedParameters",
+        "--noFallthroughCasesInSwitch",
+        "--noImplicitOverride",
+        "--noUncheckedSideEffectImports",
+        "--verbatimModuleSyntax",
+        "--isolatedModules",
+        "--forceConsistentCasingInFileNames",
+        "src/vite-env.d.ts",
+        "src/app/application.ts",
+        "src/content/endings.ts",
+        "src/ui/epilogue.ts",
+        "tests/content/endings.test.ts",
+        "tests/ui/epilogue.test.ts",
+        "tests/e2e/first-repair-route.spec.ts",
+        "tests/e2e/independent-repair-routes.spec.ts"
+      ],
+      "exitCode": 0,
+      "output": "docs/evidence/spec001/epilogues/strict-final.txt"
+    }
+  ],
+  "includesFinalDeltas": [
+    "Recovery local review retirement after rollback CAS",
+    "Coordinator-reviewed concise maintenance flavor line; accepted caveat unchanged"
+  ]
+}

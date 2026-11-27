@@ -1,7 +1,7 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import type { ContentRegistry } from '../content/registry';
 import type { QualifiedId } from '../domain/types';
-import type { Navigation } from '../state/navigation';
+import type { Navigation, NavigationResolution } from '../state/navigation';
 import type { ReducerState } from '../state/reducer';
 import type { SafeState } from '../state/types';
 import type { SceneObjectView, SemanticControl } from './app-shell';
@@ -29,14 +29,19 @@ export function createNavigationPlanner({ navigation, store }: { readonly naviga
 /** Shared projection for the native shell and visual adapters. Reuses T025's
  * hotspot alternatives; this module creates no listeners or second input path.
  */
-export function createSceneObjectProjection({ registry, navigation }: { readonly registry: ContentRegistry; readonly navigation: Navigation }) {
+export function createSceneObjectProjection({ registry, navigation, resolveDuringEncounter }: { readonly registry: ContentRegistry; readonly navigation: Navigation;
+  readonly resolveDuringEncounter?: (state: ReducerState, targetId: QualifiedId) => NavigationResolution }) {
   return (state: ReducerState, hotspots: readonly SceneObjectView[]): readonly SceneObjectView[] => {
     const game = state.runtime.game, ui = state.runtime.ui, room = game && registry.record(game.world.roomId);
     if (!game || !ui || room?.kind !== 'room') return [];
     if (hotspots.length !== room.hotspots.length || new Set(hotspots.map(h => h.id)).size !== hotspots.length
       || hotspots.some(h => !room.hotspots.some(actual => actual.id === h.id))) throw new TypeError('Scene projection must include every actual current-room hotspot exactly once.');
     const action = (id: string, label: string, targetId: string): SemanticControl => {
-      const result = playable(state) ? navigation.resolve(game.world, targetId as QualifiedId, state.runtime.activity!.kind as SafeState) : null;
+      let result: NavigationResolution | null = null;
+      if (playable(state)) result = navigation.resolve(game.world, targetId as QualifiedId, state.runtime.activity!.kind as SafeState);
+      else if (state.runtime.activity?.kind === 'active-encounter') {
+        try { result = resolveDuringEncounter?.(state, targetId as QualifiedId) ?? null; } catch { /* Presentation fails closed. */ }
+      }
       const unavailableReason = result?.ok ? undefined : result?.message ?? 'Movement is unavailable during this activity.';
       return { id, label, action: { kind: 'interact', targetId: targetId as QualifiedId, verb: ui.selectedVerb, itemId: null },
         ...(unavailableReason === undefined ? {} : { unavailableReason }) };

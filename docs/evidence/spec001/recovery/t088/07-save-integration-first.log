@@ -1,0 +1,42 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/ui/recovery-save.test.ts (8 tests | 2 failed) 342ms
+   ❯ T088 recovery with real save services and controlled remote transport (8)
+     × failure retry preserves non-null pending save identity; late acknowledgement cannot save the new attempt 24ms
+     × shutdown retry preserves non-null pending save identity; late acknowledgement cannot save the new attempt 12ms
+     ✓ an unknown earlier write remains an exact explicit retry after encounter recovery 4ms
+     ✓ failure cancels a genuine queued safe-arrival autosave; retry and render observations never reschedule it 5ms
+     ✓ shutdown cancels a genuine queued safe-arrival autosave; retry and render observations never reschedule it 9ms
+     ✓ failure Restore reads/reviews and confirms exact saved data without a learning merge 108ms
+     ✓ shutdown Restore reads/reviews and confirms exact saved data without a learning merge 117ms
+     ✓ guest Restore opens provider choice with no HTTP; actual synthetic sign-in alone neither loads nor saves 61ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ui/recovery-save.test.ts > T088 recovery with real save services and controlled remote transport > failure retry preserves non-null pending save identity; late acknowledgement cannot save the new attempt
+ FAIL  tests/ui/recovery-save.test.ts > T088 recovery with real save services and controlled remote transport > shutdown retry preserves non-null pending save identity; late acknowledgement cannot save the new attempt
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/ui/recovery-save.test.ts:124:53
+    122|     expect(h.saved.world.attemptId).toBe(oldAttempt); expect(h.saved.n…
+    123|     expect(h.writes).toHaveLength(1); expect(h.autosave.state.queued).…
+    124|     expect((await h.coordinator.save('manual')).ok).toBe(true); expect…
+       |                                                     ^
+    125|     expect(h.saved.world.attemptId).toBe(retried.world.attemptId); exp…
+    126|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 6 passed (8)
+   Start at  21:22:45
+   Duration  1.25s (import 57%, tests 37%, transform 6%)
+

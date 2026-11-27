@@ -1,0 +1,101 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/state/outcome-classification.test.ts --testNamePattern=reaches each outcome --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/state/outcome-classification.test.ts (61 tests | 3 failed | 58 skipped) 35ms
+   ❯ T086 isolated outcome classification — actual repair predicates and reducer (28)
+     × copper reaches each outcome with only its required branch 18ms
+     × fiber reaches each outcome with only its required branch 10ms
+     × radio reaches each outcome with only its required branch 6ms
+     ↓ retains 1 levels of assistance without changing any outcome
+     ↓ retains 2 levels of assistance without changing any outcome
+     ↓ retains 3 levels of assistance without changing any outcome
+     ↓ does not infer permanence from passing checks with defect still present
+     ↓ does not infer permanence from passing checks with temporary still present
+     ↓ does not silently downgrade an incorrect permanent claim to temporary success
+     ↓ requires the separate fresh physical proof
+     ↓ requires the separate fresh endpoint proof
+     ↓ rejects each independent freshness corruption of physical evidence
+     ↓ rejects each independent freshness corruption of endpoint evidence
+     ↓ rechecks actual failed endpoint observations
+     ↓ rechecks actual failed pattern observations
+     ↓ rechecks actual failed conductor observations
+     ↓ keeps classification proof as historical evidence after the outcome advances the world revision
+     ↓ cannot classify shutdown from an accidental outage or missing execution
+     ↓ requires actual temporary dependency at classification
+     ↓ requires actual temporary maintenance at classification
+     ↓ requires a named unresolved fault, deliberate isolation and recovery record: fault
+     ↓ requires a named unresolved fault, deliberate isolation and recovery record: deliberate
+     ↓ requires a named unresolved fault, deliberate isolation and recovery record: record
+     ↓ requires exact canonical readings provenance instead of a passing-looking record
+     ↓ requires exact canonical conclusion provenance instead of a passing-looking record
+     ↓ requires exact canonical subjects provenance instead of a passing-looking record
+     ↓ requires exact canonical room provenance instead of a passing-looking record
+     ↓ rejects malformed authored scenario data without a learner failure event or mutation
+   ↓ T086 opaque atomic state and authored Continue boundary (33)
+     ↓ rejects forged/equal-copy contexts and prepared tokens
+     ↓ rejects a replacement adventure with equal version and a CAS race without partial events
+     ↓ discards interrupted preparation with no effect and accepts one entire result in one swap
+     ↓ cannot replay the event, attempt, or consumed prepared token
+     ↓ E01 becomes safe only when feedback closes at its authored anchor
+     ↓ E02 becomes safe only when feedback closes at its authored anchor
+     ↓ never dismisses E03 into a safe shutdown world
+     ↓ cannot use a safe panel or fabricated history as successful dismissal provenance
+     ↓ withholds safe Continue when the anchor is missing
+     ↓ withholds safe Continue when the anchor is wrong-room
+     ↓ withholds safe Continue when the anchor is wrong-state
+     ↓ rejects pending transitions, exhausted generation and full event histories before effects
+     ↓ rejects unsupported cutscene classification and snapshot capture
+     ↓ rejects unsupported terminal-failure classification and snapshot capture
+     ↓ rejects unsupported shutdown classification and snapshot capture
+     ↓ rejects unsupported safe-preparation classification and snapshot capture
+     ↓ rejects unsupported dialogue-transaction classification and snapshot capture
+     ↓ keeps accepted permanent feedback unsaveable before any dismissal
+     ↓ keeps accepted temporary feedback unsaveable before any dismissal
+     ↓ keeps accepted shutdown feedback unsaveable before any dismissal
+     ↓ admits the last legal classification revision and rejects exhaustion without wrapping
+     ↓ rejects an old event UUID even when delivered with different case in a new attempt
+     ↓ rejects untrusted command fields and malformed IDs without calling them verdicts
+     ↓ samples the trusted scenario once and protects live state from a faulty adapter
+     ↓ keeps accepted feedback across a harmless ui refresh while rejecting stale dismissal captures
+     ↓ keeps accepted feedback across a harmless auth refresh while rejecting stale dismissal captures
+     ↓ keeps accepted feedback across a harmless persistence refresh while rejecting stale dismissal captures
+     ↓ a same-version Restore/new-run cloned game never inherits a feedback receipt
+     ↓ reports authored missing-unit before a missing classification selection
+     ↓ reports authored negative-loss before a missing classification selection
+     ↓ reports authored unknown-profile before a missing classification selection
+     ↓ a missing selection on valid authored content stays invalid-input without partial effects
+     ↓ binds caveats to exact reviewed authored evidence and rejects missing clauses as author errors
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/outcome-classification.test.ts > T086 isolated outcome classification — actual repair predicates and reducer > copper reaches each outcome with only its required branch
+ FAIL  tests/state/outcome-classification.test.ts > T086 isolated outcome classification — actual repair predicates and reducer > fiber reaches each outcome with only its required branch
+ FAIL  tests/state/outcome-classification.test.ts > T086 isolated outcome classification — actual repair predicates and reducer > radio reaches each outcome with only its required branch
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/state/outcome-classification.test.ts:55:25
+     53|       const f = ready(route, selection), h = harness(f), before = f.st…
+     54|       const result = h.prepare(command(selection));
+     55|       expect(result.ok).toBe(true); if (!result.ok) throw new Error(JS…
+       |                         ^
+     56|       expect(result.feedback.status).toBe(expected(`OUT-${code}-${rout…
+     57|       expect(result.feedback.outcome).toBe(expected(`OUT-${code}-${rou…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 58 skipped (61)
+   Start at  21:05:54
+   Duration  645ms (import 86%, transform 8%, tests 6%)
+

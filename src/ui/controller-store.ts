@@ -2,7 +2,7 @@
 import type { ReducerInput, ReducerState } from '../state/reducer';
 import type { UiState } from '../state/types';
 import { reducerActionHandler } from './action-bus';
-import type { ActionPlan, ActionResult, CapturedAction, ReducerActionAdapter } from './action-bus';
+import type { ActionPlan, ActionResult, CapturedAction, ReducerActionAdapter, SemanticAction } from './action-bus';
 
 export type GameplayStore = Pick<ReducerActionAdapter, 'getState' | 'reduce' | 'compareAndSet'>;
 export const unavailable = (reason: string, message: string): ActionResult => ({ status: 'unavailable', reason, message });
@@ -10,6 +10,13 @@ export const rejected = (reason: string, message: string): ActionResult => ({ st
 export function playable(state: ReducerState): boolean {
   return !!state.runtime.game && !!state.runtime.ui && !state.control.pending
     && ['stable-exploration', 'safe-preparation', 'safe-continue'].includes(state.runtime.activity?.kind ?? '');
+}
+export type ActiveActionAdmission = (state: ReducerState, input: SemanticAction) => boolean;
+/** Optional trusted, closed action policy; never broadens generic playable(). */
+export function actionAvailable(state: ReducerState, input: SemanticAction, allow?: ActiveActionAdmission): boolean {
+  if (playable(state)) return true;
+  if (!state.runtime.game || !state.runtime.ui || state.control.pending || state.runtime.activity?.kind !== 'active-encounter') return false;
+  try { return allow?.(state, input) === true; } catch { return false; }
 }
 /** Protect transient selections and synchronous injected controller commits too. */
 export function guardedPlan(store: GameplayStore, before: ReducerState, plan: ActionPlan): ActionPlan {

@@ -496,6 +496,17 @@ through this preparation. Root owns acceptance, shared policy joins and publicat
 
 **Ready after**: T082–T089.
 
+T090 may prepare independent R12 contract/tests against reviewed T084–T088
+interfaces while T089 runs its actual browser matrix. Shared packet, room and
+application sources remain frozen during those tests; implementation composition
+and task acceptance wait for the ordered T089 review.
+
+T091 may independently prepare browser contracts and technical-review questions
+against the accepted R01 mapping and T090's proposed read-only repair interface.
+Keep candidate files outside shared build/test discovery until T089 freezes;
+actual R12 execution and acceptance still require reviewed T090 integration.
+This preparation does not replace independent technical or human review.
+
 - [ ] T090 [US3] Connect the R12 journey to actual branch repair/impairment state in `src/state/packet-activity.ts` and `content/spec001/rooms/R12.json`; the apprentice and packet perspectives must agree after repair, retry and safe shutdown.
 - [ ] T091 [US3] Run controlled R01/R12 keyboard/pointer pause/step/replay and mismatch cases in `tests/e2e/packet-journey.spec.ts`; obtain technical review of the payload, toy mapping and upper-layer caveats in `docs/evidence/spec001/US3.md` (AC21).
 
@@ -586,11 +597,23 @@ application/reducer/policy changes or task acceptance follow from preparation;
 full recovery composition waits for accepted T081/T084 and reviewed interfaces.
 This keeps independent work moving without claiming downstream runtime acceptance.
 
-- [ ] T085 [US6] Implement paused preparation, deliberate commitment warnings and safe return controls in `src/ui/encounter.ts`; narrated danger cannot require reflex timing and conventional tools remain valid without a recruited ally.
-- [ ] T086 [US6] Implement evidence-driven E01/E02/E03 classification and safe Continue locations in `src/state/outcomes.ts`; failure/E03 cannot produce a saveable world, and temporary/unresolved outcomes retain their precise caveats.
-- [ ] T087 [US6] Author personalized route/ally/side-quest/maintenance epilogues and skippable dramatic failure explanations in `content/spec001/endings.json` and `src/ui/epilogue.ts`; assistance never turns a valid repair into a punitive ending.
-- [ ] T088 [US6] Integrate Retry from Encounter Preparation, E03 Continue and distinct Restore Save in `src/ui/recovery.ts`; warn before discarding unsaved state, retain learning only for in-session retry and require ordinary safe saving for durability.
-- [ ] T089 [US6] Run all outcomes, item/reward rollback, fresh-measurement and retry/restore tests plus autosave/logout races through the real UI in `tests/e2e/outcomes.spec.ts`; record AC07 and SAVE06/13 integration in `docs/evidence/spec001/US6.md`.
+- [X] T085 [US6] Implement paused preparation, deliberate commitment warnings and safe return controls in `src/ui/encounter.ts`; narrated danger cannot require reflex timing and conventional tools remain valid without a recruited ally.
+- [X] T086 [US6] Implement evidence-driven E01/E02/E03 classification and safe Continue locations in `src/state/outcomes.ts`; failure/E03 cannot produce a saveable world, and temporary/unresolved outcomes retain their precise caveats.
+- [X] T087 [US6] Author personalized route/ally/side-quest/maintenance epilogues and skippable dramatic failure explanations in `content/spec001/endings.json` and `src/ui/epilogue.ts`; assistance never turns a valid repair into a punitive ending.
+T088 may prepare its isolated recovery controller and tests against accepted T084/T086
+and reviewed T085/T087 interfaces while their final presentation join completes.
+Its actual application composition and acceptance remain ordered after the hazard
+and epilogue interfaces freeze; T089 still owns the full real-UI race matrix.
+
+- [X] T088 [US6] Integrate Retry from Encounter Preparation, E03 Continue and distinct Restore Save in `src/ui/recovery.ts`; warn before discarding unsaved state, retain learning only for in-session retry and require ordinary safe saving for durability.
+- [X] T089 [US6] Run all outcomes, item/reward rollback, fresh-measurement and retry/restore tests plus autosave/logout races through the real UI in `tests/e2e/outcomes.spec.ts`; record AC07 and SAVE06/13 integration in `docs/evidence/spec001/US6.md`.
+
+T089 binds the current authored inspection kit, O11 reward/effect receipt and
+whole preparation world through actual UI. T084 separately verifies nonempty
+world collections. Once T094/T096–T104 add party and optional content, T104/T105
+must exercise their real nonempty values through recovery and reconcile AC07;
+empty-array equality is not evidence for those future mutations. Do not invent
+a consumption or reward handler solely to manufacture an acceptance result.
 
 ## Phase 9: User Story 7 — Recruit companions and explore optional depth (P2)
 

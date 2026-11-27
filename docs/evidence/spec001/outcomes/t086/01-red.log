@@ -1,0 +1,29 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/state/outcome-classification.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/state/outcome-classification.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/outcome-classification.test.ts [ tests/state/outcome-classification.test.ts ]
+Error: Cannot find module '../../src/state/outcomes' imported from /Users/john.capobianco/Network-Quest/tests/state/outcome-classification.test.ts
+ ❯ tests/state/outcome-classification.test.ts:6:1
+      4| import type { ContentRegistry } from '../../src/content/registry';
+      5| import type { ActionId, OutcomeEventId } from '../../src/domain/types';
+      6| import { captureOutcomeContext, createOutcomeController, outcomeCaveat…
+       | ^
+      7| import type { OutcomeCommand, OutcomePreparation } from '../../src/sta…
+      8| import type { RepairScenarioResolver } from '../../src/state/repair-pl…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  20:42:52
+   Duration  85ms (worker 96%, environment 4%)
+

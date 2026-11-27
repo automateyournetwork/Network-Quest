@@ -101,7 +101,16 @@ for (const branch of ['fiber', 'radio'] as const) {
       await expect(validation).toContainText('This objective is in progress. No restored service has been awarded.');
       await ui.click('Run endpoint test'); await expect(validation.locator('ol[aria-label="Repair observations"] > li').last()).toContainText('Endpoint service acknowledged: 1 count');
       await ui.click(classify); await page.screenshot({ path: info.outputPath(`T081-${branch}-validation.png`), fullPage: true });
-      await ui.click('Close repair controls'); await ui.objective('Validate at R12', true);
+      const epilogue = page.getByRole('dialog', { name: branch === 'fiber' ? 'The Steady Light' : 'The Borrowed Dawn', exact: true });
+      await expect(epilogue).toBeVisible(); await expect(epilogue).toContainText(branch === 'fiber' ? 'Permanent restoration' : 'Temporary restoration');
+      await expect(epilogue).toContainText('separate endpoint service test');
+      if (branch === 'radio') {
+        await expect(epilogue).toContainText('Temporary dependency:'); await expect(epilogue).toContainText('Limitation:'); await expect(epilogue).toContainText('Follow-up:');
+      }
+      await ui.click('Save'); await expect(page.getByText('Finish the current activity before saving.', { exact: true })).toBeVisible();
+      expect(writes).toEqual([]); await closeFrame(page);
+      await epilogue.getByRole('button', { name: 'Continue', exact: true }).click();
+      await expect(epilogue).toBeHidden(); await ui.objective('Validate at R12', true);
       expect(writes).toEqual([]); await ui.click('Save'); await ui.click('Save this adventure'); await expect(page.getByText(/^Saved at /)).toBeVisible();
       const saved = await local.inspectSlot(); expect(saved).not.toBeNull();
       expect(saved!.snapshot.world.completedObjectiveIds.slice().sort()).toEqual(['O01', 'O02', ...(branch === 'fiber' ? ['O05', 'O06'] : ['O07', 'O08']), 'O09', 'O10', 'O11', 'O12'].map(id => `spec001:${id}`).sort());

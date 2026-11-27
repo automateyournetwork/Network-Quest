@@ -1,0 +1,140 @@
+{
+  "task": "T087",
+  "scope": "isolated production epilogue panel, not accepted full outcome/recovery integration",
+  "observedAt": "2026-11-27T02:23:17.155Z",
+  "sources": {
+    "src/ui/epilogue.ts": "6665bc368011b6ea1455cda3700e8ca2007fc235993f29032884703abf0350f1",
+    "src/content/endings.ts": "44ca4d183159bdfd5553e7d06df167ba284599827b4cd3408a1fe260cf826f0e",
+    "content/spec001/endings.json": "ada92130c4470a07e4facb82b984636d2b85da001ab903ff75ab1e6b1811ebad",
+    "tests/ui/epilogue-panel.browser.mjs": "1bc88f284c501287be03cb2cba4d79fcb087407b9835f8f52b07ba68c9ee9ece"
+  },
+  "results": [
+    {
+      "name": "scene starts readable; Continue is immediately available with no timer",
+      "status": "PASS"
+    },
+    {
+      "name": "Skip and Replay affect narrative only; immutable result and controls remain",
+      "status": "PASS"
+    },
+    {
+      "name": "Escape skips once and never continues, retries or closes the result",
+      "status": "PASS"
+    },
+    {
+      "name": "modified or composing Escape does not skip",
+      "status": "PASS"
+    },
+    {
+      "name": "native Enter dispatches exact captured Continue only once",
+      "status": "PASS"
+    },
+    {
+      "name": "new render invalidates old buttons even if reinserted",
+      "status": "PASS"
+    },
+    {
+      "name": "identical text after a state refresh still retires prior command captures",
+      "status": "PASS"
+    },
+    {
+      "name": "a new attempt resets narrative even when hazard text is identical",
+      "status": "PASS"
+    },
+    {
+      "name": "an authorized shell replacement preserves same-story skip, scroll and focus with fresh controls",
+      "status": "PASS"
+    },
+    {
+      "name": "invalidate blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "hide blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "dispose blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "detached blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "hiddenHost blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "inertHost blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "a control moved outside its owning dialog is inert",
+      "status": "PASS"
+    },
+    {
+      "name": "a whole dialog moved outside its supplied host cannot deliver commands",
+      "status": "PASS"
+    },
+    {
+      "name": "same projection preserves skip and focus; replacement captures a new scope",
+      "status": "PASS"
+    },
+    {
+      "name": "temporary caveat persists after scene skip",
+      "status": "PASS"
+    },
+    {
+      "name": "E03 Continue stays distinct from Restore and explains rollback, stale readings and save preservation",
+      "status": "PASS"
+    },
+    {
+      "name": "failure keeps its cause after skip with exact retry label and guest sign-in boundary",
+      "status": "PASS"
+    },
+    {
+      "name": "guest sign-in request is explicit and cannot claim a restore",
+      "status": "PASS"
+    },
+    {
+      "name": "missing preparation and unavailable account save disable their distinct actions",
+      "status": "PASS"
+    },
+    {
+      "name": "E03 Continue is disabled without its checkpoint",
+      "status": "PASS"
+    },
+    {
+      "name": "Restore dispatches a request only; copy warns that unsaved state is replaced",
+      "status": "PASS"
+    },
+    {
+      "name": "plain-text rendering does not interpret authored markup",
+      "status": "PASS"
+    },
+    {
+      "name": "Tab and Shift+Tab stay inside the contained dialog",
+      "status": "PASS"
+    },
+    {
+      "name": "frame-owned Game control remains in the keyboard cycle",
+      "status": "PASS"
+    },
+    {
+      "name": "closing from application returns focus; retired same-view callbacks stay inert",
+      "status": "PASS"
+    },
+    {
+      "name": "desktop result remains inside the supplied adventure frame",
+      "status": "PASS"
+    },
+    {
+      "name": "390px at 200 percent text contains all text/actions and recovery remains reachable",
+      "status": "PASS"
+    }
+  ],
+  "pageErrors": [],
+  "browserVersion": "159.0",
+  "executable": "/Users/john.capobianco/Library/Caches/ms-playwright/firefox-1572/firefox/Nightly.app/Contents/MacOS/firefox"
+}

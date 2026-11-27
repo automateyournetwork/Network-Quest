@@ -45,6 +45,20 @@ export function createSaveDialogsController(options: {
     epoch++; loginActive = false; previousAuth = null; reviewed = null; loading = false; panel = 'none'; message = '';
     account?.invalidateView(); coordinator?.invalidateView();
   };
+  /**
+   * After an in-session encounter rewind, retire only the obsolete adventure
+   * review and its outstanding UI callbacks. Keep account identity, coordinator
+   * binding, pending write receipts and ordinary autosave permission intact.
+   * An explicitly active provider flow remains visible and unconfirmed; this
+   * operation neither cancels it nor treats it as authentication success.
+   */
+  const retireAdventureReview = () => {
+    if (disposed) return;
+    epoch++; reviewed = null; loading = false;
+    panel = loginActive ? 'signin' : 'none';
+    message = loginActive ? 'Sign-in is still pending. Returning to preparation has neither loaded nor saved an adventure.' : '';
+    changed();
+  };
   const adoptVerifiedSession = (session: Session, generation: ClientGeneration): boolean => {
     if (disposed || !api || !api.isCurrent(generation) || api.session !== session) return false;
     const before = store.getState();
@@ -172,7 +186,7 @@ export function createSaveDialogsController(options: {
   });
   const unsubscribeSave = coordinator?.subscribe(() => changed());
   return {
-    bootstrap, adoptVerifiedSession, bindCurrentSession, invalidateView, signIn, cancel,
+    bootstrap, adoptVerifiedSession, bindCurrentSession, invalidateView, retireAdventureReview, signIn, cancel,
     save: () => reviewSlot('save'), continue: () => reviewSlot('continue'),
     async act(action: SaveDialogAction) {
       if (disposed) return;

@@ -1,0 +1,36 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/state/outcome-classification.test.ts tests/state/outcome-save-policy.test.ts tests/state/repair-plan.test.ts tests/state/encounter.test.ts tests/state/encounter-world.test.ts tests/state/outcomes.test.ts tests/state/retry.test.ts tests/ui/encounter-integration.test.ts tests/tools/save-content-policy.test.ts tests/services/save-validator.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/state/outcome-save-policy.test.ts (14 tests) 740ms
+   ✓ T086 actual outcome portable save policy (14)
+     ✓ copper E01 and E02 save only after dismissal, then preserve history after ordinary authored walking 351ms
+ ✓ tests/state/repair-plan.test.ts (52 tests) 7070ms
+   ✓ T077 executed intervention and fresh final proof (52)
+     ✓ rejects structurally valid but unreviewed action-effect content 412ms
+     ✓ rejects structurally valid but unreviewed weakened-prerequisite content 405ms
+     ✓ rejects structurally valid but unreviewed alternate-condition content 409ms
+ ✓ tests/tools/save-content-policy.test.ts (3 tests) 2356ms
+   ✓ actual authored save content policy artifact (3)
+     ✓ regenerates deterministically without a listener, project config or ambient env files 1283ms
+     ✓ validates real initial state and real kit/105 m/95 m reducer observations in TypeScript and PHP 554ms
+     ✓ does not turn metadata reservations, future progression or unsupported safety into write permissions 518ms
+ ✓ tests/services/save-validator.test.ts (109 tests) 975ms
+   ✓ T042 new-write validation, without account/HTTP/transaction claims (109)
+     ✓ bridges all authored rooms and rejects unavailable rooms/anchors, out-of-order objectives and unauthored recruits 461ms
+     ✓ accepts an actual reducer inspection with explicit reviewed measurement policy and rejects wrong units 469ms
+ ✓ tests/state/encounter.test.ts (59 tests) 597ms
+ ✓ tests/state/outcome-classification.test.ts (66 tests) 390ms
+ ✓ tests/ui/encounter-integration.test.ts (18 tests) 90ms
+ ✓ tests/state/encounter-world.test.ts (10 tests) 57ms
+ ✓ tests/state/outcomes.test.ts (210 tests | 81 todo) 11ms
+ ✓ tests/state/retry.test.ts (133 tests | 45 todo) 9ms
+
+ Test Files  10 passed (10)
+      Tests  548 passed | 126 todo (674)
+   Start at  21:09:44
+   Duration  16.46s (tests 78%, import 21%, transform 1%)
+

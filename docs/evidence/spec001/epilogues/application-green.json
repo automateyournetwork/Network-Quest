@@ -1,0 +1,382 @@
+{
+  "config": {
+    "argv": [
+      "/Users/john.capobianco/Network-Quest/.runtime/node-v26.13.1-darwin-arm64/bin/node",
+      "/Users/john.capobianco/Network-Quest/node_modules/@playwright/test/cli.js",
+      "test",
+      "tests/e2e/first-repair-route.spec.ts",
+      "tests/e2e/independent-repair-routes.spec.ts",
+      "--project=firefox-local-https",
+      "--workers=1",
+      "--reporter=json"
+    ],
+    "configFile": "/Users/john.capobianco/Network-Quest/playwright.config.ts",
+    "rootDir": "/Users/john.capobianco/Network-Quest/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": true,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/john.capobianco/Network-Quest/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium-static",
+        "name": "chromium-static",
+        "testDir": "/Users/john.capobianco/Network-Quest/tests/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/vendor/**",
+          "**/.local/**",
+          "**/.runtime/**",
+          "**/dist/**",
+          "**/build/**"
+        ],
+        "testMatch": [
+          "**/foundation.spec.ts"
+        ],
+        "timeout": 20000
+      },
+      {
+        "outputDir": "/Users/john.capobianco/Network-Quest/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox-static",
+        "name": "firefox-static",
+        "testDir": "/Users/john.capobianco/Network-Quest/tests/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/vendor/**",
+          "**/.local/**",
+          "**/.runtime/**",
+          "**/dist/**",
+          "**/build/**"
+        ],
+        "testMatch": [
+          "**/foundation.spec.ts"
+        ],
+        "timeout": 20000
+      },
+      {
+        "outputDir": "/Users/john.capobianco/Network-Quest/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox-local-https",
+        "name": "firefox-local-https",
+        "testDir": "/Users/john.capobianco/Network-Quest/tests/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/vendor/**",
+          "**/.local/**",
+          "**/.runtime/**",
+          "**/dist/**",
+          "**/build/**"
+        ],
+        "testMatch": [
+          "**/foundation-tls.spec.ts",
+          "**/ui-shell.spec.ts",
+          "**/presentation.spec.ts",
+          "**/guest-introduction.spec.ts",
+          "**/verbs-inventory.spec.ts",
+          "**/dialogue.spec.ts",
+          "**/notebook.spec.ts",
+          "**/navigation.spec.ts",
+          "**/packet-controls.spec.ts",
+          "**/title.spec.ts",
+          "**/packet-introduction.spec.ts",
+          "**/physical-boundaries.spec.ts",
+          "**/introduction-graybox.spec.ts",
+          "**/finished-room.spec.ts",
+          "**/save-dialogs.spec.ts",
+          "**/account-settings.spec.ts",
+          "**/single-save.spec.ts",
+          "**/logout.spec.ts",
+          "**/account-deletion.spec.ts",
+          "**/first-repair-route.spec.ts",
+          "**/independent-repair-routes.spec.ts"
+        ],
+        "timeout": 20000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/Users/john.capobianco/Network-Quest/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "firefox-local-https",
+        "testDir": "/Users/john.capobianco/Network-Quest/tests/e2e",
+        "snapshotDir": "/Users/john.capobianco/Network-Quest/tests/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/vendor/**",
+          "**/.local/**",
+          "**/.runtime/**",
+          "**/dist/**",
+          "**/build/**"
+        ],
+        "testMatch": [
+          "**/foundation-tls.spec.ts",
+          "**/ui-shell.spec.ts",
+          "**/presentation.spec.ts",
+          "**/guest-introduction.spec.ts",
+          "**/verbs-inventory.spec.ts",
+          "**/dialogue.spec.ts",
+          "**/notebook.spec.ts",
+          "**/navigation.spec.ts",
+          "**/packet-controls.spec.ts",
+          "**/title.spec.ts",
+          "**/packet-introduction.spec.ts",
+          "**/physical-boundaries.spec.ts",
+          "**/introduction-graybox.spec.ts",
+          "**/finished-room.spec.ts",
+          "**/save-dialogs.spec.ts",
+          "**/account-settings.spec.ts",
+          "**/single-save.spec.ts",
+          "**/logout.spec.ts",
+          "**/account-deletion.spec.ts",
+          "**/first-repair-route.spec.ts",
+          "**/independent-repair-routes.spec.ts"
+        ],
+        "timeout": 20000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4173/arcade/play/network-quest/",
+          "ignoreHTTPSErrors": false,
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:159.0) Gecko/20100101 Firefox/159.0",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "firefox"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "firefox-local-https"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.65.1",
+    "workers": 1,
+    "webServer": {
+      "command": "node node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 4173",
+      "url": "http://127.0.0.1:4173/arcade/play/network-quest/",
+      "reuseExistingServer": false,
+      "timeout": 20000,
+      "gracefulShutdown": {
+        "signal": "SIGTERM",
+        "timeout": 2000
+      },
+      "env": {
+        "VITE_GAME_BASE": "/arcade/play/network-quest/",
+        "VITE_API_BASE": "/arcade/play/network-quest/api/v1"
+      }
+    }
+  },
+  "suites": [
+    {
+      "title": "first-repair-route.spec.ts",
+      "file": "first-repair-route.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "T078 guest replacement route uses fresh real evidence through R12",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-local-https",
+              "projectName": "firefox-local-https",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 17244,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-27T02:23:38.320Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "29c1fb4a1b2561abe65c-ac95539c4336c650339b",
+          "file": "first-repair-route.spec.ts",
+          "line": 26,
+          "column": 3
+        },
+        {
+          "title": "T078 keyboard alternate route with saved restoration uses fresh real evidence through R12",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-local-https",
+              "projectName": "firefox-local-https",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13946,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-27T02:23:55.575Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "29c1fb4a1b2561abe65c-9eeaa3cb81800a6752c7",
+          "file": "first-repair-route.spec.ts",
+          "line": 26,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "independent-repair-routes.spec.ts",
+      "file": "independent-repair-routes.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "T081 independent fiber route reaches validated R12 and restores its one PHP save",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-local-https",
+              "projectName": "firefox-local-https",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14715,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-27T02:24:09.532Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "be15dd5be0c755674354-fac9893d57f4b7e0a317",
+          "file": "independent-repair-routes.spec.ts",
+          "line": 12,
+          "column": 3
+        },
+        {
+          "title": "T081 independent radio route reaches validated R12 and restores its one PHP save",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox-local-https",
+              "projectName": "firefox-local-https",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15075,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-27T02:24:24.253Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "be15dd5be0c755674354-c2e7bf9317154fbfc375",
+          "file": "independent-repair-routes.spec.ts",
+          "line": 12,
+          "column": 3
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-27T02:23:37.942Z",
+    "duration": 61478.549,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

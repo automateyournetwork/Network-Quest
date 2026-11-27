@@ -49,6 +49,8 @@ describe('actual authored save content policy artifact', () => {
     expect(artifact.policies[0].members.room).toEqual(['spec001:R01', 'spec001:R02', 'spec001:R03', 'spec001:R04', 'spec001:R05', 'spec001:R06', 'spec001:R07', 'spec001:R08', 'spec001:R09', 'spec001:R10', 'spec001:R11', 'spec001:R12']);
     expect(Object.keys(artifact.policies[0].safePositions)).toEqual(['spec001:R01.entry', 'spec001:R02.entry', 'spec001:R03.entry', 'spec001:R04.entry', 'spec001:R05.entry', 'spec001:R06.entry', 'spec001:R07.entry', 'spec001:R08.entry', 'spec001:R09.entry', 'spec001:R10.entry', 'spec001:R11.preparation', 'spec001:R12.entry']);
     expect(artifact.policies[0].members.character).toEqual([]);
+    expect(artifact.policies[0].members.caveat).toEqual(['spec001:FACT-repair-maintenance', 'spec001:FACT-repair-isolation']);
+    expect(artifact.provenance.inputs['src/state/outcomes.ts']).toMatch(/^[a-f0-9]{64}$/);
     expect(artifact.policies[0].itemMaxQuantities).toEqual({ 'spec001:ITEM-inspection-kit': 1 });
     expect(first).not.toContain('fixture.');
     expect(first).not.toContain('save-validator-policy.json');

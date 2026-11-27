@@ -1,0 +1,129 @@
+{
+  "task": "T087",
+  "scope": "isolated production epilogue panel, not accepted full outcome/recovery integration",
+  "observedAt": "2026-11-27T02:11:34.912Z",
+  "sources": {
+    "src/ui/epilogue.ts": "a54a092dab4d483fbf0f85de9fc1827fd6051cdcf6462be3b187b7dbb276833b",
+    "src/content/endings.ts": "8692bb1fce3978833956fdc3ae5c8668e53652d7b5220d7db6c5e2dcef44cc85",
+    "content/spec001/endings.json": "aa8335f50712b39784609c01a2f4cd5d93a1ae9790d2bc5c0bf101ebb75321eb",
+    "tests/ui/epilogue-panel.browser.mjs": "52841e67c89737e9ad55cbeec5362d8d230640aab0aa0aabea67f9bcea08941e"
+  },
+  "results": [
+    {
+      "name": "scene starts readable; Continue is immediately available with no timer",
+      "status": "PASS"
+    },
+    {
+      "name": "Skip and Replay affect narrative only; immutable result and controls remain",
+      "status": "PASS"
+    },
+    {
+      "name": "Escape skips once and never continues, retries or closes the result",
+      "status": "PASS"
+    },
+    {
+      "name": "modified or composing Escape does not skip",
+      "status": "PASS"
+    },
+    {
+      "name": "native Enter dispatches exact captured Continue only once",
+      "status": "PASS"
+    },
+    {
+      "name": "new render invalidates old buttons even if reinserted",
+      "status": "PASS"
+    },
+    {
+      "name": "identical text after a state refresh still retires prior command captures",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n"
+    },
+    {
+      "name": "a new attempt resets narrative even when hazard text is identical",
+      "status": "PASS"
+    },
+    {
+      "name": "invalidate blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "hide blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "dispose blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "detached blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "hiddenHost blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "inertHost blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "a control moved outside its owning dialog is inert",
+      "status": "PASS"
+    },
+    {
+      "name": "same projection preserves skip and focus; replacement captures a new scope",
+      "status": "PASS"
+    },
+    {
+      "name": "temporary caveat persists after scene skip",
+      "status": "PASS"
+    },
+    {
+      "name": "E03 Continue stays distinct from Restore and explains rollback, stale readings and save preservation",
+      "status": "PASS"
+    },
+    {
+      "name": "failure keeps its cause after skip with exact retry label and guest sign-in boundary",
+      "status": "PASS"
+    },
+    {
+      "name": "guest sign-in request is explicit and cannot claim a restore",
+      "status": "PASS"
+    },
+    {
+      "name": "missing preparation and unavailable account save disable their distinct actions",
+      "status": "PASS"
+    },
+    {
+      "name": "E03 Continue is disabled without its checkpoint",
+      "status": "PASS"
+    },
+    {
+      "name": "Restore dispatches a request only; copy warns that unsaved state is replaced",
+      "status": "PASS"
+    },
+    {
+      "name": "plain-text rendering does not interpret authored markup",
+      "status": "PASS"
+    },
+    {
+      "name": "Tab and Shift+Tab stay inside the contained dialog",
+      "status": "PASS"
+    },
+    {
+      "name": "closing from application returns focus; retired same-view callbacks stay inert",
+      "status": "PASS"
+    },
+    {
+      "name": "desktop result remains inside the supplied adventure frame",
+      "status": "PASS"
+    },
+    {
+      "name": "390px at 200 percent text contains all text/actions and recovery remains reachable",
+      "status": "PASS"
+    }
+  ],
+  "pageErrors": [],
+  "browserVersion": "159.0",
+  "executable": "/Users/john.capobianco/Library/Caches/ms-playwright/firefox-1572/firefox/Nightly.app/Contents/MacOS/firefox"
+}

@@ -1,7 +1,7 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import type { QualifiedId } from '../domain/types';
 import type { ReducerInput, ReducerState } from './reducer';
-import { repairFlags, repairPlans } from './repair-plan';
+import { repairFlags, repairMeasurementDuration, repairPlans } from './repair-plan';
 import type { WorldState } from './types';
 
 const q = <T extends string = string>(id: string) => `spec001:${id}` as QualifiedId<T>;
@@ -33,7 +33,9 @@ export function isActiveRiftEncounter(state: ReducerState): boolean {
       && !world.completedObjectiveIds.includes(q('O12')) && !Object.hasOwn(world.flags, repairFlags.classification)
       && plan !== undefined && (plan.route === null || world.route === plan.route)
       && world.flags[repairFlags.selected] === plan.id && preparation.flags[repairFlags.selected] === plan.id
-      && (duration === 'permanent' || duration === 'temporary') && preparation.flags[repairFlags.duration] === duration
+      && repairMeasurementDuration(plan.id, world) !== null
+      && Object.hasOwn(preparation.flags, repairFlags.duration) === Object.hasOwn(world.flags, repairFlags.duration)
+      && preparation.flags[repairFlags.duration] === duration
       && game.notebook.factIds.includes(q('FACT-O11-execution'));
   } catch { return false; }
 }

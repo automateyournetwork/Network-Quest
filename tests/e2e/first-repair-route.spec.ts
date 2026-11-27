@@ -178,8 +178,18 @@ for (const variant of [
       await route.click('Run endpoint test');
       await expect(validation.locator('ol[aria-label="Repair observations"] > li').last()).toContainText('Endpoint service acknowledged: 1 count');
       await route.click('Classify permanent restoration');
+      const epilogue = page.getByRole('dialog', { name: 'The Steady Light', exact: true });
+      await expect(epilogue).toBeVisible(); await expect(epilogue).toContainText('Permanent restoration');
+      await expect(epilogue).toContainText('separate endpoint service test');
+      await expect(epilogue).toContainText('well-used toolkit');
       await page.screenshot({ path: info.outputPath(`T078-${variant.length}m-validation.png`), fullPage: true });
-      await route.click('Close repair controls'); await route.objective('O12', true);
+      await route.click('Save'); await expect(page.getByText('Finish the current activity before saving.', { exact: true })).toBeVisible();
+      expect(writes).toEqual([]); await closeFrame(page);
+      if (variant.input === 'keyboard') {
+        await epilogue.getByRole('button', { name: 'Skip scene', exact: true }).press('Enter');
+        await epilogue.getByRole('button', { name: 'Continue', exact: true }).press('Enter');
+      } else await epilogue.getByRole('button', { name: 'Continue', exact: true }).click();
+      await expect(epilogue).toBeHidden(); await route.objective('O12', true);
       await page.screenshot({ path: info.outputPath(`T078-${variant.length}m-complete.png`), fullPage: true });
       if (!variant.authenticated) {
         await openFrame(page, 'Sound and reading'); await page.getByRole('slider', { name: 'Text size', exact: true }).fill('2'); await closeFrame(page);

@@ -1,0 +1,211 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/state/shutdown-duration.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/state/shutdown-duration.test.ts (25 tests | 13 failed) 423ms
+   ❯ T086 actual E03 isolation has no installation duration (25)
+     × projects a current review with duration null after the actual no-duration UI action sequence 10ms
+     × copper no-duration isolation executes, classifies E03, confirms real recovery and saves its retained history in JS/PHP 3ms
+     × fiber no-duration isolation executes, classifies E03, confirms real recovery and saves its retained history in JS/PHP 3ms
+     × radio no-duration isolation executes, classifies E03, confirms real recovery and saves its retained history in JS/PHP 3ms
+     × prior permanent selection stays in world/checkpoint but does not give isolation a temporary dependency 5ms
+     × prior temporary selection stays in world/checkpoint but does not give isolation a temporary dependency 3ms
+     ✓ copper-section still requires an installation duration 2ms
+     ✓ copper-alternate still requires an installation duration 2ms
+     ✓ fiber-A still requires an installation duration 3ms
+     ✓ fiber-B still requires an installation duration 2ms
+     ✓ radio-A still requires an installation duration 2ms
+     ✓ radio-B still requires an installation duration 2ms
+     ✓ rejects a present invalid duration value not-applicable even for shutdown 2ms
+     ✓ rejects a present invalid duration value unknown even for shutdown 2ms
+     ✓ rejects a present invalid duration value false even for shutdown 2ms
+     ✓ rejects a present invalid duration value null even for shutdown 2ms
+     ✓ rejects a present invalid duration value undefined even for shutdown 2ms
+     × a prior review does not regain freshness when an unrelated duration choice changes 2ms
+     × requires exact checkpoint duration consistency: current-presence 3ms
+     × requires exact checkpoint duration consistency: checkpoint-presence 2ms
+     ✓ requires exact checkpoint duration consistency: value 3ms
+     × requires exact checkpoint duration consistency: undefined-presence 2ms
+     × retains original shutdown proof codes for historical saves, while adding not-applicable only to shutdown review 358ms
+     × generated production policy accepts the new review and retains both legacy durations 3ms
+     × an invented duration token in otherwise-current proof cannot execute isolation 3ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 13 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/shutdown-duration.test.ts > T086 actual E03 isolation has no installation duration > projects a current review with duration null after the actual no-duration UI action sequence
+AssertionError: expected 'rejected' to be 'handled' // Object.is equality
+
+Expected: "handled"
+Received: "rejected"
+
+ ❯ tests/state/shutdown-duration.test.ts:41:78
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  tests/state/shutdown-duration.test.ts > T086 actual E03 isolation has no installation duration > copper no-duration isolation executes, classifies E03, confirms real recovery and saves its retained history in JS/PHP
+ FAIL  tests/state/shutdown-duration.test.ts > T086 actual E03 isolation has no installation duration > fiber no-duration isolation executes, classifies E03, confirms real recovery and saves its retained history in JS/PHP
+ FAIL  tests/state/shutdown-duration.test.ts > T086 actual E03 isolation has no installation duration > radio no-duration isolation executes, classifies E03, confirms real recovery and saves its retained history in JS/PHP
+AssertionError: expected undefined to be 'correct' // Object.is equality
+
+- Expected:
+"correct"
+
++ Received:
+undefined
+
+ ❯ tests/state/shutdown-duration.test.ts:49:69
+     47|   });
+     48|   it.each(['copper', 'fiber', 'radio'] as const)('%s no-duration isola…
+     49|     const f = prepare(route); expect(f.review().evaluation?.status).to…
+       |                                                                     ^
+     50|     const preparation = f.game().world; expect(f.execute().result.stat…
+     51|     expect(isActiveRiftEncounter(f.state())).toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  tests/state/shutdown-duration.test.ts > T086 actual E03 isolation has no installation duration > prior permanent selection stays in world/checkpoint but does not give isolation a temporary dependency
+AssertionError: expected 'repair:review:shutdown:permanent:corr…' to be 'repair:review:shutdown:not-applicable…' // Object.is equality
+
+Expected: "repair:review:shutdown:not-applicable:correct"
+Received: "repair:review:shutdown:permanent:correct"
+
+ ❯ tests/state/shutdown-duration.test.ts:80:67
+     78|   it.each(['permanent', 'temporary'] as const)('prior %s selection sta…
+     79|     const f = prepare('copper', prior); expect(f.review().evaluation?.…
+     80|     expect(f.game().notebook.measurements.at(-1)?.conclusionCode).toBe…
+       |                                                                   ^
+     81|     const execution = f.execute(); expect(execution.result.status).toB…
+     82|     expect(execution.evaluation?.observations).toContainEqual({ kind: …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  tests/state/shutdown-duration.test.ts > T086 actual E03 isolation has no installation duration > prior temporary selection stays in world/checkpoint but does not give isolation a temporary dependency
+AssertionError: expected 'repair:review:shutdown:temporary:corr…' to be 'repair:review:shutdown:not-applicable…' // Object.is equality
+
+Expected: "repair:review:shutdown:not-applicable:correct"
+Received: "repair:review:shutdown:temporary:correct"
+
+ ❯ tests/state/shutdown-duration.test.ts:80:67
+     78|   it.each(['permanent', 'temporary'] as const)('prior %s selection sta…
+     79|     const f = prepare('copper', prior); expect(f.review().evaluation?.…
+     80|     expect(f.game().notebook.measurements.at(-1)?.conclusionCode).toBe…
+       |                                                                   ^
+     81|     const execution = f.execute(); expect(execution.result.status).toB…
+     82|     expect(execution.evaluation?.observations).toContainEqual({ kind: …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  tests/state/shutdown-duration.test.ts > T086 actual E03 isolation has no installation duration > a prior review does not regain freshness when an unrelated duration choice changes
+AssertionError: expected undefined to be 'correct' // Object.is equality
+
+- Expected:
+"correct"
+
++ Received:
+undefined
+
+ ❯ tests/state/shutdown-duration.test.ts:98:64
+     96|   });
+     97|   it('a prior review does not regain freshness when an unrelated durat…
+     98|     const f = prepare(); expect(f.review().evaluation?.status).toBe('c…
+       |                                                                ^
+     99|     expect(f.execute().evaluation?.reasonCode).toBe('stale-evidence');…
+    100|     expect(f.review(2).evaluation?.status).toBe('correct'); expect(f.e…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  tests/state/shutdown-duration.test.ts > T086 actual E03 isolation has no installation duration > requires exact checkpoint duration consistency: current-presence
+ FAIL  tests/state/shutdown-duration.test.ts > T086 actual E03 isolation has no installation duration > requires exact checkpoint duration consistency: checkpoint-presence
+ FAIL  tests/state/shutdown-duration.test.ts > T086 actual E03 isolation has no installation duration > requires exact checkpoint duration consistency: undefined-presence
+AssertionError: expected 'rejected' to be 'handled' // Object.is equality
+
+Expected: "handled"
+Received: "rejected"
+
+ ❯ tests/state/shutdown-duration.test.ts:103:128
+    101|   });
+    102|   it.each(['current-presence', 'checkpoint-presence', 'value', 'undefi…
+    103|     const f = prepare('copper', mutation === 'value' ? 'temporary' : u…
+       |                                                                                                                                ^
+    104|     const s = f.state(), checkpoint = s.runtime.checkpoint!, game = f.…
+    105|     f.replace({ ...s, runtime: { ...s.runtime,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL  tests/state/shutdown-duration.test.ts > T086 actual E03 isolation has no installation duration > retains original shutdown proof codes for historical saves, while adding not-applicable only to shutdown review
+AssertionError: expected [] to deeply equal [ …(2) ]
+
+- Expected
++ Received
+
+- [
+-   "repair:review:shutdown:not-applicable:correct",
+-   "repair:review:shutdown:not-applicable:incorrect",
+- ]
++ []
+
+ ❯ tests/state/shutdown-duration.test.ts:120:134
+    118|     for (const candidate of variants) expect(new SaveValidator([policy…
+    119|     expect(phpValidate(policy, variants)).toEqual(variants.map(() => (…
+    120|     expect(Object.values(policy.measurementRules).flatMap(p => p.concl…
+       |                                                                                                                                      ^
+    121|       'repair:review:shutdown:not-applicable:correct', 'repair:review:…
+    122|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL  tests/state/shutdown-duration.test.ts > T086 actual E03 isolation has no installation duration > generated production policy accepts the new review and retains both legacy durations
+AssertionError: expected undefined to be 'correct' // Object.is equality
+
+- Expected:
+"correct"
+
++ Received:
+undefined
+
+ ❯ tests/state/shutdown-duration.test.ts:126:43
+    124|     const artifact = JSON.parse(readFileSync(new URL('../../server/con…
+    125|     const policy = artifact.policies[0]!, f = prepare();
+    126|     expect(f.review().evaluation?.status).toBe('correct');
+       |                                           ^
+    127|     expect(captureSafeSnapshot(f.state(), new SaveValidator([policy]))…
+    128|     const codes = policy.measurementRules['spec001:STATE04']!.conclusi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ FAIL  tests/state/shutdown-duration.test.ts > T086 actual E03 isolation has no installation duration > an invented duration token in otherwise-current proof cannot execute isolation
+AssertionError: expected { ok: false, reason: 'invalid-input' } to match object { ok: true, evaluation: { …(2) } }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "evaluation": {
+-     "reasonCode": "measurement-provenance-mismatch",
+-     "status": "incorrect",
+-   },
+-   "ok": true,
++   "ok": false,
+  }
+
+ ❯ tests/state/shutdown-duration.test.ts:136:8
+    134|       measurements: f.game().notebook.measurements.map(m => ({ ...m, c…
+    135|     expect(prepareRepairPlanChange(registry, f.resolver, f.game(), { k…
+    136|       .toMatchObject({ ok: true, evaluation: { status: 'incorrect', re…
+       |        ^
+    137|   });
+    138| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  13 failed | 12 passed (25)
+   Start at  07:48:49
+   Duration  1.03s (import 51%, tests 44%, transform 5%)
+

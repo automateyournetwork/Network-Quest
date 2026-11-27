@@ -1,0 +1,273 @@
+{
+  "scope": "Same099/T086 additive shutdown-duration correction; root review and T089 native rerun pending",
+  "loop": 99,
+  "task": "T086",
+  "createdAt": "2026-11-27T12:55:18.439698+00:00",
+  "verification": {
+    "initialRed": {
+      "failed": 13,
+      "passed": 12
+    },
+    "sourceBeforePolicy": {
+      "failed": 1,
+      "passed": 24
+    },
+    "finalFocused": {
+      "passed": 569,
+      "todo": 126,
+      "files": 15
+    },
+    "checkExit": 0,
+    "pinnedNode": "26.13.1",
+    "pinnedPhp": "8.4.28",
+    "browserRunByWorker": false,
+    "buildRunByWorker": false,
+    "supplementalPhpEnvErrorPreserved": true
+  },
+  "protectedOracleHashesVerified": {
+    "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
+    "tests/fixtures/physical-cases.json": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1",
+    "tests/fixtures/repair-routes.json": "ed3a083828188a34fd6f5f345cbd4c69fe8ebb140ea903dbafd9b3f464639877",
+    "tests/fixtures/outcomes.json": "1d9c734a783211bb4e02ecf43aa1c196d8cc5c05466f32da757730896ada0ad7",
+    "tests/fixtures/retry-transitions.json": "8be2657298b75106b6a55e51e74364e5446c376a85939297e43d91fdd47a6bee",
+    "tests/state/outcomes.test.ts": "15336bf10198257e24eed8d7803934dd51732d9738997b4d9e1f2359f145b997",
+    "tests/state/retry.test.ts": "bd0a6b530675ee00d8217411b02eb0749f768e22c7ed645025e0482046493d51"
+  },
+  "productionPolicyInputHashesVerified": true,
+  "files": [
+    {
+      "path": "src/state/repair-plan.ts",
+      "role": "correction-owned",
+      "bytes": 32962,
+      "sha256": "3ea5b637b9cfbeee4a056e2a8ceddd73c7f5ac774ec9a583abe37e7b84081947"
+    },
+    {
+      "path": "src/state/rift-encounter.ts",
+      "role": "correction-owned",
+      "bytes": 3944,
+      "sha256": "224e948bbffa085ff283fce6611b3600ef6743682adf5436cc5b477c69ef06bf"
+    },
+    {
+      "path": "src/ui/repair-plan.ts",
+      "role": "correction-owned",
+      "bytes": 17155,
+      "sha256": "366265602ea9e0fd10803c7c8d0cd696c3fb6510f4a8d5416fd3c40838fa8e28"
+    },
+    {
+      "path": "src/app/save-policy.ts",
+      "role": "correction-owned",
+      "bytes": 5241,
+      "sha256": "3a093b605c501a74deea8d434af748bfa3cb45fd10af3c04d47739bf5c19291d"
+    },
+    {
+      "path": "server/content/save-policy.generated.json",
+      "role": "correction-owned",
+      "bytes": 46270,
+      "sha256": "593bf63addccc19b207bd5599aa2a7806263bcc515f3e54adaaf8f76c866b75c"
+    },
+    {
+      "path": "tests/state/shutdown-duration.test.ts",
+      "role": "correction-owned",
+      "bytes": 12940,
+      "sha256": "a9ffaef4337b267723dd43aa91858fb05acf5d3ab5d96bfa2f84b1c794a7b8b5"
+    },
+    {
+      "path": "tests/state/repair-plan-fixture.ts",
+      "role": "correction-owned",
+      "bytes": 5489,
+      "sha256": "7ec4d73d7070e54983db174e52466bc8b1288fbe486f484d7e099d63de796b31"
+    },
+    {
+      "path": "tests/state/outcome-fixture.ts",
+      "role": "correction-owned",
+      "bytes": 6440,
+      "sha256": "e15db3882e8ad989278f05d167c586d92e5884f55cf9b1103deba90e785229de"
+    },
+    {
+      "path": "tests/state/outcome-classification.test.ts",
+      "role": "correction-owned",
+      "bytes": 29685,
+      "sha256": "e07fa1033b555b209d4e9bd9d58791d5cac64de4c04dfe3e549935c5ed40466c"
+    },
+    {
+      "path": "tests/state/outcome-save-policy.test.ts",
+      "role": "correction-owned",
+      "bytes": 9997,
+      "sha256": "c5c85b88642a56c6d00342caf3e6e91b6aa4fa898570058dbff3a2d69e0f12e1"
+    },
+    {
+      "path": "tests/state/repair-plan.test.ts",
+      "role": "correction-owned",
+      "bytes": 18631,
+      "sha256": "0e5cab47ecaf0cf24c2586b6947b53219add6ead6da6040d2f47f3e53bc60361"
+    },
+    {
+      "path": "docs/implementation/loops/099-T086-shutdown-duration.md",
+      "role": "correction-owned",
+      "bytes": 2055,
+      "sha256": "776923c9c7398faa495bd4c0681ece9096e43fb29eee728f40dab938ecc90876"
+    },
+    {
+      "path": "src/state/outcomes.ts",
+      "role": "unchanged-dependency",
+      "bytes": 15721,
+      "sha256": "c311cce8030adf169c8d609b1c7a0fe5aa08e2c7ff118ce723d7e0e9e021e013"
+    },
+    {
+      "path": "src/state/encounter.ts",
+      "role": "unchanged-dependency",
+      "bytes": 9251,
+      "sha256": "f1d4c7e77c15ed9759564a2c0c2c54cac97708d56d7b71e8de1adb2b2092ba01"
+    },
+    {
+      "path": "src/state/reducer.ts",
+      "role": "unchanged-dependency",
+      "bytes": 33320,
+      "sha256": "dbbfb70d86342872d5109de781ea5005524e7f3fb968faa241455e7486801cc8"
+    },
+    {
+      "path": "src/state/snapshot.ts",
+      "role": "unchanged-dependency",
+      "bytes": 4408,
+      "sha256": "f2042d7e29173b0f732a4e5e1ff69e86097debd0f807e104938562ef63418225"
+    },
+    {
+      "path": "src/ui/recovery.ts",
+      "role": "unchanged-dependency",
+      "bytes": 14688,
+      "sha256": "85cb8a1ce6694f1d78a8f1c866db5e18a5ddefef09a8d40b620fba465f92cba5"
+    },
+    {
+      "path": "src/ui/encounter.ts",
+      "role": "unchanged-dependency",
+      "bytes": 15458,
+      "sha256": "6ac3f7a58ffa2402153e4dea75e398b0e29ea0fee03cc1edf4d2704c86bc1dd8"
+    },
+    {
+      "path": "src/services/save-validator.ts",
+      "role": "unchanged-dependency",
+      "bytes": 19700,
+      "sha256": "6ec6679b9e958550aabc75dc3f5ece43c9a626318ee1c5a4e3b6793765b29228"
+    },
+    {
+      "path": "server/src/SaveValidator.php",
+      "role": "unchanged-dependency",
+      "bytes": 12137,
+      "sha256": "8fbfebbfcdf671af4f81b2794f2b4894613434b49da53fbf31698bf2b79d2932"
+    },
+    {
+      "path": "tools/generate-save-content-policy.ts",
+      "role": "unchanged-dependency",
+      "bytes": 4015,
+      "sha256": "a9ced931e3a4b2020cbca3846fc67315082fc462deb0c2b7739bab7143a51c5e"
+    },
+    {
+      "path": "specs/001-physical-layer-underworld/contracts/save.schema.json",
+      "role": "unchanged-dependency",
+      "bytes": 11665,
+      "sha256": "5323dfc5986f5a70ff7d331e3a756f434d6993ce19aecdfa04745156096fb710"
+    },
+    {
+      "path": "docs/evidence/spec001/outcomes/t086/source-seal.json",
+      "role": "unchanged-dependency",
+      "bytes": 14835,
+      "sha256": "8ebd7ffcdbcc40c34811354e5b5c0cef2203a07e21399cc241c00b21da9ab16d"
+    },
+    {
+      "path": "docs/evidence/spec001/outcomes/t086/integration-source-seal.json",
+      "role": "unchanged-dependency",
+      "bytes": 22101,
+      "sha256": "90490604920a8c77e17cf668c7ab43c2c6e68d6b01ed5a53ee122ad77ae94949"
+    },
+    {
+      "path": "content/spec001/sources.json",
+      "role": "protected-oracle",
+      "bytes": 77147,
+      "sha256": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116"
+    },
+    {
+      "path": "tests/fixtures/physical-cases.json",
+      "role": "protected-oracle",
+      "bytes": 78330,
+      "sha256": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1"
+    },
+    {
+      "path": "tests/fixtures/repair-routes.json",
+      "role": "protected-oracle",
+      "bytes": 64654,
+      "sha256": "ed3a083828188a34fd6f5f345cbd4c69fe8ebb140ea903dbafd9b3f464639877"
+    },
+    {
+      "path": "tests/fixtures/outcomes.json",
+      "role": "protected-oracle",
+      "bytes": 166117,
+      "sha256": "1d9c734a783211bb4e02ecf43aa1c196d8cc5c05466f32da757730896ada0ad7"
+    },
+    {
+      "path": "tests/fixtures/retry-transitions.json",
+      "role": "protected-oracle",
+      "bytes": 49579,
+      "sha256": "8be2657298b75106b6a55e51e74364e5446c376a85939297e43d91fdd47a6bee"
+    },
+    {
+      "path": "tests/state/outcomes.test.ts",
+      "role": "protected-oracle",
+      "bytes": 17530,
+      "sha256": "15336bf10198257e24eed8d7803934dd51732d9738997b4d9e1f2359f145b997"
+    },
+    {
+      "path": "tests/state/retry.test.ts",
+      "role": "protected-oracle",
+      "bytes": 22409,
+      "sha256": "bd0a6b530675ee00d8217411b02eb0749f768e22c7ed645025e0482046493d51"
+    },
+    {
+      "path": "docs/evidence/spec001/outcomes/t086/shutdown-duration/01-red.log",
+      "role": "correction-evidence",
+      "bytes": 11612,
+      "sha256": "8012baed31cf65453ffd95500fc70d16e1562ebf3763d1ce12a02ba81db52bc7"
+    },
+    {
+      "path": "docs/evidence/spec001/outcomes/t086/shutdown-duration/02-before-policy-generation.log",
+      "role": "correction-evidence",
+      "bytes": 3634,
+      "sha256": "ff25c9d0749daefd8146209ad4c2df1bd2010070ce6206394713a0a97ba50f9b"
+    },
+    {
+      "path": "docs/evidence/spec001/outcomes/t086/shutdown-duration/03-policy-generation.log",
+      "role": "correction-evidence",
+      "bytes": 101,
+      "sha256": "d748b55e3351a5be77c5c2144eb13607beaf85e018073e90f14c9867495a431c"
+    },
+    {
+      "path": "docs/evidence/spec001/outcomes/t086/shutdown-duration/04-focused-green.log",
+      "role": "correction-evidence",
+      "bytes": 1822,
+      "sha256": "63e2c5d0c2f6bac1a1ce800494dd750b372e59a8d6e569bc82637f05f1ba9c5b"
+    },
+    {
+      "path": "docs/evidence/spec001/outcomes/t086/shutdown-duration/05-check.log",
+      "role": "correction-evidence",
+      "bytes": 404,
+      "sha256": "76303a4b24a1873b20c760ee57aae317bc0ebd581851407aa8613569bafca646"
+    },
+    {
+      "path": "docs/evidence/spec001/outcomes/t086/shutdown-duration/06-checkpoint-policy-missing-phpenv.log",
+      "role": "correction-evidence",
+      "bytes": 3239,
+      "sha256": "ac10326a72a75bdc83d82d23717895e6a76ab288501425fa9419745d4c6585e3"
+    },
+    {
+      "path": "docs/evidence/spec001/outcomes/t086/shutdown-duration/07-policy-green.log",
+      "role": "correction-evidence",
+      "bytes": 735,
+      "sha256": "63e3e3f9475a82a53d35354b77e2d16d71f8ccf743cc11122f3558c95c5bb499"
+    },
+    {
+      "path": "docs/evidence/spec001/outcomes/t086/shutdown-duration/review.md",
+      "role": "correction-evidence",
+      "bytes": 4916,
+      "sha256": "7173fdec34b88718e61398f6ec6754d56bf380b770862cf0911e154bb11ebf77"
+    }
+  ]
+}

@@ -48,7 +48,9 @@ export function fixture(route: 'copper' | 'fiber' | 'radio' = 'copper', replaceR
     destination: { roomId: q<'room'>(room), safePositionId: q<'safe-position'>(room === 'R11' ? 'R11.preparation' : `${room}.entry`), activity: 'stable-exploration' } });
   const review = (id = 1) => act({ kind: 'review', id: uuid(id) });
   const execute = (id = 1, warningAcknowledged = true) => act({ kind: 'execute', reviewId: uuid(id), warningAcknowledged });
-  const prepare = (plan = `${route}-${route === 'copper' ? 'section' : 'A'}`, duration = 'permanent') => { choose(`plan-${plan}`); choose(`duration-${duration}`); choose('read-plan'); review(); };
+  const prepare = (plan = `${route}-${route === 'copper' ? 'section' : 'A'}`, duration: string | null = plan === 'shutdown' ? null : 'permanent') => {
+    choose(`plan-${plan}`); if (duration !== null) choose(`duration-${duration}`); choose('read-plan'); review();
+  };
   const prove = () => { move('R12'); choose('read-classification'); act({ kind: 'measure-link', id: uuid(2) }); act({ kind: 'test-endpoint', id: uuid(3) }); };
   const classify = (selection: 'permanent' | 'temporary' | 'shutdown' = 'permanent') => act({ kind: 'classify', selection, linkId: uuid(2), endpointId: uuid(3) });
   return { game, state: () => state, replace: (next: typeof state) => { state = next; }, resolver, reduce, send, act, choose, move, review, execute, prepare, prove, classify };

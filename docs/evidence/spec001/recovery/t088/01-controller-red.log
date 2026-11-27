@@ -1,0 +1,25 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/ui/recovery.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ui/recovery.test.ts [ tests/ui/recovery.test.ts ]
+Error: Cannot find module '../../src/ui/recovery' imported from /Users/john.capobianco/Network-Quest/tests/ui/recovery.test.ts
+ ❯ tests/ui/recovery.test.ts:10:1
+      8| import { createRiftHazardController } from '../../src/state/rift-hazar…
+      9| import type { ReducerState } from '../../src/state/reducer';
+     10| import { createRecoveryController } from '../../src/ui/recovery';
+       | ^
+     11| import type { RecoveryCommand } from '../../src/ui/recovery';
+     12| import { fixture, q, registry, uuid } from '../state/outcome-fixture';
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  21:18:01
+   Duration  140ms (worker 96%, environment 4%)
+

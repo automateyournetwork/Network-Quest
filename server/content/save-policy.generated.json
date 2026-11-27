@@ -80,13 +80,13 @@
       "content/spec001/rooms/R08.json": "141104d203bcdc45b40d375be262e2fff771167e87ea2981e3c45ddace68da28",
       "content/spec001/rooms/R09.json": "b04b9799022e53ca8d9f0de83ee7346313683b837e7a79728ae19dd57276a3b1",
       "content/spec001/rooms/R10.json": "8a3da2d198228b2fefab03176cd089cdc57d2f65b7a686225b2396fa46f4e05d",
-      "content/spec001/rooms/R11.json": "fb58489499bc8de004b59784a7959cbbb218d88a50f07c6f31152d17b2a94cd4",
+      "content/spec001/rooms/R11.json": "5d676054d686724f8f720b3447226d44ba58b10d5a11c5e6d50fe5af64cba932",
       "content/spec001/rooms/R12.json": "15579e1e0c6a8dee7be82358747c902f29d5509b99ad87a9de421d4aaf2ff598",
       "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
       "content/spec001/world.json": "f55d0b082bcbe183600a4ef5053eea3ac6d088f693d2153f1fa1203acdc31701",
       "docs/evidence/spec001/rule-source-review.md": "5e22c7cab28d5f4d559b6a2601e381d34acec7306b5247bcfdb24e200cbd2319",
       "src/app/content.ts": "57339418cde773863b87d01d8f000ebcb10a91649dca75ee69efd63fd6584c42",
-      "src/app/save-policy.ts": "34c3b4f7d97233afccdd4f041b3c986204679a8e6765fb1b12498a386626b5ab",
+      "src/app/save-policy.ts": "3a093b605c501a74deea8d434af748bfa3cb45fd10af3c04d47739bf5c19291d",
       "src/content/registry.ts": "bd8a5b2988b48f88b9c1cebb41540db33a95be9b2e3d86d93c43a0050b604c17",
       "src/domain/capabilities.ts": "a4b4d1e1edcc8d4249d9be477ad0735fd65b0c2e2adbc3879ce195310b5ce40d",
       "src/domain/copper.ts": "7f80a79f306242d993489de97fc41402eb1295e29b274d39bee951dc37494d89",
@@ -94,15 +94,16 @@
       "src/domain/packet-journey.ts": "65caaf9939bd8052909e40c4289ba9da531d4dc6194314a31b83d4f066a326bc",
       "src/domain/power.ts": "014074e3ef078a36f9fd2671d6593a67ccc7ebc8a88500be42028511ae842e8f",
       "src/domain/radio.ts": "55f49a9e3b416d129d4ceac9a302636dff043475041d3d8e9a0125f0815e4f74",
-      "src/services/save-validator.ts": "edb228b32f84b6c536a9f352c4fcee7dd85157c52ee2ae40b130aa36ebde266c",
+      "src/services/save-validator.ts": "6ec6679b9e958550aabc75dc3f5ece43c9a626318ee1c5a4e3b6793765b29228",
       "src/state/copper-scenario.ts": "db3692165cceb049a89d5b1f3189bd513e01e770e6b5335cdb4200492c4e12b8",
       "src/state/equipment-scenarios.ts": "7466d4fa878e2f7da5f150f14f45b403823b3bcaaf7128abebd2e626bcaa8654",
       "src/state/fiber-scenario.ts": "e2b4eeb35bb5e977eee2332987b62b6115f9135b092a364d350f6d60ce4e4004",
       "src/state/notebook.ts": "40bd0cd002a1db14a7065f662e276040bab1fba1906b1f7482a1c89ea7ae63f7",
       "src/state/objectives.ts": "3bfa620e3314097a7ab38552942f7676f5b0d1c0f758a9b3cd0b9707762a6eae",
+      "src/state/outcomes.ts": "c311cce8030adf169c8d609b1c7a0fe5aa08e2c7ff118ce723d7e0e9e021e013",
       "src/state/radio-scenario.ts": "1a3aa41215e71de2ece7ee36ceec1f67a5d937fc8d887c2c935e103723241067",
-      "src/state/repair-plan.ts": "8a88d5f08773b6a4026f78128f49b74a4f89516a89c65c8382ee6d09a04168f6",
-      "tools/generate-save-content-policy.ts": "b43b181fadb431f1c380b7ebcd3091cedeb9e18c42aaddb0eb3719fc9f013850"
+      "src/state/repair-plan.ts": "3ea5b637b9cfbeee4a056e2a8ceddd73c7f5ac774ec9a583abe37e7b84081947",
+      "tools/generate-save-content-policy.ts": "a9ced931e3a4b2020cbca3846fc67315082fc462deb0c2b7739bab7143a51c5e"
     }
   },
   "policies": [
@@ -633,7 +634,10 @@
           "spec001:O12",
           "spec001:ITEM-inspection-kit"
         ],
-        "caveat": []
+        "caveat": [
+          "spec001:FACT-repair-maintenance",
+          "spec001:FACT-repair-isolation"
+        ]
       },
       "safePositions": {
         "spec001:R01.entry": {
@@ -1218,6 +1222,8 @@
             "repair:review:shutdown:permanent:incorrect",
             "repair:review:shutdown:temporary:correct",
             "repair:review:shutdown:temporary:incorrect",
+            "repair:review:shutdown:not-applicable:correct",
+            "repair:review:shutdown:not-applicable:incorrect",
             "repair:endpoint:copper-section:permanent:correct",
             "repair:endpoint:copper-section:permanent:incorrect",
             "repair:endpoint:copper-section:temporary:correct",

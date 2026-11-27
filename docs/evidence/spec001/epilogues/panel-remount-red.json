@@ -1,0 +1,141 @@
+{
+  "task": "T087",
+  "scope": "isolated production epilogue panel, not accepted full outcome/recovery integration",
+  "observedAt": "2026-11-27T02:22:47.525Z",
+  "sources": {
+    "src/ui/epilogue.ts": "d45b9f20a47e809bb19b956801b28bdcbe46357759bc033810cb1b6d628dd4d3",
+    "src/content/endings.ts": "44ca4d183159bdfd5553e7d06df167ba284599827b4cd3408a1fe260cf826f0e",
+    "content/spec001/endings.json": "ada92130c4470a07e4facb82b984636d2b85da001ab903ff75ab1e6b1811ebad",
+    "tests/ui/epilogue-panel.browser.mjs": "1bc88f284c501287be03cb2cba4d79fcb087407b9835f8f52b07ba68c9ee9ece"
+  },
+  "results": [
+    {
+      "name": "scene starts readable; Continue is immediately available with no timer",
+      "status": "PASS"
+    },
+    {
+      "name": "Skip and Replay affect narrative only; immutable result and controls remain",
+      "status": "PASS"
+    },
+    {
+      "name": "Escape skips once and never continues, retries or closes the result",
+      "status": "PASS"
+    },
+    {
+      "name": "modified or composing Escape does not skip",
+      "status": "PASS"
+    },
+    {
+      "name": "native Enter dispatches exact captured Continue only once",
+      "status": "PASS"
+    },
+    {
+      "name": "new render invalidates old buttons even if reinserted",
+      "status": "PASS"
+    },
+    {
+      "name": "identical text after a state refresh still retires prior command captures",
+      "status": "PASS"
+    },
+    {
+      "name": "a new attempt resets narrative even when hazard text is identical",
+      "status": "PASS"
+    },
+    {
+      "name": "an authorized shell replacement preserves same-story skip, scroll and focus with fresh controls",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'EndingThe Steady LightThe beacon above the Iron Threshold settles into a steady glow. For once, the enormous gate has nothing to complain about. You close the test record, leaving the observations beside the conclusion where the next engineer can find them.Below, the Rift is still a scar in the stone. It is no longer an excuse for an outage. The Underworld has a working connection and a record of how you proved it. Beyond the gate, the Iron City keeps its own unfinished chapter.Skip sceneReplay scenePermanent restoration: the repaired route passed its physical checks and the separate endpoint service test.Your record follows the copper route through the Warrens and Echo Cavern. The pages distinguish an intact conductor path from a powered device that merely looks busy.You faced the Rift with your own observations and a well-used toolkit.The main journey has a chapter of its own.Continue returns to the safe Iron Threshold. Earlier rooms remain available. The Iron City is a future episode boundary, not a missing puzzle.Continue\\n' +\n+   '\\n' +\n+   \"import {createEpiloguePanel} from '/src/ui/epilogue.ts';\\n\" +\n+   \"import {validateEndingsContent,projectEpilogue,projectFailure} from '/src/content/endings.ts';\\n\" +\n+   \"import raw from '/content/spec001/endings.json';\\n\" +\n+   'const validated=validateEndingsContent(raw);if(!validated.ok)throw Error(validated.issues.join());const content=validated.value;\\n' +\n+   'let panel,current,nonce=0,calls=[],saved=[],captured=[];\\n' +\n+   \"function makeView(kind='E01'){\\n\" +\n+   \" if(kind==='failure')return projectFailure(content,content.hazard.id);\\n\" +\n+   \" const event={id:'event-1',outcome:kind,attemptId:'attempt-1',route:'copper',caveatIds:[]};\\n\" +\n+   \" const game={contentVersion:'1.0.0',episodeId:'spec001',adventureId:'adventure-1',world:{attemptId:'attempt-1',route:'copper',completedObjectiveIds:['spec001:O12'],completedQuestIds:[],recruits:[],activeAllyIds:[]},notebook:{factIds:[]},outcomeHistory:[event]};\\n\" +\n+   ' return projectEpilogue(content,game,event);\\n' +\n+   '}\\n' +\n+   'window.fixture={\\n' +\n+   \" reset(){panel?.dispose();document.querySelector('#frame').replaceChildren();document.querySelector('#frame').hidden=false;document.querySelector('#frame').inert=false;document.querySelector('#opener').focus();calls=[];saved=[];captured=[];nonce++;\\n\" +\n+   \"  panel=createEpiloguePanel(document.querySelector('#frame'),{dispatch(command){calls.push(command)},isCurrent(projection){return current===projection&&projection.nonce===nonce}});},\\n\" +\n+   \" render(kind='E01',restore='sign-in',retryAvailable=true){const token=nonce;current={nonce:token,storyKey:kind+'-event-1',view:makeView(kind),content,caveats:kind==='E02'?['Temporary dependency: borrowed installation. Limitation: not permanent. Follow-up: install and validate the permanent route before returning it.']:kind==='E03'?['The severed conduit is unresolved. Repair it at preparation and repeat the link and endpoint tests.']:[],retryAvailable,restore,capture(intent){captured.push(intent);return{intent,nonce:token}}};panel.render(current)},\\n\" +\n+   \" newStory(){current={...current,storyKey:current.storyKey+'-new-attempt'};panel.render(current)},\\n\" +\n+   \" remount(){panel.mount(document.body);const holder=document.createElement('div');holder.style.height='100%';document.querySelector('#frame').replaceChildren(holder);panel.mount(holder)},\\n\" +\n+   \" same(){panel.render(current)},save(){saved=[...panel.element.querySelectorAll('button')]},\\n\" +\n+   ' clickSaved(key){saved.find(b=>b.dataset.epilogueControl===key)?.click()},\\n' +\n+   ' reinsert(){panel.element.append(...saved)},invalidate(){nonce++},hide(){panel.render(null)},dispose(){panel.dispose()},\\n' +\n+   \" detached(){panel.element.remove()},hiddenHost(){document.querySelector('#frame').hidden=true},inertHost(){document.querySelector('#frame').inert=true},\\n\" +\n+   ` malicious(){current={...current,view:{...current.view,title:'<img src=x onerror=\"window.injection=true\">',scene:['<scr'+'ipt>window.injection=true</scr'+'ipt>']}};panel.render(current)},\\n` +\n+   \" state(){return{calls,captured,hidden:panel.element.hidden,sceneHidden:panel.element.querySelector('[data-epilogue-scene]')?.hidden,focus:document.activeElement?.textContent,html:panel.element.innerHTML,nonce}}\\n\" +\n+   '};window.fixture.reset();window.fixture.render();window.ready=true;\\n'\n- 'Continue'\n"
+    },
+    {
+      "name": "invalidate blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "hide blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "dispose blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "detached blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "hiddenHost blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "inertHost blocks delayed captured controls",
+      "status": "PASS"
+    },
+    {
+      "name": "a control moved outside its owning dialog is inert",
+      "status": "PASS"
+    },
+    {
+      "name": "a whole dialog moved outside its supplied host cannot deliver commands",
+      "status": "PASS"
+    },
+    {
+      "name": "same projection preserves skip and focus; replacement captures a new scope",
+      "status": "PASS"
+    },
+    {
+      "name": "temporary caveat persists after scene skip",
+      "status": "PASS"
+    },
+    {
+      "name": "E03 Continue stays distinct from Restore and explains rollback, stale readings and save preservation",
+      "status": "PASS"
+    },
+    {
+      "name": "failure keeps its cause after skip with exact retry label and guest sign-in boundary",
+      "status": "PASS"
+    },
+    {
+      "name": "guest sign-in request is explicit and cannot claim a restore",
+      "status": "PASS"
+    },
+    {
+      "name": "missing preparation and unavailable account save disable their distinct actions",
+      "status": "PASS"
+    },
+    {
+      "name": "E03 Continue is disabled without its checkpoint",
+      "status": "PASS"
+    },
+    {
+      "name": "Restore dispatches a request only; copy warns that unsaved state is replaced",
+      "status": "PASS"
+    },
+    {
+      "name": "plain-text rendering does not interpret authored markup",
+      "status": "PASS"
+    },
+    {
+      "name": "Tab and Shift+Tab stay inside the contained dialog",
+      "status": "PASS"
+    },
+    {
+      "name": "frame-owned Game control remains in the keyboard cycle",
+      "status": "PASS"
+    },
+    {
+      "name": "closing from application returns focus; retired same-view callbacks stay inert",
+      "status": "PASS"
+    },
+    {
+      "name": "desktop result remains inside the supplied adventure frame",
+      "status": "PASS"
+    },
+    {
+      "name": "390px at 200 percent text contains all text/actions and recovery remains reachable",
+      "status": "PASS"
+    }
+  ],
+  "pageErrors": [],
+  "browserVersion": "159.0",
+  "executable": "/Users/john.capobianco/Library/Caches/ms-playwright/firefox-1572/firefox/Nightly.app/Contents/MacOS/firefox"
+}

@@ -1,14 +1,19 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import type { ContentRegistry } from '../content/registry';
-import type { MeasurementId, QualifiedId } from '../domain/types';
+import type { MeasurementId, OutcomeEventId, QualifiedId } from '../domain/types';
 import { captureEncounterContext, commitEncounterChange, prepareEncounterCheckpoint } from '../state/encounter';
 import type { ReducerState } from '../state/reducer';
+import type { Navigation, NavigationResolution } from '../state/navigation';
+import { captureOutcomeContext } from '../state/outcomes';
+import type { createOutcomeController } from '../state/outcomes';
 import { repairFlags } from '../state/repair-plan';
 import type { RepairPlanId } from '../state/repair-plan';
 import { allowRiftEncounterInput, isActiveRiftEncounter, isRiftValidationContext, riftPreparationBoundary } from '../state/rift-encounter';
 import type { ActionCapture, ActionDispatcher, ActionPlan, CapturedAction, SemanticAction } from './action-bus';
-import { rejected } from './controller-store';
+import { guardedPlan, reductionPlan, rejected, unavailable } from './controller-store';
 import type { GameplayStore } from './controller-store';
+import type { WalkPlanner } from './verbs';
+import { repairFeedback } from './repair-feedback';
 
 const q = <T extends string = string>(id: string) => `spec001:${id}` as QualifiedId<T>;
 
@@ -32,6 +37,56 @@ export function allowRiftEncounterAction(state: ReducerState, input: SemanticAct
       default: return false;
     }
   } catch { return false; }
+}
+
+/** Actual authored navigation geometry, with one active-preserving state swap. */
+export function createRiftEncounterNavigation(options: { readonly navigation: Navigation; readonly store: GameplayStore }) {
+  const { navigation, store } = options;
+  const resolve = (state: ReducerState, targetId: QualifiedId): NavigationResolution => {
+    const closed = (): NavigationResolution => ({ ok: false, reason: 'exit-locked',
+      message: 'The intervention is committed. Walk to the Iron Threshold for validation; other exits remain closed until the encounter is resolved.' });
+    if (!allowRiftEncounterAction(state, { kind: 'interact', targetId, verb: 'walk', itemId: null })) return closed();
+    // This existing authored anchor permission is used only to verify geometry.
+    // Neither the source nor an observable candidate is made safe for saving.
+    const found = navigation.resolve(state.runtime.game!.world, targetId, 'safe-preparation');
+    if (!found.ok) return found;
+    if (found.kind !== 'arrival' || found.destination.roomId !== q('R12') || found.destination.safePositionId !== q('R12.entry')
+      || found.destination.activity !== 'stable-exploration') return closed();
+    return found;
+  };
+  const plan: WalkPlanner = ({ room, targetId }, action, before) => {
+    if (room.id !== before.runtime.game?.world.roomId || action.input.kind !== 'interact' || action.input.targetId !== targetId
+      || !allowRiftEncounterAction(before, action.input)) return unavailable('exit-locked', 'Only the marked path to the Iron Threshold is available during this intervention.');
+    const found = resolve(before, targetId); if (!found.ok) return unavailable(found.reason, found.message);
+    const activeStore: GameplayStore = { ...store, reduce(state, command) {
+      const result = store.reduce(state, command);
+      return result.status === 'rejected' || result.state === state ? result : { ...result, state: { ...result.state,
+        runtime: { ...result.state.runtime, activity: { kind: 'active-encounter' } } } };
+    } };
+    return guardedPlan(store, before, reductionPlan(activeStore, action, before, { kind: 'apply', destination: found.destination,
+      evaluation: { status: 'correct', reasonCode: 'authored-encounter-navigation', observations: [], acceptedEffects: [] } },
+    `${found.message} The encounter remains active. Take fresh link readings and run the endpoint test; saving stays paused until the outcome is resolved.`));
+  };
+  return { resolve, plan };
+}
+
+/** Classifier port consumes the outcome controller's opaque preparation once. */
+export function createEncounterClassificationPlan(options: { readonly controller: ReturnType<typeof createOutcomeController>; readonly store: GameplayStore;
+  readonly action: CapturedAction; readonly before: ReducerState; readonly message: string }): ActionPlan {
+  const { controller, store, action, before, message } = options;
+  const game = before.runtime.game, input = action.input, context = action.context;
+  if (store.getState() !== before || !game || !context || context.adventureId !== game.adventureId
+    || context.attemptId !== game.world.attemptId || context.configurationRevision !== game.world.configurationRevision) return rejected('stale-context', 'The adventure has changed. Review the current evidence again.');
+  if (input.kind !== 'classify-repair') return rejected('invalid-input', 'Choose a supported classification.');
+  const capture = captureOutcomeContext(before); if (!capture) return rejected('no-adventure', 'Start an adventure first.');
+  const prepared = controller.prepareClassification(before, capture, { actionId: action.actionId, eventId: crypto.randomUUID() as OutcomeEventId,
+    operation: { kind: 'classify', selection: input.selection, linkId: input.linkId, endpointId: input.endpointId } });
+  if (!prepared.ok) return rejected(prepared.reason, repairFeedback(prepared.feedback?.reasonCode ?? prepared.reason, prepared.feedback?.status ?? prepared.reason));
+  return { status: 'ready', commit() {
+    const accepted = controller.commit(store, prepared.change);
+    return accepted.ok ? { status: 'handled', reason: accepted.feedback.reasonCode, message }
+      : rejected(accepted.reason, 'The adventure changed. Review the current evidence and classify again.');
+  } };
 }
 
 /**
@@ -113,7 +168,7 @@ export function createEncounterPreparationControls(host: HTMLElement, options: {
   element.append(label, execute, returnButton); host.append(element);
   let retired = false;
   const active = (control: HTMLElement) => !retired && !signal.aborted && options.isCurrent() && element.isConnected
-    && element.contains(control) && !element.closest('[hidden], [inert]') && element.getClientRects().length > 0
+    && host.contains(element) && element.contains(control) && !element.closest('[hidden], [inert]') && element.getClientRects().length > 0
     && control.getClientRects().length > 0;
   warning.addEventListener('change', () => {
     if (active(warning) && !warning.disabled) execute.disabled = !view.available || view.reviewId === null || !warning.checked;

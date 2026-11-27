@@ -1,0 +1,106 @@
+{
+  "task": "T085",
+  "scope": "isolated real repair panel and optional hazard DOM; no full application acceptance claim",
+  "observedAt": "2026-11-27T02:17:26.452Z",
+  "sources": {
+    "src/ui/repair-plan.ts": "4a5fabc480514793fa5ad400056bff62b6b5df1ac7dee5bbf9a68b0a1abdc7ef",
+    "src/ui/rift-hazard.ts": "eafa39e508404270df6610b0041700d7ad256d8778f6903034f61fc13befdd1f",
+    "src/ui/encounter.ts": "dc12ae58807a714c7a7589ead19d9d19b2ee4d99126c405df6c2891067871dc6",
+    "src/ui/action-bus.ts": "23baa683974d5aa04b4cca2989c2813dba125d25d3c523b22578c45a683a6e45",
+    "src/state/rift-hazard.ts": "738a83cfce42f771fac3d84998edfa327090b22bee96397b299542141832f5df"
+  },
+  "results": [
+    {
+      "name": "one existing dialog presents exact danger and safe alternative with unchecked commitment",
+      "status": "PASS"
+    },
+    {
+      "name": "Space and Enter send only explicitly acknowledged closed danger intent",
+      "status": "PASS"
+    },
+    {
+      "name": "ordinary execution acknowledgement never acknowledges optional danger",
+      "status": "PASS"
+    },
+    {
+      "name": "safe platform choice is inert to gameplay, restores focus, and retires all controls",
+      "status": "PASS"
+    },
+    {
+      "name": "Escape cancels without any acknowledgement or gameplay action",
+      "status": "PASS"
+    },
+    {
+      "name": "new projection resets acknowledgement and reattached old controls stay inert",
+      "status": "PASS"
+    },
+    {
+      "name": "hide blocks delayed old controls",
+      "status": "PASS"
+    },
+    {
+      "name": "inert blocks delayed old controls",
+      "status": "PASS"
+    },
+    {
+      "name": "detach blocks delayed old controls",
+      "status": "PASS"
+    },
+    {
+      "name": "dispose blocks delayed old controls",
+      "status": "PASS"
+    },
+    {
+      "name": "bus invalidation rejects the old projection even while its checkbox remains visible",
+      "status": "PASS"
+    },
+    {
+      "name": "moved hazard fragment outside its original containment is inert",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "moved hazard holder outside its original containment is inert",
+      "status": "FAIL",
+      "error": "Error: locator.check: Error: strict mode violation: getByLabel('I understand that crossing the unstable ledge can kill the apprentice', { exact: true }) resolved to 2 elements:\n    1) <input type=\"checkbox\"/> aka getByRole('dialog', { name: 'Repair plan' }).getByRole('checkbox', { name: 'I understand that crossing' })\n    2) <input type=\"checkbox\"/> aka getByRole('checkbox', { name: 'I understand that crossing' }).nth(1)\n\nCall log:\n\u001b[2m  - waiting for getByLabel('I understand that crossing the unstable ledge can kill the apprentice', { exact: true })\u001b[22m\n"
+    },
+    {
+      "name": "moved hazard child outside its original containment is inert",
+      "status": "FAIL",
+      "error": "Error: locator.check: Error: strict mode violation: getByLabel('I understand that crossing the unstable ledge can kill the apprentice', { exact: true }) resolved to 2 elements:\n    1) <input type=\"checkbox\"/> aka getByRole('dialog', { name: 'Repair plan' }).getByRole('checkbox', { name: 'I understand that crossing' })\n    2) <input type=\"checkbox\"/> aka getByRole('checkbox', { name: 'I understand that crossing' }).nth(1)\n\nCall log:\n\u001b[2m  - waiting for getByLabel('I understand that crossing the unstable ledge can kill the apprentice', { exact: true })\u001b[22m\n"
+    },
+    {
+      "name": "moved preparation fragment outside its original containment is inert",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "moved preparation holder outside its original containment is inert",
+      "status": "FAIL",
+      "error": "Error: locator.check: Error: strict mode violation: getByLabel('I understand that execution changes the route and makes earlier readings stale', { exact: true }) resolved to 2 elements:\n    1) <input type=\"checkbox\"/> aka getByRole('dialog', { name: 'Repair plan' }).getByRole('checkbox', { name: 'I understand that execution' })\n    2) <input type=\"checkbox\"/> aka getByRole('checkbox', { name: 'I understand that execution' }).nth(1)\n\nCall log:\n\u001b[2m  - waiting for getByLabel('I understand that execution changes the route and makes earlier readings stale', { exact: true })\u001b[22m\n"
+    },
+    {
+      "name": "moved preparation child outside its original containment is inert",
+      "status": "FAIL",
+      "error": "Error: locator.check: Error: strict mode violation: getByLabel('I understand that execution changes the route and makes earlier readings stale', { exact: true }) resolved to 2 elements:\n    1) <input type=\"checkbox\"/> aka getByRole('dialog', { name: 'Repair plan' }).getByRole('checkbox', { name: 'I understand that execution' })\n    2) <input type=\"checkbox\"/> aka getByRole('checkbox', { name: 'I understand that execution' }).nth(1)\n\nCall log:\n\u001b[2m  - waiting for getByLabel('I understand that execution changes the route and makes earlier readings stale', { exact: true })\u001b[22m\n"
+    },
+    {
+      "name": "postcommit projection has no danger choice and narrates temporary encounter restrictions",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "resolved return to Rift does not falsely claim an active encounter or blocked saving",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "390-pixel viewport and 200-percent text retain readable warning and reachable safe return",
+      "status": "FAIL",
+      "error": "Error: locator.scrollIntoViewIfNeeded: Error: strict mode violation: getByRole('button', { name: 'Stay on the safe inspection platform', exact: true }) resolved to 2 elements:\n    1) <button type=\"button\">Stay on the safe inspection platform</button> aka getByRole('dialog', { name: 'Repair plan' }).getByRole('button', { name: 'Stay on the safe inspection' })\n    2) <button type=\"button\">Stay on the safe inspection platform</button> aka getByRole('button', { name: 'Stay on the safe inspection' }).nth(1)\n\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Stay on the safe inspection platform', exact: true })\u001b[22m\n"
+    }
+  ],
+  "pageErrors": [],
+  "browserVersion": "159.0",
+  "executable": "/Users/john.capobianco/Library/Caches/ms-playwright/firefox-1572/firefox/Nightly.app/Contents/MacOS/firefox"
+}

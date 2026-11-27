@@ -1,0 +1,416 @@
+[WebServer] (node:47742) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:47743) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [firefox-local-https] › tests/e2e/outcomes.spec.ts:42:15 › T089 real outcome and recovery integration › E02 copper: real proof, explicit Continue and opted-in ordinary autosave (14.6s)
+  ✓   2 [firefox-local-https] › tests/e2e/outcomes.spec.ts:42:15 › T089 real outcome and recovery integration › E02 fiber: real proof, explicit Continue and opted-in ordinary autosave (13.8s)
+  ✓   3 [firefox-local-https] › tests/e2e/outcomes.spec.ts:42:15 › T089 real outcome and recovery integration › E01 radio: real proof, explicit Continue and opted-in ordinary autosave (13.7s)
+  ✘   4 [firefox-local-https] › tests/e2e/outcomes.spec.ts:73:63 › T089 real outcome and recovery integration › E03 copper: deliberate isolation, cancel, whole preparation rewind and fresh proof (21.2s)
+(node:48413) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   5 [firefox-local-https] › tests/e2e/outcomes.spec.ts:73:63 › T089 real outcome and recovery integration › E03 fiber: deliberate isolation, cancel, whole preparation rewind and fresh proof (21.2s)
+(node:48892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   6 [firefox-local-https] › tests/e2e/outcomes.spec.ts:73:63 › T089 real outcome and recovery integration › E03 radio: deliberate isolation, cancel, whole preparation rewind and fresh proof (15.1s)
+(node:49099) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   7 [firefox-local-https] › tests/e2e/outcomes.spec.ts:121:3 › T089 real outcome and recovery integration › warned fatal choice: Retry cancel, stale controls, Restore review cancel and exact whole-journal replacement (11.5s)
+  ✘   8 [firefox-local-https] › tests/e2e/outcomes.spec.ts:149:3 › T089 real outcome and recovery integration › guest fatal Retry stays temporary; sign-in choice has no load/write and declined invitation stays declined (14.7s)
+(node:49419) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   9 [firefox-local-https] › tests/e2e/outcomes.spec.ts:168:3 › T089 real outcome and recovery integration › a committed earlier save acknowledgement cannot mark the new Retry generation saved (16.2s)
+(node:49595) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  10 [firefox-local-https] › tests/e2e/outcomes.spec.ts:193:3 › T089 real outcome and recovery integration › unknown save outcome survives Retry; receipt retry sends exact old bytes and preserves current learning (16.2s)
+(node:49764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  11 [firefox-local-https] › tests/e2e/outcomes.spec.ts:213:3 › T089 real outcome and recovery integration › Restore response arriving after Retry cannot reopen an old discard confirmation (11.0s)
+(node:49930) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  12 [firefox-local-https] › tests/e2e/outcomes.spec.ts:232:3 › T089 real outcome and recovery integration › SAVE13 after Retry: cancelled logout keeps notes and checkpoint; confirmed logout clears without autosave (16.2s)
+
+
+  1) [firefox-local-https] › tests/e2e/outcomes.spec.ts:73:63 › T089 real outcome and recovery integration › E03 copper: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+
+    TimeoutError: locator.check: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for getByRole('checkbox', { name: 'I understand that execution changes the route and makes earlier readings stale', exact: true })
+        - locator resolved to <input disabled type="checkbox"/>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is not enabled
+        - retrying click action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and stable
+          - element is not enabled
+        - retrying click action
+          - waiting 100ms
+        19 × waiting for element to be visible, enabled and stable
+           - element is not enabled
+         - retrying click action
+           - waiting 500ms
+
+
+       at support/outcome-journey.ts:36
+
+      34 |   const check = async (name: string) => {
+      35 |     const input = page.getByRole('checkbox', { name, exact: true });
+    > 36 |     if (keyboard) { await input.focus(); await input.press('Space'); } else await input.check();
+         |                                                                                         ^
+      37 |   };
+      38 |   const room = async (name: string) => {
+      39 |     await expect(page.getByRole('heading', { name, exact: true })).toBeVisible();
+        at check (/Users/john.capobianco/Network-Quest/tests/e2e/support/outcome-journey.ts:36:89)
+        at Object.execute (/Users/john.capobianco/Network-Quest/tests/e2e/support/outcome-journey.ts:121:39)
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:77:43
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [firefox-local-https] › tests/e2e/outcomes.spec.ts:73:63 › T089 real outcome and recovery integration › E03 fiber: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+
+    TimeoutError: locator.check: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for getByRole('checkbox', { name: 'I understand that execution changes the route and makes earlier readings stale', exact: true })
+        - locator resolved to <input disabled type="checkbox"/>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is not enabled
+        - retrying click action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and stable
+          - element is not enabled
+        - retrying click action
+          - waiting 100ms
+        19 × waiting for element to be visible, enabled and stable
+           - element is not enabled
+         - retrying click action
+           - waiting 500ms
+
+
+       at support/outcome-journey.ts:36
+
+      34 |   const check = async (name: string) => {
+      35 |     const input = page.getByRole('checkbox', { name, exact: true });
+    > 36 |     if (keyboard) { await input.focus(); await input.press('Space'); } else await input.check();
+         |                                                                                         ^
+      37 |   };
+      38 |   const room = async (name: string) => {
+      39 |     await expect(page.getByRole('heading', { name, exact: true })).toBeVisible();
+        at check (/Users/john.capobianco/Network-Quest/tests/e2e/support/outcome-journey.ts:36:89)
+        at Object.execute (/Users/john.capobianco/Network-Quest/tests/e2e/support/outcome-journey.ts:121:39)
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:77:43
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [firefox-local-https] › tests/e2e/outcomes.spec.ts:73:63 › T089 real outcome and recovery integration › E03 radio: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('dialog', { name: 'Notebook', exact: true }).locator('ul[aria-label="Objectives"] > li').filter({ hasText: 'Resolve the intervention in R11' })
+    Expected substring: "Completed"
+    Received string:    "Resolve the intervention in R11 — In progressSource: The Backhoe RiftPin objective: Resolve the intervention in R11"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" getByRole('dialog', { name: 'Notebook', exact: true }).locator('ul[aria-label="Objectives"] > li').filter({ hasText: 'Resolve the intervention in R11' }) with timeout 5000ms
+      - waiting for getByRole('dialog', { name: 'Notebook', exact: true }).locator('ul[aria-label="Objectives"] > li').filter({ hasText: 'Resolve the intervention in R11' })
+        14 × locator resolved to <li>…</li>
+           - unexpected value "Resolve the intervention in R11 — In progressSource: The Backhoe RiftPin objective: Resolve the intervention in R11"
+
+
+       at support/outcome-journey.ts:56
+
+      54 |   const objective = async (label: string, completed: boolean) => {
+      55 |     await click('Notebook'); const item = dialog(page, 'Notebook').locator('ul[aria-label="Objectives"] > li').filter({ hasText: label });
+    > 56 |     await expect(item).toHaveCount(1); await expect(item).toContainText(completed ? 'Completed' : 'In progress'); await click('Close notebook');
+         |                                                           ^
+      57 |   };
+      58 |   const save = async (first = false) => {
+      59 |     await click('Save'); if (first) await click('Save this adventure');
+        at Object.objective (/Users/john.capobianco/Network-Quest/tests/e2e/support/outcome-journey.ts:56:59)
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:77:54
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [firefox-local-https] › tests/e2e/outcomes.spec.ts:149:3 › T089 real outcome and recovery integration › guest fatal Retry stays temporary; sign-in choice has no load/write and declined invitation stays declined 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('.nq-graybox')
+    Expected: "true"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" locator('.nq-graybox') with timeout 5000ms
+      - waiting for locator('.nq-graybox')
+
+
+       at support/outcome-journey.ts:40
+
+      38 |   const room = async (name: string) => {
+      39 |     await expect(page.getByRole('heading', { name, exact: true })).toBeVisible();
+    > 40 |     await expect(page.locator('.nq-graybox')).toHaveAttribute('data-rendered', 'true');
+         |                                               ^
+      41 |     expect(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight + 1)).toBe(true);
+      42 |   };
+      43 |   const walk = async (name: string, label = `Walk to ${name}`) => { await click('Walk'); await click(label); await room(name); };
+        at Object.room (/Users/john.capobianco/Network-Quest/tests/e2e/support/outcome-journey.ts:40:47)
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:164:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-f2fdb-d-invitation-stays-declined-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-f2fdb-d-invitation-stays-declined-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-f2fdb-d-invitation-stays-declined-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-f2fdb-d-invitation-stays-declined-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-f2fdb-d-invitation-stays-declined-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [firefox-local-https] › tests/e2e/outcomes.spec.ts:168:3 › T089 real outcome and recovery integration › a committed earlier save acknowledgement cannot mark the new Retry generation saved 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('.nq-graybox')
+    Expected: "true"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" locator('.nq-graybox') with timeout 5000ms
+      - waiting for locator('.nq-graybox')
+
+
+       at support/outcome-journey.ts:40
+
+      38 |   const room = async (name: string) => {
+      39 |     await expect(page.getByRole('heading', { name, exact: true })).toBeVisible();
+    > 40 |     await expect(page.locator('.nq-graybox')).toHaveAttribute('data-rendered', 'true');
+         |                                               ^
+      41 |     expect(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight + 1)).toBe(true);
+      42 |   };
+      43 |   const walk = async (name: string, label = `Walk to ${name}`) => { await click('Walk'); await click(label); await room(name); };
+        at Object.room (/Users/john.capobianco/Network-Quest/tests/e2e/support/outcome-journey.ts:40:47)
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:182:7
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-e09a4--new-Retry-generation-saved-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-e09a4--new-Retry-generation-saved-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-e09a4--new-Retry-generation-saved-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-e09a4--new-Retry-generation-saved-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-e09a4--new-Retry-generation-saved-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [firefox-local-https] › tests/e2e/outcomes.spec.ts:193:3 › T089 real outcome and recovery integration › unknown save outcome survives Retry; receipt retry sends exact old bytes and preserves current learning 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('.nq-graybox')
+    Expected: "true"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" locator('.nq-graybox') with timeout 5000ms
+      - waiting for locator('.nq-graybox')
+
+
+       at support/outcome-journey.ts:40
+
+      38 |   const room = async (name: string) => {
+      39 |     await expect(page.getByRole('heading', { name, exact: true })).toBeVisible();
+    > 40 |     await expect(page.locator('.nq-graybox')).toHaveAttribute('data-rendered', 'true');
+         |                                               ^
+      41 |     expect(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight + 1)).toBe(true);
+      42 |   };
+      43 |   const walk = async (name: string, label = `Walk to ${name}`) => { await click('Walk'); await click(label); await room(name); };
+        at Object.room (/Users/john.capobianco/Network-Quest/tests/e2e/support/outcome-journey.ts:40:47)
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:203:120
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-38c3c--preserves-current-learning-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-38c3c--preserves-current-learning-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-38c3c--preserves-current-learning-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-38c3c--preserves-current-learning-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-38c3c--preserves-current-learning-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [firefox-local-https] › tests/e2e/outcomes.spec.ts:213:3 › T089 real outcome and recovery integration › Restore response arriving after Retry cannot reopen an old discard confirmation 
+
+    Error: route.fetch: unable to verify the first certificate; if the root CA is installed locally, try running Node.js with --use-system-ca
+    Call log:
+      - → GET https://127.0.0.1:51321/arcade/play/network-quest/api/v1/save
+        - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:159.0) Gecko/20100101 Firefox/159.0
+        - accept: application/json
+        - accept-encoding: gzip, deflate, br, zstd
+        - host: 127.0.0.1:51321
+        - accept-language: en-US
+        - referer: https://127.0.0.1:51321/
+        - connection: keep-alive
+        - cookie: [isolated test value redacted]
+        - sec-fetch-dest: empty
+        - sec-fetch-mode: same-origin
+        - sec-fetch-site: same-origin
+
+
+      219 |     await j.page.route('**/api/v1/save', async route => {
+      220 |       if (route.request().method() !== 'GET') return route.continue();
+    > 221 |       const response = await route.fetch(); reached(); await held; await route.fulfill({ response }); completed = true;
+          |                                    ^
+      222 |     });
+      223 |     try {
+      224 |       await dialog(j.page, 'A Shortcut Too Short').getByRole('button', { name: 'Restore Save', exact: true }).click(); await intercepted;
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:221:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-e234a-an-old-discard-confirmation-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-e234a-an-old-discard-confirmation-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-e234a-an-old-discard-confirmation-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-e234a-an-old-discard-confirmation-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-e234a-an-old-discard-confirmation-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [firefox-local-https] › tests/e2e/outcomes.spec.ts:232:3 › T089 real outcome and recovery integration › SAVE13 after Retry: cancelled logout keeps notes and checkpoint; confirmed logout clears without autosave 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('.nq-graybox')
+    Expected: "true"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" locator('.nq-graybox') with timeout 5000ms
+      - waiting for locator('.nq-graybox')
+
+
+       at support/outcome-journey.ts:40
+
+      38 |   const room = async (name: string) => {
+      39 |     await expect(page.getByRole('heading', { name, exact: true })).toBeVisible();
+    > 40 |     await expect(page.locator('.nq-graybox')).toHaveAttribute('data-rendered', 'true');
+         |                                               ^
+      41 |     expect(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight + 1)).toBe(true);
+      42 |   };
+      43 |   const walk = async (name: string, label = `Walk to ${name}`) => { await click('Walk'); await click(label); await room(name); };
+        at Object.room (/Users/john.capobianco/Network-Quest/tests/e2e/support/outcome-journey.ts:40:47)
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:236:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-7d7a7-out-clears-without-autosave-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-7d7a7-out-clears-without-autosave-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-7d7a7-out-clears-without-autosave-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-7d7a7-out-clears-without-autosave-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/02-native-initial/outcomes-T089-real-outcome-7d7a7-out-clears-without-autosave-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8 failed
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:73:63 › T089 real outcome and recovery integration › E03 copper: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:73:63 › T089 real outcome and recovery integration › E03 fiber: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:73:63 › T089 real outcome and recovery integration › E03 radio: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:149:3 › T089 real outcome and recovery integration › guest fatal Retry stays temporary; sign-in choice has no load/write and declined invitation stays declined 
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:168:3 › T089 real outcome and recovery integration › a committed earlier save acknowledgement cannot mark the new Retry generation saved 
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:193:3 › T089 real outcome and recovery integration › unknown save outcome survives Retry; receipt retry sends exact old bytes and preserves current learning 
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:213:3 › T089 real outcome and recovery integration › Restore response arriving after Retry cannot reopen an old discard confirmation 
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:232:3 › T089 real outcome and recovery integration › SAVE13 after Retry: cancelled logout keeps notes and checkpoint; confirmed logout clears without autosave 
+  4 passed (3.2m)

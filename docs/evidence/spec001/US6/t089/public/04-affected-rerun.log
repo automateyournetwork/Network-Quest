@@ -1,0 +1,255 @@
+[WebServer] (node:9931) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:9938) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 copper: deliberate isolation, cancel, whole preparation rewind and fresh proof (18.0s)
+(node:10060) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 fiber: deliberate isolation, cancel, whole preparation rewind and fresh proof (17.3s)
+(node:10181) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 radio: deliberate isolation, cancel, whole preparation rewind and fresh proof (16.1s)
+(node:10487) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 [firefox-local-https] › tests/e2e/outcomes.spec.ts:155:3 › T089 real outcome and recovery integration › guest fatal Retry stays temporary; sign-in choice has no load/write and declined invitation stays declined (15.5s)
+(node:10633) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  5 [firefox-local-https] › tests/e2e/outcomes.spec.ts:174:3 › T089 real outcome and recovery integration › a committed earlier save acknowledgement cannot mark the new Retry generation saved (17.4s)
+(node:10816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  6 [firefox-local-https] › tests/e2e/outcomes.spec.ts:205:3 › T089 real outcome and recovery integration › unknown save outcome survives Retry; receipt retry sends exact old bytes and preserves current learning (11.7s)
+  ✓  7 [firefox-local-https] › tests/e2e/outcomes.spec.ts:225:3 › T089 real outcome and recovery integration › Restore response arriving after Retry cannot reopen an old discard confirmation (11.0s)
+  ✓  8 [firefox-local-https] › tests/e2e/outcomes.spec.ts:245:3 › T089 real outcome and recovery integration › SAVE13 after Retry: cancelled logout keeps notes and checkpoint; confirmed logout clears without autosave (12.0s)
+
+
+  1) [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 copper: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('dialog', { name: 'The Honest Shutdown', exact: true })
+    Expected substring: "Unresolved defect:"
+    Received string:    "The Honest ShutdownGameThe current evidence has been classified. Review its outcome and caveats before continuing.The beacon stays dark. You hang a clear fault notice where a hopeful guess used to be. Even the enormous gate seems relieved to receive an honest answer.The chapter closes with the damaged path isolated and the next work written down. There will be no celebration of a repair that has not happened. There can still be a next attempt.Skip sceneReplay sceneDeliberate safe shutdown: the severed conduit remains disconnected and service is unresolved. Isolation is not restoration.Named unresolved fault: the severed conduit remains disconnected. Deliberate isolation keeps that path out of service. Recovery plan: return to safe preparation, repair or replace the damaged path, then measure again and repeat the endpoint test. This is honest unresolved service, never a restoration.No media route is recorded for this shutdown. The recovery record leaves that choice open rather than inventing a journey you did not take.You faced the Rift with your own observations and a well-used toolkit.The main journey has a chapter of its own.Continue returns to safe encounter preparation in this temporary session. Preparation and inventory rewind; new clues, personal notes and hint-use history remain. Earlier measurements become stale and must be repeated.Retry from Encounter Preparation is temporary session recovery, not a second save slot. Preparation and inventory rewind together. New clues, personal notes and hint-use history remain; earlier measurements become stale. Save later at an ordinary safe moment to keep that learning across sessions.Restore Save loads the signed-in account's one saved snapshot. It replaces this in-memory adventure and its unsaved changes; it does not retain new learning from this attempt. Review that decision before loading.This scene does not overwrite your account save. Terminal failure and unresolved shutdown cannot be saved or autosaved.ContinueRestore Save"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" getByRole('dialog', { name: 'The Honest Shutdown', exact: true }) with timeout 5000ms
+      - waiting for getByRole('dialog', { name: 'The Honest Shutdown', exact: true })
+        14 × locator resolved to <section role="dialog" aria-modal="true" class="nq-window-active" aria-label="The Honest Shutdown">…</section>
+           - unexpected value "The Honest ShutdownGameThe current evidence has been classified. Review its outcome and caveats before continuing.The beacon stays dark. You hang a clear fault notice where a hopeful guess used to be. Even the enormous gate seems relieved to receive an honest answer.The chapter closes with the damaged path isolated and the next work written down. There will be no celebration of a repair that has not happened. There can still be a next attempt.Skip sceneReplay sceneDeliberate safe shutdown: the severed conduit remains disconnected and service is unresolved. Isolation is not restoration.Named unresolved fault: the severed conduit remains disconnected. Deliberate isolation keeps that path out of service. Recovery plan: return to safe preparation, repair or replace the damaged path, then measure again and repeat the endpoint test. This is honest unresolved service, never a restoration.No media route is recorded for this shutdown. The recovery record leaves that choice open rather than inventing a journey you did not take.You faced the Rift with your own observations and a well-used toolkit.The main journey has a chapter of its own.Continue returns to safe encounter preparation in this temporary session. Preparation and inventory rewind; new clues, personal notes and hint-use history remain. Earlier measurements become stale and must be repeated.Retry from Encounter Preparation is temporary session recovery, not a second save slot. Preparation and inventory rewind together. New clues, personal notes and hint-use history remain; earlier measurements become stale. Save later at an ordinary safe moment to keep that learning across sessions.Restore Save loads the signed-in account's one saved snapshot. It replaces this in-memory adventure and its unsaved changes; it does not retain new learning from this attempt. Review that decision before loading.This scene does not overwrite your account save. Terminal failure and unresolved shutdown cannot be saved or autosaved.ContinueRestore Save"
+
+
+      85 |     const ending = dialog(j.page, 'The Honest Shutdown');
+      86 |     await expect(ending).toContainText('service is unresolved'); await expect(ending).toContainText('Isolation is not restoration');
+    > 87 |     await expect(ending).toContainText('Unresolved defect:'); await expect(ending).toContainText('Recovery plan:'); await saveBlocked(j);
+         |                          ^
+      88 |     expect(j.writes).toHaveLength(1); expect(await j.local.inspectSlot()).toEqual(anchor);
+      89 |     let confirmation = await retry(j, true);
+      90 |     await confirmation.getByRole('button', { name: 'Cancel — keep this attempt', exact: true }).press('Enter');
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:87:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-f9b09-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 fiber: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('dialog', { name: 'The Honest Shutdown', exact: true })
+    Expected substring: "Unresolved defect:"
+    Received string:    "The Honest ShutdownGameThe current evidence has been classified. Review its outcome and caveats before continuing.The beacon stays dark. You hang a clear fault notice where a hopeful guess used to be. Even the enormous gate seems relieved to receive an honest answer.The chapter closes with the damaged path isolated and the next work written down. There will be no celebration of a repair that has not happened. There can still be a next attempt.Skip sceneReplay sceneDeliberate safe shutdown: the severed conduit remains disconnected and service is unresolved. Isolation is not restoration.Named unresolved fault: the severed conduit remains disconnected. Deliberate isolation keeps that path out of service. Recovery plan: return to safe preparation, repair or replace the damaged path, then measure again and repeat the endpoint test. This is honest unresolved service, never a restoration.No media route is recorded for this shutdown. The recovery record leaves that choice open rather than inventing a journey you did not take.You faced the Rift with your own observations and a well-used toolkit.The main journey has a chapter of its own.Continue returns to safe encounter preparation in this temporary session. Preparation and inventory rewind; new clues, personal notes and hint-use history remain. Earlier measurements become stale and must be repeated.Retry from Encounter Preparation is temporary session recovery, not a second save slot. Preparation and inventory rewind together. New clues, personal notes and hint-use history remain; earlier measurements become stale. Save later at an ordinary safe moment to keep that learning across sessions.Restore Save loads the signed-in account's one saved snapshot. It replaces this in-memory adventure and its unsaved changes; it does not retain new learning from this attempt. Review that decision before loading.This scene does not overwrite your account save. Terminal failure and unresolved shutdown cannot be saved or autosaved.ContinueRestore Save"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" getByRole('dialog', { name: 'The Honest Shutdown', exact: true }) with timeout 5000ms
+      - waiting for getByRole('dialog', { name: 'The Honest Shutdown', exact: true })
+        14 × locator resolved to <section role="dialog" aria-modal="true" class="nq-window-active" aria-label="The Honest Shutdown">…</section>
+           - unexpected value "The Honest ShutdownGameThe current evidence has been classified. Review its outcome and caveats before continuing.The beacon stays dark. You hang a clear fault notice where a hopeful guess used to be. Even the enormous gate seems relieved to receive an honest answer.The chapter closes with the damaged path isolated and the next work written down. There will be no celebration of a repair that has not happened. There can still be a next attempt.Skip sceneReplay sceneDeliberate safe shutdown: the severed conduit remains disconnected and service is unresolved. Isolation is not restoration.Named unresolved fault: the severed conduit remains disconnected. Deliberate isolation keeps that path out of service. Recovery plan: return to safe preparation, repair or replace the damaged path, then measure again and repeat the endpoint test. This is honest unresolved service, never a restoration.No media route is recorded for this shutdown. The recovery record leaves that choice open rather than inventing a journey you did not take.You faced the Rift with your own observations and a well-used toolkit.The main journey has a chapter of its own.Continue returns to safe encounter preparation in this temporary session. Preparation and inventory rewind; new clues, personal notes and hint-use history remain. Earlier measurements become stale and must be repeated.Retry from Encounter Preparation is temporary session recovery, not a second save slot. Preparation and inventory rewind together. New clues, personal notes and hint-use history remain; earlier measurements become stale. Save later at an ordinary safe moment to keep that learning across sessions.Restore Save loads the signed-in account's one saved snapshot. It replaces this in-memory adventure and its unsaved changes; it does not retain new learning from this attempt. Review that decision before loading.This scene does not overwrite your account save. Terminal failure and unresolved shutdown cannot be saved or autosaved.ContinueRestore Save"
+
+
+      85 |     const ending = dialog(j.page, 'The Honest Shutdown');
+      86 |     await expect(ending).toContainText('service is unresolved'); await expect(ending).toContainText('Isolation is not restoration');
+    > 87 |     await expect(ending).toContainText('Unresolved defect:'); await expect(ending).toContainText('Recovery plan:'); await saveBlocked(j);
+         |                          ^
+      88 |     expect(j.writes).toHaveLength(1); expect(await j.local.inspectSlot()).toEqual(anchor);
+      89 |     let confirmation = await retry(j, true);
+      90 |     await confirmation.getByRole('button', { name: 'Cancel — keep this attempt', exact: true }).press('Enter');
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:87:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-7aedb-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 radio: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('dialog', { name: 'The Honest Shutdown', exact: true })
+    Expected substring: "Unresolved defect:"
+    Received string:    "The Honest ShutdownGameThe current evidence has been classified. Review its outcome and caveats before continuing.The beacon stays dark. You hang a clear fault notice where a hopeful guess used to be. Even the enormous gate seems relieved to receive an honest answer.The chapter closes with the damaged path isolated and the next work written down. There will be no celebration of a repair that has not happened. There can still be a next attempt.Skip sceneReplay sceneDeliberate safe shutdown: the severed conduit remains disconnected and service is unresolved. Isolation is not restoration.Named unresolved fault: the severed conduit remains disconnected. Deliberate isolation keeps that path out of service. Recovery plan: return to safe preparation, repair or replace the damaged path, then measure again and repeat the endpoint test. This is honest unresolved service, never a restoration.No media route is recorded for this shutdown. The recovery record leaves that choice open rather than inventing a journey you did not take.You faced the Rift with your own observations and a well-used toolkit.The main journey has a chapter of its own.Continue returns to safe encounter preparation in this temporary session. Preparation and inventory rewind; new clues, personal notes and hint-use history remain. Earlier measurements become stale and must be repeated.Retry from Encounter Preparation is temporary session recovery, not a second save slot. Preparation and inventory rewind together. New clues, personal notes and hint-use history remain; earlier measurements become stale. Save later at an ordinary safe moment to keep that learning across sessions.Restore Save loads the signed-in account's one saved snapshot. It replaces this in-memory adventure and its unsaved changes; it does not retain new learning from this attempt. Review that decision before loading.This scene does not overwrite your account save. Terminal failure and unresolved shutdown cannot be saved or autosaved.ContinueRestore Save"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" getByRole('dialog', { name: 'The Honest Shutdown', exact: true }) with timeout 5000ms
+      - waiting for getByRole('dialog', { name: 'The Honest Shutdown', exact: true })
+        14 × locator resolved to <section role="dialog" aria-modal="true" class="nq-window-active" aria-label="The Honest Shutdown">…</section>
+           - unexpected value "The Honest ShutdownGameThe current evidence has been classified. Review its outcome and caveats before continuing.The beacon stays dark. You hang a clear fault notice where a hopeful guess used to be. Even the enormous gate seems relieved to receive an honest answer.The chapter closes with the damaged path isolated and the next work written down. There will be no celebration of a repair that has not happened. There can still be a next attempt.Skip sceneReplay sceneDeliberate safe shutdown: the severed conduit remains disconnected and service is unresolved. Isolation is not restoration.Named unresolved fault: the severed conduit remains disconnected. Deliberate isolation keeps that path out of service. Recovery plan: return to safe preparation, repair or replace the damaged path, then measure again and repeat the endpoint test. This is honest unresolved service, never a restoration.No media route is recorded for this shutdown. The recovery record leaves that choice open rather than inventing a journey you did not take.You faced the Rift with your own observations and a well-used toolkit.The main journey has a chapter of its own.Continue returns to safe encounter preparation in this temporary session. Preparation and inventory rewind; new clues, personal notes and hint-use history remain. Earlier measurements become stale and must be repeated.Retry from Encounter Preparation is temporary session recovery, not a second save slot. Preparation and inventory rewind together. New clues, personal notes and hint-use history remain; earlier measurements become stale. Save later at an ordinary safe moment to keep that learning across sessions.Restore Save loads the signed-in account's one saved snapshot. It replaces this in-memory adventure and its unsaved changes; it does not retain new learning from this attempt. Review that decision before loading.This scene does not overwrite your account save. Terminal failure and unresolved shutdown cannot be saved or autosaved.ContinueRestore Save"
+
+
+      85 |     const ending = dialog(j.page, 'The Honest Shutdown');
+      86 |     await expect(ending).toContainText('service is unresolved'); await expect(ending).toContainText('Isolation is not restoration');
+    > 87 |     await expect(ending).toContainText('Unresolved defect:'); await expect(ending).toContainText('Recovery plan:'); await saveBlocked(j);
+         |                          ^
+      88 |     expect(j.writes).toHaveLength(1); expect(await j.local.inspectSlot()).toEqual(anchor);
+      89 |     let confirmation = await retry(j, true);
+      90 |     await confirmation.getByRole('button', { name: 'Cancel — keep this attempt', exact: true }).press('Enter');
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:87:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-4fa0b-tion-rewind-and-fresh-proof-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [firefox-local-https] › tests/e2e/outcomes.spec.ts:155:3 › T089 real outcome and recovery integration › guest fatal Retry stays temporary; sign-in choice has no load/write and declined invitation stays declined 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: 'Walk to The Clockworks', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('button', { name: 'Walk to The Clockworks', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: 'Walk to The Clockworks', exact: true })
+
+
+       at support/adventure-controls.ts:37
+
+      35 |     else if (scene) await openFrame(page,'Scene');
+      36 |   }
+    > 37 |   await expect(target).toBeVisible(); return target;
+         |                        ^
+      38 | }
+      39 | export async function clickButton(page: Page, name: string) { await (await revealControl(page, name)).click(); }
+      40 | export async function pressButton(page: Page, name: string, key = 'Enter') { await (await revealControl(page, name)).press(key); }
+        at revealControl (/Users/john.capobianco/Network-Quest/tests/e2e/support/adventure-controls.ts:37:24)
+        at click (/Users/john.capobianco/Network-Quest/tests/e2e/support/outcome-journey.ts:55:21)
+        at Object.walk (/Users/john.capobianco/Network-Quest/tests/e2e/support/outcome-journey.ts:67:90)
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:170:58
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-f2fdb-d-invitation-stays-declined-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-f2fdb-d-invitation-stays-declined-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-f2fdb-d-invitation-stays-declined-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-f2fdb-d-invitation-stays-declined-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-f2fdb-d-invitation-stays-declined-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [firefox-local-https] › tests/e2e/outcomes.spec.ts:174:3 › T089 real outcome and recovery integration › a committed earlier save acknowledgement cannot mark the new Retry generation saved 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: 'Walk to The Clockworks', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('button', { name: 'Walk to The Clockworks', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: 'Walk to The Clockworks', exact: true })
+
+
+       at support/adventure-controls.ts:37
+
+      35 |     else if (scene) await openFrame(page,'Scene');
+      36 |   }
+    > 37 |   await expect(target).toBeVisible(); return target;
+         |                        ^
+      38 | }
+      39 | export async function clickButton(page: Page, name: string) { await (await revealControl(page, name)).click(); }
+      40 | export async function pressButton(page: Page, name: string, key = 'Enter') { await (await revealControl(page, name)).press(key); }
+        at revealControl (/Users/john.capobianco/Network-Quest/tests/e2e/support/adventure-controls.ts:37:24)
+        at click (/Users/john.capobianco/Network-Quest/tests/e2e/support/outcome-journey.ts:55:21)
+        at Object.walk (/Users/john.capobianco/Network-Quest/tests/e2e/support/outcome-journey.ts:67:90)
+        at /Users/john.capobianco/Network-Quest/tests/e2e/outcomes.spec.ts:196:83
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-e09a4--new-Retry-generation-saved-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-e09a4--new-Retry-generation-saved-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-e09a4--new-Retry-generation-saved-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-e09a4--new-Retry-generation-saved-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace docs/evidence/spec001/US6/t089/04-affected-rerun/outcomes-T089-real-outcome-e09a4--new-Retry-generation-saved-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5 failed
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 copper: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 fiber: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:78:63 › T089 real outcome and recovery integration › E03 radio: deliberate isolation, cancel, whole preparation rewind and fresh proof 
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:155:3 › T089 real outcome and recovery integration › guest fatal Retry stays temporary; sign-in choice has no load/write and declined invitation stays declined 
+    [firefox-local-https] › tests/e2e/outcomes.spec.ts:174:3 › T089 real outcome and recovery integration › a committed earlier save acknowledgement cannot mark the new Retry generation saved 
+  3 passed (2.1m)

@@ -1,0 +1,88 @@
+{
+  "task": "T088",
+  "scope": "isolated production recovery confirmation DOM; full application outcome/race matrix belongs T089",
+  "observedAt": "2026-11-27T02:26:30.042Z",
+  "sources": {
+    "src/ui/recovery.ts": "85cb8a1ce6694f1d78a8f1c866db5e18a5ddefef09a8d40b620fba465f92cba5",
+    "tests/ui/recovery-panel.browser.mjs": "8fbe099f7dc88eb37526bc46cab1ee5bbfb19ab6f348b9ac748b04383e98d798"
+  },
+  "results": [
+    {
+      "name": "labeled confirmation explains rewind, retained learning, stale proof, unsaved durability and separate Restore",
+      "status": "PASS"
+    },
+    {
+      "name": "native Enter confirms exact handle once",
+      "status": "PASS"
+    },
+    {
+      "name": "native Escape cancels once without confirming",
+      "status": "PASS"
+    },
+    {
+      "name": "native Space cancels exact handle",
+      "status": "PASS"
+    },
+    {
+      "name": "modified and composing Escape never cancels",
+      "status": "PASS"
+    },
+    {
+      "name": "invalidate retires delayed controls",
+      "status": "PASS"
+    },
+    {
+      "name": "hide retires delayed controls",
+      "status": "PASS"
+    },
+    {
+      "name": "dispose retires delayed controls",
+      "status": "PASS"
+    },
+    {
+      "name": "detach retires delayed controls",
+      "status": "PASS"
+    },
+    {
+      "name": "move retires delayed controls",
+      "status": "PASS"
+    },
+    {
+      "name": "hidden retires delayed controls",
+      "status": "PASS"
+    },
+    {
+      "name": "inert retires delayed controls",
+      "status": "PASS"
+    },
+    {
+      "name": "replacement retires old buttons even when reinserted",
+      "status": "PASS"
+    },
+    {
+      "name": "moved control outside owning dialog is inert",
+      "status": "PASS"
+    },
+    {
+      "name": "same projection preserves focus; closing restores opener",
+      "status": "PASS"
+    },
+    {
+      "name": "Tab cycle includes frame-owned Game control",
+      "status": "PASS"
+    },
+    {
+      "name": "authored copy is rendered as text",
+      "status": "PASS"
+    },
+    {
+      "name": "narrow 200 percent text remains within frame and both controls reachable",
+      "status": "PASS"
+    }
+  ],
+  "pageErrors": [],
+  "browserVersion": "159.0",
+  "executable": "/Users/john.capobianco/Library/Caches/ms-playwright/firefox-1572/firefox/Nightly.app/Contents/MacOS/firefox",
+  "passed": 18,
+  "failed": 0
+}

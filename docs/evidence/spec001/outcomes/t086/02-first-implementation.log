@@ -1,0 +1,25 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/state/outcome-classification.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/state/outcome-classification.test.ts (33 tests) 7559ms
+   ✓ T086 isolated outcome classification — actual repair predicates and reducer (18)
+     ✓ copper reaches each outcome with only its required branch 403ms
+     ✓ fiber reaches each outcome with only its required branch 401ms
+     ✓ radio reaches each outcome with only its required branch 380ms
+     ✓ retains 1 levels of assistance without changing any outcome 392ms
+     ✓ retains 2 levels of assistance without changing any outcome 377ms
+     ✓ retains 3 levels of assistance without changing any outcome 375ms
+     ✓ rejects each independent freshness corruption of physical evidence 749ms
+     ✓ rejects each independent freshness corruption of endpoint evidence 739ms
+   ✓ T086 opaque atomic state and authored Continue boundary (15)
+     ✓ rejects pending transitions, exhausted generation and full event histories before effects 372ms
+
+ Test Files  1 passed (1)
+      Tests  33 passed (33)
+   Start at  20:44:54
+   Duration  8.20s (tests 93%, import 7%)
+

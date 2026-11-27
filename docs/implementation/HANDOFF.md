@@ -24,15 +24,28 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 5. Root owns tracking, staging, review, commits and pushes. Optional automatic Git
    hooks remain disabled. Workers do not change counters, publish or spawn workers.
 
-## Current position — 2026-11-26
+## Current position — 2026-11-27
 
-**99 loops started; 78 of170 tasks accepted.** T079/T080 fiber/radio room pairs
-and actual controller adapters are accepted.097/T081 has GO for the full12-room
-world/application/save-policy join. Fresh098/T085 and099/T086 prepare disjoint
-encounter UI and outcome state; shared composition remains ordered.094/T084's
-reviewed isolated checkpoint code awaits the full-world follow-up. State.json
-owns current status. G0 blocked; aggregate G1–G7 pending. Latest reviewed GitHub
-checkpoint:dbb87da62f11bd0bf335676aff5f29c643812444. No release deployed.
+**104 loops started; 85 of 170 tasks accepted.** T085–T089 are accepted
+for their documented local scope. T089 final12native cases PASS in2.6minutes;
+root final85client suites3065PASS/360unchangedTODO (35.33s), check/buildPASS.
+Root matched61finalpublicseal entries and inspected narrow/desktop recovery
+screenshots. Genuine earlier failures remain: shutdown required a duration,
+Retry caused three competing scene preparations, the read-race helper lacked
+its local CA, and four Rift exits had indistinguishable labels. Corrections and
+two openly corrected test assumptions are in the joined review. Actual future
+nonempty party/quest recovery bindings remain assigned to T104/T105; no gate or
+finished-media acceptance is inferred.
+
+Loop103/T090 has49new candidate tests plus224prior packet regressions passing;
+its ordered shared-source join follows this reviewed publication checkpoint.
+Loop104/T091 has19 independent browser contracts and an identified agent
+technical review prepared outside discovery. Human technical/owner/beginner
+reviews remain separate. Preserve owner previews63366/54594. All raw T089 traces
+and contexts stay local; only sanitized logs and selected screenshots publish.
+G0 blocked; aggregate G1–G7 acceptance pending. Latest pushed checkpoint remains
+`c986d3412145ea921cc29aaf3024990e3dcbbaf0` until the pending scoped push.
+No release deployed.
 
 ## Earlier position and retained progress history — 2026-11-26
 
@@ -1006,3 +1019,51 @@ strictTS,seals androotfulltest/source review.80of170accepted;counter100unchanged
 No modulechange; actual12roomregistry,all3repairs+shutdown,realwalks,readoutstaleness
 andrealpostrollback savepolicy verified. Suppliedprereqs/fatalactivity remain
 explicit; actualactivephase/UI/recovery races belong098/099/T088–89.
+
+Reviewed115path checkpoint published andremoteverified `c986d3412145ea921cc29aaf3024990e3dcbbaf0`.
+Exactstagedhash/private scan/authoredwhitespacePASS;12rawlogEOF blanks and5raw
+browsercontext trailing spaces deliberatelypreserved. No deployment.098/099
+sharedjoin nowGO;100isolatedending/hazard authoring active. All3workersrunning.
+
+### Active outcomes accepted; recovery loop101 started
+
+T086 accepted after full source/test/policy review and all103 final artifact
+hashes plus5 protected oracle hashes match. Seal90490604920a8c77e17cf668c7ab43c2c6e68d6b01ed5a53ee122ad77ae94949.
+Actual66outcome+14policyPASS; joined548PASS/126unchangedTODO; strictTS/check/build
+PASS. RealJS/PHP8.4.28 validate all3 E01/E02 safeContinue→ordinarywalk and retained
+E03 after actualT084rollback. No fullbrowser/recovery/episode claim. Original
+failed evidence and initial seals remain historical.101starts disjoint recovery
+controller/tests; actualapp mount awaits098 hazard hooks and100 epilogue join.
+
+T085 accepted after finalsource/native review and all25 additive seal entries
+match; seal5bacf69b3a3c03a4ed641f79784930b709eabcf4eca5d68533f5f9c7203a1d18.
+Canonical18PASS, existing88PASS, hazard14PASS, finalstrictTS and20nativepanelPASS.
+Rootwholefragment/holderreview found4actualREDs; narrowcontainmentfixes pass.
+Rootviewed390px/200%warning image. Fullapplication/outcome/recovery checks remain
+100/101/102; noepisode/provider/release acceptance. Fresh102/T089 prepares
+independent actualbrowsercases while100/101complete their orderedsourcejoin.
+
+T087 accepted: rootreviewedcontent/projection/panel/applicationand actualE01/E02
+images; all93sealentriesmatch f75f07a7cb7bcdd192609d37f054d1788689ffde821d32c994d2fbe518b8f3e9.
+62focusedPASS/31nativepanelPASS/4actualroutesPASS61.48s/strictTS; finalcopy-only
+maintenancecondensation and101reviewretirementcallback notedafterbrowserrun.
+Rootglobalcheck/buildPASS; fullclient3040PASS/360TODO,84suites34.10s. Rawlogs
+under encounter-outcome-join are ignored bydefault andmustbe explicitly reviewed
+forpublication.103preparespackettests onlywhile102ownsactualbrowsermeasuredsource.
+
+### Actual recovery regressions and same-worker restart — 2026-11-27
+
+102 initialnative12cases:4PASS/8FAIL,3.2m. ThreeE03casesexposeunrelatedduration
+requirementforisolation; fourfatalRetrycasesexposevisualfallback; oneRestoreGET
+harnessCAforwardingfailure. Allgenuineinitialtraces/results retained. T088 remains
+unaccepted despitecompletedlocalcontroller/panelevidence; no release milestone.
+RootdiagnosedRetry: three synchronouscleanupnotifications launchpreparations
+beforeprevioussettle, exceedingRoomAdapter's existingmaxPending2. Rootbatches
+afterRollback UIcleanup underinstallingguard and exposesexistingAppShellannounce
+foractualRecoveryResult; nativeverificationpending.099same-taskownsno-duration
+shutdownfix;103approvedpacketvariant remainsisolated;102ownsactualrerun.
+
+Allthreeworkers hitexactworkspace-crediterror; ownerthenrequested“get all workers
+back up finish to 100%”. Same099/102/103followups issued, countersnotreset.
+103loops/83accepted remain. Rootcontinuesavailablework; creditavailability must
+be observed, notinferred fromthe restartrequest. Currentpublishedcommit unchanged.

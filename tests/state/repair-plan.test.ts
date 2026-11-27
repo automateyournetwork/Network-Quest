@@ -169,7 +169,7 @@ describe('T077 executed intervention and fresh final proof', () => {
     const f = fixture(); f.prepare('shutdown'); f.choose('record-isolation');
     const policy = createSaveContentPolicy(registry, input.world, { itemMaxQuantities: { 'spec001:ITEM-inspection-kit': 1 },
       measurementRules: { 'spec001:STATE04': { readings: { 'Damaged installation removed': 'count', 'Temporary dependency remains': 'count',
-        'Unresolved defect identified': 'count', 'Deliberate isolation': 'count' }, conclusionCodes: ['repair:review:shutdown:permanent:correct'] } },
+        'Unresolved defect identified': 'count', 'Deliberate isolation': 'count' }, conclusionCodes: ['repair:review:shutdown:permanent:correct', 'repair:review:shutdown:not-applicable:correct'] } },
       unsafeFlags: { 'spec001:FLAG-repair-executed': ['shutdown'], 'spec001:FLAG-repair-classification': ['shutdown'] } });
     const validator = new SaveValidator([policy]);
     expect(captureSafeSnapshot(f.state(), validator).ok).toBe(true);

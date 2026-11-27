@@ -1,0 +1,68 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/ui/recovery.test.ts (23 tests | 3 failed) 75ms
+   ❯ T088 owned encounter recovery commands (23)
+     ✓ failure requires explicit confirmation; cancel keeps exact memory 7ms
+     ✓ shutdown requires explicit confirmation; cancel keeps exact memory 9ms
+     ✓ failure installs one preparation rewind and clears obsolete UI in that CAS 2ms
+     ✓ shutdown installs one preparation rewind and clears obsolete UI in that CAS 6ms
+     ✓ does not rewind successful permanent ending 8ms
+     ✓ does not rewind successful temporary ending 7ms
+     ✓ does not trust activity, copied receipts or a renderer verdict 6ms
+     ✓ refuses a retry control from the wrong accepted story 6ms
+     ✓ refuses a continue control from the wrong accepted story 1ms
+     ✓ rechecks checkpoint availability instead of promising an impossible retry 4ms
+     ✓ exact-state replacement retires command even with the same world version 2ms
+     ✓ exact-state replacement retires confirmation even with the same world version 1ms
+     ✓ invalidate retires old commands and confirmations without changing memory 1ms
+     ✓ dispose retires old commands and confirmations without changing memory 1ms
+     ✓ consumes a command once and never lets an old cancel close a new confirmation 1ms
+     ✓ delegates guest Restore to provider choice only and authenticated Restore to existing save review 1ms
+     ✓ does not offer or invoke an unavailable restore port 2ms
+     × restore availability requires exact true, never 1 3ms
+     × restore availability requires exact true, never true 1ms
+     ✓ restore availability requires exact true, never null 1ms
+     ✓ restore availability requires exact true, never undefined 1ms
+     × throwing restore availability fails closed without losing local Retry 1ms
+     ✓ lost final CAS leaves exact memory and no cleanup, and retires the confirmation 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ui/recovery.test.ts > T088 owned encounter recovery commands > restore availability requires exact true, never 1
+ FAIL  tests/ui/recovery.test.ts > T088 owned encounter recovery commands > restore availability requires exact true, never true
+AssertionError: expected 'sign-in' to be 'unavailable' // Object.is equality
+
+Expected: "unavailable"
+Received: "sign-in"
+
+ ❯ tests/ui/recovery.test.ts:129:47
+    127|   it.each([1, 'true', null, undefined])('restore availability requires…
+    128|     const h = setup(); h.restore.available.mockReturnValue(value as bo…
+    129|     expect(h.recovery.availability().restore).toBe('unavailable'); exp…
+       |                                               ^
+    130|   });
+    131|   it('throwing restore availability fails closed without losing local …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/ui/recovery.test.ts > T088 owned encounter recovery commands > throwing restore availability fails closed without losing local Retry
+Error: Port unavailable
+ ❯ Object.<anonymous> tests/ui/recovery.test.ts:132:77
+    130|   });
+    131|   it('throwing restore availability fails closed without losing local …
+    132|     const h = setup(); h.restore.available.mockImplementation(() => { …
+       |                                                                             ^
+    133|     expect(h.recovery.availability()).toEqual({ retryAvailable: true, …
+    134|     expect(h.recovery.capture('retry')).not.toBeNull();
+ ❯ Object.availability src/ui/recovery.ts:75:74
+ ❯ tests/ui/recovery.test.ts:133:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 20 passed (23)
+   Start at  21:20:13
+   Duration  658ms (import 81%, tests 13%, transform 6%)
+

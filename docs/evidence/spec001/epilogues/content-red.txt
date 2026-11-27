@@ -1,0 +1,29 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/content/endings.test.ts
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/content/endings.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/content/endings.test.ts [ tests/content/endings.test.ts ]
+Error: Cannot find module '../../src/content/endings' imported from /Users/john.capobianco/Network-Quest/tests/content/endings.test.ts
+ ❯ tests/content/endings.test.ts:4:1
+      2| import { readFileSync } from 'node:fs';
+      3| import { describe, expect, it } from 'vitest';
+      4| import { validateEndingsContent, projectEpilogue, projectFailure } fro…
+       | ^
+      5| import type { GameState, OutcomeEvent } from '../../src/state/types';
+      6| import type { Outcome, Route } from '../../src/domain/types';
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  21:01:22
+   Duration  84ms (worker 97%, environment 3%)
+

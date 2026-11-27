@@ -1,0 +1,40 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/ui/recovery-save.test.ts (11 tests | 1 failed | 10 skipped) 23ms
+   ❯ T088 recovery with real save services and controlled remote transport (11)
+     ↓ failure retry preserves non-null pending save identity; late acknowledgement cannot save the new attempt
+     ↓ shutdown retry preserves non-null pending save identity; late acknowledgement cannot save the new attempt
+     ↓ an unknown earlier write remains an exact explicit retry after encounter recovery
+     ↓ failure cancels a genuine queued safe-arrival autosave; retry and render observations never reschedule it
+     ↓ shutdown cancels a genuine queued safe-arrival autosave; retry and render observations never reschedule it
+     ↓ failure Restore reads/reviews and confirms exact saved data without a learning merge
+     ↓ shutdown Restore reads/reviews and confirms exact saved data without a learning merge
+     ↓ guest Restore opens provider choice with no HTTP; actual synthetic sign-in alone neither loads nor saves
+     × a deferred Restore read cannot open its old confirmation after Retry; later ordinary autosave still works 22ms
+     ↓ an already displayed Restore confirmation is retired by Retry without pausing future autosave
+     ↓ retiring a review preserves an explicitly active provider flow without claiming its success
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ui/recovery-save.test.ts > T088 recovery with real save services and controlled remote transport > a deferred Restore read cannot open its old confirmation after Retry; later ordinary autosave still works
+TypeError: dialogs.retireAdventureReview is not a function
+ ❯ Object.afterRollback tests/ui/recovery-save.test.ts:80:36
+     78|   const recovery = createRecoveryController({ registry, store: f.store…
+     79|     continue: () => dialogs.continue(), signIn: () => { void dialogs.c…
+     80|     afterRollback: () => { dialogs.retireAdventureReview(); f.bus.inva…
+       |                                    ^
+     81|   const terminal = (kind: 'failure' | 'shutdown') => {
+     82|     if (kind === 'failure') {
+ ❯ Object.confirm src/ui/recovery.ts:126:27
+ ❯ Object.retry tests/ui/recovery-save.test.ts:99:21
+ ❯ tests/ui/recovery-save.test.ts:175:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 skipped (11)
+   Start at  21:25:39
+   Duration  622ms (import 89%, transform 7%, tests 4%)
+

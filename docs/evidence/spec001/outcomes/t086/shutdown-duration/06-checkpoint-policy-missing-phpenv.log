@@ -1,0 +1,65 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/ui/encounter.test.ts tests/state/encounter.test.ts tests/tools/save-content-policy.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/ui/encounter.test.ts (57 tests) 7551ms
+   ✓ T085 shared committed encounter policy, closed until outcome acceptance (26)
+     ✓ active repair UI admission shares exactly the domain policy and dies with its owning phase 629ms
+ ❯ tests/tools/save-content-policy.test.ts (3 tests | 2 failed) 2152ms
+   ❯ actual authored save content policy artifact (3)
+     ✓ regenerates deterministically without a listener, project config or ambient env files 1280ms
+     × validates real initial state and real kit/105 m/95 m reducer observations in TypeScript and PHP 461ms
+     × does not turn metadata reservations, future progression or unsupported safety into write permissions 410ms
+ ✓ tests/state/encounter.test.ts (59 tests) 522ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/tools/save-content-policy.test.ts > actual authored save content policy artifact > validates real initial state and real kit/105 m/95 m reducer observations in TypeScript and PHP
+AssertionError: NQ_PHP_BIN must select PHP 8.4.28 (README.md).: expected null to be +0 // Object.is equality
+
+- Expected:
+0
+
++ Received:
+null
+
+ ❯ phpValidate tests/tools/save-content-policy.test.ts:24:76
+     22|   const env = { PATH: process.env['PATH'] ?? '', LANG: 'C', LC_ALL: 'C…
+     23|   const version = spawnSync(php, ['-d', 'auto_prepend_file=', '-d', 'a…
+     24|   expect(version.status, 'NQ_PHP_BIN must select PHP 8.4.28 (README.md…
+       |                                                                            ^
+     25|   expect(version.stdout, 'NQ_PHP_BIN must select PHP 8.4.28 (README.md…
+     26|   const program = `require 'server/vendor/autoload.php'; require 'serv…
+ ❯ tests/tools/save-content-policy.test.ts:94:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/tools/save-content-policy.test.ts > actual authored save content policy artifact > does not turn metadata reservations, future progression or unsupported safety into write permissions
+AssertionError: NQ_PHP_BIN must select PHP 8.4.28 (README.md).: expected null to be +0 // Object.is equality
+
+- Expected:
+0
+
++ Received:
+null
+
+ ❯ phpValidate tests/tools/save-content-policy.test.ts:24:76
+     22|   const env = { PATH: process.env['PATH'] ?? '', LANG: 'C', LC_ALL: 'C…
+     23|   const version = spawnSync(php, ['-d', 'auto_prepend_file=', '-d', 'a…
+     24|   expect(version.status, 'NQ_PHP_BIN must select PHP 8.4.28 (README.md…
+       |                                                                            ^
+     25|   expect(version.stdout, 'NQ_PHP_BIN must select PHP 8.4.28 (README.md…
+     26|   const program = `require 'server/vendor/autoload.php'; require 'serv…
+ ❯ tests/tools/save-content-policy.test.ts:111:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  2 failed | 117 passed (119)
+   Start at  07:53:36
+   Duration  11.48s (tests 90%, import 9%)
+

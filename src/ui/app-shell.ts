@@ -45,6 +45,8 @@ export interface AppShell {
   readonly panelHost: HTMLDivElement;
   /** Forward the original capture scope for presentation/status-only updates. */
   render(view: AppShellView, capture?: ActionCapture): void;
+  /** Announce a completed lifecycle action without another scene preparation. */
+  announce(message: string): void;
   dispose(): void;
 }
 
@@ -333,6 +335,7 @@ export function createAppShell(host: HTMLElement, bus: Pick<ActionBus, 'captureS
         else title.focus();
       }
     },
+    announce(message) { if (!disposed) announce(message); },
     dispose() {
       if (disposed) return;
       disposed = true;

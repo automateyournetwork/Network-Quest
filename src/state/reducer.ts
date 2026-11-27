@@ -92,6 +92,8 @@ export interface ReducerOptions {
   readonly bindings: readonly EffectBinding[];
   readonly objectiveScenario?: ObjectiveScenarioResolver;
   readonly repairScenario?: RepairScenarioResolver;
+  /** Trusted pure closed permission for canonical notebook/objective/repair operations only. */
+  readonly allowDuringEncounter?: (state: ReducerState, input: ReducerInput) => boolean;
   /**
    * Trusted pure navigation adapter, using actual unlocked/reversible paths in
    * the supplied candidate world. Default proves only a zero-step path. T028
@@ -352,7 +354,8 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
       world = { ...world, dialogueEffectIds: [...new Set([...world.dialogueEffectIds, binding.receipt.id])] };
     }
     if (request.destination) {
-      world = { ...world, roomId: request.destination.roomId, position: { safePositionId: request.destination.safePositionId } };
+      world = { ...world, roomId: request.destination.roomId, position: { safePositionId: request.destination.safePositionId },
+        continueOutcome: request.destination.activity === 'safe-continue' ? world.continueOutcome : null };
       notebook = { ...notebook, mapRoomIds: [...new Set([...notebook.mapRoomIds, game.world.roomId, request.destination.roomId])] };
       if (notebook.mapRoomIds.length > 128) return failure('invalid-state');
     }
@@ -423,7 +426,13 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
     }
     if (pending) return reject('transition-pending');
     if (input.kind === 'notebook' || input.kind === 'objective' || input.kind === 'repair-plan') {
-      if (!safeKinds.has(state.runtime.activity.kind)) return reject('invalid-state');
+      if (!safeKinds.has(state.runtime.activity.kind)) {
+        let admitted = false;
+        if (state.runtime.activity.kind === 'active-encounter') {
+          try { admitted = options.allowDuringEncounter?.(state, input) === true; } catch { /* Closed on policy failure. */ }
+        }
+        if (!admitted) return reject('invalid-state');
+      }
       const notebook = input.kind === 'notebook' ? prepareNotebookChange(registry, game, input.operation)
         : input.kind === 'objective' ? prepareObjectiveChange(registry, options.objectiveScenario, game, input.operation)
           : prepareRepairPlanChange(registry, options.repairScenario, game, input.operation);

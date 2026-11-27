@@ -7,6 +7,7 @@ import type { RepairClassification } from '../state/repair-plan';
 
 /** Intent only. Renderers cannot submit evaluations, effects or arbitrary payloads. */
 export type SemanticAction =
+  | { readonly kind: 'commit-rift-hazard'; readonly hazardId: QualifiedId; readonly warningAcknowledged: boolean }
   | { readonly kind: 'choose-repair-plan'; readonly choiceId: QualifiedId }
   | { readonly kind: 'review-repair-plan' | 'measure-repair-link' | 'test-repair-endpoint' }
   | { readonly kind: 'execute-repair-plan'; readonly reviewId: MeasurementId; readonly warningAcknowledged: boolean }
@@ -89,6 +90,7 @@ function sameContext(a: ActionContext | null, b: ActionContext | null): boolean 
 const verbs = new Set<string>(['walk', 'look', 'talk', 'use']);
 const panels = new Set<string>(['inventory', 'notebook', 'compendium', 'settings', 'save']);
 const fields: Record<SemanticAction['kind'], readonly string[]> = {
+  'commit-rift-hazard': ['kind', 'hazardId', 'warningAcknowledged'],
   'choose-repair-plan': ['kind', 'choiceId'], 'review-repair-plan': ['kind'], 'measure-repair-link': ['kind'], 'test-repair-endpoint': ['kind'],
   'execute-repair-plan': ['kind', 'reviewId', 'warningAcknowledged'], 'classify-repair': ['kind', 'selection', 'linkId', 'endpointId'],
   'measure-objective': ['kind', 'objectiveId', 'alternativeId'],
@@ -116,6 +118,7 @@ export function copySemanticAction(input: SemanticAction): SemanticAction {
   const keys = fields[input.kind];
   if (Object.keys(input).length !== keys.length || Object.keys(input).some(key => !keys.includes(key))) throw new TypeError('Semantic actions contain intent only.');
   switch (input.kind) {
+    case 'commit-rift-hazard': if (!qualifiedIdentity(input.hazardId) || typeof input.warningAcknowledged !== 'boolean') throw new TypeError('Invalid fictional danger acknowledgement.'); break;
     case 'choose-repair-plan': if (!qualifiedIdentity(input.choiceId)) throw new TypeError('Invalid repair choice.'); break;
     case 'review-repair-plan': case 'measure-repair-link': case 'test-repair-endpoint': break;
     case 'execute-repair-plan': if (!dialogueSession(input.reviewId) || typeof input.warningAcknowledged !== 'boolean') throw new TypeError('Invalid repair acknowledgement.'); break;

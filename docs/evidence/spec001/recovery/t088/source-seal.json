@@ -1,0 +1,332 @@
+{
+  "task": "T088",
+  "loop": 101,
+  "scope": "Worker delivery for coordinator review; no task or gate self-acceptance",
+  "verification": {
+    "focusedController": 23,
+    "realClientServiceIntegration": 11,
+    "joinedRegression": {
+      "suites": 8,
+      "passed": 299
+    },
+    "nativeConfirmation": {
+      "passed": 18,
+      "pageErrors": 0,
+      "browser": "Firefox159.0, pinnedPlaywright firefox1572"
+    },
+    "independentAudits": {
+      "passed": 217,
+      "unchangedTodo": 126
+    },
+    "strictTypeScript": "PASS"
+  },
+  "compilerProject": {
+    "extends": "../../tsconfig.json",
+    "include": [
+      "../../src/ui/recovery.ts",
+      "../../tests/ui/recovery.test.ts",
+      "../../tests/ui/recovery-save.test.ts"
+    ],
+    "exclude": []
+  },
+  "owned": [
+    {
+      "path": "src/ui/recovery.ts",
+      "sha256": "85cb8a1ce6694f1d78a8f1c866db5e18a5ddefef09a8d40b620fba465f92cba5",
+      "bytes": 14688
+    },
+    {
+      "path": "src/ui/save-dialogs.ts",
+      "sha256": "418a1a4868854f5f4f3af374f846a8365e66a2f1e14f639cffd4a0d5fbe4cf95",
+      "bytes": 23957
+    },
+    {
+      "path": "tests/ui/recovery.test.ts",
+      "sha256": "2a388a18a810cd1c394e5d99657d35187ddc08baa7584daf00a222ffdd91e3c5",
+      "bytes": 12646
+    },
+    {
+      "path": "tests/ui/recovery-save.test.ts",
+      "sha256": "7c9e9ad0af31e84cea8920ff154e2315c5aa86d0b734ae2e92a09902ae83a4b2",
+      "bytes": 17996
+    },
+    {
+      "path": "tests/ui/recovery-panel.browser.mjs",
+      "sha256": "763f1caa941e26a880964131a1d14c3ec51f091f6f3b0becb714495f745b15f2",
+      "bytes": 9911
+    },
+    {
+      "path": "docs/evidence/spec001/recovery.md",
+      "sha256": "75b3b8944855f3cce4427c66b6943af46c760f73f66182f6dc9c882d35cda644",
+      "bytes": 9914
+    },
+    {
+      "path": "docs/implementation/loops/101-T088.md",
+      "sha256": "3419162f05e9db2553da31bb047f071bea05c7e9f5b1d344b9db831225ed6e17",
+      "bytes": 2906
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/01-controller-red.log",
+      "sha256": "42d73029ebf4ba0b454b22c1a609c1a556ba38a9ba10a7261c09223484a25d11",
+      "bytes": 970
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/02-controller-first.log",
+      "sha256": "66059276a0c5c7a3fb7e678ef4ba4b1b3b44798d64803ba7419d7b961397128c",
+      "bytes": 234
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/03-port-red.log",
+      "sha256": "75b8f4720f3f362e7218743ffdc78ae73c3b0e032fc94e6ee0dd193e55218847",
+      "bytes": 3890
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/04-controller-green.log",
+      "sha256": "1a798bbdaf3fc9a2311addb712fd388a0be259b103668b2bb1d6b5dcd764d9bb",
+      "bytes": 234
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/05-strict-typecheck.log",
+      "sha256": "21d8cd3f6e6679daa01076a133d57af291ec07d69c0e2d0e03a375b867929854",
+      "bytes": 320
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/06-strict-typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/07-save-integration-first.log",
+      "sha256": "52aa14e13f1b970d4fc939ff9a5577b8e06aa817a62f2cb6f9cadafbf13df03a",
+      "bytes": 2367
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/08-save-integration-green.log",
+      "sha256": "77b517a7981b360990d5b559aa591a49c8a83b7c85cd593c382ab477fa7a0abb",
+      "bytes": 237
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/09-integrated-typecheck.log",
+      "sha256": "6671a1250b90662aa122391be388c097f3a535d7f4df0777942fc160fa9ab5e6",
+      "bytes": 655
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/10-integrated-typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/11-review-retirement-red.log",
+      "sha256": "84c03b8d27fe15aeff92a3ea0edeef0960c0a1313ef838377fc7a40799578a53",
+      "bytes": 2558
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/12-old-composition-red.log",
+      "sha256": "bba8d5e23944d61e8802e3c560e938d8f5dffc2117f9e20f3eac63393bdb5b08",
+      "bytes": 3605
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/13-review-retirement-green.log",
+      "sha256": "68737656246259b501e2a94cab49b69382dda302d78b69bb78e327e2dddb2fd4",
+      "bytes": 2860
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/14-panel-native.log",
+      "sha256": "a52f2afc1b82f86000bef7141d18f2ebccab5a6f3b1678f316fdb479f3582744",
+      "bytes": 140
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/15-final-scoped-typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/16-panel-final-native.log",
+      "sha256": "9f137404eb47329a892711030806a6251539b1a055237df888697ebcf9ca0167",
+      "bytes": 146
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/17-joined-regression.log",
+      "sha256": "2ecb088d56b0c9bf0d678d7b2fc575fc2e4fe02b6aa56636d5c4c72c4f4e5d54",
+      "bytes": 13893
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/18-final-strict-typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/19-independent-fixture-audits.log",
+      "sha256": "29bef184aeb5bffb42d39f03335ca53eac177babf07d9c1e1479501f430976e3",
+      "bytes": 330
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/panel-200-percent.png",
+      "sha256": "1de3ff62c53539b28d6eb98c74dd7ef7cf9d53ef9a69627c3cd926491eb444d3",
+      "bytes": 59180
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/panel-dom.json",
+      "sha256": "c0152f41845fe414d511948e4a840f95d93808183886c6508e7dcf7d05c1f45b",
+      "bytes": 2384
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/panel-final-dom.json",
+      "sha256": "3f870544fe343bffb5205b0fe5d3f680576486aff2419c303f01bea6594c61a5",
+      "bytes": 2384
+    },
+    {
+      "path": "docs/evidence/spec001/recovery/t088/panel-initial-200-percent.png",
+      "sha256": "e40e0e753f59931567b0a3d95e494d2ab5a258f86577b93f558139315426cee0",
+      "bytes": 72094
+    }
+  ],
+  "sharedMount": [
+    {
+      "path": "src/app/application.ts",
+      "sha256": "0e4015a1fe8ca94e7193707b42050ed8cf10a22c3bc50bfd344d1bd145d739c7",
+      "bytes": 40694
+    },
+    {
+      "path": "src/ui/epilogue.ts",
+      "sha256": "c70f2a86c7263ca917f786ec2d415e44289232844e68009d8962c946954cc838",
+      "bytes": 12506
+    },
+    {
+      "path": "src/content/endings.ts",
+      "sha256": "44ca4d183159bdfd5553e7d06df167ba284599827b4cd3408a1fe260cf826f0e",
+      "bytes": 10793
+    },
+    {
+      "path": "content/spec001/endings.json",
+      "sha256": "27dfbacbd1b6c7792e9c32e04ccf54c526feba02dd10588bb66d57ac3cbccc2c",
+      "bytes": 10051
+    }
+  ],
+  "acceptedDependencies": [
+    {
+      "path": "src/state/encounter.ts",
+      "sha256": "f1d4c7e77c15ed9759564a2c0c2c54cac97708d56d7b71e8de1adb2b2092ba01",
+      "bytes": 9251
+    },
+    {
+      "path": "src/state/outcomes.ts",
+      "sha256": "c311cce8030adf169c8d609b1c7a0fe5aa08e2c7ff118ce723d7e0e9e021e013",
+      "bytes": 15721
+    },
+    {
+      "path": "src/state/rift-hazard.ts",
+      "sha256": "738a83cfce42f771fac3d84998edfa327090b22bee96397b299542141832f5df",
+      "bytes": 4411
+    },
+    {
+      "path": "src/state/rift-encounter.ts",
+      "sha256": "fa2c358831c3827067f49d051b48be13ffc532390c7926d7890245cbb7050e03",
+      "bytes": 3798
+    },
+    {
+      "path": "src/state/reducer.ts",
+      "sha256": "dbbfb70d86342872d5109de781ea5005524e7f3fb968faa241455e7486801cc8",
+      "bytes": 33320
+    },
+    {
+      "path": "src/state/autosave.ts",
+      "sha256": "9c5433aed69c9fe2aa63ce5b6cc89c8091733c4365c1f509ab36a9ea0128bfa0",
+      "bytes": 17788
+    },
+    {
+      "path": "src/services/save-coordinator.ts",
+      "sha256": "14abc05fe8954f613116e38a806a90341a3e4d1c917f6341a03f99b6ca355b1c",
+      "bytes": 24638
+    },
+    {
+      "path": "src/services/game-api.ts",
+      "sha256": "7327c12e429d87f608408e24ac713548f7ede05f59730fe6bb9d872c153ddf8c",
+      "bytes": 26075
+    },
+    {
+      "path": "src/services/account.ts",
+      "sha256": "66c640fc4676ef5631669a4f024941278c68a5de8fe98b063e6bc49da945a667",
+      "bytes": 11627
+    },
+    {
+      "path": "src/state/save-migrations.ts",
+      "sha256": "68c6ec9c528be635c2eb7a77a50feb92df5dfda93869d625ea7fbdc250808e00",
+      "bytes": 11896
+    },
+    {
+      "path": "src/state/snapshot.ts",
+      "sha256": "f2042d7e29173b0f732a4e5e1ff69e86097debd0f807e104938562ef63418225",
+      "bytes": 4408
+    },
+    {
+      "path": "src/app/save-policy.ts",
+      "sha256": "8d3b20c238a0815310d746395f624be3511d21dfc92d53f95dc08cf6945833a9",
+      "bytes": 5135
+    },
+    {
+      "path": "tests/state/outcome-fixture.ts",
+      "sha256": "4e66329addf28340a2064dc615d05f8d854b54efe57485fee73d7fe51d83196b",
+      "bytes": 6373
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "7a0e6888f6cd6ca4d3548c4f2c31395924a6064e3c0c4aa7bfea8daaf5181998",
+      "bytes": 871
+    },
+    {
+      "path": "package.json",
+      "sha256": "4fd93103017b793314a3d4d3aca4f5d892d448ef650d2d80f9e9d9d915c97ada",
+      "bytes": 1334
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "e7c525a1ac0381f293414b950261cb4814491f9563dd30dda9d3946b3127c9cd",
+      "bytes": 59791
+    }
+  ],
+  "protectedOracles": [
+    {
+      "path": "tests/fixtures/outcomes.json",
+      "sha256": "1d9c734a783211bb4e02ecf43aa1c196d8cc5c05466f32da757730896ada0ad7",
+      "bytes": 166117,
+      "headSha256": "1d9c734a783211bb4e02ecf43aa1c196d8cc5c05466f32da757730896ada0ad7",
+      "unchangedFromHead": true
+    },
+    {
+      "path": "tests/fixtures/retry-transitions.json",
+      "sha256": "8be2657298b75106b6a55e51e74364e5446c376a85939297e43d91fdd47a6bee",
+      "bytes": 49579,
+      "headSha256": "8be2657298b75106b6a55e51e74364e5446c376a85939297e43d91fdd47a6bee",
+      "unchangedFromHead": true
+    },
+    {
+      "path": "tests/state/outcomes.test.ts",
+      "sha256": "15336bf10198257e24eed8d7803934dd51732d9738997b4d9e1f2359f145b997",
+      "bytes": 17530,
+      "headSha256": "15336bf10198257e24eed8d7803934dd51732d9738997b4d9e1f2359f145b997",
+      "unchangedFromHead": true
+    },
+    {
+      "path": "tests/state/retry.test.ts",
+      "sha256": "bd0a6b530675ee00d8217411b02eb0749f768e22c7ed645025e0482046493d51",
+      "bytes": 22409,
+      "headSha256": "bd0a6b530675ee00d8217411b02eb0749f768e22c7ed645025e0482046493d51",
+      "unchangedFromHead": true
+    },
+    {
+      "path": "specs/001-physical-layer-underworld/contracts/save.schema.json",
+      "sha256": "5323dfc5986f5a70ff7d331e3a756f434d6993ce19aecdfa04745156096fb710",
+      "bytes": 11665,
+      "headSha256": "5323dfc5986f5a70ff7d331e3a756f434d6993ce19aecdfa04745156096fb710",
+      "unchangedFromHead": true
+    }
+  ],
+  "limitations": [
+    "Training prerequisites seeded; real transitions afterward.",
+    "Remote transport controlled; no live providers/server account.",
+    "Native checks are isolated production confirmation panel.",
+    "T089 owns full actual application outcomes/recovery/races.",
+    "Required human/media/host/provider/release and aggregate gates unchanged."
+  ]
+}

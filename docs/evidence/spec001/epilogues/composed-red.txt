@@ -1,0 +1,55 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/content/endings.test.ts tests/ui/epilogue.test.ts
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/content/endings.test.ts (48 tests) 13ms
+ ❯ tests/ui/epilogue.test.ts (14 tests | 3 failed) 539ms
+   ✓ T087 receipt projection adapter (isolated ports; actual controller admission is T085/T086) (10)
+     ✓ never reconstructs an accepted receipt from cutscene and history alone 1ms
+     ✓ never reconstructs an accepted receipt from shutdown and history alone 0ms
+     ✓ never reconstructs an accepted receipt from terminal-failure and history alone 0ms
+     ✓ never reconstructs an accepted receipt from safe-continue and history alone 0ms
+     ✓ projects E01 only with its accepted same-event receipt and preserves caveat text 0ms
+     ✓ projects E02 only with its accepted same-event receipt and preserves caveat text 0ms
+     ✓ projects E03 only with its accepted same-event receipt and preserves caveat text 0ms
+     ✓ refuses mismatched outcome, incorrect feedback, wrong phase and missing game 0ms
+     ✓ keeps E03 distinct from a dramatic failure receipt 0ms
+     ✓ refuses a wrong hazard id and an outcome receipt in terminal-failure 0ms
+   ❯ T087 composed actual outcome/hazard receipts (application mount is separate) (4)
+     × formats real copper E01/E02/E03 receipts without adding progress 142ms
+     × formats real fiber E01/E02/E03 receipts without adding progress 123ms
+     × formats real radio E01/E02/E03 receipts without adding progress 135ms
+     ✓ formats only the real explicitly warned hazard receipt, never terminal phase alone 136ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ui/epilogue.test.ts > T087 composed actual outcome/hazard receipts (application mount is separate) > formats real copper E01/E02/E03 receipts without adding progress
+ FAIL  tests/ui/epilogue.test.ts > T087 composed actual outcome/hazard receipts (application mount is separate) > formats real fiber E01/E02/E03 receipts without adding progress
+ FAIL  tests/ui/epilogue.test.ts > T087 composed actual outcome/hazard receipts (application mount is separate) > formats real radio E01/E02/E03 receipts without adding progress
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/ui/epilogue.test.ts:75:20
+     73|       const p = outcomes.prepareClassification(f.state(), captureOutco…
+     74|         operation: { kind: 'classify', selection, linkId: selection ==…
+     75|       expect(p.ok).toBe(true); if (!p.ok) throw Error(p.reason);
+       |                    ^
+     76|       expect(outcomes.commit(store(f), p.change).ok).toBe(true);
+     77|       const before = f.state(), narrative = projectAcceptedNarrative(c…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  3 failed | 59 passed (62)
+   Start at  21:14:37
+   Duration  1.14s (tests 51%, import 46%, transform 3%)
+

@@ -1,0 +1,62 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/state/shutdown-duration.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/state/shutdown-duration.test.ts (25 tests | 1 failed) 655ms
+   ❯ T086 actual E03 isolation has no installation duration (25)
+     ✓ projects a current review with duration null after the actual no-duration UI action sequence 8ms
+     ✓ copper no-duration isolation executes, classifies E03, confirms real recovery and saves its retained history in JS/PHP 342ms
+     ✓ fiber no-duration isolation executes, classifies E03, confirms real recovery and saves its retained history in JS/PHP 143ms
+     ✓ radio no-duration isolation executes, classifies E03, confirms real recovery and saves its retained history in JS/PHP 59ms
+     ✓ prior permanent selection stays in world/checkpoint but does not give isolation a temporary dependency 4ms
+     ✓ prior temporary selection stays in world/checkpoint but does not give isolation a temporary dependency 3ms
+     ✓ copper-section still requires an installation duration 2ms
+     ✓ copper-alternate still requires an installation duration 2ms
+     ✓ fiber-A still requires an installation duration 2ms
+     ✓ fiber-B still requires an installation duration 2ms
+     ✓ radio-A still requires an installation duration 1ms
+     ✓ radio-B still requires an installation duration 2ms
+     ✓ rejects a present invalid duration value not-applicable even for shutdown 2ms
+     ✓ rejects a present invalid duration value unknown even for shutdown 2ms
+     ✓ rejects a present invalid duration value false even for shutdown 2ms
+     ✓ rejects a present invalid duration value null even for shutdown 2ms
+     ✓ rejects a present invalid duration value undefined even for shutdown 2ms
+     ✓ a prior review does not regain freshness when an unrelated duration choice changes 3ms
+     ✓ requires exact checkpoint duration consistency: current-presence 2ms
+     ✓ requires exact checkpoint duration consistency: checkpoint-presence 2ms
+     ✓ requires exact checkpoint duration consistency: value 2ms
+     ✓ requires exact checkpoint duration consistency: undefined-presence 2ms
+     ✓ retains original shutdown proof codes for historical saves, while adding not-applicable only to shutdown review 57ms
+     × generated production policy accepts the new review and retains both legacy durations 4ms
+     ✓ an invented duration token in otherwise-current proof cannot execute isolation 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/shutdown-duration.test.ts > T086 actual E03 isolation has no installation duration > generated production policy accepts the new review and retains both legacy durations
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/state/shutdown-duration.test.ts:128:76
+    126|     const policy = artifact.policies[0]!, f = prepare();
+    127|     expect(f.review().evaluation?.status).toBe('correct');
+    128|     expect(captureSafeSnapshot(f.state(), new SaveValidator([policy]))…
+       |                                                                            ^
+    129|     const codes = policy.measurementRules['spec001:STATE04']!.conclusi…
+    130|     for (const duration of ['permanent', 'temporary', 'not-applicable'…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 24 passed (25)
+   Start at  07:51:58
+   Duration  1.27s (tests 54%, import 41%, transform 5%)
+

@@ -1,0 +1,31 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/state/shutdown-duration.test.ts tests/state/repair-plan.test.ts tests/state/outcome-classification.test.ts tests/state/outcome-save-policy.test.ts tests/state/encounter-world.test.ts tests/state/outcomes.test.ts tests/state/retry.test.ts tests/ui/encounter-integration.test.ts tests/ui/repair-plan.test.ts tests/ui/recovery.test.ts tests/ui/recovery-save.test.ts tests/content/repair-plan-rooms.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/state/shutdown-duration.test.ts (25 tests) 403ms
+ ✓ tests/state/repair-plan.test.ts (52 tests) 7169ms
+   ✓ T077 executed intervention and fresh final proof (52)
+     ✓ rejects structurally valid but unreviewed action-effect content 407ms
+     ✓ rejects structurally valid but unreviewed weakened-prerequisite content 410ms
+     ✓ rejects structurally valid but unreviewed alternate-condition content 420ms
+ ✓ tests/ui/repair-plan.test.ts (9 tests) 738ms
+ ✓ tests/content/repair-plan-rooms.test.ts (5 tests) 468ms
+   ✓ T077 authored Rift and Threshold contract (5)
+     ✓ joins actual schema and semantic registry without changing the runtime world 461ms
+ ✓ tests/state/outcome-classification.test.ts (66 tests) 390ms
+ ✓ tests/ui/recovery-save.test.ts (11 tests) 617ms
+ ✓ tests/state/outcome-save-policy.test.ts (14 tests) 367ms
+ ✓ tests/state/encounter-world.test.ts (10 tests) 55ms
+ ✓ tests/ui/encounter-integration.test.ts (18 tests) 90ms
+ ✓ tests/ui/recovery.test.ts (23 tests) 73ms
+ ✓ tests/state/retry.test.ts (133 tests | 45 todo) 10ms
+ ✓ tests/state/outcomes.test.ts (210 tests | 81 todo) 12ms
+
+ Test Files  12 passed (12)
+      Tests  450 passed | 126 todo (576)
+   Start at  07:52:42
+   Duration  15.69s (tests 69%, import 30%, transform 1%)
+

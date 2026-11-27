@@ -10,7 +10,8 @@ import type { GameState, Hypothesis } from '../state/types';
 import { contextFromRuntime } from './action-bus';
 import type { ActionBus, ActionCapture, ActionContext, ActionDispatcher, ActionPlan, CapturedAction, SemanticAction } from './action-bus';
 import type { GameplayStore } from './controller-store';
-import { guardedPlan, playable, rejected, reductionPlan, uiPlan, unavailable } from './controller-store';
+import { actionAvailable, guardedPlan, playable, rejected, reductionPlan, uiPlan, unavailable } from './controller-store';
+import type { ActiveActionAdmission } from './controller-store';
 import type { HotspotBinding, PanelPlanner } from './verbs';
 import introductionPresentation from '../../content/spec001/notebook-introduction.json' with { type: 'json' };
 
@@ -91,10 +92,10 @@ export interface NotebookView {
   readonly highlightedRoomId: RoomId | null; readonly canPinHypothesis: boolean;
   readonly roomLabels: readonly { readonly id: RoomId; readonly label: string }[];
 }
-export interface NotebookOptions { readonly bus: ActionBus; readonly registry: ContentRegistry; readonly store: GameplayStore; readonly presentation?: unknown }
+export interface NotebookOptions { readonly bus: ActionBus; readonly registry: ContentRegistry; readonly store: GameplayStore; readonly presentation?: unknown; readonly allowDuringEncounter?: ActiveActionAdmission }
 
 /** Trusted orchestration; this controller never accepts game state from a renderer. */
-export function createNotebookController({ bus, registry, store, presentation: suppliedPresentation = introductionPresentation }: NotebookOptions) {
+export function createNotebookController({ bus, registry, store, presentation: suppliedPresentation = introductionPresentation, allowDuringEncounter }: NotebookOptions) {
   const presentation = validateNotebookPresentation(registry, suppliedPresentation);
   const { rooms, objectives } = presentation;
   const measurementSource = registry.record(presentation.measurement.sourceId);
@@ -110,8 +111,8 @@ export function createNotebookController({ bus, registry, store, presentation: s
   let projection: { game: GameState | null; capture: ActionCapture } | null = null;
   const registrations: (() => void)[] = [];
   let disposed = false;
-  const panelReady = (state: ReducerState) => playable(state) && state.runtime.ui?.panel === 'notebook';
-  const panels: PanelPlanner = (panel, _action, before) => disposed || !playable(before) ? unavailable('unavailable-state', 'Use the notebook after the current activity finishes.') : panel === 'notebook'
+  const panelReady = (state: ReducerState) => actionAvailable(state, { kind: 'open-panel', panel: 'notebook' }, allowDuringEncounter) && state.runtime.ui?.panel === 'notebook';
+  const panels: PanelPlanner = (panel, _action, before) => disposed || !actionAvailable(before, { kind: 'open-panel', panel }, allowDuringEncounter) ? unavailable('unavailable-state', 'Use the notebook after the current activity finishes.') : panel === 'notebook'
     ? uiPlan(store, before, { panel: 'notebook' }, 'Notebook opened.') : unavailable('panel-unavailable', 'This panel is not available here.');
   const hotspotBindings: readonly HotspotBinding[] = [null, q<'item'>('ITEM-inspection-kit')].map(itemId => ({
     roomId: q<'room'>('R01'), hotspotId: q('HOTSPOT-path'), verb: 'use' as const, itemId,
@@ -148,7 +149,7 @@ export function createNotebookController({ bus, registry, store, presentation: s
     } };
   const handler = (action: CapturedAction): ActionPlan => {
     const before = store.getState(), input = action.input;
-    if (!playable(before)) return unavailable('unavailable-state', 'Use the notebook after the current activity finishes.');
+    if (!actionAvailable(before, input, allowDuringEncounter)) return unavailable('unavailable-state', 'Use the notebook after the current activity finishes.');
     if (!panelReady(before)) return rejected('notebook-closed', 'Open the notebook first.');
     if (input.kind === 'edit-personal-notes') return reductionPlan(store, action, before, { kind: 'notebook', operation: { kind: 'notes', text: input.text } }, 'Notes updated in this adventure.');
     if (input.kind === 'pin-hypothesis') return reductionPlan(store, action, before, { kind: 'notebook', operation: { kind: 'pin-hypothesis', id: crypto.randomUUID() as HypothesisId, text: input.text } }, 'Hypothesis pinned as player speculation.');
