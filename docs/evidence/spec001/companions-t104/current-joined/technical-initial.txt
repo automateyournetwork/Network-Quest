@@ -1,0 +1,48 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ docs/evidence/spec001/companions-t104/current-joined/technical-fields.test.ts > T104 exact technical-field reconciliation > MG01 DECODE evaluates the original ordered values and asserts every decoded field 14ms
+ ✓ docs/evidence/spec001/companions-t104/current-joined/technical-fields.test.ts > T104 exact technical-field reconciliation > MG01 WRONG-ORDER evaluates the original ordered values and asserts every decoded field 7ms
+ ✓ docs/evidence/spec001/companions-t104/current-joined/technical-fields.test.ts > T104 exact technical-field reconciliation > MG01 ONE-SYMBOL evaluates the original ordered values and asserts every decoded field 6ms
+ ✓ docs/evidence/spec001/companions-t104/current-joined/technical-fields.test.ts > T104 exact technical-field reconciliation > SQ02 wrong within-budget claim exposes all original correction meanings and remains retryable without award 3ms
+ × docs/evidence/spec001/companions-t104/current-joined/technical-fields.test.ts > T104 exact technical-field reconciliation > SQ03 COMPARE exposes actual25→13, keeps the historical sample, rejects old current proof and preserves failed physical status 9ms
+   → expected { status: 'correct', …(3) } to match object { status: 'correct', …(1) }
+(11 matching properties omitted from actual)
+ ✓ docs/evidence/spec001/companions-t104/current-joined/technical-fields.test.ts > T104 exact technical-field reconciliation > SQ03 BOUNDARY completes using the actual inclusive20dB current reading without a throughput claim 8ms
+ ✓ docs/evidence/spec001/companions-t104/current-joined/technical-fields.test.ts > T104 exact technical-field reconciliation > SQ03 STALE uses an actual revision5 sample then mitigation6 without taking a fresh measurement 4ms
+ ✓ docs/evidence/spec001/companions-t104/current-joined/technical-fields.test.ts > T104 exact technical-field reconciliation > MG03 STALE uses actual old5→mitigation6 and a real will-pass prediction, never a post-change observation 14ms
+ ✓ docs/evidence/spec001/companions-t104/current-joined/technical-fields.test.ts > T104 exact technical-field reconciliation > SQ04 NOTE-NOT-CLUE retains the actual personal note while R05 stays missing and the route remains available 7ms
+ ✓ docs/evidence/spec001/companions-t104/current-joined/technical-fields.test.ts > T104 exact technical-field reconciliation > SQ04 DUPLICATE keeps missing R05 in the actual predicate and rejects duplicate IDs at the closed interface 4ms
+ ✓ docs/evidence/spec001/companions-t104/current-joined/technical-fields.test.ts > T104 exact technical-field reconciliation > MG02 INCOMPATIBLE executes the loaded T07 card and real compatibility control without arithmetic completion 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/evidence/spec001/companions-t104/current-joined/technical-fields.test.ts > T104 exact technical-field reconciliation > SQ03 COMPARE exposes actual25→13, keeps the historical sample, rejects old current proof and preserves failed physical status
+AssertionError: expected { status: 'correct', …(3) } to match object { status: 'correct', …(1) }
+(11 matching properties omitted from actual)
+
+- Expected
++ Received
+
+@@ -1,9 +1,8 @@
+  {
+    "observations": [
+      {
+-       "activityCompletionEligible": true,
+        "currentLinkPass": false,
+        "earlier": {
+          "observation": {
+            "snr": {
+              "value": 25,
+
+ ❯ docs/evidence/spec001/companions-t104/current-joined/technical-fields.test.ts:44:98
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 passed (11)
+   Start at  11:35:14
+   Duration  1.29s (import 53%, transform 40%, tests 7%)
+

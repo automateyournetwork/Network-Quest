@@ -1,0 +1,85 @@
+// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+// Current9484507 exact field assertions. Prepared initial rooms/O01/O02/kit; source
+// acquisition/configuration/measurements/answers use actual production interfaces.
+import { afterEach, describe, expect, it } from 'vitest';
+import { optionalFixture } from '../gaps-58ce1a0/optional-fixture';
+import { minigameFixture } from './minigame-fixture';
+import { evaluateOptionalAnswer } from '../../../../../src/state/optional-activities';
+import { evaluateDiaryAnswer } from '../../../../../src/state/optional-radio-diary';
+import { evaluateCompatibilityCard } from '../../../../../src/state/optional-optical-bench';
+import { evaluateMaintenanceAnswer } from '../../../../../src/state/optional-maintenance';
+import { copySemanticAction } from '../../../../../src/ui/action-bus';
+import { isMeasurementCurrent } from '../../../../../src/state/reducer';
+import { navigation, q, registry, scenario } from '../../../../../tests/state/party-fixture';
+import type { ActionId } from '../../../../../src/domain/types';
+const dispose:Array<()=>void>=[];
+const sq=(id:Parameters<typeof optionalFixture>[0],evidence=true)=>{const f=optionalFixture(id,evidence);dispose.push(()=>f.dispose());return f;};
+const mg=(id:Parameters<typeof minigameFixture>[0],evidence=true)=>{const f=minigameFixture(id,evidence);dispose.push(()=>f.dispose());return f;};
+afterEach(()=>dispose.splice(0).forEach(fn=>fn()));
+const action=<T>(f:{game:()=>ReturnType<ReturnType<typeof sq>['game']>},input:T)=>({actionId:crypto.randomUUID() as ActionId,expectedVersion:f.game().world,input});
+describe('T104 exact technical-field reconciliation',()=>{
+ it.each([
+  ['DECODE','delivery','00101101','correct',8,4,true],
+  ['WRONG-ORDER','delivery','00011011','incorrect',8,4,false],
+  ['ONE-SYMBOL','practice','11','correct',2,1,false],
+ ] as const)('MG01 %s evaluates the original ordered values and asserts every decoded field',(_id,mode,bits,status,representedBits,symbols,completed)=>{
+  const f=mg('MG01',false),before=structuredClone(f.game().world);f.start();f.mode(mode);
+  const result=evaluateOptionalAnswer(registry,f.definition,mode,action(f,{bits}),f.game());
+  expect(result.evaluation.status).toBe(status);expect(result.evaluation.observations[0]).toMatchObject({expectedBits:mode==='practice'?'11':'00101101',trace:{representedBits,symbols}});
+  expect(f.send({kind:'submit-optional',sessionId:f.session(),bits}).status).toBe('handled');expect(f.state().control.optionalActivity?.result).toBe(status);expect(f.view().completed).toBe(completed);
+  expect(f.game().world.completedObjectiveIds).toEqual(before.completedObjectiveIds);expect(f.view().controls.retry).toBeTruthy();
+  expect(f.game().world.achievementIds).toEqual(completed?[q('ACHIEVEMENT-MG01-complete')]:[]);
+ });
+ it('SQ02 wrong within-budget claim exposes all original correction meanings and remains retryable without award',()=>{
+  const f=sq('SQ02',false);f.start();f.mode('delivery');expect(f.answer(false).status).toBe('handled');expect(f.state().control.optionalActivity?.result).toBe('incorrect');
+  // Authored prose differs from the oracle sentence; these independent semantic
+  // clauses assert the same 33>30, excess3 and lamp-does-not-add-power teaching.
+  const text=f.view().feedback!;expect(text).toContain('33 W');expect(text).toContain('30 W');expect(text).toContain('3 W too much');expect(text).toContain('A lamp does not add watts');
+  expect(f.view().controls.retry).toBeTruthy();expect(f.game().world.completedQuestIds).toEqual([]);expect(f.simple('retry-optional').status).toBe('handled');
+ });
+ it('SQ03 COMPARE exposes actual25→13, keeps the historical sample, rejects old current proof and preserves failed physical status',()=>{
+  const f=sq('SQ03'),samples=f.game().notebook.measurements.filter(m=>m.subjectIds.includes(q('O08'))),earlier=samples[0]!,later=samples.at(-1)!;
+  const a=f.definition.optionalActivity;if(a.kind!=='radio-weather-diary')throw new Error('Wrong diary');
+  const answer={earlierMeasurementId:earlier.id,laterMeasurementId:later.id,comparison:'decreased',currentAssessment:'below-threshold',evidenceClaim:'current-reading-only-no-cause'} as const;
+  const result=evaluateDiaryAnswer(a.delivery,registry,action(f,answer),f.game());expect(result).toMatchObject({status:'correct',observations:[{earlier:{observation:{snr:{value:25}},usableAsCurrent:false},later:{observation:{snr:{value:13}}},snrChange:{value:-12},currentLinkPass:false,weatherCausationProven:false,activityCompletionEligible:true}]});
+  f.start();f.mode('delivery');expect(f.view().diary?.records.some(r=>r.id===earlier.id&&r.text.includes('Historical observation; not current proof'))).toBe(true);expect(f.send({kind:'submit-optional-diary',sessionId:f.session(),answer}).status).toBe('handled');expect(f.view().completed).toBe(true);
+  expect(f.game().notebook.measurements.find(m=>m.id===earlier.id)).toEqual(earlier);expect(later.conclusionCode).toMatch(/:incorrect$/);
+ });
+ it('SQ03 BOUNDARY completes using the actual inclusive20dB current reading without a throughput claim',()=>{
+  const f=sq('SQ03');f.action('ACTION-radio-mitigate-emitter');f.action('ACTION-radio-channel-B');const later=f.measure('O08'),samples=f.game().notebook.measurements.filter(m=>m.subjectIds.includes(q('O08'))),earlier=samples.find(m=>m.readings.some(r=>r.name==='Signal-to-noise ratio'&&r.value===25))!;
+  const a=f.definition.optionalActivity;if(a.kind!=='radio-weather-diary')throw new Error('Wrong diary');
+  const answer={earlierMeasurementId:earlier.id,laterMeasurementId:later.id,comparison:'decreased',currentAssessment:'meets-threshold',evidenceClaim:'current-reading-only-no-cause'} as const;
+  const result=evaluateDiaryAnswer(a.delivery,registry,action(f,answer),f.game());expect(result).toMatchObject({status:'correct',observations:[{later:{observation:{snr:{value:20},thresholdMet:true}},throughputProven:false}]});
+  f.start();f.mode('delivery');expect(f.send({kind:'submit-optional-diary',sessionId:f.session(),answer}).status).toBe('handled');expect(f.view().completed).toBe(true);
+ });
+ it('SQ03 STALE uses an actual revision5 sample then mitigation6 without taking a fresh measurement',()=>{
+  const f=sq('SQ03',false);f.arrive('R07');for(const name of ['read-path','read-settings','align-existing','match-settings'])f.action(`ACTION-radio-${name}`);
+  const before=f.measure('O07'),selected=scenario(f.game(),q('O07'))!;f.raw({kind:'objective',operation:{kind:'submit',objectiveId:q('O07'),alternativeId:selected.alternativeId,measurementId:before.id}});
+  f.arrive('R08');f.action('ACTION-radio-read-survey');f.action('ACTION-radio-raise-noise');
+  for(let n=0;n<5&&f.game().world.configurationRevision<5;n++)f.action(f.game().world.flags[q<'flag'>('FLAG-radio-channel')]==='B'?'ACTION-radio-channel-A':'ACTION-radio-channel-B');
+  expect(f.game().world.configurationRevision).toBe(5);const old=f.measure('O08');expect(old.configurationRevision).toBe(5);const count=f.game().notebook.measurements.length;
+  f.raw({kind:'notebook',operation:{kind:'notes',text:'Prediction: mitigation will pass; no new reading has been taken.'}});f.action('ACTION-radio-mitigate-emitter');expect(f.game().world.configurationRevision).toBe(6);expect(f.game().notebook.measurements).toHaveLength(count);
+  f.start();f.mode('delivery');expect(f.view().diary?.available).toBe(false);expect(f.view().diary?.records.find(r=>r.id===old.id)?.text).toContain('Historical observation; not current proof');expect(f.view().diary?.laterId).toBeNull();expect(f.view().feedback).toContain('current');expect(f.view().controls.retry).toBeTruthy();expect(isMeasurementCurrent(f.game().notebook.measurements.find(m=>m.id===old.id)!,f.game().world)).toBe(false);expect(f.view().completed).toBe(false);expect(f.game().world.completedQuestIds).toEqual([]);
+ });
+ it('MG03 STALE uses actual old5→mitigation6 and a real will-pass prediction, never a post-change observation',()=>{
+  const f=mg('MG03',false);f.action('ACTION-radio-raise-noise');for(let n=0;n<5&&f.game().world.configurationRevision<5;n++)f.action(f.game().world.flags[q<'flag'>('FLAG-radio-channel')]==='B'?'ACTION-radio-channel-A':'ACTION-radio-channel-B');
+  expect(f.game().world.configurationRevision).toBe(5);const old=f.measure('O08'),count=f.game().notebook.measurements.length;f.start();f.mode('delivery');expect(f.send({kind:'scout-select',sessionId:f.session(),choice:'mitigate-emitter'}).status).toBe('handled');expect(f.game().world.configurationRevision).toBe(6);
+  expect(f.send({kind:'scout-predict',sessionId:f.session(),baselineMeasurementId:old.id,assessment:'meets-threshold'}).status).toBe('handled');expect(f.game().notebook.measurements).toHaveLength(count);expect(f.view().radio?.baselines.some(r=>r.id===old.id)).toBe(true);
+  expect(f.send({kind:'scout-compare',sessionId:f.session(),laterMeasurementId:old.id,comparison:'increased',currentAssessment:'meets-threshold',predictionAssessment:'supported',evidenceClaim:'current-reading-only-no-cause'}).status).toBe('handled');
+  expect(f.state().control.optionalActivity?.result).toBe('invalid-input');expect(f.view().completed).toBe(false);expect(f.view().feedback).toContain('then press Measure');expect(f.view().controls.retry).toBeTruthy();expect(f.game().world.achievementIds).toEqual([]);expect(isMeasurementCurrent(f.game().notebook.measurements.find(m=>m.id===old.id)!,f.game().world)).toBe(false);
+ });
+ it('SQ04 NOTE-NOT-CLUE retains the actual personal note while R05 stays missing and the route remains available',()=>{
+  const f=sq('SQ04',false);f.action('ACTION-copper-read-defect');f.arrive('R09');f.action('ACTION-market-read-power');f.raw({kind:'notebook',operation:{kind:'notes',text:'I think the fiber was repaired'}});f.arrive('R03');const a=f.definition.optionalActivity;if(a.kind!=='notebook-combination')throw new Error('Wrong record');
+  const result=evaluateMaintenanceAnswer(a,registry,'delivery',action(f,{selectedFactIds:a.delivery.factIds}),f.game());expect(result).toMatchObject({status:'incorrect',observations:[{activityCompletionEligible:false,missingSourceRooms:[q('R05')]}]});
+  f.start();f.mode('delivery');expect(f.answer(true).status).toBe('handled');expect(f.view().completed).toBe(false);expect(f.view().controls.retry).toBeTruthy();expect(f.game().notebook.personalNotes).toBe('I think the fiber was repaired');expect(f.view().maintenance?.cards.find(c=>c.factId===a.delivery.factIds[1])?.recorded).toBe(false);expect(f.simple('exit-optional').status).toBe('handled');expect(navigation.canReachRoom(f.game().world,q('R02'))).toBe(true);
+ });
+ it('SQ04 DUPLICATE keeps missing R05 in the actual predicate and rejects duplicate IDs at the closed interface',()=>{
+  const f=sq('SQ04',false);f.action('ACTION-copper-read-defect');f.arrive('R09');f.action('ACTION-market-read-power');f.arrive('R03');const a=f.definition.optionalActivity;if(a.kind!=='notebook-combination')throw new Error('Wrong record');const ids=[a.delivery.factIds[0]!,a.delivery.factIds[0]!,a.delivery.factIds[2]!];
+  const result=evaluateMaintenanceAnswer(a,registry,'delivery',action(f,{selectedFactIds:ids}),f.game());expect(result).toMatchObject({status:'incorrect',observations:[{activityCompletionEligible:false,missingSourceRooms:[q('R05')]}]});f.start();f.mode('delivery');expect(()=>copySemanticAction({kind:'submit-optional-maintenance',sessionId:f.session(),answer:{selectedFactIds:ids}})).toThrow();expect(f.game().world.completedQuestIds).toEqual([]);
+ });
+ it('MG02 INCOMPATIBLE executes the loaded T07 card and real compatibility control without arithmetic completion',()=>{
+  const f=mg('MG02',false),a=f.definition.optionalActivity;if(a.kind!=='optical-budget-bench')throw new Error('Wrong bench');const card=a.compatibilityCards.find(c=>c.sourceCaseId==='T07')!;
+  const result=evaluateCompatibilityCard({sourceCaseId:card.sourceCaseId,premises:card.premises},action(f,{kind:'inspect-card'}),f.game().world);expect(result).toMatchObject({status:'incorrect',acceptedEffects:[],observations:[{usableLink:false,arithmeticCannotOverride:true}]});
+  const before=structuredClone(f.game().world);f.start();expect(f.send({kind:'compatibility-optional',sessionId:f.session()}).status).toBe('handled');expect(f.game().world).toEqual(before);expect(f.view().completed).toBe(false);expect(f.view().hintText).toContain('incompatible');expect(f.game().world.achievementIds).toEqual([]);
+ });
+});

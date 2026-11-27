@@ -1,0 +1,66 @@
+--- a/tools/dev.mjs
++++ b/tools/dev.mjs
+@@ -9,7 +9,7 @@
+ import path from 'node:path';
+ import { fileURLToPath } from 'node:url';
+ import { setTimeout as delay } from 'node:timers/promises';
+-import { createServer as createViteServer } from 'vite';
++import { preview as createPreview } from 'vite';
+ import { admitRawHeaders, readBoundedBody, rejectRequest, installParserErrors } from './http-admission.mjs';
+ 
+ const root = fileURLToPath(new URL('..', import.meta.url));
+@@ -162,9 +162,8 @@
+     // transport on our verified TLS origin; no second listener or file watcher.
+     const quietLogger = { info() {}, warn() {}, warnOnce() {}, error() {}, clearScreen() {},
+       hasErrorLogged: () => false, hasWarned: false };
+-    vite = await createViteServer({ root, configFile: path.join(root, 'vite.config.ts'),
+-      customLogger: quietLogger, server: { middlewareMode: true, hmr: false,
+-        ws: { server: socketSurface, protocol: 'wss', host, clientPort: port }, watch: null, forwardConsole: false } });
++    const built = await createPreview({ root, configFile: path.join(root, 'vite.config.ts'), customLogger: quietLogger, preview: {host:'127.0.0.1',port:0} });
++    vite = {middlewares:built.middlewares, close:()=>built.close()};
+     server.removeAllListeners('request');
+     server.on('request', (req, res) => {
+       res.setHeader('X-Content-Type-Options', 'nosniff');
+--- a/tests/e2e/support/outcome-journey.ts
++++ b/tests/e2e/support/outcome-journey.ts
+@@ -51,7 +51,7 @@
+   };
+   let keyboard = false;
+   const click = async (name: string) => {
+-    if (['Scene', 'Evidence', 'Diagnostics', 'Repair plan', 'Validate repair'].includes(name)) await closeFrame(page);
++    if (['Open Channel Scout', 'Open Serial Post', 'Scene', 'Evidence', 'Diagnostics', 'Repair plan', 'Validate repair'].includes(name)) await closeFrame(page);
+     const control = await revealControl(page, name);
+     if (keyboard) await control.press('Enter'); else await control.click();
+   };
+@@ -92,7 +92,7 @@
+     }
+     await page.goto(local.url); if (authenticated) await expect(page.getByText('Synthetic T050 player (github)', { exact: true })).toBeVisible();
+     await click('New Adventure'); if (authenticated) await click('Start new adventure'); await room('The Arrival Lift');
+-    await click('Look'); await click('Look at power indication'); await click('Look at link indication');
++    await page.screenshot({path:process.env.Q03_OUT+'/arrival.png'}); await click('Look'); await click('Look at power indication'); await click('Look at link indication');
+     await click('Talk'); await click('Talk to Photon the Firefly'); await click('Skip dialogue'); await click('Use'); await click('Inspect physical path');
+     await walk("The Titan's Workshop"); await click('Talk'); await click('Talk to the Titan'); await click('Skip dialogue');
+     await click('Look'); await click('Identify known-good endpoints'); await click('Identify physical path under test');
+@@ -103,7 +103,7 @@
+       await walk('The Copper Warrens'); await click('Use'); await click('Read and keep the supplied compatibility card');
+       await click('Read and keep the diagnosed-defect card; this is not a performed measurement'); await measure(false);
+       await click('Use'); await click('Fit the supplied replacement section: 85 m + 10 m'); await measure(true);
+-      await walk('The Echo Cavern'); await click('Use'); await click('Read and keep the before-record instructions; retain an actual measured open result');
++      await walk('The Echo Cavern'); await click('Open Serial Post'); await click('Practice with one symbol'); await page.screenshot({path:process.env.Q03_OUT+'/serial-post.png'}); await expect(page.getByText('Choose practice or the full message when ready.')).toBeHidden(); await page.getByRole('textbox',{name:'Practice bits'}).fill('11'); await click('Check the copied bits'); await expect(page.getByText(/Practice is complete/)).toBeVisible(); await click('Leave the post'); await click('Use'); await click('Read and keep the before-record instructions; retain an actual measured open result');
+       await click('Read and keep the repeater role and limits'); await click('Conclude: a repeater needs the physical connection restored'); await measure(true);
+       await walk('The Copper Warrens'); await walk("The Titan's Workshop");
+     } else if (branch === 'fiber') {
+@@ -119,6 +119,13 @@
+       await click('Select the alternate surveyed path'); await click('Match both endpoint band, channel and PHY settings'); await measure(true);
+       await walk('The Storm Observatory'); await click('Use'); await click('Keep the survey and freshness instructions');
+       await click('Isolate the local emitter and return to surveyed conditions'); await click('Select fictional scenario channel B at both endpoints'); await measure(true);
++      await click('Open Channel Scout'); await click('Predict, measure and compare');
++      const scout = dialog(page, 'Optional activity');
++      await page.screenshot({path:process.env.Q03_OUT+'/channel-scout.png'});
++      await click('Reconnect the local emitter');
++      await scout.getByRole('button',{name:'Record prediction'}).scrollIntoViewIfNeeded();
++      await page.screenshot({path:process.env.Q03_OUT+'/channel-scout-prediction.png'});
++      await click('Leave Channel Scout');
+       await walk('The Skywell'); await walk("The Titan's Workshop");
+     }
+     await walk('The Shell Market'); await click('Use'); await click('Read and record all separate equipment checks');

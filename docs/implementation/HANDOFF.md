@@ -27,9 +27,8 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 ## Current position — 2026-11-27
 
 **121 loops started;96/170 tasks accepted;no deployment.** Latest pushed commit:
-`8ddb998c5250a95420f4b12dd1f162aa25ec80d7` (MG02/T102). T103/MG03 is accepted
-and queued for scoped publication with reviewed Q01/Q02 fixes and partial T104
-regressions. Root matched269worker hashes before follow-ups; currentcheck/build
+`9484507f977d930fd64db9fd0a65003836a0e66e` (MG03/T103 plus reviewed Q01/Q02
+fixes and partial T104 regressions), published and remote-verified. Root matched269worker hashes before follow-ups; currentcheck/build
 pass. Fullclient4245PASS/1media-test timeout/360TODO, then4affectedtestsPASSserial:
 4246distinctchecks accounted across112suites. FullPHP909tests/19167assertionsPASS.
 CurrentMG03 native15groups preceded the disclosed follow-up fixes.
@@ -38,8 +37,11 @@ Q01 normalized reused attempt UUID identity in generic recovery; Q02 binds game
 save reads to the tab's reviewed session and offers explicit Check Session on a
 cookie mismatch. Both have genuine RED/isolated/current passing evidence. Q04
 found no technical correction;37sourcehashes match and256focusedchecks pass.
-Same119/Q03 proposes a bounded ending/optional instruction presentation fix in
-isolation. Same121/Q05 reconciles exact81outcome+45retry originalcases.
+Q03 initial and progressive-radio presentation changes are promoted:303joined
+checks/check/build pass. Normal MG03 regression now uses opt-in report output;
+64checks pass without overwriting prior evidence. One original worker receipt
+was overwritten by the old harness and is unrecoverable; see its explicit
+receipt-preservation-incident.md. Later root receipts remain separately preserved. Same121/Q05 reconciles exact81outcome+45retry originalcases.
 
 Same116/T104 has145newly discovered current checks passing, plus reviewed older
 native/gap packets. Exact final all-seven native/recovery and140case reconciliation

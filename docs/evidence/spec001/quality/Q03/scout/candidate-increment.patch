@@ -1,0 +1,102 @@
+--- a/src/ui/optional-activities.ts
++++ b/src/ui/optional-activities.ts
+@@ -137,9 +137,12 @@
+   const completed = optionalActivityCompleted(registry, definition, game);
+   const level = (value: number) => value > 0 ? `+${value}` : String(value).replace('-', '−');
+   const parameters = profile?.kind === 'profile' ? profile.parameters as { levels?: readonly { symbol: { value: number }; bits: string }[]; deliveredBudget?: { value: number; unit: string }; transmit?: { value: number; unit: string }; sensitivity?: { value: number; unit: string }; maximumReceive?: { value: number; unit: string }; requiredMargin?: { value: number; unit: string } } : null;
++  const radioRecords = activity.kind === 'radio-channel-scout' ? scoutEvidence(registry, game) : [];
++  const canMeasure = !!session.scout?.prediction && scoutPredictionCurrent(registry, session.scout.prediction, game);
++  const laterReading = canMeasure ? radioRecords.find(row => !row.historical && row.id === session.scout?.measurementId) : undefined;
+   return { sessionId: session.sessionId, title, phase: session.phase, mode: session.mode, instructions: activity.instructions,
+     map: isToySymbolActivity(activity) ? parameters?.levels?.map(row => `${level(row.symbol.value)} → ${row.bits}`) ?? [] : [],
+-    samples: session.mode ? activity.kind === 'radio-channel-scout' ? session.mode === 'practice' ? [activity.practice.explanation] : scoutEvidence(registry, game).map(row => `Observatory reading ${row.index}, configuration ${row.revision}: signal ${row.signal} dBm; noise ${row.noise} dBm; SNR ${row.snr} dB. ${row.thresholdMet ? 'Meets' : 'Below'} the supplied 20 dB threshold. ${row.historical ? 'Historical only; cannot prove the current link.' : 'Current actual observation.'}`) : activity.kind === 'optical-budget-bench' ? [
++    samples: session.mode ? activity.kind === 'radio-channel-scout' ? session.mode === 'practice' ? [activity.practice.explanation] : radioRecords.map(row => `Observatory reading ${row.index}, configuration ${row.revision}: signal ${row.signal} dBm; noise ${row.noise} dBm; SNR ${row.snr} dB. ${row.thresholdMet ? 'Meets' : 'Below'} the supplied 20 dB threshold. ${row.historical ? 'Historical only; cannot prove the current link.' : 'Current actual observation.'}`) : activity.kind === 'optical-budget-bench' ? [
+       `Transmit: ${parameters?.transmit?.value} dBm. Total passive loss: ${activity[session.mode].loss.value} dB.`,
+       `Sensitivity: ${parameters?.sensitivity?.value} dBm. Required reserve: ${parameters?.requiredMargin?.value} dB, inclusive.`,
+       `Maximum receive: ${parameters?.maximumReceive?.value} dBm, inclusive. Check overload separately.`,
+@@ -154,9 +157,9 @@
+     controls: activity.controls, limitations: definition.model.limitations, answerKind: answerKinds[activity.kind],
+     ...(activity.kind === 'notebook-combination' ? { maintenance: { cards: maintenanceCards(activity, registry, game, session.mode ?? 'delivery') ?? [], ...activity.answerControls } } : {}),
+     ...(activity.kind === 'radio-weather-diary' ? { diary: projectRadioDiary(registry, game, activity, completed && game.notebook.factIds.some(id => String(id) === activity.reward.factId)) } : {}),
+-    ...(activity.kind === 'radio-channel-scout' ? { radio: { baselines: scoutEvidence(registry, game).filter(row => row.revision < game.world.configurationRevision).map(row => ({ id: row.id, label: `Reading ${row.index} · ${row.snr} dB` })),
+-      prediction: session.scout?.prediction ? `Recorded prediction: ${session.scout.prediction.assessment === 'meets-threshold' ? 'meets' : 'below'} the supplied 20 dB threshold. ${scoutPredictionCurrent(registry, session.scout.prediction, game) ? session.scout?.measurementId ? 'A new actual reading is available for comparison.' : 'Ready for an explicit measurement.' : 'Configuration changed; record a new prediction.'}` : null,
+-      canMeasure: scoutPredictionCurrent(registry, session.scout?.prediction ?? null, game), measurementId: session.scout?.measurementId ?? null, predictLabel: activity.controls.predict, measureLabel: activity.controls.measure } } : {}),
++    ...(activity.kind === 'radio-channel-scout' ? { radio: { baselines: radioRecords.filter(row => row.revision < game.world.configurationRevision).map(row => ({ id: row.id, label: `Reading ${row.index} · ${row.snr} dB` })),
++      prediction: session.scout?.prediction ? `Recorded prediction: ${session.scout.prediction.assessment === 'meets-threshold' ? 'meets' : 'below'} the supplied 20 dB threshold. ${canMeasure ? laterReading ? 'A new actual reading is available for comparison.' : 'Ready for an explicit measurement.' : 'Configuration changed; record a new prediction.'}` : null,
++      canMeasure, measurementId: laterReading?.id ?? null, predictLabel: activity.controls.predict, measureLabel: activity.controls.measure } } : {}),
+     opticalControls: activity.kind === 'optical-budget-bench' ? activity.answerControls : null,
+     answerControls: activity.kind === 'delivered-power-audit' ? activity.answerControls : null,
+     sources: definition.sourceClaims.map(claim => {
+@@ -229,7 +232,8 @@
+     function select(form: HTMLElement, key: string, labelText: string, options: readonly (readonly [string,string])[]) {
+       const label = doc.createElement('label'), select = doc.createElement('select'); select.id = `nq-scout-${key}`; label.htmlFor = select.id; label.textContent = labelText;
+       for (const [value,text] of [['','Choose an option'],...options]) { const option=doc.createElement('option'); option.value=value!; option.textContent=text!; select.append(option); }
+-      select.value = retain ? (previous?.controls.get(key) as HTMLSelectElement | undefined)?.value ?? '' : '';
++      const sameReading = key === 'baseline' || key === 'prediction' || previous?.view.radio?.measurementId === radio.measurementId;
++      select.value = retain && sameReading ? (previous?.controls.get(key) as HTMLSelectElement | undefined)?.value ?? '' : '';
+       scope.controls.set(key,select);form.append(label,select);return select;
+     }
+     const prediction = doc.createElement('form'), baseline = select(prediction,'baseline','Earlier actual observation',radio.baselines.map(row=>[row.id,row.label] as const));
+@@ -238,9 +242,15 @@
+     const enablePrediction=()=>{predict.disabled=!baseline.value||!expected.value;};enablePrediction();baseline.addEventListener('change',enablePrediction,{signal:scope.abort.signal});expected.addEventListener('change',enablePrediction,{signal:scope.abort.signal});
+     prediction.addEventListener('submit',event=>{event.preventDefault();if(baseline.value&&(expected.value==='meets-threshold'||expected.value==='below-threshold'))send(scope,{kind:'scout-predict',sessionId:scope.view.sessionId,baselineMeasurementId:baseline.value,assessment:expected.value});},{signal:scope.abort.signal});section.append(prediction);
+     if(!radio.baselines.length)section.append(paragraph('An earlier actual reading is needed. Select a different configuration, or leave and take a radio reading before returning.'));
+-    if(radio.prediction)section.append(paragraph(radio.prediction));
+-    const measure=button(scope,'measure',radio.measureLabel,{kind:'scout-measure',sessionId:scope.view.sessionId});measure.disabled=!radio.canMeasure;section.append(measure);
++    const measure=button(scope,'measure',radio.measureLabel,{kind:'scout-measure',sessionId:scope.view.sessionId});measure.disabled=!radio.canMeasure;
++    if (radio.canMeasure && radio.prediction) section.prepend(paragraph(radio.prediction), measure);
++    else {
++      if (radio.prediction) section.append(paragraph(radio.prediction));
++      section.append(measure);
++    }
++    if (!radio.measurementId) return section;
+     const comparison=doc.createElement('form');
++    comparison.setAttribute('aria-label', 'Compare actual radio readings');
+     const direction=select(comparison,'comparison','SNR compared with the earlier reading',[['increased','Increased'],['unchanged','Unchanged'],['decreased','Decreased']]);
+     const threshold=select(comparison,'threshold','Current measured threshold result',[['meets-threshold','Meets 20 dB'],['below-threshold','Below 20 dB']]);
+     const supported=select(comparison,'supported','Did the new reading support your prediction?',[['supported','Supported'],['not-supported','Not supported']]);
+@@ -249,7 +259,7 @@
+     const enableCompare=()=>{submit.disabled=!radio.measurementId||![direction,threshold,supported,claim].every(node=>!!node.value);};enableCompare();
+     for(const node of [direction,threshold,supported,claim])node.addEventListener('change',enableCompare,{signal:scope.abort.signal});
+     comparison.addEventListener('submit',event=>{event.preventDefault();if(submit.disabled||!radio.measurementId)return;send(scope,{kind:'scout-compare',sessionId:scope.view.sessionId,laterMeasurementId:radio.measurementId,comparison:direction.value as ScoutComparisonInput['comparison'],currentAssessment:threshold.value as ScoutAssessment,predictionAssessment:supported.value as ScoutComparisonInput['predictionAssessment'],evidenceClaim:claim.value as ScoutComparisonInput['evidenceClaim']});},{signal:scope.abort.signal});
+-    section.append(comparison);return section;
++    measure.before(comparison);return section;
+   }
+   return { element, render(view: OptionalActivityView | null, capture: Capture) {
+     if (disposed) return;
+@@ -262,7 +272,14 @@
+     previous?.abort.abort();
+     const scope: Scope = { view: structuredClone(view), capture, abort: new AbortController(), controls: new Map() };
+     current = scope; heading.textContent = view.title; element.hidden = false;
+-    const children: HTMLElement[] = [paragraph('Optional · Untimed'), ...view.instructions.map(paragraph)];
++    const scouting = view.radio && view.mode === 'delivery';
++    const children: HTMLElement[] = [paragraph('Optional · Untimed'), ...(scouting ? view.instructions.slice(0, 1) : view.instructions).map(paragraph)];
++    if (scouting && view.radio) {
++      const step = doc.createElement('h3');
++      step.textContent = view.radio.measurementId ? 'Compare your readings' : view.radio.canMeasure ? 'Measure the signal'
++        : view.radio.baselines.length ? 'Predict the next reading' : 'Choose a radio configuration';
++      children.push(step);
++    }
+     const actions = doc.createElement('div'); actions.setAttribute('aria-label', 'Activity choices');
+     const delivery = button(scope, 'delivery', view.controls.delivery, { kind: 'choose-optional-mode', sessionId: view.sessionId, mode: 'delivery' });
+     if (view.diary && !view.diary.available) delivery.disabled = true;
+@@ -324,6 +341,7 @@
+       button(scope, 'boundary', 'See the exact-reserve boundary', { kind: 'boundary-optional', sessionId: view.sessionId }),
+       button(scope, 'compatibility', 'Read compatibility comparisons', { kind: 'compatibility-optional', sessionId: view.sessionId }));
+     const details = doc.createElement('details'), summary = doc.createElement('summary'); summary.tabIndex = 0; summary.textContent = 'Technical details and sources'; details.append(summary);
++    if (scouting) for (const instruction of view.instructions.slice(1)) details.append(paragraph(instruction));
+     for (const limitation of view.limitations) details.append(paragraph(limitation));
+     for (const source of view.sources) {
+       details.append(paragraph(`${source.title} · ${source.section}`), paragraph(source.claim));
+@@ -331,6 +349,10 @@
+     }
+     children.push(details, button(scope, 'exit', view.controls.exit, { kind: 'exit-optional', sessionId: view.sessionId })); body.replaceChildren(...children);
+     if (!wasOpen) { returnFocus = focus instanceof HTMLElement ? focus : null; queueMicrotask(() => { if (active(scope)) heading.focus(); }); }
+-    else if (focusKey) (scope.controls.get(focusKey) ?? heading).focus({ preventScroll: true });
++    else if (focusKey) {
++      if (focusKey === 'predict' && view.radio?.canMeasure) scope.controls.get('measure')?.focus();
++      else if (focusKey === 'measure' && view.radio?.measurementId !== previous?.view.radio?.measurementId && view.radio?.measurementId) scope.controls.get('comparison')?.focus();
++      else (scope.controls.get(focusKey) ?? heading).focus({ preventScroll: true });
++    }
+   }, dispose() { if (disposed) return; retire(); disposed = true; lifetime.abort(); element.remove(); } };
+ }

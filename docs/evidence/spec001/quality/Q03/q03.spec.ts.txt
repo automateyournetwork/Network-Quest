@@ -1,0 +1,16 @@
+import {test,expect} from './support/outcome-journey';
+import {writeFile} from 'node:fs/promises';
+test('Guest plays from the lift to deliberate isolation',async({outcome:j})=>{
+ await j.prepare('copper',false); await j.choosePlan('copper','shutdown'); await j.execute(); await j.validate('shutdown');
+ const panel=j.page.getByRole('dialog',{name:'The Honest Shutdown'}), out=process.env.Q03_OUT!;
+ await j.page.screenshot({path:out+'/shutdown.png'});
+ await writeFile(out+'/shutdown.json',JSON.stringify(await panel.evaluate(el=>({text:(el as HTMLElement).innerText,scrollHeight:el.scrollHeight,height:el.clientHeight,controls:[...el.querySelectorAll('button')].map(b=>({name:b.textContent,top:b.getBoundingClientRect().top})),pageHeight:document.documentElement.scrollHeight})),null,2));
+ const toggle=panel.getByRole('button',{name:'Read the encounter handover'}), next=panel.getByRole('button',{name:'Continue',exact:true});
+ await expect(next).toBeInViewport({ratio:1}); await expect(toggle).toHaveAttribute('aria-expanded','false');
+ await toggle.press('Enter'); await expect(panel.getByText(/well-used toolkit/)).toBeVisible(); await expect(panel.getByText(/gate ledger/)).toBeVisible(); await expect(toggle).toHaveAttribute('aria-expanded','true'); await toggle.press('Space'); await expect(panel.getByText(/well-used toolkit/)).toBeHidden();
+ await next.press('Enter');
+ await expect(j.page.getByRole('button',{name:'Confirm Continue to Encounter Preparation'})).toBeVisible();
+});
+test('Guest opens the full Channel Scout after a measured radio path',async({outcome:j})=>{
+ await j.prepare('radio',false);
+});

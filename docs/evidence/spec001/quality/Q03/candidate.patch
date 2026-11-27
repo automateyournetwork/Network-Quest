@@ -1,0 +1,60 @@
+--- a/src/ui/epilogue.ts
++++ b/src/ui/epilogue.ts
+@@ -128,6 +128,7 @@
+         && JSON.stringify(active!.projection.view) === JSON.stringify(projection.view)
+         && JSON.stringify(active!.projection.caveats) === JSON.stringify(projection.caveats);
+       const sceneHidden = sameStory && active!.scene.hidden;
++      const handoverOpen = sameStory && active!.buttons.get('handover')?.getAttribute('aria-expanded') === 'true';
+       const scrollTop = sameStory ? remountPresentation?.scrollTop ?? element.scrollTop : 0;
+       const focusInside = remountPresentation?.focusInside ?? element.contains(doc.activeElement);
+       const focusKey = sameStory ? remountPresentation?.focusKey ?? [...active!.buttons].find(([, b]) => b === doc.activeElement)?.[0] : undefined;
+@@ -148,12 +149,25 @@
+       if (view.kind === 'ending') {
+         result.append(paragraph(view.summary));
+         for (const caveat of projection.caveats) result.append(paragraph(caveat));
+-        for (const line of view.paragraphs) result.append(paragraph(line));
++        if (view.outcome === 'E03') {
++          const record = doc.createElement('div');
++          record.hidden = !handoverOpen;
++          for (const line of [...view.paragraphs, content.recovery.retry]) record.append(paragraph(line));
++          const toggle = button(scope, 'handover', 'Read the encounter handover', () => {
++            record.hidden = !record.hidden;
++            toggle.setAttribute('aria-expanded', String(!record.hidden));
++          });
++          toggle.setAttribute('aria-expanded', String(!record.hidden));
++          result.append(toggle, record);
++        } else {
++          for (const line of view.paragraphs) result.append(paragraph(line));
++        }
+         result.append(paragraph(view.continuation));
+       } else result.append(paragraph(view.cause));
+       const recovery = view.kind === 'failure' || view.outcome === 'E03';
+       if (recovery) {
+-        result.append(paragraph(content.recovery.retry), paragraph(content.recovery.restore), paragraph(content.recovery.save));
++        if (view.kind === 'failure') result.append(paragraph(content.recovery.retry));
++        result.append(paragraph(content.recovery.restore), paragraph(content.recovery.save));
+         if (projection.restore === 'sign-in') result.append(paragraph(content.recovery.guest));
+         if (!projection.retryAvailable) result.append(paragraph('No in-memory encounter preparation is available in this session.'));
+         if (projection.restore === 'unavailable') result.append(paragraph('Account save access is unavailable right now.'));
+--- a/src/ui/optional-activities.ts
++++ b/src/ui/optional-activities.ts
+@@ -311,7 +311,7 @@
+       }, { signal: scope.abort.signal }); children.push(form);
+       }
+     }
+-    const feedback = paragraph(view.feedback ?? (view.completed ? 'Completion recorded in your journal.' : view.answerKind === 'radio' ? 'Choose worked practice or predict, measure and compare when ready.' : view.answerKind === 'optics' ? 'Choose practice or diagnose the full card when ready.' : view.answerKind === 'maintenance' ? 'Choose the supplied practice card or combine your collected records when ready.' : view.answerKind === 'diary' ? 'Read the worked card or compare your actual observations when ready.' : view.answerKind === 'power' ? 'Choose practice or audit the full plan when ready.' : 'Choose practice or the full message when ready.'));
++    const feedback = paragraph(view.feedback ?? (view.completed ? 'Completion recorded in your journal.' : view.mode ? '' : view.answerKind === 'radio' ? 'Choose worked practice or predict, measure and compare when ready.' : view.answerKind === 'optics' ? 'Choose practice or diagnose the full card when ready.' : view.answerKind === 'maintenance' ? 'Choose the supplied practice card or combine your collected records when ready.' : view.answerKind === 'diary' ? 'Read the worked card or compare your actual observations when ready.' : view.answerKind === 'power' ? 'Choose practice or audit the full plan when ready.' : 'Choose practice or the full message when ready.'));
+     feedback.setAttribute('role', 'status'); feedback.setAttribute('aria-live', 'polite'); children.push(feedback);
+     if (view.hintText) children.push(paragraph(view.hintText));
+     if (view.rewardText) children.push(paragraph(view.rewardText));
+--- a/content/spec001/endings.json
++++ b/content/spec001/endings.json
+@@ -40,7 +40,7 @@
+     "copper": "Your record follows the copper route through the Warrens and Echo Cavern. The pages distinguish an intact conductor path from a powered device that merely looks busy.",
+     "fiber": "Your record follows the fiber route through the Photon Gardens and Prism Vault. Inspection, compatibility and measured loss share the page; a bright-looking path never stood in for those checks.",
+     "radio": "Your record follows the radio route through the Skywell and Storm Observatory. Signal and noise have separate places in the notebook. Neither was allowed to make a promise about service by itself.",
+-    "none": "No media route is recorded for this shutdown. The recovery record leaves that choice open rather than inventing a journey you did not take."
++    "none": "The gate ledger has a line for the repair route. You leave it blank. The conduit is safely isolated, and the next engineer still has a choice."
+   },
+   "noAllies": "You faced the Rift with your own observations and a well-used toolkit.",
+   "recruits": [

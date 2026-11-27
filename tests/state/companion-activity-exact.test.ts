@@ -6,3 +6,4 @@ import '../../docs/evidence/spec001/companions-t104/gaps-58ce1a0/companion-vecto
 import '../../docs/evidence/spec001/companions-t104/gaps-58ce1a0/party-exact.test';
 import '../../docs/evidence/spec001/companions-t104/gaps-58ce1a0/capability-proposal.test';
 import '../../docs/evidence/spec001/companions-t104/current-joined/minigame-exact.test';
+import '../../docs/evidence/spec001/companions-t104/current-joined/technical-fields.test';

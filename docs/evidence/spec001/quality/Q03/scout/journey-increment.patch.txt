@@ -1,0 +1,40 @@
+--- a/tests/e2e/support/outcome-journey.ts
++++ b/tests/e2e/support/outcome-journey.ts
+@@ -121,10 +121,33 @@
+       await click('Isolate the local emitter and return to surveyed conditions'); await click('Select fictional scenario channel B at both endpoints'); await measure(true);
+       await click('Open Channel Scout'); await click('Predict, measure and compare');
+       const scout = dialog(page, 'Optional activity');
+-      await page.screenshot({path:process.env.Q03_OUT+'/channel-scout.png'});
+-      await click('Reconnect the local emitter');
+-      await scout.getByRole('button',{name:'Record prediction'}).scrollIntoViewIfNeeded();
+-      await page.screenshot({path:process.env.Q03_OUT+'/channel-scout-prediction.png'});
++      const compare = scout.getByRole('combobox',{name:'SNR compared with the earlier reading'});
++      const step = scout.getByRole('heading',{level:3});
++      const prediction = async () => {
++        await scout.getByRole('combobox',{name:'Earlier actual observation'}).selectOption({index:1});
++        await scout.getByRole('combobox',{name:'Predicted current threshold result'}).selectOption('meets-threshold');
++        await scout.getByRole('button',{name:'Record prediction'}).press('Enter');
++      };
++      await expect(compare).toHaveCount(0);
++      await click('Reconnect the local emitter'); await expect(step).toHaveText('Predict the next reading');
++      await prediction(); await expect(step).toHaveText('Measure the signal'); await expect(compare).toHaveCount(0);
++      await expect(scout.getByRole('button',{name:'Measure this configuration'})).toBeFocused(); await page.screenshot({path:process.env.Q03_OUT+'/prediction.png'});
++      await scout.getByRole('button',{name:'Measure this configuration'}).press('Enter');
++      await expect(step).toHaveText('Compare your readings'); await expect(compare).toBeFocused();
++      const records=scout.getByRole('list',{name:'Actual radio observations'}); await expect(records).toContainText('SNR 13 dB');
++      await compare.selectOption('decreased');
++      await page.screenshot({path:process.env.Q03_OUT+'/measured.png'});
++      await scout.getByLabel('Current measured threshold result').selectOption('below-threshold');
++      await scout.getByLabel('Did the new reading support your prediction?').selectOption('not-supported');
++      await scout.getByLabel('What does this evidence establish?').selectOption('current-reading-only-no-cause');
++      await click('Compare actual readings'); await expect(scout).toContainText('Your prediction was not supported');
++      await click('Select channel A'); await expect(compare).toHaveCount(0);
++      await expect(step).toHaveText('Predict the next reading'); await expect(records).toContainText('Historical only');
++      await expect(scout.getByRole('button',{name:'Measure this configuration'})).toBeDisabled();
++      await prediction(); await click('Measure this configuration'); await expect(compare).toHaveValue('');
++      await scout.getByText('Technical details and sources',{exact:true}).press('Enter');
++      await expect(scout.locator('a').first()).toBeVisible();
++      await click('Restore entry preparation and retry'); await expect(compare).toHaveCount(0);
+       await click('Leave Channel Scout');
+       await walk('The Skywell'); await walk("The Titan's Workshop");
+     }

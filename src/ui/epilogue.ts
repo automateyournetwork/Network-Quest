@@ -128,6 +128,7 @@ export function createEpiloguePanel<Command>(host: HTMLElement, options: {
         && JSON.stringify(active!.projection.view) === JSON.stringify(projection.view)
         && JSON.stringify(active!.projection.caveats) === JSON.stringify(projection.caveats);
       const sceneHidden = sameStory && active!.scene.hidden;
+      const handoverOpen = sameStory && active!.buttons.get('handover')?.getAttribute('aria-expanded') === 'true';
       const scrollTop = sameStory ? remountPresentation?.scrollTop ?? element.scrollTop : 0;
       const focusInside = remountPresentation?.focusInside ?? element.contains(doc.activeElement);
       const focusKey = sameStory ? remountPresentation?.focusKey ?? [...active!.buttons].find(([, b]) => b === doc.activeElement)?.[0] : undefined;
@@ -148,12 +149,25 @@ export function createEpiloguePanel<Command>(host: HTMLElement, options: {
       if (view.kind === 'ending') {
         result.append(paragraph(view.summary));
         for (const caveat of projection.caveats) result.append(paragraph(caveat));
-        for (const line of view.paragraphs) result.append(paragraph(line));
+        if (view.outcome === 'E03') {
+          const record = doc.createElement('div');
+          record.hidden = !handoverOpen;
+          for (const line of [...view.paragraphs, content.recovery.retry]) record.append(paragraph(line));
+          const toggle = button(scope, 'handover', 'Read the encounter handover', () => {
+            record.hidden = !record.hidden;
+            toggle.setAttribute('aria-expanded', String(!record.hidden));
+          });
+          toggle.setAttribute('aria-expanded', String(!record.hidden));
+          result.append(toggle, record);
+        } else {
+          for (const line of view.paragraphs) result.append(paragraph(line));
+        }
         result.append(paragraph(view.continuation));
       } else result.append(paragraph(view.cause));
       const recovery = view.kind === 'failure' || view.outcome === 'E03';
       if (recovery) {
-        result.append(paragraph(content.recovery.retry), paragraph(content.recovery.restore), paragraph(content.recovery.save));
+        if (view.kind === 'failure') result.append(paragraph(content.recovery.retry));
+        result.append(paragraph(content.recovery.restore), paragraph(content.recovery.save));
         if (projection.restore === 'sign-in') result.append(paragraph(content.recovery.guest));
         if (!projection.retryAvailable) result.append(paragraph('No in-memory encounter preparation is available in this session.'));
         if (projection.restore === 'unavailable') result.append(paragraph('Account save access is unavailable right now.'));
