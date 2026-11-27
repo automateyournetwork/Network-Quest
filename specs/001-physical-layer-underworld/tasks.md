@@ -700,7 +700,7 @@ while keeping the third worker useful.
 - [X] T101 [P] [US7] Author Clockworks Bit Loom MG01 in `content/spec001/minigames/MG01.json`, reusing the toy decoder with untimed practice and no score requirement for O10.
 - [X] T102 [P] [US7] Author Prism Budget Bench MG02 in `content/spec001/minigames/MG02.json`, reusing reviewed optical rules after O06 with independent boundaries and no mandatory reward.
 - [X] T103 [P] [US7] Author Channel Scout MG03 in `content/spec001/minigames/MG03.json`, reusing scoped radio rules after O08 with predict/measure/compare explanations and safe exit.
-- [ ] T104 [US7] Verify all 25 entries, nine recruits/progression/abilities, max-two party and conventional equivalents in `tests/e2e/companions.spec.ts`, and every SQ01–04/MG01–03 start/finish/retry/exit in `tests/e2e/optional-activities.spec.ts`; record gameplay evidence for AC05/06 and cross-room AC04, keeping portrait-dependent AC05 acceptance pending until final media/regression in `docs/evidence/spec001/US7.md`.
+- [X] T104 [US7] Verify all 25 entries, nine recruits/progression/abilities, max-two party and conventional equivalents in `tests/e2e/companions.spec.ts`, and every SQ01–04/MG01–03 start/finish/retry/exit in `tests/e2e/optional-activities.spec.ts`; record gameplay evidence for AC05/06 and cross-room AC04, keeping portrait-dependent AC05 acceptance pending until final media/regression in `docs/evidence/spec001/US7.md`.
 
 ## Phase 10: User Story 8 — Explore a finished episode and retain progress through expansion (P2)
 

@@ -1,0 +1,115 @@
+{
+  "task": "T104",
+  "stage": "all-seven-Q03-and-original140-reconciliation",
+  "status": "scoped-functional-evidence-ready-for-coordinator-review; task/release acceptance not claimed",
+  "recordedAt": "2026-11-27T16:57:16.498791+00:00",
+  "productionCommit": "55b9bfcd7ca1f0aef0b4add6f6d86790e34e7cad",
+  "native": {
+    "status": "PASS",
+    "lifecycleRows": 56,
+    "actualUnfinishedPhaseExits": 28,
+    "controlledLogicalHourCases": 7,
+    "visibilitySimulationCount": 7,
+    "recoveryCases": [
+      {
+        "case": "encounter-failure-Retry",
+        "status": "PASS",
+        "quests": 4,
+        "minigames": 3,
+        "recruits": 2,
+        "active": 2,
+        "levels": [
+          1,
+          2
+        ]
+      },
+      {
+        "case": "E03-Continue",
+        "status": "PASS",
+        "quests": 4,
+        "minigames": 3,
+        "recruits": 2,
+        "active": 2,
+        "retainedHints": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "case": "one-slot-Restore-Save",
+        "status": "PASS",
+        "exactWholeSnapshot": true,
+        "questCount": 4,
+        "minigameCount": 3,
+        "recruitCount": 2
+      }
+    ],
+    "manualSaveRequests": 40,
+    "oneSlot": true,
+    "autosaveEnabled": false,
+    "sourceHashesUnchanged": 255,
+    "errors": [],
+    "external": [],
+    "browser": "159.0",
+    "runnerDurationSeconds": 57.5,
+    "performanceClaim": false
+  },
+  "runtime": {
+    "coordinatorCurrentExactWrapper": 156,
+    "separateFinalSQFieldCases": 5,
+    "singleCombined161RunClaimed": false,
+    "strictTypeScript": "PASS",
+    "build": "PASS with retained chunk-size warning"
+  },
+  "original140StatusCounts": {
+    "mapped-executed-functional-evidence": 129,
+    "pending-T105-current-whole-route": 4,
+    "partial-media-dependent-precommit-animation": 1,
+    "not-applicable-no-implemented-timed-mode": 6
+  },
+  "oldSeals": [
+    {
+      "seal": "docs/evidence/spec001/companions-t104/source-seal.json",
+      "sha256": "a213921e019718ba07803539ebec543dd1dc429d781b95ea6a4adb1f589f6c5a",
+      "files": 37,
+      "unchanged": true
+    },
+    {
+      "seal": "docs/evidence/spec001/companions-t104/optional-979c492/source-seal.json",
+      "sha256": "527dabfc91f91d93e037365a978869e2ffe04cc09a195ce3f49371ca64e58edd",
+      "files": 17,
+      "unchanged": true
+    },
+    {
+      "seal": "docs/evidence/spec001/companions-t104/oracle-mapping/source-seal.json",
+      "sha256": "36c80430be058c0a8ecb4424b9e564adba9ceb52e27d186367b86630e50d7330",
+      "files": 4,
+      "unchanged": true
+    },
+    {
+      "seal": "docs/evidence/spec001/companions-t104/gaps-58ce1a0/source-seal.json",
+      "sha256": "d391bdb4c891e5a042cdf903e1f3d5ede1d798768faaf38723a175da04310e35",
+      "files": 42,
+      "unchanged": true
+    }
+  ],
+  "originalT092FixtureAndTodoHashes": {
+    "tests/fixtures/companions.json": "adce95202c355fcb4e24ef1fca657aab5b8dbf6f36675ccfdd9fcacc6c18db8f",
+    "tests/fixtures/optional-activities.json": "d29ef77428a61f8b6c92dc4fd17e99cd6b8a10a738e68171e1bad59eab9917cb",
+    "tests/content/companion-activity-oracles.test.ts": "5450764c708e624abbaa9d1c50bfe8c97485d03e177cc8982b9204fa67d9b846"
+  },
+  "resources": "Owned isolated PHP/TLS/dev server and headless browser closed by harness finally; owner preview processes untouched.",
+  "failuresRetained": [
+    "current-joined/typecheck-initial.txt missing tsgo command; corrected to project tsc",
+    "current-joined/technical-initial.txt10pass/1harnessfieldfailure with exact source; corrected11pass",
+    "final-q03/native-initial.txt SQ01 separate explanation/status-location assertion failure with exact source/JSON/image; corrected complete native pass"
+  ],
+  "scopeLimits": [
+    "Four current no-recruit whole-route cases remain T105",
+    "Literal precommit async animation cancellation remains T147/final media regression",
+    "Six absent optional timed modes are N/A, not passed challenges",
+    "No provider login, final artwork/audio/pacing/manual accessibility/aggregateaxe/Safari/foreground performance acceptance",
+    "No taskcheckbox/globaltracking/Git/publication changes by this worker"
+  ]
+}

@@ -1,13 +1,16 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import { defineConfig, devices } from '@playwright/test';
-import { readdirSync } from 'node:fs';
+import { readdirSync, mkdirSync, mkdtempSync } from 'node:fs';
+import { resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const origin = 'http://127.0.0.1:4173';
 const staticSpecs = ['foundation.spec.ts'];
+// This guest journey owns an ephemeral built preview and its Firefox process.
+const ownedStaticSpecs = ['companions.spec.ts'];
 const httpsSpecs = ['foundation-tls.spec.ts', 'ui-shell.spec.ts', 'presentation.spec.ts', 'guest-introduction.spec.ts', 'verbs-inventory.spec.ts', 'dialogue.spec.ts', 'notebook.spec.ts', 'navigation.spec.ts', 'packet-controls.spec.ts', 'title.spec.ts', 'packet-introduction.spec.ts', 'physical-boundaries.spec.ts', 'introduction-graybox.spec.ts', 'finished-room.spec.ts', 'save-dialogs.spec.ts', 'account-settings.spec.ts', 'single-save.spec.ts', 'logout.spec.ts', 'account-deletion.spec.ts', 'first-repair-route.spec.ts', 'independent-repair-routes.spec.ts'];
-httpsSpecs.push('outcomes.spec.ts', 'packet-journey.spec.ts');
-const assigned = new Set([...staticSpecs, ...httpsSpecs]);
+httpsSpecs.push('outcomes.spec.ts', 'packet-journey.spec.ts', 'optional-activities.spec.ts');
+const assigned = new Set([...staticSpecs, ...ownedStaticSpecs, ...httpsSpecs]);
 const browserTests = fileURLToPath(new URL('./tests/e2e', import.meta.url));
 // T022/T030 and later journeys must choose an appropriate project explicitly.
 // An unassigned new spec is a failure, never a silently omitted green run.
@@ -16,11 +19,15 @@ const unassigned = readdirSync(browserTests, { recursive: true, encoding: 'utf8'
   .filter((file) => /\.(?:spec|test)\.[cm]?[jt]sx?$/.test(file) && !assigned.has(file.replaceAll('\\', '/')));
 if (unassigned.length) throw new Error(`Unassigned browser specs: ${unassigned.join(', ')}. Register them in the appropriate Playwright project; API/session journeys require trusted HTTPS.`);
 
+const resultRoot = resolve('.local/test-results');
+mkdirSync(resultRoot, { recursive: true });
+const outputDir = mkdtempSync(join(resultRoot, 'playwright-'));
+
 export default defineConfig({
   testDir: './tests/e2e',
   testMatch: '**/*.spec.ts',
   testIgnore: ['**/node_modules/**', '**/vendor/**', '**/.local/**', '**/.runtime/**', '**/dist/**', '**/build/**'],
-  outputDir: 'test-results',
+  outputDir,
   forbidOnly: true,
   fullyParallel: true,
   workers: 2,
@@ -39,6 +46,7 @@ export default defineConfig({
   projects: [
     { name: 'chromium-static', testMatch: staticSpecs.map((file) => `**/${file}`), use: { ...devices['Desktop Chrome'] } },
     { name: 'firefox-static', testMatch: staticSpecs.map((file) => `**/${file}`), use: { ...devices['Desktop Firefox'] } },
+    { name: 'firefox-owned-static', testMatch: ownedStaticSpecs.map((file) => `**/${file}`), use: { ...devices['Desktop Firefox'] } },
     { name: 'firefox-local-https', testMatch: httpsSpecs.map((file) => `**/${file}`), use: { ...devices['Desktop Firefox'] } },
   ],
   webServer: {

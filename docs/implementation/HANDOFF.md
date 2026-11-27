@@ -26,8 +26,36 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
+**123 loops started; 97/170 tasks accepted; no deployment.** Latest pushed commit
+`fa2740cd3ac8ad22dd86feeef87c6802aa0fc4a8` (reviewed Q05). T104 canonical checkpoint
+is now root-accepted for gameplay and being published. Both normal-config native
+journeys passed3.1min;32canonical files/255published inputs/4test overlays matched.
+Final all-seven packet49owned/254published/120assertion refs matched. Exact140
+original inputs stay unchanged:129mapped/6timingN/A/4T105rows/1media-animationpartial.
+Historical canonical files are archived exactly; current tests use unique ignored
+reports and actual current source/build. See US7.md and companion root review.
+
+All five Astra reviews are root-reviewed/promoted where applicable. Q05 current
+476tests/11suites/check/buildPASS; generated policy semantics unchanged. Earlier
+broadclient4246distinct accounted andfullPHP909/19167 remain scoped historical
+checks, not reruns after every bounded UI/diagnostic delta.
+
+Fresh123/T105 runs independent copper/fiber/radio routes and original42physical/
+52route reconciliation plus four no-recruit T092 rows.122/T106 prepares isolated
+layouts with150exact prop identities,109currentinteractive subjects,136hotspots/
+28exits and380quota identities. No freeze/bulkmedia before acceptedT105. Preserve
+saved positions and12x7R09–R12walk regions; correct smaller grayboxgeometry during
+finished-room integration. Owner previews63366/54594 remain protected.
+
+T096/T097 actual reward pictures, portraits/finishedmedia, providers, humanreviews
+and release gates remain open. Continue the original playful, witty, lightly dark
+Networking/OSI Sierra adventure within the approved286frame. Never claim scaffold
+completion or turn scoped test counts into human/episode acceptance.
+
+### Earlier loop122 acceptance checkpoint — historical
+
 **122 loops started; 96/170 tasks accepted; no deployment.** Latest pushed commit
-`55b9bfcd7ca1f0aef0b4add6f6d86790e34e7cad`; next reviewed checkpoint is being prepared.
+`fa2740cd3ac8ad22dd86feeef87c6802aa0fc4a8`;70reviewedpaths/987502bytes, exactstage/blob/private/authoredwhitespace checksPASS and46rawlog/patch findings preserved. Push remoteverified.
 All five requested Astra reviews are now root-reviewed. Q05 promoted four production
 and four test files with exact candidate hashes; current476tests/11suites, check and
 build PASS. Save-policy regeneration changes only two provenance hashes, not semantics.

@@ -2,30 +2,28 @@
 // T104 native guest journey. No game-state, party, measurements or verdict injection.
 import { expect, firefox, test, type Page } from '@playwright/test';
 import { preview } from 'vite';
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 import AxeBuilder from '@axe-core/playwright';
 import { clickButton, closeFrame, openFrame } from './support/adventure-controls';
+import { createT104RunDirectory, captureT104SourceHashes } from './support/t104-run-artifacts';
 
-const baseline = '9a93bf7815cda8b7055a8177bd61d5c468dc8f52';
-const root = resolve(process.env['NQ_T104_ROOT'] ?? '.local/t104-companions-9a93bf7');
-const evidence = resolve('docs/evidence/spec001/companions-t104');
-const run = process.env['NQ_T104_RUN'] ?? 'native-initial';
+const root = process.cwd();
+const run = 'native';
 const q = (id: string) => `spec001:${id}`;
 const roster = Array.from({ length: 25 }, (_, index) => `CH${String(index + 1).padStart(2, '0')}`);
 const recruitRoster = ['CH03','CH04','CH05','CH06','CH07','CH16','CH19','CH20','CH22'];
 const json = async (path: string) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
 
 test('T104 actual all-room companion discovery, earned progression and conventional equivalents', async () => {
-  const report: any = { task: 'T104', stage: 'independent-companion-baseline', executionCommit: baseline,
-    observedAt: new Date().toISOString(), sourceRoot: '.local/t104-companions-9a93bf7',
+  test.setTimeout(900_000);
+  const evidence = await createT104RunDirectory('companions');
+  const report: any = { task: 'T104', stage: 'current-canonical-companion-journey', executionCommit: null,
+    observedAt: new Date().toISOString(), sourceRoot: 'current working directory', sourceMeaning: 'Actual working-tree and built-output hashes; no immutable commit claim. Guest static preview only, no API/session proof.',
     results: [], discoveries: [], lessons: [], equivalents: [], errors: [], prohibitedRequests: [], sources: {} };
   report.harnessSha256=createHash('sha256').update(await readFile(resolve('tests/e2e/companions.spec.ts'))).digest('hex');
-  const sourcePaths = ['src/state/party.ts','src/state/objective-history.ts','src/state/reducer.ts','src/ui/party.ts','src/ui/compendium.ts',
-    'src/app/application.ts','src/app/adventure.ts','content/spec001/characters.json','content/spec001/world.json','content/spec001/sources.json',
-    'content/spec001/presentation/first-route-graybox.json', ...Array.from({length:12},(_,i)=>`content/spec001/rooms/R${String(i+1).padStart(2,'0')}.json`)];
-  for (const path of sourcePaths) report.sources[path] = createHash('sha256').update(await readFile(resolve(root,path))).digest('hex');
+  report.sources = await captureT104SourceHashes('companions', true);
   const world = await json('content/spec001/world.json'), characters = (await json('content/spec001/characters.json')).records;
   const names = new Map<string,string>(world.characters.map((c: any) => [c.id, c.name]));
   const name = (id: string) => names.get(q(id))!;
@@ -135,10 +133,10 @@ test('T104 actual all-room companion discovery, earned progression and conventio
     await openFrame(page,'Sound and reading');await page.getByRole('slider',{name:'Text size',exact:true}).focus();await page.keyboard.press('Home');await closeFrame(page);
     await ui.click('Repair plan');await ui.click('Copper replacement — 95 m');await ui.click('Permanent installation');await ui.click('Read and keep plan requirements');await ui.click('Review current plan');await page.getByRole('checkbox',{name:'I understand that execution changes the route and makes earlier readings stale',exact:true}).check();await ui.click('Execute reviewed plan');await ui.click('Close repair controls');await ui.walk('The Iron Threshold','Walk to the validation balcony');await ui.click('Validate repair');await ui.click('Read classification criteria');await ui.click('Measure repaired link');await ui.click('Run endpoint test');await ui.click('Classify permanent restoration');await expect(page.getByRole('dialog',{name:'The Steady Light',exact:true})).toContainText('Permanent restoration');await page.screenshot({path:resolve(evidence,`${run}-earned-party-ending.png`)});checked('earned party accompanies an actual conventional copper repair and independent endpoint validation at R12');
     expect(report.lessons.map((r:any)=>r.id).sort()).toEqual(recruitRoster.slice().sort());expect(report.equivalents).toHaveLength(18);expect(report.errors).toEqual([]);expect(report.prohibitedRequests).toEqual([]);
-    for(const [path,hash] of Object.entries(report.sources))expect(createHash('sha256').update(await readFile(resolve(root,path))).digest('hex')).toBe(hash);
-    report.status='PASS';checked('frozen source remained unchanged; no browser errors, API writes or external requests');
+    expect(await captureT104SourceHashes('companions', true)).toEqual(report.sources);
+    report.status='PASS';checked('current source and built output remained unchanged; no browser errors, API writes or external requests');
   } catch(error) {report.status='FAIL';report.error=String(error);report.lastText=(await page.locator('body').innerText()).slice(-15000);await page.screenshot({path:resolve(evidence,`${run}-failure.png`)});throw error;
-  } finally {await mkdir(evidence,{recursive:true});await writeFile(resolve(evidence,`${run}.json`),JSON.stringify(report,null,2)+'\n');await context.close();await browser.close();await new Promise<void>(resolve=>server.httpServer.close(()=>resolve()));}
+  } finally {await writeFile(resolve(evidence,`${run}.json`),JSON.stringify(report,null,2)+'\n');await context.close();await browser.close();await new Promise<void>(resolve=>server.httpServer.close(()=>resolve()));}
 });
 
 function controls(page:Page){
