@@ -1,0 +1,16 @@
+ObjC.import('Cocoa');
+ObjC.import('CoreGraphics');
+function text(value) { try { return ObjC.unwrap(value); } catch (e) { return null; } }
+var front = $.NSWorkspace.sharedWorkspace.frontmostApplication;
+var running = $.NSRunningApplication.runningApplicationsWithBundleIdentifier('com.apple.Safari');
+var safari = [];
+for (var i=0;i<running.count;i++) {
+  var a=running.objectAtIndex(i);
+  safari.push({pid:Number(a.processIdentifier),bundle:text(a.bundleIdentifier),active:!!a.active,hidden:!!a.hidden,terminated:!!a.terminated,activationPolicy:Number(a.activationPolicy),supportsNormalActivate:!!a.respondsToSelector($.NSSelectorFromString('activateWithOptions:'))});
+}
+var windows=ObjC.deepUnwrap(ObjC.castRefToObject($.CGWindowListCopyWindowInfo(0,0)));
+var rows=windows.filter(function(w){return w.kCGWindowOwnerName==='Safari' || safari.some(function(a){return a.pid===w.kCGWindowOwnerPID;});}).map(function(w){return {windowId:w.kCGWindowNumber,ownerPid:w.kCGWindowOwnerPID,ownerName:w.kCGWindowOwnerName,layer:w.kCGWindowLayer,alpha:w.kCGWindowAlpha,onScreen:w.kCGWindowIsOnscreen===undefined?null:w.kCGWindowIsOnscreen,bounds:w.kCGWindowBounds,sharingState:w.kCGWindowSharingState,windowNamePresent:w.kCGWindowName!==undefined};});
+var session=ObjC.deepUnwrap(ObjC.castRefToObject($.CGSessionCopyCurrentDictionary()));
+var sessionFlags={};
+['kCGSessionOnConsoleKey','kCGSessionLoginDoneKey','CGSSessionScreenIsLocked'].forEach(function(k){sessionFlags[k]=session[k]===undefined?null:session[k];});
+JSON.stringify({frontmostApplication:{bundle:text(front.bundleIdentifier),name:text(front.localizedName),pid:Number(front.processIdentifier)},safari:safari,cgSafariWindows:rows,consoleSessionFlags:sessionFlags,privateWindowNamesOrUrlsCollected:false});

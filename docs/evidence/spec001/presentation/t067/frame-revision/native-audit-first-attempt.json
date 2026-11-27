@@ -1,0 +1,8 @@
+{
+  "scope": "Offline aggregation only; no browser execution or raw sample change",
+  "command": "python3 docs/evidence/spec001/presentation/t067/frame-revision/native-audit.py",
+  "exitCode": 1,
+  "error": "ValueError: max() iterable argument is empty",
+  "cause": "The extent helper consumed a generator with min before passing the exhausted generator to max.",
+  "correction": "Materialize the generator once before computing min and max. Preserve all raw samples and calibrations."
+}

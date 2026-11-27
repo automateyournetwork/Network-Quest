@@ -1,0 +1,11 @@
+ObjC.import('Cocoa');
+function text(v){try{return ObjC.unwrap(v);}catch(e){return null;}}
+var applications=$.NSRunningApplication.runningApplicationsWithBundleIdentifier('com.apple.Safari'), target=null;
+for(var i=0;i<applications.count;i++){var a=applications.objectAtIndex(i);if(Number(a.processIdentifier)===40139)target=a;}
+if(!target)throw new Error('Verified Safari PID40139 unavailable; no activation attempted.');
+function state(){var f=$.NSWorkspace.sharedWorkspace.frontmostApplication;return {nativeActive:!!target.active,nativeHidden:!!target.hidden,frontmostBundle:text(f.bundleIdentifier),frontmostPid:Number(f.processIdentifier),axFrontmost:Application('System Events').processes.byName('Safari').frontmost(),safariFrontmost:Application('Safari').frontmost()};}
+var before=state(),options=Number($.NSApplicationActivateIgnoringOtherApps);
+var returned=!!target.activateWithOptions(options);
+$.NSThread.sleepForTimeInterval(0.8); var after800ms=state();
+$.NSThread.sleepForTimeInterval(1.2); var after2000ms=state();
+JSON.stringify({method:'NSRunningApplication.activateWithOptions:',targetPid:40139,options:options,attemptCount:1,returned:returned,before:before,after800ms:after800ms,after2000ms:after2000ms,navigationPerformed:false,settingsChanged:false});

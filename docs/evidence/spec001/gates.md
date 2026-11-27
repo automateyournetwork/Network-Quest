@@ -296,3 +296,24 @@ required-viewport result is claimed. Corrected-screen owner approval and usable
 native Safari evidence remain pending. See the [revised owner packet](presentation/t067/frame-revision/review.md).
 T066/T067 remain unchecked; G3 and earlier aggregate gates do not pass from these
 scoped Firefox results. No episode release or deployment is accepted.
+
+### Corrected-screen owner approval — 2026-11-26
+
+The owner accepted the corrected R01 screen: “yeaht thats MUCH Better can you
+drive spec001 to completion”. See [exact approval and scope](presentation/owner-frame-approval-2026-11-26.md).
+T066's implementation is accepted from its verified join and this review. T067
+nativeSafari evidence and earlier aggregate prerequisites remain open; G3 is not
+passed by the owner's interface approval alone. Overnight continuation authorizes
+ready independent implementation, without inventing login, browser, listening,
+human learning or final episode results.
+
+### Native representative benchmark accepted — 2026-11-26
+
+T067 scoped acceptance joins12 actual Safari and12 revised Firefox samples,
+source reopening, approved unchanged audio, final077/078 checks and corrected-screen
+owner approval. Root independently recomputed native budgets/pause/cache/source
+evidence and viewed both native viewports. See [acceptance/readiness record](presentation/representative-room-acceptance-2026-11-26.md).
+The native foreground blocker is superseded; all historical failures remain.
+G0 is still blocked by named host/provider checks; G1–G3 aggregate acceptance
+remains pending. Local route work may continue on the verified actual inputs.
+No whole episode, live provider, production deployment or G3 PASS is inferred.

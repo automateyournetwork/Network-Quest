@@ -86,8 +86,9 @@ Verify ordinary desktop play has no controls below the game frame; inspect actua
 1280×720/1440×900 and narrow/200% views, relevant persistence flows and accessibility.
 Preserve the previous T066/T067 measurements as historical candidate evidence,
 then freeze and review the corrected room before repeating affected benchmarks.
-No media assets or episode quantities change, and final owner acceptance remains
-pending. The correction is tracked in the existing T066 work, with a fresh worker
+No media assets or episode quantities change. On 2026-11-26 the owner approved
+the corrected screen. Actual native Safari representative measurements subsequently
+passed; final episode acceptance remains pending. The correction is tracked in the existing T066 work, with a fresh worker
 loop and root review; T067 retains performance/owner evidence ownership.
 
 ## Rule implementation and evidence

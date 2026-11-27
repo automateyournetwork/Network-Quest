@@ -27,25 +27,51 @@ export type CopperChallenge = {
   readonly profile: CopperProfile;
   /** Current supplied path facts, after any repair; true means intact. */
   readonly requiredConductors: readonly boolean[];
+} | {
+  readonly kind: 'copper-path';
+  readonly profile: CopperProfile;
+  /** Supplied match of all required endpoint, medium and termination profiles. */
+  readonly compatible: boolean;
+  readonly lengths: readonly AuthoredQuantity<'m'>[];
+  readonly requiredConductors: readonly boolean[];
+} | {
+  readonly kind: 'copper-termination';
+  readonly profile: CopperProfile;
+  /** This narrow check supplies no facts about other equipment or the path. */
+  readonly chosenTerminationCompatible: boolean;
 };
 export interface CopperInput {
-  readonly kind: 'measure-length' | 'test-continuity' | 'add-repeater';
+  readonly kind: 'measure-length' | 'test-continuity' | 'add-repeater' | 'test-path' | 'check-termination';
 }
 interface CopperObservationBase {
   readonly profileId: CopperProfile['id'];
   readonly version: WorldVersion;
   readonly wholeRouteProven: false;
 }
+type CopperLengthReading = {
+  readonly total: EvaluatedQuantity<'m'>;
+  readonly maximum: EvaluatedQuantity<'m'>;
+} & ({ readonly headroom: EvaluatedQuantity<'m'> } | { readonly excess: EvaluatedQuantity<'m'> });
+interface CopperContinuityReading {
+  readonly continuous: boolean;
+  readonly openConductorIndexes: readonly number[];
+}
 export type CopperObservation = CopperObservationBase & ({
   readonly kind: 'copper-length';
   readonly scope: 'length only';
-  readonly total: EvaluatedQuantity<'m'>;
-  readonly maximum: EvaluatedQuantity<'m'>;
-} & ({ readonly headroom: EvaluatedQuantity<'m'> } | { readonly excess: EvaluatedQuantity<'m'> }) | {
+} & CopperLengthReading | {
   readonly kind: 'copper-continuity';
   readonly scope: 'continuity only';
-  readonly continuous: boolean;
-  readonly openConductorIndexes: readonly number[];
+} & CopperContinuityReading | {
+  readonly kind: 'copper-path';
+  readonly scope: 'passive copper path only';
+} & ({ readonly compatible: false; readonly pathPasses: false } | {
+  readonly compatible: true;
+  readonly pathPasses: boolean;
+} & CopperLengthReading & CopperContinuityReading) | {
+  readonly kind: 'copper-termination';
+  readonly scope: 'termination compatibility only';
+  readonly compatible: boolean;
 });
 
 function issue(code: string, field: string, message: string): ContentIssue {
@@ -55,6 +81,18 @@ function issue(code: string, field: string, message: string): ContentIssue {
 function profileIssue(value: unknown): ContentIssue | null {
   if (!isRecord(value) || value['id'] !== 'spec001:PROFILE-COPPER-100') {
     return issue('unknown-authored-profile', 'profile.id', 'Select a reviewed supported copper profile; no default length limit is assumed.');
+  }
+  // Accept the projection and the reviewed source/content records that contain
+  // it, but never silently discard new topology or scoring fields. Metadata is
+  // validated by the content boundary; only the declared parameters score here.
+  const profileFields = ['id', 'parameters', 'kind', 'sources', 'assumptions', 'limits',
+    'schemaVersion', 'episodeId', 'contentVersion', 'reviewedProfileId', 'ruleIds',
+    'sourceClaims', 'model', 'reviewedCaseIds', 'alternatives'];
+  if (Object.keys(value).some(key => !profileFields.includes(key))) {
+    return issue('unsupported-profile-field', 'profile', 'This profile cannot add unreviewed path or topology conditions.');
+  }
+  if ('reviewedProfileId' in value && value['reviewedProfileId'] !== value['id']) {
+    return issue('profile-review-mismatch', 'profile.reviewedProfileId', 'The authored copper profile must retain its reviewed identity.');
   }
   const parameters = value['parameters'];
   if (!isRecord(parameters) || Object.keys(parameters).some(key => key !== 'maximumChannelLength' && key !== 'inclusiveMaximum')) {
@@ -88,32 +126,54 @@ function lengthCalculation(lengths: readonly AuthoredQuantity<'m'>[], maximum: A
   };
 }
 
-function validateChallenge(challenge: unknown): ContentIssue | null {
-  if (!isRecord(challenge) || !['copper-length', 'copper-continuity'].includes(challenge['kind'] as string)) {
-    return issue('unsupported-copper-model', 'kind', 'Only reviewed single-channel length and continuity predicates are supported; regeneration needs its own reviewed model.');
-  }
-  const allowed = challenge['kind'] === 'copper-length' ? 'lengths' : 'requiredConductors';
-  if (Object.keys(challenge).some(key => key !== 'kind' && key !== 'profile' && key !== allowed)) {
-    return issue('unsupported-challenge-field', 'challenge', 'This scoped predicate cannot silently ignore additional path or topology conditions.');
-  }
-  const invalidProfile = profileIssue(challenge['profile']);
-  if (invalidProfile) return invalidProfile;
-  const values = challenge[allowed];
+function pathValuesIssue(values: unknown, field: 'lengths' | 'requiredConductors'): ContentIssue | null {
   if (!Array.isArray(values) || values.length === 0) {
-    return issue('missing-required-path', allowed, 'Supply the nonempty declared path facts before evaluating it.');
+    return issue('missing-required-path', field, 'Supply the nonempty declared path facts before evaluating it.');
   }
   // for...of visits sparse holes; Array.every would silently skip malformed data.
   for (const [index, value] of values.entries()) {
-    if (allowed === 'lengths') {
+    if (field === 'lengths') {
       const invalidLength = quantityIssue(value, 'm', `lengths[${index}]`);
       if (invalidLength) return invalidLength;
     } else if (typeof value !== 'boolean') {
       return issue('invalid-conductor-state', `requiredConductors[${index}]`, 'Each required conductor needs an explicit true/false continuity observation.');
     }
   }
-  if (challenge['kind'] === 'copper-length') {
+  return null;
+}
+
+function validateChallenge(challenge: unknown): ContentIssue | null {
+  if (!isRecord(challenge)) return issue('unsupported-copper-model', 'kind', 'Supply a reviewed copper predicate.');
+  if (['topology', 'segments', 'segmentLengths', 'reviewedSegmentProfiles'].some(field => field in challenge)) {
+    return issue('unsupported-regeneration-model', 'challenge', 'The single passive-channel profile supplies no reviewed regenerative segment limits.');
+  }
+  const fieldsByKind: Record<string, readonly string[]> = {
+    'copper-length': ['lengths'],
+    'copper-continuity': ['requiredConductors'],
+    'copper-path': ['compatible', 'lengths', 'requiredConductors'],
+    'copper-termination': ['chosenTerminationCompatible'],
+  };
+  const kind = challenge['kind'];
+  if (typeof kind !== 'string' || !Object.hasOwn(fieldsByKind, kind)) {
+    return issue('unsupported-copper-model', 'kind', 'Only reviewed passive-channel predicates are supported; regeneration needs its own reviewed model.');
+  }
+  const fields = fieldsByKind[kind]!;
+  if (Object.keys(challenge).some(key => key !== 'kind' && key !== 'profile' && !fields.includes(key))) {
+    return issue('unsupported-challenge-field', 'challenge', 'This scoped predicate cannot silently ignore additional path or topology conditions.');
+  }
+  const invalidProfile = profileIssue(challenge['profile']);
+  if (invalidProfile) return invalidProfile;
+  for (const field of fields) {
+    if (field === 'lengths' || field === 'requiredConductors') {
+      const invalidValues = pathValuesIssue(challenge[field], field);
+      if (invalidValues) return invalidValues;
+    } else if (typeof challenge[field] !== 'boolean') {
+      return issue('missing-or-invalid-compatibility', field, 'Supply the explicit true/false compatibility fact; no compatible default is assumed.');
+    }
+  }
+  if (fields.includes('lengths')) {
     const profile = challenge['profile'] as unknown as CopperProfile;
-    if (!Number.isFinite(lengthCalculation(values as AuthoredQuantity<'m'>[], profile.parameters.maximumChannelLength).total)) {
+    if (!Number.isFinite(lengthCalculation(challenge['lengths'] as AuthoredQuantity<'m'>[], profile.parameters.maximumChannelLength).total)) {
       return issue('unrepresentable-total', 'lengths', 'The supplied path exceeds the finite numeric reading range.');
     }
   }
@@ -122,15 +182,17 @@ function validateChallenge(challenge: unknown): ContentIssue | null {
 
 function validateInput(input: unknown): input is CopperInput {
   return isRecord(input) && Object.keys(input).length === 1
-    && ['measure-length', 'test-continuity', 'add-repeater'].includes(input['kind'] as string);
+    && ['measure-length', 'test-continuity', 'add-repeater', 'test-path', 'check-termination'].includes(input['kind'] as string);
 }
 function metres(value: number): EvaluatedQuantity<'m'> {
   return { value: value as Metres, unit: 'm' };
 }
 
 /**
- * Source/model/cases: T006 rule-source-review.md, PHY04/PHY05. These observations
- * do not establish compatibility, safe power, service restoration or an objective.
+ * Source/model/cases: T006 rule-source-review.md, PHY03/PHY04/PHY05 and T068
+ * RR-O03/O04. Length/continuity retain their original narrow scope. A passive
+ * path requires explicit compatibility as well; no observation establishes
+ * safe power, service restoration or an objective. Termination alone is narrower.
  * The caller binds supplied current path facts to the same captured world version.
  */
 export const evaluateCopper = createEvaluator<CopperChallenge, CopperInput, CopperObservation>({
@@ -142,6 +204,38 @@ export const evaluateCopper = createEvaluator<CopperChallenge, CopperInput, Copp
       version: { configurationRevision: world.configurationRevision, attemptId: world.attemptId },
       wholeRouteProven: false as const,
     };
+    if (challenge.kind === 'copper-termination') {
+      if (input.kind !== 'check-termination') return invalidInput('action-does-not-match-predicate');
+      return {
+        status: challenge.chosenTerminationCompatible ? 'correct' : 'incorrect',
+        reasonCode: challenge.chosenTerminationCompatible ? 'compatible-termination' : 'incompatible-termination', acceptedEffects: [],
+        observations: [{ ...base, kind: 'copper-termination', scope: 'termination compatibility only', compatible: challenge.chosenTerminationCompatible }],
+      };
+    }
+    if (challenge.kind === 'copper-path') {
+      if (input.kind !== 'test-path') return invalidInput('action-does-not-match-predicate');
+      const observation = { ...base, kind: 'copper-path' as const, scope: 'passive copper path only' as const };
+      // All authored values already passed validation. A known mismatch remains
+      // an incorrect choice, and a length budget cannot override it.
+      if (!challenge.compatible) return {
+        status: 'incorrect', reasonCode: 'incompatible-profiles', acceptedEffects: [],
+        observations: [{ ...observation, compatible: false, pathPasses: false }],
+      };
+      const maximum = challenge.profile.parameters.maximumChannelLength;
+      const calculation = lengthCalculation(challenge.lengths, maximum);
+      const openConductorIndexes = challenge.requiredConductors.flatMap((intact, index) => intact ? [] : [index]);
+      const continuous = openConductorIndexes.length === 0;
+      const pathPasses = calculation.withinMaximum && continuous;
+      const distance = calculation.withinMaximum
+        ? { headroom: metres(calculation.difference) } : { excess: metres(calculation.difference) };
+      return {
+        status: pathPasses ? 'correct' : 'incorrect',
+        reasonCode: !continuous ? 'required-path-open' : calculation.withinMaximum ? 'passive-path-within-profile' : 'length-exceeded',
+        acceptedEffects: [],
+        observations: [{ ...observation, compatible: true, pathPasses, continuous, openConductorIndexes,
+          total: metres(calculation.total), maximum: metres(maximum.value), ...distance }],
+      };
+    }
     if (challenge.kind === 'copper-length') {
       if (input.kind !== 'measure-length') return invalidInput('action-does-not-match-predicate');
       const maximum = challenge.profile.parameters.maximumChannelLength;
@@ -155,7 +249,7 @@ export const evaluateCopper = createEvaluator<CopperChallenge, CopperInput, Copp
         observations: [{ ...observation, excess: metres(calculation.difference) }],
       };
     }
-    if (input.kind === 'measure-length') return invalidInput('action-does-not-match-predicate');
+    if (input.kind !== 'test-continuity' && input.kind !== 'add-repeater') return invalidInput('action-does-not-match-predicate');
     const openConductorIndexes = challenge.requiredConductors.flatMap((intact, index) => intact ? [] : [index]);
     const continuous = openConductorIndexes.length === 0;
     // A powered repeater cannot close an existing open. An intact path alone

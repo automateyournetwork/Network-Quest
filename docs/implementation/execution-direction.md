@@ -32,3 +32,22 @@ while resolving capability-specific blockers, authorizes scoped reviewed GitHub
 commits/pushes and the accepted release deployment, and preserves required owner
 reviews. No further generic publication permission is needed after those specified
 conditions are met; exact staged/release contents must still be reviewed.
+
+## Approved representative direction and overnight continuation — 2026-11-26
+
+The owner accepted the corrected contained-screen R01 and instructed overnight
+continuation. The source/media join,66/66 relevant browser checks,287focused tests
+and revised12-sample Firefox budgets pass. T066 is accepted; nativeSafari and
+earlier host/provider evidence remain open. Continue T069 authored profiles and
+T070–T074 pure evaluators against accepted source models/independent oracles while
+those capabilities are resolved. No external browser or identity dependency is
+an input to these deterministic calculations. Preserve the gate sequence and
+all actual review/release requirements; reassess actual inputs before broader
+route integration or media production. Required owner episode/beginner/login
+actions cannot be invented during the owner's absence.
+
+The later native Safari follow-up is now verified and T067 scoped review accepted.
+The explicit readiness assessment in
+`docs/evidence/spec001/presentation/representative-room-acceptance-2026-11-26.md`
+permits local route/outcome/companion work in dependency order after evaluator
+joins. External gates remain open; full media production still requires T105/layouts.

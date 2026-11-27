@@ -1,0 +1,2404 @@
+{
+  "kind": "collection",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "records": [
+    {
+      "kind": "objective",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:O01",
+      "prerequisite": {
+        "kind": "always"
+      },
+      "evidence": [
+        {
+          "id": "spec001:FACT-power",
+          "roomId": "spec001:R01",
+          "subjectIds": [
+            "spec001:PR002"
+          ],
+          "kind": "observation",
+          "text": "Power indication: lit. The call panel reports power at the lift. Power indication does not prove a data link. Source: lift call panel; observed in The Arrival Lift.",
+          "ruleIds": [
+            "spec001:PHY01"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-link",
+          "roomId": "spec001:R01",
+          "subjectIds": [
+            "spec001:PR006"
+          ],
+          "kind": "observation",
+          "text": "Link indication: unlit. The separate link lamp reports no indicated link. The lamp is not a diagnosis of the cause. End-to-end service is not proven. Source: link indicator beside the arrival tube; observed in The Arrival Lift.",
+          "ruleIds": [
+            "spec001:PHY01"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-inspection",
+          "roomId": "spec001:R01",
+          "subjectIds": [
+            "spec001:PR003",
+            "spec001:PROFILE-COPPER-100"
+          ],
+          "kind": "measurement",
+          "text": "Physical inspection. Trace Lift Sender A through the selected conduit and the 10 m workshop patch lead to Workshop Receiver B. The service-loop conduit is 95 m (105 m total); the direct conduit is 85 m (95 m total). These are the supplied T02/T01 lengths in the fictional PROFILE-COPPER-100, whose inclusive limit is 100 m. Record the selected path and measured result at the current configuration and attempt. Valid inspection recorded means the inspection was performed, even when length exceeds the profile. It does not mean the link or a service works. A changed path leaves the old result stale until a new inspection. Source: labeled training conduit and inspection kit in The Arrival Lift; PHY04; T01/T02.",
+          "ruleIds": [
+            "spec001:PHY04",
+            "spec001:STATE01"
+          ],
+          "requiresFreshMeasurement": true,
+          "readings": [
+            {
+              "name": "Channel length",
+              "unit": "m"
+            }
+          ]
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-complete-O01",
+          "label": "Record both indications and validate the inspection",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "all",
+            "conditions": [
+              {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-power-observed",
+                "value": true
+              },
+              {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-link-observed",
+                "value": true
+              },
+              {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-path-inspected",
+                "value": true
+              }
+            ]
+          },
+          "ruleIds": [
+            "spec001:PHY01"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-power",
+            "spec001:FACT-link",
+            "spec001:FACT-inspection"
+          ],
+          "effects": [],
+          "explanation": "Both indicators must have been observed separately and a valid current inspection performed. A correctly recorded over-limit result is valid inspection evidence; do not demand a passing length result or mark the link repaired."
+        }
+      ],
+      "ruleIds": [
+        "spec001:PHY01",
+        "spec001:PHY11",
+        "spec001:STATE02",
+        "spec001:STATE03"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-PACKET"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S08",
+          "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+          "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+          "limitations": [
+            "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."
+          ]
+        },
+        {
+          "sourceId": "spec001:S01",
+          "section": "7.7.2; 7.7.3.3–7.7.3.4; 7.7.4.4; printed pages 49–51, PDF pages 53–55",
+          "supportedClaim": "Physical entities transmit bits over physical media and can relay interconnected circuits; transmission may be synchronous or asynchronous.",
+          "limitations": [
+            "Conceptual architecture only. No universal medium, numeric threshold, wire header, or claim that PHYs never have their own error mechanisms."
+          ]
+        },
+        {
+          "sourceId": "spec001:S02",
+          "section": "1.1.3 Internet Protocol Suite, pages 8–11",
+          "supportedClaim": "The Internet suite distinguishes application, transport, Internet and link functions; its grouping differs from the OSI teaching realms.",
+          "limitations": [
+            "Historical architectural context, not current protocol configuration guidance; does not authorize seven invented mandatory headers."
+          ]
+        },
+        {
+          "sourceId": "spec001:S12",
+          "section": "2.1 Naming Conventions; Table 4 Linear and Gray Coding",
+          "supportedClaim": "Four amplitude levels can represent four two-bit combinations; the source distinguishes linear and Gray coding.",
+          "limitations": [
+            "T12 deliberately uses the declared linear toy labels. Do not substitute a real PHY map, count useful bitrate from symbol count, or imply the toy implements PAM4."
+          ]
+        }
+      ],
+      "model": {
+        "label": "scoped-technical-predicate",
+        "scope": "Distinguish power indication from link indication and perform an explicit physical inspection. The packet window is context for the later playable journey, not an extra completion prerequisite.",
+        "assumptions": [
+          "Reviewed C-PWR-OBS binds power on and link off.",
+          "The inspection kit is always available and never consumed.",
+          "T025/T029 accept completion only with both observed fact IDs and a current inspection matching configuration and attempt, in addition to these authored flags."
+        ],
+        "limitations": [
+          "No power-only completion (B-PWR-ONLY).",
+          "No inferred link, end-to-end service, address resolution or login result.",
+          "A changed path resets inspection status and makes the old measurement stale."
+        ]
+      },
+      "effects": [
+        {
+          "kind": "complete-objective",
+          "effectId": "spec001:EFFECT-O01",
+          "objectiveId": "spec001:O01"
+        }
+      ],
+      "hints": {
+        "method": {
+          "id": "spec001:HINT-O01-method",
+          "text": "Start with observations: which indicator reports power and which reports the link?"
+        },
+        "workedStep": {
+          "id": "spec001:HINT-O01-workedStep",
+          "text": "Look at POWER and LINK separately. Take the inspection kit from the satchel, then inspect the labeled path."
+        },
+        "solution": {
+          "id": "spec001:HINT-O01-solution",
+          "text": "Record the lit power indication and the unlit link indication, then Use Inspect physical path with the reusable kit. Keep the measured result even if it exceeds the fictional limit."
+        }
+      },
+      "observableOutcome": "The notebook holds separate power and link observations plus a sourced current physical inspection. O01 is Completed.",
+      "completionExplanation": "You distinguished two indications and inspected the actual declared path. End-to-end service is not proven. The result is evidence to carry to the workshop, not a repaired network.",
+      "requiresReflexTiming": false
+    },
+    {
+      "kind": "objective",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:O02",
+      "prerequisite": {
+        "kind": "objective-complete",
+        "objectiveId": "spec001:O01"
+      },
+      "evidence": [
+        {
+          "id": "spec001:FACT-endpoints",
+          "roomId": "spec001:R02",
+          "subjectIds": [
+            "spec001:PR012"
+          ],
+          "kind": "context",
+          "text": "Known-good endpoints: Lift Sender A — known good; Workshop Receiver B — known good. Each passed the supplied local bench check before this exercise. Their known-good status is a declared scenario premise, not proof that the connecting path or an end-to-end service works. Source: signed bench cards on the topology relief table in The Titan's Workshop; PHY02 / C-SCOPE.",
+          "ruleIds": [
+            "spec001:PHY02"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-endpoint-a",
+          "roomId": "spec001:R02",
+          "subjectIds": [
+            "spec001:PR012"
+          ],
+          "kind": "context",
+          "text": "Lift Sender A — known good. Near endpoint: the labeled sender behind the lift call panel. Bench card A declares the local sender functional for this fictional exercise.",
+          "ruleIds": [
+            "spec001:PHY02"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-endpoint-b",
+          "roomId": "spec001:R02",
+          "subjectIds": [
+            "spec001:PR012"
+          ],
+          "kind": "context",
+          "text": "Workshop Receiver B — known good. Far endpoint: the receiver in the workshop dispatch console. Bench card B declares the local receiver functional for this fictional exercise.",
+          "ruleIds": [
+            "spec001:PHY02"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-path",
+          "roomId": "spec001:R02",
+          "subjectIds": [
+            "spec001:PR012",
+            "spec001:PR003",
+            "spec001:PR014"
+          ],
+          "kind": "context",
+          "text": "Physical path under test, in order: Lift Sender A → selected training conduit → workshop patch lead → Workshop Receiver B. Initial conduit: service loop, 95 m; alternative direct conduit: 85 m. The patch lead is 10 m in either configuration. The fixture declares compatible endpoints, media and terminations; the inspection grades length only. This path is the declared-path role of C-SCOPE, not the whole Iron City network. Source: topology relief table and matching conduit labels, The Titan's Workshop.",
+          "ruleIds": [
+            "spec001:PHY02",
+            "spec001:PHY04"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-titan-clue",
+          "roomId": "spec001:R02",
+          "subjectIds": [
+            "spec001:CH02"
+          ],
+          "kind": "context",
+          "text": "Investigation scope. Inspect the physical path between known-good endpoints. Pin a testable hypothesis, keep it separate from observed evidence, and decide what observation would support or challenge it. Physical transmission represents bits; it does not select an IP route or verify an application login. Source: the Titan in The Titan's Workshop; PHY02 / S01, S02, S04.",
+          "ruleIds": [
+            "spec001:PHY02"
+          ],
+          "requiresFreshMeasurement": false
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-complete-O02",
+          "label": "Open a scoped investigation",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "all",
+            "conditions": [
+              {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-endpoints-identified",
+                "value": true
+              },
+              {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-path-declared",
+                "value": true
+              },
+              {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-hypothesis-pinned",
+                "value": true
+              }
+            ]
+          },
+          "ruleIds": [
+            "spec001:PHY02"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-endpoints",
+            "spec001:FACT-path"
+          ],
+          "effects": [],
+          "explanation": "Identify the two bench-checked endpoints and their ordered physical path; pin a nonempty testable possibility with a proposed observation. No particular fault diagnosis or wording earns completion."
+        }
+      ],
+      "ruleIds": [
+        "spec001:PHY02",
+        "spec001:STATE02",
+        "spec001:STATE03"
+      ],
+      "profileIds": [],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S01",
+          "section": "7.7.2; 7.7.3.3–7.7.3.4; 7.7.4.4; printed pages 49–51, PDF pages 53–55",
+          "supportedClaim": "Physical entities transmit bits over physical media and can relay interconnected circuits; transmission may be synchronous or asynchronous.",
+          "limitations": [
+            "Conceptual architecture only. No universal medium, numeric threshold, wire header, or claim that PHYs never have their own error mechanisms."
+          ]
+        },
+        {
+          "sourceId": "spec001:S02",
+          "section": "1.1.3 Internet Protocol Suite, pages 8–11",
+          "supportedClaim": "The Internet suite distinguishes application, transport, Internet and link functions; its grouping differs from the OSI teaching realms.",
+          "limitations": [
+            "Historical architectural context, not current protocol configuration guidance; does not authorize seven invented mandatory headers."
+          ]
+        },
+        {
+          "sourceId": "spec001:S04",
+          "section": "Failures of the Five Wiremap Tests",
+          "supportedClaim": "Wiremap examines conductor continuity and termination; an open can reflect a broken conductor, poor connection or damaged connector.",
+          "limitations": [
+            "The fixture supplies a diagnosed required-path break. An arbitrary open indication alone does not prove its location or cause; tester setup also matters."
+          ]
+        }
+      ],
+      "model": {
+        "label": "scoped-technical-predicate",
+        "scope": "Prepare a physical investigation between known-good endpoints and pin a hypothesis without promoting it into a fact.",
+        "assumptions": [
+          "O01 is already complete.",
+          "Known-good endpoints are scenario premises: Lift Sender A and Workshop Receiver B.",
+          "T027/T029 require an actual pinned notebook entry and recorded scope facts before accepting completion; a flag alone cannot invent player input."
+        ],
+        "limitations": [
+          "The player's wording is not matched to a secret phrase or graded as an observed fact.",
+          "The physical path may explain the symptom; the hypothesis is unproven.",
+          "Neither all three branches, an optional activity, a recruit, nor future content may gate this introduction."
+        ]
+      },
+      "effects": [
+        {
+          "kind": "complete-objective",
+          "effectId": "spec001:EFFECT-O02",
+          "objectiveId": "spec001:O02"
+        }
+      ],
+      "hints": {
+        "method": {
+          "id": "spec001:HINT-O02-method",
+          "text": "Bound the problem before repairing it: where does the test start and finish, and what connects those endpoints?"
+        },
+        "workedStep": {
+          "id": "spec001:HINT-O02-workedStep",
+          "text": "Read both bench cards, trace the ordered conduit and patch lead, then describe an idea and a way to test it in Hypotheses."
+        },
+        "solution": {
+          "id": "spec001:HINT-O02-solution",
+          "text": "Identify Lift Sender A and Workshop Receiver B, identify their declared physical path, and pin your own testable hypothesis. Its diagnosis need not agree with the author."
+        }
+      },
+      "observableOutcome": "O02 is Completed; the three branch leads and shared preparation are available. A dismissible sign-in invitation offers durable saving; Continue as guest preserves session play.",
+      "completionExplanation": "The endpoints, path and pinned hypothesis define the investigation. A hypothesis remains speculation until evidence supports it. Guests may continue in memory; no account save has occurred.",
+      "requiresReflexTiming": false
+    },
+    {
+      "kind": "objective",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:O03",
+      "prerequisite": {
+        "kind": "objective-complete",
+        "objectiveId": "spec001:O02"
+      },
+      "evidence": [
+        {
+          "id": "spec001:FACT-O03-compatibility",
+          "roomId": "spec001:R03",
+          "subjectIds": [
+            "spec001:PR022",
+            "spec001:PROFILE-COPPER-100"
+          ],
+          "kind": "context",
+          "text": "Copper Warrens bench cards declare compatible sender, receiver, copper medium and terminations for the selected passive channel. Connector appearance alone cannot establish compatibility. Read every supplied compatibility field before choosing a path.",
+          "ruleIds": [
+            "spec001:PHY03"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-O03-defect",
+          "roomId": "spec001:R03",
+          "subjectIds": [
+            "spec001:PR023",
+            "spec001:PR029"
+          ],
+          "kind": "observation",
+          "text": "The continuity pedestal diagnoses an open in a required conductor of the cracked section. Removing that diagnosed defect is separate from choosing a short enough cable. Every required conductor must be intact after the intervention.",
+          "ruleIds": [
+            "spec001:PHY05"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-O03-path",
+          "roomId": "spec001:R03",
+          "subjectIds": [
+            "spec001:PR030",
+            "spec001:PR029",
+            "spec001:PROFILE-COPPER-100"
+          ],
+          "kind": "measurement",
+          "text": "The route-length wheel and continuity pedestal report the selected path: section replacement uses 85 m plus 10 m, totaling 95 m; the alternate passive path uses 90 m plus 10 m, totaling exactly 100 m. Both supplied compatible choices remove the defect and meet the fictional inclusive 100 m maximum. The original 95 m plus 10 m path is 105 m, exceeding it by 5 m. An intact length alone is not whole-route or service proof.",
+          "ruleIds": [
+            "spec001:PHY04",
+            "spec001:PHY05"
+          ],
+          "requiresFreshMeasurement": true,
+          "readings": [
+            {
+              "name": "Total channel length",
+              "unit": "m"
+            },
+            {
+              "name": "Open required conductors",
+              "unit": "count"
+            }
+          ]
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-O03-section-replacement",
+          "label": "Replace the diagnosed section",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "ruleIds": [
+            "spec001:PHY03",
+            "spec001:PHY04",
+            "spec001:PHY05"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O03-compatibility",
+            "spec001:FACT-O03-defect",
+            "spec001:FACT-O03-path"
+          ],
+          "effects": [],
+          "explanation": "Accept the 85 m + 10 m passive route only after the supplied compatibility and every required conductor pass; total 95 m leaves 5 m headroom. This completes preparation, not Echo Cavern validation or restored service."
+        },
+        {
+          "id": "spec001:ACTION-O03-alternate-passive-path",
+          "label": "Use the alternate passive path",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "ruleIds": [
+            "spec001:PHY03",
+            "spec001:PHY04",
+            "spec001:PHY05"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O03-compatibility",
+            "spec001:FACT-O03-defect",
+            "spec001:FACT-O03-path"
+          ],
+          "effects": [],
+          "explanation": "Accept the 90 m + 10 m passive route under the same checks. Exactly 100 m is permitted by this fictional inclusive limit; the boundary is not an excuse to reject an equivalent repair."
+        }
+      ],
+      "ruleIds": [
+        "spec001:PHY03",
+        "spec001:PHY04",
+        "spec001:PHY05",
+        "spec001:STATE02",
+        "spec001:STATE03"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-COPPER-100"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S03",
+          "section": "Cable Specifications → Ethernet Cable Specifications → Maximum Cable Length",
+          "supportedClaim": "This hardware guide specifies a 100 m maximum Ethernet cable distance between the described router and connected equipment.",
+          "limitations": [
+            "Product-specific illustration only. The game 100 m channel and inclusive comparator remain fictional; no universal limit for all copper or all Ethernet. No certification claim."
+          ]
+        },
+        {
+          "sourceId": "spec001:S07",
+          "section": "Platform support; Product specifications, Table 3 SFP+ port cabling specifications and Table 4 Optical transmit and receive specifications",
+          "supportedClaim": "Module-specific media, wavelength, reach and receiver minimum/maximum power are separate specifications. Host compatibility requires support information.",
+          "limitations": [
+            "No real module is instantiated in the toy optical fixture. Do not generalize shell shape or SMF/MMF slogans; supported combinations vary by module."
+          ]
+        },
+        {
+          "sourceId": "spec001:S08",
+          "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+          "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+          "limitations": [
+            "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."
+          ]
+        },
+        {
+          "sourceId": "spec001:S10",
+          "section": "Introductory PSE/PD definitions; PoE budget; PoE class, table headings for power delivered to PD versus switch-port output",
+          "supportedClaim": "PSE output and power delivered to a PD are distinct accounting boundaries. Multiple devices must fit the available aggregate budget.",
+          "limitations": [
+            "Only this distinction and aggregate-budget concept are used. No table wattages, PoE class allocation, priority behavior or detection timing are used by the fiction."
+          ]
+        },
+        {
+          "sourceId": "spec001:S04",
+          "section": "Failures of the Five Wiremap Tests",
+          "supportedClaim": "Wiremap examines conductor continuity and termination; an open can reflect a broken conductor, poor connection or damaged connector.",
+          "limitations": [
+            "The fixture supplies a diagnosed required-path break. An arbitrary open indication alone does not prove its location or cause; tester setup also matters."
+          ]
+        },
+        {
+          "sourceId": "spec001:S05",
+          "section": "Chapter 5 Ethernet networks → Ethernet topologies → Repeater hubs; PDF page 101",
+          "supportedClaim": "Historical Ethernet repeater hubs receive and repeat data to linked segments with amplification and retiming; the described shared medium operates half duplex.",
+          "limitations": [
+            "Not a modern wireless extender or a universal repeater topology allowance. Inability to restore an unchanged physical break is an explicit scenario inference, supported together with S04."
+          ]
+        }
+      ],
+      "model": {
+        "label": "scoped-technical-predicate",
+        "scope": "Prepare one compatible passive copper path and remove the diagnosed break; source cases T01–T03 and RR-O03 alternatives.",
+        "assumptions": [
+          "The fixture supplies exact finite lengths in m, explicit compatibility facts and every required conductor result.",
+          "The reusable inspection kit exposes the conventional test; required work does not depend on a recruit or optional reward.",
+          "An alternative condition expresses availability only. Its ruleIds and required evidence must be evaluated against current configuration and attempt before any completion effect is accepted."
+        ],
+        "limitations": [
+          "No cable certification, hidden patch-cord sublimits or universal Ethernet length rule.",
+          "A repeater cannot restore an unchanged physical break. Newly proposed regenerative topologies need separately reviewed per-segment limits.",
+          "Malformed authored data is content-error with no learner penalty or progress award. Missing learner input is invalid-input.",
+          "Hints remain available and are recorded separately; assistance does not downgrade a technically valid result."
+        ]
+      },
+      "effects": [
+        {
+          "kind": "complete-objective",
+          "effectId": "spec001:EFFECT-O03",
+          "objectiveId": "spec001:O03"
+        }
+      ],
+      "hints": {
+        "method": {
+          "id": "spec001:HINT-O03-method",
+          "text": "Separate compatibility, continuity and total length. Which observation fails before the repair?"
+        },
+        "workedStep": {
+          "id": "spec001:HINT-O03-workedStep",
+          "text": "Add both channel sections, then compare every required conductor before and after the intervention."
+        },
+        "solution": {
+          "id": "spec001:HINT-O03-solution",
+          "text": "Use either the compatible 85 m + 10 m replacement or the compatible 90 m + 10 m alternate path. Remove the diagnosed break and inspect again; both totals meet this profile."
+        }
+      },
+      "observableOutcome": "The selected copper preparation, current length and intact required path are recorded.",
+      "completionExplanation": "You prepared a compatible intact channel within the supplied limit. Echo Cavern still needs a before/after validation, and the endpoint service test remains later.",
+      "requiresReflexTiming": false
+    },
+    {
+      "kind": "objective",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:O04",
+      "prerequisite": {
+        "kind": "objective-complete",
+        "objectiveId": "spec001:O03"
+      },
+      "evidence": [
+        {
+          "id": "spec001:FACT-O04-before",
+          "roomId": "spec001:R04",
+          "subjectIds": [
+            "spec001:PR038"
+          ],
+          "kind": "observation",
+          "text": "The retained Copper Warrens record shows the required conductor open before repair. Keep this historical failure visible; it is a comparison baseline, not a current passing measurement.",
+          "ruleIds": [
+            "spec001:PHY05"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-O04-after",
+          "roomId": "spec001:R04",
+          "subjectIds": [
+            "spec001:PR031",
+            "spec001:PROFILE-COPPER-100"
+          ],
+          "kind": "measurement",
+          "text": "The conventional continuity tool now measures the chosen passive path: every required conductor intact and total length at or below 100 m. Compare this fresh result with the recorded open-before result. Both the selected path and current attempt must match; presenting an older pass is stale evidence.",
+          "ruleIds": [
+            "spec001:PHY04",
+            "spec001:PHY05",
+            "spec001:STATE01"
+          ],
+          "requiresFreshMeasurement": true,
+          "readings": [
+            {
+              "name": "Total channel length",
+              "unit": "m"
+            },
+            {
+              "name": "Open required conductors",
+              "unit": "count"
+            }
+          ]
+        },
+        {
+          "id": "spec001:FACT-O04-repeater-limit",
+          "roomId": "spec001:R04",
+          "subjectIds": [
+            "spec001:PR031",
+            "spec001:PR037",
+            "spec001:PR038"
+          ],
+          "kind": "context",
+          "text": "The repeater exhibit repeats/regenerates a signal on connected segments; it does not bridge the unchanged severed span, learn addresses or route traffic. Adding a repeater without restoring required continuity fails the severed-cable test. A new regenerated topology is unsupported until its segment limits are separately reviewed.",
+          "ruleIds": [
+            "spec001:PHY05"
+          ],
+          "requiresFreshMeasurement": false
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-O04-conventional-continuity-tool",
+          "label": "Compare the continuity and length records",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O03"
+          },
+          "ruleIds": [
+            "spec001:PHY04",
+            "spec001:PHY05",
+            "spec001:STATE01"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O04-before",
+            "spec001:FACT-O04-after",
+            "spec001:FACT-O04-repeater-limit"
+          ],
+          "effects": [],
+          "explanation": "Use the ordinary test to compare open-before with fresh intact-after evidence. Reject the repeater-only proposal for the unchanged break. An equivalent ally inspection may expose the same evidence when that ally is available; it cannot change these checks."
+        }
+      ],
+      "ruleIds": [
+        "spec001:PHY04",
+        "spec001:PHY05",
+        "spec001:STATE01",
+        "spec001:STATE02",
+        "spec001:STATE03"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-COPPER-100"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S03",
+          "section": "Cable Specifications → Ethernet Cable Specifications → Maximum Cable Length",
+          "supportedClaim": "This hardware guide specifies a 100 m maximum Ethernet cable distance between the described router and connected equipment.",
+          "limitations": [
+            "Product-specific illustration only. The game 100 m channel and inclusive comparator remain fictional; no universal limit for all copper or all Ethernet. No certification claim."
+          ]
+        },
+        {
+          "sourceId": "spec001:S04",
+          "section": "Failures of the Five Wiremap Tests",
+          "supportedClaim": "Wiremap examines conductor continuity and termination; an open can reflect a broken conductor, poor connection or damaged connector.",
+          "limitations": [
+            "The fixture supplies a diagnosed required-path break. An arbitrary open indication alone does not prove its location or cause; tester setup also matters."
+          ]
+        },
+        {
+          "sourceId": "spec001:S05",
+          "section": "Chapter 5 Ethernet networks → Ethernet topologies → Repeater hubs; PDF page 101",
+          "supportedClaim": "Historical Ethernet repeater hubs receive and repeat data to linked segments with amplification and retiming; the described shared medium operates half duplex.",
+          "limitations": [
+            "Not a modern wireless extender or a universal repeater topology allowance. Inability to restore an unchanged physical break is an explicit scenario inference, supported together with S04."
+          ]
+        }
+      ],
+      "model": {
+        "label": "scoped-technical-predicate",
+        "scope": "Prove the selected copper preparation with before/after evidence and explain the regeneration limit; T03, T13 and RR-O04.",
+        "assumptions": [
+          "The before record belongs to the diagnosed required path; the after record names the repaired current configuration.",
+          "Every technically valid O03 passive alternative receives the same O04 checks.",
+          "An alternative condition expresses availability only. Its ruleIds and required evidence must be evaluated against current configuration and attempt before any completion effect is accepted."
+        ],
+        "limitations": [
+          "No optional companion, serial side quest or second media branch is required.",
+          "A fresh inspection is not an endpoint service test. Historical before evidence is intentionally retained without counting as current validation.",
+          "Malformed authored data is content-error with no learner penalty or progress award. Missing learner input is invalid-input.",
+          "Hints remain available and are recorded separately; assistance does not downgrade a technically valid result."
+        ]
+      },
+      "effects": [
+        {
+          "kind": "complete-objective",
+          "effectId": "spec001:EFFECT-O04",
+          "objectiveId": "spec001:O04"
+        }
+      ],
+      "hints": {
+        "method": {
+          "id": "spec001:HINT-O04-method",
+          "text": "Compare the same required path before and after the intervention. What did the repair change?"
+        },
+        "workedStep": {
+          "id": "spec001:HINT-O04-workedStep",
+          "text": "The old record says open. A current result must show continuity and a within-limit length; a repeater by itself changes neither a severed conductor nor the old result."
+        },
+        "solution": {
+          "id": "spec001:HINT-O04-solution",
+          "text": "Retest the compatible repaired passive path, compare it with the open-before record, and reject the unchanged-break repeater proposal. If the path or attempt changed, measure again."
+        }
+      },
+      "observableOutcome": "The copper branch has a sourced before/after comparison and a fresh passing scoped path.",
+      "completionExplanation": "A connected, compatible path passed this profile after repair. Regeneration could not substitute for restoring the break. You still need to validate service at the Iron Threshold.",
+      "requiresReflexTiming": false
+    },
+    {
+      "kind": "objective",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:O05",
+      "prerequisite": {
+        "kind": "objective-complete",
+        "objectiveId": "spec001:O02"
+      },
+      "evidence": [
+        {
+          "id": "spec001:FACT-O05-matching",
+          "roomId": "spec001:R05",
+          "subjectIds": [
+            "spec001:PR045",
+            "spec001:PROFILE-OPTICAL"
+          ],
+          "kind": "context",
+          "text": "The Photon Gardens profile cards name the supplied optical pair, fiber type, wavelength direction, supported rate, connector/polarity and host support. All must match. Similar shells, a pleasing light level or a numerical budget do not establish compatibility.",
+          "ruleIds": [
+            "spec001:PHY03",
+            "spec001:PHY06"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-O05-inspection",
+          "roomId": "spec001:R05",
+          "subjectIds": [
+            "spec001:PR043",
+            "spec001:PR044"
+          ],
+          "kind": "observation",
+          "text": "Inspect the connection at the dock before any change. The supplied scenario records the connection defect and the suitable intervention: inspected cleaning or inspected connector replacement. Both reviewed alternatives remove the diagnosed defect and retain the matching profile. A missing inspection cannot be inferred from a later light level.",
+          "ruleIds": [
+            "spec001:PHY03",
+            "spec001:PHY06"
+          ],
+          "requiresFreshMeasurement": false
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-O05-inspected-connector-cleaning",
+          "label": "Inspect, then clean the diagnosed connection",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "ruleIds": [
+            "spec001:PHY03",
+            "spec001:PHY06"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O05-matching",
+            "spec001:FACT-O05-inspection"
+          ],
+          "effects": [],
+          "explanation": "Inspect before changing anything; use the supplied suitable cleaning intervention and retain all optic/fiber/host/polarity compatibility fields. Reinspect the connection. Prism Vault validation remains required."
+        },
+        {
+          "id": "spec001:ACTION-O05-inspected-connector-replacement",
+          "label": "Inspect, then replace the diagnosed connector",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "ruleIds": [
+            "spec001:PHY03",
+            "spec001:PHY06"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O05-matching",
+            "spec001:FACT-O05-inspection"
+          ],
+          "effects": [],
+          "explanation": "Inspect first; the supplied compatible replacement removes the same diagnosed connection defect. Reinspect and verify all matching fields. It is an equivalent Photon Gardens inspection solution, not automatic optical-budget success."
+        }
+      ],
+      "ruleIds": [
+        "spec001:PHY03",
+        "spec001:PHY06",
+        "spec001:STATE02",
+        "spec001:STATE03"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S03",
+          "section": "Cable Specifications → Ethernet Cable Specifications → Maximum Cable Length",
+          "supportedClaim": "This hardware guide specifies a 100 m maximum Ethernet cable distance between the described router and connected equipment.",
+          "limitations": [
+            "Product-specific illustration only. The game 100 m channel and inclusive comparator remain fictional; no universal limit for all copper or all Ethernet. No certification claim."
+          ]
+        },
+        {
+          "sourceId": "spec001:S07",
+          "section": "Platform support; Product specifications, Table 3 SFP+ port cabling specifications and Table 4 Optical transmit and receive specifications",
+          "supportedClaim": "Module-specific media, wavelength, reach and receiver minimum/maximum power are separate specifications. Host compatibility requires support information.",
+          "limitations": [
+            "No real module is instantiated in the toy optical fixture. Do not generalize shell shape or SMF/MMF slogans; supported combinations vary by module."
+          ]
+        },
+        {
+          "sourceId": "spec001:S08",
+          "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+          "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+          "limitations": [
+            "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."
+          ]
+        },
+        {
+          "sourceId": "spec001:S10",
+          "section": "Introductory PSE/PD definitions; PoE budget; PoE class, table headings for power delivered to PD versus switch-port output",
+          "supportedClaim": "PSE output and power delivered to a PD are distinct accounting boundaries. Multiple devices must fit the available aggregate budget.",
+          "limitations": [
+            "Only this distinction and aggregate-budget concept are used. No table wattages, PoE class allocation, priority behavior or detection timing are used by the fiction."
+          ]
+        },
+        {
+          "sourceId": "spec001:S06",
+          "section": "Calculate Power Budget and Power Margin for Fiber-Optic Cables → Calculate Power Budget for Fiber-Optic Cables; How to Calculate Power Margin for Fiber-Optic Cables",
+          "supportedClaim": "Budget equals minimum transmit power minus receiver sensitivity; margin subtracts link loss from that budget. Actual component losses need vendor data.",
+          "limitations": [
+            "Original Juniper URL redirects to publisher HPE documentation. Use equations only; a positive margin does not independently prove the maximum receiver bound. No sample losses or fixture thresholds imported."
+          ]
+        }
+      ],
+      "model": {
+        "label": "scoped-technical-predicate",
+        "scope": "Prepare the supplied optical connection through inspection and a matched intervention; T07 and RR-O05.",
+        "assumptions": [
+          "Compatibility and diagnosis are explicit scenario facts, not deductions from artwork.",
+          "Both supplied interventions are suitable for the diagnosed connection defect; no unreviewed field maintenance procedure is taught.",
+          "An alternative condition expresses availability only. Its ruleIds and required evidence must be evaluated against current configuration and attempt before any completion effect is accepted."
+        ],
+        "limitations": [
+          "Compatibility is checked before arithmetic.",
+          "Matching and inspection do not themselves prove reserve margin, overload safety or service.",
+          "Malformed authored data is content-error with no learner penalty or progress award. Missing learner input is invalid-input.",
+          "Hints remain available and are recorded separately; assistance does not downgrade a technically valid result."
+        ]
+      },
+      "effects": [
+        {
+          "kind": "complete-objective",
+          "effectId": "spec001:EFFECT-O05",
+          "objectiveId": "spec001:O05"
+        }
+      ],
+      "hints": {
+        "method": {
+          "id": "spec001:HINT-O05-method",
+          "text": "Read the whole compatibility card and inspect the connection before choosing a repair."
+        },
+        "workedStep": {
+          "id": "spec001:HINT-O05-workedStep",
+          "text": "Compare fiber, wavelength direction, rate, connector/polarity and host fields. The dock records the defect before cleaning or replacement."
+        },
+        "solution": {
+          "id": "spec001:HINT-O05-solution",
+          "text": "With every supplied field matched, inspect first and then choose either the suitable cleaning or compatible connector replacement. Reinspect; carry the inspected connection record to the Prism Vault."
+        }
+      },
+      "observableOutcome": "A matching, inspected optical connection and its intervention are recorded.",
+      "completionExplanation": "The supplied connection is ready for measurement. Compatibility comes from the declared profiles, not the connector shell or a favorable budget.",
+      "requiresReflexTiming": false
+    },
+    {
+      "kind": "objective",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:O06",
+      "prerequisite": {
+        "kind": "objective-complete",
+        "objectiveId": "spec001:O05"
+      },
+      "evidence": [
+        {
+          "id": "spec001:FACT-O06-budget",
+          "roomId": "spec001:R06",
+          "subjectIds": [
+            "spec001:PR054",
+            "spec001:PROFILE-OPTICAL"
+          ],
+          "kind": "measurement",
+          "text": "Prism Vault readings use the fictional optical exercise: transmit −3 dBm, sensitivity −14 dBm, maximum receive −1 dBm and required reserve 2 dB. Passive path A has total loss 8 dB: receive −11 dBm and reserve 3 dB. Path B has loss 9 dB: receive −12 dBm and reserve exactly 2 dB. Both matched, inspected paths pass the inclusive bounds. At 10 dB loss, −13 dBm is above sensitivity but its 1 dB reserve fails. A separately observed 0 dBm receive fails the −1 dBm overload bound. Repeat the measurement after changing the selected path or starting a new attempt.",
+          "ruleIds": [
+            "spec001:PHY06",
+            "spec001:STATE01"
+          ],
+          "requiresFreshMeasurement": true,
+          "readings": [
+            {
+              "name": "Transmit power",
+              "unit": "dBm"
+            },
+            {
+              "name": "Total passive loss",
+              "unit": "dB"
+            },
+            {
+              "name": "Receive power",
+              "unit": "dBm"
+            },
+            {
+              "name": "Sensitivity reserve",
+              "unit": "dB"
+            }
+          ]
+        },
+        {
+          "id": "spec001:FACT-O06-compatibility",
+          "roomId": "spec001:R06",
+          "subjectIds": [
+            "spec001:PROFILE-OPTICAL"
+          ],
+          "kind": "context",
+          "text": "Carry the compatibility and inspection record from Photon Gardens into this measurement. An incompatible selected optic/fiber pair is incorrect even if arithmetic would pass. Missing units, unknown profiles, negative passive loss, or simultaneously asserting 0 dBm receive from −3 dBm transmit through nonnegative passive loss are a problem with the supplied exercise, not a learner failure.",
+          "ruleIds": [
+            "spec001:PHY06"
+          ],
+          "requiresFreshMeasurement": false
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-O06-passive-path-A",
+          "label": "Validate passive optical path A",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O05"
+          },
+          "ruleIds": [
+            "spec001:PHY06",
+            "spec001:STATE01"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O06-budget",
+            "spec001:FACT-O06-compatibility"
+          ],
+          "effects": [],
+          "explanation": "With matching optics and fresh current measurements, −3 dBm minus 8 dB is −11 dBm; reserve above −14 dBm is 3 dB. Check the independent −1 dBm maximum too."
+        },
+        {
+          "id": "spec001:ACTION-O06-passive-path-B",
+          "label": "Validate passive optical path B",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O05"
+          },
+          "ruleIds": [
+            "spec001:PHY06",
+            "spec001:STATE01"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O06-budget",
+            "spec001:FACT-O06-compatibility"
+          ],
+          "effects": [],
+          "explanation": "With matching optics and fresh measurements, 9 dB loss yields −12 dBm and exactly 2 dB reserve. This inclusive boundary is as valid as path A; no preferred-answer penalty applies."
+        }
+      ],
+      "ruleIds": [
+        "spec001:PHY06",
+        "spec001:STATE01",
+        "spec001:STATE02",
+        "spec001:STATE03"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S06",
+          "section": "Calculate Power Budget and Power Margin for Fiber-Optic Cables → Calculate Power Budget for Fiber-Optic Cables; How to Calculate Power Margin for Fiber-Optic Cables",
+          "supportedClaim": "Budget equals minimum transmit power minus receiver sensitivity; margin subtracts link loss from that budget. Actual component losses need vendor data.",
+          "limitations": [
+            "Original Juniper URL redirects to publisher HPE documentation. Use equations only; a positive margin does not independently prove the maximum receiver bound. No sample losses or fixture thresholds imported."
+          ]
+        },
+        {
+          "sourceId": "spec001:S07",
+          "section": "Platform support; Product specifications, Table 3 SFP+ port cabling specifications and Table 4 Optical transmit and receive specifications",
+          "supportedClaim": "Module-specific media, wavelength, reach and receiver minimum/maximum power are separate specifications. Host compatibility requires support information.",
+          "limitations": [
+            "No real module is instantiated in the toy optical fixture. Do not generalize shell shape or SMF/MMF slogans; supported combinations vary by module."
+          ]
+        }
+      ],
+      "model": {
+        "label": "scoped-technical-predicate",
+        "scope": "Evaluate compatibility, received optical power, receiver range and reserve independently; T04–T07/T15 and RR-O06.",
+        "assumptions": [
+          "All supplied passive losses are finite, nonnegative dB; the total includes every modeled loss.",
+          "The −3/−14/−1 dBm and 2 dB values are fictional exercise thresholds, not a product datasheet.",
+          "An alternative condition expresses availability only. Its ruleIds and required evidence must be evaluated against current configuration and attempt before any completion effect is accepted."
+        ],
+        "limitations": [
+          "dBm is an absolute logarithmic power level; dB expresses loss or reserve. Do not interchange their units.",
+          "A larger receive power is not always safer; maximum receive is checked separately.",
+          "No dispersion, uncertainty, aging or actual product simulation is performed.",
+          "Malformed authored data is content-error with no learner penalty or progress award. Missing learner input is invalid-input.",
+          "Hints remain available and are recorded separately; assistance does not downgrade a technically valid result."
+        ]
+      },
+      "effects": [
+        {
+          "kind": "complete-objective",
+          "effectId": "spec001:EFFECT-O06",
+          "objectiveId": "spec001:O06"
+        }
+      ],
+      "hints": {
+        "method": {
+          "id": "spec001:HINT-O06-method",
+          "text": "First confirm compatibility, then compute receive power and reserve; do not forget the upper receive limit."
+        },
+        "workedStep": {
+          "id": "spec001:HINT-O06-workedStep",
+          "text": "Subtract total loss from −3 dBm. Subtract sensitivity (−14 dBm) from that receive level to obtain reserve in dB."
+        },
+        "solution": {
+          "id": "spec001:HINT-O06-solution",
+          "text": "Use either the inspected 8 dB-loss path (−11 dBm, 3 dB reserve) or 9 dB-loss path (−12 dBm, exactly 2 dB). Check the −1 dBm maximum and record fresh results."
+        }
+      },
+      "observableOutcome": "The fiber branch has a matching profile and fresh range/reserve results.",
+      "completionExplanation": "This fictional optical power budget passes both receiver bounds and reserve. It does not by itself prove an end-to-end service.",
+      "requiresReflexTiming": false
+    },
+    {
+      "kind": "objective",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:O07",
+      "prerequisite": {
+        "kind": "objective-complete",
+        "objectiveId": "spec001:O02"
+      },
+      "evidence": [
+        {
+          "id": "spec001:FACT-O07-path",
+          "roomId": "spec001:R07",
+          "subjectIds": [
+            "spec001:R07",
+            "spec001:PROFILE-RADIO"
+          ],
+          "kind": "observation",
+          "text": "The Skywell survey supplies two alternatives: align the existing path or choose the alternate path. Each candidate explicitly has a viable path and compatible radio settings in this scenario. An obstructed path stays unsuitable until an intervention has an observed viable result; it cannot be repaired merely by naming a channel.",
+          "ruleIds": [
+            "spec001:PHY03",
+            "spec001:PHY07"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-O07-settings",
+          "roomId": "spec001:R07",
+          "subjectIds": [
+            "spec001:PROFILE-RADIO"
+          ],
+          "kind": "context",
+          "text": "Compare the supplied band/channel/PHY and endpoint settings before transmitting. Path viability and compatible settings are independent of SNR. If the exercise omits a path or settings fact, its instructions need correction; choosing explicitly incompatible settings does not solve the preparation. Channel names are fictional exercise labels, not regulatory or real-world channel recommendations.",
+          "ruleIds": [
+            "spec001:PHY03",
+            "spec001:PHY07"
+          ],
+          "requiresFreshMeasurement": false
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-O07-align-existing-path",
+          "label": "Align the supplied existing path",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "ruleIds": [
+            "spec001:PHY03",
+            "spec001:PHY07"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O07-path",
+            "spec001:FACT-O07-settings"
+          ],
+          "effects": [],
+          "explanation": "Accept only the surveyed viable result with compatible endpoint settings. Alignment is preparation; it does not invent an SNR or throughput."
+        },
+        {
+          "id": "spec001:ACTION-O07-choose-alternate-path",
+          "label": "Choose the supplied alternate path",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "ruleIds": [
+            "spec001:PHY03",
+            "spec001:PHY07"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O07-path",
+            "spec001:FACT-O07-settings"
+          ],
+          "effects": [],
+          "explanation": "The alternate surveyed viable path is equally valid with its compatible settings. No other route, rare ally or optional reward is required."
+        }
+      ],
+      "ruleIds": [
+        "spec001:PHY03",
+        "spec001:PHY07",
+        "spec001:STATE02",
+        "spec001:STATE03"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-RADIO"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S03",
+          "section": "Cable Specifications → Ethernet Cable Specifications → Maximum Cable Length",
+          "supportedClaim": "This hardware guide specifies a 100 m maximum Ethernet cable distance between the described router and connected equipment.",
+          "limitations": [
+            "Product-specific illustration only. The game 100 m channel and inclusive comparator remain fictional; no universal limit for all copper or all Ethernet. No certification claim."
+          ]
+        },
+        {
+          "sourceId": "spec001:S07",
+          "section": "Platform support; Product specifications, Table 3 SFP+ port cabling specifications and Table 4 Optical transmit and receive specifications",
+          "supportedClaim": "Module-specific media, wavelength, reach and receiver minimum/maximum power are separate specifications. Host compatibility requires support information.",
+          "limitations": [
+            "No real module is instantiated in the toy optical fixture. Do not generalize shell shape or SMF/MMF slogans; supported combinations vary by module."
+          ]
+        },
+        {
+          "sourceId": "spec001:S08",
+          "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+          "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+          "limitations": [
+            "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."
+          ]
+        },
+        {
+          "sourceId": "spec001:S10",
+          "section": "Introductory PSE/PD definitions; PoE budget; PoE class, table headings for power delivered to PD versus switch-port output",
+          "supportedClaim": "PSE output and power delivered to a PD are distinct accounting boundaries. Multiple devices must fit the available aggregate budget.",
+          "limitations": [
+            "Only this distinction and aggregate-budget concept are used. No table wattages, PoE class allocation, priority behavior or detection timing are used by the fiction."
+          ]
+        },
+        {
+          "sourceId": "spec001:S09",
+          "section": "What is Signal-to-Noise Ratio (SNR)?",
+          "supportedClaim": "SNR is a signal-to-noise power ratio; its dB value is ten times the base-ten logarithm of that ratio.",
+          "limitations": [
+            "For compatible power measurements with one reference, subtracting dBm yields dB. No universal acceptable threshold follows from this definition."
+          ]
+        }
+      ],
+      "model": {
+        "label": "scoped-technical-predicate",
+        "scope": "Prepare a surveyed viable radio path with compatible settings; RR-O07 supplies outcomes without a propagation simulation.",
+        "assumptions": [
+          "The exercise supplies both path outcomes and endpoint compatibility explicitly.",
+          "The ordinary reusable inspection kit exposes the same essential survey facts as optional assistance.",
+          "An alternative condition expresses availability only. Its ruleIds and required evidence must be evaluated against current configuration and attempt before any completion effect is accepted."
+        ],
+        "limitations": [
+          "Signal strength alone does not establish throughput or path usability.",
+          "No real spectrum regulation, channel ranking, antenna design or propagation equation is implied.",
+          "Malformed authored data is content-error with no learner penalty or progress award. Missing learner input is invalid-input.",
+          "Hints remain available and are recorded separately; assistance does not downgrade a technically valid result."
+        ]
+      },
+      "effects": [
+        {
+          "kind": "complete-objective",
+          "effectId": "spec001:EFFECT-O07",
+          "objectiveId": "spec001:O07"
+        }
+      ],
+      "hints": {
+        "method": {
+          "id": "spec001:HINT-O07-method",
+          "text": "Check path viability and settings separately before comparing signal and noise."
+        },
+        "workedStep": {
+          "id": "spec001:HINT-O07-workedStep",
+          "text": "The survey distinguishes the existing aligned path from the alternate path. Both need an explicit viable observation and matching settings."
+        },
+        "solution": {
+          "id": "spec001:HINT-O07-solution",
+          "text": "Choose either supplied viable path, verify every compatible setting, and retain the survey. Then make a new signal/noise measurement in the Storm Observatory."
+        }
+      },
+      "observableOutcome": "A viable selected path and compatible radio settings are recorded.",
+      "completionExplanation": "The path is prepared under the stated scenario. Its usable signal-to-noise condition must still be measured at the Storm Observatory.",
+      "requiresReflexTiming": false
+    },
+    {
+      "kind": "objective",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:O08",
+      "prerequisite": {
+        "kind": "objective-complete",
+        "objectiveId": "spec001:O07"
+      },
+      "evidence": [
+        {
+          "id": "spec001:FACT-O08-snr",
+          "roomId": "spec001:R08",
+          "subjectIds": [
+            "spec001:R08",
+            "spec001:PROFILE-RADIO"
+          ],
+          "kind": "measurement",
+          "text": "Storm Observatory compares signal and noise measured at the same received boundary: scenario channel A is −65 dBm signal and −90 dBm noise, giving 25 dB SNR. Scenario channel B is −65 dBm and −85 dBm, giving exactly 20 dB. Both meet the fictional inclusive 20 dB threshold when path and settings pass. With noise −78 dBm, the same signal gives 13 dB and fails. After any mitigation, measure the selected path again in the current attempt.",
+          "ruleIds": [
+            "spec001:PHY07",
+            "spec001:STATE01"
+          ],
+          "requiresFreshMeasurement": true,
+          "readings": [
+            {
+              "name": "Received signal",
+              "unit": "dBm"
+            },
+            {
+              "name": "Received noise",
+              "unit": "dBm"
+            },
+            {
+              "name": "Signal-to-noise ratio",
+              "unit": "dB"
+            }
+          ]
+        },
+        {
+          "id": "spec001:FACT-O08-survey",
+          "roomId": "spec001:R08",
+          "subjectIds": [
+            "spec001:PROFILE-RADIO"
+          ],
+          "kind": "context",
+          "text": "The path selected in the Skywell and endpoint settings must still be viable and compatible. A new channel choice or repaired obstruction makes old observations stale. SNR arithmetic cannot supply a missing path check, and a proposed mitigation is not a fresh measurement.",
+          "ruleIds": [
+            "spec001:PHY07",
+            "spec001:STATE01"
+          ],
+          "requiresFreshMeasurement": false
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-O08-scenario-channel-A",
+          "label": "Measure scenario channel A",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O07"
+          },
+          "ruleIds": [
+            "spec001:PHY07",
+            "spec001:STATE01"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O08-snr",
+            "spec001:FACT-O08-survey"
+          ],
+          "effects": [],
+          "explanation": "After confirming path/settings, −65 − (−90) = 25 dB. Accept the current measurement under the fictional 20 dB minimum; record no throughput guarantee."
+        },
+        {
+          "id": "spec001:ACTION-O08-scenario-channel-B",
+          "label": "Measure scenario channel B",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O07"
+          },
+          "ruleIds": [
+            "spec001:PHY07",
+            "spec001:STATE01"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O08-snr",
+            "spec001:FACT-O08-survey"
+          ],
+          "effects": [],
+          "explanation": "After the same path/settings checks, −65 − (−85) = 20 dB. The exact inclusive boundary is valid. A result from a different path or earlier attempt remains stale."
+        }
+      ],
+      "ruleIds": [
+        "spec001:PHY07",
+        "spec001:STATE01",
+        "spec001:STATE02",
+        "spec001:STATE03"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-RADIO"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S08",
+          "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+          "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+          "limitations": [
+            "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."
+          ]
+        },
+        {
+          "sourceId": "spec001:S09",
+          "section": "What is Signal-to-Noise Ratio (SNR)?",
+          "supportedClaim": "SNR is a signal-to-noise power ratio; its dB value is ten times the base-ten logarithm of that ratio.",
+          "limitations": [
+            "For compatible power measurements with one reference, subtracting dBm yields dB. No universal acceptable threshold follows from this definition."
+          ]
+        }
+      ],
+      "model": {
+        "label": "scoped-technical-predicate",
+        "scope": "Prove the selected radio path with comparable fresh signal/noise observations; T08/T09/T13 and RR-O08.",
+        "assumptions": [
+          "Signal and noise powers are both supplied in dBm at a comparable received boundary.",
+          "The required 20 dB SNR is an explicitly fictional fixture value.",
+          "An alternative condition expresses availability only. Its ruleIds and required evidence must be evaluated against current configuration and attempt before any completion effect is accepted."
+        ],
+        "limitations": [
+          "No universal Wi-Fi threshold, real channel recommendation or throughput promise.",
+          "A high signal value alone cannot substitute for the separate noise, path and compatibility checks.",
+          "Malformed authored data is content-error with no learner penalty or progress award. Missing learner input is invalid-input.",
+          "Hints remain available and are recorded separately; assistance does not downgrade a technically valid result."
+        ]
+      },
+      "effects": [
+        {
+          "kind": "complete-objective",
+          "effectId": "spec001:EFFECT-O08",
+          "objectiveId": "spec001:O08"
+        }
+      ],
+      "hints": {
+        "method": {
+          "id": "spec001:HINT-O08-method",
+          "text": "Subtract the noise level from the signal level, then check freshness and the declared threshold."
+        },
+        "workedStep": {
+          "id": "spec001:HINT-O08-workedStep",
+          "text": "For channel A, −65 − (−90) gives 25 dB. Rising noise to −78 dBm leaves only 13 dB even though the signal did not change."
+        },
+        "solution": {
+          "id": "spec001:HINT-O08-solution",
+          "text": "Measure either current viable compatible channel A (25 dB) or B (20 dB). Both meet the inclusive threshold; repeat the measurement after any change."
+        }
+      },
+      "observableOutcome": "The radio branch has current signal/noise/SNR evidence and viable compatible settings.",
+      "completionExplanation": "The chosen scenario meets its stated SNR rule. This is scoped physical evidence, not a promise of real Wi-Fi throughput or end-to-end service.",
+      "requiresReflexTiming": false
+    },
+    {
+      "kind": "objective",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:O09",
+      "prerequisite": {
+        "kind": "objective-complete",
+        "objectiveId": "spec001:O02"
+      },
+      "evidence": [
+        {
+          "id": "spec001:FACT-O09-module",
+          "roomId": "spec001:R09",
+          "subjectIds": [
+            "spec001:R09",
+            "spec001:PROFILE-POWER",
+            "spec001:PROFILE-CAPABILITIES"
+          ],
+          "kind": "context",
+          "text": "Shell Market checks form factor, PHY, medium, supported rate, host support, power method and per-port limits for the chosen route kit. Matching an SFP-shaped shell alone is insufficient. The supplied compatible kits explicitly satisfy each field; tools remain recoverable without side-quest rewards.",
+          "ruleIds": [
+            "spec001:PHY03",
+            "spec001:PHY08",
+            "spec001:PHY09"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-O09-power",
+          "roomId": "spec001:R09",
+          "subjectIds": [
+            "spec001:PROFILE-POWER"
+          ],
+          "kind": "measurement",
+          "text": "This fictional budget is 30 W delivered at the endpoint boundary after losses. Compatible kit A demands 12 W + 11 W = 23 W, leaving 7 W. Kit B demands 12 W + 11 W + 7 W = 30 W, leaving zero. Both fit the inclusive budget when each port constraint also passes. The 12 W + 11 W + 10 W proposal totals 33 W and exceeds it by 3 W. Do not subtract unspecified line losses a second time.",
+          "ruleIds": [
+            "spec001:PHY08"
+          ],
+          "requiresFreshMeasurement": true,
+          "readings": [
+            {
+              "name": "Delivered budget",
+              "unit": "W"
+            },
+            {
+              "name": "Total delivered demand",
+              "unit": "W"
+            },
+            {
+              "name": "Delivered headroom",
+              "unit": "W"
+            }
+          ]
+        },
+        {
+          "id": "spec001:FACT-O09-capability",
+          "roomId": "spec001:R09",
+          "subjectIds": [
+            "spec001:PROFILE-CAPABILITIES"
+          ],
+          "kind": "measurement",
+          "text": "Both toy endpoints negotiate. A advertises 1000/full and 100/full; B advertises 100/full and 10/half. The only common member is 100/full. The rates are decimal megabits per second; neither endpoint gains unsupported modes.",
+          "ruleIds": [
+            "spec001:PHY09"
+          ],
+          "requiresFreshMeasurement": true,
+          "readings": [
+            {
+              "name": "Selected common rate",
+              "unit": "Mbps"
+            }
+          ]
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-O09-compatible-kit-A",
+          "label": "Validate compatible kit A",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "ruleIds": [
+            "spec001:PHY03",
+            "spec001:PHY08",
+            "spec001:PHY09"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O09-module",
+            "spec001:FACT-O09-power",
+            "spec001:FACT-O09-capability"
+          ],
+          "effects": [],
+          "explanation": "Validate all route/module/host/per-port fields and common 100/full capability, then the 23 W delivered total. A passing power sum alone is insufficient."
+        },
+        {
+          "id": "spec001:ACTION-O09-compatible-kit-B",
+          "label": "Validate compatible kit B",
+          "method": "conventional-tool",
+          "itemIds": [
+            "spec001:ITEM-inspection-kit"
+          ],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "ruleIds": [
+            "spec001:PHY03",
+            "spec001:PHY08",
+            "spec001:PHY09"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O09-module",
+            "spec001:FACT-O09-power",
+            "spec001:FACT-O09-capability"
+          ],
+          "effects": [],
+          "explanation": "Apply the same compatibility and common-capability checks to the 30 W delivered total. Exactly meeting the declared budget is a valid alternative."
+        }
+      ],
+      "ruleIds": [
+        "spec001:PHY03",
+        "spec001:PHY08",
+        "spec001:PHY09",
+        "spec001:STATE02",
+        "spec001:STATE03"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-POWER",
+        "spec001:PROFILE-CAPABILITIES"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S03",
+          "section": "Cable Specifications → Ethernet Cable Specifications → Maximum Cable Length",
+          "supportedClaim": "This hardware guide specifies a 100 m maximum Ethernet cable distance between the described router and connected equipment.",
+          "limitations": [
+            "Product-specific illustration only. The game 100 m channel and inclusive comparator remain fictional; no universal limit for all copper or all Ethernet. No certification claim."
+          ]
+        },
+        {
+          "sourceId": "spec001:S07",
+          "section": "Platform support; Product specifications, Table 3 SFP+ port cabling specifications and Table 4 Optical transmit and receive specifications",
+          "supportedClaim": "Module-specific media, wavelength, reach and receiver minimum/maximum power are separate specifications. Host compatibility requires support information.",
+          "limitations": [
+            "No real module is instantiated in the toy optical fixture. Do not generalize shell shape or SMF/MMF slogans; supported combinations vary by module."
+          ]
+        },
+        {
+          "sourceId": "spec001:S08",
+          "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+          "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+          "limitations": [
+            "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."
+          ]
+        },
+        {
+          "sourceId": "spec001:S10",
+          "section": "Introductory PSE/PD definitions; PoE budget; PoE class, table headings for power delivered to PD versus switch-port output",
+          "supportedClaim": "PSE output and power delivered to a PD are distinct accounting boundaries. Multiple devices must fit the available aggregate budget.",
+          "limitations": [
+            "Only this distinction and aggregate-budget concept are used. No table wattages, PoE class allocation, priority behavior or detection timing are used by the fiction."
+          ]
+        },
+        {
+          "sourceId": "spec001:S11",
+          "section": "When to Use Ethernet 10/100 Mb Auto-Negotiation",
+          "supportedClaim": "Negotiation exchanges supported speed and duplex abilities; both link partners need coherent settings.",
+          "limitations": [
+            "T11 is set intersection with one common member and both ends negotiating. Forced modes, parallel detection and modern PHY-specific negotiation are outside this model."
+          ]
+        }
+      ],
+      "model": {
+        "label": "scoped-technical-predicate",
+        "scope": "Prepare route-compatible equipment, a delivered-power allocation and a common advertised capability; T10/T11 and RR-O09.",
+        "assumptions": [
+          "Budget and demands share the delivered-after-losses boundary.",
+          "Supplied power-method compatibility and individual port constraints must independently pass.",
+          "Both supplied endpoints negotiate and have exactly one common mode; no ranking policy is needed.",
+          "An alternative condition expresses availability only. Its ruleIds and required evidence must be evaluated against current configuration and attempt before any completion effect is accepted.",
+          "Reviewed capability rates use Mb/s; runtime readings explicitly map this decimal megabits-per-second alias to Mbps without changing the value. This is an authoring boundary, not a player decision."
+        ],
+        "limitations": [
+          "No PoE class, inrush, voltage-negotiation or hidden PSE-to-PD loss model.",
+          "No invented rate, forced-mode fallback or general negotiation ranking rule.",
+          "Power adequacy does not prove data connectivity.",
+          "Malformed authored data is content-error with no learner penalty or progress award. Missing learner input is invalid-input.",
+          "Hints remain available and are recorded separately; assistance does not downgrade a technically valid result."
+        ]
+      },
+      "effects": [
+        {
+          "kind": "complete-objective",
+          "effectId": "spec001:EFFECT-O09",
+          "objectiveId": "spec001:O09"
+        }
+      ],
+      "hints": {
+        "method": {
+          "id": "spec001:HINT-O09-method",
+          "text": "Match every equipment field, total the delivered demands and intersect the two advertised capability lists."
+        },
+        "workedStep": {
+          "id": "spec001:HINT-O09-workedStep",
+          "text": "A matching shell is only one field. 12+11+10 is 33 W, three above 30 W. Only 100/full appears in both endpoint lists."
+        },
+        "solution": {
+          "id": "spec001:HINT-O09-solution",
+          "text": "Choose either supplied compatible kit A at 23 W or B at 30 W, verify per-port limits and select common 100/full. Keep all route-required tools available."
+        }
+      },
+      "observableOutcome": "The route kit, delivered allocation and supported common mode are recorded.",
+      "completionExplanation": "The chosen equipment meets the supplied compatibility and power constraints. The common mode belongs to both endpoints; neither power nor negotiation proves service.",
+      "requiresReflexTiming": false
+    },
+    {
+      "kind": "objective",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:O10",
+      "prerequisite": {
+        "kind": "objective-complete",
+        "objectiveId": "spec001:O02"
+      },
+      "evidence": [
+        {
+          "id": "spec001:FACT-O10-symbols",
+          "roomId": "spec001:R10",
+          "subjectIds": [
+            "spec001:R10",
+            "spec001:PROFILE-SYMBOLS"
+          ],
+          "kind": "measurement",
+          "text": "Clockworks supplies ordered sample positions 0,1,2,3 and toy levels −3,+1,+3,−1. The declared linear map is −3→00, −1→01, +1→10, +3→11. Decoding gives 00|10|11|01 = 00101101: eight represented bits in four symbols. Pause, step, replay or use the notebook; no timing score is required. If the exercise omits a sample position or supplies an undefined symbol, its instructions need correction; it is not your mistake.",
+          "ruleIds": [
+            "spec001:PHY10"
+          ],
+          "requiresFreshMeasurement": true,
+          "readings": [
+            {
+              "name": "Represented bits",
+              "unit": "bit"
+            },
+            {
+              "name": "Symbols decoded",
+              "unit": "symbol"
+            }
+          ]
+        },
+        {
+          "id": "spec001:FACT-O10-scope",
+          "roomId": "spec001:R10",
+          "subjectIds": [
+            "spec001:PROFILE-CAPABILITIES",
+            "spec001:PROFILE-SYMBOLS",
+            "spec001:PROFILE-PACKET"
+          ],
+          "kind": "context",
+          "text": "The Metronome illustrates agreed physical sampling positions, not NTP or IP/MAC address discovery. The common 100/full selection must occur in both supplied advertised sets; matching alone does not discover addresses. The highlighted NQ payload (4E 51; 01001110 01010001) sits inside an opaque upper-interface frame, not a complete two-byte Ethernet frame.",
+          "ruleIds": [
+            "spec001:PHY02",
+            "spec001:PHY09",
+            "spec001:PHY10",
+            "spec001:PHY11"
+          ],
+          "requiresFreshMeasurement": false
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-O10-step-and-decode",
+          "label": "Step through the sample positions",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "ruleIds": [
+            "spec001:PHY02",
+            "spec001:PHY09",
+            "spec001:PHY10"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O10-symbols",
+            "spec001:FACT-O10-scope"
+          ],
+          "effects": [],
+          "explanation": "Decode 00101101 using the exact map and ordered samples, choose the common 100/full mode and explain physical sampling rather than address discovery. Speed does not affect acceptance."
+        },
+        {
+          "id": "spec001:ACTION-O10-notebook-and-replay",
+          "label": "Decode with the notebook and replay",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "ruleIds": [
+            "spec001:PHY02",
+            "spec001:PHY09",
+            "spec001:PHY10"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O10-symbols",
+            "spec001:FACT-O10-scope"
+          ],
+          "effects": [],
+          "explanation": "Use the same explicit sample positions and map with notebook/replay to obtain 00101101. The same capability and scope checks apply; assistance is recorded without a penalty."
+        }
+      ],
+      "ruleIds": [
+        "spec001:PHY02",
+        "spec001:PHY09",
+        "spec001:PHY10",
+        "spec001:PHY11",
+        "spec001:STATE02",
+        "spec001:STATE03"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-CAPABILITIES",
+        "spec001:PROFILE-SYMBOLS",
+        "spec001:PROFILE-PACKET"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S01",
+          "section": "7.7.2; 7.7.3.3–7.7.3.4; 7.7.4.4; printed pages 49–51, PDF pages 53–55",
+          "supportedClaim": "Physical entities transmit bits over physical media and can relay interconnected circuits; transmission may be synchronous or asynchronous.",
+          "limitations": [
+            "Conceptual architecture only. No universal medium, numeric threshold, wire header, or claim that PHYs never have their own error mechanisms."
+          ]
+        },
+        {
+          "sourceId": "spec001:S02",
+          "section": "1.1.3 Internet Protocol Suite, pages 8–11",
+          "supportedClaim": "The Internet suite distinguishes application, transport, Internet and link functions; its grouping differs from the OSI teaching realms.",
+          "limitations": [
+            "Historical architectural context, not current protocol configuration guidance; does not authorize seven invented mandatory headers."
+          ]
+        },
+        {
+          "sourceId": "spec001:S04",
+          "section": "Failures of the Five Wiremap Tests",
+          "supportedClaim": "Wiremap examines conductor continuity and termination; an open can reflect a broken conductor, poor connection or damaged connector.",
+          "limitations": [
+            "The fixture supplies a diagnosed required-path break. An arbitrary open indication alone does not prove its location or cause; tester setup also matters."
+          ]
+        },
+        {
+          "sourceId": "spec001:S11",
+          "section": "When to Use Ethernet 10/100 Mb Auto-Negotiation",
+          "supportedClaim": "Negotiation exchanges supported speed and duplex abilities; both link partners need coherent settings.",
+          "limitations": [
+            "T11 is set intersection with one common member and both ends negotiating. Forced modes, parallel detection and modern PHY-specific negotiation are outside this model."
+          ]
+        },
+        {
+          "sourceId": "spec001:S12",
+          "section": "2.1 Naming Conventions; Table 4 Linear and Gray Coding",
+          "supportedClaim": "Four amplitude levels can represent four two-bit combinations; the source distinguishes linear and Gray coding.",
+          "limitations": [
+            "T12 deliberately uses the declared linear toy labels. Do not substitute a real PHY map, count useful bitrate from symbol count, or imply the toy implements PAM4."
+          ]
+        },
+        {
+          "sourceId": "spec001:S13",
+          "section": "4.2.3 Clock and Data Recovery (CDR)",
+          "supportedClaim": "High-speed serial reception includes clock/data recovery; multilevel signaling requires appropriate timing recovery.",
+          "limitations": [
+            "Physical timing context only. The toy uses explicit discrete sampling; no analog jitter model, NTP synchronization, timing reflex requirement or CDR implementation."
+          ]
+        }
+      ],
+      "model": {
+        "label": "scoped-technical-predicate",
+        "scope": "Decode the scoped toy symbol sequence and explain its physical role; T11/T12 and RR-O10.",
+        "assumptions": [
+          "Exact discrete sample levels and their order are supplied; no reflex timing is required.",
+          "The known NQ laboratory payload is a separate context example, not the T12 answer.",
+          "An alternative condition expresses availability only. Its ruleIds and required evidence must be evaluated against current configuration and attempt before any completion effect is accepted."
+        ],
+        "limitations": [
+          "Toy levels are not voltages and are not persisted as measurement units.",
+          "Two bits represented per symbol do not establish useful bitrate or a complete PAM4 PHY.",
+          "No seven mandatory wire headers, universal error detector, address resolution or timing-service simulation.",
+          "Malformed authored data is content-error with no learner penalty or progress award. Missing learner input is invalid-input.",
+          "Hints remain available and are recorded separately; assistance does not downgrade a technically valid result."
+        ]
+      },
+      "effects": [
+        {
+          "kind": "complete-objective",
+          "effectId": "spec001:EFFECT-O10",
+          "objectiveId": "spec001:O10"
+        }
+      ],
+      "hints": {
+        "method": {
+          "id": "spec001:HINT-O10-method",
+          "text": "Use the declared map at each supplied sample position, then state what the physical mechanism does."
+        },
+        "workedStep": {
+          "id": "spec001:HINT-O10-workedStep",
+          "text": "At position 0, −3 means 00. At position 1, +1 means 10. Keep the sample order; pausing does not invalidate the answer."
+        },
+        "solution": {
+          "id": "spec001:HINT-O10-solution",
+          "text": "Read −3,+1,+3,−1 as 00|10|11|01, giving 00101101. Choose common 100/full and explain physical sampling, not address discovery."
+        }
+      },
+      "observableOutcome": "The untimed decoding and physical-scope explanation are recorded.",
+      "completionExplanation": "You decoded eight represented bits from four toy symbols under the supplied map. Physical timing and compatible capabilities are distinct from finding an address.",
+      "requiresReflexTiming": false
+    },
+    {
+      "kind": "objective",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:O11",
+      "prerequisite": {
+        "kind": "all",
+        "conditions": [
+          {
+            "kind": "any",
+            "conditions": [
+              {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O04"
+              },
+              {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O06"
+              },
+              {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O08"
+              }
+            ]
+          },
+          {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O09"
+          },
+          {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O10"
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "id": "spec001:FACT-O11-plan",
+          "roomId": "spec001:R11",
+          "subjectIds": [
+            "spec001:R11"
+          ],
+          "kind": "context",
+          "text": "The Rift plan names one completed branch: Copper Warrens and Echo Cavern, Photon Gardens and Prism Vault, or Skywell and Storm Observatory. It also includes the equipment check from Shell Market and the Clockworks briefing. Review the current evidence, intervention and any temporary dependency before committing. The other branches, optional rewards and unavailable Iron City are not prerequisites.",
+          "ruleIds": [
+            "spec001:STATE01",
+            "spec001:STATE03",
+            "spec001:STATE04"
+          ],
+          "requiresFreshMeasurement": false
+        },
+        {
+          "id": "spec001:FACT-O11-execution",
+          "roomId": "spec001:R11",
+          "subjectIds": [
+            "spec001:R11"
+          ],
+          "kind": "observation",
+          "text": "The intervention record distinguishes execution from proposal: the reviewed route action completed after its warning was acknowledged, or an unresolved defect was deliberately isolated with a recovery plan. A route-closing choice explains its consequence before commitment; safe preparation remains reachable before committing. Completing the intervention alone does not prove restored service.",
+          "ruleIds": [
+            "spec001:STATE03",
+            "spec001:STATE04"
+          ],
+          "requiresFreshMeasurement": false
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-O11-copper",
+          "label": "Execute the reviewed copper plan",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "all",
+            "conditions": [
+              {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O04"
+              },
+              {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O09"
+              },
+              {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O10"
+              }
+            ]
+          },
+          "ruleIds": [
+            "spec001:STATE01",
+            "spec001:STATE03",
+            "spec001:STATE04"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O11-plan",
+            "spec001:FACT-O11-execution"
+          ],
+          "effects": [
+            {
+              "kind": "set-route",
+              "effectId": "spec001:EFFECT-O11-route-copper",
+              "route": "copper"
+            }
+          ],
+          "explanation": "Accept only the selected copper branch with the Shell Market equipment check and Clockworks briefing, current reviewed checks, acknowledged warning and completed execution. Record any temporary dependency; fresh Iron Threshold validation still determines the outcome."
+        },
+        {
+          "id": "spec001:ACTION-O11-fiber",
+          "label": "Execute the reviewed fiber plan",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "all",
+            "conditions": [
+              {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O06"
+              },
+              {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O09"
+              },
+              {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O10"
+              }
+            ]
+          },
+          "ruleIds": [
+            "spec001:STATE01",
+            "spec001:STATE03",
+            "spec001:STATE04"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O11-plan",
+            "spec001:FACT-O11-execution"
+          ],
+          "effects": [
+            {
+              "kind": "set-route",
+              "effectId": "spec001:EFFECT-O11-route-fiber",
+              "route": "fiber"
+            }
+          ],
+          "explanation": "Accept only the selected fiber branch with the Shell Market equipment check and Clockworks briefing, current reviewed checks, acknowledged warning and completed execution. Record any temporary dependency; fresh Iron Threshold validation still determines the outcome."
+        },
+        {
+          "id": "spec001:ACTION-O11-radio",
+          "label": "Execute the reviewed radio plan",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "all",
+            "conditions": [
+              {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O08"
+              },
+              {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O09"
+              },
+              {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O10"
+              }
+            ]
+          },
+          "ruleIds": [
+            "spec001:STATE01",
+            "spec001:STATE03",
+            "spec001:STATE04"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O11-plan",
+            "spec001:FACT-O11-execution"
+          ],
+          "effects": [
+            {
+              "kind": "set-route",
+              "effectId": "spec001:EFFECT-O11-route-radio",
+              "route": "radio"
+            }
+          ],
+          "explanation": "Accept only the selected radio branch with the Shell Market equipment check and Clockworks briefing, current reviewed checks, acknowledged warning and completed execution. Record any temporary dependency; fresh Iron Threshold validation still determines the outcome."
+        },
+        {
+          "id": "spec001:ACTION-O11-shutdown",
+          "label": "Deliberately isolate the unresolved defect",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "all",
+            "conditions": [
+              {
+                "kind": "any",
+                "conditions": [
+                  {
+                    "kind": "objective-complete",
+                    "objectiveId": "spec001:O04"
+                  },
+                  {
+                    "kind": "objective-complete",
+                    "objectiveId": "spec001:O06"
+                  },
+                  {
+                    "kind": "objective-complete",
+                    "objectiveId": "spec001:O08"
+                  }
+                ]
+              },
+              {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O09"
+              },
+              {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O10"
+              }
+            ]
+          },
+          "ruleIds": [
+            "spec001:STATE01",
+            "spec001:STATE03",
+            "spec001:STATE04"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O11-plan",
+            "spec001:FACT-O11-execution"
+          ],
+          "effects": [],
+          "explanation": "After the same preparation prerequisite and explicit warning, name the unresolved fault, deliberately isolate the unsafe path and record a recovery plan. This resolves the intervention honestly, never as repaired service; Iron Threshold records The Honest Shutdown classification."
+        }
+      ],
+      "ruleIds": [
+        "spec001:STATE01",
+        "spec001:STATE02",
+        "spec001:STATE03",
+        "spec001:STATE04"
+      ],
+      "profileIds": [],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S08",
+          "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+          "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+          "limitations": [
+            "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."
+          ]
+        }
+      ],
+      "model": {
+        "label": "design-state-invariant",
+        "scope": "Commit a reviewed intervention or intentional safe isolation; source STATE01–04 and RR-O11.",
+        "assumptions": [
+          "One complete media branch plus O09/O10 is sufficient after the introduction.",
+          "Current evidence belongs to the chosen configuration and attempt; old passing observations cannot authorize a changed plan.",
+          "The encounter controller stages and applies effects atomically once, after warning acknowledgement and completed execution.",
+          "An alternative condition expresses availability only. Its ruleIds and required evidence must be evaluated against current configuration and attempt before any completion effect is accepted."
+        ],
+        "limitations": [
+          "A menu choice, arrival, animation, interrupted action or replay does not itself complete the intervention.",
+          "Retry/E03 Continue restore preparation inventory and objective state while retaining clues, notes and hint history; previous-attempt measurements remain stale.",
+          "No implicit save, second persistent slot, or silent overwrite of recoverable progress.",
+          "Malformed authored data is content-error with no learner penalty or progress award. Missing learner input is invalid-input.",
+          "Hints remain available and are recorded separately; assistance does not downgrade a technically valid result."
+        ]
+      },
+      "effects": [
+        {
+          "kind": "complete-objective",
+          "effectId": "spec001:EFFECT-O11",
+          "objectiveId": "spec001:O11"
+        }
+      ],
+      "hints": {
+        "method": {
+          "id": "spec001:HINT-O11-method",
+          "text": "Review the selected branch evidence and common preparation before committing. Can you explain the proposed intervention and its dependency?"
+        },
+        "workedStep": {
+          "id": "spec001:HINT-O11-workedStep",
+          "text": "Echo Cavern validation or Prism Vault validation or Storm Observatory measurement supplies one branch; route equipment check and Clockworks briefing supply common preparation. If the path changed, repeat its measurements before reviewing the plan."
+        },
+        "solution": {
+          "id": "spec001:HINT-O11-solution",
+          "text": "Execute a reviewed copper, fiber or radio plan after acknowledging its consequence, or deliberately isolate a named unresolved fault and record recovery. Return to preparation before commitment if the evidence is not ready."
+        }
+      },
+      "observableOutcome": "The chosen intervention or intentional isolation, its result and any temporary dependency are recorded.",
+      "completionExplanation": "The intervention is complete under the reviewed plan. The balcony must still test the current path and endpoint before any restoration classification.",
+      "requiresReflexTiming": false
+    },
+    {
+      "kind": "objective",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:O12",
+      "prerequisite": {
+        "kind": "objective-complete",
+        "objectiveId": "spec001:O11"
+      },
+      "evidence": [
+        {
+          "id": "spec001:FACT-O12-validation",
+          "roomId": "spec001:R12",
+          "subjectIds": [
+            "spec001:R12",
+            "spec001:PROFILE-PACKET"
+          ],
+          "kind": "measurement",
+          "text": "The Iron Threshold repeats the selected route measurements on the selected path after intervention, during the current attempt. It also records the supplied endpoint service test as a separate cross-layer observation. The known NQ test pattern is compared only through the current physical path; a matched two-byte highlight is not a whole-frame or universal error check. Arrival at the balcony, a lit link lamp or an old pass is insufficient.",
+          "ruleIds": [
+            "spec001:PHY11",
+            "spec001:STATE01",
+            "spec001:STATE04"
+          ],
+          "requiresFreshMeasurement": true,
+          "readings": [
+            {
+              "name": "Recovered highlighted bits",
+              "unit": "bit"
+            },
+            {
+              "name": "Differing highlighted positions",
+              "unit": "count"
+            }
+          ]
+        },
+        {
+          "id": "spec001:FACT-O12-classification",
+          "roomId": "spec001:R12",
+          "subjectIds": [
+            "spec001:R12"
+          ],
+          "kind": "context",
+          "text": "The Steady Light requires every scoped physical check, fresh link measurements, a passing endpoint service test, the defect removed and no temporary dependency. The Borrowed Dawn requires the same fresh passing service checks with a declared temporary dependency, limitation and follow-up. The Honest Shutdown requires a named unresolved defect, intentional isolation and a recovery plan; service remains unresolved. Hints do not downgrade a valid outcome.",
+          "ruleIds": [
+            "spec001:STATE01",
+            "spec001:STATE03",
+            "spec001:STATE04"
+          ],
+          "requiresFreshMeasurement": false
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-O12-permanent",
+          "label": "Validate permanent restoration — The Steady Light",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O11"
+          },
+          "ruleIds": [
+            "spec001:PHY11",
+            "spec001:STATE01",
+            "spec001:STATE03",
+            "spec001:STATE04"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O12-validation",
+            "spec001:FACT-O12-classification"
+          ],
+          "effects": [],
+          "explanation": "Classify The Steady Light only after all current checks and the endpoint test pass, the defect is removed and no temporary dependency remains. Assistance stays recorded separately."
+        },
+        {
+          "id": "spec001:ACTION-O12-temporary",
+          "label": "Validate temporary restoration — The Borrowed Dawn",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O11"
+          },
+          "ruleIds": [
+            "spec001:PHY11",
+            "spec001:STATE01",
+            "spec001:STATE03",
+            "spec001:STATE04"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O12-validation",
+            "spec001:FACT-O12-classification"
+          ],
+          "effects": [],
+          "explanation": "Classify The Borrowed Dawn only after the same required current physical and endpoint checks pass; record the real temporary dependency, limitation and follow-up. Do not call it permanent."
+        },
+        {
+          "id": "spec001:ACTION-O12-shutdown",
+          "label": "Record unresolved service — The Honest Shutdown",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O11"
+          },
+          "ruleIds": [
+            "spec001:STATE01",
+            "spec001:STATE03",
+            "spec001:STATE04"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O12-classification"
+          ],
+          "effects": [],
+          "explanation": "Classify The Honest Shutdown only for a named unresolved defect deliberately isolated with a recovery plan. Do not award restored-service success or demand a fabricated passing endpoint test for this outcome."
+        }
+      ],
+      "ruleIds": [
+        "spec001:PHY11",
+        "spec001:STATE01",
+        "spec001:STATE02",
+        "spec001:STATE03",
+        "spec001:STATE04"
+      ],
+      "profileIds": [
+        "spec001:PROFILE-PACKET"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S01",
+          "section": "7.7.2; 7.7.3.3–7.7.3.4; 7.7.4.4; printed pages 49–51, PDF pages 53–55",
+          "supportedClaim": "Physical entities transmit bits over physical media and can relay interconnected circuits; transmission may be synchronous or asynchronous.",
+          "limitations": [
+            "Conceptual architecture only. No universal medium, numeric threshold, wire header, or claim that PHYs never have their own error mechanisms."
+          ]
+        },
+        {
+          "sourceId": "spec001:S02",
+          "section": "1.1.3 Internet Protocol Suite, pages 8–11",
+          "supportedClaim": "The Internet suite distinguishes application, transport, Internet and link functions; its grouping differs from the OSI teaching realms.",
+          "limitations": [
+            "Historical architectural context, not current protocol configuration guidance; does not authorize seven invented mandatory headers."
+          ]
+        },
+        {
+          "sourceId": "spec001:S12",
+          "section": "2.1 Naming Conventions; Table 4 Linear and Gray Coding",
+          "supportedClaim": "Four amplitude levels can represent four two-bit combinations; the source distinguishes linear and Gray coding.",
+          "limitations": [
+            "T12 deliberately uses the declared linear toy labels. Do not substitute a real PHY map, count useful bitrate from symbol count, or imply the toy implements PAM4."
+          ]
+        },
+        {
+          "sourceId": "spec001:S08",
+          "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+          "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+          "limitations": [
+            "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."
+          ]
+        }
+      ],
+      "model": {
+        "label": "scoped-technical-predicate",
+        "scope": "Validate the post-intervention state and distinguish permanent, temporary and unresolved outcomes; T13/T16, C-E01/E02/E03 and RR-O12.",
+        "assumptions": [
+          "A completed O11 is required but not sufficient for a successful restoration.",
+          "The endpoint test is an explicit scenario observation across layers, separate from physical measurements.",
+          "Ending effects are accepted atomically after validated classification; choice position and hint usage cannot determine correctness.",
+          "An alternative condition expresses availability only. Its ruleIds and required evidence must be evaluated against current configuration and attempt before any completion effect is accepted."
+        ],
+        "limitations": [
+          "A failed endpoint test prevents E01/E02 even when the link looks healthy.",
+          "E03 records unresolved service, offers safe preparation recovery and cannot overwrite the sole recoverable save.",
+          "Known-pattern comparison is not Ethernet FCS validation or a simulation of upper-layer services.",
+          "Malformed authored data is content-error with no learner penalty or progress award. Missing learner input is invalid-input.",
+          "Hints remain available and are recorded separately; assistance does not downgrade a technically valid result."
+        ]
+      },
+      "effects": [
+        {
+          "kind": "complete-objective",
+          "effectId": "spec001:EFFECT-O12",
+          "objectiveId": "spec001:O12"
+        }
+      ],
+      "hints": {
+        "method": {
+          "id": "spec001:HINT-O12-method",
+          "text": "Measure the changed path again and run the separate endpoint test. Then describe whether anything temporary or unresolved remains."
+        },
+        "workedStep": {
+          "id": "spec001:HINT-O12-workedStep",
+          "text": "A passing lamp or arrival is not enough. Permanent and temporary restoration both need fresh passing physical and endpoint checks; temporary also needs a documented dependency and follow-up."
+        },
+        "solution": {
+          "id": "spec001:HINT-O12-solution",
+          "text": "Choose The Steady Light only for a fresh validated permanent repair; The Borrowed Dawn for fresh validated temporary restoration with its limitation/follow-up; The Honest Shutdown for a named unresolved defect deliberately isolated with recovery. Keep hint use separate."
+        }
+      },
+      "observableOutcome": "Fresh validation and a justified permanent, temporary or unresolved classification are recorded without mislabeling unresolved service.",
+      "completionExplanation": "The ending reflects the evidence: permanent restoration, documented temporary restoration, or honest unresolved shutdown. A physical check alone never proves an application service.",
+      "requiresReflexTiming": false
+    }
+  ]
+}

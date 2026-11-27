@@ -285,6 +285,30 @@ and bulk media scaling retain their representative G3 review prerequisite. Keep
 all unimplemented behavior honestly RED/TODO and serialize CPU-heavy checks with
 the finished-room performance benchmark. Aggregate gates remain pending.
 
+**Owner-approved representative direction, 2026-11-26:** the owner accepted the
+corrected R01 screen and instructed overnight continuation toward Spec001
+completion. T066's implementation and source/media checks pass, the unchanged
+audio is approved, and the revised twelve-sample Firefox benchmark meets the
+recorded budgets. Native Safari capability and earlier external gates remain
+open. Under the existing independent-work continuation rule, T069's pure authored
+profiles/objectives and T070–T074's deterministic evaluators may now proceed from
+accepted T006/T014/T068 source models and independent oracles. These inputs do not
+depend on a native browser control surface or production OAuth registration.
+Coordinate any shared interfaces, preserve RED expectations until implemented,
+and do not accept a gate or dependent browser/host capability from these local
+results. This is scoped implementation scheduling, not removal of the G3 review
+or release requirements. Full route integration and media scaling still require
+an explicit readiness assessment of their actual inputs.
+
+**Representative benchmark joined, 2026-11-26:** T067's actual native Safari,
+revised Firefox, unchanged source/listening and corrected-screen owner evidence
+are now verified. The explicit actual-input assessment is
+`docs/evidence/spec001/presentation/representative-room-acceptance-2026-11-26.md`.
+After T070–T074 join, local T075–T105 route/outcome/companion implementation may
+follow the existing dependency sequence with isolated services. Aggregate G0–G3,
+real providers and production hosting remain separately pending. Bulk media
+retains T105/layout and its actual source/rights/review prerequisites.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -376,8 +400,8 @@ the finished-room performance benchmark. Aggregate gates remain pending.
 **Ready after**: T060–T067.
 
 - [X] T068 [US2] Extend reviewed independent fixtures for every O03–O12 alternative/boundary and T03–T16 in `tests/fixtures/repair-routes.json` and `tests/domain/repair-routes.test.ts`; verify optical −11dBm/3dB, −13dBm/1dB, inclusive −12dBm/2dB and radio 25dB/13dB expectations before implementation.
-- [ ] T069 [US2] Author bounded copper/fiber/radio/power/capability profiles with units, source references and fictional-threshold labels in `content/spec001/profiles.json` and `content/spec001/objectives.json`; every mandatory objective needs evidence, alternatives, effects and its method/worked/solution hint ladder.
-- [ ] T070 [P] [US2] Complete copper compatibility/length/continuity/regeneration evaluation in `src/domain/copper.ts` against T01–T03 and boundary fixtures; a repeater cannot bridge the declared physical break.
+- [X] T069 [US2] Author bounded copper/fiber/radio/power/capability profiles with units, source references and fictional-threshold labels in `content/spec001/profiles.json` and `content/spec001/objectives.json`; every mandatory objective needs evidence, alternatives, effects and its method/worked/solution hint ladder.
+- [X] T070 [P] [US2] Complete copper compatibility/length/continuity/regeneration evaluation in `src/domain/copper.ts` against T01–T03 and boundary fixtures; a repeater cannot bridge the declared physical break.
 - [ ] T071 [P] [US2] Implement optical profile compatibility, receive power/sensitivity/overload and reserve margin in `src/domain/optics.ts` against T04–T07/T15; retain dBm versus dB and reject incompatible optics before a passing numerical budget.
 - [ ] T072 [P] [US2] Implement scoped path/channel/compatibility and SNR evaluation in `src/domain/radio.ts` against T08/T09 and independent boundaries; signal strength alone never promises throughput.
 - [ ] T073 [P] [US2] Implement delivered-power allocation and common-capability selection in `src/domain/power.ts` and `src/domain/capabilities.ts` against T10/T11; 33W exceeds 30W by 3W and common capability is 100/full without inventing support.
@@ -562,8 +586,8 @@ T066/T067/G3 or authorize full gameplay/media scaling before the required review
 - [X] T063 [P] [US8] Produce and reopen real R01 scene and Apprentice/Photon .blend sources with locomotion/idle/reaction clips, meaningful props and usable GLB exports in `assets-src/rooms/R01.blend`, `assets-src/characters/CH01.blend`, `assets-src/characters/CH03.blend` and `public/assets/models/`; record actual source/browser comparison.
 - [X] T064 [P] [US8] Generate actual OpenAI R01 background and two usable layers, preserve original prompts/references/output metadata and honest edits in `assets-src/images/R01/`, then export registered layers under `public/assets/images/R01/`; no fabricated invocation or private temporary references.
 - [X] T065 [P] [US8] Audition project dialogue for narrator/Titan/Photon/Hermit and representative AI-assisted music/effects in `assets-src/audio/auditions/`; retain raw generations, exact voice/model terms, Audacity4 .aup4/lossless masters and actual headphone/speaker listening records in `docs/evidence/spec001/audio-auditions.md`.
-- [ ] T066 [US8] Finish R01 using real assets and shared interaction state in `src/presentation/three-room.ts` and `content/spec001/presentation/R01.json`; integrate music/voice/text/captions without changing diagnostic results or counting unaccepted smoke assets.
-- [ ] T067 [US8] Measure the finished R01 reference room, reopen its sources, inspect actual browser rendering/listen and obtain owner review in `docs/evidence/spec001/representative-room.md`; record G3 in `docs/evidence/spec001/gates.md` before full gameplay/media scaling.
+- [X] T066 [US8] Finish R01 using real assets and shared interaction state in `src/presentation/three-room.ts` and `content/spec001/presentation/R01.json`; integrate music/voice/text/captions without changing diagnostic results or counting unaccepted smoke assets.
+- [X] T067 [US8] Measure the finished R01 reference room, reopen its sources, inspect actual browser rendering/listen and obtain owner review in `docs/evidence/spec001/representative-room.md`; record G3 in `docs/evidence/spec001/gates.md` before full gameplay/media scaling.
 
 ### Complete media sources and exports
 

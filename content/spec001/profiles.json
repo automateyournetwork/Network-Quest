@@ -1,0 +1,617 @@
+{
+  "kind": "collection",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "records": [
+    {
+      "kind": "profile",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:PROFILE-COPPER-100",
+      "reviewedProfileId": "spec001:PROFILE-COPPER-100",
+      "ruleIds": [
+        "spec001:PHY04",
+        "spec001:PHY05"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S03",
+          "section": "Cable Specifications → Ethernet Cable Specifications → Maximum Cable Length",
+          "supportedClaim": "This hardware guide specifies a 100 m maximum Ethernet cable distance between the described router and connected equipment.",
+          "limitations": [
+            "Product-specific illustration only. The game 100 m channel and inclusive comparator remain fictional; no universal limit for all copper or all Ethernet. No certification claim."
+          ]
+        },
+        {
+          "sourceId": "spec001:S04",
+          "section": "Failures of the Five Wiremap Tests",
+          "supportedClaim": "Wiremap examines conductor continuity and termination; an open can reflect a broken conductor, poor connection or damaged connector.",
+          "limitations": [
+            "The fixture supplies a diagnosed required-path break. An arbitrary open indication alone does not prove its location or cause; tester setup also matters."
+          ]
+        },
+        {
+          "sourceId": "spec001:S05",
+          "section": "Chapter 5 Ethernet networks → Ethernet topologies → Repeater hubs; PDF page 101",
+          "supportedClaim": "Historical Ethernet repeater hubs receive and repeat data to linked segments with amplification and retiming; the described shared medium operates half duplex.",
+          "limitations": [
+            "Not a modern wireless extender or a universal repeater topology allowance. Inability to restore an unchanged physical break is an explicit scenario inference, supported together with S04."
+          ]
+        }
+      ],
+      "model": {
+        "label": "fictional-teaching-profile",
+        "scope": "Exact reviewed profile projection. The introductory selector supplies T02 or T01 lengths; this profile checks length/continuity only. No full-link or branch success follows.",
+        "assumptions": [
+          "Known compatible endpoints/media/terminations; one passive channel; supplied lengths exact and nonnegative.",
+          "Every required conductor is continuous unless explicitly broken; fresh tests required."
+        ],
+        "limitations": [
+          "No cable certification, electromagnetic model, hidden permanent-link/patch-cord sublimits or real-product claim.",
+          "Repeater added without fixing a break cannot restore continuity. Regenerative topologies require separate reviewed segment limits and are unsupported here."
+        ]
+      },
+      "parameters": {
+        "maximumChannelLength": {
+          "value": 100,
+          "unit": "m"
+        },
+        "inclusiveMaximum": true
+      },
+      "reviewedCaseIds": [
+        "T01",
+        "T02",
+        "B-COPPER-100",
+        "B-COPPER-OVER",
+        "I-PHY04",
+        "C-CONTINUITY",
+        "T03",
+        "B-CONTINUITY",
+        "I-PHY05"
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-read-PROFILE-COPPER-100",
+          "label": "Read the declared copper exercise",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "always"
+          },
+          "ruleIds": [
+            "spec001:PHY04"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-inspection"
+          ],
+          "effects": [],
+          "explanation": "Inspect the supplied profile and its limits; reading this context does not grant an objective or prove a repair."
+        }
+      ]
+    },
+    {
+      "kind": "profile",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:PROFILE-OPTICAL",
+      "reviewedProfileId": "spec001:PROFILE-OPTICAL",
+      "ruleIds": [
+        "spec001:PHY06"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S06",
+          "section": "Calculate Power Budget and Power Margin for Fiber-Optic Cables → Calculate Power Budget for Fiber-Optic Cables; How to Calculate Power Margin for Fiber-Optic Cables",
+          "supportedClaim": "Budget equals minimum transmit power minus receiver sensitivity; margin subtracts link loss from that budget. Actual component losses need vendor data.",
+          "limitations": [
+            "Original Juniper URL redirects to publisher HPE documentation. Use equations only; a positive margin does not independently prove the maximum receiver bound. No sample losses or fixture thresholds imported."
+          ]
+        },
+        {
+          "sourceId": "spec001:S07",
+          "section": "Platform support; Product specifications, Table 3 SFP+ port cabling specifications and Table 4 Optical transmit and receive specifications",
+          "supportedClaim": "Module-specific media, wavelength, reach and receiver minimum/maximum power are separate specifications. Host compatibility requires support information.",
+          "limitations": [
+            "No real module is instantiated in the toy optical fixture. Do not generalize shell shape or SMF/MMF slogans; supported combinations vary by module."
+          ]
+        }
+      ],
+      "model": {
+        "label": "fictional-teaching-profile",
+        "scope": "Exact reviewed fictional/toy profile for the Physical Layer exercises. Its supplied thresholds and assumptions are not universal standards or real-product specifications. Runtime comparisons must retain the reviewed units and independent boundary cases.",
+        "assumptions": [
+          "Explicit matched pair, media, wavelength direction, supported rate, connector/polarity and host capability; inspected connection.",
+          "Loss is passive, finite and nonnegative, expressed in dB; total provided includes all modeled losses; no amplifier."
+        ],
+        "limitations": [
+          "Evaluate compatibility before arithmetic.",
+          "No dispersion, uncertainty, aging, temperature or actual product simulation.",
+          "T06 supplies received power independently; combining 0 dBm receive with -3 dBm transmit and nonnegative passive loss is inconsistent content."
+        ]
+      },
+      "parameters": {
+        "transmit": {
+          "value": -3,
+          "unit": "dBm"
+        },
+        "sensitivity": {
+          "value": -14,
+          "unit": "dBm"
+        },
+        "maximumReceive": {
+          "value": -1,
+          "unit": "dBm"
+        },
+        "requiredMargin": {
+          "value": 2,
+          "unit": "dB"
+        },
+        "inclusiveBounds": true
+      },
+      "reviewedCaseIds": [
+        "T04",
+        "T05",
+        "T06",
+        "T07",
+        "T15",
+        "B-OPT-MAX",
+        "B-OPT-OVER",
+        "B-OPT-RESERVE",
+        "I-PHY06"
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-read-PROFILE-OPTICAL",
+          "label": "Read optical exercise profile",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "always"
+          },
+          "ruleIds": [
+            "spec001:PHY06"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O06-budget"
+          ],
+          "effects": [],
+          "explanation": "Read the declared profile and its limitations. Reading a profile is context only: it neither awards progress nor substitutes for compatibility, current measurements or endpoint validation."
+        }
+      ]
+    },
+    {
+      "kind": "profile",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:PROFILE-RADIO",
+      "reviewedProfileId": "spec001:PROFILE-RADIO",
+      "ruleIds": [
+        "spec001:PHY07"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S08",
+          "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+          "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+          "limitations": [
+            "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."
+          ]
+        },
+        {
+          "sourceId": "spec001:S09",
+          "section": "What is Signal-to-Noise Ratio (SNR)?",
+          "supportedClaim": "SNR is a signal-to-noise power ratio; its dB value is ten times the base-ten logarithm of that ratio.",
+          "limitations": [
+            "For compatible power measurements with one reference, subtracting dBm yields dB. No universal acceptable threshold follows from this definition."
+          ]
+        }
+      ],
+      "model": {
+        "label": "fictional-teaching-profile",
+        "scope": "Exact reviewed fictional/toy profile for the Physical Layer exercises. Its supplied thresholds and assumptions are not universal standards or real-product specifications. Runtime comparisons must retain the reviewed units and independent boundary cases.",
+        "assumptions": [
+          "Signal and noise use comparable received power measurements in dBm.",
+          "Known compatible radio settings and viable path are independently supplied; sample fresh after change."
+        ],
+        "limitations": [
+          "No universal Wi-Fi throughput, channel ranking, coverage model or regulatory assertion.",
+          "Missing authored path/settings facts are content-error; explicitly incompatible chosen settings are incorrect."
+        ]
+      },
+      "parameters": {
+        "requiredSNR": {
+          "value": 20,
+          "unit": "dB"
+        },
+        "inclusiveMinimum": true
+      },
+      "reviewedCaseIds": [
+        "T08",
+        "T09",
+        "B-RADIO-20",
+        "B-RADIO-BELOW",
+        "B-RADIO-PATH",
+        "I-PHY07"
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-read-PROFILE-RADIO",
+          "label": "Read radio exercise profile",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "always"
+          },
+          "ruleIds": [
+            "spec001:PHY07"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O08-snr"
+          ],
+          "effects": [],
+          "explanation": "Read the declared profile and its limitations. Reading a profile is context only: it neither awards progress nor substitutes for compatibility, current measurements or endpoint validation."
+        }
+      ]
+    },
+    {
+      "kind": "profile",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:PROFILE-POWER",
+      "reviewedProfileId": "spec001:PROFILE-POWER",
+      "ruleIds": [
+        "spec001:PHY08"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S10",
+          "section": "Introductory PSE/PD definitions; PoE budget; PoE class, table headings for power delivered to PD versus switch-port output",
+          "supportedClaim": "PSE output and power delivered to a PD are distinct accounting boundaries. Multiple devices must fit the available aggregate budget.",
+          "limitations": [
+            "Only this distinction and aggregate-budget concept are used. No table wattages, PoE class allocation, priority behavior or detection timing are used by the fiction."
+          ]
+        }
+      ],
+      "model": {
+        "label": "fictional-teaching-profile",
+        "scope": "Exact reviewed fictional/toy profile for the Physical Layer exercises. Its supplied thresholds and assumptions are not universal standards or real-product specifications. Runtime comparisons must retain the reviewed units and independent boundary cases.",
+        "assumptions": [
+          "Budget and demands measured at the delivered endpoint boundary after losses.",
+          "Device/port/power-method compatibility and per-port constraints independently satisfied."
+        ],
+        "limitations": [
+          "No PoE class, voltage negotiation, inrush model or hidden PSE-to-PD loss subtraction.",
+          "Power adequacy alone does not prove data connectivity."
+        ]
+      },
+      "parameters": {
+        "deliveredBudget": {
+          "value": 30,
+          "unit": "W"
+        },
+        "inclusiveMaximum": true
+      },
+      "reviewedCaseIds": [
+        "C-POWER",
+        "T10",
+        "B-POWER-30",
+        "B-POWER-OVER",
+        "B-POWER-COMPAT",
+        "I-PHY08"
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-read-PROFILE-POWER",
+          "label": "Read power exercise profile",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "always"
+          },
+          "ruleIds": [
+            "spec001:PHY08"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O09-power"
+          ],
+          "effects": [],
+          "explanation": "Read the declared profile and its limitations. Reading a profile is context only: it neither awards progress nor substitutes for compatibility, current measurements or endpoint validation."
+        }
+      ]
+    },
+    {
+      "kind": "profile",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:PROFILE-CAPABILITIES",
+      "reviewedProfileId": "spec001:PROFILE-CAPABILITIES",
+      "ruleIds": [
+        "spec001:PHY09"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S11",
+          "section": "When to Use Ethernet 10/100 Mb Auto-Negotiation",
+          "supportedClaim": "Negotiation exchanges supported speed and duplex abilities; both link partners need coherent settings.",
+          "limitations": [
+            "T11 is set intersection with one common member and both ends negotiating. Forced modes, parallel detection and modern PHY-specific negotiation are outside this model."
+          ]
+        }
+      ],
+      "model": {
+        "label": "toy-negotiation",
+        "scope": "Exact reviewed fictional/toy profile for the Physical Layer exercises. Its supplied thresholds and assumptions are not universal standards or real-product specifications. Runtime comparisons must retain the reviewed units and independent boundary cases.",
+        "assumptions": [
+          "Both endpoints negotiate; accepted selection must exist in both advertised sets.",
+          "T11 has one common member, so no ranking algorithm is needed."
+        ],
+        "limitations": [
+          "No unsupported capability creation, forced-mode fallback, parallel detection, PAUSE or master/slave simulation.",
+          "A challenge with several common choices must declare and review any ranking rule; do not invent one."
+        ]
+      },
+      "parameters": {
+        "endpointA": [
+          {
+            "rate": {
+              "value": 1000,
+              "unit": "Mb/s"
+            },
+            "duplex": "full"
+          },
+          {
+            "rate": {
+              "value": 100,
+              "unit": "Mb/s"
+            },
+            "duplex": "full"
+          }
+        ],
+        "endpointB": [
+          {
+            "rate": {
+              "value": 100,
+              "unit": "Mb/s"
+            },
+            "duplex": "full"
+          },
+          {
+            "rate": {
+              "value": 10,
+              "unit": "Mb/s"
+            },
+            "duplex": "half"
+          }
+        ]
+      },
+      "reviewedCaseIds": [
+        "T11",
+        "C-NEG-WRONG",
+        "B-NEG-NONE",
+        "I-PHY09"
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-read-PROFILE-CAPABILITIES",
+          "label": "Read capabilities exercise profile",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "always"
+          },
+          "ruleIds": [
+            "spec001:PHY09"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O09-capability"
+          ],
+          "effects": [],
+          "explanation": "Read the declared profile and its limitations. Reading a profile is context only: it neither awards progress nor substitutes for compatibility, current measurements or endpoint validation."
+        }
+      ]
+    },
+    {
+      "kind": "profile",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:PROFILE-SYMBOLS",
+      "reviewedProfileId": "spec001:PROFILE-SYMBOLS",
+      "ruleIds": [
+        "spec001:PHY10"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S01",
+          "section": "7.7.2; 7.7.3.3–7.7.3.4; 7.7.4.4; printed pages 49–51, PDF pages 53–55",
+          "supportedClaim": "Physical entities transmit bits over physical media and can relay interconnected circuits; transmission may be synchronous or asynchronous.",
+          "limitations": [
+            "Conceptual architecture only. No universal medium, numeric threshold, wire header, or claim that PHYs never have their own error mechanisms."
+          ]
+        },
+        {
+          "sourceId": "spec001:S12",
+          "section": "2.1 Naming Conventions; Table 4 Linear and Gray Coding",
+          "supportedClaim": "Four amplitude levels can represent four two-bit combinations; the source distinguishes linear and Gray coding.",
+          "limitations": [
+            "T12 deliberately uses the declared linear toy labels. Do not substitute a real PHY map, count useful bitrate from symbol count, or imply the toy implements PAM4."
+          ]
+        },
+        {
+          "sourceId": "spec001:S13",
+          "section": "4.2.3 Clock and Data Recovery (CDR)",
+          "supportedClaim": "High-speed serial reception includes clock/data recovery; multilevel signaling requires appropriate timing recovery.",
+          "limitations": [
+            "Physical timing context only. The toy uses explicit discrete sampling; no analog jitter model, NTP synchronization, timing reflex requirement or CDR implementation."
+          ]
+        }
+      ],
+      "model": {
+        "label": "toy-symbol-map",
+        "scope": "Exact reviewed fictional/toy profile for the Physical Layer exercises. Its supplied thresholds and assumptions are not universal standards or real-product specifications. Runtime comparisons must retain the reviewed units and independent boundary cases.",
+        "assumptions": [
+          "Discrete exact samples are provided in order with explicit sample positions; player may step, pause and replay."
+        ],
+        "limitations": [
+          "No analog voltage claim, complete PAM4 PHY, clock-rate/throughput inference or timing score.",
+          "Unknown authored symbols/missing sample positions are content-error; missing learner answer is invalid-input."
+        ]
+      },
+      "parameters": {
+        "levels": [
+          {
+            "symbol": {
+              "value": -3,
+              "unit": "toy-level"
+            },
+            "bits": "00"
+          },
+          {
+            "symbol": {
+              "value": -1,
+              "unit": "toy-level"
+            },
+            "bits": "01"
+          },
+          {
+            "symbol": {
+              "value": 1,
+              "unit": "toy-level"
+            },
+            "bits": "10"
+          },
+          {
+            "symbol": {
+              "value": 3,
+              "unit": "toy-level"
+            },
+            "bits": "11"
+          }
+        ],
+        "bitsPerSymbol": 2
+      },
+      "reviewedCaseIds": [
+        "T12",
+        "C-SYMBOL-WRONG",
+        "B-SYMBOL",
+        "B-TIMING",
+        "I-PHY10"
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-read-PROFILE-SYMBOLS",
+          "label": "Read symbols exercise profile",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "always"
+          },
+          "ruleIds": [
+            "spec001:PHY10"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-O10-symbols"
+          ],
+          "effects": [],
+          "explanation": "Read the declared profile and its limitations. Reading a profile is context only: it neither awards progress nor substitutes for compatibility, current measurements or endpoint validation."
+        }
+      ]
+    },
+    {
+      "kind": "profile",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:PROFILE-PACKET",
+      "reviewedProfileId": "spec001:PROFILE-PACKET",
+      "ruleIds": [
+        "spec001:PHY11"
+      ],
+      "sourceClaims": [
+        {
+          "sourceId": "spec001:S01",
+          "section": "7.7.2; 7.7.3.3–7.7.3.4; 7.7.4.4; printed pages 49–51, PDF pages 53–55",
+          "supportedClaim": "Physical entities transmit bits over physical media and can relay interconnected circuits; transmission may be synchronous or asynchronous.",
+          "limitations": [
+            "Conceptual architecture only. No universal medium, numeric threshold, wire header, or claim that PHYs never have their own error mechanisms."
+          ]
+        },
+        {
+          "sourceId": "spec001:S02",
+          "section": "1.1.3 Internet Protocol Suite, pages 8–11",
+          "supportedClaim": "The Internet suite distinguishes application, transport, Internet and link functions; its grouping differs from the OSI teaching realms.",
+          "limitations": [
+            "Historical architectural context, not current protocol configuration guidance; does not authorize seven invented mandatory headers."
+          ]
+        },
+        {
+          "sourceId": "spec001:S12",
+          "section": "2.1 Naming Conventions; Table 4 Linear and Gray Coding",
+          "supportedClaim": "Four amplitude levels can represent four two-bit combinations; the source distinguishes linear and Gray coding.",
+          "limitations": [
+            "T12 deliberately uses the declared linear toy labels. Do not substitute a real PHY map, count useful bitrate from symbol count, or imply the toy implements PAM4."
+          ]
+        }
+      ],
+      "model": {
+        "label": "known-laboratory-pattern",
+        "scope": "Exact reviewed profile projection. Highlighted bytes and context only in T023. Interactive pause/step/replay and actual recovered-pattern comparison belong to the later packet slice.",
+        "assumptions": [
+          "Two highlighted bytes within an opaque upper-interface frame; known sample order.",
+          "Compare recovered highlighted bits after evaluating the declared physical path."
+        ],
+        "limitations": [
+          "Display bit order is a toy convention, not a claim about Ethernet serialization.",
+          "Not a whole two-byte Ethernet frame, FCS validation, universal error detector or higher-layer simulator."
+        ]
+      },
+      "parameters": {
+        "payloadHex": [
+          "4E",
+          "51"
+        ],
+        "payloadText": "NQ",
+        "highlightedBits": "0100111001010001",
+        "displayBitOrder": "most-significant-bit first within each highlighted byte"
+      },
+      "reviewedCaseIds": [
+        "C-PACKET",
+        "C-PACKET-DIFF",
+        "B-PACKET",
+        "I-PHY11"
+      ],
+      "alternatives": [
+        {
+          "id": "spec001:ACTION-read-PROFILE-PACKET",
+          "label": "Read the declared packet context",
+          "method": "direct-action",
+          "itemIds": [],
+          "abilityIds": [],
+          "condition": {
+            "kind": "always"
+          },
+          "ruleIds": [
+            "spec001:PHY11"
+          ],
+          "evidenceIds": [
+            "spec001:FACT-packet-context"
+          ],
+          "effects": [],
+          "explanation": "Inspect the supplied profile and its limits; reading this context does not grant an objective or prove a repair."
+        }
+      ]
+    }
+  ]
+}

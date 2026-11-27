@@ -705,3 +705,75 @@ request asks to open63366 in Safari and leave it frontmost while reviewing.
 and no deployment. Required review remains pending for the corrected screen;
 unchanged original audio approval remains valid. Root prepares a scoped combined
 GitHub checkpoint after the additive073 report/seal is reviewed.
+
+### Reviewed contained-screen checkpoint published — 2026-11-26
+
+Commit `bcb8ecfcfc7b146f73eda12d131c532185ff152a` is pushed and remote-verified on
+`001-physical-layer-underworld`.180 explicit staged paths matched reviewed hashes
+and passed private-value/key scans. Authored whitespace is clean; five sealed raw
+command-output files intentionally retain their original whitespace. Both growing
+preview logs remain untracked. Same073 additive67-file seal is
+`39c943768c9a7aa3c8e4e318fd2989a4f74353b6233ba3181c92c3baa60a4aa1`.
+Final report corrects its UA description to Macintosh compatibility UA; actual
+host OS comes from the recorded native probe. All historical seals are unchanged.
+
+All three workers finished this batch. Required nativeSafari and revised owner
+review remain pending; same073 can resume after actual foreground input changes.
+New63366 preview remains HTTP200 with exact decoded reviewed HTML hash; no deployment,
+rollback record or episode-completion claim.78loops/60accepted are unchanged.
+This publication-pointer update remains in the working tree for the next checkpoint.
+
+## Owner approved corrected screen; overnight continuation — 2026-11-26
+
+Owner: “yeaht thats MUCH Better can you drive spec001 to completion”; subsequently
+“I am going to bed try to loop to 100% please no brakes I will be back in the am”.
+Recorded exact scoped approval in presentation/owner-frame-approval-2026-11-26.md.
+T066 accepted from final source/media/test/independent-review join and this approval;
+61tasks accepted. No final episode or nativeSafari result inferred.
+
+Same073 inspects actual native foreground/control capability without repeating
+unchanged timing failures. Fresh079 ownsT069 authored profiles/objectives; fresh080
+owns read-onlyT003 existing operator/host metadata follow-up.80loops started. Root
+records the scoped independent evaluator scheduling clarification in tasks/execution
+direction. Canonical source/controller changes and publication remain coordinated.
+Keep owner-approved preview and all historical seals unchanged. Do not wake owner
+with routine repeated questions; continue work with ready actual prerequisites.
+
+NativeSafari standardNSRunningApplication activation succeeded after the bounded
+read-only diagnosis. Root inspected the actual painted old-title screenshot;
+freshprocess metadata confirmsSafari foreground.073 now has exclusive timing
+reservation for the frozen corrected candidate. No settings/trust changes.079
+has123PASS/52TODO before the requested visible-prose cleanup; finalchecks await
+timingrelease. Fresh081/T070 prepares source/oracle/test work only untilT069join.
+
+080 completed read-onlyhostfollowup: newer33.5-minute cPanelquota cache,100GiB and
+250k inode limits. EffectiveCPU/I/O/package limits and provider/manual retention
+remain unknown; noT003completion. Historical localarchivepath absent, current
+staticbackupdirectory present, no contents/productionwrites. Its two owned docs
+are reviewed; private0600 records stay.local.81loops/61accepted.
+
+### Authored repair content accepted — 2026-11-26
+
+T069 accepted after root review of seven profiles/twelve objectives, exact source
+parameters and original introduction preservation, player prose, evidence/effects
+and nonrestrictive alternative tests. Final targeted123PASS/52existingTODO and
+typecheck pass.81loops/62accepted.081 may execute copper RED→implementation.
+Actual Safari completed12 required samples and released timing;073 writes additive
+report. Root inspected real1280/1440 screenshots with approved contained UI.
+No aggregate gate, real provider or deployment acceptance inferred.
+
+### Native benchmark accepted and evaluator wave active — 2026-11-26
+
+T067 accepted after root native raw-data/source/seal audit and actual screenshots.
+12 native samples,1889–1985ms cold/489–524ms warm,59.91–60.47FPS; actual hidden
+render counts pause and resume.59-file seal9386240e3e4cfbf65dac13d49e57fb48ced7c083bd6dab272a6cbdadc333ce77.
+Additive acceptance/readiness record preserves HTTP/audio/service limitations and
+earlier aggregate blockers. Root noted081 copper source changed after timing;
+old published candidate matches measured hash. No stale candidate claim.
+83loops/63accepted.081copper,082optics,083radio run disjoint source/tests;084power
+next free slot. After their join T074 precedes route work. No new deployment.
+
+T070 accepted: root reviewed scoped compatibility/path/termination validation,
+exactdecimal and break/repeater behavior, originalAPI preserved;100copper tests
+and625joinedPASS/120existingTODO/typecheck. No effects granted by pure readings.
+84loops/64accepted;084power/capability replaces completed081, with082/083ongoing.

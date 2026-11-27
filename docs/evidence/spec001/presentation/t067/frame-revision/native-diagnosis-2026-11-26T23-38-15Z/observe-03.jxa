@@ -1,0 +1,8 @@
+ObjC.import('Cocoa'); ObjC.import('CoreGraphics');
+var session=ObjC.deepUnwrap(ObjC.castRefToObject($.CGSessionCopyCurrentDictionary()));
+var flags={}; Object.keys(session).filter(function(k){return /Console|LoginDone|Locked/.test(k);}).forEach(function(k){flags[k]=session[k];});
+var se=Application('System Events'), process=se.processes.byName('Safari');
+function attribute(w,name){try{return w.attributes.byName(name).value();}catch(e){return {unavailable:true,error:String(e)};}}
+var ax=process.windows().map(function(w){return {position:w.position(),size:w.size(),role:attribute(w,'AXRole'),subrole:attribute(w,'AXSubrole'),windowNumber:attribute(w,'AXWindowNumber'),main:attribute(w,'AXMain'),focused:attribute(w,'AXFocused'),minimized:attribute(w,'AXMinimized'),actions:w.actions().map(function(a){return a.name();})};});
+var windows=Application('Safari').windows().map(function(w){return {id:w.id(),visible:w.visible(),miniaturized:w.miniaturized(),bounds:w.bounds(),tabCount:w.tabs.length};});
+JSON.stringify({consoleFlags:flags,axSafariWindows:ax,safariScriptingWindows:windows,privateWindowNamesOrUrlsCollected:false});
