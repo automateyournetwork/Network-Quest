@@ -1,0 +1,327 @@
+{
+  "testedAt": "2026-11-27T22:17:10.411Z",
+  "method": "Exact HTTP bytes, native decoder and PCM anchor. Native offline buffer-source scheduling and gain automation; live gesture/suspend/resume/close. Isolated production fixture.",
+  "rate": 48000,
+  "engines": [
+    {
+      "name": "chromium",
+      "version": "159.0.8154.6",
+      "rows": [
+        {
+          "slug": "radio",
+          "sha256": "655bb0a2e7d6efbc16dd48e2cb40157825c23179870dff8cf87814168793c9f3",
+          "decodedFrames": 3694079,
+          "decodedOffset": 0,
+          "anchorCorrelation": 0.9999939096784675,
+          "loopStartSample": 0,
+          "loopEndSample": 3694079,
+          "behavior": {
+            "joins": [
+              {
+                "sample": 3694079,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.003789612092077732
+              },
+              {
+                "sample": 7388158,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.003789612092077732
+              },
+              {
+                "sample": 11082237,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.003789612092077732
+              }
+            ]
+          },
+          "transition": null,
+          "voiceSha256": "d731fab987b3b6b9c84e93232b352308a354a45e1f3622473e78eeababd56312",
+          "duckDb": -6,
+          "attackMs": 120,
+          "releaseMs": 350,
+          "mutePeak": 0,
+          "unmutedPeak": 0.2932201027870178,
+          "mixMaximumError": 3.430237049961704e-8
+        },
+        {
+          "slug": "clockworks",
+          "sha256": "9aec374335970d498986a8d44ab2ff9827c87df8f41ce676a308caeb2295a7cd",
+          "decodedFrames": 3240959,
+          "decodedOffset": 0,
+          "anchorCorrelation": 0.9999598381841117,
+          "loopStartSample": 0,
+          "loopEndSample": 3240959,
+          "behavior": {
+            "joins": [
+              {
+                "sample": 3240959,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.0016867667436599731
+              },
+              {
+                "sample": 6481918,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.0016867667436599731
+              },
+              {
+                "sample": 9722877,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.0016867667436599731
+              }
+            ]
+          },
+          "transition": {
+            "from": "radio",
+            "to": "clockworks",
+            "seconds": 0.25,
+            "peak": 0.2258521169424057,
+            "maximumReferenceError": 7.388958084275643e-9
+          },
+          "voiceSha256": "d731fab987b3b6b9c84e93232b352308a354a45e1f3622473e78eeababd56312",
+          "duckDb": -6,
+          "attackMs": 120,
+          "releaseMs": 350,
+          "mutePeak": 0,
+          "unmutedPeak": 0.05143173038959503,
+          "mixMaximumError": 3.890696387287562e-8
+        },
+        {
+          "slug": "rift",
+          "sha256": "34df3e350d09e6a61e4f4f85cfeaeed8e5c8d2d829ceae651d41bef5e84a1a5c",
+          "decodedFrames": 4093440,
+          "decodedOffset": 0,
+          "anchorCorrelation": 0.999972229987424,
+          "loopStartSample": 0,
+          "loopEndSample": 4093440,
+          "behavior": {
+            "joins": [
+              {
+                "sample": 4093440,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.00018261093646287918
+              },
+              {
+                "sample": 8186880,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.00018261093646287918
+              },
+              {
+                "sample": 12280320,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.00018261093646287918
+              }
+            ]
+          },
+          "transition": {
+            "from": "clockworks",
+            "to": "rift",
+            "seconds": 0.25,
+            "peak": 0.15132802724838257,
+            "maximumReferenceError": 1.5822239213258982e-8
+          },
+          "voiceSha256": "d731fab987b3b6b9c84e93232b352308a354a45e1f3622473e78eeababd56312",
+          "duckDb": -6,
+          "attackMs": 120,
+          "releaseMs": 350,
+          "mutePeak": 0,
+          "unmutedPeak": 0.03403930366039276,
+          "mixMaximumError": 3.085653654810727e-8
+        },
+        {
+          "slug": "epilogue",
+          "sha256": "a558798006061fc625aa6d5ba300760e1a141cc53856273e5781de4867a7b97c",
+          "decodedFrames": 3084000,
+          "decodedOffset": 0,
+          "anchorCorrelation": 0.9999742434913825,
+          "loopStartSample": null,
+          "loopEndSample": null,
+          "behavior": {
+            "loop": false,
+            "finalReleasePeak": 3.7800936070198077e-7,
+            "postSongPeak": 0,
+            "postSongFrames": 12000
+          },
+          "transition": {
+            "from": "rift",
+            "to": "epilogue",
+            "seconds": 0.25,
+            "peak": 0.10775167495012283,
+            "maximumReferenceError": 4.616333176832299e-9
+          },
+          "voiceSha256": "d731fab987b3b6b9c84e93232b352308a354a45e1f3622473e78eeababd56312",
+          "duckDb": -6,
+          "attackMs": 120,
+          "releaseMs": 350,
+          "mutePeak": 0,
+          "unmutedPeak": 0.12768714129924774,
+          "mixMaximumError": 3.656007963037666e-8
+        }
+      ],
+      "suspended": "suspended",
+      "suspendedTimeAdvanced": false,
+      "resumed": "running",
+      "resumedSeconds": 0.14933333333333326,
+      "closed": "closed"
+    },
+    {
+      "name": "firefox",
+      "version": "159.0",
+      "rows": [
+        {
+          "slug": "radio",
+          "sha256": "655bb0a2e7d6efbc16dd48e2cb40157825c23179870dff8cf87814168793c9f3",
+          "decodedFrames": 3694079,
+          "decodedOffset": 0,
+          "anchorCorrelation": 0.9999938691642271,
+          "loopStartSample": 0,
+          "loopEndSample": 3694079,
+          "behavior": {
+            "joins": [
+              {
+                "sample": 3694079,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.003814697265625
+              },
+              {
+                "sample": 7388158,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.003814697265625
+              },
+              {
+                "sample": 11082237,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.003814697265625
+              }
+            ]
+          },
+          "transition": null,
+          "voiceSha256": "d731fab987b3b6b9c84e93232b352308a354a45e1f3622473e78eeababd56312",
+          "duckDb": -6,
+          "attackMs": 120,
+          "releaseMs": 350,
+          "mutePeak": 0,
+          "unmutedPeak": 0.2932218313217163,
+          "mixMaximumError": 3.088177402688075e-8
+        },
+        {
+          "slug": "clockworks",
+          "sha256": "9aec374335970d498986a8d44ab2ff9827c87df8f41ce676a308caeb2295a7cd",
+          "decodedFrames": 3240959,
+          "decodedOffset": 0,
+          "anchorCorrelation": 0.9999598820467341,
+          "loopStartSample": 0,
+          "loopEndSample": 3240959,
+          "behavior": {
+            "joins": [
+              {
+                "sample": 3240959,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.0017090365290641785
+              },
+              {
+                "sample": 6481918,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.0017090365290641785
+              },
+              {
+                "sample": 9722877,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.0017090365290641785
+              }
+            ]
+          },
+          "transition": {
+            "from": "radio",
+            "to": "clockworks",
+            "seconds": 0.25,
+            "peak": 0.22586749494075775,
+            "maximumReferenceError": 7.033348070617507e-9
+          },
+          "voiceSha256": "d731fab987b3b6b9c84e93232b352308a354a45e1f3622473e78eeababd56312",
+          "duckDb": -6,
+          "attackMs": 120,
+          "releaseMs": 350,
+          "mutePeak": 0,
+          "unmutedPeak": 0.051422119140625,
+          "mixMaximumError": 4.009560006235091e-8
+        },
+        {
+          "slug": "rift",
+          "sha256": "34df3e350d09e6a61e4f4f85cfeaeed8e5c8d2d829ceae651d41bef5e84a1a5c",
+          "decodedFrames": 4093440,
+          "decodedOffset": 0,
+          "anchorCorrelation": 0.9999723873232503,
+          "loopStartSample": 0,
+          "loopEndSample": 4093440,
+          "behavior": {
+            "joins": [
+              {
+                "sample": 4093440,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.0001831110566854477
+              },
+              {
+                "sample": 8186880,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.0001831110566854477
+              },
+              {
+                "sample": 12280320,
+                "maximumError": 0,
+                "maximumBoundaryStep": 0.0001831110566854477
+              }
+            ]
+          },
+          "transition": {
+            "from": "clockworks",
+            "to": "rift",
+            "seconds": 0.25,
+            "peak": 0.15131764113903046,
+            "maximumReferenceError": 1.5178229673118437e-8
+          },
+          "voiceSha256": "d731fab987b3b6b9c84e93232b352308a354a45e1f3622473e78eeababd56312",
+          "duckDb": -6,
+          "attackMs": 120,
+          "releaseMs": 350,
+          "mutePeak": 0,
+          "unmutedPeak": 0.0340576171875,
+          "mixMaximumError": 3.216567612263077e-8
+        },
+        {
+          "slug": "epilogue",
+          "sha256": "a558798006061fc625aa6d5ba300760e1a141cc53856273e5781de4867a7b97c",
+          "decodedFrames": 3084000,
+          "decodedOffset": 0,
+          "anchorCorrelation": 0.9999740092852268,
+          "loopStartSample": null,
+          "loopEndSample": null,
+          "behavior": {
+            "loop": false,
+            "finalReleasePeak": 0.000030518509447574615,
+            "postSongPeak": 0,
+            "postSongFrames": 12000
+          },
+          "transition": {
+            "from": "rift",
+            "to": "epilogue",
+            "seconds": 0.25,
+            "peak": 0.107757568359375,
+            "maximumReferenceError": 4.60228572612964e-9
+          },
+          "voiceSha256": "d731fab987b3b6b9c84e93232b352308a354a45e1f3622473e78eeababd56312",
+          "duckDb": -6,
+          "attackMs": 120,
+          "releaseMs": 350,
+          "mutePeak": 0,
+          "unmutedPeak": 0.1276894509792328,
+          "mixMaximumError": 3.801899439714873e-8
+        }
+      ],
+      "suspended": "suspended",
+      "suspendedTimeAdvanced": false,
+      "resumed": "running",
+      "resumedSeconds": 0.15466666666666673,
+      "closed": "closed"
+    }
+  ]
+}

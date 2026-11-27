@@ -1,0 +1,28 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-MUSIC-radio",
+  "hashes": [
+    "5ce77a2d8e9c1abcfca2d58a17c9423d94e8384d05a1f50ec62cf5dd23afc0e0",
+    "cc2df1ab100ebbcded5c1674965a04232f9cbe9c3c647726ad55223f538d75ef",
+    "31f9327777c9949b7d11a088a89158f085224ac9b9abee8af6c462e11b810062",
+    "5b22882b19216c2fc6087debf4083504d85a0ce521759760bce88ef0114b7bc7",
+    "6e4f749f5e7ae154ea33d8399266f465d42025d74b2a35a81e13573c4fbfde1a",
+    "655bb0a2e7d6efbc16dd48e2cb40157825c23179870dff8cf87814168793c9f3"
+  ],
+  "status": "passed",
+  "actor": "tool",
+  "reviewer": "Codex loop142/T125",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+  "details": {
+    "exportRecordPath": "assets-src/audio/T125/records/radio-export.json",
+    "sampleRate": 48000,
+    "frameCount": 3694079,
+    "mp3ActualLufs": -23.27,
+    "nativeVsPreparedMaxAbsError": 1.1622905731201172e-06,
+    "nativeTrailingFramesLost": 1,
+    "browserDecodeEvidencePath": "assets-src/audio/T125/records/browser.json",
+    "findings": "48 kHz stereo native PCM24 and decoded 192 kbps MP3 have matching frame counts. The three room cues use measured cycle bounds. The epilogue plays once through its authored decay."
+  },
+  "check": "structure"
+}

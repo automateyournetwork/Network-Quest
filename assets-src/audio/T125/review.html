@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Network Quest · Music listening session, part two</title>
+<style>
+:root{color-scheme:dark;background:#141b1e;color:#e6eee9;font:16px/1.5 system-ui,sans-serif}
+body{max-width:55rem;margin:2.5rem auto;padding:0 1rem}h1,h2{line-height:1.2;color:#f5eee0}h1{font-size:clamp(2rem,5vw,3.2rem)}
+article,section{border-top:1px solid #506368;padding:1rem 0}h2{margin:0 0 .35rem}
+audio{width:min(100%,35rem);display:block;margin:.3rem 0 1rem}summary{cursor:pointer;color:#aadfcf}p{max-width:68ch}
+label{display:block;font-weight:600}.meta{color:#a6c3bd;font-size:.92rem}a{color:#acded7}:focus-visible{outline:3px solid #ffcf72;outline-offset:4px}
+</style>
+<main><h1>Music listening session, part two</h1>
+<p>Listen to each piece on ordinary speakers and earbuds or headphones. The three-join excerpts repeat the last and first two seconds so you can hear the boundary. Listen to the epilogue once through its final silence. Report any cue, device and timestamp that needs work. <a href="../T124/review.html">First four music cues</a></p>
+<article><h2>Across the Skywell</h2><p class="meta">Radio · 76.96 seconds</p><p>An airy melody answers across the Skywell. Listen for a coherent call and response on both playback systems.</p>
+<label for="radio">Full cue</label><audio id="radio" controls preload="metadata" src="../../../public/assets/audio/music/radio.mp3"></audio>
+<label for="radio-joins">Three loop joins</label><audio id="radio-joins" controls preload="metadata" src="listening/radio-three-joins.mp3"></audio></article>
+<article><h2>A Step in Your Own Time</h2><p class="meta">The Clockworks · 67.52 seconds</p><p>A gentle clockwork melody plays during untimed practice. Listen for distracting ticks, a break in the pulse, or any suggestion of a countdown.</p>
+<label for="clockworks">Full cue</label><audio id="clockworks" controls preload="metadata" src="../../../public/assets/audio/music/clockworks.mp3"></audio>
+<label for="clockworks-joins">Three loop joins</label><audio id="clockworks-joins" controls preload="metadata" src="listening/clockworks-three-joins.mp3"></audio></article>
+<article><h2>The Severed, Considered</h2><p class="meta">The Backhoe Rift · 85.28 seconds</p><p>Low music accompanies repair planning. Listen for startling peaks, pressure to hurry, or a jump back to the beginning.</p>
+<label for="rift">Full cue</label><audio id="rift" controls preload="metadata" src="../../../public/assets/audio/music/rift.mp3"></audio>
+<label for="rift-joins">Three loop joins</label><audio id="rift-joins" controls preload="metadata" src="listening/rift-three-joins.mp3"></audio></article>
+<article><h2>What the Record Remembers</h2><p class="meta">The Iron Threshold · 64.25 seconds · Plays once</p><p>The ending text records permanent repair, temporary restoration, or deliberate safe shutdown. Consider the music after each outcome and listen for a natural final decay.</p>
+<label for="epilogue">Full cue</label><audio id="epilogue" controls preload="metadata" src="../../../public/assets/audio/music/epilogue.mp3"></audio>
+<label for="epilogue-tail">Final ten seconds</label><audio id="epilogue-tail" controls preload="metadata" src="listening/epilogue-final-decay.mp3"></audio></article>
+<section><h2>Speech and room changes</h2><p>The four excerpts follow the order above. The music moves between cues over a quarter second and drops 6 dB under the same Titan line. Listen for lost consonants, pumping, clicks, or awkward changes in level.</p>
+<label for="mix">Four music and dialogue samples</label><audio id="mix" controls preload="metadata" src="listening/conversation-and-transitions.mp3"></audio>
+<details><summary>Transcript and timing</summary><p>Titan says “Bring me an observation, a question, and a willingness to change your mind. The enormous hammer is optional.” The line begins at 2.00, 15.75, 29.50 and 43.25 seconds.</p></details></section>
+<p>Record the date, equipment, cue names and accept or revise findings on each output. Include what you heard at the joins, the ending, and under speech.</p>
+</main>
+<script>
+for (const player of document.querySelectorAll('audio')) player.addEventListener('play', () => {
+  for (const other of document.querySelectorAll('audio')) if (other !== player) other.pause();
+});
+</script></html>

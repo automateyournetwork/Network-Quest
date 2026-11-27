@@ -1,0 +1,922 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "assets": [
+    {
+      "assetId": "spec001:ASSET-MUSIC-radio",
+      "semanticIdentity": "spec001:MUSIC-radio",
+      "kind": "music",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T125/sources/radio.wav",
+            "sha256": "5ce77a2d8e9c1abcfca2d58a17c9423d94e8384d05a1f50ec62cf5dd23afc0e0",
+            "bytes": 34560088,
+            "format": "wav"
+          },
+          "role": "raw-generation",
+          "application": "ACE-Step",
+          "version": "1.5.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/records/radio-request.json",
+            "sha256": "cc2df1ab100ebbcded5c1674965a04232f9cbe9c3c647726ad55223f538d75ef",
+            "bytes": 2935,
+            "format": "json"
+          },
+          "role": "prompt",
+          "application": "Network Quest",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/records/radio-edit.json",
+            "sha256": "31f9327777c9949b7d11a088a89158f085224ac9b9abee8af6c462e11b810062",
+            "bytes": 1610,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest sample edit",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/projects/radio.aup4",
+            "sha256": "5b22882b19216c2fc6087debf4083504d85a0ce521759760bce88ef0114b7bc7",
+            "bytes": 30408704,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t125/radio-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/masters/radio.wav",
+            "sha256": "6e4f749f5e7ae154ea33d8399266f465d42025d74b2a35a81e13573c4fbfde1a",
+            "bytes": 22164518,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/music/radio.mp3",
+            "sha256": "655bb0a2e7d6efbc16dd48e2cb40157825c23179870dff8cf87814168793c9f3",
+            "bytes": 1848428,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "6e4f749f5e7ae154ea33d8399266f465d42025d74b2a35a81e13573c4fbfde1a"
+          ],
+          "tool": "FFmpeg 9.0.1/libmp3lame",
+          "preset": "48 kHz stereo, 192 kbps CBR; LAME delay and padding verified against master in both browsers",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t125/radio-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "music-generated",
+          "tool": "ACE-Step",
+          "version": "1.5.0",
+          "modelRevision": "19671f406d603126926c1b7e2adc169acbcade22",
+          "eventId": "t125-radio-music-generated-20261127-a",
+          "settingsPath": "assets-src/audio/T125/records/radio-generation.json",
+          "promptOrScriptPath": "assets-src/audio/T125/records/radio-request.json",
+          "referenceHashes": [],
+          "outputHashes": [
+            "5ce77a2d8e9c1abcfca2d58a17c9423d94e8384d05a1f50ec62cf5dd23afc0e0"
+          ],
+          "notes": "Actual local turbo text-to-music inference; original prompt, no input recording. Full-cue original take."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t125-radio-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T125/records/radio-native.json",
+          "promptOrScriptPath": "assets-src/audio/T125/edit_cues.py",
+          "referenceHashes": [
+            "5ce77a2d8e9c1abcfca2d58a17c9423d94e8384d05a1f50ec62cf5dd23afc0e0"
+          ],
+          "outputHashes": [
+            "5b22882b19216c2fc6087debf4083504d85a0ce521759760bce88ef0114b7bc7",
+            "6e4f749f5e7ae154ea33d8399266f465d42025d74b2a35a81e13573c4fbfde1a"
+          ],
+          "notes": "edit_cues.py prepared the circular room phrase or the one-shot ending and set static gain. Audacity saved and freshly reopened the named editable stereo track and exported the PCM24 master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest; original direction and edits assisted by Codex"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "MIT"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T125/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/audio/auditions/rights/ace-model-card.md",
+          "assets-src/audio/auditions/rights/ace-license.txt"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T125/NOTICE.md"
+        ],
+        "sourceUrls": [
+          "https://huggingface.co/ACE-Step/Ace-Step1.5/tree/19671f406d603126926c1b7e2adc169acbcade22",
+          "https://github.com/ace-step/ACE-Step-1.5/tree/ca1e85fe9430179831e6bc6be790c332190a3866"
+        ],
+        "aiDisclosure": "ACE-Step generated the instrumental performance from an original text prompt. The team authored direction, commissioned the arrangement, used trajectory matching for the room joins, edited the ending and set static gain. Pinned publisher terms permit commercial use; no exclusive generated-output claim."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "5ce77a2d8e9c1abcfca2d58a17c9423d94e8384d05a1f50ec62cf5dd23afc0e0",
+            "cc2df1ab100ebbcded5c1674965a04232f9cbe9c3c647726ad55223f538d75ef",
+            "31f9327777c9949b7d11a088a89158f085224ac9b9abee8af6c462e11b810062",
+            "5b22882b19216c2fc6087debf4083504d85a0ce521759760bce88ef0114b7bc7",
+            "6e4f749f5e7ae154ea33d8399266f465d42025d74b2a35a81e13573c4fbfde1a",
+            "655bb0a2e7d6efbc16dd48e2cb40157825c23179870dff8cf87814168793c9f3"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/radio-rights.json",
+          "findings": "Reviewed original prompt, absence of reference audio, scoped source and export lineage, project asset license and pinned ACE terms. Publisher permits commercial use."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "5ce77a2d8e9c1abcfca2d58a17c9423d94e8384d05a1f50ec62cf5dd23afc0e0",
+            "cc2df1ab100ebbcded5c1674965a04232f9cbe9c3c647726ad55223f538d75ef",
+            "31f9327777c9949b7d11a088a89158f085224ac9b9abee8af6c462e11b810062",
+            "5b22882b19216c2fc6087debf4083504d85a0ce521759760bce88ef0114b7bc7",
+            "6e4f749f5e7ae154ea33d8399266f465d42025d74b2a35a81e13573c4fbfde1a",
+            "655bb0a2e7d6efbc16dd48e2cb40157825c23179870dff8cf87814168793c9f3"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/radio-structure.json",
+          "findings": "48 kHz stereo native PCM24 and decoded 192 kbps MP3 have matching frame counts. The three room cues use measured cycle bounds. The epilogue plays once through its authored decay."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "5ce77a2d8e9c1abcfca2d58a17c9423d94e8384d05a1f50ec62cf5dd23afc0e0",
+            "cc2df1ab100ebbcded5c1674965a04232f9cbe9c3c647726ad55223f538d75ef",
+            "31f9327777c9949b7d11a088a89158f085224ac9b9abee8af6c462e11b810062",
+            "5b22882b19216c2fc6087debf4083504d85a0ce521759760bce88ef0114b7bc7",
+            "6e4f749f5e7ae154ea33d8399266f465d42025d74b2a35a81e13573c4fbfde1a",
+            "655bb0a2e7d6efbc16dd48e2cb40157825c23179870dff8cf87814168793c9f3"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/radio-source-reopen.json",
+          "findings": "Opened the saved project in a fresh Audacity 4 process, observed its named track and exported a stereo PCM24 master. Native project SHA-256 remained identical."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "5ce77a2d8e9c1abcfca2d58a17c9423d94e8384d05a1f50ec62cf5dd23afc0e0",
+            "cc2df1ab100ebbcded5c1674965a04232f9cbe9c3c647726ad55223f538d75ef",
+            "31f9327777c9949b7d11a088a89158f085224ac9b9abee8af6c462e11b810062",
+            "5b22882b19216c2fc6087debf4083504d85a0ce521759760bce88ef0114b7bc7",
+            "6e4f749f5e7ae154ea33d8399266f465d42025d74b2a35a81e13573c4fbfde1a",
+            "655bb0a2e7d6efbc16dd48e2cb40157825c23179870dff8cf87814168793c9f3"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/radio-listening.json",
+          "findings": "The owner has yet to report listening to this exact full cue, its loop joins or final decay, and the dialogue/transition mix on ordinary speakers and headphones."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T125/projects/radio.aup4",
+        "masterPath": "assets-src/audio/T125/masters/radio.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 76.95997916666667,
+        "loopStartSample": 0,
+        "loopEndSample": 3694079,
+        "loudnessLufs": -23.27,
+        "peakDbfs": -7.760438955588595,
+        "captionId": null
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-MUSIC-clockworks",
+      "semanticIdentity": "spec001:MUSIC-clockworks",
+      "kind": "music",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T125/sources/clockworks.wav",
+            "sha256": "e25bf9449aa7ac570d6f244ec98b78c28e0e0bd7fcd2a007def1644b65c3c2e9",
+            "bytes": 30720088,
+            "format": "wav"
+          },
+          "role": "raw-generation",
+          "application": "ACE-Step",
+          "version": "1.5.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/records/clockworks-request.json",
+            "sha256": "3a767768e6acb7a73111b25bdaf08fd8fc5c2af6a9cd69e721e520e20d3fb302",
+            "bytes": 2901,
+            "format": "json"
+          },
+          "role": "prompt",
+          "application": "Network Quest",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/records/clockworks-edit.json",
+            "sha256": "1ca3ed49082f37e8d43674cffeece1f4f0d4dfb6574521cb2d6499606fbb9085",
+            "bytes": 1599,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest sample edit",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/projects/clockworks.aup4",
+            "sha256": "263b03a7354488c3f751f8135be15395f627441b0329b442728632950d077b3f",
+            "bytes": 26673152,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t125/clockworks-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/masters/clockworks.wav",
+            "sha256": "e133485d775e805ebd3d74c213cc453263d72f42f2055cf57a5176cd8fb322eb",
+            "bytes": 19445798,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/music/clockworks.mp3",
+            "sha256": "9aec374335970d498986a8d44ab2ff9827c87df8f41ce676a308caeb2295a7cd",
+            "bytes": 1622060,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "e133485d775e805ebd3d74c213cc453263d72f42f2055cf57a5176cd8fb322eb"
+          ],
+          "tool": "FFmpeg 9.0.1/libmp3lame",
+          "preset": "48 kHz stereo, 192 kbps CBR; LAME delay and padding verified against master in both browsers",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t125/clockworks-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "music-generated",
+          "tool": "ACE-Step",
+          "version": "1.5.0",
+          "modelRevision": "19671f406d603126926c1b7e2adc169acbcade22",
+          "eventId": "t125-clockworks-music-generated-20261127-a",
+          "settingsPath": "assets-src/audio/T125/records/clockworks-generation.json",
+          "promptOrScriptPath": "assets-src/audio/T125/records/clockworks-request.json",
+          "referenceHashes": [],
+          "outputHashes": [
+            "e25bf9449aa7ac570d6f244ec98b78c28e0e0bd7fcd2a007def1644b65c3c2e9"
+          ],
+          "notes": "Actual local turbo text-to-music inference; original prompt, no input recording. Full-cue original take."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t125-clockworks-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T125/records/clockworks-native.json",
+          "promptOrScriptPath": "assets-src/audio/T125/edit_cues.py",
+          "referenceHashes": [
+            "e25bf9449aa7ac570d6f244ec98b78c28e0e0bd7fcd2a007def1644b65c3c2e9"
+          ],
+          "outputHashes": [
+            "263b03a7354488c3f751f8135be15395f627441b0329b442728632950d077b3f",
+            "e133485d775e805ebd3d74c213cc453263d72f42f2055cf57a5176cd8fb322eb"
+          ],
+          "notes": "edit_cues.py prepared the circular room phrase or the one-shot ending and set static gain. Audacity saved and freshly reopened the named editable stereo track and exported the PCM24 master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest; original direction and edits assisted by Codex"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "MIT"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T125/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/audio/auditions/rights/ace-model-card.md",
+          "assets-src/audio/auditions/rights/ace-license.txt"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T125/NOTICE.md"
+        ],
+        "sourceUrls": [
+          "https://huggingface.co/ACE-Step/Ace-Step1.5/tree/19671f406d603126926c1b7e2adc169acbcade22",
+          "https://github.com/ace-step/ACE-Step-1.5/tree/ca1e85fe9430179831e6bc6be790c332190a3866"
+        ],
+        "aiDisclosure": "ACE-Step generated the instrumental performance from an original text prompt. The team authored direction, commissioned the arrangement, used trajectory matching for the room joins, edited the ending and set static gain. Pinned publisher terms permit commercial use; no exclusive generated-output claim."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "e25bf9449aa7ac570d6f244ec98b78c28e0e0bd7fcd2a007def1644b65c3c2e9",
+            "3a767768e6acb7a73111b25bdaf08fd8fc5c2af6a9cd69e721e520e20d3fb302",
+            "1ca3ed49082f37e8d43674cffeece1f4f0d4dfb6574521cb2d6499606fbb9085",
+            "263b03a7354488c3f751f8135be15395f627441b0329b442728632950d077b3f",
+            "e133485d775e805ebd3d74c213cc453263d72f42f2055cf57a5176cd8fb322eb",
+            "9aec374335970d498986a8d44ab2ff9827c87df8f41ce676a308caeb2295a7cd"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/clockworks-rights.json",
+          "findings": "Reviewed original prompt, absence of reference audio, scoped source and export lineage, project asset license and pinned ACE terms. Publisher permits commercial use."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "e25bf9449aa7ac570d6f244ec98b78c28e0e0bd7fcd2a007def1644b65c3c2e9",
+            "3a767768e6acb7a73111b25bdaf08fd8fc5c2af6a9cd69e721e520e20d3fb302",
+            "1ca3ed49082f37e8d43674cffeece1f4f0d4dfb6574521cb2d6499606fbb9085",
+            "263b03a7354488c3f751f8135be15395f627441b0329b442728632950d077b3f",
+            "e133485d775e805ebd3d74c213cc453263d72f42f2055cf57a5176cd8fb322eb",
+            "9aec374335970d498986a8d44ab2ff9827c87df8f41ce676a308caeb2295a7cd"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/clockworks-structure.json",
+          "findings": "48 kHz stereo native PCM24 and decoded 192 kbps MP3 have matching frame counts. The three room cues use measured cycle bounds. The epilogue plays once through its authored decay."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "e25bf9449aa7ac570d6f244ec98b78c28e0e0bd7fcd2a007def1644b65c3c2e9",
+            "3a767768e6acb7a73111b25bdaf08fd8fc5c2af6a9cd69e721e520e20d3fb302",
+            "1ca3ed49082f37e8d43674cffeece1f4f0d4dfb6574521cb2d6499606fbb9085",
+            "263b03a7354488c3f751f8135be15395f627441b0329b442728632950d077b3f",
+            "e133485d775e805ebd3d74c213cc453263d72f42f2055cf57a5176cd8fb322eb",
+            "9aec374335970d498986a8d44ab2ff9827c87df8f41ce676a308caeb2295a7cd"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/clockworks-source-reopen.json",
+          "findings": "Opened the saved project in a fresh Audacity 4 process, observed its named track and exported a stereo PCM24 master. Native project SHA-256 remained identical."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "e25bf9449aa7ac570d6f244ec98b78c28e0e0bd7fcd2a007def1644b65c3c2e9",
+            "3a767768e6acb7a73111b25bdaf08fd8fc5c2af6a9cd69e721e520e20d3fb302",
+            "1ca3ed49082f37e8d43674cffeece1f4f0d4dfb6574521cb2d6499606fbb9085",
+            "263b03a7354488c3f751f8135be15395f627441b0329b442728632950d077b3f",
+            "e133485d775e805ebd3d74c213cc453263d72f42f2055cf57a5176cd8fb322eb",
+            "9aec374335970d498986a8d44ab2ff9827c87df8f41ce676a308caeb2295a7cd"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/clockworks-listening.json",
+          "findings": "The owner has yet to report listening to this exact full cue, its loop joins or final decay, and the dialogue/transition mix on ordinary speakers and headphones."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T125/projects/clockworks.aup4",
+        "masterPath": "assets-src/audio/T125/masters/clockworks.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 67.51997916666667,
+        "loopStartSample": 0,
+        "loopEndSample": 3240959,
+        "loudnessLufs": -23.26,
+        "peakDbfs": -10.51421092603569,
+        "captionId": null
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-MUSIC-rift",
+      "semanticIdentity": "spec001:MUSIC-rift",
+      "kind": "music",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T125/sources/rift.wav",
+            "sha256": "b632860395ea997a955d1d00a3e77d1fe556376f37489f1020f5a335115108d7",
+            "bytes": 38400088,
+            "format": "wav"
+          },
+          "role": "raw-generation",
+          "application": "ACE-Step",
+          "version": "1.5.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/records/rift-request.json",
+            "sha256": "a42e98b85e09b7e1f4f25fdfd3104c826be955c20379e5b75942419a3e5ef278",
+            "bytes": 2936,
+            "format": "json"
+          },
+          "role": "prompt",
+          "application": "Network Quest",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/records/rift-edit.json",
+            "sha256": "260b621067aed17c4f23c8a728783600339ad0037bca3db49a3b613d06c893fa",
+            "bytes": 1611,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest sample edit",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/projects/rift.aup4",
+            "sha256": "c9c991a0c6b8af41fb4aeca66779e6cf19c943e10726a99055cb4ef5af88f4a4",
+            "bytes": 33554432,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t125/rift-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/masters/rift.wav",
+            "sha256": "3085540951eaa011f555b4c9fc706f63b45ad765c9faa52e60e0be3537998659",
+            "bytes": 24560684,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/music/rift.mp3",
+            "sha256": "34df3e350d09e6a61e4f4f85cfeaeed8e5c8d2d829ceae651d41bef5e84a1a5c",
+            "bytes": 2048300,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "3085540951eaa011f555b4c9fc706f63b45ad765c9faa52e60e0be3537998659"
+          ],
+          "tool": "FFmpeg 9.0.1/libmp3lame",
+          "preset": "48 kHz stereo, 192 kbps CBR; LAME delay and padding verified against master in both browsers",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t125/rift-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "music-generated",
+          "tool": "ACE-Step",
+          "version": "1.5.0",
+          "modelRevision": "19671f406d603126926c1b7e2adc169acbcade22",
+          "eventId": "t125-rift-music-generated-20261127-a",
+          "settingsPath": "assets-src/audio/T125/records/rift-generation.json",
+          "promptOrScriptPath": "assets-src/audio/T125/records/rift-request.json",
+          "referenceHashes": [],
+          "outputHashes": [
+            "b632860395ea997a955d1d00a3e77d1fe556376f37489f1020f5a335115108d7"
+          ],
+          "notes": "Actual local turbo text-to-music inference; original prompt, no input recording. Full-cue original take."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t125-rift-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T125/records/rift-native.json",
+          "promptOrScriptPath": "assets-src/audio/T125/edit_cues.py",
+          "referenceHashes": [
+            "b632860395ea997a955d1d00a3e77d1fe556376f37489f1020f5a335115108d7"
+          ],
+          "outputHashes": [
+            "c9c991a0c6b8af41fb4aeca66779e6cf19c943e10726a99055cb4ef5af88f4a4",
+            "3085540951eaa011f555b4c9fc706f63b45ad765c9faa52e60e0be3537998659"
+          ],
+          "notes": "edit_cues.py prepared the circular room phrase or the one-shot ending and set static gain. Audacity saved and freshly reopened the named editable stereo track and exported the PCM24 master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest; original direction and edits assisted by Codex"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "MIT"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T125/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/audio/auditions/rights/ace-model-card.md",
+          "assets-src/audio/auditions/rights/ace-license.txt"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T125/NOTICE.md"
+        ],
+        "sourceUrls": [
+          "https://huggingface.co/ACE-Step/Ace-Step1.5/tree/19671f406d603126926c1b7e2adc169acbcade22",
+          "https://github.com/ace-step/ACE-Step-1.5/tree/ca1e85fe9430179831e6bc6be790c332190a3866"
+        ],
+        "aiDisclosure": "ACE-Step generated the instrumental performance from an original text prompt. The team authored direction, commissioned the arrangement, used trajectory matching for the room joins, edited the ending and set static gain. Pinned publisher terms permit commercial use; no exclusive generated-output claim."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "b632860395ea997a955d1d00a3e77d1fe556376f37489f1020f5a335115108d7",
+            "a42e98b85e09b7e1f4f25fdfd3104c826be955c20379e5b75942419a3e5ef278",
+            "260b621067aed17c4f23c8a728783600339ad0037bca3db49a3b613d06c893fa",
+            "c9c991a0c6b8af41fb4aeca66779e6cf19c943e10726a99055cb4ef5af88f4a4",
+            "3085540951eaa011f555b4c9fc706f63b45ad765c9faa52e60e0be3537998659",
+            "34df3e350d09e6a61e4f4f85cfeaeed8e5c8d2d829ceae651d41bef5e84a1a5c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/rift-rights.json",
+          "findings": "Reviewed original prompt, absence of reference audio, scoped source and export lineage, project asset license and pinned ACE terms. Publisher permits commercial use."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "b632860395ea997a955d1d00a3e77d1fe556376f37489f1020f5a335115108d7",
+            "a42e98b85e09b7e1f4f25fdfd3104c826be955c20379e5b75942419a3e5ef278",
+            "260b621067aed17c4f23c8a728783600339ad0037bca3db49a3b613d06c893fa",
+            "c9c991a0c6b8af41fb4aeca66779e6cf19c943e10726a99055cb4ef5af88f4a4",
+            "3085540951eaa011f555b4c9fc706f63b45ad765c9faa52e60e0be3537998659",
+            "34df3e350d09e6a61e4f4f85cfeaeed8e5c8d2d829ceae651d41bef5e84a1a5c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/rift-structure.json",
+          "findings": "48 kHz stereo native PCM24 and decoded 192 kbps MP3 have matching frame counts. The three room cues use measured cycle bounds. The epilogue plays once through its authored decay."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "b632860395ea997a955d1d00a3e77d1fe556376f37489f1020f5a335115108d7",
+            "a42e98b85e09b7e1f4f25fdfd3104c826be955c20379e5b75942419a3e5ef278",
+            "260b621067aed17c4f23c8a728783600339ad0037bca3db49a3b613d06c893fa",
+            "c9c991a0c6b8af41fb4aeca66779e6cf19c943e10726a99055cb4ef5af88f4a4",
+            "3085540951eaa011f555b4c9fc706f63b45ad765c9faa52e60e0be3537998659",
+            "34df3e350d09e6a61e4f4f85cfeaeed8e5c8d2d829ceae651d41bef5e84a1a5c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/rift-source-reopen.json",
+          "findings": "Opened the saved project in a fresh Audacity 4 process, observed its named track and exported a stereo PCM24 master. Native project SHA-256 remained identical."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "b632860395ea997a955d1d00a3e77d1fe556376f37489f1020f5a335115108d7",
+            "a42e98b85e09b7e1f4f25fdfd3104c826be955c20379e5b75942419a3e5ef278",
+            "260b621067aed17c4f23c8a728783600339ad0037bca3db49a3b613d06c893fa",
+            "c9c991a0c6b8af41fb4aeca66779e6cf19c943e10726a99055cb4ef5af88f4a4",
+            "3085540951eaa011f555b4c9fc706f63b45ad765c9faa52e60e0be3537998659",
+            "34df3e350d09e6a61e4f4f85cfeaeed8e5c8d2d829ceae651d41bef5e84a1a5c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/rift-listening.json",
+          "findings": "The owner has yet to report listening to this exact full cue, its loop joins or final decay, and the dialogue/transition mix on ordinary speakers and headphones."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T125/projects/rift.aup4",
+        "masterPath": "assets-src/audio/T125/masters/rift.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 85.28,
+        "loopStartSample": 0,
+        "loopEndSample": 4093440,
+        "loudnessLufs": -23.26,
+        "peakDbfs": -7.139624415242284,
+        "captionId": null
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-MUSIC-epilogue",
+      "semanticIdentity": "spec001:MUSIC-epilogue",
+      "kind": "music",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T125/sources/epilogue.wav",
+            "sha256": "1b41cea867fd89ba6c22f5b19105df91e6888b2063049e2b9fac396e2aba3387",
+            "bytes": 24576088,
+            "format": "wav"
+          },
+          "role": "raw-generation",
+          "application": "ACE-Step",
+          "version": "1.5.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/records/epilogue-request.json",
+            "sha256": "3bc15dc37478ff2a4fc04bf10318b07ef9b1f90e9efbfb862a0563765b7228f3",
+            "bytes": 2968,
+            "format": "json"
+          },
+          "role": "prompt",
+          "application": "Network Quest",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/records/epilogue-edit.json",
+            "sha256": "95639ae3cfd5054c4476293edae351a27eab96e400d8b32b73f0fd90259b037d",
+            "bytes": 1488,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest sample edit",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/projects/epilogue.aup4",
+            "sha256": "13291117cae5dde5c356624e092e5bd64f8ad6c5a3e7d6007085231ac27ce1ee",
+            "bytes": 25427968,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t125/epilogue-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T125/masters/epilogue.wav",
+            "sha256": "c70cb274613d4953feb7a9ca8fceadf6fa2fe247d6d13bbecae33483d4a1d5a1",
+            "bytes": 18504044,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/music/epilogue.mp3",
+            "sha256": "a558798006061fc625aa6d5ba300760e1a141cc53856273e5781de4867a7b97c",
+            "bytes": 1543724,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "c70cb274613d4953feb7a9ca8fceadf6fa2fe247d6d13bbecae33483d4a1d5a1"
+          ],
+          "tool": "FFmpeg 9.0.1/libmp3lame",
+          "preset": "48 kHz stereo, 192 kbps CBR; LAME delay and padding verified against master in both browsers",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t125/epilogue-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "music-generated",
+          "tool": "ACE-Step",
+          "version": "1.5.0",
+          "modelRevision": "19671f406d603126926c1b7e2adc169acbcade22",
+          "eventId": "t125-epilogue-music-generated-20261127-a",
+          "settingsPath": "assets-src/audio/T125/records/epilogue-generation.json",
+          "promptOrScriptPath": "assets-src/audio/T125/records/epilogue-request.json",
+          "referenceHashes": [],
+          "outputHashes": [
+            "1b41cea867fd89ba6c22f5b19105df91e6888b2063049e2b9fac396e2aba3387"
+          ],
+          "notes": "Actual local turbo text-to-music inference; original prompt, no input recording. Full-cue original take."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t125-epilogue-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T125/records/epilogue-native.json",
+          "promptOrScriptPath": "assets-src/audio/T125/edit_cues.py",
+          "referenceHashes": [
+            "1b41cea867fd89ba6c22f5b19105df91e6888b2063049e2b9fac396e2aba3387"
+          ],
+          "outputHashes": [
+            "13291117cae5dde5c356624e092e5bd64f8ad6c5a3e7d6007085231ac27ce1ee",
+            "c70cb274613d4953feb7a9ca8fceadf6fa2fe247d6d13bbecae33483d4a1d5a1"
+          ],
+          "notes": "edit_cues.py prepared the circular room phrase or the one-shot ending and set static gain. Audacity saved and freshly reopened the named editable stereo track and exported the PCM24 master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest; original direction and edits assisted by Codex"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "MIT"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T125/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "assets-src/audio/auditions/rights/ace-model-card.md",
+          "assets-src/audio/auditions/rights/ace-license.txt"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T125/NOTICE.md"
+        ],
+        "sourceUrls": [
+          "https://huggingface.co/ACE-Step/Ace-Step1.5/tree/19671f406d603126926c1b7e2adc169acbcade22",
+          "https://github.com/ace-step/ACE-Step-1.5/tree/ca1e85fe9430179831e6bc6be790c332190a3866"
+        ],
+        "aiDisclosure": "ACE-Step generated the instrumental performance from an original text prompt. The team authored direction, commissioned the arrangement, used trajectory matching for the room joins, edited the ending and set static gain. Pinned publisher terms permit commercial use; no exclusive generated-output claim."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "1b41cea867fd89ba6c22f5b19105df91e6888b2063049e2b9fac396e2aba3387",
+            "3bc15dc37478ff2a4fc04bf10318b07ef9b1f90e9efbfb862a0563765b7228f3",
+            "95639ae3cfd5054c4476293edae351a27eab96e400d8b32b73f0fd90259b037d",
+            "13291117cae5dde5c356624e092e5bd64f8ad6c5a3e7d6007085231ac27ce1ee",
+            "c70cb274613d4953feb7a9ca8fceadf6fa2fe247d6d13bbecae33483d4a1d5a1",
+            "a558798006061fc625aa6d5ba300760e1a141cc53856273e5781de4867a7b97c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/epilogue-rights.json",
+          "findings": "Reviewed original prompt, absence of reference audio, scoped source and export lineage, project asset license and pinned ACE terms. Publisher permits commercial use."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "1b41cea867fd89ba6c22f5b19105df91e6888b2063049e2b9fac396e2aba3387",
+            "3bc15dc37478ff2a4fc04bf10318b07ef9b1f90e9efbfb862a0563765b7228f3",
+            "95639ae3cfd5054c4476293edae351a27eab96e400d8b32b73f0fd90259b037d",
+            "13291117cae5dde5c356624e092e5bd64f8ad6c5a3e7d6007085231ac27ce1ee",
+            "c70cb274613d4953feb7a9ca8fceadf6fa2fe247d6d13bbecae33483d4a1d5a1",
+            "a558798006061fc625aa6d5ba300760e1a141cc53856273e5781de4867a7b97c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/epilogue-structure.json",
+          "findings": "48 kHz stereo native PCM24 and decoded 192 kbps MP3 have matching frame counts. The three room cues use measured cycle bounds. The epilogue plays once through its authored decay."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "1b41cea867fd89ba6c22f5b19105df91e6888b2063049e2b9fac396e2aba3387",
+            "3bc15dc37478ff2a4fc04bf10318b07ef9b1f90e9efbfb862a0563765b7228f3",
+            "95639ae3cfd5054c4476293edae351a27eab96e400d8b32b73f0fd90259b037d",
+            "13291117cae5dde5c356624e092e5bd64f8ad6c5a3e7d6007085231ac27ce1ee",
+            "c70cb274613d4953feb7a9ca8fceadf6fa2fe247d6d13bbecae33483d4a1d5a1",
+            "a558798006061fc625aa6d5ba300760e1a141cc53856273e5781de4867a7b97c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/epilogue-source-reopen.json",
+          "findings": "Opened the saved project in a fresh Audacity 4 process, observed its named track and exported a stereo PCM24 master. Native project SHA-256 remained identical."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop142/T125",
+          "date": "2026-11-27",
+          "hashes": [
+            "1b41cea867fd89ba6c22f5b19105df91e6888b2063049e2b9fac396e2aba3387",
+            "3bc15dc37478ff2a4fc04bf10318b07ef9b1f90e9efbfb862a0563765b7228f3",
+            "95639ae3cfd5054c4476293edae351a27eab96e400d8b32b73f0fd90259b037d",
+            "13291117cae5dde5c356624e092e5bd64f8ad6c5a3e7d6007085231ac27ce1ee",
+            "c70cb274613d4953feb7a9ca8fceadf6fa2fe247d6d13bbecae33483d4a1d5a1",
+            "a558798006061fc625aa6d5ba300760e1a141cc53856273e5781de4867a7b97c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 ARM64; ACE-Step 1.5.0 MLX; Audacity 4.0.2 Linux ARM64 on isolated local Ubuntu/Xvfb; FFmpeg 9.0.1; headless Chromium 159 and Firefox 159",
+          "evidencePath": "docs/evidence/spec001/assets/t125/epilogue-listening.json",
+          "findings": "The owner has yet to report listening to this exact full cue, its loop joins or final decay, and the dialogue/transition mix on ordinary speakers and headphones."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T125/projects/epilogue.aup4",
+        "masterPath": "assets-src/audio/T125/masters/epilogue.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 64.25,
+        "loopStartSample": null,
+        "loopEndSample": null,
+        "loudnessLufs": -23.27,
+        "peakDbfs": -7.681886791898698,
+        "captionId": null
+      }
+    }
+  ]
+}

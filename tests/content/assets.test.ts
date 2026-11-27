@@ -404,3 +404,24 @@ describe('T060 independent semantic oracle — pending T061 when module is absen
     });
   }
 });
+
+describe('rights records for successive versions of an asset', () => {
+  it('checks the declared review even when the previous audition has the same identity', () => {
+    const input = empty();
+    portrait(input);
+    const asset = input.manifest.assets[0]!;
+    const currentPath = proofPath('PORTRAIT-CH01', 'rights');
+    const oldPath = proofPath('PORTRAIT-CH01', 'audition-rights');
+    const previous = structuredClone(input.evidence.records[currentPath]!);
+    previous.hashes = [hash('previous audition bytes')];
+    input.evidence.records = { [oldPath]: previous, ...input.evidence.records };
+    input.evidence.files[oldPath] = JSON.stringify(previous);
+    const validate = implementation!['validateAssetManifest'] as ValidateAssetManifest;
+    const audit = () => validate(input.manifest, snapshot(input), { mode: 'inventory' });
+    expect(audit().issues).toEqual([]);
+
+    // Matching evidence elsewhere cannot repair an explicit stale reference.
+    asset['verification'].find((entry: { check: string }) => entry.check === 'rights').evidencePath = oldPath;
+    expect(audit().issues.map(issue => issue.code)).toContain('RIGHTS_HASH_MISMATCH');
+  });
+});

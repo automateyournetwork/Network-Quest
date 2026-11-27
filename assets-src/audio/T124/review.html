@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Network Quest · Music listening session</title>
+<style>
+:root{color-scheme:dark;background:#141b1e;color:#e6eee9;font:16px/1.5 system-ui,sans-serif}
+body{max-width:55rem;margin:2.5rem auto;padding:0 1rem}h1,h2,h3{line-height:1.2;color:#f5eee0}h1{font-size:clamp(2rem,5vw,3.2rem)}
+article,section{border-top:1px solid #506368;padding:1rem 0}h2{margin:0 0 .35rem}h3{font-size:1rem}
+audio{width:min(100%,35rem);display:block;margin:.3rem 0 1rem}summary{cursor:pointer;color:#aadfcf}p{max-width:68ch}
+label{display:block;font-weight:600}.meta{color:#a6c3bd;font-size:.92rem}.time{font-variant-numeric:tabular-nums}a{color:#acded7}
+</style><main><h1>Music listening session</h1>
+<p>Play each full cue and its three loop joins on ordinary speakers and headphones. Listen for a break in the beat, an abrupt change in level or tone, and any phrase that becomes tiring. The last player puts speech over the music and connects the four rooms.</p>
+<article><h2>The Apprentice Descends</h2><p class="meta">Title · 72.40 seconds</p><p>A warm, curious instrumental theme.</p>
+<label for="title-full">Full cue</label><audio id="title-full" controls preload="metadata" src="../../../public/assets/audio/music/title.mp3"></audio>
+<label for="title-seams">Three loop joins</label><audio id="title-seams" controls preload="metadata" src="listening/title-three-joins.mp3"></audio></article>
+<article><h2>Tools Before Thunder</h2><p class="meta">The Titan’s Workshop · 82.00 seconds</p><p>A patient workshop melody with soft mechanical percussion.</p>
+<label for="workshop-full">Full cue</label><audio id="workshop-full" controls preload="metadata" src="../../../public/assets/audio/music/workshop.mp3"></audio>
+<label for="workshop-seams">Three loop joins</label><audio id="workshop-seams" controls preload="metadata" src="listening/workshop-three-joins.mp3"></audio></article>
+<article><h2>The Braided Road</h2><p class="meta">Copper Warrens · 75.00 seconds</p><p>Interlocking plucked notes accompany the copper path.</p>
+<label for="copper-full">Full cue</label><audio id="copper-full" controls preload="metadata" src="../../../public/assets/audio/music/copper.mp3"></audio>
+<label for="copper-seams">Three loop joins</label><audio id="copper-seams" controls preload="metadata" src="listening/copper-three-joins.mp3"></audio></article>
+<article><h2>Light Has a Long Memory</h2><p class="meta">Photon Gardens · 89.96 seconds</p><p>Slow glass-like tones drift through the light garden.</p>
+<label for="fiber-full">Full cue</label><audio id="fiber-full" controls preload="metadata" src="../../../public/assets/audio/music/fiber.mp3"></audio>
+<label for="fiber-seams">Three loop joins</label><audio id="fiber-seams" controls preload="metadata" src="listening/fiber-three-joins.mp3"></audio></article>
+<section><h2>Speech and room changes</h2><p>Listen for words lost under the music and for bumps between rooms. This production mix uses a quarter-second transition and lowers music by 6 dB under speech.</p>
+<audio aria-label="Four music and dialogue samples" controls preload="metadata" src="listening/conversation-and-transitions.mp3"></audio>
+<details><summary>Spoken lines and entry times</summary><ul>
+<li><span class="time">2.0s</span> · The lift stops with the dignity of a machine hoping nobody heard that. Welcome to the Underworld.</li>
+<li><span class="time">15.75s</span> · Bring me an observation, a question, and a willingness to change your mind. The enormous hammer is optional.</li>
+<li><span class="time">29.5s</span> · This lab highlights the bytes four E and five one inside a larger supplied frame. They are our known test pattern.</li>
+<li><span class="time">43.25s</span> · I am Photon. I carry light and an unreasonable amount of optimism. Shall we inspect that dark link lamp?</li>
+</ul></details></section><p>For each cue, record your speaker and headphone setup, listening level, and whether you accept it or want a change. Include the cue time for any issue.</p>
+</main><script>for(const player of document.querySelectorAll('audio'))player.addEventListener('play',()=>{for(const other of document.querySelectorAll('audio'))if(other!==player)other.pause()})</script></html>

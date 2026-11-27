@@ -213,9 +213,15 @@ export function validateAssetManifest(manifest: unknown, evidence: AssetEvidence
     if (accepted || a.rights.reviewStatus === 'accepted') {
       const rights = a.rights;
       if (!rights.creators.length || !rights.licenseIds.length || !rights.noticePaths.length || [...rights.noticePaths, ...rights.termsSnapshotPaths, ...rights.inputPermissionPaths].some(p => !fileAt(p)) || (a.production.some(p => generated(p.method)) && (!rights.termsSnapshotPaths.length || !nonempty(rights.aiDisclosure)))) add('RIGHTS_INCOMPLETE', a.assetId);
-      const found = assetRecords.find(([, r]) => r.type === 'rights');
-      const r = get(found?.[0], a, 'RIGHTS_EVIDENCE_MISSING');
+      // A production revision can retain an asset ID already used by its audition.
+      // The manifest's declared review identifies the intended rights testimony.
+      const declared = a.verification.find(v => v.check === 'rights' && v.status === 'passed');
+      const rightsRecords = assetRecords.filter(([, record]) => record.type === 'rights');
+      const matching = rightsRecords.find(([, record]) => covers(record.hashes, hashes));
+      const path = declared?.evidencePath ?? matching?.[0] ?? rightsRecords[0]?.[0];
+      const r = get(path, a, 'RIGHTS_EVIDENCE_MISSING');
       if (r) {
+        if (r.type !== 'rights' || r.assetId !== a.assetId) add('REVIEW_ASSET_MISMATCH', a.assetId, path);
         const d = r.details;
         if (r.status !== 'passed') add('RIGHTS_REVIEW_NOT_PASSED', a.assetId);
         if (d['permitsCommercialReuse'] !== true || d['permitsRedistribution'] !== true || d['permitsModification'] !== true || rights.licenseIds.some(x => /(?:^|-)N[CD](?:-|$)|noncommercial|no.derivatives|all.rights.reserved/i.test(x))) add('RIGHTS_INCOMPATIBLE', a.assetId);
