@@ -26,9 +26,10 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**126 loops started; 102/170 tasks accepted; no deployment.** The reviewed Photon derivative and restart record reached remote commit `284394db5061c3a0b43ae267886697523ffe0b9d`. The remote feature
-branch reached `d7dc4a1f4458d9ff581eb987b12101e92ad2ff28` for the T106 layout
-freeze. The preceding checkpoint `e6362f6b27ef3daa0166468d2e56733fa08c9aa6`
+**129 loops started; 102/170 tasks accepted; no deployment.** The remote feature
+branch reached `a5eb8910def87329bb1095b7be70f9845b242226` for the three
+character batches. It includes the Photon checkpoint `284394d` and the T106
+layout freeze `d7dc4a1`. The preceding checkpoint `e6362f6b27ef3daa0166468d2e56733fa08c9aa6`
 (accepted T105 and isolated T106 preparation) was
 pushed/remoteverified:74reviewedpaths/3430847bytes, exactstage/blob/private/authored
 whitespacePASS and22rawfindingspreserved. T104 is accepted for local gameplay. Both normal-config native
@@ -66,7 +67,7 @@ placement findings. The retained [Photon inspection gesture](../evidence/spec001
 also passed native/browser comparison. Final placement and media quota acceptance
 follow in the finished rooms. Preserve owner previews 63366 and 54594.
 
-The next fresh assignments are T110, T111 and T112. Read
+Loops 127/T110, 128/T111 and 129/T112 are assigned and in production. Read
 `assets-src/rooms/scene-layouts.json`, `assets-src/production-allocation.json`,
 the art contract and the exact prop roster. The new coordinator task is named
 **Network Quest · Spec001 implementation loops**. The private prop-worker brief

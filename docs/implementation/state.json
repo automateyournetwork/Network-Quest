@@ -2,8 +2,8 @@
   "feature": "001-physical-layer-underworld",
   "authorizedAt": "2026-11-25",
   "loopCap": 200,
-  "loopsStarted": 126,
-  "activeTask": "T107\u2013T109 accepted. Prop batches T110\u2013T112 are ready for fresh workers.",
+  "loopsStarted": 129,
+  "activeTask": "Loops 127\u2013129 produce T110\u2013T112, the Blender prop batches for rooms R01\u2013R06.",
   "status": "running",
   "completedTasks": [
     "T001",
@@ -125,7 +125,29 @@
     }
   ],
   "lastLoopNote": "docs/implementation/loops/126-T109.md",
-  "activeLoops": [],
+  "activeLoops": [
+    {
+      "loop": 127,
+      "task": "T110",
+      "agent": "/root/loop127_t110",
+      "scope": "R01/R02 prop sources and exports PR001\u2013PR020.",
+      "status": "Assigned for production and native/export review."
+    },
+    {
+      "loop": 128,
+      "task": "T111",
+      "agent": "/root/loop128_t111",
+      "scope": "R03/R04 prop sources and exports PR021\u2013PR040.",
+      "status": "Assigned for production and native/export review."
+    },
+    {
+      "loop": 129,
+      "task": "T112",
+      "agent": "/root/loop129_t112",
+      "scope": "R05/R06 prop sources and exports PR041\u2013PR060.",
+      "status": "Assigned for production and native/export review."
+    }
+  ],
   "gates": {
     "G0": "blocked",
     "G1-G7": "pending"
@@ -136,7 +158,7 @@
     "T011",
     "T007 final reassessment"
   ],
-  "nextAction": "Begin the frozen T110\u2013T112 prop batches in fresh loops. Reuse the ten R01 prop identities and their existing sources, review native and browser renders, and continue through the remaining Spec001 task schedule.",
+  "nextAction": "Review representative renders as they arrive, verify native sources and GLBs against the exact rosters, then join verified fragments and advance to the next independent batches.",
   "executionDirection": "docs/implementation/execution-direction.md",
   "publicationAuthorization": {
     "date": "2026-11-25",
@@ -146,8 +168,8 @@
   },
   "publication": {
     "branch": "001-physical-layer-underworld",
-    "lastPushedCommit": "284394db5061c3a0b43ae267886697523ffe0b9d",
-    "scope": "Retained CH03 connector-inspection source/export and verified native/browser comparison, plus resumption of the three interrupted assignments. Remote feature branch verified.",
+    "lastPushedCommit": "a5eb8910def87329bb1095b7be70f9845b242226",
+    "scope": "Reviewed and pushed 432 exact staged paths for T107\u2013T109, their native/exported assets, evidence, loop notes, and the asset-license path fix. Remote branch verified. No deployment.",
     "releaseDeployed": false
   },
   "pendingReviews": [
