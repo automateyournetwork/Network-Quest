@@ -99,11 +99,12 @@ describe('T048 immutable safe snapshot captures and generation accounting', () =
       .toEqual({ ok: false, code: 'transition-pending', path: '/control/pending' });
   });
 
-  it('rejects title state, metadata-only rooms, incompatible anchors and a current E03 marker', () => {
+  it('rejects title state, unavailable rooms/anchors, incompatible anchors and a current E03 marker', () => {
     const { state } = setup(), game = state.runtime.game!;
     expect(captureSafeSnapshot(createReducerState(createIntroductionRuntime()), validator)).toMatchObject({ ok: false, code: 'safe-state' });
     for (const world of [
-      { ...game.world, roomId: 'spec001:R05', position: { safePositionId: 'spec001:R05.entry' } },
+      { ...game.world, roomId: 'spec001:R99', position: { safePositionId: 'spec001:R99.entry' } },
+      { ...game.world, roomId: 'spec001:R05', position: { safePositionId: 'spec001:R05.unavailable' } },
       { ...game.world, position: { safePositionId: 'spec001:R02.entry' } },
       { ...game.world, continueOutcome: 'E03' },
     ]) expect(captureSafeSnapshot(withRuntime(state, { ...state.runtime, game: { ...game, world } } as RuntimeState), validator).ok).toBe(false);

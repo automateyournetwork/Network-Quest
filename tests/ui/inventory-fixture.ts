@@ -12,7 +12,16 @@ export const q = <T extends string = string>(id: string) => `spec001:${id}` as Q
 const read = async (path: string): Promise<unknown> => JSON.parse(await readFile(new URL(`../../${path}`, import.meta.url), 'utf8'));
 const world = await read('content/spec001/world.json') as S.world;
 const sources = await read('content/spec001/sources.json');
-const documents = Object.fromEntries(await Promise.all([...new Set(world.documents.map(d => d.path))].map(async path => [path, await read(path)])));
+// Historical introduction fixture stays intentionally scoped even after the
+// production registry selects all twelve rooms. World-graph tests own that join.
+const introductionPaths = ['content/spec001/rooms/R01.json', 'content/spec001/rooms/R02.json',
+  'content/spec001/dialogue/introduction.json', 'content/spec001/dialogue/interactions.json',
+  'content/spec001/objectives-introduction.json', 'content/spec001/items-introduction.json', 'content/spec001/profiles-introduction.json'];
+const documents = Object.fromEntries(await Promise.all(introductionPaths.map(async path => [path, await read(path)])));
+world.documents = Object.entries(documents).flatMap(([path, document]) => {
+  const value = document as S.collection | S.authoredRecord;
+  return (value.kind === 'collection' ? value.records : [value]).map(record => ({ kind: record.kind, id: record.id, path }));
+});
 export const authoredInput = { world, sources, documents };
 export function content(records: S.authoredRecord[] = [], mutate?: (documents: Record<string, unknown>) => void) {
   const copy = structuredClone({ world, sources, documents });

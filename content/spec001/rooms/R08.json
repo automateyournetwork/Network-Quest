@@ -1,0 +1,363 @@
+{
+  "kind": "room",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:R08",
+  "presentationMode": "hybrid",
+  "description": "The Storm Observatory keeps its instruments under a roof with an unnecessarily dramatic hole. A local interference emitter is connected at arrival; the same signal can therefore sit above very different noise. The channel desk, isolation switch and history drum invite a measured comparison. None of the impressive birds requires a favor before you may use the ordinary controls.",
+  "walkRegions": [
+    {
+      "id": "spec001:WALK-R08",
+      "label": "Safe observation walkway",
+      "vertices": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 6
+        },
+        {
+          "x": 0,
+          "y": 6
+        }
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "toRoomId": "spec001:R07",
+      "label": "Walk to The Skywell",
+      "walkRegionId": "spec001:WALK-R08"
+    },
+    {
+      "toRoomId": "spec001:R11",
+      "label": "Walk to The Backhoe Rift",
+      "walkRegionId": "spec001:WALK-R08"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "spec001:HOTSPOT-radio-dish",
+      "subjectId": "spec001:PR071",
+      "label": "Storm radar dish",
+      "description": "The dish pivots above a weather chart whose arrows are explicitly illustrative. This room supplies a bounded interference exercise, not a radar, weather or electromagnetic propagation simulation. The current path and endpoint settings must still pass before an SNR result can validate the relay.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [
+        "spec001:FACT-O08-survey"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-emitter",
+      "subjectId": "spec001:PR072",
+      "label": "Local interference emitter and isolation switch",
+      "description": "The initially connected local emitter supplies raised-noise conditions on both fictional channel labels: signal −65 dBm, noise −78 dBm, SNR 13 dB. Isolate the emitter to restore the surveyed conditions, or reconnect it to repeat the failure. This is an authored change to the exercise; changing channel alone does not isolate it. After changing it, measure again.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [
+        "spec001:FACT-O08-survey",
+        "spec001:FACT-O08-snr"
+      ],
+      "actionIds": [
+        "spec001:ACTION-radio-mitigate-emitter",
+        "spec001:ACTION-radio-raise-noise"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-telescope",
+      "subjectId": "spec001:PR073",
+      "label": "Observation telescope",
+      "description": "The telescope points back toward the Skywell mast and the alternate surveyed corridor. A clear-looking image cannot supply a missing path check. Return to the Skywell if the antenna is unaligned or endpoint settings mismatch; a high numerical SNR never overrides either fault.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [
+        "spec001:FACT-O08-survey"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-meter",
+      "subjectId": "spec001:PR074",
+      "label": "Noise-floor meter and boundary exercise card",
+      "description": "The meter reports comparable received power levels in dBm; their difference is an SNR in dB. The separately labeled supplied boundary exercise uses −65 dBm signal and −84.99 dBm noise: 19.99 dB fails the fictional inclusive 20 dB minimum, even if a display rounds it. This exercise replaces the supplied observation conditions; it is not a measurement of a production path. Return to surveyed conditions with the emitter isolation control, then measure again.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [
+        "spec001:FACT-O08-snr"
+      ],
+      "actionIds": [
+        "spec001:ACTION-radio-boundary-exercise"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-globe",
+      "subjectId": "spec001:PR075",
+      "label": "Propagation globe",
+      "description": "Colored paths wrap around the globe, with a clear legend: conceptual illustration only. No distance, terrain, rain attenuation or universal coverage calculation is scored here. The exercise supplies path outcomes and comparable power observations explicitly; real equipment needs its own specifications.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-vane",
+      "subjectId": "spec001:PR076",
+      "label": "Weather vane and diary shelf",
+      "description": "The vane rattles above a blank diary shelf. A sign reserves the Weather Diary for a later optional activity; there is no active quest or hidden reward here. The radio investigation is untimed, and its essential path, settings and noise evidence remains readable without hearing the vane.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-orbit",
+      "subjectId": "spec001:PR077",
+      "label": "Satellite orbital model",
+      "description": "A brass satellite circles a painted planet in the illustration. Its label offers a distance perspective without claiming that this room simulates a satellite network. The Celestial Eagle has underlined the words OPTIONAL EXHIBIT. Your current relay can be checked without solving another technology.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-reflector",
+      "subjectId": "spec001:PR078",
+      "label": "Microwave reflector",
+      "description": "The reflector bears a maintenance tag that points back to the supplied path survey. Its shape alone does not establish compatibility, received power or throughput. No unreviewed gain value, propagation penalty or alignment tolerance is hidden in this display.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [
+        "spec001:FACT-O08-survey"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-history",
+      "subjectId": "spec001:PR079",
+      "label": "Signal history drum",
+      "description": "The drum has separate BEFORE and AFTER columns. Actual readings remain in the notebook with their original conditions; old measurements stay stale after channel, path, settings or emitter changes. Returning to the same controls does not refresh an old reading. A mitigation proposal is not a measurement, and a path check is not endpoint service recovery.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [
+        "spec001:FACT-O08-survey",
+        "spec001:FACT-O08-snr"
+      ],
+      "actionIds": [
+        "spec001:ACTION-radio-read-survey"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-channels",
+      "subjectId": "spec001:PR080",
+      "label": "Channel survey desk and relay test",
+      "description": "Under surveyed conditions, scenario channel A supplies −65 dBm signal and −90 dBm noise: 25 dB SNR. Scenario channel B supplies −65 dBm and −85 dBm: exactly 20 dB, an equally valid inclusive boundary. These fictional labels are not real channel recommendations or permanent rankings. Choose either at both endpoints, inspect the current path/settings and measure again. Passing this supplied SNR threshold does not prove throughput or service recovery.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [
+        "spec001:FACT-O08-snr",
+        "spec001:FACT-O08-survey"
+      ],
+      "actionIds": [
+        "spec001:ACTION-radio-channel-A",
+        "spec001:ACTION-radio-channel-B",
+        "spec001:ACTION-O08-scenario-channel-A",
+        "spec001:ACTION-O08-scenario-channel-B"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-phoenix",
+      "subjectId": "spec001:CH10",
+      "label": "Microwave Phoenix",
+      "description": "The Microwave Phoenix has arranged the survey cards in two equally neat piles. Its note reads: A different channel is a candidate, not a victory speech. Compare the new observation. The ordinary inspection kit performs the required checks, so no ally, rare tool or optional reward blocks the investigation.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-eagle",
+      "subjectId": "spec001:CH11",
+      "label": "Celestial Eagle",
+      "description": "The Celestial Eagle studies the orbital model from a very ordinary wooden stool. Its placard puts the distant exhibit in perspective and makes no promise of a satellite solution. The path to the Skywell remains open for preparation, and the workshop route remains available for tools.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-demon",
+      "subjectId": "spec001:CH23",
+      "label": "Noise Demon",
+      "description": "The Noise Demon is knitting a scarf labeled SAME SIGNAL, DIFFERENT NOISE. It represents the impaired evidence rather than a combat target: 13 dB fails this supplied profile even though received signal stays −65 dBm. Reconnecting or isolating the local emitter changes the exercise; only a new test supplies current evidence.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [],
+      "actionIds": []
+    }
+  ],
+  "characterIds": [
+    "spec001:CH10",
+    "spec001:CH11",
+    "spec001:CH23"
+  ],
+  "propInstances": [
+    {
+      "instanceId": "r08-pr071",
+      "propId": "spec001:PR071",
+      "description": "Storm radar dish, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR071"
+    },
+    {
+      "instanceId": "r08-pr072",
+      "propId": "spec001:PR072",
+      "description": "Local interference emitter and isolation switch, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR072"
+    },
+    {
+      "instanceId": "r08-pr073",
+      "propId": "spec001:PR073",
+      "description": "Observation telescope, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR073"
+    },
+    {
+      "instanceId": "r08-pr074",
+      "propId": "spec001:PR074",
+      "description": "Noise-floor meter and boundary exercise card, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR074"
+    },
+    {
+      "instanceId": "r08-pr075",
+      "propId": "spec001:PR075",
+      "description": "Propagation globe, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR075"
+    },
+    {
+      "instanceId": "r08-pr076",
+      "propId": "spec001:PR076",
+      "description": "Weather vane and diary shelf, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR076"
+    },
+    {
+      "instanceId": "r08-pr077",
+      "propId": "spec001:PR077",
+      "description": "Satellite orbital model, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR077"
+    },
+    {
+      "instanceId": "r08-pr078",
+      "propId": "spec001:PR078",
+      "description": "Microwave reflector, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR078"
+    },
+    {
+      "instanceId": "r08-pr079",
+      "propId": "spec001:PR079",
+      "description": "Signal history drum, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR079"
+    },
+    {
+      "instanceId": "r08-pr080",
+      "propId": "spec001:PR080",
+      "description": "Channel survey desk and relay test, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR080"
+    }
+  ],
+  "safePositions": [
+    {
+      "id": "spec001:R08.entry",
+      "walkRegionId": "spec001:WALK-R08",
+      "point": {
+        "x": 5,
+        "y": 3
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec001:FACT-O08-snr",
+      "roomId": "spec001:R08",
+      "subjectIds": [
+        "spec001:R08",
+        "spec001:PROFILE-RADIO"
+      ],
+      "kind": "measurement",
+      "text": "Storm Observatory compares signal and noise measured at the same received boundary: scenario channel A is −65 dBm signal and −90 dBm noise, giving 25 dB SNR. Scenario channel B is −65 dBm and −85 dBm, giving exactly 20 dB. Both meet the fictional inclusive 20 dB threshold when path and settings pass. With noise −78 dBm, the same signal gives 13 dB and fails. After any mitigation, measure the selected path again in the current attempt.",
+      "ruleIds": [
+        "spec001:PHY07",
+        "spec001:STATE01"
+      ],
+      "requiresFreshMeasurement": true,
+      "readings": [
+        {
+          "name": "Received signal",
+          "unit": "dBm"
+        },
+        {
+          "name": "Received noise",
+          "unit": "dBm"
+        },
+        {
+          "name": "Signal-to-noise ratio",
+          "unit": "dB"
+        }
+      ]
+    },
+    {
+      "id": "spec001:FACT-O08-survey",
+      "roomId": "spec001:R08",
+      "subjectIds": [
+        "spec001:PROFILE-RADIO"
+      ],
+      "kind": "context",
+      "text": "The path selected in the Skywell and endpoint settings must still be viable and compatible. A new channel choice or repaired obstruction makes old observations stale. SNR arithmetic cannot supply a missing path check, and a proposed mitigation is not a fresh measurement.",
+      "ruleIds": [
+        "spec001:PHY07",
+        "spec001:STATE01"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "ambience": {
+    "text": "The vane rattles and the dish creaks in the description; silence does not remove any observation or required action.",
+    "assetIds": []
+  },
+  "futureDoorIds": []
+}

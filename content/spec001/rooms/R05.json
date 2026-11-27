@@ -1,0 +1,344 @@
+{
+  "kind": "room",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:R05",
+  "presentationMode": "hybrid",
+  "description": "Luminous branches arch over a dock where Photon has organized a brush, a replacement tray and an absurdly serious inspection log. The original connection awaits inspection, while the selected candidate has a wavelength-direction mismatch. Both interventions remain available without another media branch. The scene uses temporary scenery and prop references; none count as finished media.",
+  "walkRegions": [
+    {
+      "id": "spec001:WALK-R05",
+      "label": "Clear inspection walkway",
+      "vertices": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 6
+        },
+        {
+          "x": 0,
+          "y": 6
+        }
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "toRoomId": "spec001:R02",
+      "label": "Walk to The Titan’s Workshop",
+      "walkRegionId": "spec001:WALK-R05"
+    },
+    {
+      "toRoomId": "spec001:R06",
+      "label": "Walk to The Prism Vault",
+      "walkRegionId": "spec001:WALK-R05"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "spec001:HOTSPOT-fiber-r05-pr041",
+      "subjectId": "spec001:PR041",
+      "label": "Fiber grove trunk",
+      "description": "A glassy trunk divides into fine, labeled fibers. The illuminated branches represent light transmission, not electricity delivered to the far end. A maintenance ribbon points back to the workshop and its always obtainable inspection kit. No ally or optional reward is needed to follow this route.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r05-pr042",
+      "subjectId": "spec001:PR042",
+      "label": "Light blossom cluster",
+      "description": "The blossoms brighten when the exhibit is powered. Photon has hung a card among them: PRETTY IS NOT A MEASUREMENT. Visible light and a power indicator cannot establish a compatible data link, receiver reserve or working service. The useful evidence is written at the dock.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r05-pr043",
+      "subjectId": "spec001:PR043",
+      "label": "Connector inspection dock",
+      "description": "Inspect the original connection before changing it. The dock supplies a diagnosed connection defect for which both cleaning and compatible connector replacement are suitable. This is a declared exercise, not a field maintenance recipe. The reusable inspection tool observes; the dock and its stock perform the intervention. Reinspect afterward to confirm removal. Returning the original diagnostic connection lets you inspect and try again without erasing notes.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Use the dock to inspect first. An intervention is available only after inspection; after it, reinspect and take a fresh preparation reading. To change profile candidates or interventions, restore the original diagnostic connection and inspect again.",
+      "evidenceIds": [
+        "spec001:FACT-O05-inspection"
+      ],
+      "actionIds": [
+        "spec001:ACTION-fiber-inspect-before",
+        "spec001:ACTION-fiber-restore-original",
+        "spec001:ACTION-fiber-reinspect-clean",
+        "spec001:ACTION-fiber-reinspect-replace"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r05-pr044",
+      "subjectId": "spec001:PR044",
+      "label": "Cleaning station",
+      "description": "A tiny brush stands beneath an enormous sign reading PATIENCE IS A TOOL. In this supplied scenario the cleaning station can remove the diagnosed defect after inspection. The adjacent replacement tray is an equally valid intervention. Neither choice is a reward for recruiting a creature. After the dock acts, reinspect to confirm removal; a choice alone is not a passing preparation reading.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Choose either suitable intervention after inspecting the original connection. The reusable kit is never consumed and does not perform the cleaning or replacement. Reinspect and measure before submitting the preparation result.",
+      "evidenceIds": [
+        "spec001:FACT-O05-inspection"
+      ],
+      "actionIds": [
+        "spec001:ACTION-fiber-clean",
+        "spec001:ACTION-fiber-replace",
+        "spec001:ACTION-O05-inspected-connector-cleaning",
+        "spec001:ACTION-O05-inspected-connector-replacement"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r05-pr045",
+      "subjectId": "spec001:PR045",
+      "label": "Optical patch shelf and profile cards",
+      "description": "The supplied candidate cards explicitly compare five fields: fiber/media, wavelength direction, supported rate, connector/polarity and host support. The initial candidate has a wavelength-direction mismatch. One card matches all five; each other candidate fails exactly its named field. Choose a proposed set before intervention, without inferring compatibility from shell shape or a light level. After intervention, restore the original diagnostic connection to choose another set and inspect again.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [
+        "spec001:FACT-O05-matching"
+      ],
+      "actionIds": [
+        "spec001:ACTION-fiber-read-matching",
+        "spec001:ACTION-fiber-profile-matched",
+        "spec001:ACTION-fiber-profile-wrong-fiber",
+        "spec001:ACTION-fiber-profile-wrong-wavelength",
+        "spec001:ACTION-fiber-profile-wrong-rate",
+        "spec001:ACTION-fiber-profile-wrong-polarity",
+        "spec001:ACTION-fiber-profile-unsupported-host"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r05-pr046",
+      "subjectId": "spec001:PR046",
+      "label": "Fiber bend exhibit",
+      "description": "A wide loop and a pinched loop hang beside an intentionally unnumbered caution card. Real fiber handling and bend limits depend on the specified product. This exhibit supplies no universal bend radius or extra loss to add: the Prism Vault declares each path’s complete total loss. Do not quietly count this illustration as another measured component.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r05-pr047",
+      "subjectId": "spec001:PR047",
+      "label": "Split fiber coupler",
+      "description": "The coupler resembles a fork used by a very precise giant. Its branches illustrate a physical arrangement, not extra guaranteed payload channels. The supplied path totals already include every modeled loss. The exhibit offers no unsupported splitter gain, amplification or promise of free capacity.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r05-pr048",
+      "subjectId": "spec001:PR048",
+      "label": "Broken fiber stump",
+      "description": "The stump displays a separate visible break, labeled EXHIBIT ONLY. Cleaning cannot repair a physically broken strand. The active dock instead names a diagnosed connection defect with two suitable interventions. Match the intervention to that stated diagnosis; do not copy a remedy merely because two things look damaged.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r05-pr049",
+      "subjectId": "spec001:PR049",
+      "label": "Optical receiver altar",
+      "description": "The receiver altar has room for a lantern and a much more useful notebook. Complete inspection, intervention and reinspection at the dock, then use a fresh preparation reading. Receiver range and reserve still need their own Prism Vault proof; a compatible connection does not complete the optical budget.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r05-pr050",
+      "subjectId": "spec001:PR050",
+      "label": "Photon lantern and maintenance ribbon",
+      "description": "The lantern lights a fragment of the old maintenance ribbon. Its faded marks hint at a later optional record investigation, but no missing record blocks the garden. Method, worked-step and solution hints remain available from the objective panel, and assistance never makes a technically valid repair less valid.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r05-ch03",
+      "subjectId": "spec001:CH03",
+      "label": "Photon the Firefly",
+      "description": "Photon hovers beside the inspection dock, looking impressed by the brush. The firefly represents light transmission, not electrical power carried through fiber. These written notes contain all required clues. You can investigate with the ordinary kit without recruiting Photon or waiting for a conversation.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r05-ch05",
+      "subjectId": "spec001:CH05",
+      "label": "Single-Mode Unicorn",
+      "description": "The Unicorn studies a profile card through a monocle the size of a dinner plate. Single-mode names optical propagation behavior; it does not mean one guaranteed payload lane or universal compatibility. The supplied optic, media, wavelength direction, rate, polarity and host fields decide this exercise.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r05-ch06",
+      "subjectId": "spec001:CH06",
+      "label": "Multimode Hydra",
+      "description": "The Hydra has several heads and one shared insistence: modes are propagation, not guaranteed independent data channels. Its card does not claim that multimode is always better or worse than single-mode. Follow the specified matching fields. Observation of this character does not recruit it or award an ability.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    }
+  ],
+  "characterIds": [
+    "spec001:CH03",
+    "spec001:CH05",
+    "spec001:CH06"
+  ],
+  "propInstances": [
+    {
+      "instanceId": "r05-pr041",
+      "propId": "spec001:PR041",
+      "description": "Fiber grove trunk.",
+      "assetId": "spec001:DEV-PR041"
+    },
+    {
+      "instanceId": "r05-pr042",
+      "propId": "spec001:PR042",
+      "description": "Light blossom cluster.",
+      "assetId": "spec001:DEV-PR042"
+    },
+    {
+      "instanceId": "r05-pr043",
+      "propId": "spec001:PR043",
+      "description": "Connector inspection dock.",
+      "assetId": "spec001:DEV-PR043"
+    },
+    {
+      "instanceId": "r05-pr044",
+      "propId": "spec001:PR044",
+      "description": "Cleaning station.",
+      "assetId": "spec001:DEV-PR044"
+    },
+    {
+      "instanceId": "r05-pr045",
+      "propId": "spec001:PR045",
+      "description": "Optical patch shelf and profile cards.",
+      "assetId": "spec001:DEV-PR045"
+    },
+    {
+      "instanceId": "r05-pr046",
+      "propId": "spec001:PR046",
+      "description": "Fiber bend exhibit.",
+      "assetId": "spec001:DEV-PR046"
+    },
+    {
+      "instanceId": "r05-pr047",
+      "propId": "spec001:PR047",
+      "description": "Split fiber coupler.",
+      "assetId": "spec001:DEV-PR047"
+    },
+    {
+      "instanceId": "r05-pr048",
+      "propId": "spec001:PR048",
+      "description": "Broken fiber stump.",
+      "assetId": "spec001:DEV-PR048"
+    },
+    {
+      "instanceId": "r05-pr049",
+      "propId": "spec001:PR049",
+      "description": "Optical receiver altar.",
+      "assetId": "spec001:DEV-PR049"
+    },
+    {
+      "instanceId": "r05-pr050",
+      "propId": "spec001:PR050",
+      "description": "Photon lantern and maintenance ribbon.",
+      "assetId": "spec001:DEV-PR050"
+    }
+  ],
+  "safePositions": [
+    {
+      "id": "spec001:R05.entry",
+      "walkRegionId": "spec001:WALK-R05",
+      "point": {
+        "x": 5,
+        "y": 3
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec001:FACT-O05-matching",
+      "roomId": "spec001:R05",
+      "subjectIds": [
+        "spec001:PR045",
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "kind": "context",
+      "text": "The Photon Gardens profile cards name the supplied optical pair, fiber type, wavelength direction, supported rate, connector/polarity and host support. All must match. Similar shells, a pleasing light level or a numerical budget do not establish compatibility.",
+      "ruleIds": [
+        "spec001:PHY03",
+        "spec001:PHY06"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-O05-inspection",
+      "roomId": "spec001:R05",
+      "subjectIds": [
+        "spec001:PR043",
+        "spec001:PR044"
+      ],
+      "kind": "observation",
+      "text": "Inspect the connection at the dock before any change. The supplied scenario records the connection defect and the suitable intervention: inspected cleaning or inspected connector replacement. Both reviewed alternatives remove the diagnosed defect and retain the matching profile. A missing inspection cannot be inferred from a later light level.",
+      "ruleIds": [
+        "spec001:PHY03",
+        "spec001:PHY06"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "ambience": {
+    "text": "Leaves rustle like paper and the cleaning station hums. These sounds are described here; every diagnostic clue and action is available in text.",
+    "assetIds": []
+  },
+  "futureDoorIds": []
+}

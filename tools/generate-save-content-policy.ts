@@ -22,15 +22,15 @@ export async function saveContentPolicyArtifact(): Promise<string> {
       ...world.documents.map(document => document.path), 'content/schemas/content.schema.json',
       'src/app/content.ts', 'src/app/save-policy.ts', 'src/content/registry.ts', 'src/services/save-validator.ts',
       'src/state/notebook.ts', 'src/domain/copper.ts', 'docs/evidence/spec001/rule-source-review.md',
-      'src/state/objectives.ts', 'src/state/copper-scenario.ts', 'src/state/equipment-scenarios.ts', 'src/state/repair-plan.ts',
-      'src/domain/power.ts', 'src/domain/capabilities.ts', 'src/domain/packet-journey.ts',
+      'src/state/objectives.ts', 'src/state/copper-scenario.ts', 'src/state/fiber-scenario.ts', 'src/state/radio-scenario.ts', 'src/state/equipment-scenarios.ts', 'src/state/repair-plan.ts',
+      'src/domain/optics.ts', 'src/domain/radio.ts', 'src/domain/power.ts', 'src/domain/capabilities.ts', 'src/domain/packet-journey.ts',
       'tools/generate-save-content-policy.ts'])].sort();
     // All paths come from trusted validated project content; no filesystem/account selector.
     const inputs = Object.fromEntries(await Promise.all(paths.map(async path => [path, createHash('sha256').update(await readFile(resolve(root, path))).digest('hex')])));
-    return JSON.stringify({ formatVersion: 1, scope: 'authored-first-copper-route',
-      provenance: { generator: 'tools/generate-save-content-policy.ts', ruleIds: ['PHY04', 'PHY05', 'PHY08', 'PHY09', 'PHY10', 'PHY11', 'STATE01', 'STATE03', 'STATE04'],
-        sourceIds: ['S01', 'S02', 'S03', 'S04', 'S05', 'S08', 'S10', 'S11', 'S12', 'S13'],
-        caseIds: ['T01', 'T02', 'T10', 'T11', 'T12', 'T13', 'T16', 'B-COPPER-100', 'B-COPPER-OVER', 'C-E01', 'B-ENDPOINT'], inputs },
+    return JSON.stringify({ formatVersion: 1, scope: 'authored-spec001-twelve-room-gameplay',
+      provenance: { generator: 'tools/generate-save-content-policy.ts', ruleIds: ['PHY03', 'PHY04', 'PHY05', 'PHY06', 'PHY07', 'PHY08', 'PHY09', 'PHY10', 'PHY11', 'STATE01', 'STATE03', 'STATE04'],
+        sourceIds: ['S01', 'S02', 'S03', 'S04', 'S05', 'S06', 'S07', 'S08', 'S09', 'S10', 'S11', 'S12', 'S13'],
+        caseIds: ['T01', 'T02', 'T04', 'T05', 'T06', 'T07', 'T08', 'T09', 'T10', 'T11', 'T12', 'T13', 'T15', 'T16', 'B-COPPER-100', 'B-COPPER-OVER', 'B-OPT-MAX', 'B-OPT-OVER', 'B-OPT-RESERVE', 'B-RADIO-20', 'B-RADIO-BELOW', 'B-RADIO-PATH', 'C-E01', 'B-ENDPOINT'], inputs },
       policies: [policy] }, null, 2) + '\n';
   } finally { await loader.close(); }
 }

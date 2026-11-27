@@ -535,16 +535,42 @@ interface ProofProjection {
 }
 /**
  * This is a structural route proof, not a simulation of diagnostic answers.
- * Keep every flag read by any authored condition. A write to any other flag,
- * or a notebook fact receipt, cannot affect any successor/availability decision
- * in this proof. Only those inert dimensions may be omitted from memoization;
- * inventory, once-only grants/consumption, dialogue and recovery remain concrete.
+ * A closed group of diagnostic controls may read each other's flags without
+ * influencing a structural transition. Retain every external flag read, then
+ * close dependencies backwards through terminal control batches. This keeps
+ * indirect flag-to-flag-to-item/goal dependencies, including entry conditions.
+ * Only that closed diagnostic state and fact receipts may leave the memo key;
+ * inventory, once-only grants/consumption, dialogue and recovery stay concrete.
  */
 function routeProofProjection(w: S.world, records: S.authoredRecord[]): ProofProjection {
   const conditionFlags = new Set<string>();
-  visit([w, ...records], node => {
+  const readFlags = (value: unknown) => visit(value, node => {
     if (node['kind'] === 'flag-equals' && typeof node['flagId'] === 'string') conditionFlags.add(node['flagId']);
   });
+  // Real conversations retain all their conditions. Only a one-node terminal
+  // action collection without character-owned sequencing is a candidate.
+  const conversations = new Set(records.flatMap(record => record.kind === 'character' ? record.dialogueIds : []));
+  const controls = records.filter((record): record is S.dialogue => record.kind === 'dialogue'
+    && !conversations.has(record.id) && record.nodes.length === 1 && record.nodes[0]!.id === record.entryNodeId
+    && record.nodes[0]!.choices.every(choice => choice.nextNodeId === null));
+  const controlIds = new Set(controls.map(control => control.id));
+  readFlags([w, ...records.filter(record => !controlIds.has(record.id))]);
+  const structural = (effects: readonly S.effect[]) => effects.some(effect => effect.kind !== 'record-fact'
+    && (effect.kind !== 'set-flag' || conditionFlags.has(effect.flagId)));
+  // Monotone closure is bounded by the finite authored flag identities. A
+  // condition that enables an externally visible write is itself observable;
+  // its setters may expose another dependency on the following pass.
+  for (;;) {
+    const count = conditionFlags.size;
+    for (const control of controls) {
+      const entry = control.nodes[0]!;
+      if (structural(entry.effects)) readFlags(entry.condition);
+      for (const choice of entry.choices) if (structural([...entry.effects, ...choice.effects])) {
+        readFlags([entry.condition, choice.condition]);
+      }
+    }
+    if (conditionFlags.size === count) break;
+  }
   const inertEffectIds = new Set<string>();
   visit(records, node => {
     if (typeof node['effectId'] !== 'string') return;

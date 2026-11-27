@@ -58,7 +58,7 @@ describe('T048 supported-version reading and explicit in-memory migration', () =
     expect(Object.isFrozen(result.explanations)).toBe(true);
   });
 
-  it('reads actual current introduction content and does not grant fixture IDs or metadata-only rooms', () => {
+  it('reads actual current content and does not grant fixture IDs or unavailable rooms', () => {
     const policy = currentPolicy.policies as SaveContentPolicy[];
     const actual = new SaveReader({ currentContentVersion: '1.0.0', readPolicies: policy, migrations: [] });
     const { registry } = loadIntroductionContent();
@@ -69,7 +69,7 @@ describe('T048 supported-version reading and explicit in-memory migration', () =
     if (result.status === 'ready') expect(result.snapshot).toEqual(captured.capture.snapshot);
     expect(actual.read(bytes(baseline.expected))).toMatchObject({ status: 'invalid', code: 'reference' });
     const invalid = structuredClone(captured.capture.snapshot);
-    const raw = { ...invalid, world: { ...invalid.world, roomId: 'spec001:R05', position: { safePositionId: 'spec001:R05.entry' } } };
+    const raw = { ...invalid, world: { ...invalid.world, roomId: 'spec001:R99', position: { safePositionId: 'spec001:R99.entry' } } };
     expect(actual.read(bytes(raw))).toMatchObject({ status: 'invalid', code: 'reference' });
   });
 

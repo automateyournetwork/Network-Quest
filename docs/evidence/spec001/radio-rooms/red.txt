@@ -1,0 +1,195 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/content/radio-rooms.test.ts tests/state/radio-scenario.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/state/radio-scenario.test.ts (0 test)
+ ❯ tests/content/radio-rooms.test.ts (15 tests | 14 failed) 8ms
+   ❯ T080 radio room content contracts (15)
+     × R07 validates the real schema 2ms
+     × R08 validates the real schema 0ms
+     × joins the semantic registry and leaves all three route proofs intact 1ms
+     × R07 exposes the exact reviewed O07 evidence and alternatives 0ms
+     × R08 exposes the exact reviewed O08 evidence and alternatives 0ms
+     × R07 makes every allocated prop and character inspectable, with honest temporary media 0ms
+     × R08 makes every allocated prop and character inspectable, with honest temporary media 0ms
+     × retains exact bidirectional branch exits and no invented market shortcut 0ms
+     × exposes only factual context and reversible choices; no fake Talk, recruitment or optional activity handlers 1ms
+     × explains scoped thresholds, changing observations, ordinary tools and measurement boundaries in visible text 1ms
+     ✓ keeps the ordinary kit always obtainable without consuming it 0ms
+     × rejects unknown-action through actual semantic validation 1ms
+     × rejects contradictory-evidence through actual semantic validation 1ms
+     × rejects bad-exit through actual semantic validation 1ms
+     × rejects bad-anchor through actual semantic validation 1ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/radio-scenario.test.ts [ tests/state/radio-scenario.test.ts ]
+Error: Cannot find module '../../src/state/radio-scenario' imported from /Users/john.capobianco/Network-Quest/tests/state/radio-scenario.test.ts
+ ❯ tests/state/radio-scenario.test.ts:6:1
+      4| import { validateContent } from '../../src/content/registry';
+      5| import type * as S from '../../src/content/schema-types.generated';
+      6| import { radioEffectBindings, createRadioScenarioResolver, prepareRadi…
+       | ^
+      7| import { evaluateObjective, objectiveEffectBindings } from '../../src/…
+      8| import { createReducer, createReducerState } from '../../src/state/red…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 14 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/content/radio-rooms.test.ts > T080 radio room content contracts > R07 validates the real schema
+Error: Missing radio room R07
+ ❯ room tests/content/radio-rooms.test.ts:14:95
+     12| const actions = await read<S.collection>('content/spec001/dialogue/rad…
+     13| const rooms = await Promise.all(['R07', 'R08'].map(id => read<S.room>(…
+     14| function room(id: string): S.room { const r = rooms.find(r => r?.id ==…
+       |                                                                                               ^
+     15| function objective(id: string): S.objective { const o = objectives.rec…
+     16| function projection() {
+ ❯ tests/content/radio-rooms.test.ts:30:87
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL  tests/content/radio-rooms.test.ts > T080 radio room content contracts > R08 validates the real schema
+Error: Missing radio room R08
+ ❯ room tests/content/radio-rooms.test.ts:14:95
+     12| const actions = await read<S.collection>('content/spec001/dialogue/rad…
+     13| const rooms = await Promise.all(['R07', 'R08'].map(id => read<S.room>(…
+     14| function room(id: string): S.room { const r = rooms.find(r => r?.id ==…
+       |                                                                                               ^
+     15| function objective(id: string): S.objective { const o = objectives.rec…
+     16| function projection() {
+ ❯ tests/content/radio-rooms.test.ts:30:87
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL  tests/content/radio-rooms.test.ts > T080 radio room content contracts > joins the semantic registry and leaves all three route proofs intact
+Error: Missing radio actions
+ ❯ projection tests/content/radio-rooms.test.ts:21:23
+     19|   input.world.documents = input.world.documents.filter(r => !replaced.…
+     20|   for (const { path } of replaced) delete input.documents[path];
+     21|   if (!actions) throw new Error('Missing radio actions');
+       |                       ^
+     22|   for (const [path, value] of [['content/spec001/profiles.json', profi…
+     23|     ['content/spec001/rooms/R07.json', room('R07')], ['content/spec001…
+ ❯ tests/content/radio-rooms.test.ts:32:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL  tests/content/radio-rooms.test.ts > T080 radio room content contracts > R07 exposes the exact reviewed O07 evidence and alternatives
+Error: Missing radio room R07
+ ❯ room tests/content/radio-rooms.test.ts:14:95
+     12| const actions = await read<S.collection>('content/spec001/dialogue/rad…
+     13| const rooms = await Promise.all(['R07', 'R08'].map(id => read<S.room>(…
+     14| function room(id: string): S.room { const r = rooms.find(r => r?.id ==…
+       |                                                                                               ^
+     15| function objective(id: string): S.objective { const o = objectives.rec…
+     16| function projection() {
+ ❯ tests/content/radio-rooms.test.ts:36:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+ FAIL  tests/content/radio-rooms.test.ts > T080 radio room content contracts > R08 exposes the exact reviewed O08 evidence and alternatives
+Error: Missing radio room R08
+ ❯ room tests/content/radio-rooms.test.ts:14:95
+     12| const actions = await read<S.collection>('content/spec001/dialogue/rad…
+     13| const rooms = await Promise.all(['R07', 'R08'].map(id => read<S.room>(…
+     14| function room(id: string): S.room { const r = rooms.find(r => r?.id ==…
+       |                                                                                               ^
+     15| function objective(id: string): S.objective { const o = objectives.rec…
+     16| function projection() {
+ ❯ tests/content/radio-rooms.test.ts:36:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
+
+ FAIL  tests/content/radio-rooms.test.ts > T080 radio room content contracts > R07 makes every allocated prop and character inspectable, with honest temporary media
+Error: Missing radio room R07
+ ❯ room tests/content/radio-rooms.test.ts:14:95
+     12| const actions = await read<S.collection>('content/spec001/dialogue/rad…
+     13| const rooms = await Promise.all(['R07', 'R08'].map(id => read<S.room>(…
+     14| function room(id: string): S.room { const r = rooms.find(r => r?.id ==…
+       |                                                                                               ^
+     15| function objective(id: string): S.objective { const o = objectives.rec…
+     16| function projection() {
+ ❯ tests/content/radio-rooms.test.ts:45:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯
+
+ FAIL  tests/content/radio-rooms.test.ts > T080 radio room content contracts > R08 makes every allocated prop and character inspectable, with honest temporary media
+Error: Missing radio room R08
+ ❯ room tests/content/radio-rooms.test.ts:14:95
+     12| const actions = await read<S.collection>('content/spec001/dialogue/rad…
+     13| const rooms = await Promise.all(['R07', 'R08'].map(id => read<S.room>(…
+     14| function room(id: string): S.room { const r = rooms.find(r => r?.id ==…
+       |                                                                                               ^
+     15| function objective(id: string): S.objective { const o = objectives.rec…
+     16| function projection() {
+ ❯ tests/content/radio-rooms.test.ts:45:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/12]⎯
+
+ FAIL  tests/content/radio-rooms.test.ts > T080 radio room content contracts > retains exact bidirectional branch exits and no invented market shortcut
+Error: Missing radio room R07
+ ❯ room tests/content/radio-rooms.test.ts:14:95
+     12| const actions = await read<S.collection>('content/spec001/dialogue/rad…
+     13| const rooms = await Promise.all(['R07', 'R08'].map(id => read<S.room>(…
+     14| function room(id: string): S.room { const r = rooms.find(r => r?.id ==…
+       |                                                                                               ^
+     15| function objective(id: string): S.objective { const o = objectives.rec…
+     16| function projection() {
+ ❯ tests/content/radio-rooms.test.ts:53:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/12]⎯
+
+ FAIL  tests/content/radio-rooms.test.ts > T080 radio room content contracts > exposes only factual context and reversible choices; no fake Talk, recruitment or optional activity handlers
+AssertionError: expected null not to be null
+ ❯ tests/content/radio-rooms.test.ts:57:25
+     55|   });
+     56|   it('exposes only factual context and reversible choices; no fake Tal…
+     57|     expect(actions).not.toBeNull(); expect(validateSchema(actions), JS…
+       |                         ^
+     58|     const exposed = rooms.flatMap(r => r!.hotspots.flatMap(h => h.acti…
+     59|     for (const record of actions!.records) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/12]⎯
+
+ FAIL  tests/content/radio-rooms.test.ts > T080 radio room content contracts > explains scoped thresholds, changing observations, ordinary tools and measurement boundaries in visible text
+AssertionError: expected 'null null' to contain 'fictional'
+
+Expected: "fictional"
+Received: "null null"
+
+ ❯ tests/content/radio-rooms.test.ts:78:226
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/12]⎯
+
+ FAIL  tests/content/radio-rooms.test.ts > T080 radio room content contracts > rejects unknown-action through actual semantic validation
+ FAIL  tests/content/radio-rooms.test.ts > T080 radio room content contracts > rejects contradictory-evidence through actual semantic validation
+ FAIL  tests/content/radio-rooms.test.ts > T080 radio room content contracts > rejects bad-exit through actual semantic validation
+ FAIL  tests/content/radio-rooms.test.ts > T080 radio room content contracts > rejects bad-anchor through actual semantic validation
+Error: Missing radio actions
+ ❯ projection tests/content/radio-rooms.test.ts:21:23
+     19|   input.world.documents = input.world.documents.filter(r => !replaced.…
+     20|   for (const { path } of replaced) delete input.documents[path];
+     21|   if (!actions) throw new Error('Missing radio actions');
+       |                       ^
+     22|   for (const [path, value] of [['content/spec001/profiles.json', profi…
+     23|     ['content/spec001/rooms/R07.json', room('R07')], ['content/spec001…
+ ❯ tests/content/radio-rooms.test.ts:88:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/12]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  14 failed | 1 passed (15)
+   Start at  20:27:01
+   Duration  818ms (import 90%, transform 5%, tests 4%, worker 2%)
+
+    Isolate  2 workers spawned · ~275ms startup each (spawn + environment, per file)
+             at least ~275ms faster with isolate: false — reuses workers across files instead of one per file
+

@@ -1,0 +1,338 @@
+{
+  "kind": "room",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:R06",
+  "presentationMode": "hybrid",
+  "description": "The Prism Vault glows around a slow engine and a briskly judgmental abacus. A meter cradle faces two reviewed paths and one high-loss comparison. The selected path initially has 10 dB total loss. Printed labels carry every number. This temporary scene contributes no finished media count; the supplied teaching evidence remains fully readable.",
+  "walkRegions": [
+    {
+      "id": "spec001:WALK-R06",
+      "label": "Clear inspection walkway",
+      "vertices": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 6
+        },
+        {
+          "x": 0,
+          "y": 6
+        }
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "toRoomId": "spec001:R05",
+      "label": "Walk to The Photon Gardens",
+      "walkRegionId": "spec001:WALK-R06"
+    },
+    {
+      "toRoomId": "spec001:R11",
+      "label": "Walk to The Backhoe Rift",
+      "walkRegionId": "spec001:WALK-R06"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "spec001:HOTSPOT-fiber-r06-pr051",
+      "subjectId": "spec001:PR051",
+      "label": "Prism engine",
+      "description": "The engine turns slowly behind a window, projecting a line instead of an answer. Its transmitter is fixed at −3 dBm in this fictional exercise. Passive loss subtracts from that level; it cannot create optical gain. Prepared matching equipment and a fresh power measurement are separate requirements.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r06-pr052",
+      "subjectId": "spec001:PR052",
+      "label": "Wavelength combiner",
+      "description": "The combiner gathers colored lines into one display. The Rainbow Serpent’s exhibit illustrates wavelength multiplexing, not a guarantee that any colored module interoperates. Your supplied pair must match its required wavelength directions along with media, rate, connector/polarity and host support.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [
+        "spec001:FACT-O06-compatibility"
+      ],
+      "actionIds": [
+        "spec001:ACTION-fiber-read-compatibility"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r06-pr053",
+      "subjectId": "spec001:PR053",
+      "label": "Spectrum window",
+      "description": "Colored stripes are mirrored by printed wavelength-direction labels so color is never the only evidence. Those labels refer to the supplied candidate profiles; no real wavelengths or product ranges are invented here. A favorable numerical budget cannot rescue a mismatched direction.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r06-pr054",
+      "subjectId": "spec001:PR054",
+      "label": "Attenuation dial and passive-path selector",
+      "description": "The fictional transmitter is −3 dBm. Path A totals 8 dB loss, giving −11 dBm receive and 3 dB reserve above −14 dBm sensitivity. Path B totals 9 dB loss, giving −12 dBm receive and exactly 2 dB reserve. Both meet the inclusive 2 dB requirement and the independent −1 dBm maximum. The initial high-loss path totals 10 dB: −13 dBm receive has only 1 dB reserve and fails. Select a path, then measure again; the dial does not make a reading.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Use either reviewed path, or investigate the high-loss comparison. After a change, measure again before submitting. Older readings remain in your notebook as stale history; selecting a path never refreshes them.",
+      "evidenceIds": [
+        "spec001:FACT-O06-budget"
+      ],
+      "actionIds": [
+        "spec001:ACTION-fiber-path-A",
+        "spec001:ACTION-fiber-path-B",
+        "spec001:ACTION-fiber-path-high-loss",
+        "spec001:ACTION-O06-passive-path-A",
+        "spec001:ACTION-O06-passive-path-B"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r06-pr055",
+      "subjectId": "spec001:PR055",
+      "label": "Splice enclosure",
+      "description": "The enclosure’s clear lid reveals a neatly labeled join. It offers no new repair procedure or secret bonus. Every modeled component is already included in the declared total path loss. The active connection inspection and its suitable interventions remain at the Photon Gardens dock.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r06-pr056",
+      "subjectId": "spec001:PR056",
+      "label": "Optical attenuator and overload comparison",
+      "description": "A separate comparison card supplies an independent observed receive level of 0 dBm. It exceeds the fictional receiver’s −1 dBm maximum by 1 dB: more received power is not always safer. This is not produced by the passive −3 dBm transmitter exercise and is not a selectable gain path. Real attenuator selection and product limits require their own specified design.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r06-pr057",
+      "subjectId": "spec001:PR057",
+      "label": "Receiver threshold gauge",
+      "description": "Three printed marks accompany the gauge: sensitivity −14 dBm, maximum receive −1 dBm, and required reserve 2 dB. Receiver range includes both endpoints, while reserve is a separate requirement. A −13 dBm reading is above sensitivity but leaves only 1 dB reserve, so the declared exercise fails. No clue depends on the gauge’s colors.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r06-pr058",
+      "subjectId": "spec001:PR058",
+      "label": "Wavelength-filter door",
+      "description": "The door’s transparent leaves stand beside an ordinary walking entrance. They demonstrate a filter, not a lock requiring an ally or another media branch. Return to the gardens whenever you need to restore, inspect or change a candidate profile. A past preparation award does not establish the current connection’s condition.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [
+        "spec001:FACT-O06-compatibility"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r06-pr059",
+      "subjectId": "spec001:PR059",
+      "label": "Link budget abacus",
+      "description": "One row subtracts total loss from transmit power to give receive power in dBm. A second subtracts −14 dBm sensitivity from that receive level to give reserve in dB. These dimensions are different: −3 − 8 = −11, and −11 − (−14) = 3. Check the maximum independently. The later optional Prism Budget Bench is not required and awards no needed tool here.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r06-pr060",
+      "subjectId": "spec001:PR060",
+      "label": "Power meter cradle",
+      "description": "Place the ordinary inspection kit at the cradle and take a new reading for the selected path. Fresh means the same current configuration and attempt; after changing either, measure again. The notebook retains old results without silently refreshing them. A passing scoped optical budget supports this branch; it does not prove an end-to-end service.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [
+        "spec001:FACT-O06-budget"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r06-ch16",
+      "subjectId": "spec001:CH16",
+      "label": "SFP Hermit Crab",
+      "description": "The Hermit Crab displays two similar shells and a stack of very different specification cards. Shell shape is a form factor, not a complete compatibility test. The ordinary kit and supplied stock can solve this route without recruiting the Crab, buying an optional reward or consuming a unique item.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-fiber-r06-ch18",
+      "subjectId": "spec001:CH18",
+      "label": "Rainbow Serpent",
+      "description": "The Serpent coils around the wavelength display without blocking its printed labels. Multiple wavelengths can share a medium in a specified system; this exhibit does not promise arbitrary module combinations or guaranteed payload capacity. The written candidate fields remain the evidence for this exercise.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look closely and read the supplied description. This exhibit offers context; the diagnostic dock and power meter provide the supported investigation actions.",
+      "evidenceIds": [],
+      "actionIds": []
+    }
+  ],
+  "characterIds": [
+    "spec001:CH16",
+    "spec001:CH18"
+  ],
+  "propInstances": [
+    {
+      "instanceId": "r06-pr051",
+      "propId": "spec001:PR051",
+      "description": "Prism engine.",
+      "assetId": "spec001:DEV-PR051"
+    },
+    {
+      "instanceId": "r06-pr052",
+      "propId": "spec001:PR052",
+      "description": "Wavelength combiner.",
+      "assetId": "spec001:DEV-PR052"
+    },
+    {
+      "instanceId": "r06-pr053",
+      "propId": "spec001:PR053",
+      "description": "Spectrum window.",
+      "assetId": "spec001:DEV-PR053"
+    },
+    {
+      "instanceId": "r06-pr054",
+      "propId": "spec001:PR054",
+      "description": "Attenuation dial and passive-path selector.",
+      "assetId": "spec001:DEV-PR054"
+    },
+    {
+      "instanceId": "r06-pr055",
+      "propId": "spec001:PR055",
+      "description": "Splice enclosure.",
+      "assetId": "spec001:DEV-PR055"
+    },
+    {
+      "instanceId": "r06-pr056",
+      "propId": "spec001:PR056",
+      "description": "Optical attenuator and overload comparison.",
+      "assetId": "spec001:DEV-PR056"
+    },
+    {
+      "instanceId": "r06-pr057",
+      "propId": "spec001:PR057",
+      "description": "Receiver threshold gauge.",
+      "assetId": "spec001:DEV-PR057"
+    },
+    {
+      "instanceId": "r06-pr058",
+      "propId": "spec001:PR058",
+      "description": "Wavelength-filter door.",
+      "assetId": "spec001:DEV-PR058"
+    },
+    {
+      "instanceId": "r06-pr059",
+      "propId": "spec001:PR059",
+      "description": "Link budget abacus.",
+      "assetId": "spec001:DEV-PR059"
+    },
+    {
+      "instanceId": "r06-pr060",
+      "propId": "spec001:PR060",
+      "description": "Power meter cradle.",
+      "assetId": "spec001:DEV-PR060"
+    }
+  ],
+  "safePositions": [
+    {
+      "id": "spec001:R06.entry",
+      "walkRegionId": "spec001:WALK-R06",
+      "point": {
+        "x": 5,
+        "y": 3
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec001:FACT-O06-budget",
+      "roomId": "spec001:R06",
+      "subjectIds": [
+        "spec001:PR054",
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "kind": "measurement",
+      "text": "Prism Vault readings use the fictional optical exercise: transmit −3 dBm, sensitivity −14 dBm, maximum receive −1 dBm and required reserve 2 dB. Passive path A has total loss 8 dB: receive −11 dBm and reserve 3 dB. Path B has loss 9 dB: receive −12 dBm and reserve exactly 2 dB. Both matched, inspected paths pass the inclusive bounds. At 10 dB loss, −13 dBm is above sensitivity but its 1 dB reserve fails. A separately observed 0 dBm receive fails the −1 dBm overload bound. Repeat the measurement after changing the selected path or starting a new attempt.",
+      "ruleIds": [
+        "spec001:PHY06",
+        "spec001:STATE01"
+      ],
+      "requiresFreshMeasurement": true,
+      "readings": [
+        {
+          "name": "Transmit power",
+          "unit": "dBm"
+        },
+        {
+          "name": "Total passive loss",
+          "unit": "dB"
+        },
+        {
+          "name": "Receive power",
+          "unit": "dBm"
+        },
+        {
+          "name": "Sensitivity reserve",
+          "unit": "dB"
+        }
+      ]
+    },
+    {
+      "id": "spec001:FACT-O06-compatibility",
+      "roomId": "spec001:R06",
+      "subjectIds": [
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "kind": "context",
+      "text": "Carry the compatibility and inspection record from Photon Gardens into this measurement. An incompatible selected optic/fiber pair is incorrect even if arithmetic would pass. Missing units, unknown profiles, negative passive loss, or simultaneously asserting 0 dBm receive from −3 dBm transmit through nonnegative passive loss are a problem with the supplied exercise, not a learner failure.",
+      "ruleIds": [
+        "spec001:PHY06"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "ambience": {
+    "text": "A soft mechanical chord accompanies the prism engine. Text states every threshold and result, so silence never hides the evidence.",
+    "assetIds": []
+  },
+  "futureDoorIds": []
+}

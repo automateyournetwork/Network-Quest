@@ -34,7 +34,7 @@ const profile = <T>(id: string): T => profiles.records.find(p => p.id === q(id))
 /** Authoring projection only: runtime world loading belongs to the route join. */
 function projection() {
   const candidate = structuredClone(world), loaded = structuredClone(documents);
-  const replaced = candidate.documents.filter(r => r.kind === 'profile' || r.kind === 'objective' || rooms.some(room => room.id === r.id));
+  const replaced = candidate.documents.filter(r => r.kind === 'profile' || r.kind === 'objective' || rooms.some(room => room.id === r.id) || r.path === 'content/spec001/dialogue/equipment-actions.json');
   candidate.documents = candidate.documents.filter(r => !replaced.includes(r));
   for (const { path } of replaced) delete loaded[path];
   for (const [path, collection] of [['content/spec001/profiles.json', profiles], ['content/spec001/objectives.json', objectives], ['content/spec001/dialogue/equipment-actions.json', controls]] as const) {

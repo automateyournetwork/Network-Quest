@@ -280,6 +280,72 @@ describe('authored reachability, equivalents, recovery and safe positions', () =
     expect(result.issues.some(issue => issue.code === 'route-unreachable')).toBe(true);
     expect(result.issues.some(issue => issue.code === 'graph-bounds')).toBe(false);
   });
+  function conditionalDiagnosticPanel() {
+    const { r, d } = diagnosticPanel();
+    for (const [index, choice] of d.nodes[0].choices.entries()) choice.condition = { kind: 'not', condition: flag(`answer-${index}`, true) };
+    return { r, d };
+  }
+  it('projects closed conditional diagnostic controls without hiding choices or increasing the bound', () => {
+    const { r, d } = conditionalDiagnosticPanel();
+    const result = validateContent(input([r, d]));
+    expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+    if (!result.ok) throw new Error('Expected valid structural route proof');
+    expect(result.routes).toEqual(['copper', 'fiber', 'radio']);
+  });
+  it('retains both levels of a conditional flag chain that enables an objective', () => {
+    const { r, d } = conditionalDiagnosticPanel(), o = objective();
+    d.nodes[0].choices.push(
+      { id: q('CHOICE-seed'), text: 'Prepare the gate', condition: always(), nextNodeId: null, effects: [setFlag('seed', 'seed', true)] },
+      { id: q('CHOICE-gate'), text: 'Open the gate', condition: flag('seed', true), nextNodeId: null, effects: [setFlag('gate', 'gate', true)] },
+    );
+    r.hotspots[0].actionIds = d.nodes[0].choices.map((choice: any) => choice.id);
+    o.prerequisite = flag('gate', true);
+    const result = validateContent(input([r, d, o]));
+    expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+    if (!result.ok) throw new Error('Expected valid structural route proof');
+    expect(result.routes).toEqual(['copper', 'fiber', 'radio']);
+  });
+  it('does not combine an overwritten flag with a later prerequisite through a conditional gate', () => {
+    const { r, d } = conditionalDiagnosticPanel();
+    const first = objectiveFor('O01'), next = objectiveFor('O02'), copper = objectiveFor('O03');
+    first.effects.push(setFlag('seed-first', 'seed', true)); next.effects.push(setFlag('seed-overwritten', 'seed', false));
+    d.nodes[0].choices.push({ id: q('CHOICE-gate'), text: 'Open from a current seed', condition: { kind: 'all', conditions: [complete('O02'), flag('seed', true)] },
+      nextNodeId: null, effects: [setFlag('gate', 'gate', true)] });
+    r.hotspots[0].actionIds = d.nodes[0].choices.map((choice: any) => choice.id);
+    copper.prerequisite = flag('gate', true);
+    const result = validateContent(input([r, d, first, next, copper]));
+    expect(result.ok).toBe(false); expect(result.issues.some(issue => issue.code === 'route-unreachable')).toBe(true);
+    expect(result.issues.some(issue => issue.code === 'graph-bounds')).toBe(false);
+  });
+  it('retains a flag used only to guard consumption and detects the reachable unrecoverable loss', () => {
+    const { r, d } = conditionalDiagnosticPanel(), i = item();
+    i.acquisition.roomId = q('R01'); i.consumption = 'on-documented-transformation';
+    i.recovery = { policy: 'return-to-source', roomId: q('R01'), condition: complete('O12'), explanation: 'Deliberately invalid late recovery.' };
+    d.nodes[0].choices.push(
+      { id: q('CHOICE-allow-loss'), text: 'Permit the loss', condition: always(), nextNodeId: null, effects: [setFlag('allow-loss', 'allow-loss', true)] },
+      { id: q('CHOICE-consume'), text: 'Consume the probe', condition: flag('allow-loss', true), nextNodeId: null,
+        effects: [{ kind: 'consume-item', effectId: q('EFFECT-loss'), itemId: i.id, quantity: 1 }] },
+    );
+    r.hotspots[0].actionIds = d.nodes[0].choices.map((choice: any) => choice.id);
+    const result = validateContent(input([r, d, i]));
+    expect(result.ok).toBe(false); expect(result.issues.some(issue => issue.code === 'item-recovery')).toBe(true);
+    expect(result.issues.some(issue => issue.code === 'graph-bounds')).toBe(false);
+  });
+  it('keeps conditional continuation dialogue histories concrete beside closed diagnostics', () => {
+    const { r, d } = conditionalDiagnosticPanel(), conversation = dialogue(), o = objective();
+    conversation.id = q('DIALOGUE-sequence'); conversation.entryNodeId = q('DIALOGUE-sequence-start');
+    conversation.nodes[0].id = conversation.entryNodeId;
+    conversation.nodes[1].id = q('DIALOGUE-sequence-end');
+    conversation.nodes[0].choices = [{ id: q('CHOICE-sequence-enter'), text: 'Begin sequence', condition: always(),
+      nextNodeId: conversation.nodes[1].id, effects: [setFlag('sequence-seed', 'sequence-seed', true)] }];
+    conversation.nodes[1].condition = flag('sequence-seed', true);
+    conversation.nodes[1].effects = [setFlag('sequence-gate', 'sequence-gate', true)];
+    r.hotspots[0].actionIds.push(q('CHOICE-sequence-enter')); o.prerequisite = flag('sequence-gate', true);
+    const result = validateContent(input([r, d, conversation, o]));
+    expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+    if (!result.ok) throw new Error('Expected valid structural route proof');
+    expect(result.routes).toEqual(['copper', 'fiber', 'radio']);
+  });
   it('accepts an optional extra solution while retaining an ordinary independent route', () => {
     const o = objective(); const alternate = alternative('ACTION-optional'); alternate.condition = { kind: 'quest-complete', questId: q('SQ01') } as any;
     o.alternatives.push(alternate); expect(validateContent(input([o])).ok).toBe(true);

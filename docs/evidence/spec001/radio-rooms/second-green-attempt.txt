@@ -1,0 +1,129 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/content/radio-rooms.test.ts tests/state/radio-scenario.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/content/radio-rooms.test.ts (15 tests) 547ms
+ ❯ tests/state/radio-scenario.test.ts (29 tests | 4 failed) 4665ms
+   ❯ T080 actual radio actions with T074 controller and reducer (29)
+     ✓ starts with explicit failed path/settings and no invented measurement 128ms
+     ✓ accepts align-existing without copper/fiber/ally progress and without inventing SNR 123ms
+     ✓ accepts alternate-path without copper/fiber/ally progress and without inventing SNR 117ms
+     ✓ matching settings alone cannot repair the unaligned path 114ms
+     × measures and accepts channel-A at the reviewed -90 dBm noise / 25 dB SNR 122ms
+     × measures and accepts channel-B at the reviewed -85 dBm noise / 20 dB SNR 130ms
+     ✓ keeps13 dB before evidence stale after mitigation until an actual fresh test 121ms
+     ✓ changing channel does not silently remove the emitter or generate a reading 120ms
+     ✓ reintroduced interference invalidates a former pass even when signal strength stays unchanged 118ms
+     ✓ the explicit supplied boundary exercise fails19.99 dB without rounding to20 or reviving previous proof 118ms
+     ✓ a nominal25 dB profile cannot override unalign-path 116ms
+     ✓ a nominal25 dB profile cannot override mismatch-settings 116ms
+     × switching between both viable paths still requires fresh proof and returning never refreshes old readings 125ms
+     ✓ context records no signal/noise measurement and cannot submit an unmeasured objective 125ms
+     × enforces the correct room, briefing, ordinary tool and O07 proof prerequisite 115ms
+     ✓ rejects unknown path without a passing fallback 114ms
+     ✓ rejects unknown settings without a passing fallback 115ms
+     ✓ rejects unknown channel without a passing fallback 113ms
+     ✓ rejects unknown conditions without a passing fallback 114ms
+     ✓ replaying context/choices neither duplicates facts nor changes revision or refreshes evidence 115ms
+     ✓ hints are nonpunitive and returned scenarios cannot mutate future samples or game state 116ms
+     ✓ rejects a measurement with changed room provenance 128ms
+     ✓ rejects a measurement with changed profile provenance 116ms
+     ✓ rejects a measurement with changed attempt provenance 117ms
+     ✓ rejects a measurement with changed readings provenance 118ms
+     ✓ does not bind schema-valid unreviewed-value authoring 397ms
+     ✓ does not bind schema-valid direct-completion authoring 482ms
+     ✓ does not bind schema-valid measurement-fact authoring 409ms
+     ✓ does not bind schema-valid unguarded-node authoring 402ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/radio-scenario.test.ts > T080 actual radio actions with T074 controller and reducer > measures and accepts channel-A at the reviewed -90 dBm noise / 25 dB SNR
+AssertionError: expected [ { kind: 'objective', …(5) } ] to deeply equal ArrayContaining{…}
+
+- Expected
++ Received
+
+@@ -4,9 +4,7 @@
+      "assistanceRecorded": false,
+      "completionExplanation": "The chosen scenario meets its stated SNR rule. This is scoped physical evidence, not a promise of real Wi-Fi throughput or end-to-end service.",
+      "explanation": "After confirming path/settings, −65 − (−90) = 25 dB. Accept the current measurement under the fictional 20 dB minimum; record no throughput guarantee.",
+      "kind": "objective",
+      "objectiveId": "spec001:O08",
+-     "throughputProven": false,
+-     "wholeRouteProven": false,
+    },
+  ]
+
+ ❯ tests/state/radio-scenario.test.ts:92:34
+     90|       { name: 'Signal-to-noise ratio', value: snr, unit: 'dB' }, { nam…
+     91|     const verdict = f.submit('O08', 2); expect(verdict.status).toBe('c…
+     92|     expect(verdict.observations).toEqual(expect.arrayContaining([expec…
+       |                                  ^
+     93|     expect(f.game().world.completedObjectiveIds).toEqual(['O01', 'O02'…
+     94|     const before = f.game(); f.submit('O08', 2); expect(f.game()).toBe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/state/radio-scenario.test.ts > T080 actual radio actions with T074 controller and reducer > measures and accepts channel-B at the reviewed -85 dBm noise / 20 dB SNR
+AssertionError: expected [ { kind: 'objective', …(5) } ] to deeply equal ArrayContaining{…}
+
+- Expected
++ Received
+
+@@ -4,9 +4,7 @@
+      "assistanceRecorded": false,
+      "completionExplanation": "The chosen scenario meets its stated SNR rule. This is scoped physical evidence, not a promise of real Wi-Fi throughput or end-to-end service.",
+      "explanation": "After the same path/settings checks, −65 − (−85) = 20 dB. The exact inclusive boundary is valid. A result from a different path or earlier attempt remains stale.",
+      "kind": "objective",
+      "objectiveId": "spec001:O08",
+-     "throughputProven": false,
+-     "wholeRouteProven": false,
+    },
+  ]
+
+ ❯ tests/state/radio-scenario.test.ts:92:34
+     90|       { name: 'Signal-to-noise ratio', value: snr, unit: 'dB' }, { nam…
+     91|     const verdict = f.submit('O08', 2); expect(verdict.status).toBe('c…
+     92|     expect(verdict.observations).toEqual(expect.arrayContaining([expec…
+       |                                  ^
+     93|     expect(f.game().world.completedObjectiveIds).toEqual(['O01', 'O02'…
+     94|     const before = f.game(); f.submit('O08', 2); expect(f.game()).toBe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/state/radio-scenario.test.ts > T080 actual radio actions with T074 controller and reducer > switching between both viable paths still requires fresh proof and returning never refreshes old readings
+AssertionError: expected 'objective-already-complete' to be 'stale-evidence' // Object.is equality
+
+Expected: "stale-evidence"
+Received: "objective-already-complete"
+
+ ❯ tests/state/radio-scenario.test.ts:132:114
+    130|     const f = prepared(); f.choose('ACTION-radio-mitigate-emitter'); f…
+    131|     expect(f.submit('O08', 2).reasonCode).toBe('stale-evidence'); f.me…
+    132|     f.move('R07'); f.choose('ACTION-radio-align-existing'); f.move('R0…
+       |                                                                                                                  ^
+    133|   });
+    134|   it('context records no signal/noise measurement and cannot submit an…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/state/radio-scenario.test.ts > T080 actual radio actions with T074 controller and reducer > enforces the correct room, briefing, ordinary tool and O07 proof prerequisite
+AssertionError: expected 'no-op' to be 'rejected' // Object.is equality
+
+Expected: "rejected"
+Received: "no-op"
+
+ ❯ tests/state/radio-scenario.test.ts:144:55
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  4 failed | 40 passed (44)
+   Start at  20:29:33
+   Duration  5.96s (tests 90%, import 10%)
+

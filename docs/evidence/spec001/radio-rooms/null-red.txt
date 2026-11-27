@@ -1,0 +1,133 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/state/radio-scenario.test.ts --maxWorkers=1 -t rejects explicit null
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/state/radio-scenario.test.ts (36 tests | 4 failed | 32 skipped) 504ms
+   ❯ T080 actual radio actions with T074 controller and reducer (36)
+     ↓ starts with explicit failed path/settings and no invented measurement
+     ↓ accepts align-existing without copper/fiber/ally progress and without inventing SNR
+     ↓ accepts alternate-path without copper/fiber/ally progress and without inventing SNR
+     ↓ matching settings alone cannot repair the unaligned path
+     ↓ measures and accepts align-existing / channel-A at the reviewed -90 dBm noise / 25 dB SNR
+     ↓ measures and accepts align-existing / channel-B at the reviewed -85 dBm noise / 20 dB SNR
+     ↓ measures and accepts alternate-path / channel-A at the reviewed -90 dBm noise / 25 dB SNR
+     ↓ measures and accepts alternate-path / channel-B at the reviewed -85 dBm noise / 20 dB SNR
+     ↓ keeps13 dB before evidence stale after mitigation until an actual fresh test
+     ↓ changing channel does not silently remove the emitter or generate a reading
+     ↓ reintroduced interference invalidates a former pass even when signal strength stays unchanged
+     ↓ the explicit supplied boundary exercise fails19.99 dB without rounding to20 or reviving previous proof
+     ↓ a nominal25 dB profile cannot override unalign-path
+     ↓ a nominal25 dB profile cannot override mismatch-settings
+     ↓ keeps earned completion historical while changed conditions produce failed fresh evidence
+     ↓ switching between both viable paths still requires fresh proof and returning never refreshes old readings
+     ↓ context records no signal/noise measurement and cannot submit an unmeasured objective
+     ↓ enforces the correct room, briefing, ordinary tool and O07 proof prerequisite
+     ↓ rejects unknown path without a passing fallback
+     ↓ rejects unknown settings without a passing fallback
+     ↓ rejects unknown channel without a passing fallback
+     ↓ rejects unknown conditions without a passing fallback
+     × rejects explicit null path rather than selecting an arrival default 127ms
+     × rejects explicit null settings rather than selecting an arrival default 124ms
+     × rejects explicit null channel rather than selecting an arrival default 118ms
+     × rejects explicit null conditions rather than selecting an arrival default 134ms
+     ↓ replaying context/choices neither duplicates facts nor changes revision or refreshes evidence
+     ↓ hints are nonpunitive and returned scenarios cannot mutate future samples or game state
+     ↓ rejects a measurement with changed room provenance
+     ↓ rejects a measurement with changed profile provenance
+     ↓ rejects a measurement with changed attempt provenance
+     ↓ rejects a measurement with changed readings provenance
+     ↓ does not bind schema-valid unreviewed-value authoring
+     ↓ does not bind schema-valid direct-completion authoring
+     ↓ does not bind schema-valid measurement-fact authoring
+     ↓ does not bind schema-valid unguarded-node authoring
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/radio-scenario.test.ts > T080 actual radio actions with T074 controller and reducer > rejects explicit null path rather than selecting an arrival default
+AssertionError: expected { kind: 'radio-preparation', …(2) } to be null
+
+- Expected:
+null
+
++ Received:
+{
+  "alternativeId": "spec001:ACTION-O07-align-existing-path",
+  "kind": "radio-preparation",
+  "path": {
+    "settingsCompatible": true,
+    "viablePath": false,
+  },
+}
+
+ ❯ tests/state/radio-scenario.test.ts:168:43
+    166|     const flags = { ...f.game().world.flags, [q(`FLAG-radio-${key}`)]:…
+    167|     const malformed = { ...f.game(), world: { ...f.game().world, flags…
+    168|     expect(resolver(malformed, q('O07'))).toBeNull(); expect(resolver(…
+       |                                           ^
+    169|   });
+    170|   it('replaying context/choices neither duplicates facts nor changes r…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/state/radio-scenario.test.ts > T080 actual radio actions with T074 controller and reducer > rejects explicit null settings rather than selecting an arrival default
+AssertionError: expected { kind: 'radio-preparation', …(2) } to be null
+
+- Expected:
+null
+
++ Received:
+{
+  "alternativeId": "spec001:ACTION-O07-align-existing-path",
+  "kind": "radio-preparation",
+  "path": {
+    "settingsCompatible": false,
+    "viablePath": true,
+  },
+}
+
+ ❯ tests/state/radio-scenario.test.ts:168:43
+    166|     const flags = { ...f.game().world.flags, [q(`FLAG-radio-${key}`)]:…
+    167|     const malformed = { ...f.game(), world: { ...f.game().world, flags…
+    168|     expect(resolver(malformed, q('O07'))).toBeNull(); expect(resolver(…
+       |                                           ^
+    169|   });
+    170|   it('replaying context/choices neither duplicates facts nor changes r…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/state/radio-scenario.test.ts > T080 actual radio actions with T074 controller and reducer > rejects explicit null channel rather than selecting an arrival default
+ FAIL  tests/state/radio-scenario.test.ts > T080 actual radio actions with T074 controller and reducer > rejects explicit null conditions rather than selecting an arrival default
+AssertionError: expected { kind: 'radio-preparation', …(2) } to be null
+
+- Expected:
+null
+
++ Received:
+{
+  "alternativeId": "spec001:ACTION-O07-align-existing-path",
+  "kind": "radio-preparation",
+  "path": {
+    "settingsCompatible": true,
+    "viablePath": true,
+  },
+}
+
+ ❯ tests/state/radio-scenario.test.ts:168:43
+    166|     const flags = { ...f.game().world.flags, [q(`FLAG-radio-${key}`)]:…
+    167|     const malformed = { ...f.game(), world: { ...f.game().world, flags…
+    168|     expect(resolver(malformed, q('O07'))).toBeNull(); expect(resolver(…
+       |                                           ^
+    169|   });
+    170|   it('replaying context/choices neither duplicates facts nor changes r…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 32 skipped (36)
+   Start at  20:34:11
+   Duration  969ms (tests 56%, import 41%, transform 3%)
+

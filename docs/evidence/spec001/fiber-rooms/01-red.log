@@ -1,0 +1,34 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/content/fiber-rooms.test.ts tests/state/fiber-scenario.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/state/fiber-scenario.test.ts (0 test)
+ ❯ tests/content/fiber-rooms.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/content/fiber-rooms.test.ts [ tests/content/fiber-rooms.test.ts ]
+Error: ENOENT: no such file or directory, open '/Users/john.capobianco/Network-Quest/content/spec001/dialogue/fiber-actions.json'
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/state/fiber-scenario.test.ts [ tests/state/fiber-scenario.test.ts ]
+Error: Cannot find module '../../src/state/fiber-scenario' imported from /Users/john.capobianco/Network-Quest/tests/state/fiber-scenario.test.ts
+ ❯ tests/state/fiber-scenario.test.ts:6:1
+      4| import { validateContent } from '../../src/content/registry';
+      5| import type * as S from '../../src/content/schema-types.generated';
+      6| import { fiberEffectBindings, createFiberScenarioResolver, prepareFibe…
+       | ^
+      7| import { evaluateObjective, objectiveEffectBindings } from '../../src/…
+      8| import { createReducer, createReducerState } from '../../src/state/red…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  no tests
+   Start at  20:27:25
+   Duration  174ms (worker 96%, environment 4%)
+

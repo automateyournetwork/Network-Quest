@@ -1,0 +1,674 @@
+{
+  "kind": "collection",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "records": [
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-fiber-gardens",
+      "entryNodeId": "spec001:DIALOGUE-fiber-gardens-menu",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-fiber-gardens-menu",
+          "speakerId": "narrator",
+          "text": "The dock begins with the original uninspected connection and the wavelength-mismatched candidate. Read the cards and select a proposed profile set, then inspect before cleaning or replacement. The dock supplies both suitable interventions; the reusable kit inspects them and is never consumed. Reinspect afterward to confirm removal, then take and submit a fresh preparation reading. Return the dock to its original test condition whenever you want to change candidate profiles or try the other intervention. Restoring does not erase your notebook.",
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-fiber-read-matching",
+              "text": "Read and keep all five supplied compatibility checks",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-fiber-read-matching",
+                  "factId": "spec001:FACT-O05-matching"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-inspect-before",
+              "text": "Inspect the original connection at the dock before any intervention",
+              "condition": {
+                "kind": "all",
+                "conditions": [
+                  {
+                    "kind": "item-available",
+                    "itemId": "spec001:ITEM-inspection-kit",
+                    "quantity": 1
+                  },
+                  {
+                    "kind": "not",
+                    "condition": {
+                      "kind": "any",
+                      "conditions": [
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "cleaned"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "replaced"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "verified-cleaned"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "verified-replaced"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-inspect-before",
+                  "flagId": "spec001:FLAG-fiber-connection",
+                  "value": "inspected"
+                },
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-fiber-inspect-before-fact",
+                  "factId": "spec001:FACT-O05-inspection"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-restore-original",
+              "text": "Restore the original diagnostic connection; inspect it again before trying another intervention",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-restore-original",
+                  "flagId": "spec001:FLAG-fiber-connection",
+                  "value": "original"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-clean",
+              "text": "Have the dock clean the inspected connection with the supplied suitable cleaning station",
+              "condition": {
+                "kind": "all",
+                "conditions": [
+                  {
+                    "kind": "item-available",
+                    "itemId": "spec001:ITEM-inspection-kit",
+                    "quantity": 1
+                  },
+                  {
+                    "kind": "flag-equals",
+                    "flagId": "spec001:FLAG-fiber-connection",
+                    "value": "inspected"
+                  }
+                ]
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-clean",
+                  "flagId": "spec001:FLAG-fiber-connection",
+                  "value": "cleaned"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-replace",
+              "text": "Have the dock fit the supplied compatible replacement to the inspected connection",
+              "condition": {
+                "kind": "all",
+                "conditions": [
+                  {
+                    "kind": "item-available",
+                    "itemId": "spec001:ITEM-inspection-kit",
+                    "quantity": 1
+                  },
+                  {
+                    "kind": "flag-equals",
+                    "flagId": "spec001:FLAG-fiber-connection",
+                    "value": "inspected"
+                  }
+                ]
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-replace",
+                  "flagId": "spec001:FLAG-fiber-connection",
+                  "value": "replaced"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-reinspect-clean",
+              "text": "Reinspect the cleaned connection to confirm the diagnosed defect was removed",
+              "condition": {
+                "kind": "all",
+                "conditions": [
+                  {
+                    "kind": "item-available",
+                    "itemId": "spec001:ITEM-inspection-kit",
+                    "quantity": 1
+                  },
+                  {
+                    "kind": "any",
+                    "conditions": [
+                      {
+                        "kind": "flag-equals",
+                        "flagId": "spec001:FLAG-fiber-connection",
+                        "value": "cleaned"
+                      },
+                      {
+                        "kind": "flag-equals",
+                        "flagId": "spec001:FLAG-fiber-connection",
+                        "value": "verified-cleaned"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-reinspect-clean",
+                  "flagId": "spec001:FLAG-fiber-connection",
+                  "value": "verified-cleaned"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-reinspect-replace",
+              "text": "Reinspect the replaced connection to confirm the diagnosed defect was removed",
+              "condition": {
+                "kind": "all",
+                "conditions": [
+                  {
+                    "kind": "item-available",
+                    "itemId": "spec001:ITEM-inspection-kit",
+                    "quantity": 1
+                  },
+                  {
+                    "kind": "any",
+                    "conditions": [
+                      {
+                        "kind": "flag-equals",
+                        "flagId": "spec001:FLAG-fiber-connection",
+                        "value": "replaced"
+                      },
+                      {
+                        "kind": "flag-equals",
+                        "flagId": "spec001:FLAG-fiber-connection",
+                        "value": "verified-replaced"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-reinspect-replace",
+                  "flagId": "spec001:FLAG-fiber-connection",
+                  "value": "verified-replaced"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-profile-matched",
+              "text": "Select the supplied fully matching optic/fiber pair: all five fields match",
+              "condition": {
+                "kind": "all",
+                "conditions": [
+                  {
+                    "kind": "item-available",
+                    "itemId": "spec001:ITEM-inspection-kit",
+                    "quantity": 1
+                  },
+                  {
+                    "kind": "not",
+                    "condition": {
+                      "kind": "any",
+                      "conditions": [
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "cleaned"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "replaced"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "verified-cleaned"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "verified-replaced"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-profile-matched",
+                  "flagId": "spec001:FLAG-fiber-profiles",
+                  "value": "matched"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-profile-wrong-fiber",
+              "text": "Try the supplied candidate with a fiber/media mismatch; the other four fields match",
+              "condition": {
+                "kind": "all",
+                "conditions": [
+                  {
+                    "kind": "item-available",
+                    "itemId": "spec001:ITEM-inspection-kit",
+                    "quantity": 1
+                  },
+                  {
+                    "kind": "not",
+                    "condition": {
+                      "kind": "any",
+                      "conditions": [
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "cleaned"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "replaced"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "verified-cleaned"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "verified-replaced"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-profile-wrong-fiber",
+                  "flagId": "spec001:FLAG-fiber-profiles",
+                  "value": "wrong-fiber"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-profile-wrong-wavelength",
+              "text": "Try the supplied candidate with a wavelength-direction mismatch; the other four fields match",
+              "condition": {
+                "kind": "all",
+                "conditions": [
+                  {
+                    "kind": "item-available",
+                    "itemId": "spec001:ITEM-inspection-kit",
+                    "quantity": 1
+                  },
+                  {
+                    "kind": "not",
+                    "condition": {
+                      "kind": "any",
+                      "conditions": [
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "cleaned"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "replaced"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "verified-cleaned"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "verified-replaced"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-profile-wrong-wavelength",
+                  "flagId": "spec001:FLAG-fiber-profiles",
+                  "value": "wrong-wavelength"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-profile-wrong-rate",
+              "text": "Try the supplied candidate with a supported-rate mismatch; the other four fields match",
+              "condition": {
+                "kind": "all",
+                "conditions": [
+                  {
+                    "kind": "item-available",
+                    "itemId": "spec001:ITEM-inspection-kit",
+                    "quantity": 1
+                  },
+                  {
+                    "kind": "not",
+                    "condition": {
+                      "kind": "any",
+                      "conditions": [
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "cleaned"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "replaced"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "verified-cleaned"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "verified-replaced"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-profile-wrong-rate",
+                  "flagId": "spec001:FLAG-fiber-profiles",
+                  "value": "wrong-rate"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-profile-wrong-polarity",
+              "text": "Try the supplied candidate with a connector/polarity mismatch; the other four fields match",
+              "condition": {
+                "kind": "all",
+                "conditions": [
+                  {
+                    "kind": "item-available",
+                    "itemId": "spec001:ITEM-inspection-kit",
+                    "quantity": 1
+                  },
+                  {
+                    "kind": "not",
+                    "condition": {
+                      "kind": "any",
+                      "conditions": [
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "cleaned"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "replaced"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "verified-cleaned"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "verified-replaced"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-profile-wrong-polarity",
+                  "flagId": "spec001:FLAG-fiber-profiles",
+                  "value": "wrong-polarity"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-profile-unsupported-host",
+              "text": "Try the supplied candidate without host support; the other four fields match",
+              "condition": {
+                "kind": "all",
+                "conditions": [
+                  {
+                    "kind": "item-available",
+                    "itemId": "spec001:ITEM-inspection-kit",
+                    "quantity": 1
+                  },
+                  {
+                    "kind": "not",
+                    "condition": {
+                      "kind": "any",
+                      "conditions": [
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "cleaned"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "replaced"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "verified-cleaned"
+                        },
+                        {
+                          "kind": "flag-equals",
+                          "flagId": "spec001:FLAG-fiber-connection",
+                          "value": "verified-replaced"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-profile-unsupported-host",
+                  "flagId": "spec001:FLAG-fiber-profiles",
+                  "value": "unsupported-host"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-leave-gardens",
+              "text": "Leave the diagnostic dock as it is",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": []
+            }
+          ],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-fiber-vault",
+      "entryNodeId": "spec001:DIALOGUE-fiber-vault-menu",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-fiber-vault-menu",
+          "speakerId": "narrator",
+          "text": "The first selected path has 10 dB total loss. Choose either reviewed passive path or the high-loss comparison, then measure. A path selection never records a reading or awards a result. Keep the dBm power levels separate from dB loss and reserve. After any change, measure again before submitting. A remembered garden award cannot stand in for a currently prepared connection.",
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-fiber-read-compatibility",
+              "text": "Read and keep the current compatibility and inspection reminder",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-fiber-read-compatibility",
+                  "factId": "spec001:FACT-O06-compatibility"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-path-A",
+              "text": "Select passive path A: total loss 8 dB",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-path-A",
+                  "flagId": "spec001:FLAG-fiber-path",
+                  "value": "passive-path-A"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-path-B",
+              "text": "Select passive path B: total loss 9 dB",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-path-B",
+                  "flagId": "spec001:FLAG-fiber-path",
+                  "value": "passive-path-B"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-path-high-loss",
+              "text": "Try the high-loss test path: total loss 10 dB",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-fiber-path-high-loss",
+                  "flagId": "spec001:FLAG-fiber-path",
+                  "value": "high-loss"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-fiber-leave-vault",
+              "text": "Leave the selected test path as it is",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": []
+            }
+          ],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    }
+  ]
+}

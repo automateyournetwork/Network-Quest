@@ -465,9 +465,9 @@ its canonical world/application/save-policy integration waits for both room pair
 reviewed implementation. No incomplete room or metadata reservation becomes playable
 through this preparation. Root owns acceptance, shared policy joins and publication.
 
-- [ ] T079 [P] [US2] Author Photon Gardens/Prism Vault and O05/O06 in `content/spec001/rooms/R05.json` and `content/spec001/rooms/R06.json`; inspect connectors, match optics/fiber and explain fresh range/margin validation without requiring copper/radio progress.
-- [ ] T080 [P] [US2] Author Skywell/Storm Observatory and O07/O08 in `content/spec001/rooms/R07.json` and `content/spec001/rooms/R08.json`; compare path/channel/noise observations and remeasure after mitigation without requiring another route.
-- [ ] T081 [US2] Integrate all twelve authored rooms and exact walk/unlock edges in `content/spec001/world.json`; run graph tests for independent branches, reachable preparation, optional side paths and explicit unavailable Iron City boundary in `tests/content/world-graph.test.ts`.
+- [X] T079 [P] [US2] Author Photon Gardens/Prism Vault and O05/O06 in `content/spec001/rooms/R05.json` and `content/spec001/rooms/R06.json`; inspect connectors, match optics/fiber and explain fresh range/margin validation without requiring copper/radio progress.
+- [X] T080 [P] [US2] Author Skywell/Storm Observatory and O07/O08 in `content/spec001/rooms/R07.json` and `content/spec001/rooms/R08.json`; compare path/channel/noise observations and remeasure after mitigation without requiring another route.
+- [X] T081 [US2] Integrate all twelve authored rooms and exact walk/unlock edges in `content/spec001/world.json`; run graph tests for independent branches, reachable preparation, optional side paths and explicit unavailable Iron City boundary in `tests/content/world-graph.test.ts`.
 
 ### Complete gameplay verification
 
@@ -578,7 +578,14 @@ through this preparation. Root owns acceptance, shared policy joins and publicat
 
 - [X] T082 [US6] Author independent E01/E02/E03 and failure expectations in `tests/fixtures/outcomes.json` and `tests/state/outcomes.test.ts`; distinguish permanent repair, valid temporary limitation and unresolved isolation, with no hint-based punishment.
 - [X] T083 [US6] Author preparation/consumption/reward/learning/freshness/Restore Save transition fixtures in `tests/fixtures/retry-transitions.json` and `tests/state/retry.test.ts`, including repeated retries and measurements whose old revision would otherwise look current.
-- [ ] T084 [US6] Implement temporary encounter checkpoints and rollback in `src/state/encounter.ts`; restore world/inventory/party/effect flags together, retain clues/notes/hint history, allocate a fresh attempt generation and mark prior measurements stale without a second durable slot.
+- [X] T084 [US6] Implement temporary encounter checkpoints and rollback in `src/state/encounter.ts`; restore world/inventory/party/effect flags together, retain clues/notes/hint history, allocate a fresh attempt generation and mark prior measurements stale without a second durable slot.
+T085/T086 may prepare disjoint controller/panel and pure outcome-state modules
+against reviewed T084 isolated checkpoints, accepted T077 execution/validation and
+T082/T083 independent contracts while T081 performs its world join. No shared
+application/reducer/policy changes or task acceptance follow from preparation;
+full recovery composition waits for accepted T081/T084 and reviewed interfaces.
+This keeps independent work moving without claiming downstream runtime acceptance.
+
 - [ ] T085 [US6] Implement paused preparation, deliberate commitment warnings and safe return controls in `src/ui/encounter.ts`; narrated danger cannot require reflex timing and conventional tools remain valid without a recruited ally.
 - [ ] T086 [US6] Implement evidence-driven E01/E02/E03 classification and safe Continue locations in `src/state/outcomes.ts`; failure/E03 cannot produce a saveable world, and temporary/unresolved outcomes retain their precise caveats.
 - [ ] T087 [US6] Author personalized route/ally/side-quest/maintenance epilogues and skippable dramatic failure explanations in `content/spec001/endings.json` and `src/ui/epilogue.ts`; assistance never turns a valid repair into a punitive ending.

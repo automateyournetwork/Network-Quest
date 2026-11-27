@@ -27,9 +27,12 @@ import { AutosaveController } from '../state/autosave';
 import { publicPaths } from '../config';
 import { createVerbController } from '../ui/verbs';
 import type { HotspotBinding } from '../ui/verbs';
+import { guardedPlan, reductionPlan, unavailable } from '../ui/controller-store';
 import { createDiagnosticsController, createDiagnosticsPanel } from '../ui/diagnostics';
 import { createRepairPlanController, createRepairPlanPanel } from '../ui/repair-plan';
 import { copperEffectBindings, createCopperScenarioResolver } from '../state/copper-scenario';
+import { fiberEffectBindings, createFiberScenarioResolver, prepareFiberAction } from '../state/fiber-scenario';
+import { radioEffectBindings, createRadioScenarioResolver, prepareRadioAction } from '../state/radio-scenario';
 import { createEquipmentScenarioResolver, equipmentInteractionBindings, inspectClockworksSamples } from '../state/equipment-scenarios';
 import { objectiveEffectBindings } from '../state/objectives';
 import type { ObjectiveScenarioResolver } from '../state/objectives';
@@ -44,7 +47,7 @@ import { createThreeRoom, type RoomResource } from '../presentation/three-room';
 import { resolveRoomMedia } from '../presentation/room-media';
 import { createRoomAudioPanel } from '../presentation/room-audio';
 import { createIntroductionRuntime, restoreIntroduction, startIntroduction } from './adventure';
-import { loadIntroductionContent } from './content';
+import { episodeNavigationEntries, loadIntroductionContent } from './content';
 import { introductionBindings } from './introduction';
 import { introductionSavePolicy } from './save-policy';
 
@@ -53,7 +56,9 @@ const q = <T extends string = string>(id: string) => `spec001:${id}` as Qualifie
 export function createIntroductionApplication(host: HTMLElement) {
   const { registry, world } = loadIntroductionContent(), bindings = introductionBindings(registry), media = resolveRoomMedia(registry);
   const equipmentBindings = equipmentInteractionBindings(registry), copperEffects = copperEffectBindings(registry);
+  const fiberEffects = fiberEffectBindings(registry), radioEffects = radioEffectBindings(registry);
   if (!copperEffects.length) throw new Error('The copper preparation actions could not be validated.');
+  if (!fiberEffects.length || !radioEffects.length) throw new Error('The branch preparation actions could not be validated.');
   const copperBindings: HotspotBinding[] = [
     ['R03', 'copper-bench-cards', 'read-compatibility'], ['R03', 'copper-original-section', 'read-defect'],
     ['R03', 'copper-original-section', 'restore-original'], ['R03', 'copper-replacement', 'replace-section'],
@@ -63,24 +68,20 @@ export function createIntroductionApplication(host: HTMLElement) {
   ].map(([room, hotspot, choice]) => ({ roomId: q<'room'>(room!), hotspotId: q(`HOTSPOT-${hotspot}`), verb: 'use', itemId: null,
     actionId: q(`ACTION-copper-${choice}`), sourceId: q(`DIALOGUE-copper-${room === 'R03' ? 'bench' : 'exhibit'}`), mode: 'effects' }));
   const copperScenario = createCopperScenarioResolver(registry), equipmentScenario = createEquipmentScenarioResolver(registry);
-  const objectiveScenario: ObjectiveScenarioResolver = (game, id) => copperScenario(game, id) ?? equipmentScenario(game, id);
+  const fiberScenario = createFiberScenarioResolver(registry), radioScenario = createRadioScenarioResolver(registry);
+  const objectiveScenario: ObjectiveScenarioResolver = (game, id) => copperScenario(game, id) ?? fiberScenario(game, id) ?? radioScenario(game, id) ?? equipmentScenario(game, id);
   const repairScenario = createRepairScenarioResolver(registry);
-  const effectBindings = [...bindings.effects, ...copperEffects, ...equipmentBindings.effects,
-    ...objectiveEffectBindings(registry, ['O03', 'O04', 'O09', 'O10'].map(id => q<'objective'>(id))), ...repairEffectBindings(registry)];
+  const effectBindings = [...bindings.effects, ...copperEffects, ...fiberEffects, ...radioEffects, ...equipmentBindings.effects,
+    ...objectiveEffectBindings(registry, ['O03', 'O04', 'O05', 'O06', 'O07', 'O08', 'O09', 'O10'].map(id => q<'objective'>(id))), ...repairEffectBindings(registry)];
   const routeObjective = (room: string | undefined): ObjectiveId | null => {
-    const id = ({ 'spec001:R03': 'O03', 'spec001:R04': 'O04', 'spec001:R09': 'O09', 'spec001:R10': 'O10', 'spec001:R11': 'O11', 'spec001:R12': 'O12' } as Record<string, string>)[room ?? ''];
+    const id = ({ 'spec001:R03': 'O03', 'spec001:R04': 'O04', 'spec001:R05': 'O05', 'spec001:R06': 'O06', 'spec001:R07': 'O07', 'spec001:R08': 'O08', 'spec001:R09': 'O09', 'spec001:R10': 'O10', 'spec001:R11': 'O11', 'spec001:R12': 'O12' } as Record<string, string>)[room ?? ''];
     return id ? q<'objective'>(id) : null;
   };
   let activityPanel: 'diagnostics' | 'repair' | null = null, activityRoom: string | null = null;
   const defaultPresentation: PresentationSettings = { musicVolume: 1, effectsVolume: 1, voiceVolume: 1, captions: true, reducedMotion: 'system', textScale: 1 };
   let loadedApiGeneration: ReturnType<GameApi['capture']> | null = null, loadedAuthGeneration: number | null = null, preferenceReviewRequired = false;
   let presentation = defaultPresentation, preferenceMessage = 'Guest preferences last for this tab.', preferenceRevision = '', preferenceOperation: object | null = null;
-  const navigation = createNavigation({ registry, world, entries: [
-    { roomId: q('R01'), safePositionId: q('R01.entry'), activity: 'stable-exploration' },
-    { roomId: q('R02'), safePositionId: q('R02.entry'), activity: 'stable-exploration' },
-    ...['R03', 'R04', 'R09', 'R10', 'R12'].map(id => ({ roomId: q<'room'>(id), safePositionId: q<'safe-position'>(`${id}.entry`), activity: 'stable-exploration' as const })),
-    { roomId: q('R11'), safePositionId: q('R11.preparation'), activity: 'safe-preparation' },
-  ] });
+  const navigation = createNavigation({ registry, world, entries: episodeNavigationEntries(registry, world) });
   let state = createReducerState(createIntroductionRuntime());
   const store = { getState: () => state,
     reduce: createTutorialReducer({ registry, reduce: createReducer({ registry, bindings: effectBindings, objectiveScenario, repairScenario, canReachRoom: navigation.canReachRoom }), nextActionId: () => crypto.randomUUID() as ActionId }),
@@ -88,6 +89,27 @@ export function createIntroductionApplication(host: HTMLElement) {
     compareAndSet: (expected: ReducerState, next: ReducerState) => { if (state !== expected) return false; state = next; return true; },
   };
   const bus = createActionBus({ getContext: () => contextFromRuntime(state.runtime) });
+  // These exact authored sources are already accepted by the closed adapters.
+  // Every exposed choice still runs its adapter against the captured game before
+  // the shared reducer commits; UI metadata never supplies effects or verdicts.
+  const branchBindings: HotspotBinding[] = ([
+    ['R05', 'DIALOGUE-fiber-gardens', prepareFiberAction], ['R06', 'DIALOGUE-fiber-vault', prepareFiberAction],
+    ['R07', 'DIALOGUE-radio-skywell', prepareRadioAction], ['R08', 'DIALOGUE-radio-observatory', prepareRadioAction],
+  ] as const).flatMap(([roomId, sourceId, prepare]) => {
+    const room = registry.record(q(roomId)), source = registry.record(q(sourceId));
+    if (room?.kind !== 'room' || source?.kind !== 'dialogue' || source.nodes.length !== 1) throw new Error('An authored branch interaction is missing.');
+    return room.hotspots.flatMap(hotspot => source.nodes[0]!.choices.filter(choice => choice.effects.length && hotspot.actionIds.includes(choice.id)).map(choice => ({
+      roomId: q<'room'>(roomId), hotspotId: hotspot.id as QualifiedId, verb: 'use' as const, itemId: null,
+      actionId: choice.id as QualifiedId, sourceId: q(sourceId), mode: 'port' as const,
+      plan: (_interaction, action, before) => {
+        const game = before.runtime.game;
+        if (!game) return unavailable('unavailable-state', 'Start an adventure before preparing a route.');
+        const evaluation = prepare(registry, game, choice.id as QualifiedId);
+        if (evaluation.status !== 'correct') return unavailable(evaluation.reasonCode, 'This preparation is unavailable. Check the current room evidence and controls.');
+        return guardedPlan(store, before, reductionPlan(store, action, before, { kind: 'apply', evaluation }, choice.text));
+      },
+    })));
+  });
   const notebook = createNotebookController({ registry, store, bus, presentation: routeNotebook });
   const dialogue = createDialogueController({ registry, store, bus, bindings: introductionDialogueBindings, effectBindings });
   const diagnostics = createDiagnosticsController({ registry, store, bus, resolveScenario: objectiveScenario });
@@ -95,7 +117,7 @@ export function createIntroductionApplication(host: HTMLElement) {
   const inventory = createInventoryController({ registry, store, bus });
   const packet = createPacketActivityController({ registry, store, bus });
   const sceneBindings = bindings.hotspots.filter(binding => !(binding.roomId === q('R01') && binding.hotspotId === q('HOTSPOT-capsule') && binding.actionId === q('ACTION-packet-context')));
-  const verbs = createVerbController({ registry, store, bus, bindings: [...sceneBindings, ...copperBindings, ...equipmentBindings.hotspots, ...notebook.hotspotBindings, ...dialogue.hotspotBindings, ...packet.hotspotBindings],
+  const verbs = createVerbController({ registry, store, bus, bindings: [...sceneBindings, ...copperBindings, ...branchBindings, ...equipmentBindings.hotspots, ...notebook.hotspotBindings, ...dialogue.hotspotBindings, ...packet.hotspotBindings],
     walk: createNavigationPlanner({ navigation, store }), sceneObjects: createSceneObjectProjection({ registry, navigation }), panels: notebook.panels });
   const mediaHost = host.ownerDocument.createElement('div');
   const menuHost = host.ownerDocument.createElement('div'), saveHost = host.ownerDocument.createElement('div'), settingsHost = host.ownerDocument.createElement('div'), adventureHost = host.ownerDocument.createElement('div'); host.replaceChildren(menuHost, mediaHost, saveHost, settingsHost, adventureHost);

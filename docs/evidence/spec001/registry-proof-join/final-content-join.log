@@ -1,0 +1,25 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/content/registry.test.ts tests/content/copper-rooms.test.ts tests/content/equipment-rooms.test.ts tests/content/fiber-rooms.test.ts tests/content/radio-rooms.test.ts tests/content/repair-plan-rooms.test.ts tests/content/introduction.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/content/registry.test.ts (65 tests) 2045ms
+ ✓ tests/content/equipment-rooms.test.ts (19 tests) 649ms
+   ✓ T076 Shell Market and Clockworks authored contracts (14)
+     ✓ joins both rooms and the accepted definitions through the real registry without changing the production world 327ms
+ ✓ tests/content/fiber-rooms.test.ts (14 tests) 593ms
+ ✓ tests/content/radio-rooms.test.ts (15 tests) 551ms
+ ✓ tests/content/copper-rooms.test.ts (16 tests) 552ms
+ ✓ tests/content/repair-plan-rooms.test.ts (5 tests) 224ms
+ ✓ tests/content/introduction.test.ts (11 tests) 6ms
+
+ Test Files  7 passed (7)
+      Tests  145 passed (145)
+   Start at  20:36:50
+   Duration  5.63s (tests 90%, import 10%, transform 1%)
+
+    Isolate  7 workers spawned · ~65ms startup each (spawn + environment, per file)
+             at least ~391ms faster with isolate: false — reuses workers across files instead of one per file
+

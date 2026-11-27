@@ -18,8 +18,9 @@ const read = async <T>(path: string): Promise<T> => JSON.parse(await readFile(ne
 const world = await read<S.world>('content/spec001/world.json');
 const sources = await read<unknown>('content/spec001/sources.json');
 const documents = Object.fromEntries(await Promise.all([...new Set(world.documents.map(r => r.path))].map(async path => [path, await read<unknown>(path)])));
-for (const ref of world.documents.filter(r => r.kind === 'objective' || r.kind === 'profile')) delete documents[ref.path];
-world.documents = world.documents.filter(r => r.kind !== 'objective' && r.kind !== 'profile');
+const replaced = world.documents.filter(r => r.kind === 'objective' || r.kind === 'profile' || ['spec001:R09', 'spec001:R10'].includes(r.id) || r.path === 'content/spec001/dialogue/equipment-actions.json');
+for (const ref of replaced) delete documents[ref.path];
+world.documents = world.documents.filter(r => !replaced.includes(r));
 for (const path of ['content/spec001/profiles.json', 'content/spec001/objectives.json', 'content/spec001/dialogue/equipment-actions.json']) {
   const collection = await read<S.collection>(path); documents[path] = collection;
   world.documents.push(...collection.records.map(r => ({ id: r.id, kind: r.kind, path })) as S.world['documents']);

@@ -1,0 +1,337 @@
+{
+  "kind": "room",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:R07",
+  "presentationMode": "hybrid",
+  "description": "The Skywell opens like a chimney into a violet slice of sky. Thunderbird has nailed a survey to the rail; the Blue Dragon has mistaken the beacon for a desk lamp. At arrival the mast is unaligned, the endpoint settings are mismatched, and the Observatory selects channel A with its local emitter connected. Two surveyed paths are available using ordinary tools. The Workshop remains behind you and the Observatory stairs ahead.",
+  "walkRegions": [
+    {
+      "id": "spec001:WALK-R07",
+      "label": "Safe observation walkway",
+      "vertices": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 6
+        },
+        {
+          "x": 0,
+          "y": 6
+        }
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "toRoomId": "spec001:R02",
+      "label": "Walk to The Titan's Workshop",
+      "walkRegionId": "spec001:WALK-R07"
+    },
+    {
+      "toRoomId": "spec001:R08",
+      "label": "Walk to The Storm Observatory",
+      "walkRegionId": "spec001:WALK-R07"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "spec001:HOTSPOT-radio-antenna",
+      "subjectId": "spec001:PR061",
+      "label": "Directional antenna and alignment cradle",
+      "description": "The antenna points into a stone buttress at arrival. Its original unaligned path is explicitly unsuitable. The cradle lets you align the existing surveyed path or restore the original position. The supplied survey declares the aligned outcome viable; no propagation calculation is being inferred. Matching endpoint settings is a separate check.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [
+        "spec001:FACT-O07-path"
+      ],
+      "actionIds": [
+        "spec001:ACTION-radio-align-existing",
+        "spec001:ACTION-radio-unalign-path",
+        "spec001:ACTION-O07-align-existing-path"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-mast",
+      "subjectId": "spec001:PR062",
+      "label": "Radio mast and maintenance ladder",
+      "description": "The mast stands behind a safe waist-high railing. Its tagged cables lead to both endpoint cards. You can inspect and adjust the supplied alignment cradle from the walkway; no climbing, timing challenge, ally or side-quest reward is required to reach the controls.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-scope",
+      "subjectId": "spec001:PR063",
+      "label": "Alignment scope and survey card",
+      "description": "A paper survey beside the scope distinguishes the unsuitable original position, a viable aligned existing path and a viable alternate path. Read and keep the survey, then inspect the selected result with the reusable kit. A path label records a proposal; the actual preparation check is still yours to perform.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [
+        "spec001:FACT-O07-path"
+      ],
+      "actionIds": [
+        "spec001:ACTION-radio-read-path"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-clearance",
+      "subjectId": "spec001:PR064",
+      "label": "Path-clearance model and alternate path",
+      "description": "A hinged model opens a second surveyed corridor beside the buttress. Selecting this alternate path is equally valid: its viable outcome is supplied by the exercise, not guessed from a drawing or signal strength. The same endpoint-settings requirement remains. You may switch back without losing a tool.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [
+        "spec001:FACT-O07-path"
+      ],
+      "actionIds": [
+        "spec001:ACTION-radio-alternate-path",
+        "spec001:ACTION-O07-choose-alternate-path"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-beacon",
+      "subjectId": "spec001:PR065",
+      "label": "Short-range beacon",
+      "description": "The Blue Dragon has polished this small beacon until it resembles a jam jar with ambitions. Its card describes a separate short-range exhibit. A visible beacon does not prove that the directional path reaches the intended endpoint, and this optional exhibit holds no required reward.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-settings",
+      "subjectId": "spec001:PR066",
+      "label": "Radio selector and endpoint settings cards",
+      "description": "Two cards list the exercise endpoints: fictional band WELL, scenario channel A initially, and PHY RELAY at both ends in the matched setting. The original test setting puts the far endpoint on fictional band OTHER, explicitly incompatible. Match the band, channel and PHY together. Later channel A/B choices move both channel selectors while preserving the selected matched or mismatched band/PHY state.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [
+        "spec001:FACT-O07-settings"
+      ],
+      "actionIds": [
+        "spec001:ACTION-radio-read-settings",
+        "spec001:ACTION-radio-match-settings",
+        "spec001:ACTION-radio-mismatch-settings"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-polarization",
+      "subjectId": "spec001:PR067",
+      "label": "Polarization exhibit",
+      "description": "Two ribbons beside a model antenna invite comparison of orientation. This is an unscored conceptual exhibit; no numerical polarization penalty has been supplied. Follow the reviewed path and settings cards for the exercise rather than inventing a hidden threshold from the ribbons.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-banner",
+      "subjectId": "spec001:PR068",
+      "label": "Signal banner",
+      "description": "The banner reads: STRONG IS NOT THE SAME AS CLEAR. Path viability and compatible settings prepare this fictional link; they provide no SNR, throughput or service guarantee. The Storm Observatory compares received signal with noise at the same boundary and requires a fresh test.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [
+        "spec001:FACT-O07-settings"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-cabinet",
+      "subjectId": "spec001:PR069",
+      "label": "Relay cabinet and tool-return card",
+      "description": "The cabinet holds the alignment handles and a copy of the tool-return card. Your ordinary inspection kit is never consumed; if absent, return through the Workshop to the Arrival Lift and obtain it there. Both paths use supplied equipment. Notebook method, worked-step and solution hints remain available without penalty.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-terminal",
+      "subjectId": "spec001:PR070",
+      "label": "Wireless bridge preparation terminal",
+      "description": "The terminal asks you to check the selected path and endpoint settings separately. Record a real preparation reading and submit it; reading a survey or moving the antenna alone does not complete the investigation. A successful preparation still leaves signal/noise validation for the Observatory.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [
+        "spec001:FACT-O07-path",
+        "spec001:FACT-O07-settings"
+      ],
+      "actionIds": [
+        "spec001:ACTION-O07-align-existing-path",
+        "spec001:ACTION-O07-choose-alternate-path"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-thunderbird",
+      "subjectId": "spec001:CH07",
+      "label": "Thunderbird",
+      "description": "Thunderbird balances a pencil across one wing and watches the survey with professional suspicion. A signed note says: I can help inspect a radio path; I do not make an obstruction vanish by enthusiasm. The ordinary controls provide every required observation without recruiting anyone.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-radio-dragon",
+      "subjectId": "spec001:CH08",
+      "label": "Blue Dragon",
+      "description": "The Blue Dragon curls around the short-range beacon, guarding a biscuit rather than a quest item. Its placard distinguishes the nearby exhibit from the directional relay. Neither this character nor an optional conversation is required to prepare the radio route.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at this exhibit and compare the supplied survey. Use the labeled controls and make an actual measurement; the exhibit alone cannot validate the link.",
+      "evidenceIds": [],
+      "actionIds": []
+    }
+  ],
+  "characterIds": [
+    "spec001:CH07",
+    "spec001:CH08"
+  ],
+  "propInstances": [
+    {
+      "instanceId": "r07-pr061",
+      "propId": "spec001:PR061",
+      "description": "Directional antenna and alignment cradle, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR061"
+    },
+    {
+      "instanceId": "r07-pr062",
+      "propId": "spec001:PR062",
+      "description": "Radio mast and maintenance ladder, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR062"
+    },
+    {
+      "instanceId": "r07-pr063",
+      "propId": "spec001:PR063",
+      "description": "Alignment scope and survey card, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR063"
+    },
+    {
+      "instanceId": "r07-pr064",
+      "propId": "spec001:PR064",
+      "description": "Path-clearance model and alternate path, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR064"
+    },
+    {
+      "instanceId": "r07-pr065",
+      "propId": "spec001:PR065",
+      "description": "Short-range beacon, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR065"
+    },
+    {
+      "instanceId": "r07-pr066",
+      "propId": "spec001:PR066",
+      "description": "Radio selector and endpoint settings cards, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR066"
+    },
+    {
+      "instanceId": "r07-pr067",
+      "propId": "spec001:PR067",
+      "description": "Polarization exhibit, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR067"
+    },
+    {
+      "instanceId": "r07-pr068",
+      "propId": "spec001:PR068",
+      "description": "Signal banner, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR068"
+    },
+    {
+      "instanceId": "r07-pr069",
+      "propId": "spec001:PR069",
+      "description": "Relay cabinet and tool-return card, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR069"
+    },
+    {
+      "instanceId": "r07-pr070",
+      "propId": "spec001:PR070",
+      "description": "Wireless bridge preparation terminal, a temporary inspectable placement for the radio exercise.",
+      "assetId": "spec001:DEV-PR070"
+    }
+  ],
+  "safePositions": [
+    {
+      "id": "spec001:R07.entry",
+      "walkRegionId": "spec001:WALK-R07",
+      "point": {
+        "x": 5,
+        "y": 3
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec001:FACT-O07-path",
+      "roomId": "spec001:R07",
+      "subjectIds": [
+        "spec001:R07",
+        "spec001:PROFILE-RADIO"
+      ],
+      "kind": "observation",
+      "text": "The Skywell survey supplies two alternatives: align the existing path or choose the alternate path. Each candidate explicitly has a viable path and compatible radio settings in this scenario. An obstructed path stays unsuitable until an intervention has an observed viable result; it cannot be repaired merely by naming a channel.",
+      "ruleIds": [
+        "spec001:PHY03",
+        "spec001:PHY07"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-O07-settings",
+      "roomId": "spec001:R07",
+      "subjectIds": [
+        "spec001:PROFILE-RADIO"
+      ],
+      "kind": "context",
+      "text": "Compare the supplied band/channel/PHY and endpoint settings before transmitting. Path viability and compatible settings are independent of SNR. If the exercise omits a path or settings fact, its instructions need correction; choosing explicitly incompatible settings does not solve the preparation. Channel names are fictional exercise labels, not regulatory or real-world channel recommendations.",
+      "ruleIds": [
+        "spec001:PHY03",
+        "spec001:PHY07"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "ambience": {
+    "text": "Wind moves the survey ribbons and the beacon hums in the description. Every clue and control is also available as text.",
+    "assetIds": []
+  },
+  "futureDoorIds": []
+}

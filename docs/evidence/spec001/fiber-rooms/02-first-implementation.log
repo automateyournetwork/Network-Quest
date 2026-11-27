@@ -1,0 +1,67 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/content/fiber-rooms.test.ts tests/state/fiber-scenario.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/content/fiber-rooms.test.ts (14 tests | 1 failed) 4057ms
+   ❯ T079 Photon Gardens and Prism Vault authored contracts (14)
+     ✓ R05 follows the actual room schema 5ms
+     ✓ R06 follows the actual room schema 0ms
+     × joins independent fiber rooms through the semantic registry without changing shared content 1501ms
+     ✓ R05 copies exact reviewed O05 evidence and exposes it 0ms
+     ✓ R06 copies exact reviewed O06 evidence and exposes it 0ms
+     ✓ has only closed reversible configuration and context/inspection effects, never awards or fake measurements 2ms
+     ✓ states the numeric model, inspection order and independent overload exhibit honestly 0ms
+     ✓ keeps every allocated prop and character inspectable and all registered edges/anchors intact 0ms
+     ✓ retains the ordinary always obtainable never consumed inspection kit 0ms
+     ✓ uses readable semantic text, no inert Talk controls and explicit zero-quota temporary art 1ms
+     ✓ rejects unknown-action rather than silently accepting corrupt authored content 11ms
+     ✓ rejects contradictory-fact rather than silently accepting corrupt authored content 8ms
+     ✓ rejects wrong-exit rather than silently accepting corrupt authored content 1281ms
+     ✓ rejects outside-anchor rather than silently accepting corrupt authored content 1245ms
+ ❯ tests/state/fiber-scenario.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/fiber-scenario.test.ts [ tests/state/fiber-scenario.test.ts ]
+Error: [{"code":"graph-bounds","path":"copper","message":"Concrete-state analysis exceeded 4096 states; reachability is unproved"},{"code":"graph-bounds","path":"fiber","message":"Concrete-state analysis exceeded 4096 states; reachability is unproved"},{"code":"graph-bounds","path":"radio","message":"Concrete-state analysis exceeded 4096 states; reachability is unproved"}]
+ ❯ tests/state/fiber-scenario.test.ts:26:49
+     24| }
+     25| const validated = validateContent(input);
+     26| if (!validated.ok || !validated.registry) throw new Error(JSON.stringi…
+       |                                                 ^
+     27| const registry = validated.registry;
+     28| const resolver = createFiberScenarioResolver(registry);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/content/fiber-rooms.test.ts > T079 Photon Gardens and Prism Vault authored contracts > joins independent fiber rooms through the semantic registry without changing shared content
+AssertionError: [{"code":"graph-bounds","path":"copper","message":"Concrete-state analysis exceeded 4096 states; reachability is unproved"},{"code":"graph-bounds","path":"fiber","message":"Concrete-state analysis exceeded 4096 states; reachability is unproved"},{"code":"graph-bounds","path":"radio","message":"Concrete-state analysis exceeded 4096 states; reachability is unproved"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/content/fiber-rooms.test.ts:54:54
+     52|   it('joins independent fiber rooms through the semantic registry with…
+     53|     const input = projection(), before = structuredClone(input), resul…
+     54|     expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                      ^
+     55|     expect(result.routes).toEqual(['copper', 'fiber', 'radio']);
+     56|     expect(input).toEqual(before);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  1 failed | 13 passed (14)
+   Start at  20:30:14
+   Duration  5.63s (tests 99%)
+

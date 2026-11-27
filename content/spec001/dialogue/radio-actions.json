@@ -1,0 +1,303 @@
+{
+  "kind": "collection",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "records": [
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-radio-skywell",
+      "entryNodeId": "spec001:DIALOGUE-radio-skywell-menu",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-radio-skywell-menu",
+          "text": "The mast starts unaligned and the endpoint settings mismatched. Use the alignment cradle or alternate surveyed path, compare every supplied endpoint setting, then run the actual preparation check. These reversible controls create no measurement. The ordinary inspection kit is never consumed.",
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-radio-read-path",
+              "text": "Keep the path survey in the notebook",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-radio-read-path",
+                  "factId": "spec001:FACT-O07-path"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-radio-read-settings",
+              "text": "Keep the endpoint settings card",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-radio-read-settings",
+                  "factId": "spec001:FACT-O07-settings"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-radio-align-existing",
+              "text": "Align the existing surveyed path",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-radio-align-existing",
+                  "flagId": "spec001:FLAG-radio-path",
+                  "value": "aligned-existing"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-radio-alternate-path",
+              "text": "Select the alternate surveyed path",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-radio-alternate-path",
+                  "flagId": "spec001:FLAG-radio-path",
+                  "value": "alternate-path"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-radio-unalign-path",
+              "text": "Return the antenna to its original unaligned position",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-radio-unalign-path",
+                  "flagId": "spec001:FLAG-radio-path",
+                  "value": "unaligned"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-radio-match-settings",
+              "text": "Match both endpoint band, channel and PHY settings",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-radio-match-settings",
+                  "flagId": "spec001:FLAG-radio-settings",
+                  "value": "matched"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-radio-mismatch-settings",
+              "text": "Restore the explicitly mismatched test settings",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-radio-mismatch-settings",
+                  "flagId": "spec001:FLAG-radio-settings",
+                  "value": "mismatched"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-radio-leave-skywell",
+              "text": "Leave the Skywell controls unchanged",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": []
+            }
+          ],
+          "effects": [],
+          "evidenceIds": [],
+          "speakerId": "narrator"
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-radio-observatory",
+      "entryNodeId": "spec001:DIALOGUE-radio-observatory-menu",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-radio-observatory-menu",
+          "text": "Channel A and the raised-noise scenario are initially selected. The local emitter affects both fictional channel labels. Isolating it is a real authored configuration change, not a fresh measurement. Surveyed conditions supply A: −65/−90 dBm and B: −65/−85 dBm; raised noise supplies −65/−78 dBm. The separate supplied boundary exercise uses −65/−84.99 dBm. After every change, measure again.",
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-radio-read-survey",
+              "text": "Keep the survey and freshness instructions",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-radio-read-survey",
+                  "factId": "spec001:FACT-O08-survey"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-radio-channel-A",
+              "text": "Select fictional scenario channel A at both endpoints",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-radio-channel-A",
+                  "flagId": "spec001:FLAG-radio-channel",
+                  "value": "A"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-radio-channel-B",
+              "text": "Select fictional scenario channel B at both endpoints",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-radio-channel-B",
+                  "flagId": "spec001:FLAG-radio-channel",
+                  "value": "B"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-radio-mitigate-emitter",
+              "text": "Isolate the local emitter and return to surveyed conditions",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-radio-mitigate-emitter",
+                  "flagId": "spec001:FLAG-radio-conditions",
+                  "value": "surveyed"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-radio-raise-noise",
+              "text": "Reconnect the local emitter for the raised-noise scenario",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-radio-raise-noise",
+                  "flagId": "spec001:FLAG-radio-conditions",
+                  "value": "raised-noise"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-radio-boundary-exercise",
+              "text": "Select the supplied boundary exercise: noise −84.99 dBm",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-radio-boundary-exercise",
+                  "flagId": "spec001:FLAG-radio-conditions",
+                  "value": "near-boundary"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-radio-leave-observatory",
+              "text": "Leave the Observatory controls unchanged",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": []
+            }
+          ],
+          "effects": [],
+          "evidenceIds": [],
+          "speakerId": "narrator"
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    }
+  ]
+}

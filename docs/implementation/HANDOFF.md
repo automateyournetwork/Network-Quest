@@ -26,13 +26,13 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-26
 
-**97 loops started; 76 of170 tasks accepted.** T078/W05 local copper route is
-accepted. Fresh095/T079 and096/T080 author fiber/radio rooms. Fresh097/T081
-prepares independent graph tests; its full application/world/policy join waits
-for both accepted branches.094/T084 remains reviewed isolated code awaiting that
-join. State.json owns current task status. G0 blocked; aggregate G1–G7 pending.
-Latest reviewed GitHub checkpoint:552a986c78d9f70ccea6bd157d0cf1560952402d.
-No release deployed. Preserve loop count, owner reviews and pending capabilities.
+**99 loops started; 78 of170 tasks accepted.** T079/T080 fiber/radio room pairs
+and actual controller adapters are accepted.097/T081 has GO for the full12-room
+world/application/save-policy join. Fresh098/T085 and099/T086 prepare disjoint
+encounter UI and outcome state; shared composition remains ordered.094/T084's
+reviewed isolated checkpoint code awaits the full-world follow-up. State.json
+owns current status. G0 blocked; aggregate G1–G7 pending. Latest reviewed GitHub
+checkpoint:dbb87da62f11bd0bf335676aff5f29c643812444. No release deployed.
 
 ## Earlier position and retained progress history — 2026-11-26
 
@@ -945,3 +945,64 @@ R12 axe renderer crashes remain unresolved forT152, and temporary rooms contribu
 zero acceptedassets. No fullending/provider/media/aggregategate acceptance.
 Fresh095/096/097 bring countto97;76accepted. T081graph preparation is independent;
 its fulljoin remains ordered after bothbranchreviews.094same-taskfollowup follows.
+
+Reviewed61-file copper checkpointdbb87da62f11bd0bf335676aff5f29c643812444 pushed and remote-verified.
+2505747bytes; exact staged paths/hashes and private literal/key scanPASS. Authored
+whitespacePASS; three original sealed runner error contexts retain16 trailing
+whitespace lines, documented exception. Pending094 and new095–097 worker files
+plus growing preview logs excluded. No production deployment or rollback record.
+
+T079/T080 accepted after source/prose/controller review and final seals: fiber
+17owned/7protected/4shared match,38focusedPASS; radio21owned/7protected match,
+51focusedPASS after explicit-null RED4→GREEN guard correction. Scoped strictTS
+passes both. Root final globaltypecheckPASS after test-only narrowing fixes.
+Root/097 structural proof correction retains dependency closure and all concrete
+inventory/recovery/dialogue states; only closed diagnostic conditions projected.
+New5 regressions RED→GREEN; fullregistry65PASS; final joinedcontent145PASS/7suites
+(5.63s). No cap increase, skipped choice, oracle or physics modification.
+097 canonicaljoin GO; fresh098/099 limitedpreparation keeps threeworkers active.
+99loops/78accepted. No full fiber/radio browser ending or media acceptance yet.
+
+Root diagnosed T078's unresolved axe failure against primary upstream evidence:
+Playwright issue43967, browserroll43982. Local minimal pinnedFirefox1572 probe
+2same-contextPASS/2cross-contextCRASH; separately downloaded official1575 candidate
+4PASS, same pinneddriver1.65.1. No projectpins/cache/ownerpreview changes. See
+accessibility/firefox-reflection-diagnosis.md and sealed reports. Actual R12 audit
+and reproducible finalbrowser pin remainT152 obligations, not assumedpassed.
+
+098/099 agree real active-encounter after atomic checkpoint+execute until outcome:
+E01/E02 cutscene then authoredsafeContinue, E03shutdown staysunsafe. CurrentT077
+postexecute safe-preparation is a local milestone, not final lifecycle acceptance.
+098 owns newpure rift-encounter policy; shared reducer/controller/navigation edits
+wait081/084. T087 must author/review explicitoptional dramatic hazard with warning
+and originalfictionalcause for realterminalfailure; rejectedbadproposal remains
+ordinarydiagnosis, E03 remainsdeliberateisolation. No newphysicsrule fabricated.
+
+
+## Loop100 continuation and accepted twelve-room join
+
+T081 accepted after root review of38owned/3dependency seals, actual40graphPASS,
+2765stable-clientPASS/360TODO, globalcheck/buildPASS and2realnative fiber/radio
+PHPsave/reload journeysPASS30.1s.79of170accepted;100loopsstarted. Original095/096
+seals retained, with097 exactR06exitlabel delta recorded. Root inspected native
+fiber boundary and radio validation images. Publication of079–081 is next.
+
+Same094 canonical-world checkpoint join10PASS/rootsource review complete, final
+joinedseal pending. Same098 prepares shared-join RED tests; exact pure action
+admission and atomiccheckpoint+execution reviewed.099 isolated53PASS/381joined
+PASS126TODO, pending realactive admission,caveatpolicy, contentpreflight and
+Continue receipt survival across harmlessauth/UI updates. Fresh100/T087 authors
+personalized endings/skippable warnedfictional hazard in disjoint files; actual
+application integration waits085/086. Required human/provider/release acceptance
+remains unchanged.
+
+Root explicitFirefox1575 diagnostic actualguestcopperroute+fullpageR12axe at
+768/390px and200%textPASS15.6s,0violations each,1incompletecontrast result each
+from scrollclippedparagraph. Original1572crashes retained; no package/cachepin
+change. Seeaccessibility/r12-candidate-audit.md andapplication-audit-seal.json.
+
+T084 accepted aftersame094canonicaljoin:10newchecks and287joinedPASS/45TODO,
+strictTS,seals androotfulltest/source review.80of170accepted;counter100unchanged.
+No modulechange; actual12roomregistry,all3repairs+shutdown,realwalks,readoutstaleness
+andrealpostrollback savepolicy verified. Suppliedprereqs/fatalactivity remain
+explicit; actualactivephase/UI/recovery races belong098/099/T088–89.

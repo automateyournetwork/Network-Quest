@@ -18,10 +18,13 @@ const q = (id: string) => `spec001:${id}`;
 /** Authoring-only integration. The actual world and current runtime remain untouched. */
 function projection() {
   const candidate = structuredClone(world);
-  const documents = structuredClone(currentDocuments);
-  const removed = candidate.documents.filter(r => r.kind === 'profile' || r.kind === 'objective');
-  candidate.documents = candidate.documents.filter(r => r.kind !== 'profile' && r.kind !== 'objective');
-  for (const { path } of removed) delete documents[path];
+  // Preserve this definition-level fixture's original introduction scope. Later
+  // room copies of evidence must not mask the intended malformed-definition
+  // diagnostic with an earlier duplicate-ID rejection.
+  const introductionPaths = new Set(['content/spec001/rooms/R01.json', 'content/spec001/rooms/R02.json',
+    'content/spec001/dialogue/introduction.json', 'content/spec001/dialogue/interactions.json', 'content/spec001/items-introduction.json']);
+  candidate.documents = candidate.documents.filter(r => introductionPaths.has(r.path));
+  const documents = Object.fromEntries([...introductionPaths].map(path => [path, structuredClone(currentDocuments[path])]));
   for (const [path, collection] of [['content/spec001/profiles.json', profiles], ['content/spec001/objectives.json', objectives]] as const) {
     documents[path] = structuredClone(collection);
     for (const record of collection.records) candidate.documents.push({ kind: record.kind, id: record.id, path } as S.world['documents'][number]);

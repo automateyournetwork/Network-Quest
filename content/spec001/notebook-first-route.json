@@ -20,6 +20,22 @@
       "label": "The Echo Cavern"
     },
     {
+      "id": "spec001:R05",
+      "label": "The Photon Gardens"
+    },
+    {
+      "id": "spec001:R06",
+      "label": "The Prism Vault"
+    },
+    {
+      "id": "spec001:R07",
+      "label": "The Skywell"
+    },
+    {
+      "id": "spec001:R08",
+      "label": "The Storm Observatory"
+    },
+    {
       "id": "spec001:R09",
       "label": "The Shell Market"
     },
@@ -56,6 +72,26 @@
       "id": "spec001:O04",
       "label": "Prove copper in R04",
       "roomId": "spec001:R04"
+    },
+    {
+      "id": "spec001:O05",
+      "label": "Prepare fiber in R05",
+      "roomId": "spec001:R05"
+    },
+    {
+      "id": "spec001:O06",
+      "label": "Prove fiber in R06",
+      "roomId": "spec001:R06"
+    },
+    {
+      "id": "spec001:O07",
+      "label": "Prepare radio in R07",
+      "roomId": "spec001:R07"
+    },
+    {
+      "id": "spec001:O08",
+      "label": "Prove radio in R08",
+      "roomId": "spec001:R08"
     },
     {
       "id": "spec001:O09",
@@ -273,6 +309,42 @@
       "heading": "Independent endpoint test scope",
       "sourceId": "spec001:R12",
       "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-O05-matching",
+      "heading": "Separate optical compatibility checks",
+      "sourceId": "spec001:R05",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-O05-inspection",
+      "heading": "Connector inspection before intervention",
+      "sourceId": "spec001:R05",
+      "kind": "Observation"
+    },
+    {
+      "id": "spec001:FACT-O06-compatibility",
+      "heading": "Compatible optical path",
+      "sourceId": "spec001:R06",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-O07-path",
+      "heading": "Viable radio path",
+      "sourceId": "spec001:R07",
+      "kind": "Observation"
+    },
+    {
+      "id": "spec001:FACT-O07-settings",
+      "heading": "Compatible radio settings",
+      "sourceId": "spec001:R07",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-O08-survey",
+      "heading": "Comparable channel survey",
+      "sourceId": "spec001:R08",
+      "kind": "Scenario context"
     }
   ],
   "measurement": {
@@ -319,6 +391,102 @@
         },
         {
           "code": "O04:ACTION-O04-conventional-continuity-tool:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        }
+      ]
+    },
+    {
+      "subjectId": "spec001:O05",
+      "ruleId": "spec001:PHY06",
+      "heading": "Fiber preparation reading",
+      "scope": "Match the supplied optic and fiber profiles, inspect before changing the connection, and reinspect after cleaning or replacement. Light alone does not prove preparation.",
+      "conclusions": [
+        {
+          "code": "O05:ACTION-O05-inspected-connector-cleaning:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O05:ACTION-O05-inspected-connector-cleaning:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        },
+        {
+          "code": "O05:ACTION-O05-inspected-connector-replacement:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O05:ACTION-O05-inspected-connector-replacement:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        }
+      ]
+    },
+    {
+      "subjectId": "spec001:O06",
+      "ruleId": "spec001:PHY06",
+      "heading": "Optical receive and margin reading",
+      "scope": "Receive power must remain within the stated receiver range and retain the required sensitivity reserve. The values are the supplied fictional exercise; end-to-end service is not proven.",
+      "conclusions": [
+        {
+          "code": "O06:ACTION-O06-passive-path-A:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O06:ACTION-O06-passive-path-A:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        },
+        {
+          "code": "O06:ACTION-O06-passive-path-B:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O06:ACTION-O06-passive-path-B:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        }
+      ]
+    },
+    {
+      "subjectId": "spec001:O07",
+      "ruleId": "spec001:PHY07",
+      "heading": "Radio preparation reading",
+      "scope": "A viable path and matching radio settings are separate requirements. Signal strength alone does not establish useful throughput or service.",
+      "conclusions": [
+        {
+          "code": "O07:ACTION-O07-align-existing-path:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O07:ACTION-O07-align-existing-path:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        },
+        {
+          "code": "O07:ACTION-O07-choose-alternate-path:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O07:ACTION-O07-choose-alternate-path:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        }
+      ]
+    },
+    {
+      "subjectId": "spec001:O08",
+      "ruleId": "spec001:PHY07",
+      "heading": "Radio channel and noise reading",
+      "scope": "Compare signal and noise at the same reference, mitigate the diagnosed interference, and take a fresh measurement. This scoped scenario threshold does not predict application throughput.",
+      "conclusions": [
+        {
+          "code": "O08:ACTION-O08-scenario-channel-A:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O08:ACTION-O08-scenario-channel-A:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        },
+        {
+          "code": "O08:ACTION-O08-scenario-channel-B:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O08:ACTION-O08-scenario-channel-B:incorrect",
           "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
         }
       ]

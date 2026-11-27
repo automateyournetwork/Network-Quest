@@ -1,0 +1,24 @@
+tests/content/radio-rooms.test.ts(33,80): error TS2339: Property 'routes' does not exist on type 'ContentResult'.
+  Property 'routes' does not exist on type '{ ok: false; issues: ContentIssue[]; }'.
+tests/state/radio-scenario.test.ts(170,103): error TS2322: Type '(Measurement | { configurationRevision: ConfigurationRevision; attemptId: AttemptId; id: MeasurementId; ruleId: RuleId; ... 4 more ...; readings: ({ ...; } | ... 18 more ... | { ...; })[]; })[]' is not assignable to type 'readonly Measurement[]'.
+  Type 'Measurement | { configurationRevision: ConfigurationRevision; attemptId: AttemptId; id: MeasurementId; ruleId: RuleId; ... 4 more ...; readings: ({ ...; } | ... 18 more ... | { ...; })[]; }' is not assignable to type 'Measurement'.
+    Type '{ configurationRevision: ConfigurationRevision; attemptId: AttemptId; id: MeasurementId; ruleId: RuleId; subjectIds: readonly QualifiedId[]; roomId: RoomId; stale: boolean; conclusionCode: string; readings: ({ ...; } | ... 18 more ... | { ...; })[]; }' is not assignable to type 'Measurement'.
+      Types of property 'readings' are incompatible.
+        Type '({ readonly name: string; readonly value: Quantity<"Hz">; readonly unit: "Hz"; } | { readonly name: string; readonly value: Quantity<"Mbps">; readonly unit: "Mbps"; } | ... 17 more ... | { ...; })[]' is not assignable to type 'readonly Reading[]'.
+          Type '{ readonly name: string; readonly value: Quantity<"Hz">; readonly unit: "Hz"; } | { readonly name: string; readonly value: Quantity<"Mbps">; readonly unit: "Mbps"; } | ... 17 more ... | { ...; }' is not assignable to type 'Reading'.
+            Type '{ name: string; unit: "Hz"; value: typeof r.value; }' is not assignable to type 'Reading'.
+              Type '{ name: string; unit: "Hz"; value: typeof r.value; }' is not assignable to type '{ readonly name: string; readonly value: Quantity<"Hz">; readonly unit: "Hz"; }'.
+                Types of property 'value' are incompatible.
+                  Type 'Quantity<...> | Quantity<...> | Quantity<...> | Quantity<...> | Quantity<...> | Quantity<...> | Quantity<...> | Quantity<...> | Quantity<...> | Quantity<...>' is not assignable to type 'Quantity<"Hz">'.
+                    Type 'Quantity<"Mbps">' is not assignable to type 'Quantity<"Hz">'.
+                      Type 'Quantity<"Mbps">' is not assignable to type '{ readonly [nominal]: "quantity:Hz"; }'.
+                        Types of property '[nominal]' are incompatible.
+                          Type '"quantity:Mbps"' is not assignable to type '"quantity:Hz"'.
+tests/state/radio-scenario.test.ts(181,121): error TS2339: Property 'registry' does not exist on type 'ContentResult'.
+  Property 'registry' does not exist on type '{ ok: false; issues: ContentIssue[]; }'.
+tests/state/radio-scenario.test.ts(182,39): error TS2339: Property 'registry' does not exist on type 'ContentResult'.
+  Property 'registry' does not exist on type '{ ok: false; issues: ContentIssue[]; }'.
+tests/state/radio-scenario.test.ts(182,105): error TS2339: Property 'registry' does not exist on type 'ContentResult'.
+  Property 'registry' does not exist on type '{ ok: false; issues: ContentIssue[]; }'.
+tests/state/radio-scenario.test.ts(183,38): error TS2339: Property 'registry' does not exist on type 'ContentResult'.
+  Property 'registry' does not exist on type '{ ok: false; issues: ContentIssue[]; }'.

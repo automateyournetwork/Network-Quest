@@ -13,7 +13,7 @@ const input = structuredClone(authoredInput);
 const replaced = input.world.documents.filter(r => r.kind === 'objective' || r.kind === 'profile');
 input.world.documents = input.world.documents.filter(r => !replaced.includes(r));
 for (const { path } of replaced) delete input.documents[path];
-for (const path of ['content/spec001/objectives.json', 'content/spec001/profiles.json', 'content/spec001/dialogue/copper-actions.json', 'content/spec001/dialogue/equipment-actions.json', 'content/spec001/dialogue/repair-plan-actions.json', ...['R03', 'R04', 'R09', 'R10', 'R11', 'R12'].map(id => `content/spec001/rooms/${id}.json`)]) {
+for (const path of ['content/spec001/objectives.json', 'content/spec001/profiles.json', 'content/spec001/dialogue/copper-actions.json', 'content/spec001/dialogue/fiber-actions.json', 'content/spec001/dialogue/radio-actions.json', 'content/spec001/dialogue/equipment-actions.json', 'content/spec001/dialogue/repair-plan-actions.json', ...['R03', 'R04', 'R05', 'R06', 'R07', 'R08', 'R09', 'R10', 'R11', 'R12'].map(id => `content/spec001/rooms/${id}.json`)]) {
   const value = JSON.parse(await readFile(new URL(`../../${path}`, import.meta.url), 'utf8')) as S.collection | S.room;
   input.documents[path] = value;
   input.world.documents.push(...(value.kind === 'collection' ? value.records : [value]).map(r => ({ kind: r.kind, id: r.id, path })));
@@ -23,7 +23,7 @@ if (!result.ok || !result.registry) throw new Error(JSON.stringify(result.issues
 const registry = result.registry;
 describe('T078 route notebook presentation over actual authored definitions', () => {
   it('accepts explicit display metadata but rejects unknown sources, ambiguous mappings and raw authority', () => {
-    expect(validateNotebookPresentation(registry, metadata).objectives).toHaveLength(8);
+    expect(validateNotebookPresentation(registry, metadata).objectives).toHaveLength(12);
     for (const change of [
       (copy: typeof metadata) => { copy.measurementGroups[0]!.subjectId = 'spec001:O99'; },
       (copy: typeof metadata) => { copy.measurementGroups[0]!.ruleId = 'spec001:UNKNOWN'; },
