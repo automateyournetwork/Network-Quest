@@ -167,3 +167,5 @@ main:has(> .nq-game) { max-width: none; margin: 0; padding: 0; }
 .nq-game .nq-panel-game { float:right; position:sticky; top:0; z-index:9; }
 /* A full CSS pixel above the 44px touch minimum avoids fractional layout rounding. */
 .nq-game .nq-sticky-close { min-width:45px!important; min-height:45px!important; }
+/* Wrapped panel controls must not stick on top of each other at enlarged text. */
+@media (max-width:800px) { .nq-game .nq-panel-game { position:static; } }

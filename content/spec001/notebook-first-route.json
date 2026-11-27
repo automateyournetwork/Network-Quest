@@ -1,0 +1,735 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "rooms": [
+    {
+      "id": "spec001:R01",
+      "label": "The Arrival Lift"
+    },
+    {
+      "id": "spec001:R02",
+      "label": "The Titan's Workshop"
+    },
+    {
+      "id": "spec001:R03",
+      "label": "The Copper Warrens"
+    },
+    {
+      "id": "spec001:R04",
+      "label": "The Echo Cavern"
+    },
+    {
+      "id": "spec001:R09",
+      "label": "The Shell Market"
+    },
+    {
+      "id": "spec001:R10",
+      "label": "The Clockworks"
+    },
+    {
+      "id": "spec001:R11",
+      "label": "The Backhoe Rift"
+    },
+    {
+      "id": "spec001:R12",
+      "label": "The Iron Threshold"
+    }
+  ],
+  "objectives": [
+    {
+      "id": "spec001:O01",
+      "label": "Read the silent link in R01",
+      "roomId": "spec001:R01"
+    },
+    {
+      "id": "spec001:O02",
+      "label": "Open the investigation in R02",
+      "roomId": "spec001:R02"
+    },
+    {
+      "id": "spec001:O03",
+      "label": "Prepare copper in R03",
+      "roomId": "spec001:R03"
+    },
+    {
+      "id": "spec001:O04",
+      "label": "Prove copper in R04",
+      "roomId": "spec001:R04"
+    },
+    {
+      "id": "spec001:O09",
+      "label": "Equip the repair in R09",
+      "roomId": "spec001:R09"
+    },
+    {
+      "id": "spec001:O10",
+      "label": "Calibrate in R10",
+      "roomId": "spec001:R10"
+    },
+    {
+      "id": "spec001:O11",
+      "label": "Resolve the intervention in R11",
+      "roomId": "spec001:R11"
+    },
+    {
+      "id": "spec001:O12",
+      "label": "Validate at R12",
+      "roomId": "spec001:R12"
+    }
+  ],
+  "facts": [
+    {
+      "id": "spec001:FACT-power",
+      "heading": "Power indication",
+      "sourceId": "spec001:R01",
+      "kind": "Observation"
+    },
+    {
+      "id": "spec001:FACT-link",
+      "heading": "Link indication",
+      "sourceId": "spec001:R01",
+      "kind": "Observation"
+    },
+    {
+      "id": "spec001:FACT-photon-clue",
+      "heading": "Power and communication",
+      "sourceId": "spec001:R01",
+      "kind": "Character guidance"
+    },
+    {
+      "id": "spec001:FACT-titan-clue",
+      "heading": "Investigation scope",
+      "sourceId": "spec001:R02",
+      "kind": "Character guidance"
+    },
+    {
+      "id": "spec001:FACT-endpoints",
+      "heading": "Known-good endpoints",
+      "sourceId": "spec001:R02",
+      "kind": "Scenario context",
+      "list": {
+        "label": "Known-good endpoints",
+        "ordered": false,
+        "requiresFactIds": [
+          "spec001:FACT-endpoint-a",
+          "spec001:FACT-endpoint-b"
+        ],
+        "items": [
+          "Lift Sender A \u2014 known good",
+          "Workshop Receiver B \u2014 known good"
+        ]
+      }
+    },
+    {
+      "id": "spec001:FACT-endpoint-a",
+      "heading": "Lift Sender A",
+      "sourceId": "spec001:R02",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-endpoint-b",
+      "heading": "Workshop Receiver B",
+      "sourceId": "spec001:R02",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-path",
+      "heading": "Physical path under test",
+      "sourceId": "spec001:R02",
+      "kind": "Scenario context",
+      "list": {
+        "label": "Physical path under test",
+        "ordered": true,
+        "requiresFactIds": [
+          "spec001:FACT-path",
+          "spec001:FACT-endpoint-a",
+          "spec001:FACT-endpoint-b"
+        ],
+        "items": [
+          "Lift Sender A",
+          "selected training conduit",
+          "workshop patch lead",
+          "Workshop Receiver B"
+        ]
+      }
+    },
+    {
+      "id": "spec001:FACT-packet-context",
+      "heading": "Message capsule",
+      "sourceId": "spec001:R01",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-O03-compatibility",
+      "heading": "Copper compatibility cards",
+      "sourceId": "spec001:R03",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-O03-defect",
+      "heading": "Diagnosed open conductor",
+      "sourceId": "spec001:R03",
+      "kind": "Observation"
+    },
+    {
+      "id": "spec001:FACT-O04-before",
+      "heading": "Copper before-record instructions",
+      "sourceId": "spec001:R04",
+      "kind": "Observation"
+    },
+    {
+      "id": "spec001:FACT-O04-repeater-limit",
+      "heading": "Repeater role and limits",
+      "sourceId": "spec001:R04",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-O09-module",
+      "heading": "Separate equipment checks",
+      "sourceId": "spec001:R09",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-market-checklist",
+      "heading": "Advertised common capabilities",
+      "sourceId": "spec001:R09",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-market-ledger",
+      "heading": "Delivered-power ledger",
+      "sourceId": "spec001:R09",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-market-loans",
+      "heading": "Reusable tools and return path",
+      "sourceId": "spec001:R09",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-O10-scope",
+      "heading": "Physical sampling and upper-layer scope",
+      "sourceId": "spec001:R10",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-clockworks-sampling",
+      "heading": "Ordered toy samples",
+      "sourceId": "spec001:R10",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-clockworks-capabilities",
+      "heading": "Clockworks common capabilities",
+      "sourceId": "spec001:R10",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-clockworks-role",
+      "heading": "Physical role and address discovery",
+      "sourceId": "spec001:R10",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-clockworks-replay",
+      "heading": "Untimed sampling and replay",
+      "sourceId": "spec001:R10",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-O11-plan",
+      "heading": "Reviewed intervention requirements",
+      "sourceId": "spec001:R11",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-O11-execution",
+      "heading": "Executed intervention",
+      "sourceId": "spec001:R11",
+      "kind": "Observation"
+    },
+    {
+      "id": "spec001:FACT-repair-maintenance",
+      "heading": "Temporary dependency and follow-up",
+      "sourceId": "spec001:R11",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-repair-isolation",
+      "heading": "Unresolved fault and recovery plan",
+      "sourceId": "spec001:R11",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-O12-classification",
+      "heading": "Restoration classification criteria",
+      "sourceId": "spec001:R12",
+      "kind": "Scenario context"
+    },
+    {
+      "id": "spec001:FACT-repair-lab",
+      "heading": "Independent endpoint test scope",
+      "sourceId": "spec001:R12",
+      "kind": "Scenario context"
+    }
+  ],
+  "measurement": {
+    "factId": "spec001:FACT-inspection",
+    "sourceId": "spec001:R01",
+    "heading": "Physical inspection",
+    "ruleId": "spec001:PHY04",
+    "profileId": "spec001:PROFILE-COPPER-100"
+  },
+  "measurementGroups": [
+    {
+      "subjectId": "spec001:O03",
+      "ruleId": "spec001:PHY04",
+      "heading": "Copper preparation reading",
+      "scope": "The supplied copper path is tested for compatibility, length and required continuity. End-to-end service is not proven.",
+      "conclusions": [
+        {
+          "code": "O03:ACTION-O03-section-replacement:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O03:ACTION-O03-section-replacement:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        },
+        {
+          "code": "O03:ACTION-O03-alternate-passive-path:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O03:ACTION-O03-alternate-passive-path:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        }
+      ]
+    },
+    {
+      "subjectId": "spec001:O04",
+      "ruleId": "spec001:PHY04",
+      "heading": "Copper before/after comparison",
+      "scope": "The retained open-before record is compared with this path reading. A repeater cannot bridge a severed conductor. End-to-end service is not proven.",
+      "conclusions": [
+        {
+          "code": "O04:ACTION-O04-conventional-continuity-tool:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O04:ACTION-O04-conventional-continuity-tool:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        }
+      ]
+    },
+    {
+      "subjectId": "spec001:O09",
+      "ruleId": "spec001:PHY08",
+      "heading": "Equipment and delivered-power reading",
+      "scope": "Compatibility, supplied power constraints and shared capabilities are separate checks. End-to-end service is not proven.",
+      "conclusions": [
+        {
+          "code": "O09:ACTION-O09-compatible-kit-A:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O09:ACTION-O09-compatible-kit-A:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        },
+        {
+          "code": "O09:ACTION-O09-compatible-kit-B:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O09:ACTION-O09-compatible-kit-B:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        }
+      ]
+    },
+    {
+      "subjectId": "spec001:O10",
+      "ruleId": "spec001:PHY10",
+      "heading": "Toy signal and capability reading",
+      "scope": "This declared toy map represents bits with symbols; it is not a complete PAM4 PHY and does not discover addresses.",
+      "conclusions": [
+        {
+          "code": "O10:ACTION-O10-step-and-decode:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O10:ACTION-O10-step-and-decode:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        },
+        {
+          "code": "O10:ACTION-O10-notebook-and-replay:correct",
+          "explanation": "The supplied checks pass for this recorded configuration."
+        },
+        {
+          "code": "O10:ACTION-O10-notebook-and-replay:incorrect",
+          "explanation": "This recorded configuration does not satisfy every required check. Use the observations and current diagnostic feedback to prepare another attempt."
+        }
+      ]
+    },
+    {
+      "subjectId": "spec001:O11",
+      "ruleId": "spec001:STATE04",
+      "heading": "Intervention review",
+      "scope": "Review checks the proposed installation and current equipment. Execution and independent final validation remain separate.",
+      "conclusions": [
+        {
+          "code": "repair:review:copper-section:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:review:copper-section:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:review:copper-section:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:review:copper-section:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:review:copper-alternate:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:review:copper-alternate:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:review:copper-alternate:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:review:copper-alternate:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:review:fiber-A:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:review:fiber-A:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:review:fiber-A:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:review:fiber-A:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:review:fiber-B:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:review:fiber-B:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:review:fiber-B:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:review:fiber-B:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:review:radio-A:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:review:radio-A:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:review:radio-A:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:review:radio-A:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:review:radio-B:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:review:radio-B:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:review:radio-B:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:review:radio-B:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:review:shutdown:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:review:shutdown:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:review:shutdown:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:review:shutdown:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        }
+      ]
+    },
+    {
+      "subjectId": "spec001:O12",
+      "ruleId": "spec001:PHY11",
+      "heading": "Repaired link observation",
+      "scope": "The highlighted NQ pattern is supplied inside an opaque upper-interface frame. Its match is not a whole-frame, Ethernet FCS or universal error check; the separate endpoint test is still required.",
+      "conclusions": [
+        {
+          "code": "repair:link:copper-section:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:link:copper-section:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:link:copper-section:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:link:copper-section:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:link:copper-alternate:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:link:copper-alternate:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:link:copper-alternate:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:link:copper-alternate:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:link:fiber-A:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:link:fiber-A:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:link:fiber-A:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:link:fiber-A:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:link:fiber-B:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:link:fiber-B:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:link:fiber-B:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:link:fiber-B:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:link:radio-A:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:link:radio-A:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:link:radio-A:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:link:radio-A:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:link:radio-B:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:link:radio-B:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:link:radio-B:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:link:radio-B:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:link:shutdown:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:link:shutdown:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:link:shutdown:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:link:shutdown:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        }
+      ]
+    },
+    {
+      "subjectId": "spec001:O12",
+      "ruleId": "spec001:STATE04",
+      "heading": "Endpoint test observation",
+      "scope": "This is the separately supplied endpoint response for the declared laboratory service. A link indication or matching highlighted pattern alone does not provide this response.",
+      "conclusions": [
+        {
+          "code": "repair:endpoint:copper-section:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:endpoint:copper-section:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:endpoint:copper-section:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:endpoint:copper-section:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:endpoint:copper-alternate:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:endpoint:copper-alternate:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:endpoint:copper-alternate:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:endpoint:copper-alternate:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:endpoint:fiber-A:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:endpoint:fiber-A:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:endpoint:fiber-A:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:endpoint:fiber-A:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:endpoint:fiber-B:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:endpoint:fiber-B:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:endpoint:fiber-B:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:endpoint:fiber-B:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:endpoint:radio-A:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:endpoint:radio-A:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:endpoint:radio-A:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:endpoint:radio-A:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:endpoint:radio-B:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:endpoint:radio-B:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:endpoint:radio-B:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:endpoint:radio-B:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:endpoint:shutdown:permanent:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:endpoint:shutdown:permanent:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        },
+        {
+          "code": "repair:endpoint:shutdown:temporary:correct",
+          "explanation": "The recorded checks pass within their stated scope."
+        },
+        {
+          "code": "repair:endpoint:shutdown:temporary:incorrect",
+          "explanation": "The recorded checks do not all pass; review the current observations before proceeding."
+        }
+      ]
+    }
+  ]
+}

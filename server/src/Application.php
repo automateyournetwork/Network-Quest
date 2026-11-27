@@ -98,7 +98,7 @@ final class Application
         $auth=new Auth($database,$sessions,$security,$google,$github,$access,$config->origin);
         // Packaged authored policy only; no operator/request/test fixture selects content.
         $policy=json_decode(file_get_contents(__DIR__.'/../content/save-policy.generated.json'),false,64,JSON_THROW_ON_ERROR);
-        if (($policy->formatVersion ?? null)!==1 || ($policy->scope ?? null)!=='authored-introduction' || !is_array($policy->policies ?? null)) throw new RequestRejected('unavailable');
+        if (($policy->formatVersion ?? null)!==1 || ($policy->scope ?? null)!=='authored-first-copper-route' || !is_array($policy->policies ?? null)) throw new RequestRejected('unavailable');
         $repository=new SaveRepository($database,$sessions,$security,new SaveValidator($policy->policies),
             [['saveSchemaVersion'=>1,'contentVersion'=>'1.0.0']],$access,route:$config->apiPath.'/save');
         return $this->router=new Router($this->routing,$auth,new Save($database,$sessions,$security,$repository,$access),

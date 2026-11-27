@@ -1,0 +1,4229 @@
+{
+  "fixtureVersion": 1,
+  "task": "T092",
+  "license": "Apache-2.0",
+  "scope": "Independent oracle preparation only; no application execution.",
+  "inputConvention": "Semantic scenario labels are fixture-local, not a production API or canonical item/ability/quest IDs. sourceCaseIds resolve only to the sealed independent physical oracle. Runtime adapters must bind actual authored IDs without changing expected behavior.",
+  "frozenArtifacts": {
+    ".specify/memory/constitution.md": "6d576e5b66eda15325b80f0dd6342cbc826804b3f6f10a81edd824656a56c39a",
+    "SPEC.md": "67fecc690bad020b8a3aa0590e6d394ff3a3a3bece14001efb1d5955a3bd448c",
+    "PLAN.md": "fa3ef64053d72f51402bd5e637b91c5ddf6853430e114e64ec2b3c0df7773302",
+    "specs/001-physical-layer-underworld/spec.md": "8500b835c59eb7a7ee11b89b14121e84b27385fe3a837f23511fbe7f35d145d7",
+    "specs/001-physical-layer-underworld/data-model.md": "2aace177a2fa208e4cb3226f82cbb5f9bf17843329c7f68580d3d77e5473cee7",
+    "specs/001-physical-layer-underworld/contracts/gameplay.md": "afb6314a9519446ec6d296eb4d27827f82b99e1c0adad6e5bc45082cb0033bb2",
+    "content/schemas/content.schema.json": "712297ffb45b2d1fa9abf75ff042ca1c50a58610d077a61cc1dc13688afbb27b",
+    "specs/001-physical-layer-underworld/contracts/save.schema.json": "5323dfc5986f5a70ff7d331e3a756f434d6993ce19aecdfa04745156096fb710",
+    "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
+    "tests/fixtures/physical-cases.json": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1",
+    "tests/fixtures/repair-routes.json": "ed3a083828188a34fd6f5f345cbd4c69fe8ebb140ea903dbafd9b3f464639877"
+  },
+  "authorities": [
+    ".specify/memory/constitution.md",
+    "SPEC.md",
+    "PLAN.md",
+    "specs/001-physical-layer-underworld/spec.md",
+    "specs/001-physical-layer-underworld/data-model.md",
+    "specs/001-physical-layer-underworld/contracts/gameplay.md"
+  ],
+  "inputGaps": [
+    "T093 character documents, exact demonstrated interactions, ability/item/progression IDs and source-bound compendium entries",
+    "T094 party and ability state/UI integration; T095 compendium integration",
+    "T096-T103 authored activity documents/handlers, safe return positions and reward identities",
+    "T104 native browser/keyboard/text/accessibility checks and later portrait/media/human review"
+  ],
+  "limitations": [
+    "No implementation is consulted to generate expected answers. Existing independently authored T006/T014 cases provide the physical inputs and literal outcomes.",
+    "No new scored networking rule, physical profile, serial protocol, regenerative topology, timing requirement or regulatory claim is introduced.",
+    "Case execution remains TODO; fixture audits prove reference/expectation consistency only. Human technical review remains pending T160."
+  ],
+  "activities": [
+    {
+      "activityId": "spec001:SQ01",
+      "name": "The Antique Serial Post",
+      "roomIds": [
+        "spec001:R04"
+      ],
+      "prerequisiteObjectives": [],
+      "reward": "journal-illustration",
+      "rewardRequiredForMainStory": false,
+      "ruleIds": [
+        "PHY10"
+      ],
+      "sourceCaseIds": [
+        "T12",
+        "C-SYMBOL-WRONG",
+        "B-SYMBOL"
+      ],
+      "teaching": "toy-symbols",
+      "limitations": [
+        "A clearly labeled toy ordered bit message, not a real serial/UART/RS-232 implementation."
+      ],
+      "implementationTask": "T096"
+    },
+    {
+      "activityId": "spec001:SQ02",
+      "name": "The Eel's Energy Audit",
+      "roomIds": [
+        "spec001:R09"
+      ],
+      "prerequisiteObjectives": [],
+      "reward": "cosmetic-workshop-decoration",
+      "rewardRequiredForMainStory": false,
+      "ruleIds": [
+        "PHY08"
+      ],
+      "sourceCaseIds": [
+        "C-POWER",
+        "T10",
+        "B-POWER-30"
+      ],
+      "teaching": "delivered-power",
+      "limitations": [
+        "Recognize an over-budget delivered plan; power is not data connectivity."
+      ],
+      "implementationTask": "T097"
+    },
+    {
+      "activityId": "spec001:SQ03",
+      "name": "The Skywell Weather Diary",
+      "roomIds": [
+        "spec001:R08"
+      ],
+      "prerequisiteObjectives": [],
+      "reward": "optional-radio-depth",
+      "rewardRequiredForMainStory": false,
+      "ruleIds": [
+        "PHY07",
+        "STATE01"
+      ],
+      "sourceCaseIds": [
+        "T08",
+        "T09",
+        "B-RADIO-20",
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "teaching": "time-separated-radio",
+      "limitations": [
+        "Time-separated observations remain attributable; comparison does not prove weather caused interference."
+      ],
+      "implementationTask": "T098"
+    },
+    {
+      "activityId": "spec001:SQ04",
+      "name": "The Lost Maintenance Record",
+      "roomIds": [
+        "spec001:R03",
+        "spec001:R05",
+        "spec001:R09"
+      ],
+      "prerequisiteObjectives": [],
+      "reward": "epilogue-maintenance-history",
+      "rewardRequiredForMainStory": false,
+      "ruleIds": [],
+      "sourceCaseIds": [],
+      "teaching": "notebook-clues",
+      "limitations": [
+        "Use three observed clues from their source rooms; hypotheses and personal notes are not observations."
+      ],
+      "implementationTask": "T099"
+    },
+    {
+      "activityId": "spec001:MG01",
+      "name": "Clockworks Bit Loom",
+      "roomIds": [
+        "spec001:R10"
+      ],
+      "prerequisiteObjectives": [],
+      "reward": "optional-practice-only",
+      "rewardRequiredForMainStory": false,
+      "ruleIds": [
+        "PHY10"
+      ],
+      "sourceCaseIds": [
+        "T12",
+        "C-SYMBOL-WRONG",
+        "B-SYMBOL"
+      ],
+      "teaching": "toy-symbols",
+      "limitations": [
+        "No score, timing or MG01 completion is required for O10."
+      ],
+      "implementationTask": "T101"
+    },
+    {
+      "activityId": "spec001:MG02",
+      "name": "Prism Budget Bench",
+      "roomIds": [
+        "spec001:R06"
+      ],
+      "prerequisiteObjectives": [
+        "spec001:O06"
+      ],
+      "reward": "optional-optical-depth",
+      "rewardRequiredForMainStory": false,
+      "ruleIds": [
+        "PHY03",
+        "PHY06"
+      ],
+      "sourceCaseIds": [
+        "C-COMPAT",
+        "T07",
+        "B-COMPAT",
+        "T04",
+        "T05",
+        "T15"
+      ],
+      "teaching": "optical-budget",
+      "limitations": [
+        "Available after O06, not a prerequisite for O06; margin and overload remain separate."
+      ],
+      "implementationTask": "T102"
+    },
+    {
+      "activityId": "spec001:MG03",
+      "name": "Channel Scout",
+      "roomIds": [
+        "spec001:R08"
+      ],
+      "prerequisiteObjectives": [
+        "spec001:O08"
+      ],
+      "reward": "optional-radio-practice",
+      "rewardRequiredForMainStory": false,
+      "ruleIds": [
+        "PHY07",
+        "STATE01"
+      ],
+      "sourceCaseIds": [
+        "T08",
+        "T09",
+        "B-RADIO-20",
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "teaching": "predict-measure-compare",
+      "limitations": [
+        "Available after O08; predicting or changing a channel cannot replace fresh measurement."
+      ],
+      "implementationTask": "T103"
+    }
+  ],
+  "cases": [
+    {
+      "id": "OPT-SQ01-START",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R04",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "start"
+      },
+      "expected": {
+        "instructionsVisible": true,
+        "practiceAvailable": true,
+        "exitAvailable": true,
+        "timerRunning": false,
+        "completionAward": 0
+      },
+      "independentReasoning": "Starting exposes instructions, practice and safe exit without requiring another optional activity, companion, score or timer.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T096",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ01-PRACTICE",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R04",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "practice",
+        "answer": "worked-example",
+        "hintUsed": true
+      },
+      "expected": {
+        "explanationAvailable": true,
+        "retryAvailable": true,
+        "exitAvailable": true,
+        "timerRunning": false,
+        "assistanceRecorded": true,
+        "unassistedClaim": false
+      },
+      "independentReasoning": "Practice permits step/replay and worked explanations; using help is recorded honestly and never turns a valid main repair into a bad ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T096",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ01-FINISH",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R04",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "finish",
+        "authoredCompletionEvidenceSatisfied": true
+      },
+      "expected": {
+        "activityCompleted": true,
+        "optionalBenefit": "journal-illustration",
+        "benefitGrantCount": 1,
+        "explanationVisible": true,
+        "safeExitAvailable": true,
+        "mainObjectiveAward": 0
+      },
+      "independentReasoning": "The declared activity evidence completes this optional activity once; its benefit is optional and cannot award a main-route objective by itself.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T096",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ01-RETRY",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-RETRY",
+        "T13"
+      ],
+      "inputs": {
+        "preparedRoom": "R04",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "retry",
+        "priorAnswerIncorrect": true,
+        "newClue": "optional-clue",
+        "personalNotes": "Keep this observation",
+        "hintHistory": [
+          1
+        ],
+        "priorAttemptChangedPhysicalConfiguration": true,
+        "priorMeasurement": {
+          "configurationRevision": 8,
+          "attemptId": "activity-a",
+          "explicitlyStale": false
+        }
+      },
+      "expected": {
+        "retryAvailable": true,
+        "attemptReset": true,
+        "clueRetained": true,
+        "personalNotes": "Keep this observation",
+        "hintHistory": [
+          1
+        ],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "unearnedBenefitGrantCount": 0,
+        "timerRunning": false,
+        "saveWritesCausedByRetry": 0,
+        "priorMeasurementVisibleAsStale": true,
+        "priorMeasurementUsableAsCurrent": false,
+        "freshAttemptRequired": true,
+        "configurationRevisionGreaterThan": 8
+      },
+      "independentReasoning": "Retry restores activity preparation and advances freshness beyond the changed attempt. Keep clues, notes and hints, but retain its measurement only as stale; recover required tools without granting an unearned benefit or implicitly saving.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T096",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ01-EXIT",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R04",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "exit",
+        "activityInProgress": true,
+        "exitFromUnfinishedPhases": [
+          "instructions",
+          "practice",
+          "solving",
+          "feedback"
+        ]
+      },
+      "expected": {
+        "returnedToSafeActivityOrigin": true,
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "requiredRouteReachable": true,
+        "unearnedBenefitGrantCount": 0,
+        "saveWritesCausedByExit": 0,
+        "sameSafetyForEveryListedPhase": true
+      },
+      "independentReasoning": "Leaving an unfinished optional activity returns safely without losing required inventory or changing main completion; a later eligible manual/opted-in save is separate.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T096",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ01-SKIP",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R04",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "skip",
+        "activityStarted": false
+      },
+      "expected": {
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "requiredRouteReachable": true,
+        "optionalBenefitRequired": false
+      },
+      "independentReasoning": "Skipping is a complete supported path: no required tool, main objective or ending becomes inaccessible.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T096",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ01-REPLAY",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "preparedRoom": "R04",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "repeat-finish",
+        "completionAlreadyRecorded": true,
+        "benefitGrantCountBefore": 1,
+        "sameActionId": false
+      },
+      "expected": {
+        "benefitGrantCountAfter": 1,
+        "mainObjectiveAward": 0,
+        "explanationReplayAvailable": true
+      },
+      "independentReasoning": "A new action identifier cannot duplicate the same activity completion reward; replay still exposes the explanation.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T096",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ01-UNTIMED",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R04",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "wait-then-continue",
+        "elapsedSeconds": 3600,
+        "backgroundTabDuringWait": true
+      },
+      "expected": {
+        "timerRunning": false,
+        "failureFromDelay": false,
+        "completionStillAvailable": true,
+        "mainScoreRequirement": null
+      },
+      "independentReasoning": "Unlimited thinking time and returning from a background tab cannot fail an untimed lesson or introduce a required score.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T096",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ02-START",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R09",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "start"
+      },
+      "expected": {
+        "instructionsVisible": true,
+        "practiceAvailable": true,
+        "exitAvailable": true,
+        "timerRunning": false,
+        "completionAward": 0
+      },
+      "independentReasoning": "Starting exposes instructions, practice and safe exit without requiring another optional activity, companion, score or timer.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T097",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ02-PRACTICE",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R09",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "practice",
+        "answer": "worked-example",
+        "hintUsed": true
+      },
+      "expected": {
+        "explanationAvailable": true,
+        "retryAvailable": true,
+        "exitAvailable": true,
+        "timerRunning": false,
+        "assistanceRecorded": true,
+        "unassistedClaim": false
+      },
+      "independentReasoning": "Practice permits step/replay and worked explanations; using help is recorded honestly and never turns a valid main repair into a bad ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T097",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ02-FINISH",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R09",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "finish",
+        "authoredCompletionEvidenceSatisfied": true
+      },
+      "expected": {
+        "activityCompleted": true,
+        "optionalBenefit": "cosmetic-workshop-decoration",
+        "benefitGrantCount": 1,
+        "explanationVisible": true,
+        "safeExitAvailable": true,
+        "mainObjectiveAward": 0
+      },
+      "independentReasoning": "The declared activity evidence completes this optional activity once; its benefit is optional and cannot award a main-route objective by itself.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T097",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ02-RETRY",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-RETRY",
+        "T13"
+      ],
+      "inputs": {
+        "preparedRoom": "R09",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "retry",
+        "priorAnswerIncorrect": true,
+        "newClue": "optional-clue",
+        "personalNotes": "Keep this observation",
+        "hintHistory": [
+          1
+        ],
+        "priorAttemptChangedPhysicalConfiguration": true,
+        "priorMeasurement": {
+          "configurationRevision": 8,
+          "attemptId": "activity-a",
+          "explicitlyStale": false
+        }
+      },
+      "expected": {
+        "retryAvailable": true,
+        "attemptReset": true,
+        "clueRetained": true,
+        "personalNotes": "Keep this observation",
+        "hintHistory": [
+          1
+        ],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "unearnedBenefitGrantCount": 0,
+        "timerRunning": false,
+        "saveWritesCausedByRetry": 0,
+        "priorMeasurementVisibleAsStale": true,
+        "priorMeasurementUsableAsCurrent": false,
+        "freshAttemptRequired": true,
+        "configurationRevisionGreaterThan": 8
+      },
+      "independentReasoning": "Retry restores activity preparation and advances freshness beyond the changed attempt. Keep clues, notes and hints, but retain its measurement only as stale; recover required tools without granting an unearned benefit or implicitly saving.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T097",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ02-EXIT",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R09",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "exit",
+        "activityInProgress": true,
+        "exitFromUnfinishedPhases": [
+          "instructions",
+          "practice",
+          "solving",
+          "feedback"
+        ]
+      },
+      "expected": {
+        "returnedToSafeActivityOrigin": true,
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "requiredRouteReachable": true,
+        "unearnedBenefitGrantCount": 0,
+        "saveWritesCausedByExit": 0,
+        "sameSafetyForEveryListedPhase": true
+      },
+      "independentReasoning": "Leaving an unfinished optional activity returns safely without losing required inventory or changing main completion; a later eligible manual/opted-in save is separate.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T097",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ02-SKIP",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R09",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "skip",
+        "activityStarted": false
+      },
+      "expected": {
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "requiredRouteReachable": true,
+        "optionalBenefitRequired": false
+      },
+      "independentReasoning": "Skipping is a complete supported path: no required tool, main objective or ending becomes inaccessible.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T097",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ02-REPLAY",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "preparedRoom": "R09",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "repeat-finish",
+        "completionAlreadyRecorded": true,
+        "benefitGrantCountBefore": 1,
+        "sameActionId": false
+      },
+      "expected": {
+        "benefitGrantCountAfter": 1,
+        "mainObjectiveAward": 0,
+        "explanationReplayAvailable": true
+      },
+      "independentReasoning": "A new action identifier cannot duplicate the same activity completion reward; replay still exposes the explanation.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T097",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ02-UNTIMED",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R09",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "wait-then-continue",
+        "elapsedSeconds": 3600,
+        "backgroundTabDuringWait": true
+      },
+      "expected": {
+        "timerRunning": false,
+        "failureFromDelay": false,
+        "completionStillAvailable": true,
+        "mainScoreRequirement": null
+      },
+      "independentReasoning": "Unlimited thinking time and returning from a background tab cannot fail an untimed lesson or introduce a required score.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T097",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ03-START",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "start"
+      },
+      "expected": {
+        "instructionsVisible": true,
+        "practiceAvailable": true,
+        "exitAvailable": true,
+        "timerRunning": false,
+        "completionAward": 0
+      },
+      "independentReasoning": "Starting exposes instructions, practice and safe exit without requiring another optional activity, companion, score or timer.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T098",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ03-PRACTICE",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "practice",
+        "answer": "worked-example",
+        "hintUsed": true
+      },
+      "expected": {
+        "explanationAvailable": true,
+        "retryAvailable": true,
+        "exitAvailable": true,
+        "timerRunning": false,
+        "assistanceRecorded": true,
+        "unassistedClaim": false
+      },
+      "independentReasoning": "Practice permits step/replay and worked explanations; using help is recorded honestly and never turns a valid main repair into a bad ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T098",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ03-FINISH",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "finish",
+        "authoredCompletionEvidenceSatisfied": true
+      },
+      "expected": {
+        "activityCompleted": true,
+        "optionalBenefit": "optional-radio-depth",
+        "benefitGrantCount": 1,
+        "explanationVisible": true,
+        "safeExitAvailable": true,
+        "mainObjectiveAward": 0
+      },
+      "independentReasoning": "The declared activity evidence completes this optional activity once; its benefit is optional and cannot award a main-route objective by itself.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T098",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ03-RETRY",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-RETRY",
+        "T13"
+      ],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "retry",
+        "priorAnswerIncorrect": true,
+        "newClue": "optional-clue",
+        "personalNotes": "Keep this observation",
+        "hintHistory": [
+          1
+        ],
+        "priorAttemptChangedPhysicalConfiguration": true,
+        "priorMeasurement": {
+          "configurationRevision": 8,
+          "attemptId": "activity-a",
+          "explicitlyStale": false
+        }
+      },
+      "expected": {
+        "retryAvailable": true,
+        "attemptReset": true,
+        "clueRetained": true,
+        "personalNotes": "Keep this observation",
+        "hintHistory": [
+          1
+        ],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "unearnedBenefitGrantCount": 0,
+        "timerRunning": false,
+        "saveWritesCausedByRetry": 0,
+        "priorMeasurementVisibleAsStale": true,
+        "priorMeasurementUsableAsCurrent": false,
+        "freshAttemptRequired": true,
+        "configurationRevisionGreaterThan": 8
+      },
+      "independentReasoning": "Retry restores activity preparation and advances freshness beyond the changed attempt. Keep clues, notes and hints, but retain its measurement only as stale; recover required tools without granting an unearned benefit or implicitly saving.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T098",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ03-EXIT",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "exit",
+        "activityInProgress": true,
+        "exitFromUnfinishedPhases": [
+          "instructions",
+          "practice",
+          "solving",
+          "feedback"
+        ]
+      },
+      "expected": {
+        "returnedToSafeActivityOrigin": true,
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "requiredRouteReachable": true,
+        "unearnedBenefitGrantCount": 0,
+        "saveWritesCausedByExit": 0,
+        "sameSafetyForEveryListedPhase": true
+      },
+      "independentReasoning": "Leaving an unfinished optional activity returns safely without losing required inventory or changing main completion; a later eligible manual/opted-in save is separate.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T098",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ03-SKIP",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "skip",
+        "activityStarted": false
+      },
+      "expected": {
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "requiredRouteReachable": true,
+        "optionalBenefitRequired": false
+      },
+      "independentReasoning": "Skipping is a complete supported path: no required tool, main objective or ending becomes inaccessible.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T098",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ03-REPLAY",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "repeat-finish",
+        "completionAlreadyRecorded": true,
+        "benefitGrantCountBefore": 1,
+        "sameActionId": false
+      },
+      "expected": {
+        "benefitGrantCountAfter": 1,
+        "mainObjectiveAward": 0,
+        "explanationReplayAvailable": true
+      },
+      "independentReasoning": "A new action identifier cannot duplicate the same activity completion reward; replay still exposes the explanation.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T098",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ03-UNTIMED",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "wait-then-continue",
+        "elapsedSeconds": 3600,
+        "backgroundTabDuringWait": true
+      },
+      "expected": {
+        "timerRunning": false,
+        "failureFromDelay": false,
+        "completionStillAvailable": true,
+        "mainScoreRequirement": null
+      },
+      "independentReasoning": "Unlimited thinking time and returning from a background tab cannot fail an untimed lesson or introduce a required score.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T098",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ04-START",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ04",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R03",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "start"
+      },
+      "expected": {
+        "instructionsVisible": true,
+        "practiceAvailable": true,
+        "exitAvailable": true,
+        "timerRunning": false,
+        "completionAward": 0
+      },
+      "independentReasoning": "Starting exposes instructions, practice and safe exit without requiring another optional activity, companion, score or timer.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T099",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ04-PRACTICE",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ04",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R03",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "practice",
+        "answer": "worked-example",
+        "hintUsed": true
+      },
+      "expected": {
+        "explanationAvailable": true,
+        "retryAvailable": true,
+        "exitAvailable": true,
+        "timerRunning": false,
+        "assistanceRecorded": true,
+        "unassistedClaim": false
+      },
+      "independentReasoning": "Practice permits step/replay and worked explanations; using help is recorded honestly and never turns a valid main repair into a bad ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T099",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ04-FINISH",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ04",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R03",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "finish",
+        "authoredCompletionEvidenceSatisfied": true
+      },
+      "expected": {
+        "activityCompleted": true,
+        "optionalBenefit": "epilogue-maintenance-history",
+        "benefitGrantCount": 1,
+        "explanationVisible": true,
+        "safeExitAvailable": true,
+        "mainObjectiveAward": 0
+      },
+      "independentReasoning": "The declared activity evidence completes this optional activity once; its benefit is optional and cannot award a main-route objective by itself.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T099",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ04-RETRY",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ04",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-RETRY",
+        "T13"
+      ],
+      "inputs": {
+        "preparedRoom": "R03",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "retry",
+        "priorAnswerIncorrect": true,
+        "newClue": "optional-clue",
+        "personalNotes": "Keep this observation",
+        "hintHistory": [
+          1
+        ],
+        "priorAttemptChangedPhysicalConfiguration": true,
+        "priorMeasurement": {
+          "configurationRevision": 8,
+          "attemptId": "activity-a",
+          "explicitlyStale": false
+        }
+      },
+      "expected": {
+        "retryAvailable": true,
+        "attemptReset": true,
+        "clueRetained": true,
+        "personalNotes": "Keep this observation",
+        "hintHistory": [
+          1
+        ],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "unearnedBenefitGrantCount": 0,
+        "timerRunning": false,
+        "saveWritesCausedByRetry": 0,
+        "priorMeasurementVisibleAsStale": true,
+        "priorMeasurementUsableAsCurrent": false,
+        "freshAttemptRequired": true,
+        "configurationRevisionGreaterThan": 8
+      },
+      "independentReasoning": "Retry restores activity preparation and advances freshness beyond the changed attempt. Keep clues, notes and hints, but retain its measurement only as stale; recover required tools without granting an unearned benefit or implicitly saving.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T099",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ04-EXIT",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ04",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R03",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "exit",
+        "activityInProgress": true,
+        "exitFromUnfinishedPhases": [
+          "instructions",
+          "practice",
+          "solving",
+          "feedback"
+        ]
+      },
+      "expected": {
+        "returnedToSafeActivityOrigin": true,
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "requiredRouteReachable": true,
+        "unearnedBenefitGrantCount": 0,
+        "saveWritesCausedByExit": 0,
+        "sameSafetyForEveryListedPhase": true
+      },
+      "independentReasoning": "Leaving an unfinished optional activity returns safely without losing required inventory or changing main completion; a later eligible manual/opted-in save is separate.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T099",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ04-SKIP",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ04",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R03",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "skip",
+        "activityStarted": false
+      },
+      "expected": {
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "requiredRouteReachable": true,
+        "optionalBenefitRequired": false
+      },
+      "independentReasoning": "Skipping is a complete supported path: no required tool, main objective or ending becomes inaccessible.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T099",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ04-REPLAY",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ04",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "preparedRoom": "R03",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "repeat-finish",
+        "completionAlreadyRecorded": true,
+        "benefitGrantCountBefore": 1,
+        "sameActionId": false
+      },
+      "expected": {
+        "benefitGrantCountAfter": 1,
+        "mainObjectiveAward": 0,
+        "explanationReplayAvailable": true
+      },
+      "independentReasoning": "A new action identifier cannot duplicate the same activity completion reward; replay still exposes the explanation.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T099",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ04-UNTIMED",
+      "kind": "lifecycle",
+      "subject": "spec001:SQ04",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R03",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "wait-then-continue",
+        "elapsedSeconds": 3600,
+        "backgroundTabDuringWait": true
+      },
+      "expected": {
+        "timerRunning": false,
+        "failureFromDelay": false,
+        "completionStillAvailable": true,
+        "mainScoreRequirement": null
+      },
+      "independentReasoning": "Unlimited thinking time and returning from a background tab cannot fail an untimed lesson or introduce a required score.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T099",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG01-START",
+      "kind": "lifecycle",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R10",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "start"
+      },
+      "expected": {
+        "instructionsVisible": true,
+        "practiceAvailable": true,
+        "exitAvailable": true,
+        "timerRunning": false,
+        "completionAward": 0
+      },
+      "independentReasoning": "Starting exposes instructions, practice and safe exit without requiring another optional activity, companion, score or timer.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG01-PRACTICE",
+      "kind": "lifecycle",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R10",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "practice",
+        "answer": "worked-example",
+        "hintUsed": true
+      },
+      "expected": {
+        "explanationAvailable": true,
+        "retryAvailable": true,
+        "exitAvailable": true,
+        "timerRunning": false,
+        "assistanceRecorded": true,
+        "unassistedClaim": false
+      },
+      "independentReasoning": "Practice permits step/replay and worked explanations; using help is recorded honestly and never turns a valid main repair into a bad ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG01-FINISH",
+      "kind": "lifecycle",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R10",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "finish",
+        "authoredCompletionEvidenceSatisfied": true
+      },
+      "expected": {
+        "activityCompleted": true,
+        "optionalBenefit": "optional-practice-only",
+        "benefitGrantCount": 1,
+        "explanationVisible": true,
+        "safeExitAvailable": true,
+        "mainObjectiveAward": 0
+      },
+      "independentReasoning": "The declared activity evidence completes this optional activity once; its benefit is optional and cannot award a main-route objective by itself.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG01-RETRY",
+      "kind": "lifecycle",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-RETRY",
+        "T13"
+      ],
+      "inputs": {
+        "preparedRoom": "R10",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "retry",
+        "priorAnswerIncorrect": true,
+        "newClue": "optional-clue",
+        "personalNotes": "Keep this observation",
+        "hintHistory": [
+          1
+        ],
+        "priorAttemptChangedPhysicalConfiguration": true,
+        "priorMeasurement": {
+          "configurationRevision": 8,
+          "attemptId": "activity-a",
+          "explicitlyStale": false
+        }
+      },
+      "expected": {
+        "retryAvailable": true,
+        "attemptReset": true,
+        "clueRetained": true,
+        "personalNotes": "Keep this observation",
+        "hintHistory": [
+          1
+        ],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "unearnedBenefitGrantCount": 0,
+        "timerRunning": false,
+        "saveWritesCausedByRetry": 0,
+        "priorMeasurementVisibleAsStale": true,
+        "priorMeasurementUsableAsCurrent": false,
+        "freshAttemptRequired": true,
+        "configurationRevisionGreaterThan": 8
+      },
+      "independentReasoning": "Retry restores activity preparation and advances freshness beyond the changed attempt. Keep clues, notes and hints, but retain its measurement only as stale; recover required tools without granting an unearned benefit or implicitly saving.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG01-EXIT",
+      "kind": "lifecycle",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R10",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "exit",
+        "activityInProgress": true,
+        "exitFromUnfinishedPhases": [
+          "instructions",
+          "practice",
+          "solving",
+          "feedback"
+        ]
+      },
+      "expected": {
+        "returnedToSafeActivityOrigin": true,
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "requiredRouteReachable": true,
+        "unearnedBenefitGrantCount": 0,
+        "saveWritesCausedByExit": 0,
+        "sameSafetyForEveryListedPhase": true
+      },
+      "independentReasoning": "Leaving an unfinished optional activity returns safely without losing required inventory or changing main completion; a later eligible manual/opted-in save is separate.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG01-SKIP",
+      "kind": "lifecycle",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R10",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "skip",
+        "activityStarted": false
+      },
+      "expected": {
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "requiredRouteReachable": true,
+        "optionalBenefitRequired": false
+      },
+      "independentReasoning": "Skipping is a complete supported path: no required tool, main objective or ending becomes inaccessible.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG01-REPLAY",
+      "kind": "lifecycle",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "preparedRoom": "R10",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "repeat-finish",
+        "completionAlreadyRecorded": true,
+        "benefitGrantCountBefore": 1,
+        "sameActionId": false
+      },
+      "expected": {
+        "benefitGrantCountAfter": 1,
+        "mainObjectiveAward": 0,
+        "explanationReplayAvailable": true
+      },
+      "independentReasoning": "A new action identifier cannot duplicate the same activity completion reward; replay still exposes the explanation.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG01-UNTIMED",
+      "kind": "lifecycle",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R10",
+        "completedPrerequisites": [],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "wait-then-continue",
+        "elapsedSeconds": 3600,
+        "backgroundTabDuringWait": true
+      },
+      "expected": {
+        "timerRunning": false,
+        "failureFromDelay": false,
+        "completionStillAvailable": true,
+        "mainScoreRequirement": null
+      },
+      "independentReasoning": "Unlimited thinking time and returning from a background tab cannot fail an untimed lesson or introduce a required score.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG02-START",
+      "kind": "lifecycle",
+      "subject": "spec001:MG02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R06",
+        "completedPrerequisites": [
+          "O06"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O05",
+          "O06"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "start"
+      },
+      "expected": {
+        "instructionsVisible": true,
+        "practiceAvailable": true,
+        "exitAvailable": true,
+        "timerRunning": false,
+        "completionAward": 0
+      },
+      "independentReasoning": "Starting exposes instructions, practice and safe exit without requiring another optional activity, companion, score or timer.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T102",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG02-PRACTICE",
+      "kind": "lifecycle",
+      "subject": "spec001:MG02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R06",
+        "completedPrerequisites": [
+          "O06"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O05",
+          "O06"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "practice",
+        "answer": "worked-example",
+        "hintUsed": true
+      },
+      "expected": {
+        "explanationAvailable": true,
+        "retryAvailable": true,
+        "exitAvailable": true,
+        "timerRunning": false,
+        "assistanceRecorded": true,
+        "unassistedClaim": false
+      },
+      "independentReasoning": "Practice permits step/replay and worked explanations; using help is recorded honestly and never turns a valid main repair into a bad ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T102",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG02-FINISH",
+      "kind": "lifecycle",
+      "subject": "spec001:MG02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R06",
+        "completedPrerequisites": [
+          "O06"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O05",
+          "O06"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "finish",
+        "authoredCompletionEvidenceSatisfied": true
+      },
+      "expected": {
+        "activityCompleted": true,
+        "optionalBenefit": "optional-optical-depth",
+        "benefitGrantCount": 1,
+        "explanationVisible": true,
+        "safeExitAvailable": true,
+        "mainObjectiveAward": 0
+      },
+      "independentReasoning": "The declared activity evidence completes this optional activity once; its benefit is optional and cannot award a main-route objective by itself.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T102",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG02-RETRY",
+      "kind": "lifecycle",
+      "subject": "spec001:MG02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-RETRY",
+        "T13"
+      ],
+      "inputs": {
+        "preparedRoom": "R06",
+        "completedPrerequisites": [
+          "O06"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O05",
+          "O06"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "retry",
+        "priorAnswerIncorrect": true,
+        "newClue": "optional-clue",
+        "personalNotes": "Keep this observation",
+        "hintHistory": [
+          1
+        ],
+        "priorAttemptChangedPhysicalConfiguration": true,
+        "priorMeasurement": {
+          "configurationRevision": 8,
+          "attemptId": "activity-a",
+          "explicitlyStale": false
+        }
+      },
+      "expected": {
+        "retryAvailable": true,
+        "attemptReset": true,
+        "clueRetained": true,
+        "personalNotes": "Keep this observation",
+        "hintHistory": [
+          1
+        ],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "unearnedBenefitGrantCount": 0,
+        "timerRunning": false,
+        "saveWritesCausedByRetry": 0,
+        "priorMeasurementVisibleAsStale": true,
+        "priorMeasurementUsableAsCurrent": false,
+        "freshAttemptRequired": true,
+        "configurationRevisionGreaterThan": 8
+      },
+      "independentReasoning": "Retry restores activity preparation and advances freshness beyond the changed attempt. Keep clues, notes and hints, but retain its measurement only as stale; recover required tools without granting an unearned benefit or implicitly saving.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T102",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG02-EXIT",
+      "kind": "lifecycle",
+      "subject": "spec001:MG02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R06",
+        "completedPrerequisites": [
+          "O06"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O05",
+          "O06"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "exit",
+        "activityInProgress": true,
+        "exitFromUnfinishedPhases": [
+          "instructions",
+          "practice",
+          "solving",
+          "feedback"
+        ]
+      },
+      "expected": {
+        "returnedToSafeActivityOrigin": true,
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O05",
+          "O06"
+        ],
+        "requiredRouteReachable": true,
+        "unearnedBenefitGrantCount": 0,
+        "saveWritesCausedByExit": 0,
+        "sameSafetyForEveryListedPhase": true
+      },
+      "independentReasoning": "Leaving an unfinished optional activity returns safely without losing required inventory or changing main completion; a later eligible manual/opted-in save is separate.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T102",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG02-SKIP",
+      "kind": "lifecycle",
+      "subject": "spec001:MG02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R06",
+        "completedPrerequisites": [
+          "O06"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O05",
+          "O06"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "skip",
+        "activityStarted": false
+      },
+      "expected": {
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O05",
+          "O06"
+        ],
+        "requiredRouteReachable": true,
+        "optionalBenefitRequired": false
+      },
+      "independentReasoning": "Skipping is a complete supported path: no required tool, main objective or ending becomes inaccessible.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T102",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG02-REPLAY",
+      "kind": "lifecycle",
+      "subject": "spec001:MG02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "preparedRoom": "R06",
+        "completedPrerequisites": [
+          "O06"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O05",
+          "O06"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "repeat-finish",
+        "completionAlreadyRecorded": true,
+        "benefitGrantCountBefore": 1,
+        "sameActionId": false
+      },
+      "expected": {
+        "benefitGrantCountAfter": 1,
+        "mainObjectiveAward": 0,
+        "explanationReplayAvailable": true
+      },
+      "independentReasoning": "A new action identifier cannot duplicate the same activity completion reward; replay still exposes the explanation.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T102",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG02-UNTIMED",
+      "kind": "lifecycle",
+      "subject": "spec001:MG02",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R06",
+        "completedPrerequisites": [
+          "O06"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O05",
+          "O06"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "wait-then-continue",
+        "elapsedSeconds": 3600,
+        "backgroundTabDuringWait": true
+      },
+      "expected": {
+        "timerRunning": false,
+        "failureFromDelay": false,
+        "completionStillAvailable": true,
+        "mainScoreRequirement": null
+      },
+      "independentReasoning": "Unlimited thinking time and returning from a background tab cannot fail an untimed lesson or introduce a required score.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T102",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG03-START",
+      "kind": "lifecycle",
+      "subject": "spec001:MG03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [
+          "O08"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O07",
+          "O08"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "start"
+      },
+      "expected": {
+        "instructionsVisible": true,
+        "practiceAvailable": true,
+        "exitAvailable": true,
+        "timerRunning": false,
+        "completionAward": 0
+      },
+      "independentReasoning": "Starting exposes instructions, practice and safe exit without requiring another optional activity, companion, score or timer.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T103",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG03-PRACTICE",
+      "kind": "lifecycle",
+      "subject": "spec001:MG03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [
+          "O08"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O07",
+          "O08"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "practice",
+        "answer": "worked-example",
+        "hintUsed": true
+      },
+      "expected": {
+        "explanationAvailable": true,
+        "retryAvailable": true,
+        "exitAvailable": true,
+        "timerRunning": false,
+        "assistanceRecorded": true,
+        "unassistedClaim": false
+      },
+      "independentReasoning": "Practice permits step/replay and worked explanations; using help is recorded honestly and never turns a valid main repair into a bad ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T103",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG03-FINISH",
+      "kind": "lifecycle",
+      "subject": "spec001:MG03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [
+          "O08"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O07",
+          "O08"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "finish",
+        "authoredCompletionEvidenceSatisfied": true
+      },
+      "expected": {
+        "activityCompleted": true,
+        "optionalBenefit": "optional-radio-practice",
+        "benefitGrantCount": 1,
+        "explanationVisible": true,
+        "safeExitAvailable": true,
+        "mainObjectiveAward": 0
+      },
+      "independentReasoning": "The declared activity evidence completes this optional activity once; its benefit is optional and cannot award a main-route objective by itself.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T103",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG03-RETRY",
+      "kind": "lifecycle",
+      "subject": "spec001:MG03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-RETRY",
+        "T13"
+      ],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [
+          "O08"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O07",
+          "O08"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "retry",
+        "priorAnswerIncorrect": true,
+        "newClue": "optional-clue",
+        "personalNotes": "Keep this observation",
+        "hintHistory": [
+          1
+        ],
+        "priorAttemptChangedPhysicalConfiguration": true,
+        "priorMeasurement": {
+          "configurationRevision": 8,
+          "attemptId": "activity-a",
+          "explicitlyStale": false
+        }
+      },
+      "expected": {
+        "retryAvailable": true,
+        "attemptReset": true,
+        "clueRetained": true,
+        "personalNotes": "Keep this observation",
+        "hintHistory": [
+          1
+        ],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "unearnedBenefitGrantCount": 0,
+        "timerRunning": false,
+        "saveWritesCausedByRetry": 0,
+        "priorMeasurementVisibleAsStale": true,
+        "priorMeasurementUsableAsCurrent": false,
+        "freshAttemptRequired": true,
+        "configurationRevisionGreaterThan": 8
+      },
+      "independentReasoning": "Retry restores activity preparation and advances freshness beyond the changed attempt. Keep clues, notes and hints, but retain its measurement only as stale; recover required tools without granting an unearned benefit or implicitly saving.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T103",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG03-EXIT",
+      "kind": "lifecycle",
+      "subject": "spec001:MG03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [
+          "O08"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O07",
+          "O08"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "exit",
+        "activityInProgress": true,
+        "exitFromUnfinishedPhases": [
+          "instructions",
+          "practice",
+          "solving",
+          "feedback"
+        ]
+      },
+      "expected": {
+        "returnedToSafeActivityOrigin": true,
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O07",
+          "O08"
+        ],
+        "requiredRouteReachable": true,
+        "unearnedBenefitGrantCount": 0,
+        "saveWritesCausedByExit": 0,
+        "sameSafetyForEveryListedPhase": true
+      },
+      "independentReasoning": "Leaving an unfinished optional activity returns safely without losing required inventory or changing main completion; a later eligible manual/opted-in save is separate.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T103",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG03-SKIP",
+      "kind": "lifecycle",
+      "subject": "spec001:MG03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [
+          "O08"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O07",
+          "O08"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "skip",
+        "activityStarted": false
+      },
+      "expected": {
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O07",
+          "O08"
+        ],
+        "requiredRouteReachable": true,
+        "optionalBenefitRequired": false
+      },
+      "independentReasoning": "Skipping is a complete supported path: no required tool, main objective or ending becomes inaccessible.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T103",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG03-REPLAY",
+      "kind": "lifecycle",
+      "subject": "spec001:MG03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [
+          "O08"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O07",
+          "O08"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "repeat-finish",
+        "completionAlreadyRecorded": true,
+        "benefitGrantCountBefore": 1,
+        "sameActionId": false
+      },
+      "expected": {
+        "benefitGrantCountAfter": 1,
+        "mainObjectiveAward": 0,
+        "explanationReplayAvailable": true
+      },
+      "independentReasoning": "A new action identifier cannot duplicate the same activity completion reward; replay still exposes the explanation.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T103",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG03-UNTIMED",
+      "kind": "lifecycle",
+      "subject": "spec001:MG03",
+      "requirements": [
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "preparedRoom": "R08",
+        "completedPrerequisites": [
+          "O08"
+        ],
+        "otherOptionalActivitiesCompleted": [],
+        "recruited": [],
+        "requiredInventory": {
+          "route-tool": 1
+        },
+        "mainObjectiveProgress": [
+          "O01",
+          "O02",
+          "O07",
+          "O08"
+        ],
+        "timingEnabled": false,
+        "score": null,
+        "action": "wait-then-continue",
+        "elapsedSeconds": 3600,
+        "backgroundTabDuringWait": true
+      },
+      "expected": {
+        "timerRunning": false,
+        "failureFromDelay": false,
+        "completionStillAvailable": true,
+        "mainScoreRequirement": null
+      },
+      "independentReasoning": "Unlimited thinking time and returning from a background tab cannot fail an untimed lesson or introduce a required score.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T103",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ01-DECODE",
+      "kind": "learning",
+      "subject": "spec001:SQ01",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "T12"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "T12"
+        ],
+        "suppliedOrderedSymbols": [
+          -3,
+          1,
+          3,
+          -1
+        ],
+        "unit": "toy-level",
+        "submittedBits": "00101101",
+        "timeLimit": null
+      },
+      "expected": {
+        "status": "correct",
+        "bits": "00101101",
+        "representedBits": 8,
+        "symbolCount": 4,
+        "activityCompletionEligible": true,
+        "mainObjectiveAward": 0
+      },
+      "independentReasoning": "Read the declared map in order: 00 | 10 | 11 | 01. Eight represented bits do not imply a complete PHY, serial protocol or useful bits per second.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T096",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ01-WRONG-ORDER",
+      "kind": "learning",
+      "subject": "spec001:SQ01",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "C-SYMBOL-WRONG"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "C-SYMBOL-WRONG"
+        ],
+        "submittedBits": "00011011"
+      },
+      "expected": {
+        "status": "incorrect",
+        "expectedBits": "00101101",
+        "retryAvailable": true,
+        "completionAward": 0
+      },
+      "independentReasoning": "A different ordered bit sequence does not match the toy map. Explain and permit retry rather than award delivery for the wrong message.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T096",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ01-ONE-SYMBOL",
+      "kind": "learning",
+      "subject": "spec001:SQ01",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-SYMBOL"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "B-SYMBOL"
+        ],
+        "suppliedOrderedSymbols": [
+          3
+        ],
+        "unit": "toy-level",
+        "submittedBits": "11"
+      },
+      "expected": {
+        "status": "correct",
+        "bits": "11",
+        "representedBits": 2,
+        "symbolCount": 1,
+        "fullActivityCompletionInferred": false
+      },
+      "independentReasoning": "One valid supplied symbol maps to two bits; this boundary is a practice example, not proof that the entire authored activity is finished.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T096",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG01-DECODE",
+      "kind": "learning",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "T12"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "T12"
+        ],
+        "suppliedOrderedSymbols": [
+          -3,
+          1,
+          3,
+          -1
+        ],
+        "unit": "toy-level",
+        "submittedBits": "00101101",
+        "timeLimit": null
+      },
+      "expected": {
+        "status": "correct",
+        "bits": "00101101",
+        "representedBits": 8,
+        "symbolCount": 4,
+        "activityCompletionEligible": true,
+        "mainObjectiveAward": 0
+      },
+      "independentReasoning": "Read the declared map in order: 00 | 10 | 11 | 01. Eight represented bits do not imply a complete PHY, serial protocol or useful bits per second.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG01-WRONG-ORDER",
+      "kind": "learning",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "C-SYMBOL-WRONG"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "C-SYMBOL-WRONG"
+        ],
+        "submittedBits": "00011011"
+      },
+      "expected": {
+        "status": "incorrect",
+        "expectedBits": "00101101",
+        "retryAvailable": true,
+        "completionAward": 0
+      },
+      "independentReasoning": "A different ordered bit sequence does not match the toy map. Explain and permit retry rather than award delivery for the wrong message.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG01-ONE-SYMBOL",
+      "kind": "learning",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-SYMBOL"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "B-SYMBOL"
+        ],
+        "suppliedOrderedSymbols": [
+          3
+        ],
+        "unit": "toy-level",
+        "submittedBits": "11"
+      },
+      "expected": {
+        "status": "correct",
+        "bits": "11",
+        "representedBits": 2,
+        "symbolCount": 1,
+        "fullActivityCompletionInferred": false
+      },
+      "independentReasoning": "One valid supplied symbol maps to two bits; this boundary is a practice example, not proof that the entire authored activity is finished.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ02-DIAGNOSE",
+      "kind": "learning",
+      "subject": "spec001:SQ02",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "T10"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "T10"
+        ],
+        "deliveredBudget": {
+          "value": 30,
+          "unit": "W"
+        },
+        "deliveredDemands": [
+          12,
+          11,
+          10
+        ],
+        "demandsUnit": "W",
+        "answer": "over-budget-by-3-W"
+      },
+      "expected": {
+        "planStatus": "incorrect",
+        "learnerStatus": "correct",
+        "total": {
+          "value": 33,
+          "unit": "W"
+        },
+        "excess": {
+          "value": 3,
+          "unit": "W"
+        },
+        "activityCompletionEligible": true,
+        "dataLinkProven": false
+      },
+      "independentReasoning": "The plan fails 12+11+10=33 > 30, but diagnosing that exact 3 W excess is the correct activity response; do not confuse the plan result with grading the learner.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T097",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ02-POWER-BOUNDARIES",
+      "kind": "learning",
+      "subject": "spec001:SQ02",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "C-POWER",
+        "B-POWER-30"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "C-POWER",
+          "B-POWER-30"
+        ],
+        "otherCompatibilityAndPerPortChecksSatisfied": true
+      },
+      "expected": {
+        "cases": [
+          {
+            "caseId": "C-POWER",
+            "planStatus": "correct",
+            "totalW": 23,
+            "headroomW": 7
+          },
+          {
+            "caseId": "B-POWER-30",
+            "planStatus": "correct",
+            "totalW": 30,
+            "headroomW": 0
+          }
+        ],
+        "dataLinkProven": false
+      },
+      "independentReasoning": "12+11=23 leaves 7 W; 12+11+7=30 exactly meets the delivered ceiling. Neither total proves data connectivity.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T097",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ02-WRONG-DIAGNOSIS",
+      "kind": "learning",
+      "subject": "spec001:SQ02",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "T10"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "T10"
+        ],
+        "answer": "33-W-is-within-30-W-because-link-light-on"
+      },
+      "expected": {
+        "learnerStatus": "incorrect",
+        "completionAward": 0,
+        "explanation": "33 W exceeds 30 W by 3 W; a link lamp does not enlarge the delivered budget.",
+        "retryAvailable": true
+      },
+      "independentReasoning": "The player must identify the supplied excess. A signal observation cannot override delivered-power arithmetic.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T097",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ03-COMPARE",
+      "kind": "learning",
+      "subject": "spec001:SQ03",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "T08",
+        "T09",
+        "T13"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "T08",
+          "T09"
+        ],
+        "samples": [
+          {
+            "time": "earlier",
+            "configurationRevision": 5,
+            "attempt": "a",
+            "signalDbm": -65,
+            "noiseDbm": -90
+          },
+          {
+            "time": "later",
+            "configurationRevision": 6,
+            "attempt": "a",
+            "signalDbm": -65,
+            "noiseDbm": -78
+          }
+        ],
+        "currentConfigurationRevision": 6,
+        "requiredSnrDb": 20,
+        "pathAndSettingsSatisfied": true,
+        "answer": "25-to-13-dB-now-below-20"
+      },
+      "expected": {
+        "learnerStatus": "correct",
+        "historicalSnrDb": 25,
+        "currentSnrDb": 13,
+        "snrChangeDb": -12,
+        "oldSampleVisible": true,
+        "oldSampleUsableAsCurrent": false,
+        "currentLinkPass": false,
+        "weatherCausationProven": false,
+        "activityCompletionEligible": true
+      },
+      "independentReasoning": "25 and 13 dB are separately attributable observations; the 12 dB reduction can be compared without treating the old passing sample as current or asserting a cause.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T098",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ03-BOUNDARY",
+      "kind": "learning",
+      "subject": "spec001:SQ03",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-RADIO-20"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "B-RADIO-20"
+        ],
+        "newSampleAfterMitigation": true,
+        "pathAndSettingsSatisfied": true
+      },
+      "expected": {
+        "snrDb": 20,
+        "scenarioThresholdMet": true,
+        "throughputGuaranteed": false
+      },
+      "independentReasoning": "The supplied inclusive 20 dB threshold accepts equality; signal arithmetic does not certify universal throughput.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T098",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ03-STALE-PREDICTION",
+      "kind": "learning",
+      "subject": "spec001:SQ03",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "T13"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "T13"
+        ],
+        "selectedMitigation": true,
+        "prediction": "will-pass",
+        "freshMeasurementTaken": false,
+        "presentedSampleRevision": 5,
+        "currentRevision": 6
+      },
+      "expected": {
+        "comparisonCompletionEligible": false,
+        "oldSampleVisible": true,
+        "oldSampleUsableAsCurrent": false,
+        "requestFreshMeasurement": true,
+        "retryAvailable": true
+      },
+      "independentReasoning": "Predict/measure/compare needs the new measurement. A plausible prediction or a previously passing sample cannot stand in for observation after a change.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T098",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG03-COMPARE",
+      "kind": "learning",
+      "subject": "spec001:MG03",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "T08",
+        "T09",
+        "T13"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "T08",
+          "T09"
+        ],
+        "samples": [
+          {
+            "time": "earlier",
+            "configurationRevision": 5,
+            "attempt": "a",
+            "signalDbm": -65,
+            "noiseDbm": -90
+          },
+          {
+            "time": "later",
+            "configurationRevision": 6,
+            "attempt": "a",
+            "signalDbm": -65,
+            "noiseDbm": -78
+          }
+        ],
+        "currentConfigurationRevision": 6,
+        "requiredSnrDb": 20,
+        "pathAndSettingsSatisfied": true,
+        "answer": "25-to-13-dB-now-below-20"
+      },
+      "expected": {
+        "learnerStatus": "correct",
+        "historicalSnrDb": 25,
+        "currentSnrDb": 13,
+        "snrChangeDb": -12,
+        "oldSampleVisible": true,
+        "oldSampleUsableAsCurrent": false,
+        "currentLinkPass": false,
+        "weatherCausationProven": false,
+        "activityCompletionEligible": true
+      },
+      "independentReasoning": "25 and 13 dB are separately attributable observations; the 12 dB reduction can be compared without treating the old passing sample as current or asserting a cause.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T103",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG03-BOUNDARY",
+      "kind": "learning",
+      "subject": "spec001:MG03",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "B-RADIO-20"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "B-RADIO-20"
+        ],
+        "newSampleAfterMitigation": true,
+        "pathAndSettingsSatisfied": true
+      },
+      "expected": {
+        "snrDb": 20,
+        "scenarioThresholdMet": true,
+        "throughputGuaranteed": false
+      },
+      "independentReasoning": "The supplied inclusive 20 dB threshold accepts equality; signal arithmetic does not certify universal throughput.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T103",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG03-STALE-PREDICTION",
+      "kind": "learning",
+      "subject": "spec001:MG03",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "T13"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "T13"
+        ],
+        "selectedMitigation": true,
+        "prediction": "will-pass",
+        "freshMeasurementTaken": false,
+        "presentedSampleRevision": 5,
+        "currentRevision": 6
+      },
+      "expected": {
+        "comparisonCompletionEligible": false,
+        "oldSampleVisible": true,
+        "oldSampleUsableAsCurrent": false,
+        "requestFreshMeasurement": true,
+        "retryAvailable": true
+      },
+      "independentReasoning": "Predict/measure/compare needs the new measurement. A plausible prediction or a previously passing sample cannot stand in for observation after a change.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T103",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ04-COMBINE",
+      "kind": "learning",
+      "subject": "spec001:SQ04",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "observedClues": [
+          {
+            "label": "maintenance-copper",
+            "sourceRoom": "R03"
+          },
+          {
+            "label": "maintenance-fiber",
+            "sourceRoom": "R05"
+          },
+          {
+            "label": "maintenance-power",
+            "sourceRoom": "R09"
+          }
+        ],
+        "combineInNotebook": true
+      },
+      "expected": {
+        "activityCompletionEligible": true,
+        "sourceRoomsPreserved": [
+          "R03",
+          "R05",
+          "R09"
+        ],
+        "epilogueMaintenancePersonalization": true,
+        "requiredObjectiveAward": 0
+      },
+      "independentReasoning": "The three source-backed observations fulfill the authored notebook-combination condition; the optional history changes presentation without gating any route.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T099",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ04-NOTE-NOT-CLUE",
+      "kind": "learning",
+      "subject": "spec001:SQ04",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "observedCluesFromRooms": [
+          "R03",
+          "R09"
+        ],
+        "hypothesisAboutRoom": "R05",
+        "personalNote": "I think the fiber was repaired"
+      },
+      "expected": {
+        "activityCompletionEligible": false,
+        "missingObservedSourceRoom": "R05",
+        "noteRetainedAsNote": true,
+        "retryAvailable": true,
+        "mainRouteStillReachable": true
+      },
+      "independentReasoning": "Speculation and personal notes remain useful but do not become the missing R05 observation; the optional quest can remain incomplete without blocking play.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T099",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-SQ04-DUPLICATE-ROOM",
+      "kind": "learning",
+      "subject": "spec001:SQ04",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "observedCluesFromRooms": [
+          "R03",
+          "R03",
+          "R09"
+        ]
+      },
+      "expected": {
+        "activityCompletionEligible": false,
+        "missingObservedSourceRoom": "R05",
+        "duplicateObservationFillsMissingRoom": false
+      },
+      "independentReasoning": "Two copies of a copper clue cannot replace the distinct fiber observation required by the three-room contract.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T099",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG02-BUDGETS",
+      "kind": "learning",
+      "subject": "spec001:MG02",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "T04",
+        "T05",
+        "T15"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "T04",
+          "T05",
+          "T15"
+        ],
+        "O06Complete": true,
+        "allCompatibilityChecksPass": true
+      },
+      "expected": {
+        "cases": [
+          {
+            "caseId": "T04",
+            "receiveDbm": -11,
+            "marginDb": 3,
+            "status": "correct"
+          },
+          {
+            "caseId": "T05",
+            "receiveDbm": -13,
+            "marginDb": 1,
+            "status": "incorrect"
+          },
+          {
+            "caseId": "T15",
+            "receiveDbm": -12,
+            "marginDb": 2,
+            "status": "correct"
+          }
+        ],
+        "minimumMarginDb": 2,
+        "boundsInclusive": true
+      },
+      "independentReasoning": "Subtract passive loss from -3 dBm, then subtract -14 dBm sensitivity. Exactly 2 dB passes; 1 dB fails despite receiver sensitivity.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T102",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG02-INCOMPATIBLE",
+      "kind": "learning",
+      "subject": "spec001:MG02",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "T07"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "T07"
+        ],
+        "numericBudgetSufficient": true,
+        "requiredProfileMatch": false
+      },
+      "expected": {
+        "status": "incorrect",
+        "usableLink": false,
+        "completionFromArithmeticAlone": false
+      },
+      "independentReasoning": "Matched physical profiles are a prerequisite; a flattering budget cannot fix an incompatible pair.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T102",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG02-LOCKED-BEFORE-OBJECTIVE",
+      "kind": "availability",
+      "subject": "spec001:MG02",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "completedObjectives": [],
+        "requestStart": true
+      },
+      "expected": {
+        "activityMayStart": false,
+        "requiredObjective": "O06",
+        "mainObjectiveMayCompleteWithoutActivity": true,
+        "explainOptionalUnlock": true
+      },
+      "independentReasoning": "This optional bench is unlocked after the named objective. The prerequisite arrow must not be reversed into a required activity score.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T102",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG03-LOCKED-BEFORE-OBJECTIVE",
+      "kind": "availability",
+      "subject": "spec001:MG03",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "completedObjectives": [],
+        "requestStart": true
+      },
+      "expected": {
+        "activityMayStart": false,
+        "requiredObjective": "O08",
+        "mainObjectiveMayCompleteWithoutActivity": true,
+        "explainOptionalUnlock": true
+      },
+      "independentReasoning": "This optional bench is unlocked after the named objective. The prerequisite arrow must not be reversed into a required activity score.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T103",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG01-TIMING-GUARD",
+      "kind": "timing",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "untimedModeCompleted": false,
+        "requestTimedChallenge": true,
+        "authoredTimingCapabilityOffered": true,
+        "conditionalScenario": "Execute only if this activity authors an optional timed mode; omitting that mode is valid."
+      },
+      "expected": {
+        "timingEnabled": false,
+        "untimedModeAvailable": true,
+        "mainScoreRequirement": null
+      },
+      "independentReasoning": "When an optional timed capability exists, it cannot start before untimed completion; timing remains disabled by default and never gates the main lesson. No activity is required to offer timing.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG01-TIMING-OPT-IN",
+      "kind": "timing",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "untimedModeCompleted": true,
+        "explicitTimedOptIn": true,
+        "leaveTimedMode": true,
+        "authoredTimingCapabilityOffered": true,
+        "conditionalScenario": "Execute only if this activity authors an optional timed mode; omitting that mode is valid."
+      },
+      "expected": {
+        "timedModeWasOptional": true,
+        "untimedModeStillAvailable": true,
+        "requiredInventoryUnchanged": true,
+        "mainProgressUnchanged": true
+      },
+      "independentReasoning": "If the activity offers an optional timed challenge, it may be selected explicitly only after untimed completion, then exited without losing required items or main progress. An implementation with no timed mode is valid.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG02-TIMING-GUARD",
+      "kind": "timing",
+      "subject": "spec001:MG02",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "untimedModeCompleted": false,
+        "requestTimedChallenge": true,
+        "authoredTimingCapabilityOffered": true,
+        "conditionalScenario": "Execute only if this activity authors an optional timed mode; omitting that mode is valid."
+      },
+      "expected": {
+        "timingEnabled": false,
+        "untimedModeAvailable": true,
+        "mainScoreRequirement": null
+      },
+      "independentReasoning": "When an optional timed capability exists, it cannot start before untimed completion; timing remains disabled by default and never gates the main lesson. No activity is required to offer timing.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T102",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG02-TIMING-OPT-IN",
+      "kind": "timing",
+      "subject": "spec001:MG02",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "untimedModeCompleted": true,
+        "explicitTimedOptIn": true,
+        "leaveTimedMode": true,
+        "authoredTimingCapabilityOffered": true,
+        "conditionalScenario": "Execute only if this activity authors an optional timed mode; omitting that mode is valid."
+      },
+      "expected": {
+        "timedModeWasOptional": true,
+        "untimedModeStillAvailable": true,
+        "requiredInventoryUnchanged": true,
+        "mainProgressUnchanged": true
+      },
+      "independentReasoning": "If the activity offers an optional timed challenge, it may be selected explicitly only after untimed completion, then exited without losing required items or main progress. An implementation with no timed mode is valid.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T102",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG03-TIMING-GUARD",
+      "kind": "timing",
+      "subject": "spec001:MG03",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "untimedModeCompleted": false,
+        "requestTimedChallenge": true,
+        "authoredTimingCapabilityOffered": true,
+        "conditionalScenario": "Execute only if this activity authors an optional timed mode; omitting that mode is valid."
+      },
+      "expected": {
+        "timingEnabled": false,
+        "untimedModeAvailable": true,
+        "mainScoreRequirement": null
+      },
+      "independentReasoning": "When an optional timed capability exists, it cannot start before untimed completion; timing remains disabled by default and never gates the main lesson. No activity is required to offer timing.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T103",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG03-TIMING-OPT-IN",
+      "kind": "timing",
+      "subject": "spec001:MG03",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "untimedModeCompleted": true,
+        "explicitTimedOptIn": true,
+        "leaveTimedMode": true,
+        "authoredTimingCapabilityOffered": true,
+        "conditionalScenario": "Execute only if this activity authors an optional timed mode; omitting that mode is valid."
+      },
+      "expected": {
+        "timedModeWasOptional": true,
+        "untimedModeStillAvailable": true,
+        "requiredInventoryUnchanged": true,
+        "mainProgressUnchanged": true
+      },
+      "independentReasoning": "If the activity offers an optional timed challenge, it may be selected explicitly only after untimed completion, then exited without losing required items or main progress. An implementation with no timed mode is valid.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T103",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MG01-NO-O10-SCORE",
+      "kind": "independence",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "T12"
+      ],
+      "inputs": {
+        "MG01Started": false,
+        "MG01Score": null,
+        "O10RequiredToyDecodeCorrect": true,
+        "O10OtherChecksSatisfied": true
+      },
+      "expected": {
+        "O10CompletionEligible": true,
+        "MG01CompletionRequired": false,
+        "scoreRequired": false
+      },
+      "independentReasoning": "O10 has its own physical/decoding lesson; skipping the optional loom never blocks that lesson.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-MALFORMED-SYMBOLS",
+      "kind": "content-error",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "C-ERROR-SYMBOL"
+      ],
+      "inputs": {
+        "unknownAuthoredToySymbol": true,
+        "submittedAnswerPresent": true
+      },
+      "expected": {
+        "status": "content-error",
+        "attemptPenalty": 0,
+        "completionAward": 0,
+        "exitAvailable": true
+      },
+      "independentReasoning": "An unsupported authored symbol is a content fault, not a wrong learner answer; retain safe exit.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "OPT-EMPTY-ANSWER",
+      "kind": "invalid-input",
+      "subject": "spec001:MG01",
+      "requirements": [
+        "FR-005",
+        "FR-008",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "I-PHY10"
+      ],
+      "inputs": {
+        "sourceCaseIds": [
+          "I-PHY10"
+        ],
+        "submittedAnswer": null
+      },
+      "expected": {
+        "status": "invalid-input",
+        "attemptPenalty": 0,
+        "completionAward": 0,
+        "retryAvailable": true
+      },
+      "independentReasoning": "Missing input requests an answer without inventing a wrong engineering decision or progress.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T101",
+          "T100",
+          "T104"
+        ]
+      }
+    }
+  ],
+  "lifecycleContract": {
+    "separatePreparedSessionPerCase": true,
+    "noOtherOptionalCompletionRequired": true,
+    "defaultTiming": "off",
+    "timedChallengeRequiresCompletedUntimedMode": true,
+    "timedChallengeRequiresExplicitOptIn": true,
+    "scoreRequiredForMainLesson": false,
+    "requiredItemsConsumedOnSkipOrExit": false,
+    "safeReturnAfterExit": true,
+    "implicitSaveOnRetryOrExit": false,
+    "timingCapabilityRequired": false,
+    "omittingTimedModeIsValid": true
+  }
+}

@@ -22,12 +22,15 @@ export async function saveContentPolicyArtifact(): Promise<string> {
       ...world.documents.map(document => document.path), 'content/schemas/content.schema.json',
       'src/app/content.ts', 'src/app/save-policy.ts', 'src/content/registry.ts', 'src/services/save-validator.ts',
       'src/state/notebook.ts', 'src/domain/copper.ts', 'docs/evidence/spec001/rule-source-review.md',
+      'src/state/objectives.ts', 'src/state/copper-scenario.ts', 'src/state/equipment-scenarios.ts', 'src/state/repair-plan.ts',
+      'src/domain/power.ts', 'src/domain/capabilities.ts', 'src/domain/packet-journey.ts',
       'tools/generate-save-content-policy.ts'])].sort();
     // All paths come from trusted validated project content; no filesystem/account selector.
     const inputs = Object.fromEntries(await Promise.all(paths.map(async path => [path, createHash('sha256').update(await readFile(resolve(root, path))).digest('hex')])));
-    return JSON.stringify({ formatVersion: 1, scope: 'authored-introduction',
-      provenance: { generator: 'tools/generate-save-content-policy.ts', ruleIds: ['PHY04'], sourceIds: ['S03'],
-        caseIds: ['T01', 'T02', 'B-COPPER-100', 'B-COPPER-OVER'], inputs },
+    return JSON.stringify({ formatVersion: 1, scope: 'authored-first-copper-route',
+      provenance: { generator: 'tools/generate-save-content-policy.ts', ruleIds: ['PHY04', 'PHY05', 'PHY08', 'PHY09', 'PHY10', 'PHY11', 'STATE01', 'STATE03', 'STATE04'],
+        sourceIds: ['S01', 'S02', 'S03', 'S04', 'S05', 'S08', 'S10', 'S11', 'S12', 'S13'],
+        caseIds: ['T01', 'T02', 'T10', 'T11', 'T12', 'T13', 'T16', 'B-COPPER-100', 'B-COPPER-OVER', 'C-E01', 'B-ENDPOINT'], inputs },
       policies: [policy] }, null, 2) + '\n';
   } finally { await loader.close(); }
 }

@@ -21,6 +21,8 @@ interface NotebookPresentation {
   readonly facts: readonly { readonly id: FactId; readonly heading: string; readonly sourceId: QualifiedId; readonly kind: string;
     readonly list?: { readonly label: string; readonly ordered: boolean; readonly requiresFactIds: readonly FactId[]; readonly items: readonly string[] } }[];
   readonly measurement: { readonly factId: FactId; readonly sourceId: QualifiedId; readonly heading: string; readonly ruleId: string; readonly profileId: string };
+  readonly measurementGroups?: readonly { readonly subjectId: ObjectiveId; readonly ruleId: string; readonly heading: string; readonly scope: string;
+    readonly conclusions: readonly { readonly code: string; readonly explanation: string }[] }[];
 }
 /** Separate bounded display metadata; no effects, rules or parsed prose. */
 export function validateNotebookPresentation(registry: ContentRegistry, input: unknown): NotebookPresentation {
@@ -29,7 +31,7 @@ export function validateNotebookPresentation(registry: ContentRegistry, input: u
   const exact = (value: Record<string, unknown>, keys: string[]) => Object.keys(value).every(key => keys.includes(key));
   const collection = (value: unknown, maximum: number, check: (entry: unknown) => boolean): value is Record<string, unknown>[] => Array.isArray(value) && value.length > 0 && value.length <= maximum && Array.from(value).every(check);
   const bad = () => { throw new TypeError('Notebook display metadata must reference actual authored rooms, objectives and evidence.'); };
-  if (!object(input) || !exact(input, ['schemaVersion', 'episodeId', 'contentVersion', 'rooms', 'objectives', 'facts', 'measurement'])
+  if (!object(input) || !exact(input, ['schemaVersion', 'episodeId', 'contentVersion', 'rooms', 'objectives', 'facts', 'measurement', 'measurementGroups'])
     || input['schemaVersion'] !== 1 || input['episodeId'] !== 'spec001' || input['contentVersion'] !== registry.record(q('R01'))?.contentVersion) return bad();
   const roomRows = input['rooms'];
   if (!collection(roomRows, 128, value => object(value) && exact(value, ['id', 'label']) && typeof value['id'] === 'string'
@@ -58,6 +60,19 @@ export function validateNotebookPresentation(registry: ContentRegistry, input: u
   const fact = factAtSource(measurement['sourceId'], measurement['factId']);
   if (fact?.kind !== 'measurement' || !knownRoom(fact.roomId) || !fact.ruleIds.includes(measurement['ruleId'] as string)
     || !registry.has('profile', measurement['profileId'] as string) || !fact.subjectIds.includes(measurement['profileId'] as string)) return bad();
+  const groups = input['measurementGroups'];
+  if (groups !== undefined) {
+    if (!collection(groups, 64, value => {
+      if (!object(value) || !exact(value, ['subjectId', 'ruleId', 'heading', 'scope', 'conclusions']) || !label(value['heading'])
+        || !validNotebookText(value['scope'], 512, true) || typeof value['subjectId'] !== 'string' || typeof value['ruleId'] !== 'string'
+        || !registry.has('rule', value['ruleId']) || !objectiveRows.some(o => o['id'] === value['subjectId'])) return false;
+      const source = registry.record(value['subjectId']);
+      if (source?.kind !== 'objective' || !source.evidence.some(e => e.ruleIds.includes(value['ruleId'] as string))) return false;
+      const conclusions = value['conclusions'];
+      return collection(conclusions, 64, entry => object(entry) && exact(entry, ['code', 'explanation']) && label(entry['code'])
+        && validNotebookText(entry['explanation'], 512, true)) && new Set(conclusions.map(c => c['code'])).size === conclusions.length;
+    }) || new Set(groups.map(g => `${String(g['subjectId'])}:${String(g['ruleId'])}`)).size !== groups.length) return bad();
+  }
   for (const rows of [roomRows, objectiveRows, factRows]) if (new Set(rows.map(row => row['id'])).size !== rows.length) return bad();
   return structuredClone(input) as unknown as NotebookPresentation;
 }
@@ -76,12 +91,15 @@ export interface NotebookView {
   readonly highlightedRoomId: RoomId | null; readonly canPinHypothesis: boolean;
   readonly roomLabels: readonly { readonly id: RoomId; readonly label: string }[];
 }
-export interface NotebookOptions { readonly bus: ActionBus; readonly registry: ContentRegistry; readonly store: GameplayStore }
+export interface NotebookOptions { readonly bus: ActionBus; readonly registry: ContentRegistry; readonly store: GameplayStore; readonly presentation?: unknown }
 
 /** Trusted orchestration; this controller never accepts game state from a renderer. */
-export function createNotebookController({ bus, registry, store }: NotebookOptions) {
-  const presentation = validateNotebookPresentation(registry, introductionPresentation);
+export function createNotebookController({ bus, registry, store, presentation: suppliedPresentation = introductionPresentation }: NotebookOptions) {
+  const presentation = validateNotebookPresentation(registry, suppliedPresentation);
   const { rooms, objectives } = presentation;
+  const measurementSource = registry.record(presentation.measurement.sourceId);
+  const introductoryMeasurementRoom = measurementSource && 'evidence' in measurementSource
+    ? measurementSource.evidence.find(e => e.id === presentation.measurement.factId)?.roomId : undefined;
   const roomName = (id: string) => rooms.find(room => room.id === id)?.label ?? id;
   const facts = new Map<FactId, Readonly<S.evidence>>();
   for (const mapping of presentation.facts) {
@@ -163,9 +181,23 @@ export function createNotebookController({ bus, registry, store }: NotebookOptio
           kind: mapping.kind, text: fact.text, freshness: 'observation', ...(list ? { list } : {}) });
       }
       if (game) for (const measurement of game.notebook.measurements) {
+        const group = presentation.measurementGroups?.find(g => g.ruleId === measurement.ruleId && measurement.subjectIds.includes(g.subjectId));
+        if (group) {
+          const conclusion = group.conclusions.find(c => c.code === measurement.conclusionCode);
+          const source = registry.record(group.subjectId);
+          if (!conclusion || !rooms.some(room => room.id === measurement.roomId) || source?.kind !== 'objective'
+            || !source.evidence.some(e => e.roomId === measurement.roomId && e.ruleIds.includes(measurement.ruleId))) continue;
+          const readings = measurement.readings.map(r => `${r.name}: ${r.value} ${r.unit}`).join('; ');
+          evidence.push({ id: measurement.id, heading: group.heading, sourceRoomId: measurement.roomId, sourceRoom: roomName(measurement.roomId), kind: 'Measurement',
+            text: `${readings ? `Observed result: ${readings}.` : 'No numeric result was produced for this reading.'} ${conclusion.explanation} ${group.scope}`,
+            freshness: isMeasurementCurrent(measurement, game.world) ? 'current' : 'stale' });
+          continue;
+        }
         // Supported actual observations retain original provenance; unsupported
         // restored records are not recast as this introductory length test.
-        if (measurement.ruleId !== presentation.measurement.ruleId || !measurement.subjectIds.includes(presentation.measurement.profileId as QualifiedId)) continue;
+        if (measurement.ruleId !== presentation.measurement.ruleId || !measurement.subjectIds.includes(presentation.measurement.profileId as QualifiedId)
+          || measurement.roomId !== introductoryMeasurementRoom
+          || !['length-within-profile', 'length-exceeded'].includes(measurement.conclusionCode)) continue;
         const readings = measurement.readings.map(r => `${r.name}: ${r.value} ${r.unit}`).join('; ');
         evidence.push({ id: measurement.id, heading: presentation.measurement.heading, sourceRoomId: measurement.roomId, sourceRoom: roomName(measurement.roomId), kind: 'Measurement',
           text: `Observed result: ${readings}. ${measurement.conclusionCode === 'length-within-profile' ? 'Length is within the declared profile.' : measurement.conclusionCode === 'length-exceeded' ? 'Length exceeds the declared profile.' : measurement.conclusionCode} Fictional PROFILE-COPPER-100; length only. End-to-end service is not proven. Configuration ${measurement.configurationRevision}; attempt ${measurement.attemptId}.`,

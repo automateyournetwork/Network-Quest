@@ -16,7 +16,7 @@ interface Layouts { readonly version: 1; readonly rooms: readonly Layout[] }
 export interface IntroductionGrayboxView extends RoomView { readonly safePositionId: string }
 
 /** Strict presentation-only data: no URLs, teaching values, action payloads or reward authority. */
-export function validateGrayboxLayouts(value: unknown): Layouts {
+export function validateGrayboxLayouts(value: unknown, expectedRoomIds: readonly string[] = ['spec001:R01', 'spec001:R02']): Layouts {
   const fail = (): never => { throw new TypeError('Invalid introduction graybox layout'); };
   const record = (v: unknown, keys: readonly string[]): Record<string, unknown> => {
     if (!v || typeof v !== 'object' || Array.isArray(v) || Object.keys(v).sort().join() !== [...keys].sort().join()) return fail();
@@ -30,10 +30,12 @@ export function validateGrayboxLayouts(value: unknown): Layouts {
   const triple = (v: unknown, low = -30, high = 30) => Object.freeze([...tuple(v, 3, low, high)]) as unknown as Triple;
   const id = (v: unknown) => typeof v === 'string' && /^(?:exit:)?spec001:[A-Za-z0-9:.-]+$/.test(v) ? v : fail();
   const root = record(value, ['version', 'rooms']);
-  if (root['version'] !== 1 || !Array.isArray(root['rooms']) || root['rooms'].length !== 2) return fail();
+  if (!Array.isArray(expectedRoomIds) || expectedRoomIds.length < 1 || expectedRoomIds.length > 12
+    || new Set(expectedRoomIds).size !== expectedRoomIds.length || expectedRoomIds.some(id => !/^spec001:R(?:0[1-9]|1[0-2])$/.test(id))) return fail();
+  if (root['version'] !== 1 || !Array.isArray(root['rooms']) || root['rooms'].length !== expectedRoomIds.length) return fail();
   const rooms = root['rooms'].map(v => {
     const room = record(v, ['roomId', 'camera', 'safePositions', 'objects']);
-    if (!['spec001:R01', 'spec001:R02'].includes(String(room['roomId']))) return fail();
+    if (!expectedRoomIds.includes(String(room['roomId']))) return fail();
     const camera = record(room['camera'], ['position', 'target', 'span']);
     const position = triple(camera['position']), target = triple(camera['target']), span = camera['span'];
     if (position.every((n, i) => n === target[i]) || typeof span !== 'number' || !Number.isFinite(span) || span < 10 || span > 20) return fail();
@@ -47,7 +49,7 @@ export function validateGrayboxLayouts(value: unknown): Layouts {
     if (new Set(objects.map(p => p.id)).size !== objects.length || safePositions.length !== 1 || safePositions.some(p => !objects.some(o => o.id === p.id && o.shape === 'safe' && o.point.every((n, i) => n === p.point[i])))) return fail();
     return Object.freeze({ roomId: id(room['roomId']), camera: Object.freeze({ position, target, span }), objects: Object.freeze(objects), safePositions: Object.freeze(safePositions) });
   });
-  if (new Set(rooms.map(room => room.roomId)).size !== 2) return fail();
+  if (new Set(rooms.map(room => room.roomId)).size !== expectedRoomIds.length) return fail();
   return Object.freeze({ version: 1, rooms: Object.freeze(rooms) });
 }
 
@@ -66,8 +68,8 @@ export function createGrayboxPointer(capture: (id: string) => DeferredIntent) {
 export interface GrayboxGeometry { readonly box: THREE.BoxGeometry; readonly cylinder: THREE.CylinderGeometry }
 
 /** Original DEV geometry only. Zero finished Blender/media assets; no external loads or animation. */
-export function createIntroductionGraybox(host: HTMLElement): RoomRenderer<GrayboxGeometry> & { dispose(): void } {
-  const layouts = validateGrayboxLayouts(authored), document = host.ownerDocument, window = document.defaultView!;
+export function createIntroductionGraybox(host: HTMLElement, source?: { readonly data: unknown; readonly roomIds: readonly string[] }): RoomRenderer<GrayboxGeometry> & { dispose(): void } {
+  const layouts = validateGrayboxLayouts(source?.data ?? authored, source?.roomIds), document = host.ownerDocument, window = document.defaultView!;
   let webgl: THREE.WebGLRenderer | null = null, disposed = false, selectedId: string | null = null;
   let latestFeedback: HTMLElement | null = null, feedbackMessage = '';
   const geometry: ResourceSpec<GrayboxGeometry> = { key: 'introduction-graybox-primitives-v1', bytes: 16_384,

@@ -123,7 +123,8 @@ export function createRepairPlanPanel(host: HTMLElement, dispatcher: Pick<Action
   const paragraph = (text: string) => { const p = doc.createElement('p'); p.textContent = text; return p; };
   const button = (scope: Scope, key: string, label: string, action: () => void, disabled = false) => {
     const b = doc.createElement('button'); b.type = 'button'; b.textContent = label; b.disabled = disabled; scope.controls.set(key, b);
-    b.addEventListener('click', () => { if (isActive(scope) && !b.disabled && b.isConnected && body.contains(b)) action(); }, { signal: scope.abort.signal }); return b;
+    // The adventure frame may move Close into this dialog's header.
+    b.addEventListener('click', () => { if (isActive(scope) && !b.disabled && b.isConnected && element.contains(b)) action(); }, { signal: scope.abort.signal }); return b;
   };
   return { element,
     render(projection: Projection | null) {

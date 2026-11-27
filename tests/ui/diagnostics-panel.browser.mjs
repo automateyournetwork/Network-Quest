@@ -72,6 +72,20 @@ try {
     const result = await page.evaluate(() => { const f=window.fixture; f.save(); f.click('Close diagnostics'); f.clickSaved(0); f.clickSaved(1); f.clickSaved(2); return f.state(); });
     assert.equal(result.closed,1); assert.equal(result.calls.length,0); assert.equal(result.hidden,true);
   });
+  await run('current close works after the adventure frame moves it into its own dialog header', async () => {
+    await page.evaluate(() => { const dialog=document.querySelector('[role="dialog"]'); const close=[...dialog.querySelectorAll('button')].find(b=>b.textContent==='Close diagnostics'); dialog.querySelector('h2').after(close); });
+    await page.getByRole('button',{name:'Close diagnostics',exact:true}).click();
+    const result=await page.evaluate(()=>window.fixture.state());
+    assert.equal(result.closed,1);assert.equal(result.hidden,true);assert.equal(result.focus,'Open diagnostics');
+  });
+  await run('retired close reattached inside a new dialog projection remains inert', async () => {
+    const result=await page.evaluate(()=>{const dialog=document.querySelector('[role="dialog"]');const close=[...dialog.querySelectorAll('button')].find(b=>b.textContent==='Close diagnostics');window.fixture.render([1]);dialog.querySelector('h2').after(close);close.click();return window.fixture.state();});
+    assert.equal(result.closed,0);assert.equal(result.hidden,false);
+  });
+  await run('current close moved outside its owning dialog remains inert', async () => {
+    const result=await page.evaluate(()=>{const close=[...document.querySelector('[role="dialog"]').querySelectorAll('button')].find(b=>b.textContent==='Close diagnostics');document.body.append(close);close.click();close.remove();return window.fixture.state();});
+    assert.equal(result.closed,0);assert.equal(result.hidden,false);
+  });
   await run('old close control cannot close a newly reopened same-version panel', async () => {
     const result = await page.evaluate(() => { const f=window.fixture; f.save(); f.hide(); f.render([1]); f.clickSaved(2); return f.state(); });
     assert.equal(result.closed,0); assert.equal(result.hidden,false);

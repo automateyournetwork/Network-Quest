@@ -143,7 +143,8 @@ export function createDiagnosticsPanel(host: HTMLElement, dispatcher: Pick<Actio
     const b = doc.createElement('button'); b.type = 'button'; b.textContent = label; b.disabled = disabled;
     scope.buttons.set(key, b);
     b.addEventListener('click', () => {
-      if (isActive(scope) && !b.disabled && b.isConnected && body.contains(b)) act();
+      // The adventure frame may move Close into this dialog's header.
+      if (isActive(scope) && !b.disabled && b.isConnected && element.contains(b)) act();
     }, { signal: scope.abort.signal });
     return b;
   }

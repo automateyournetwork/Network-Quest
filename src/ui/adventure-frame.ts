@@ -111,7 +111,11 @@ export function createAdventureFrame(host: HTMLElement, ports: {
     for (const el of root.querySelectorAll<HTMLElement>('.nq-window-active')) { el.classList.remove('nq-window-active'); el.removeAttribute('aria-modal'); }
     for (const el of root.querySelectorAll<HTMLElement>('[data-frame-inert]')) { el.inert = false; delete el.dataset['frameInert']; }
     const previous = active;
-    if (next && next !== previous && inputFocus && inputWasVisible && !inputFocus.classList.contains('nq-window-close') && !next.contains(inputFocus)) returnTargets.set(next, inputFocus);
+    // Returning from a child window (for example Game opened by Diagnostics)
+    // must preserve the parent's original opener, not replace it with a heading
+    // in the child that is about to be hidden.
+    const resumingOwner = !!next && !!previous && !!returnTargets.get(previous) && next.contains(returnTargets.get(previous)!);
+    if (next && next !== previous && !resumingOwner && inputFocus && inputWasVisible && !inputFocus.classList.contains('nq-window-close') && !next.contains(inputFocus)) returnTargets.set(next, inputFocus);
     active = next;
     if (!playing && !active) game.classList.add('nq-window-active');
     if (feedback && stageHost) {

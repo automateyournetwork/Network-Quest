@@ -1,0 +1,131 @@
+{
+  "task": "T078",
+  "loop": 90,
+  "recordKind": "Summary transcribed from executed tool results; not a raw runner log",
+  "environment": {
+    "node": "26.13.1",
+    "php": "8.4.28",
+    "browser": "Playwright Firefox, headless, disposable persistent profile, trusted isolated HTTPS",
+    "desktopViewport": [
+      1280,
+      900
+    ],
+    "narrowViewports": [
+      [
+        768,
+        900
+      ],
+      [
+        390,
+        900
+      ]
+    ],
+    "narrowTextScale": 2
+  },
+  "checks": [
+    {
+      "command": "vitest run tests/tools/save-content-policy.test.ts tests/ui/first-route-notebook.test.ts tests/presentation/first-route-graybox.test.ts tests/ui/notebook.test.ts tests/presentation/introduction-graybox.test.ts",
+      "result": "PASS",
+      "tests": 29,
+      "suites": 5
+    },
+    {
+      "command": "php server/vendor/bin/phpunit --configuration server/phpunit.xml server/tests/ApplicationTest.php",
+      "result": "PASS",
+      "tests": 6,
+      "assertions": 59
+    },
+    {
+      "command": "npm run check",
+      "result": "PASS",
+      "includes": [
+        "full TypeScript",
+        "canonical content validation",
+        "deterministic generated policy"
+      ]
+    },
+    {
+      "command": "npm run build",
+      "result": "PASS",
+      "afterFinalCss": true,
+      "warning": "Vite large chunk: 2206.59 kB minified, 503.92 kB gzip; release performance not accepted"
+    },
+    {
+      "command": "playwright test tests/e2e/first-repair-route.spec.ts --project=firefox-local-https --workers=1",
+      "result": "PASS",
+      "tests": 2,
+      "elapsedSeconds": 30.6,
+      "cases": [
+        {
+          "name": "guest replacement route",
+          "metres": 95,
+          "elapsedSeconds": 16.7,
+          "saveWrites": 0
+        },
+        {
+          "name": "keyboard alternate route with saved restoration",
+          "metres": 100,
+          "elapsedSeconds": 13.5,
+          "saveWrites": 1,
+          "reloadContinueWrites": 0
+        }
+      ],
+      "pageErrors": 0,
+      "crossOriginHttpRequests": 0
+    },
+    {
+      "command": "playwright test tests/e2e/guest-introduction.spec.ts tests/e2e/finished-room.spec.ts --project=firefox-local-https --workers=1 --grep \"T030|in-frame windows contain focus\"",
+      "result": "PASS",
+      "tests": 10,
+      "elapsedReported": "1.0m",
+      "scope": "All nine independent guest journeys and existing R01 frame focus/390/768/200%/axe case; tests and fixtures unchanged"
+    }
+  ],
+  "finalBrowserAssertions": [
+    "real O01/O02 guest boundary",
+    "105 m/open wrong path",
+    "95 m and inclusive 100 m alternatives",
+    "stale measurement cannot submit",
+    "false repeater claim rejected",
+    "33 W delivered demand exceeds 30 W by 3 W",
+    "23 W and 30 W complete equipment alternatives",
+    "real Clockworks inspection, untimed step/replay and 00101101 answer",
+    "all three copper hints without completion penalty",
+    "explicit plan and duration",
+    "foreign branch review without prerequisites creates no measurement",
+    "explicit execution warning",
+    "O12 incomplete on arrival and after link-only proof",
+    "16 recovered highlight bits and zero differing positions",
+    "independent endpoint acknowledgement before permanent classification",
+    "Game/Escape parent focus restoration for both panel kinds",
+    "exactly one modal and background inert",
+    "toolbar contained at desktop, 768/390 with 200 percent text",
+    "scrollable final controls and visible sticky Close",
+    "Game/Close rectangles do not overlap after scroll",
+    "real PHP save and reload Continue retain objectives/notes/assistance/stale history without second write"
+  ],
+  "unresolved": [
+    {
+      "check": "full-page AxeBuilder scan",
+      "result": "Firefox page crashed at runPartialRecursive",
+      "gate": "T152",
+      "passed": false
+    },
+    {
+      "check": "active-dialog-only AxeBuilder scan",
+      "result": "Firefox page crashed at runPartialRecursive",
+      "gate": "T152",
+      "passed": false
+    }
+  ],
+  "boundaries": [
+    "local W05 complete-route checkpoint only",
+    "temporary geometry counts as zero finished assets",
+    "no broad twelve-room world join",
+    "no full ending presentation or whole-episode completion",
+    "no real provider/production session",
+    "no native Safari claim",
+    "no owner preview/window touched",
+    "no deployment or publication"
+  ]
+}

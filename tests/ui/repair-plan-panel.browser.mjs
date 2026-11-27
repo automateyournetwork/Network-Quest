@@ -1,10 +1,13 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 // Explicit isolated Firefox DOM regression; no production server or preview used.
 import assert from 'node:assert/strict';
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { resolve } from 'node:path';
 import { createServer } from 'vite';
 import { firefox } from '@playwright/test';
+const output = resolve(process.argv[2] ?? 'docs/evidence/spec001/repair-plan/panel-dom.json');
+const screenshot = resolve(process.argv[3] ?? 'docs/evidence/spec001/repair-plan/panel-200-percent.png');
 const server = await createServer({ configFile: false, root: process.cwd(), appType: 'custom', logLevel: 'error', server: { host: '127.0.0.1', port: 0, hmr: false } });
 server.middlewares.use((req, res, next) => {
   if (req.url !== '/repair-panel') return next();
@@ -64,6 +67,17 @@ try {
     await check().check(); const s=await page.evaluate(()=>{const f=window.fixture;f.save();f.click('Close repair controls');f.checkSaved();f.clickSaved('Execute reviewed plan');return f.state()});
     assert.equal(s.closed,1);assert.equal(s.calls.length,0);assert.equal(s.hidden,true);assert.equal(s.focus,'Repair plan');
   });
+  await run('current close works after the adventure frame moves it into its own dialog header', async () => {
+    await page.evaluate(()=>{const dialog=document.querySelector('[role="dialog"]');const close=[...dialog.querySelectorAll('button')].find(b=>b.textContent==='Close repair controls');dialog.querySelector('h2').after(close);});
+    await page.getByRole('button',{name:'Close repair controls',exact:true}).click();
+    const s=await page.evaluate(()=>window.fixture.state());assert.equal(s.closed,1);assert.equal(s.hidden,true);assert.equal(s.focus,'Repair plan');
+  });
+  await run('retired close reattached inside a new dialog projection remains inert', async () => {
+    const s=await page.evaluate(()=>{const dialog=document.querySelector('[role="dialog"]');const close=[...dialog.querySelectorAll('button')].find(b=>b.textContent==='Close repair controls');window.fixture.render(2);dialog.querySelector('h2').after(close);close.click();return window.fixture.state();});assert.equal(s.closed,0);assert.equal(s.hidden,false);
+  });
+  await run('current close moved outside its owning dialog remains inert', async () => {
+    const s=await page.evaluate(()=>{const close=[...document.querySelector('[role="dialog"]').querySelectorAll('button')].find(b=>b.textContent==='Close repair controls');document.body.append(close);close.click();close.remove();return window.fixture.state();});assert.equal(s.closed,0);assert.equal(s.hidden,false);
+  });
   await run('hidden old checkbox cannot acknowledge a reopened same-version review', async () => {
     await check().check(); const s=await page.evaluate(()=>{const f=window.fixture;f.save();f.hide();f.render();f.checkSaved();f.clickSaved('Execute reviewed plan');f.clickSaved('Close repair controls');return f.state()});
     assert.equal(s.checked,false);assert.equal(s.executeDisabled,true);assert.equal(s.calls.length,0);assert.equal(s.closed,0);assert.equal(s.hidden,false);
@@ -90,13 +104,15 @@ try {
     await check().check();const s=await page.evaluate(()=>{const f=window.fixture;f.save();f.dispose();f.clickSaved('Execute reviewed plan');f.render();return f.state()});assert.equal(s.calls.length,0);assert.equal(s.hidden,true);
   });
   await page.evaluate(()=>{window.fixture.reset();window.fixture.render();document.querySelector('#frame').style.fontSize='200%'});
-  await page.screenshot({ path:'docs/evidence/spec001/repair-plan/panel-200-percent.png',fullPage:true });
+  await mkdir(resolve(screenshot,'..'),{recursive:true});
+  await page.screenshot({ path:screenshot,fullPage:true });
   await run('detached overlay cannot execute or close', async () => {
     await check().check();const s=await page.evaluate(()=>{const f=window.fixture;f.save();f.detach();f.clickSaved('Execute reviewed plan');f.clickSaved('Close repair controls');return f.state()});assert.equal(s.calls.length,0);assert.equal(s.closed,0);
   });
 } finally {
   await browser?.close();await server.close();
-  await writeFile('docs/evidence/spec001/repair-plan/panel-dom.json',JSON.stringify(report,null,2)+'\n');
+  await mkdir(resolve(output,'..'),{recursive:true});
+  await writeFile(output,JSON.stringify(report,null,2)+'\n');
 }
 console.log(JSON.stringify({ passed:report.results.filter(r=>r.status==='PASS').length,failed:report.results.filter(r=>r.status==='FAIL').length,pageErrors:report.pageErrors }));
 if(report.results.some(r=>r.status==='FAIL')||report.pageErrors.length)process.exitCode=1;

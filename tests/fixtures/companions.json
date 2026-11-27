@@ -1,0 +1,2543 @@
+{
+  "fixtureVersion": 1,
+  "task": "T092",
+  "license": "Apache-2.0",
+  "scope": "Independent oracle preparation only; no application execution.",
+  "inputConvention": "Semantic scenario labels are fixture-local, not a production API or canonical item/ability/quest IDs. sourceCaseIds resolve only to the sealed independent physical oracle. Runtime adapters must bind actual authored IDs without changing expected behavior.",
+  "frozenArtifacts": {
+    ".specify/memory/constitution.md": "6d576e5b66eda15325b80f0dd6342cbc826804b3f6f10a81edd824656a56c39a",
+    "SPEC.md": "67fecc690bad020b8a3aa0590e6d394ff3a3a3bece14001efb1d5955a3bd448c",
+    "PLAN.md": "fa3ef64053d72f51402bd5e637b91c5ddf6853430e114e64ec2b3c0df7773302",
+    "specs/001-physical-layer-underworld/spec.md": "8500b835c59eb7a7ee11b89b14121e84b27385fe3a837f23511fbe7f35d145d7",
+    "specs/001-physical-layer-underworld/data-model.md": "2aace177a2fa208e4cb3226f82cbb5f9bf17843329c7f68580d3d77e5473cee7",
+    "specs/001-physical-layer-underworld/contracts/gameplay.md": "afb6314a9519446ec6d296eb4d27827f82b99e1c0adad6e5bc45082cb0033bb2",
+    "content/schemas/content.schema.json": "712297ffb45b2d1fa9abf75ff042ca1c50a58610d077a61cc1dc13688afbb27b",
+    "specs/001-physical-layer-underworld/contracts/save.schema.json": "5323dfc5986f5a70ff7d331e3a756f434d6993ce19aecdfa04745156096fb710",
+    "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
+    "tests/fixtures/physical-cases.json": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1",
+    "tests/fixtures/repair-routes.json": "ed3a083828188a34fd6f5f345cbd4c69fe8ebb140ea903dbafd9b3f464639877"
+  },
+  "authorities": [
+    ".specify/memory/constitution.md",
+    "SPEC.md",
+    "PLAN.md",
+    "specs/001-physical-layer-underworld/spec.md",
+    "specs/001-physical-layer-underworld/data-model.md",
+    "specs/001-physical-layer-underworld/contracts/gameplay.md"
+  ],
+  "inputGaps": [
+    "T093 character documents, exact demonstrated interactions, ability/item/progression IDs and source-bound compendium entries",
+    "T094 party and ability state/UI integration; T095 compendium integration",
+    "T096-T103 authored activity documents/handlers, safe return positions and reward identities",
+    "T104 native browser/keyboard/text/accessibility checks and later portrait/media/human review"
+  ],
+  "limitations": [
+    "No implementation is consulted to generate expected answers. Existing independently authored T006/T014 cases provide the physical inputs and literal outcomes.",
+    "No new scored networking rule, physical profile, serial protocol, regenerative topology, timing requirement or regulatory claim is introduced.",
+    "Case execution remains TODO; fixture audits prove reference/expectation consistency only. Human technical review remains pending T160."
+  ],
+  "recruits": [
+    {
+      "characterId": "spec001:CH03",
+      "name": "Photon the Firefly",
+      "roomIds": [
+        "spec001:R01",
+        "spec001:R05",
+        "spec001:R12"
+      ],
+      "vectorGroup": "compatibility",
+      "ruleIds": [
+        "PHY03"
+      ],
+      "sourceIds": [
+        "S03",
+        "S07",
+        "S08",
+        "S10"
+      ],
+      "abilityExpectation": "Optical inspection and compatible connection checklist",
+      "conventionalToolExpectation": "Inspection scope, cleaning kit and compatible spare",
+      "demonstratedInteraction": "Record the inspected connection and profile match before changing it.",
+      "progressionExpectation": "Expose which inspection or compatibility predicate still needs attention.",
+      "limitations": [
+        "Light transmission is not electrical power.",
+        "Inspection and compatibility do not prove optical margin or endpoint service."
+      ],
+      "authoredBinding": "pending T093; semantic expectations only"
+    },
+    {
+      "characterId": "spec001:CH04",
+      "name": "Copperhead Snake",
+      "roomIds": [
+        "spec001:R03"
+      ],
+      "vectorGroup": "continuity",
+      "ruleIds": [
+        "PHY04",
+        "PHY05"
+      ],
+      "sourceIds": [
+        "S03",
+        "S04",
+        "S05"
+      ],
+      "abilityExpectation": "Continuity comparison of a copper path",
+      "conventionalToolExpectation": "Continuity tester and compatible replacement section",
+      "demonstratedInteraction": "Compare the open-before observation with a fresh intact-after test after the section is physically replaced.",
+      "progressionExpectation": "Expose the remaining required conductor or declared length check.",
+      "limitations": [
+        "Cannot bridge a severed conductor by animation.",
+        "The fictional 100 m passive-channel limit still applies; no unlimited repeater allowance."
+      ],
+      "authoredBinding": "pending T093; semantic expectations only"
+    },
+    {
+      "characterId": "spec001:CH05",
+      "name": "Single-Mode Unicorn",
+      "roomIds": [
+        "spec001:R05"
+      ],
+      "vectorGroup": "optical",
+      "ruleIds": [
+        "PHY03",
+        "PHY06"
+      ],
+      "sourceIds": [
+        "S03",
+        "S07",
+        "S08",
+        "S10",
+        "S06"
+      ],
+      "abilityExpectation": "Inspection of a declared compatible single-mode profile",
+      "conventionalToolExpectation": "Matched-profile checklist and optical power meter",
+      "demonstratedInteraction": "Inspect the supplied compatible optical pair and compare received power and reserve.",
+      "progressionExpectation": "Explain sensitivity, overload and reserve separately for the same declared profile.",
+      "limitations": [
+        "Single-mode describes propagation, not one guaranteed payload lane.",
+        "No universal distance, superior-protocol ladder or electrical power on fiber."
+      ],
+      "authoredBinding": "pending T093; semantic expectations only"
+    },
+    {
+      "characterId": "spec001:CH06",
+      "name": "Multimode Hydra",
+      "roomIds": [
+        "spec001:R05"
+      ],
+      "vectorGroup": "optical",
+      "ruleIds": [
+        "PHY03",
+        "PHY06"
+      ],
+      "sourceIds": [
+        "S03",
+        "S07",
+        "S08",
+        "S10",
+        "S06"
+      ],
+      "abilityExpectation": "Inspection of a declared compatible multimode profile",
+      "conventionalToolExpectation": "Matched-profile checklist and optical power meter",
+      "demonstratedInteraction": "Inspect the supplied compatible optical pair and compare received power and reserve.",
+      "progressionExpectation": "Explain why multiple propagation modes do not grant independent guaranteed data channels.",
+      "limitations": [
+        "Multiple modes are not guaranteed independent payload lanes.",
+        "No automatic compatibility or rate bonus over the supplied module/media profile."
+      ],
+      "authoredBinding": "pending T093; semantic expectations only"
+    },
+    {
+      "characterId": "spec001:CH07",
+      "name": "Thunderbird",
+      "roomIds": [
+        "spec001:R07"
+      ],
+      "vectorGroup": "radio",
+      "ruleIds": [
+        "PHY07"
+      ],
+      "sourceIds": [
+        "S08",
+        "S09"
+      ],
+      "abilityExpectation": "Fresh radio observation after path/settings inspection",
+      "conventionalToolExpectation": "Radio analyzer and alignment/settings controls",
+      "demonstratedInteraction": "Record signal and noise separately with the declared viable path and compatible settings.",
+      "progressionExpectation": "Compare a later sample with its source and freshness, retaining the scenario limit.",
+      "limitations": [
+        "Signal strength alone does not establish throughput.",
+        "No universal best channel or regulatory recommendation; mitigation requires measurement."
+      ],
+      "authoredBinding": "pending T093; semantic expectations only"
+    },
+    {
+      "characterId": "spec001:CH16",
+      "name": "SFP Hermit Crab",
+      "roomIds": [
+        "spec001:R06",
+        "spec001:R09"
+      ],
+      "vectorGroup": "compatibility",
+      "ruleIds": [
+        "PHY03"
+      ],
+      "sourceIds": [
+        "S03",
+        "S07",
+        "S08",
+        "S10"
+      ],
+      "abilityExpectation": "Module and host profile inspection",
+      "conventionalToolExpectation": "Module datasheet/checklist and compatible spare",
+      "demonstratedInteraction": "Compare every required host, medium, wavelength, rate and connector/polarity field.",
+      "progressionExpectation": "Explain the first unsatisfied profile field rather than infer compatibility from a shell.",
+      "limitations": [
+        "An SFP shell is a form factor, not universal PHY or rate compatibility.",
+        "A passing power budget cannot override incompatible equipment."
+      ],
+      "authoredBinding": "pending T093; semantic expectations only"
+    },
+    {
+      "characterId": "spec001:CH19",
+      "name": "Electric Eel",
+      "roomIds": [
+        "spec001:R09"
+      ],
+      "vectorGroup": "power",
+      "ruleIds": [
+        "PHY08"
+      ],
+      "sourceIds": [
+        "S10"
+      ],
+      "abilityExpectation": "Delivered-power budget inspection",
+      "conventionalToolExpectation": "Delivered-power worksheet or meter",
+      "demonstratedInteraction": "Sum declared delivered endpoint demands and compare the supplied delivered budget.",
+      "progressionExpectation": "Show headroom or excess while keeping per-port and power-method checks separate.",
+      "limitations": [
+        "Power adequacy does not prove a data link.",
+        "Do not subtract hidden PSE/PD losses or make fiber carry electrical power."
+      ],
+      "authoredBinding": "pending T093; semantic expectations only"
+    },
+    {
+      "characterId": "spec001:CH20",
+      "name": "Echo Bat",
+      "roomIds": [
+        "spec001:R04"
+      ],
+      "vectorGroup": "continuity",
+      "ruleIds": [
+        "PHY05"
+      ],
+      "sourceIds": [
+        "S04",
+        "S05"
+      ],
+      "abilityExpectation": "Before/after continuity and regeneration-limit inspection",
+      "conventionalToolExpectation": "Continuity tester and repeater comparison exhibit",
+      "demonstratedInteraction": "Observe a fresh intact path after actual section replacement and reject a repeater-only cure for a break.",
+      "progressionExpectation": "Explain what regeneration can repeat and why the unchanged open path remains disconnected.",
+      "limitations": [
+        "Does not learn addresses or select IP routes.",
+        "No graded regenerative repair topology until separate segment profiles/limits have reviewed cases."
+      ],
+      "authoredBinding": "pending T093; semantic expectations only"
+    },
+    {
+      "characterId": "spec001:CH22",
+      "name": "Chameleon",
+      "roomIds": [
+        "spec001:R10"
+      ],
+      "vectorGroup": "capabilities",
+      "ruleIds": [
+        "PHY09"
+      ],
+      "sourceIds": [
+        "S11"
+      ],
+      "abilityExpectation": "Common advertised capability inspection",
+      "conventionalToolExpectation": "Capability console and advertised-mode checklist",
+      "demonstratedInteraction": "Intersect the two declared endpoint capability sets.",
+      "progressionExpectation": "Explain unsupported selection and the no-common-member boundary.",
+      "limitations": [
+        "Cannot invent capabilities or unsupported fallback modes.",
+        "Physical negotiation is not address discovery, routing or application login."
+      ],
+      "authoredBinding": "pending T093; semantic expectations only"
+    }
+  ],
+  "cases": [
+    {
+      "id": "COMP-CH03-DISCOVERY",
+      "kind": "discovery",
+      "subject": "spec001:CH03",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteractionComplete": false,
+        "openCompendium": true
+      },
+      "expected": {
+        "identityVisible": true,
+        "roleAndLimitsVisible": true,
+        "sourceAndRealmVisible": true,
+        "recruited": false,
+        "progressionAwarded": false
+      },
+      "independentReasoning": "Discovering an identity opens its explanation; it is not the demonstrated interaction required for recruitment.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T093",
+          "T095",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH03-RECRUIT",
+      "kind": "recruitment",
+      "subject": "spec001:CH03",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteraction": "Record the inspected connection and profile match before changing it.",
+        "demonstratedInteractionComplete": true,
+        "activeParty": [],
+        "repeatAction": true
+      },
+      "expected": {
+        "recruitedIds": [
+          "spec001:CH03"
+        ],
+        "recruitCount": 1,
+        "automaticThirdAlly": false,
+        "duplicateRecruitAwards": 0
+      },
+      "independentReasoning": "The completed demonstrated interaction permits this recruit once. Replaying it cannot duplicate recruitment or override party capacity.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH03-PROGRESS",
+      "kind": "progression",
+      "subject": "spec001:CH03",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "T16",
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "recruited": true,
+        "authoredProgressionConditionMet": true,
+        "inspectionOrExplanationUnlocked": "Expose which inspection or compatibility predicate still needs attention.",
+        "repeatAction": true
+      },
+      "expected": {
+        "meaningfulNewInspectionOrExplanation": true,
+        "requiredExplanation": "Expose which inspection or compatibility predicate still needs attention.",
+        "samePhysicalRules": true,
+        "inventedCapability": false,
+        "duplicateUnlocks": 0
+      },
+      "independentReasoning": "Progression must add the stated usable inspection/explanation when its authored condition is met; it cannot modify technical truth or merely relabel an RPG number.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH03-EQUIVALENCE",
+      "kind": "ability-equivalence",
+      "subject": "spec001:CH03",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "C-COMPAT",
+        "T07",
+        "B-COMPAT",
+        "T16"
+      ],
+      "inputs": {
+        "scenarioVectorGroup": "compatibility",
+        "allyRun": {
+          "recruited": [
+            "spec001:CH03"
+          ],
+          "active": [
+            "spec001:CH03"
+          ]
+        },
+        "toolRun": {
+          "recruited": [],
+          "active": [],
+          "tool": "Inspection scope, cleaning kit and compatible spare"
+        },
+        "sameScenarioAndRevision": true,
+        "requiredPhysicalChangeOccursBeforeMeasurement": true
+      },
+      "expected": {
+        "bothRunsMatchEveryVector": true,
+        "samePhysicalObservations": true,
+        "sameObjectiveEligibility": true,
+        "wholeRouteProvenByAbilityAlone": false,
+        "differentPresentationAllowed": true,
+        "sameAcceptedPhysicalEffects": true
+      },
+      "independentReasoning": "Run the same correct/incorrect/boundary stimuli independently through the ally action and the ordinary tool. The declared physical result, measurement freshness and objective conditions are identical; animation never supplies a repair.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH04-DISCOVERY",
+      "kind": "discovery",
+      "subject": "spec001:CH04",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteractionComplete": false,
+        "openCompendium": true
+      },
+      "expected": {
+        "identityVisible": true,
+        "roleAndLimitsVisible": true,
+        "sourceAndRealmVisible": true,
+        "recruited": false,
+        "progressionAwarded": false
+      },
+      "independentReasoning": "Discovering an identity opens its explanation; it is not the demonstrated interaction required for recruitment.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T093",
+          "T095",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH04-RECRUIT",
+      "kind": "recruitment",
+      "subject": "spec001:CH04",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteraction": "Compare the open-before observation with a fresh intact-after test after the section is physically replaced.",
+        "demonstratedInteractionComplete": true,
+        "activeParty": [],
+        "repeatAction": true
+      },
+      "expected": {
+        "recruitedIds": [
+          "spec001:CH04"
+        ],
+        "recruitCount": 1,
+        "automaticThirdAlly": false,
+        "duplicateRecruitAwards": 0
+      },
+      "independentReasoning": "The completed demonstrated interaction permits this recruit once. Replaying it cannot duplicate recruitment or override party capacity.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH04-PROGRESS",
+      "kind": "progression",
+      "subject": "spec001:CH04",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "T16",
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "recruited": true,
+        "authoredProgressionConditionMet": true,
+        "inspectionOrExplanationUnlocked": "Expose the remaining required conductor or declared length check.",
+        "repeatAction": true
+      },
+      "expected": {
+        "meaningfulNewInspectionOrExplanation": true,
+        "requiredExplanation": "Expose the remaining required conductor or declared length check.",
+        "samePhysicalRules": true,
+        "inventedCapability": false,
+        "duplicateUnlocks": 0
+      },
+      "independentReasoning": "Progression must add the stated usable inspection/explanation when its authored condition is met; it cannot modify technical truth or merely relabel an RPG number.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH04-EQUIVALENCE",
+      "kind": "ability-equivalence",
+      "subject": "spec001:CH04",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "C-CONTINUITY",
+        "T03",
+        "B-CONTINUITY",
+        "T16"
+      ],
+      "inputs": {
+        "scenarioVectorGroup": "continuity",
+        "allyRun": {
+          "recruited": [
+            "spec001:CH04"
+          ],
+          "active": [
+            "spec001:CH04"
+          ]
+        },
+        "toolRun": {
+          "recruited": [],
+          "active": [],
+          "tool": "Continuity tester and compatible replacement section"
+        },
+        "sameScenarioAndRevision": true,
+        "requiredPhysicalChangeOccursBeforeMeasurement": true
+      },
+      "expected": {
+        "bothRunsMatchEveryVector": true,
+        "samePhysicalObservations": true,
+        "sameObjectiveEligibility": true,
+        "wholeRouteProvenByAbilityAlone": false,
+        "differentPresentationAllowed": true,
+        "sameAcceptedPhysicalEffects": true
+      },
+      "independentReasoning": "Run the same correct/incorrect/boundary stimuli independently through the ally action and the ordinary tool. The declared physical result, measurement freshness and objective conditions are identical; animation never supplies a repair.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH05-DISCOVERY",
+      "kind": "discovery",
+      "subject": "spec001:CH05",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteractionComplete": false,
+        "openCompendium": true
+      },
+      "expected": {
+        "identityVisible": true,
+        "roleAndLimitsVisible": true,
+        "sourceAndRealmVisible": true,
+        "recruited": false,
+        "progressionAwarded": false
+      },
+      "independentReasoning": "Discovering an identity opens its explanation; it is not the demonstrated interaction required for recruitment.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T093",
+          "T095",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH05-RECRUIT",
+      "kind": "recruitment",
+      "subject": "spec001:CH05",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteraction": "Inspect the supplied compatible optical pair and compare received power and reserve.",
+        "demonstratedInteractionComplete": true,
+        "activeParty": [],
+        "repeatAction": true
+      },
+      "expected": {
+        "recruitedIds": [
+          "spec001:CH05"
+        ],
+        "recruitCount": 1,
+        "automaticThirdAlly": false,
+        "duplicateRecruitAwards": 0
+      },
+      "independentReasoning": "The completed demonstrated interaction permits this recruit once. Replaying it cannot duplicate recruitment or override party capacity.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH05-PROGRESS",
+      "kind": "progression",
+      "subject": "spec001:CH05",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "T16",
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "recruited": true,
+        "authoredProgressionConditionMet": true,
+        "inspectionOrExplanationUnlocked": "Explain sensitivity, overload and reserve separately for the same declared profile.",
+        "repeatAction": true
+      },
+      "expected": {
+        "meaningfulNewInspectionOrExplanation": true,
+        "requiredExplanation": "Explain sensitivity, overload and reserve separately for the same declared profile.",
+        "samePhysicalRules": true,
+        "inventedCapability": false,
+        "duplicateUnlocks": 0
+      },
+      "independentReasoning": "Progression must add the stated usable inspection/explanation when its authored condition is met; it cannot modify technical truth or merely relabel an RPG number.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH05-EQUIVALENCE",
+      "kind": "ability-equivalence",
+      "subject": "spec001:CH05",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "T04",
+        "T05",
+        "T15",
+        "T16"
+      ],
+      "inputs": {
+        "scenarioVectorGroup": "optical",
+        "allyRun": {
+          "recruited": [
+            "spec001:CH05"
+          ],
+          "active": [
+            "spec001:CH05"
+          ]
+        },
+        "toolRun": {
+          "recruited": [],
+          "active": [],
+          "tool": "Matched-profile checklist and optical power meter"
+        },
+        "sameScenarioAndRevision": true,
+        "requiredPhysicalChangeOccursBeforeMeasurement": true
+      },
+      "expected": {
+        "bothRunsMatchEveryVector": true,
+        "samePhysicalObservations": true,
+        "sameObjectiveEligibility": true,
+        "wholeRouteProvenByAbilityAlone": false,
+        "differentPresentationAllowed": true,
+        "sameAcceptedPhysicalEffects": true
+      },
+      "independentReasoning": "Run the same correct/incorrect/boundary stimuli independently through the ally action and the ordinary tool. The declared physical result, measurement freshness and objective conditions are identical; animation never supplies a repair.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH06-DISCOVERY",
+      "kind": "discovery",
+      "subject": "spec001:CH06",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteractionComplete": false,
+        "openCompendium": true
+      },
+      "expected": {
+        "identityVisible": true,
+        "roleAndLimitsVisible": true,
+        "sourceAndRealmVisible": true,
+        "recruited": false,
+        "progressionAwarded": false
+      },
+      "independentReasoning": "Discovering an identity opens its explanation; it is not the demonstrated interaction required for recruitment.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T093",
+          "T095",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH06-RECRUIT",
+      "kind": "recruitment",
+      "subject": "spec001:CH06",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteraction": "Inspect the supplied compatible optical pair and compare received power and reserve.",
+        "demonstratedInteractionComplete": true,
+        "activeParty": [],
+        "repeatAction": true
+      },
+      "expected": {
+        "recruitedIds": [
+          "spec001:CH06"
+        ],
+        "recruitCount": 1,
+        "automaticThirdAlly": false,
+        "duplicateRecruitAwards": 0
+      },
+      "independentReasoning": "The completed demonstrated interaction permits this recruit once. Replaying it cannot duplicate recruitment or override party capacity.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH06-PROGRESS",
+      "kind": "progression",
+      "subject": "spec001:CH06",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "T16",
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "recruited": true,
+        "authoredProgressionConditionMet": true,
+        "inspectionOrExplanationUnlocked": "Explain why multiple propagation modes do not grant independent guaranteed data channels.",
+        "repeatAction": true
+      },
+      "expected": {
+        "meaningfulNewInspectionOrExplanation": true,
+        "requiredExplanation": "Explain why multiple propagation modes do not grant independent guaranteed data channels.",
+        "samePhysicalRules": true,
+        "inventedCapability": false,
+        "duplicateUnlocks": 0
+      },
+      "independentReasoning": "Progression must add the stated usable inspection/explanation when its authored condition is met; it cannot modify technical truth or merely relabel an RPG number.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH06-EQUIVALENCE",
+      "kind": "ability-equivalence",
+      "subject": "spec001:CH06",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "T04",
+        "T05",
+        "T15",
+        "T16"
+      ],
+      "inputs": {
+        "scenarioVectorGroup": "optical",
+        "allyRun": {
+          "recruited": [
+            "spec001:CH06"
+          ],
+          "active": [
+            "spec001:CH06"
+          ]
+        },
+        "toolRun": {
+          "recruited": [],
+          "active": [],
+          "tool": "Matched-profile checklist and optical power meter"
+        },
+        "sameScenarioAndRevision": true,
+        "requiredPhysicalChangeOccursBeforeMeasurement": true
+      },
+      "expected": {
+        "bothRunsMatchEveryVector": true,
+        "samePhysicalObservations": true,
+        "sameObjectiveEligibility": true,
+        "wholeRouteProvenByAbilityAlone": false,
+        "differentPresentationAllowed": true,
+        "sameAcceptedPhysicalEffects": true
+      },
+      "independentReasoning": "Run the same correct/incorrect/boundary stimuli independently through the ally action and the ordinary tool. The declared physical result, measurement freshness and objective conditions are identical; animation never supplies a repair.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH07-DISCOVERY",
+      "kind": "discovery",
+      "subject": "spec001:CH07",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteractionComplete": false,
+        "openCompendium": true
+      },
+      "expected": {
+        "identityVisible": true,
+        "roleAndLimitsVisible": true,
+        "sourceAndRealmVisible": true,
+        "recruited": false,
+        "progressionAwarded": false
+      },
+      "independentReasoning": "Discovering an identity opens its explanation; it is not the demonstrated interaction required for recruitment.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T093",
+          "T095",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH07-RECRUIT",
+      "kind": "recruitment",
+      "subject": "spec001:CH07",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteraction": "Record signal and noise separately with the declared viable path and compatible settings.",
+        "demonstratedInteractionComplete": true,
+        "activeParty": [],
+        "repeatAction": true
+      },
+      "expected": {
+        "recruitedIds": [
+          "spec001:CH07"
+        ],
+        "recruitCount": 1,
+        "automaticThirdAlly": false,
+        "duplicateRecruitAwards": 0
+      },
+      "independentReasoning": "The completed demonstrated interaction permits this recruit once. Replaying it cannot duplicate recruitment or override party capacity.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH07-PROGRESS",
+      "kind": "progression",
+      "subject": "spec001:CH07",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "T16",
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "recruited": true,
+        "authoredProgressionConditionMet": true,
+        "inspectionOrExplanationUnlocked": "Compare a later sample with its source and freshness, retaining the scenario limit.",
+        "repeatAction": true
+      },
+      "expected": {
+        "meaningfulNewInspectionOrExplanation": true,
+        "requiredExplanation": "Compare a later sample with its source and freshness, retaining the scenario limit.",
+        "samePhysicalRules": true,
+        "inventedCapability": false,
+        "duplicateUnlocks": 0
+      },
+      "independentReasoning": "Progression must add the stated usable inspection/explanation when its authored condition is met; it cannot modify technical truth or merely relabel an RPG number.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH07-EQUIVALENCE",
+      "kind": "ability-equivalence",
+      "subject": "spec001:CH07",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "T08",
+        "T09",
+        "B-RADIO-20",
+        "T16"
+      ],
+      "inputs": {
+        "scenarioVectorGroup": "radio",
+        "allyRun": {
+          "recruited": [
+            "spec001:CH07"
+          ],
+          "active": [
+            "spec001:CH07"
+          ]
+        },
+        "toolRun": {
+          "recruited": [],
+          "active": [],
+          "tool": "Radio analyzer and alignment/settings controls"
+        },
+        "sameScenarioAndRevision": true,
+        "requiredPhysicalChangeOccursBeforeMeasurement": true
+      },
+      "expected": {
+        "bothRunsMatchEveryVector": true,
+        "samePhysicalObservations": true,
+        "sameObjectiveEligibility": true,
+        "wholeRouteProvenByAbilityAlone": false,
+        "differentPresentationAllowed": true,
+        "sameAcceptedPhysicalEffects": true
+      },
+      "independentReasoning": "Run the same correct/incorrect/boundary stimuli independently through the ally action and the ordinary tool. The declared physical result, measurement freshness and objective conditions are identical; animation never supplies a repair.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH16-DISCOVERY",
+      "kind": "discovery",
+      "subject": "spec001:CH16",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteractionComplete": false,
+        "openCompendium": true
+      },
+      "expected": {
+        "identityVisible": true,
+        "roleAndLimitsVisible": true,
+        "sourceAndRealmVisible": true,
+        "recruited": false,
+        "progressionAwarded": false
+      },
+      "independentReasoning": "Discovering an identity opens its explanation; it is not the demonstrated interaction required for recruitment.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T093",
+          "T095",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH16-RECRUIT",
+      "kind": "recruitment",
+      "subject": "spec001:CH16",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteraction": "Compare every required host, medium, wavelength, rate and connector/polarity field.",
+        "demonstratedInteractionComplete": true,
+        "activeParty": [],
+        "repeatAction": true
+      },
+      "expected": {
+        "recruitedIds": [
+          "spec001:CH16"
+        ],
+        "recruitCount": 1,
+        "automaticThirdAlly": false,
+        "duplicateRecruitAwards": 0
+      },
+      "independentReasoning": "The completed demonstrated interaction permits this recruit once. Replaying it cannot duplicate recruitment or override party capacity.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH16-PROGRESS",
+      "kind": "progression",
+      "subject": "spec001:CH16",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "T16",
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "recruited": true,
+        "authoredProgressionConditionMet": true,
+        "inspectionOrExplanationUnlocked": "Explain the first unsatisfied profile field rather than infer compatibility from a shell.",
+        "repeatAction": true
+      },
+      "expected": {
+        "meaningfulNewInspectionOrExplanation": true,
+        "requiredExplanation": "Explain the first unsatisfied profile field rather than infer compatibility from a shell.",
+        "samePhysicalRules": true,
+        "inventedCapability": false,
+        "duplicateUnlocks": 0
+      },
+      "independentReasoning": "Progression must add the stated usable inspection/explanation when its authored condition is met; it cannot modify technical truth or merely relabel an RPG number.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH16-EQUIVALENCE",
+      "kind": "ability-equivalence",
+      "subject": "spec001:CH16",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "C-COMPAT",
+        "T07",
+        "B-COMPAT",
+        "T16"
+      ],
+      "inputs": {
+        "scenarioVectorGroup": "compatibility",
+        "allyRun": {
+          "recruited": [
+            "spec001:CH16"
+          ],
+          "active": [
+            "spec001:CH16"
+          ]
+        },
+        "toolRun": {
+          "recruited": [],
+          "active": [],
+          "tool": "Module datasheet/checklist and compatible spare"
+        },
+        "sameScenarioAndRevision": true,
+        "requiredPhysicalChangeOccursBeforeMeasurement": true
+      },
+      "expected": {
+        "bothRunsMatchEveryVector": true,
+        "samePhysicalObservations": true,
+        "sameObjectiveEligibility": true,
+        "wholeRouteProvenByAbilityAlone": false,
+        "differentPresentationAllowed": true,
+        "sameAcceptedPhysicalEffects": true
+      },
+      "independentReasoning": "Run the same correct/incorrect/boundary stimuli independently through the ally action and the ordinary tool. The declared physical result, measurement freshness and objective conditions are identical; animation never supplies a repair.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH19-DISCOVERY",
+      "kind": "discovery",
+      "subject": "spec001:CH19",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteractionComplete": false,
+        "openCompendium": true
+      },
+      "expected": {
+        "identityVisible": true,
+        "roleAndLimitsVisible": true,
+        "sourceAndRealmVisible": true,
+        "recruited": false,
+        "progressionAwarded": false
+      },
+      "independentReasoning": "Discovering an identity opens its explanation; it is not the demonstrated interaction required for recruitment.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T093",
+          "T095",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH19-RECRUIT",
+      "kind": "recruitment",
+      "subject": "spec001:CH19",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteraction": "Sum declared delivered endpoint demands and compare the supplied delivered budget.",
+        "demonstratedInteractionComplete": true,
+        "activeParty": [],
+        "repeatAction": true
+      },
+      "expected": {
+        "recruitedIds": [
+          "spec001:CH19"
+        ],
+        "recruitCount": 1,
+        "automaticThirdAlly": false,
+        "duplicateRecruitAwards": 0
+      },
+      "independentReasoning": "The completed demonstrated interaction permits this recruit once. Replaying it cannot duplicate recruitment or override party capacity.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH19-PROGRESS",
+      "kind": "progression",
+      "subject": "spec001:CH19",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "T16",
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "recruited": true,
+        "authoredProgressionConditionMet": true,
+        "inspectionOrExplanationUnlocked": "Show headroom or excess while keeping per-port and power-method checks separate.",
+        "repeatAction": true
+      },
+      "expected": {
+        "meaningfulNewInspectionOrExplanation": true,
+        "requiredExplanation": "Show headroom or excess while keeping per-port and power-method checks separate.",
+        "samePhysicalRules": true,
+        "inventedCapability": false,
+        "duplicateUnlocks": 0
+      },
+      "independentReasoning": "Progression must add the stated usable inspection/explanation when its authored condition is met; it cannot modify technical truth or merely relabel an RPG number.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH19-EQUIVALENCE",
+      "kind": "ability-equivalence",
+      "subject": "spec001:CH19",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "C-POWER",
+        "T10",
+        "B-POWER-30",
+        "T16"
+      ],
+      "inputs": {
+        "scenarioVectorGroup": "power",
+        "allyRun": {
+          "recruited": [
+            "spec001:CH19"
+          ],
+          "active": [
+            "spec001:CH19"
+          ]
+        },
+        "toolRun": {
+          "recruited": [],
+          "active": [],
+          "tool": "Delivered-power worksheet or meter"
+        },
+        "sameScenarioAndRevision": true,
+        "requiredPhysicalChangeOccursBeforeMeasurement": true
+      },
+      "expected": {
+        "bothRunsMatchEveryVector": true,
+        "samePhysicalObservations": true,
+        "sameObjectiveEligibility": true,
+        "wholeRouteProvenByAbilityAlone": false,
+        "differentPresentationAllowed": true,
+        "sameAcceptedPhysicalEffects": true
+      },
+      "independentReasoning": "Run the same correct/incorrect/boundary stimuli independently through the ally action and the ordinary tool. The declared physical result, measurement freshness and objective conditions are identical; animation never supplies a repair.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH20-DISCOVERY",
+      "kind": "discovery",
+      "subject": "spec001:CH20",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteractionComplete": false,
+        "openCompendium": true
+      },
+      "expected": {
+        "identityVisible": true,
+        "roleAndLimitsVisible": true,
+        "sourceAndRealmVisible": true,
+        "recruited": false,
+        "progressionAwarded": false
+      },
+      "independentReasoning": "Discovering an identity opens its explanation; it is not the demonstrated interaction required for recruitment.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T093",
+          "T095",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH20-RECRUIT",
+      "kind": "recruitment",
+      "subject": "spec001:CH20",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteraction": "Observe a fresh intact path after actual section replacement and reject a repeater-only cure for a break.",
+        "demonstratedInteractionComplete": true,
+        "activeParty": [],
+        "repeatAction": true
+      },
+      "expected": {
+        "recruitedIds": [
+          "spec001:CH20"
+        ],
+        "recruitCount": 1,
+        "automaticThirdAlly": false,
+        "duplicateRecruitAwards": 0
+      },
+      "independentReasoning": "The completed demonstrated interaction permits this recruit once. Replaying it cannot duplicate recruitment or override party capacity.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH20-PROGRESS",
+      "kind": "progression",
+      "subject": "spec001:CH20",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "T16",
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "recruited": true,
+        "authoredProgressionConditionMet": true,
+        "inspectionOrExplanationUnlocked": "Explain what regeneration can repeat and why the unchanged open path remains disconnected.",
+        "repeatAction": true
+      },
+      "expected": {
+        "meaningfulNewInspectionOrExplanation": true,
+        "requiredExplanation": "Explain what regeneration can repeat and why the unchanged open path remains disconnected.",
+        "samePhysicalRules": true,
+        "inventedCapability": false,
+        "duplicateUnlocks": 0
+      },
+      "independentReasoning": "Progression must add the stated usable inspection/explanation when its authored condition is met; it cannot modify technical truth or merely relabel an RPG number.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH20-EQUIVALENCE",
+      "kind": "ability-equivalence",
+      "subject": "spec001:CH20",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "C-CONTINUITY",
+        "T03",
+        "B-CONTINUITY",
+        "T16"
+      ],
+      "inputs": {
+        "scenarioVectorGroup": "continuity",
+        "allyRun": {
+          "recruited": [
+            "spec001:CH20"
+          ],
+          "active": [
+            "spec001:CH20"
+          ]
+        },
+        "toolRun": {
+          "recruited": [],
+          "active": [],
+          "tool": "Continuity tester and repeater comparison exhibit"
+        },
+        "sameScenarioAndRevision": true,
+        "requiredPhysicalChangeOccursBeforeMeasurement": true
+      },
+      "expected": {
+        "bothRunsMatchEveryVector": true,
+        "samePhysicalObservations": true,
+        "sameObjectiveEligibility": true,
+        "wholeRouteProvenByAbilityAlone": false,
+        "differentPresentationAllowed": true,
+        "sameAcceptedPhysicalEffects": true
+      },
+      "independentReasoning": "Run the same correct/incorrect/boundary stimuli independently through the ally action and the ordinary tool. The declared physical result, measurement freshness and objective conditions are identical; animation never supplies a repair.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH22-DISCOVERY",
+      "kind": "discovery",
+      "subject": "spec001:CH22",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteractionComplete": false,
+        "openCompendium": true
+      },
+      "expected": {
+        "identityVisible": true,
+        "roleAndLimitsVisible": true,
+        "sourceAndRealmVisible": true,
+        "recruited": false,
+        "progressionAwarded": false
+      },
+      "independentReasoning": "Discovering an identity opens its explanation; it is not the demonstrated interaction required for recruitment.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T093",
+          "T095",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH22-RECRUIT",
+      "kind": "recruitment",
+      "subject": "spec001:CH22",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "characterDiscovered": true,
+        "demonstratedInteraction": "Intersect the two declared endpoint capability sets.",
+        "demonstratedInteractionComplete": true,
+        "activeParty": [],
+        "repeatAction": true
+      },
+      "expected": {
+        "recruitedIds": [
+          "spec001:CH22"
+        ],
+        "recruitCount": 1,
+        "automaticThirdAlly": false,
+        "duplicateRecruitAwards": 0
+      },
+      "independentReasoning": "The completed demonstrated interaction permits this recruit once. Replaying it cannot duplicate recruitment or override party capacity.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH22-PROGRESS",
+      "kind": "progression",
+      "subject": "spec001:CH22",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "T16",
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "recruited": true,
+        "authoredProgressionConditionMet": true,
+        "inspectionOrExplanationUnlocked": "Explain unsupported selection and the no-common-member boundary.",
+        "repeatAction": true
+      },
+      "expected": {
+        "meaningfulNewInspectionOrExplanation": true,
+        "requiredExplanation": "Explain unsupported selection and the no-common-member boundary.",
+        "samePhysicalRules": true,
+        "inventedCapability": false,
+        "duplicateUnlocks": 0
+      },
+      "independentReasoning": "Progression must add the stated usable inspection/explanation when its authored condition is met; it cannot modify technical truth or merely relabel an RPG number.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-CH22-EQUIVALENCE",
+      "kind": "ability-equivalence",
+      "subject": "spec001:CH22",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "T11",
+        "C-NEG-WRONG",
+        "B-NEG-NONE",
+        "T16"
+      ],
+      "inputs": {
+        "scenarioVectorGroup": "capabilities",
+        "allyRun": {
+          "recruited": [
+            "spec001:CH22"
+          ],
+          "active": [
+            "spec001:CH22"
+          ]
+        },
+        "toolRun": {
+          "recruited": [],
+          "active": [],
+          "tool": "Capability console and advertised-mode checklist"
+        },
+        "sameScenarioAndRevision": true,
+        "requiredPhysicalChangeOccursBeforeMeasurement": true
+      },
+      "expected": {
+        "bothRunsMatchEveryVector": true,
+        "samePhysicalObservations": true,
+        "sameObjectiveEligibility": true,
+        "wholeRouteProvenByAbilityAlone": false,
+        "differentPresentationAllowed": true,
+        "sameAcceptedPhysicalEffects": true
+      },
+      "independentReasoning": "Run the same correct/incorrect/boundary stimuli independently through the ally action and the ordinary tool. The declared physical result, measurement freshness and objective conditions are identical; animation never supplies a repair.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-PARTY-ZERO",
+      "kind": "party-boundary",
+      "subject": "party",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "recruited": [],
+        "active": [],
+        "route": "copper",
+        "allRequiredToolsAvailable": true
+      },
+      "expected": {
+        "partyValid": true,
+        "routeCanCompleteWithoutRecruit": true
+      },
+      "independentReasoning": "The empty party is valid; conventional tools preserve the required route.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-PARTY-TWO",
+      "kind": "party-boundary",
+      "subject": "party",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "recruited": [
+          "CH03",
+          "CH04",
+          "CH19"
+        ],
+        "requestedActive": [
+          "CH03",
+          "CH04"
+        ]
+      },
+      "expected": {
+        "active": [
+          "CH03",
+          "CH04"
+        ],
+        "accepted": true
+      },
+      "independentReasoning": "Exactly two distinct recruited allies satisfy the inclusive party ceiling.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-PARTY-THREE",
+      "kind": "party-boundary",
+      "subject": "party",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "recruited": [
+          "CH03",
+          "CH04",
+          "CH19"
+        ],
+        "active": [
+          "CH03",
+          "CH04"
+        ],
+        "requestedActive": [
+          "CH03",
+          "CH04",
+          "CH19"
+        ]
+      },
+      "expected": {
+        "active": [
+          "CH03",
+          "CH04"
+        ],
+        "accepted": false,
+        "silentEviction": false
+      },
+      "independentReasoning": "A third active ally is rejected with explanation; existing choices cannot be silently evicted.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-PARTY-UNRECRUITED",
+      "kind": "party-boundary",
+      "subject": "party",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "recruited": [
+          "CH03"
+        ],
+        "active": [
+          "CH03"
+        ],
+        "requestedActive": [
+          "CH03",
+          "CH19"
+        ]
+      },
+      "expected": {
+        "active": [
+          "CH03"
+        ],
+        "accepted": false
+      },
+      "independentReasoning": "Active allies must be recruited, even if their compendium identity was discovered.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-PARTY-DUPLICATE",
+      "kind": "party-boundary",
+      "subject": "party",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "recruited": [
+          "CH03"
+        ],
+        "active": [
+          "CH03"
+        ],
+        "requestedActive": [
+          "CH03",
+          "CH03"
+        ]
+      },
+      "expected": {
+        "active": [
+          "CH03"
+        ],
+        "accepted": false,
+        "doubleAbility": false
+      },
+      "independentReasoning": "One recruit cannot occupy two party entries or receive duplicate ability effects.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-PARTY-FREE-SWAP",
+      "kind": "party-boundary",
+      "subject": "party",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "location": "safe-preparation",
+        "recruited": [
+          "CH03",
+          "CH04",
+          "CH19"
+        ],
+        "active": [
+          "CH03",
+          "CH04"
+        ],
+        "requestedActive": [
+          "CH04",
+          "CH19"
+        ],
+        "requiredToolQuantity": 1
+      },
+      "expected": {
+        "active": [
+          "CH04",
+          "CH19"
+        ],
+        "cost": 0,
+        "requiredToolQuantity": 1,
+        "saveWritesCausedBySwap": 0
+      },
+      "independentReasoning": "A safe preparation swap costs nothing and preserves recoverable tools; the swap itself is not an implicit save. A later eligible opted-in save is separate.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-PARTY-MISSING-ALLY",
+      "kind": "party-boundary",
+      "subject": "party",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "location": "pre-commit-preparation",
+        "desiredAlly": "CH19",
+        "recruited": [],
+        "ordinaryToolAvailable": true
+      },
+      "expected": {
+        "returnToPreparationReachable": true,
+        "ordinaryToolAccepted": true,
+        "recruitmentRequired": false
+      },
+      "independentReasoning": "Missing an ally cannot trap preparation or make an optional recruitment a main-route prerequisite.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-PARTY-PREMATURE-PROGRESS",
+      "kind": "party-boundary",
+      "subject": "party",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "recruited": [
+          "CH03"
+        ],
+        "authoredProgressionConditionMet": false,
+        "requestUnlock": true
+      },
+      "expected": {
+        "progressionUnchanged": true,
+        "inventedAbility": false
+      },
+      "independentReasoning": "An unfulfilled progression condition cannot grant the unlock; the underlying valid tool remains available.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-PARTY-UNSAFE-SWAP",
+      "kind": "party-boundary",
+      "subject": "party",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [],
+      "inputs": {
+        "location": "resolving-committed-encounter",
+        "active": [
+          "CH03",
+          "CH04"
+        ],
+        "requestedActive": [
+          "CH04",
+          "CH19"
+        ]
+      },
+      "expected": {
+        "active": [
+          "CH03",
+          "CH04"
+        ],
+        "accepted": false,
+        "explainReturnToSafePreparation": true
+      },
+      "independentReasoning": "Free preparation swapping is not an interrupted half-applied encounter mutation; return through the encounter recovery contract.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-PARTY-STALE",
+      "kind": "party-boundary",
+      "subject": "party",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "T13"
+      ],
+      "inputs": {
+        "observationRevision": 8,
+        "currentRevision": 9,
+        "sameAttempt": true,
+        "actor": "any-ally"
+      },
+      "expected": {
+        "measurementUsable": false,
+        "visibleAsStale": true,
+        "objectiveAward": 0
+      },
+      "independentReasoning": "An ally cannot certify an old measurement after a configuration change; the same freshness rule applies to tools.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-PARTY-REPLAY",
+      "kind": "party-boundary",
+      "subject": "party",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "inputs": {
+        "sameActionIdDeliveredTwice": true,
+        "sameCompletionIdWithNewActionId": true,
+        "rewardQuantityBefore": 0
+      },
+      "expected": {
+        "acceptedEffectsApplied": 1,
+        "rewardQuantityAfter": 1,
+        "duplicateObjectiveAwards": 0
+      },
+      "independentReasoning": "Action receipts and stable completion identities prevent repeated ability callbacks from granting effects twice.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-PARTY-INTERRUPT",
+      "kind": "party-boundary",
+      "subject": "party",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "B-INTERRUPT"
+      ],
+      "inputs": {
+        "abilityAnimationStarted": true,
+        "validatedEffectsCommitted": false,
+        "leaveOrRestore": true
+      },
+      "expected": {
+        "progressAward": 0,
+        "inventoryConsumed": 0,
+        "lateAnimationMayAward": false
+      },
+      "independentReasoning": "Presentation completion cannot grant an interrupted action; only a validated committed effect changes the world.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-PARTY-CONTENT-ERROR",
+      "kind": "party-boundary",
+      "subject": "party",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "C-ERROR-PROFILE"
+      ],
+      "inputs": {
+        "unknownAuthoredProfile": true,
+        "actor": "ally-or-tool"
+      },
+      "expected": {
+        "status": "content-error",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "independentReasoning": "An unsupported authored profile is an authoring fault for both paths, not a learner mistake.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-PARTY-ECHO-UNREVIEWED-TOPOLOGY",
+      "kind": "party-boundary",
+      "subject": "party",
+      "requirements": [
+        "FR-007",
+        "AC05"
+      ],
+      "sourceCaseIds": [
+        "B-REGEN-UNREVIEWED"
+      ],
+      "inputs": {
+        "actor": "CH20",
+        "authoredChallenge": "two-segments-with-regenerator",
+        "segmentProfilesAndLimitsProvided": false
+      },
+      "expected": {
+        "status": "content-error",
+        "attemptPenalty": 0,
+        "progressAward": 0
+      },
+      "independentReasoning": "The existing passive-channel profile supplies no regenerative topology limits; do not turn Echo Bat progression into an unreviewed scored repair.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-NO-RECRUITS-COPPER",
+      "kind": "main-route-independence",
+      "subject": "copper",
+      "requirements": [
+        "FR-007",
+        "FR-008",
+        "AC02",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "T16"
+      ],
+      "inputs": {
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10"
+        ],
+        "recruited": [],
+        "active": [],
+        "optionalActivitiesCompleted": [],
+        "optionalRewards": [],
+        "allScopedChecksPass": true
+      },
+      "expected": {
+        "O11AndO12RemainReachable": true,
+        "equivalentToolsObtainable": true,
+        "unvisitedBranchRequired": false
+      },
+      "independentReasoning": "The selected validated branch plus shared preparation is sufficient. Neither an absent ally, an optional reward nor an unvisited media branch may block the ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-NO-RECRUITS-FIBER",
+      "kind": "main-route-independence",
+      "subject": "fiber",
+      "requirements": [
+        "FR-007",
+        "FR-008",
+        "AC02",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "T16"
+      ],
+      "inputs": {
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O05",
+          "O06",
+          "O09",
+          "O10"
+        ],
+        "recruited": [],
+        "active": [],
+        "optionalActivitiesCompleted": [],
+        "optionalRewards": [],
+        "allScopedChecksPass": true
+      },
+      "expected": {
+        "O11AndO12RemainReachable": true,
+        "equivalentToolsObtainable": true,
+        "unvisitedBranchRequired": false
+      },
+      "independentReasoning": "The selected validated branch plus shared preparation is sufficient. Neither an absent ally, an optional reward nor an unvisited media branch may block the ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    },
+    {
+      "id": "COMP-NO-RECRUITS-RADIO",
+      "kind": "main-route-independence",
+      "subject": "radio",
+      "requirements": [
+        "FR-007",
+        "FR-008",
+        "AC02",
+        "AC06"
+      ],
+      "sourceCaseIds": [
+        "T16"
+      ],
+      "inputs": {
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O07",
+          "O08",
+          "O09",
+          "O10"
+        ],
+        "recruited": [],
+        "active": [],
+        "optionalActivitiesCompleted": [],
+        "optionalRewards": [],
+        "allScopedChecksPass": true
+      },
+      "expected": {
+        "O11AndO12RemainReachable": true,
+        "equivalentToolsObtainable": true,
+        "unvisitedBranchRequired": false
+      },
+      "independentReasoning": "The selected validated branch plus shared preparation is sufficient. Neither an absent ally, an optional reward nor an unvisited media branch may block the ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T094",
+          "T104"
+        ]
+      }
+    }
+  ],
+  "technicalVectors": {
+    "compatibility": [
+      {
+        "sourceCaseId": "C-COMPAT",
+        "category": "correct",
+        "expected": {
+          "status": "correct",
+          "observation": {
+            "scope": "preparation compatibility only"
+          }
+        },
+        "reason": "Every declared compatibility predicate and inspection is satisfied; preparation only, not a whole-link proof."
+      },
+      {
+        "sourceCaseId": "T07",
+        "category": "incorrect",
+        "expected": {
+          "status": "incorrect",
+          "observation": {
+            "reason": "incompatible-profiles",
+            "usableLink": false,
+            "arithmeticCannotOverride": true
+          }
+        },
+        "reason": "A sufficient numeric budget cannot override a declared incompatible pair."
+      },
+      {
+        "sourceCaseId": "B-COMPAT",
+        "category": "boundary",
+        "expected": {
+          "status": "incorrect",
+          "observation": {
+            "reason": "one-required-compatibility-predicate-fails"
+          }
+        },
+        "reason": "One mismatched required wavelength direction is enough; identical shell shape cannot change it."
+      }
+    ],
+    "continuity": [
+      {
+        "sourceCaseId": "C-CONTINUITY",
+        "category": "correct",
+        "expected": {
+          "status": "correct",
+          "observation": {
+            "continuityEstablished": true,
+            "wholeRouteProven": false
+          }
+        },
+        "reason": "After actual section replacement, a fresh test establishes the required continuity; length and endpoint checks remain separate."
+      },
+      {
+        "sourceCaseId": "T03",
+        "category": "incorrect",
+        "expected": {
+          "status": "incorrect",
+          "observation": {
+            "connectedPath": false,
+            "reason": "open-remains"
+          }
+        },
+        "reason": "Repeating a signal without restoring the specified broken medium leaves the path disconnected."
+      },
+      {
+        "sourceCaseId": "B-CONTINUITY",
+        "category": "boundary",
+        "expected": {
+          "status": "incorrect",
+          "observation": {
+            "connectedRequiredPath": false
+          }
+        },
+        "reason": "Even one remaining open required conductor fails continuity while the repeater is powered."
+      }
+    ],
+    "optical": [
+      {
+        "sourceCaseId": "T04",
+        "category": "correct",
+        "expected": {
+          "status": "correct",
+          "observation": {
+            "receive": {
+              "value": -11,
+              "unit": "dBm"
+            },
+            "margin": {
+              "value": 3,
+              "unit": "dB"
+            },
+            "overload": false,
+            "reserveMet": true
+          }
+        },
+        "reason": "-3 - 8 = -11 dBm; -11 - (-14) = 3 dB >= 2 dB and -11 <= -1 dBm."
+      },
+      {
+        "sourceCaseId": "T05",
+        "category": "incorrect",
+        "expected": {
+          "status": "incorrect",
+          "observation": {
+            "receive": {
+              "value": -13,
+              "unit": "dBm"
+            },
+            "margin": {
+              "value": 1,
+              "unit": "dB"
+            },
+            "overload": false,
+            "reserveMet": false
+          }
+        },
+        "reason": "-3 - 10 = -13 dBm; 1 dB reserve is below 2 dB even though sensitivity is met."
+      },
+      {
+        "sourceCaseId": "T15",
+        "category": "boundary",
+        "expected": {
+          "status": "correct",
+          "observation": {
+            "receive": {
+              "value": -12,
+              "unit": "dBm"
+            },
+            "margin": {
+              "value": 2,
+              "unit": "dB"
+            },
+            "overload": false,
+            "reserveMet": true
+          }
+        },
+        "reason": "-3 - 9 = -12 dBm; exactly 2 dB reserve is included by this fictional profile."
+      }
+    ],
+    "radio": [
+      {
+        "sourceCaseId": "T08",
+        "category": "correct",
+        "expected": {
+          "status": "correct",
+          "observation": {
+            "snr": {
+              "value": 25,
+              "unit": "dB"
+            },
+            "thresholdMet": true,
+            "throughputProven": false
+          }
+        },
+        "reason": "-65 - (-90) = 25 dB, at least the supplied 20 dB requirement; other path/settings checks are already satisfied."
+      },
+      {
+        "sourceCaseId": "T09",
+        "category": "incorrect",
+        "expected": {
+          "status": "incorrect",
+          "observation": {
+            "snr": {
+              "value": 13,
+              "unit": "dB"
+            },
+            "thresholdMet": false,
+            "throughputProven": false
+          }
+        },
+        "reason": "-65 - (-78) = 13 dB, below 20 dB; choosing a mitigation is not a new observation."
+      },
+      {
+        "sourceCaseId": "B-RADIO-20",
+        "category": "boundary",
+        "expected": {
+          "status": "correct",
+          "observation": {
+            "snr": {
+              "value": 20,
+              "unit": "dB"
+            }
+          }
+        },
+        "reason": "-65 - (-85) = 20 dB; this fictional inclusive threshold accepts equality."
+      }
+    ],
+    "power": [
+      {
+        "sourceCaseId": "C-POWER",
+        "category": "correct",
+        "expected": {
+          "status": "correct",
+          "observation": {
+            "total": {
+              "value": 23,
+              "unit": "W"
+            },
+            "headroom": {
+              "value": 7,
+              "unit": "W"
+            }
+          }
+        },
+        "reason": "12 + 11 = 23 W at the delivered endpoint boundary; 30 - 23 = 7 W."
+      },
+      {
+        "sourceCaseId": "T10",
+        "category": "incorrect",
+        "expected": {
+          "status": "incorrect",
+          "observation": {
+            "total": {
+              "value": 33,
+              "unit": "W"
+            },
+            "excess": {
+              "value": 3,
+              "unit": "W"
+            }
+          }
+        },
+        "reason": "12 + 11 + 10 = 33 W, exceeding the delivered 30 W budget by 3 W."
+      },
+      {
+        "sourceCaseId": "B-POWER-30",
+        "category": "boundary",
+        "expected": {
+          "status": "correct",
+          "observation": {
+            "total": {
+              "value": 30,
+              "unit": "W"
+            },
+            "headroom": {
+              "value": 0,
+              "unit": "W"
+            }
+          }
+        },
+        "reason": "12 + 11 + 7 = 30 W; the inclusive ceiling allows zero remaining headroom when every other constraint is met."
+      }
+    ],
+    "capabilities": [
+      {
+        "sourceCaseId": "T11",
+        "category": "correct",
+        "expected": {
+          "status": "correct",
+          "observation": {
+            "common": [
+              {
+                "rate": {
+                  "value": 100,
+                  "unit": "Mb/s"
+                },
+                "duplex": "full"
+              }
+            ]
+          }
+        },
+        "reason": "The only advertised intersection member is 100 Mb/s full; no ranking is needed."
+      },
+      {
+        "sourceCaseId": "C-NEG-WRONG",
+        "category": "incorrect",
+        "expected": {
+          "status": "incorrect",
+          "observation": {
+            "reason": "unsupported-by-B"
+          }
+        },
+        "reason": "Endpoint B never advertises 1000/full, so choosing it cannot invent support."
+      },
+      {
+        "sourceCaseId": "B-NEG-NONE",
+        "category": "boundary",
+        "expected": {
+          "status": "incorrect",
+          "observation": {
+            "common": [],
+            "reason": "no-common-mode"
+          }
+        },
+        "reason": "The two supplied advertised sets have no shared member; do not invent a fallback."
+      }
+    ]
+  },
+  "partyContract": {
+    "maximumActive": 2,
+    "freeSwapAtSafePreparation": true,
+    "activeSubsetOfRecruited": true,
+    "conventionalToolsRequiredForAllMainRoutes": true,
+    "requiredRecruitIds": [
+      "spec001:CH03",
+      "spec001:CH04",
+      "spec001:CH05",
+      "spec001:CH06",
+      "spec001:CH07",
+      "spec001:CH16",
+      "spec001:CH19",
+      "spec001:CH20",
+      "spec001:CH22"
+    ],
+    "allCharactersCount": 25,
+    "compendiumFields": [
+      "identity",
+      "technology",
+      "ability",
+      "limitation",
+      "realmNote",
+      "recruitment",
+      "progression",
+      "evidenceSources",
+      "portrait"
+    ],
+    "portraitAcceptance": "pending actual source/export/UI/media review",
+    "nonRecruitIds": [
+      "spec001:CH01",
+      "spec001:CH02",
+      "spec001:CH08",
+      "spec001:CH09",
+      "spec001:CH10",
+      "spec001:CH11",
+      "spec001:CH12",
+      "spec001:CH13",
+      "spec001:CH14",
+      "spec001:CH15",
+      "spec001:CH17",
+      "spec001:CH18",
+      "spec001:CH21",
+      "spec001:CH23",
+      "spec001:CH24",
+      "spec001:CH25"
+    ]
+  }
+}

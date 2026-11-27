@@ -452,11 +452,18 @@ real transitions, and no expected oracle may be weakened to fit the module.
 - [X] T075 [US2] Author Copper Warrens/Echo Cavern interactions and O03/O04 in `content/spec001/rooms/R03.json` and `content/spec001/rooms/R04.json`; use shared controllers, meaningful before/after evidence and recoverable conventional tools.
 - [X] T076 [US2] Author Shell Market/Clockworks and O09/O10 in `content/spec001/rooms/R09.json` and `content/spec001/rooms/R10.json`; distinguish form factor, PHY, medium, supplied power and signal timing, reusing the independently checked toy decoder.
 - [X] T077 [US2] Author branch-plan execution and fresh validation balcony interactions for O11/O12 in `content/spec001/rooms/R11.json`, `content/spec001/rooms/R12.json` and `src/state/repair-plan.ts`; reaching R12 alone must not award restored service.
-- [ ] T078 [US2] Complete and verify a copper route from R01 through a valid R12 repair using temporary geometry for unfinished art in `tests/e2e/first-repair-route.spec.ts`; record the W05 complete-route checkpoint in `docs/evidence/spec001/first-route.md` before broadening room production.
+- [X] T078 [US2] Complete and verify a copper route from R01 through a valid R12 repair using temporary geometry for unfinished art in `tests/e2e/first-repair-route.spec.ts`; record the W05 complete-route checkpoint in `docs/evidence/spec001/first-route.md` before broadening room production.
 
 ### Remaining independent repair routes
 
 **Ready after**: T068–T078.
+
+T078/W05 is locally accepted from the actual two-route browser checkpoint. T079
+and T080 may now author their disjoint room pairs and scenario adapters. T081 may
+prepare independent graph expectations from SPEC and accepted contracts in parallel;
+its canonical world/application/save-policy integration waits for both room pairs'
+reviewed implementation. No incomplete room or metadata reservation becomes playable
+through this preparation. Root owns acceptance, shared policy joins and publication.
 
 - [ ] T079 [P] [US2] Author Photon Gardens/Prism Vault and O05/O06 in `content/spec001/rooms/R05.json` and `content/spec001/rooms/R06.json`; inspect connectors, match optics/fiber and explain fresh range/margin validation without requiring copper/radio progress.
 - [ ] T080 [P] [US2] Author Skywell/Storm Observatory and O07/O08 in `content/spec001/rooms/R07.json` and `content/spec001/rooms/R08.json`; compare path/channel/noise observations and remeasure after mitigation without requiring another route.
@@ -590,7 +597,7 @@ real transitions, and no expected oracle may be weakened to fit the module.
 
 **Ready after**: T090–T091.
 
-- [ ] T092 [US7] Create independent ability/equivalent-tool and optional-activity completion/retry/exit expectations in `tests/fixtures/companions.json` and `tests/fixtures/optional-activities.json`; any new scored rule needs source/correct/incorrect/boundary review before its handler.
+- [X] T092 [US7] Create independent ability/equivalent-tool and optional-activity completion/retry/exit expectations in `tests/fixtures/companions.json` and `tests/fixtures/optional-activities.json`; any new scored rule needs source/correct/incorrect/boundary review before its handler.
 - [ ] T093 [US7] Author all CH01–CH25 roles, limitations, realm notes, recruitment/progression and portrait/source references in `content/spec001/characters.json`; preserve nine recruits (Photon, Copperhead, Unicorn, optical Hydra, Thunderbird, Hermit, Eel, Echo Bat, Chameleon).
 - [ ] T094 [US7] Implement demonstrated recruitment, meaningful progression, max-two active allies and free preparation swaps in `src/state/party.ts` and `src/ui/party.ts`; abilities apply the same validated physical effects as conventional tools.
 - [ ] T095 [US7] Build the illustrated discovered-entry compendium and cross-room evidence navigation in `src/ui/compendium.ts`; retain source/freshness and distinguish notes/hypotheses from fact, without exposing undiscovered content as completed.

@@ -26,6 +26,16 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-26
 
+**97 loops started; 76 of170 tasks accepted.** T078/W05 local copper route is
+accepted. Fresh095/T079 and096/T080 author fiber/radio rooms. Fresh097/T081
+prepares independent graph tests; its full application/world/policy join waits
+for both accepted branches.094/T084 remains reviewed isolated code awaiting that
+join. State.json owns current task status. G0 blocked; aggregate G1–G7 pending.
+Latest reviewed GitHub checkpoint:552a986c78d9f70ccea6bd157d0cf1560952402d.
+No release deployed. Preserve loop count, owner reviews and pending capabilities.
+
+## Earlier position and retained progress history — 2026-11-26
+
 **74 loops started; 59 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
 Current active ownership is in state.json: loop071/T066 integrates the actual R01
 media; loop072/T061 nonquota architecture auditing is accepted. T063–T065 sources and
@@ -876,3 +886,62 @@ Fresh094/T084 prepares isolated checkpoint/rollback tests and module against the
 accepted T083/state/save contracts. It cannot edit application/room/reducer/bus/
 save-policy files; actual full-world join and task acceptance wait for T079–T081.
 This limited scheduling clarification is recorded in tasks.md.94loops/74accepted.
+
+Reviewed46-file checkpoint552a986c78d9f70ccea6bd157d0cf1560952402d pushed and
+remote-verified.809487bytes; exact staged paths/hashes, private literal/key scan
+and authored whitespace PASS. Sealed raw Vitest logs retain original EOF blank
+lines, the sole full diff-check notices; source evidence was not rewritten.
+Active090/093/094 and growing preview logs excluded. No deployment.
+
+T078 static concern about Mb/s persistence was checked against actual evaluator:
+capabilities reading() already normalizes it to Mbps. Root focused59objective
+checks PASS (19:59:38,10.39s), including unchanged save-v1 validation for O03–O10.
+No correction was needed, no schema/profile/oracle changed; full-route Save and
+Continue remain090's actual integration test.
+
+T078 actualbrowser found current Close buttons inert after frame-header relocation.
+Root reproduced in bothproduction panels (each14PASS/1FAIL), fixed own-dialog
+containment while retaining lifetime/scopeguards, then each15PASS/0FAIL in actual
+Firefox159, zero pageerrors. Added retired-reinserted and moved-outside negatives.
+See panel-frame-join/review.md and new seal; historicalT074/T077 sources/reports
+remain historical, not rewritten.090 resumes full-route test on correctedsource.
+
+T092 accepted as independent oracle authoring after rootreview of nine exact
+recruit/tool pairs,53companion/87activity vectors,52fixturePASS/140runtimeTODO,
+scopedstrictTS and14source/artifact seals plus evidencehash. Rootcorrected an
+implicit timingrequirement: authoredtiming remainsoptional; conditionalguards
+apply only ifoffered. No handler/media/human/gate completion.94loops/75accepted.
+090 actualfirst95mguest/100mkeyboardroutes now2PASS includingexactlyonePHPsave/
+reloadContinue; finalframe/zoom checks and root affectedregressions precedeW05.
+
+Root composed-loader/save regression:395checks in15suites,392PASS/3FAIL
+(20:10:23,92.12s). All3failures were oldintro-only expectations after legitimate
+R03loading:2safeanchors versus8 and R03 usedasreservedroom. Root changedonly
+three tests to exact8authoredanchors and stillunloadedR05 negatives, preserving
+prerequisite/safety/identity/reader assertions. Focusedrerun158PASS/3suites
+(20:13:26,11.61s). No runtime policy or independentoracle was weakened.
+
+New actualframe RED in090: GameopenedfromDiagnostics overwroteDiagnostics'
+originalfocusreturntarget withthe Gameheading on resume. Rootfix detectsreturn
+toparent via previouswindow's savedreturntarget andpreservesparentopener.
+090 owns actualbothroute GREEN/focus/layout verification; historicalevidence
+retained. Rootfullcheck followschangedframe/testsource; W05stillawaitsfinaljoin.
+
+094T084 isolatedmodule reviewed and4owned/6protectedseals verified.59encounter
+checks and237joinedPASS/45TODO, scopedstrictTS pass. RootcaughtactualT077
+postcommitrecapturegap;3REDnegativecases nowpasswithrequiredpureprecommitpolicy
+(no permissivedefault), includingimmediate/finalshutdown andpermanent/temporary.
+All45vectors mapped22isolated/8partial/15deferred;originalruntimeTODOs preserved.
+Same094awaitsT079–81 forfinaltaskacceptance; do not restartoradvancecounterforits
+follow-up. Actualentry/confirmation/recovery UI remainsT085/T088/T089.
+
+T078 accepted: all95 artifact and9 protected-input seals match (seal
+cbb9eb9f327cd76679aabb9c9cb9c48f2dc2b891f11dbaca8ede133effdc1c2f).
+Actual final copper95/100m routes2PASS/30.6s; nineguest+existingframe regressions
+10PASS/1.0m; helper/policy29PASS; actualPHP6PASS59assertions; check/buildPASS.
+Root reviewed source/report and desktop/narrow screenshots, plus composed395checks
+with3obsoleteintroexpectations corrected then158PASS; isolatedpanel30PASS.
+R12 axe renderer crashes remain unresolved forT152, and temporary rooms contribute
+zero acceptedassets. No fullending/provider/media/aggregategate acceptance.
+Fresh095/096/097 bring countto97;76accepted. T081graph preparation is independent;
+its fulljoin remains ordered after bothbranchreviews.094same-taskfollowup follows.

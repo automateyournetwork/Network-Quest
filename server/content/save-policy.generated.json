@@ -1,39 +1,79 @@
 {
   "formatVersion": 1,
-  "scope": "authored-introduction",
+  "scope": "authored-first-copper-route",
   "provenance": {
     "generator": "tools/generate-save-content-policy.ts",
     "ruleIds": [
-      "PHY04"
+      "PHY04",
+      "PHY05",
+      "PHY08",
+      "PHY09",
+      "PHY10",
+      "PHY11",
+      "STATE01",
+      "STATE03",
+      "STATE04"
     ],
     "sourceIds": [
-      "S03"
+      "S01",
+      "S02",
+      "S03",
+      "S04",
+      "S05",
+      "S08",
+      "S10",
+      "S11",
+      "S12",
+      "S13"
     ],
     "caseIds": [
       "T01",
       "T02",
+      "T10",
+      "T11",
+      "T12",
+      "T13",
+      "T16",
       "B-COPPER-100",
-      "B-COPPER-OVER"
+      "B-COPPER-OVER",
+      "C-E01",
+      "B-ENDPOINT"
     ],
     "inputs": {
       "content/schemas/content.schema.json": "712297ffb45b2d1fa9abf75ff042ca1c50a58610d077a61cc1dc13688afbb27b",
+      "content/spec001/dialogue/copper-actions.json": "e41e67089e559f78771d2e4b64acd53382b67bd6edf145749d155ef7fbb3a982",
+      "content/spec001/dialogue/equipment-actions.json": "391585a743b58e6a252206814e380f73a867b02debe07a33d31b152ea405f2b3",
       "content/spec001/dialogue/interactions.json": "7de25e0d9311b3dd2ffa4dba7bc4788d94f325b75f04d92686716bfe71268132",
       "content/spec001/dialogue/introduction.json": "4739496058df4c1b7f2ac8a87c5fff7ce9e499d7630dde9781a6583cabeda171",
+      "content/spec001/dialogue/repair-plan-actions.json": "7fa17cd93871c28a18b84048b8ada9036f0e93b4b3e8c7a23a00985f8295a697",
       "content/spec001/items-introduction.json": "e75bcb31821a1a29f2817998a9b3e2f51d256f0f823ff5f628ffa0842d4382a9",
-      "content/spec001/objectives-introduction.json": "8124363eb511e306955aa3634038fb61e6d7f34f46c7c0b07305ca89c5c05c9d",
-      "content/spec001/profiles-introduction.json": "cfab4a0d0f3e653d0dad2e8e08903034f07441492c4d21081ff24c7f01fc88c2",
+      "content/spec001/objectives.json": "b5e2212d581caebc4419f683dc47e337dabba157dc569369f5413e13511f9b98",
+      "content/spec001/profiles.json": "93c0dfe3d40c74e68b2e4e025518e2efe1c3e82abb5438d233fddeb9b0834cc3",
       "content/spec001/rooms/R01.json": "007b241720117fc47ae90bc2e62672767d35363c2c2ba49f41b3edeeead2a36d",
       "content/spec001/rooms/R02.json": "4b54c3f0e74ba3c81c03b743fd5c789ef5ea66fb83e0ed1476383f29b7ebf269",
+      "content/spec001/rooms/R03.json": "68b2dbd3b48a305e3fa6359933d3ecd644d621677c1a994c1d5066da5b0d8c6f",
+      "content/spec001/rooms/R04.json": "07af8251e9b1e5d858f8ee91fa9affee418d60f245cf4fc10a350915cbe73268",
+      "content/spec001/rooms/R09.json": "b04b9799022e53ca8d9f0de83ee7346313683b837e7a79728ae19dd57276a3b1",
+      "content/spec001/rooms/R10.json": "8a3da2d198228b2fefab03176cd089cdc57d2f65b7a686225b2396fa46f4e05d",
+      "content/spec001/rooms/R11.json": "fb58489499bc8de004b59784a7959cbbb218d88a50f07c6f31152d17b2a94cd4",
+      "content/spec001/rooms/R12.json": "15579e1e0c6a8dee7be82358747c902f29d5509b99ad87a9de421d4aaf2ff598",
       "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
       "content/spec001/world.json": "21d2d20af808791ec238d2e75638a66ad44624a77f410298ba525693f82cf58b",
       "docs/evidence/spec001/rule-source-review.md": "5e22c7cab28d5f4d559b6a2601e381d34acec7306b5247bcfdb24e200cbd2319",
-      "src/app/content.ts": "2d541d8254b7ef1eea888c611cbbfb34d14f14a4e29688e9318c09a4b04fc1fb",
-      "src/app/save-policy.ts": "fef6b51b7bb64a51a34244293bf850dc0c6bd7589b063c922ec94d06fb1cb48f",
-      "src/content/registry.ts": "58cfda243367ed7b1809a6cd24fc8086b7f1549399cecaee5844fe3c00346735",
-      "src/domain/copper.ts": "aa37b35661561bd80ae796199d6af96f507c1983521afbac9e08c66781e0ecde",
+      "src/app/content.ts": "8a572a837f6d029c64d4b5e93d482f6cb67d250b9519170c0985c461e3fb7cfe",
+      "src/app/save-policy.ts": "de85596888f2f8f61565e5b48f23eef93a915c88242efec5bdd4128e7f2d7ad0",
+      "src/content/registry.ts": "34534fc6424160b837dfb72ca02c4482b6588dd23a7e81866b858b660c3181b1",
+      "src/domain/capabilities.ts": "a4b4d1e1edcc8d4249d9be477ad0735fd65b0c2e2adbc3879ce195310b5ce40d",
+      "src/domain/copper.ts": "7f80a79f306242d993489de97fc41402eb1295e29b274d39bee951dc37494d89",
+      "src/domain/packet-journey.ts": "65caaf9939bd8052909e40c4289ba9da531d4dc6194314a31b83d4f066a326bc",
+      "src/domain/power.ts": "014074e3ef078a36f9fd2671d6593a67ccc7ebc8a88500be42028511ae842e8f",
       "src/services/save-validator.ts": "edb228b32f84b6c536a9f352c4fcee7dd85157c52ee2ae40b130aa36ebde266c",
+      "src/state/copper-scenario.ts": "db3692165cceb049a89d5b1f3189bd513e01e770e6b5335cdb4200492c4e12b8",
+      "src/state/equipment-scenarios.ts": "7466d4fa878e2f7da5f150f14f45b403823b3bcaaf7128abebd2e626bcaa8654",
       "src/state/notebook.ts": "40bd0cd002a1db14a7065f662e276040bab1fba1906b1f7482a1c89ea7ae63f7",
-      "tools/generate-save-content-policy.ts": "e5f11d79202a514f39d37b3a841e676d61846c02fe146c934ee08d80877967cb"
+      "src/state/objectives.ts": "3bfa620e3314097a7ab38552942f7676f5b0d1c0f758a9b3cd0b9707762a6eae",
+      "src/state/repair-plan.ts": "8a88d5f08773b6a4026f78128f49b74a4f89516a89c65c8382ee6d09a04168f6",
+      "tools/generate-save-content-policy.ts": "504a2bc7648a4122efd11855354d29acdf92c2f02343701579c961f8d40d64c5"
     }
   },
   "policies": [
@@ -42,11 +82,27 @@
       "members": {
         "room": [
           "spec001:R01",
-          "spec001:R02"
+          "spec001:R02",
+          "spec001:R03",
+          "spec001:R04",
+          "spec001:R09",
+          "spec001:R10",
+          "spec001:R11",
+          "spec001:R12"
         ],
         "objective": [
           "spec001:O01",
-          "spec001:O02"
+          "spec001:O02",
+          "spec001:O03",
+          "spec001:O04",
+          "spec001:O05",
+          "spec001:O06",
+          "spec001:O07",
+          "spec001:O08",
+          "spec001:O09",
+          "spec001:O10",
+          "spec001:O11",
+          "spec001:O12"
         ],
         "quest": [],
         "achievement": [],
@@ -73,7 +129,98 @@
           "spec001:EFFECT-path-declared",
           "spec001:EFFECT-hypothesis-pinned",
           "spec001:EFFECT-O01",
-          "spec001:EFFECT-O02"
+          "spec001:EFFECT-O02",
+          "spec001:EFFECT-O03",
+          "spec001:EFFECT-O04",
+          "spec001:EFFECT-O05",
+          "spec001:EFFECT-O06",
+          "spec001:EFFECT-O07",
+          "spec001:EFFECT-O08",
+          "spec001:EFFECT-O09",
+          "spec001:EFFECT-O10",
+          "spec001:EFFECT-O11-route-copper",
+          "spec001:EFFECT-O11-route-fiber",
+          "spec001:EFFECT-O11-route-radio",
+          "spec001:EFFECT-O11",
+          "spec001:EFFECT-O12",
+          "spec001:EFFECT-copper-read-compatibility",
+          "spec001:EFFECT-copper-read-defect",
+          "spec001:EFFECT-copper-restore-original",
+          "spec001:EFFECT-copper-replace-section",
+          "spec001:EFFECT-copper-alternate-path",
+          "spec001:EFFECT-copper-read-before",
+          "spec001:EFFECT-copper-read-repeater",
+          "spec001:EFFECT-copper-repeater-requires-continuity",
+          "spec001:EFFECT-copper-repeater-bridges-open",
+          "spec001:EFFECT-market-original-over-budget",
+          "spec001:EFFECT-market-compatible-kit-A",
+          "spec001:EFFECT-market-compatible-kit-B",
+          "spec001:EFFECT-market-same-shell-mismatch",
+          "spec001:EFFECT-market-per-port-failure",
+          "spec001:EFFECT-market-read-checklist",
+          "spec001:EFFECT-market-read-power",
+          "spec001:EFFECT-equipment-mode-100-full",
+          "spec001:EFFECT-equipment-mode-1000-full",
+          "spec001:EFFECT-equipment-mode-10-half",
+          "spec001:EFFECT-equipment-read-capabilities",
+          "spec001:EFFECT-clock-read-capabilities",
+          "spec001:EFFECT-clock-step-and-decode",
+          "spec001:EFFECT-clock-notebook-and-replay",
+          "spec001:EFFECT-clock-role-physical",
+          "spec001:EFFECT-clock-role-address",
+          "spec001:EFFECT-clock-read-scope",
+          "spec001:EFFECT-clock-read-samples",
+          "spec001:EFFECT-clock-sample-0",
+          "spec001:EFFECT-clock-sample-1",
+          "spec001:EFFECT-clock-sample-2",
+          "spec001:EFFECT-clock-sample-3",
+          "spec001:EFFECT-clock-replay",
+          "spec001:EFFECT-clock-pair-0-00",
+          "spec001:EFFECT-clock-pair-0-01",
+          "spec001:EFFECT-clock-pair-0-10",
+          "spec001:EFFECT-clock-pair-0-11",
+          "spec001:EFFECT-clock-pair-1-00",
+          "spec001:EFFECT-clock-pair-1-01",
+          "spec001:EFFECT-clock-pair-1-10",
+          "spec001:EFFECT-clock-pair-1-11",
+          "spec001:EFFECT-clock-pair-2-00",
+          "spec001:EFFECT-clock-pair-2-01",
+          "spec001:EFFECT-clock-pair-2-10",
+          "spec001:EFFECT-clock-pair-2-11",
+          "spec001:EFFECT-clock-pair-3-00",
+          "spec001:EFFECT-clock-pair-3-01",
+          "spec001:EFFECT-clock-pair-3-10",
+          "spec001:EFFECT-clock-pair-3-11",
+          "spec001:EFFECT-repair-plan-copper-section",
+          "spec001:EFFECT-repair-plan-copper-alternate",
+          "spec001:EFFECT-repair-plan-fiber-A",
+          "spec001:EFFECT-repair-plan-fiber-B",
+          "spec001:EFFECT-repair-plan-radio-A",
+          "spec001:EFFECT-repair-plan-radio-B",
+          "spec001:EFFECT-repair-plan-shutdown",
+          "spec001:EFFECT-repair-duration-permanent",
+          "spec001:EFFECT-repair-duration-temporary",
+          "spec001:EFFECT-repair-read-plan",
+          "spec001:EFFECT-repair-record-maintenance",
+          "spec001:EFFECT-repair-record-isolation",
+          "spec001:EFFECT-repair-read-classification",
+          "spec001:EFFECT-repair-execute-copper-section",
+          "spec001:EFFECT-repair-execute-record-copper-section",
+          "spec001:EFFECT-repair-execute-copper-alternate",
+          "spec001:EFFECT-repair-execute-record-copper-alternate",
+          "spec001:EFFECT-repair-execute-fiber-A",
+          "spec001:EFFECT-repair-execute-record-fiber-A",
+          "spec001:EFFECT-repair-execute-fiber-B",
+          "spec001:EFFECT-repair-execute-record-fiber-B",
+          "spec001:EFFECT-repair-execute-radio-A",
+          "spec001:EFFECT-repair-execute-record-radio-A",
+          "spec001:EFFECT-repair-execute-radio-B",
+          "spec001:EFFECT-repair-execute-record-radio-B",
+          "spec001:EFFECT-repair-execute-shutdown",
+          "spec001:EFFECT-repair-execute-record-shutdown",
+          "spec001:EFFECT-repair-classify-permanent",
+          "spec001:EFFECT-repair-classify-temporary",
+          "spec001:EFFECT-repair-classify-shutdown"
         ],
         "item": [
           "spec001:ITEM-inspection-kit"
@@ -88,7 +235,22 @@
           "spec001:FLAG-path-mode",
           "spec001:FLAG-endpoints-identified",
           "spec001:FLAG-path-declared",
-          "spec001:FLAG-hypothesis-pinned"
+          "spec001:FLAG-hypothesis-pinned",
+          "spec001:FLAG-copper-path",
+          "spec001:FLAG-copper-repeater-claim",
+          "spec001:FLAG-market-kit",
+          "spec001:FLAG-equipment-capability",
+          "spec001:FLAG-clock-method",
+          "spec001:FLAG-clock-role",
+          "spec001:FLAG-clock-sample",
+          "spec001:FLAG-clock-bits-0",
+          "spec001:FLAG-clock-bits-1",
+          "spec001:FLAG-clock-bits-2",
+          "spec001:FLAG-clock-bits-3",
+          "spec001:FLAG-repair-selected",
+          "spec001:FLAG-repair-duration",
+          "spec001:FLAG-repair-executed",
+          "spec001:FLAG-repair-classification"
         ],
         "compendium": [],
         "fact": [
@@ -101,7 +263,40 @@
           "spec001:FACT-endpoint-a",
           "spec001:FACT-endpoint-b",
           "spec001:FACT-path",
-          "spec001:FACT-titan-clue"
+          "spec001:FACT-titan-clue",
+          "spec001:FACT-O03-compatibility",
+          "spec001:FACT-O03-defect",
+          "spec001:FACT-O03-path",
+          "spec001:FACT-O04-before",
+          "spec001:FACT-O04-after",
+          "spec001:FACT-O04-repeater-limit",
+          "spec001:FACT-O05-matching",
+          "spec001:FACT-O05-inspection",
+          "spec001:FACT-O06-budget",
+          "spec001:FACT-O06-compatibility",
+          "spec001:FACT-O07-path",
+          "spec001:FACT-O07-settings",
+          "spec001:FACT-O08-snr",
+          "spec001:FACT-O08-survey",
+          "spec001:FACT-O09-module",
+          "spec001:FACT-O09-power",
+          "spec001:FACT-O09-capability",
+          "spec001:FACT-O10-symbols",
+          "spec001:FACT-O10-scope",
+          "spec001:FACT-O11-plan",
+          "spec001:FACT-O11-execution",
+          "spec001:FACT-O12-validation",
+          "spec001:FACT-O12-classification",
+          "spec001:FACT-market-checklist",
+          "spec001:FACT-market-ledger",
+          "spec001:FACT-market-loans",
+          "spec001:FACT-clockworks-sampling",
+          "spec001:FACT-clockworks-capabilities",
+          "spec001:FACT-clockworks-role",
+          "spec001:FACT-clockworks-replay",
+          "spec001:FACT-repair-maintenance",
+          "spec001:FACT-repair-isolation",
+          "spec001:FACT-repair-lab"
         ],
         "hint": [
           "spec001:HINT-O01-method",
@@ -109,7 +304,37 @@
           "spec001:HINT-O01-solution",
           "spec001:HINT-O02-method",
           "spec001:HINT-O02-workedStep",
-          "spec001:HINT-O02-solution"
+          "spec001:HINT-O02-solution",
+          "spec001:HINT-O03-method",
+          "spec001:HINT-O03-workedStep",
+          "spec001:HINT-O03-solution",
+          "spec001:HINT-O04-method",
+          "spec001:HINT-O04-workedStep",
+          "spec001:HINT-O04-solution",
+          "spec001:HINT-O05-method",
+          "spec001:HINT-O05-workedStep",
+          "spec001:HINT-O05-solution",
+          "spec001:HINT-O06-method",
+          "spec001:HINT-O06-workedStep",
+          "spec001:HINT-O06-solution",
+          "spec001:HINT-O07-method",
+          "spec001:HINT-O07-workedStep",
+          "spec001:HINT-O07-solution",
+          "spec001:HINT-O08-method",
+          "spec001:HINT-O08-workedStep",
+          "spec001:HINT-O08-solution",
+          "spec001:HINT-O09-method",
+          "spec001:HINT-O09-workedStep",
+          "spec001:HINT-O09-solution",
+          "spec001:HINT-O10-method",
+          "spec001:HINT-O10-workedStep",
+          "spec001:HINT-O10-solution",
+          "spec001:HINT-O11-method",
+          "spec001:HINT-O11-workedStep",
+          "spec001:HINT-O11-solution",
+          "spec001:HINT-O12-method",
+          "spec001:HINT-O12-workedStep",
+          "spec001:HINT-O12-solution"
         ],
         "rule": [
           "spec001:PHY01",
@@ -352,6 +577,44 @@
             "stable-exploration",
             "safe-preparation"
           ]
+        },
+        "spec001:R03.entry": {
+          "roomId": "spec001:R03",
+          "eligibleStates": [
+            "stable-exploration"
+          ]
+        },
+        "spec001:R04.entry": {
+          "roomId": "spec001:R04",
+          "eligibleStates": [
+            "stable-exploration"
+          ]
+        },
+        "spec001:R09.entry": {
+          "roomId": "spec001:R09",
+          "eligibleStates": [
+            "stable-exploration"
+          ]
+        },
+        "spec001:R10.entry": {
+          "roomId": "spec001:R10",
+          "eligibleStates": [
+            "stable-exploration"
+          ]
+        },
+        "spec001:R11.preparation": {
+          "roomId": "spec001:R11",
+          "eligibleStates": [
+            "stable-exploration",
+            "safe-preparation"
+          ]
+        },
+        "spec001:R12.entry": {
+          "roomId": "spec001:R12",
+          "eligibleStates": [
+            "stable-exploration",
+            "safe-continue"
+          ]
         }
       },
       "itemMaxQuantities": {
@@ -382,6 +645,126 @@
         "spec001:HINT-O02-solution": {
           "objectiveId": "spec001:O02",
           "level": 3
+        },
+        "spec001:HINT-O03-method": {
+          "objectiveId": "spec001:O03",
+          "level": 1
+        },
+        "spec001:HINT-O03-workedStep": {
+          "objectiveId": "spec001:O03",
+          "level": 2
+        },
+        "spec001:HINT-O03-solution": {
+          "objectiveId": "spec001:O03",
+          "level": 3
+        },
+        "spec001:HINT-O04-method": {
+          "objectiveId": "spec001:O04",
+          "level": 1
+        },
+        "spec001:HINT-O04-workedStep": {
+          "objectiveId": "spec001:O04",
+          "level": 2
+        },
+        "spec001:HINT-O04-solution": {
+          "objectiveId": "spec001:O04",
+          "level": 3
+        },
+        "spec001:HINT-O05-method": {
+          "objectiveId": "spec001:O05",
+          "level": 1
+        },
+        "spec001:HINT-O05-workedStep": {
+          "objectiveId": "spec001:O05",
+          "level": 2
+        },
+        "spec001:HINT-O05-solution": {
+          "objectiveId": "spec001:O05",
+          "level": 3
+        },
+        "spec001:HINT-O06-method": {
+          "objectiveId": "spec001:O06",
+          "level": 1
+        },
+        "spec001:HINT-O06-workedStep": {
+          "objectiveId": "spec001:O06",
+          "level": 2
+        },
+        "spec001:HINT-O06-solution": {
+          "objectiveId": "spec001:O06",
+          "level": 3
+        },
+        "spec001:HINT-O07-method": {
+          "objectiveId": "spec001:O07",
+          "level": 1
+        },
+        "spec001:HINT-O07-workedStep": {
+          "objectiveId": "spec001:O07",
+          "level": 2
+        },
+        "spec001:HINT-O07-solution": {
+          "objectiveId": "spec001:O07",
+          "level": 3
+        },
+        "spec001:HINT-O08-method": {
+          "objectiveId": "spec001:O08",
+          "level": 1
+        },
+        "spec001:HINT-O08-workedStep": {
+          "objectiveId": "spec001:O08",
+          "level": 2
+        },
+        "spec001:HINT-O08-solution": {
+          "objectiveId": "spec001:O08",
+          "level": 3
+        },
+        "spec001:HINT-O09-method": {
+          "objectiveId": "spec001:O09",
+          "level": 1
+        },
+        "spec001:HINT-O09-workedStep": {
+          "objectiveId": "spec001:O09",
+          "level": 2
+        },
+        "spec001:HINT-O09-solution": {
+          "objectiveId": "spec001:O09",
+          "level": 3
+        },
+        "spec001:HINT-O10-method": {
+          "objectiveId": "spec001:O10",
+          "level": 1
+        },
+        "spec001:HINT-O10-workedStep": {
+          "objectiveId": "spec001:O10",
+          "level": 2
+        },
+        "spec001:HINT-O10-solution": {
+          "objectiveId": "spec001:O10",
+          "level": 3
+        },
+        "spec001:HINT-O11-method": {
+          "objectiveId": "spec001:O11",
+          "level": 1
+        },
+        "spec001:HINT-O11-workedStep": {
+          "objectiveId": "spec001:O11",
+          "level": 2
+        },
+        "spec001:HINT-O11-solution": {
+          "objectiveId": "spec001:O11",
+          "level": 3
+        },
+        "spec001:HINT-O12-method": {
+          "objectiveId": "spec001:O12",
+          "level": 1
+        },
+        "spec001:HINT-O12-workedStep": {
+          "objectiveId": "spec001:O12",
+          "level": 2
+        },
+        "spec001:HINT-O12-solution": {
+          "objectiveId": "spec001:O12",
+          "level": 3
         }
       },
       "objectivePrerequisites": {
@@ -408,6 +791,188 @@
               "objectiveId": "spec001:O01"
             }
           ]
+        },
+        "spec001:O03": {
+          "kind": "all",
+          "conditions": [
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O02"
+            },
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O02"
+            }
+          ]
+        },
+        "spec001:O04": {
+          "kind": "all",
+          "conditions": [
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O03"
+            },
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O03"
+            }
+          ]
+        },
+        "spec001:O05": {
+          "kind": "all",
+          "conditions": [
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O02"
+            },
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O02"
+            }
+          ]
+        },
+        "spec001:O06": {
+          "kind": "all",
+          "conditions": [
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O05"
+            },
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O05"
+            }
+          ]
+        },
+        "spec001:O07": {
+          "kind": "all",
+          "conditions": [
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O02"
+            },
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O02"
+            }
+          ]
+        },
+        "spec001:O08": {
+          "kind": "all",
+          "conditions": [
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O07"
+            },
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O07"
+            }
+          ]
+        },
+        "spec001:O09": {
+          "kind": "all",
+          "conditions": [
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O02"
+            },
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O02"
+            }
+          ]
+        },
+        "spec001:O10": {
+          "kind": "all",
+          "conditions": [
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O02"
+            },
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O02"
+            }
+          ]
+        },
+        "spec001:O11": {
+          "kind": "all",
+          "conditions": [
+            {
+              "kind": "all",
+              "conditions": [
+                {
+                  "kind": "any",
+                  "conditions": [
+                    {
+                      "kind": "objective-complete",
+                      "objectiveId": "spec001:O04"
+                    },
+                    {
+                      "kind": "objective-complete",
+                      "objectiveId": "spec001:O06"
+                    },
+                    {
+                      "kind": "objective-complete",
+                      "objectiveId": "spec001:O08"
+                    }
+                  ]
+                },
+                {
+                  "kind": "objective-complete",
+                  "objectiveId": "spec001:O09"
+                },
+                {
+                  "kind": "objective-complete",
+                  "objectiveId": "spec001:O10"
+                }
+              ]
+            },
+            {
+              "kind": "all",
+              "conditions": [
+                {
+                  "kind": "any",
+                  "conditions": [
+                    {
+                      "kind": "objective-complete",
+                      "objectiveId": "spec001:O04"
+                    },
+                    {
+                      "kind": "objective-complete",
+                      "objectiveId": "spec001:O06"
+                    },
+                    {
+                      "kind": "objective-complete",
+                      "objectiveId": "spec001:O08"
+                    }
+                  ]
+                },
+                {
+                  "kind": "objective-complete",
+                  "objectiveId": "spec001:O09"
+                },
+                {
+                  "kind": "objective-complete",
+                  "objectiveId": "spec001:O10"
+                }
+              ]
+            }
+          ]
+        },
+        "spec001:O12": {
+          "kind": "all",
+          "conditions": [
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O11"
+            },
+            {
+              "kind": "objective-complete",
+              "objectiveId": "spec001:O11"
+            }
+          ]
         }
       },
       "measurementRules": {
@@ -416,15 +981,127 @@
             "Channel length": "m",
             "Inclusive maximum": "m",
             "Excess": "m",
-            "Headroom": "m"
+            "Headroom": "m",
+            "Compatible path": "count",
+            "Total channel length": "m",
+            "Open required conductors": "count",
+            "Historical open recorded": "count",
+            "Repeater role distinguished": "count"
           },
           "conclusionCodes": [
             "length-exceeded",
-            "length-within-profile"
+            "length-within-profile",
+            "O03:ACTION-O03-section-replacement:correct",
+            "O03:ACTION-O03-section-replacement:incorrect",
+            "O03:ACTION-O03-alternate-passive-path:correct",
+            "O03:ACTION-O03-alternate-passive-path:incorrect",
+            "O04:ACTION-O04-conventional-continuity-tool:correct",
+            "O04:ACTION-O04-conventional-continuity-tool:incorrect"
+          ]
+        },
+        "spec001:PHY08": {
+          "readings": {
+            "Delivered budget": "W",
+            "Total delivered demand": "W",
+            "Delivered headroom": "W",
+            "Delivered excess": "W",
+            "Selected common rate": "Mbps",
+            "Selected full duplex": "count",
+            "Common mode supported": "count"
+          },
+          "conclusionCodes": [
+            "O09:ACTION-O09-compatible-kit-A:correct",
+            "O09:ACTION-O09-compatible-kit-A:incorrect",
+            "O09:ACTION-O09-compatible-kit-B:correct",
+            "O09:ACTION-O09-compatible-kit-B:incorrect"
+          ]
+        },
+        "spec001:PHY10": {
+          "readings": {
+            "Represented bits": "bit",
+            "Symbols decoded": "symbol",
+            "Decoded pattern matches": "count",
+            "Selected common rate": "Mbps",
+            "Selected full duplex": "count",
+            "Common mode supported": "count",
+            "Physical role distinguished": "count"
+          },
+          "conclusionCodes": [
+            "O10:ACTION-O10-step-and-decode:correct",
+            "O10:ACTION-O10-step-and-decode:incorrect",
+            "O10:ACTION-O10-notebook-and-replay:correct",
+            "O10:ACTION-O10-notebook-and-replay:incorrect"
+          ]
+        },
+        "spec001:STATE04": {
+          "readings": {
+            "Damaged installation removed": "count",
+            "Temporary dependency remains": "count",
+            "Unresolved defect identified": "count",
+            "Deliberate isolation": "count",
+            "Total channel length": "m",
+            "Inclusive maximum": "m",
+            "Current route checks pass": "count",
+            "Current equipment and calibration pass": "count",
+            "Deliberate isolation proposed": "count",
+            "Endpoint service acknowledged": "count"
+          },
+          "conclusionCodes": [
+            "repair:review:copper-section:permanent:correct",
+            "repair:review:copper-section:permanent:incorrect",
+            "repair:review:copper-section:temporary:correct",
+            "repair:review:copper-section:temporary:incorrect",
+            "repair:review:copper-alternate:permanent:correct",
+            "repair:review:copper-alternate:permanent:incorrect",
+            "repair:review:copper-alternate:temporary:correct",
+            "repair:review:copper-alternate:temporary:incorrect",
+            "repair:review:shutdown:permanent:correct",
+            "repair:review:shutdown:permanent:incorrect",
+            "repair:review:shutdown:temporary:correct",
+            "repair:review:shutdown:temporary:incorrect",
+            "repair:endpoint:copper-section:permanent:correct",
+            "repair:endpoint:copper-section:permanent:incorrect",
+            "repair:endpoint:copper-section:temporary:correct",
+            "repair:endpoint:copper-section:temporary:incorrect",
+            "repair:endpoint:copper-alternate:permanent:correct",
+            "repair:endpoint:copper-alternate:permanent:incorrect",
+            "repair:endpoint:copper-alternate:temporary:correct",
+            "repair:endpoint:copper-alternate:temporary:incorrect"
+          ]
+        },
+        "spec001:PHY11": {
+          "readings": {
+            "Damaged installation removed": "count",
+            "Temporary dependency remains": "count",
+            "Unresolved defect identified": "count",
+            "Deliberate isolation": "count",
+            "Total channel length": "m",
+            "Inclusive maximum": "m",
+            "Current route checks pass": "count",
+            "Current equipment and calibration pass": "count",
+            "Recovered highlighted bits": "bit",
+            "Differing highlighted positions": "count"
+          },
+          "conclusionCodes": [
+            "repair:link:copper-section:permanent:correct",
+            "repair:link:copper-section:permanent:incorrect",
+            "repair:link:copper-section:temporary:correct",
+            "repair:link:copper-section:temporary:incorrect",
+            "repair:link:copper-alternate:permanent:correct",
+            "repair:link:copper-alternate:permanent:incorrect",
+            "repair:link:copper-alternate:temporary:correct",
+            "repair:link:copper-alternate:temporary:incorrect"
           ]
         }
       },
-      "unsafeFlags": {}
+      "unsafeFlags": {
+        "spec001:FLAG-repair-executed": [
+          "shutdown"
+        ],
+        "spec001:FLAG-repair-classification": [
+          "shutdown"
+        ]
+      }
     }
   ]
 }

@@ -103,7 +103,7 @@ describe('T048 immutable safe snapshot captures and generation accounting', () =
     const { state } = setup(), game = state.runtime.game!;
     expect(captureSafeSnapshot(createReducerState(createIntroductionRuntime()), validator)).toMatchObject({ ok: false, code: 'safe-state' });
     for (const world of [
-      { ...game.world, roomId: 'spec001:R03', position: { safePositionId: 'spec001:R03.entry' } },
+      { ...game.world, roomId: 'spec001:R05', position: { safePositionId: 'spec001:R05.entry' } },
       { ...game.world, position: { safePositionId: 'spec001:R02.entry' } },
       { ...game.world, continueOutcome: 'E03' },
     ]) expect(captureSafeSnapshot(withRuntime(state, { ...state.runtime, game: { ...game, world } } as RuntimeState), validator).ok).toBe(false);

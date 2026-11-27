@@ -69,7 +69,7 @@ describe('T048 supported-version reading and explicit in-memory migration', () =
     if (result.status === 'ready') expect(result.snapshot).toEqual(captured.capture.snapshot);
     expect(actual.read(bytes(baseline.expected))).toMatchObject({ status: 'invalid', code: 'reference' });
     const invalid = structuredClone(captured.capture.snapshot);
-    const raw = { ...invalid, world: { ...invalid.world, roomId: 'spec001:R03', position: { safePositionId: 'spec001:R03.entry' } } };
+    const raw = { ...invalid, world: { ...invalid.world, roomId: 'spec001:R05', position: { safePositionId: 'spec001:R05.entry' } } };
     expect(actual.read(bytes(raw))).toMatchObject({ status: 'invalid', code: 'reference' });
   });
 

@@ -1,5 +1,6 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
-import type { ActionId, QualifiedId } from '../domain/types';
+import type { ActionId, ObjectiveId, QualifiedId } from '../domain/types';
+import type { ToySymbolProfile } from '../domain/packet-journey';
 import { createNavigation } from '../state/navigation';
 import { createReducer, createReducerState } from '../state/reducer';
 import type { ReducerState } from '../state/reducer';
@@ -25,6 +26,17 @@ import { SaveReader } from '../state/save-migrations';
 import { AutosaveController } from '../state/autosave';
 import { publicPaths } from '../config';
 import { createVerbController } from '../ui/verbs';
+import type { HotspotBinding } from '../ui/verbs';
+import { createDiagnosticsController, createDiagnosticsPanel } from '../ui/diagnostics';
+import { createRepairPlanController, createRepairPlanPanel } from '../ui/repair-plan';
+import { copperEffectBindings, createCopperScenarioResolver } from '../state/copper-scenario';
+import { createEquipmentScenarioResolver, equipmentInteractionBindings, inspectClockworksSamples } from '../state/equipment-scenarios';
+import { objectiveEffectBindings } from '../state/objectives';
+import type { ObjectiveScenarioResolver } from '../state/objectives';
+import { createRepairScenarioResolver, repairEffectBindings } from '../state/repair-plan';
+import routeNotebook from '../../content/spec001/notebook-first-route.json';
+import introLayouts from '../../content/spec001/presentation/introduction-graybox.json';
+import routeLayouts from '../../content/spec001/presentation/first-route-graybox.json';
 import { createIntroductionGraybox, type GrayboxGeometry, type IntroductionGrayboxView } from '../presentation/introduction-graybox';
 import { createRoomAdapter, type RoomSettings } from '../presentation/room-adapter';
 import { createResourcePool } from '../presentation/resource-pool';
@@ -40,26 +52,50 @@ const q = <T extends string = string>(id: string) => `spec001:${id}` as Qualifie
 /** Actual browser composition. No public state hook, browser storage or provider simulation. */
 export function createIntroductionApplication(host: HTMLElement) {
   const { registry, world } = loadIntroductionContent(), bindings = introductionBindings(registry), media = resolveRoomMedia(registry);
+  const equipmentBindings = equipmentInteractionBindings(registry), copperEffects = copperEffectBindings(registry);
+  if (!copperEffects.length) throw new Error('The copper preparation actions could not be validated.');
+  const copperBindings: HotspotBinding[] = [
+    ['R03', 'copper-bench-cards', 'read-compatibility'], ['R03', 'copper-original-section', 'read-defect'],
+    ['R03', 'copper-original-section', 'restore-original'], ['R03', 'copper-replacement', 'replace-section'],
+    ['R03', 'copper-alternate-path', 'alternate-path'], ['R04', 'echo-before-case', 'read-before'],
+    ['R04', 'echo-repeater-core', 'read-repeater'], ['R04', 'echo-repeater-core', 'repeater-requires-continuity'],
+    ['R04', 'echo-repeater-core', 'repeater-bridges-open'],
+  ].map(([room, hotspot, choice]) => ({ roomId: q<'room'>(room!), hotspotId: q(`HOTSPOT-${hotspot}`), verb: 'use', itemId: null,
+    actionId: q(`ACTION-copper-${choice}`), sourceId: q(`DIALOGUE-copper-${room === 'R03' ? 'bench' : 'exhibit'}`), mode: 'effects' }));
+  const copperScenario = createCopperScenarioResolver(registry), equipmentScenario = createEquipmentScenarioResolver(registry);
+  const objectiveScenario: ObjectiveScenarioResolver = (game, id) => copperScenario(game, id) ?? equipmentScenario(game, id);
+  const repairScenario = createRepairScenarioResolver(registry);
+  const effectBindings = [...bindings.effects, ...copperEffects, ...equipmentBindings.effects,
+    ...objectiveEffectBindings(registry, ['O03', 'O04', 'O09', 'O10'].map(id => q<'objective'>(id))), ...repairEffectBindings(registry)];
+  const routeObjective = (room: string | undefined): ObjectiveId | null => {
+    const id = ({ 'spec001:R03': 'O03', 'spec001:R04': 'O04', 'spec001:R09': 'O09', 'spec001:R10': 'O10', 'spec001:R11': 'O11', 'spec001:R12': 'O12' } as Record<string, string>)[room ?? ''];
+    return id ? q<'objective'>(id) : null;
+  };
+  let activityPanel: 'diagnostics' | 'repair' | null = null, activityRoom: string | null = null;
   const defaultPresentation: PresentationSettings = { musicVolume: 1, effectsVolume: 1, voiceVolume: 1, captions: true, reducedMotion: 'system', textScale: 1 };
   let loadedApiGeneration: ReturnType<GameApi['capture']> | null = null, loadedAuthGeneration: number | null = null, preferenceReviewRequired = false;
   let presentation = defaultPresentation, preferenceMessage = 'Guest preferences last for this tab.', preferenceRevision = '', preferenceOperation: object | null = null;
   const navigation = createNavigation({ registry, world, entries: [
     { roomId: q('R01'), safePositionId: q('R01.entry'), activity: 'stable-exploration' },
     { roomId: q('R02'), safePositionId: q('R02.entry'), activity: 'stable-exploration' },
+    ...['R03', 'R04', 'R09', 'R10', 'R12'].map(id => ({ roomId: q<'room'>(id), safePositionId: q<'safe-position'>(`${id}.entry`), activity: 'stable-exploration' as const })),
+    { roomId: q('R11'), safePositionId: q('R11.preparation'), activity: 'safe-preparation' },
   ] });
   let state = createReducerState(createIntroductionRuntime());
   const store = { getState: () => state,
-    reduce: createTutorialReducer({ registry, reduce: createReducer({ registry, bindings: bindings.effects, canReachRoom: navigation.canReachRoom }), nextActionId: () => crypto.randomUUID() as ActionId }),
+    reduce: createTutorialReducer({ registry, reduce: createReducer({ registry, bindings: effectBindings, objectiveScenario, repairScenario, canReachRoom: navigation.canReachRoom }), nextActionId: () => crypto.randomUUID() as ActionId }),
     // Controllers finish their own transient session updates after this returns.
     compareAndSet: (expected: ReducerState, next: ReducerState) => { if (state !== expected) return false; state = next; return true; },
   };
   const bus = createActionBus({ getContext: () => contextFromRuntime(state.runtime) });
-  const notebook = createNotebookController({ registry, store, bus });
-  const dialogue = createDialogueController({ registry, store, bus, bindings: introductionDialogueBindings, effectBindings: bindings.effects });
+  const notebook = createNotebookController({ registry, store, bus, presentation: routeNotebook });
+  const dialogue = createDialogueController({ registry, store, bus, bindings: introductionDialogueBindings, effectBindings });
+  const diagnostics = createDiagnosticsController({ registry, store, bus, resolveScenario: objectiveScenario });
+  const repair = createRepairPlanController({ registry, store, bus, resolveScenario: repairScenario });
   const inventory = createInventoryController({ registry, store, bus });
   const packet = createPacketActivityController({ registry, store, bus });
   const sceneBindings = bindings.hotspots.filter(binding => !(binding.roomId === q('R01') && binding.hotspotId === q('HOTSPOT-capsule') && binding.actionId === q('ACTION-packet-context')));
-  const verbs = createVerbController({ registry, store, bus, bindings: [...sceneBindings, ...notebook.hotspotBindings, ...dialogue.hotspotBindings, ...packet.hotspotBindings],
+  const verbs = createVerbController({ registry, store, bus, bindings: [...sceneBindings, ...copperBindings, ...equipmentBindings.hotspots, ...notebook.hotspotBindings, ...dialogue.hotspotBindings, ...packet.hotspotBindings],
     walk: createNavigationPlanner({ navigation, store }), sceneObjects: createSceneObjectProjection({ registry, navigation }), panels: notebook.panels });
   const mediaHost = host.ownerDocument.createElement('div');
   const menuHost = host.ownerDocument.createElement('div'), saveHost = host.ownerDocument.createElement('div'), settingsHost = host.ownerDocument.createElement('div'), adventureHost = host.ownerDocument.createElement('div'); host.replaceChildren(menuHost, mediaHost, saveHost, settingsHost, adventureHost);
@@ -69,7 +105,8 @@ export function createIntroductionApplication(host: HTMLElement) {
   const createPanels = () => {
     const shell = createAppShell(adventureHost, bus);
     const pool = createResourcePool<GrayboxGeometry>({ maxEntries: 2, maxInFlight: 1, maxPrefetch: 0, maxLeases: 2, maxBytes: 32_768 });
-    const graybox = createIntroductionGraybox(shell.presentationHost);
+    const layouts = { version: 1, rooms: [...introLayouts.rooms, ...routeLayouts.rooms] };
+    const graybox = createIntroductionGraybox(shell.presentationHost, { data: layouts, roomIds: layouts.rooms.map(room => room.roomId) });
     const mediaPool = createResourcePool<RoomResource>({ maxEntries: 16, maxInFlight: 4, maxPrefetch: 0, maxLeases: 32, maxBytes: 244_000_000 });
     const finished = createThreeRoom(shell.presentationHost, media, publicPaths.gameBase);
     const sound = createRoomAudioPanel(mediaHost, media, publicPaths.gameBase, next => { void changePresentation(next); }, () => { void refreshPresentation(); });
@@ -94,6 +131,14 @@ export function createIntroductionApplication(host: HTMLElement) {
       button.addEventListener('click', () => { mode = nextMode; detail = nextDetail; activeAdapter().setMode(mode, detail); }, { signal: events.signal }); visualControls.append(button);
     }
     frame.attach(shell, visualControls);
+    const diagnosticButton = host.ownerDocument.createElement('button'), repairButton = host.ownerDocument.createElement('button');
+    diagnosticButton.type = repairButton.type = 'button'; diagnosticButton.textContent = 'Diagnostics';
+    diagnosticButton.hidden = repairButton.hidden = true;
+    const contextControls = shell.element.querySelector('.nq-frame-tools')!;
+    contextControls.append(diagnosticButton, repairButton);
+    diagnosticButton.addEventListener('click', () => { activityPanel = 'diagnostics'; render(); }, { signal: events.signal });
+    repairButton.addEventListener('click', () => { activityPanel = 'repair'; render(); }, { signal: events.signal });
+    const closeActivity = () => { activityPanel = null; render(); };
     const dismissProgress = host.ownerDocument.createElement('button'); dismissProgress.type = 'button'; dismissProgress.textContent = 'Dismiss investigation progress'; dismissProgress.hidden = true;
     shell.element.querySelector('.nq-shell-captions')!.append(dismissProgress);
     let progressGame = state.runtime.game;
@@ -109,14 +154,20 @@ export function createIntroductionApplication(host: HTMLElement) {
       activeAdapter().show(view, { mode, detail, reducedMotion: reducedMotion() });
     },
       progress: (visible: boolean) => { progressGame = state.runtime.game; dismissProgress.hidden = !visible; },
+      contextual: (currentRoom: string | undefined) => {
+        diagnosticButton.hidden = !routeObjective(currentRoom);
+        repairButton.hidden = currentRoom !== q('R11') && currentRoom !== q('R12');
+        repairButton.textContent = currentRoom === q('R12') ? 'Validate repair' : 'Repair plan';
+      },
       disposeScene: () => { events.abort(); grayAdapter.dispose(); finishedAdapter.dispose(); graybox.dispose(); finished.dispose(); pool.dispose(); mediaPool.dispose(); sound.dispose(); visualControls.remove(); },
       notebook: createNotebookPanel(shell.panelHost, bus), dialogue: createDialoguePanel(shell.panelHost, bus), inventory: createInventoryPanel(shell.panelHost, bus),
+      diagnostics: createDiagnosticsPanel(shell.panelHost, bus, closeActivity), repair: createRepairPlanPanel(shell.panelHost, bus, closeActivity),
       packet: createPacketJourneyPanel(shell.panelHost, bus, { reducedMotion: () => {
         const preference = presentation.reducedMotion;
         return preference === 'on' || (preference === 'system' && host.ownerDocument.defaultView?.matchMedia('(prefers-reduced-motion: reduce)').matches === true);
       } }) };
   };
-  const disposePanels = () => { panels.disposeScene(); panels.packet.dispose(); panels.inventory.dispose(); panels.dialogue.dispose(); panels.notebook.dispose(); panels.shell.dispose(); };
+  const disposePanels = () => { panels.disposeScene(); panels.packet.dispose(); panels.inventory.dispose(); panels.dialogue.dispose(); panels.notebook.dispose(); panels.diagnostics.dispose(); panels.repair.dispose(); panels.shell.dispose(); };
   let panels = createPanels();
   let projectedGame = state.runtime.game, capture = bus.captureScope(contextFromRuntime(state.runtime)), disposed = false, focusRoom = false, installing = false;
   const window = host.ownerDocument.defaultView!;
@@ -133,7 +184,7 @@ export function createIntroductionApplication(host: HTMLElement) {
     accountScope = {}; if (preferenceOperation) preferenceMessage = 'Preferences apply in this tab. Account confirmation was interrupted.'; preferenceOperation = null;
     if (!settingsInstallation) accountSettings?.invalidateView();
     autosave?.invalidateView(); dismissedCompletions.clear();
-    packet.invalidate(); dialogue.invalidate(); notebook.invalidate(); bus.invalidate();
+    activityPanel = null; activityRoom = null; diagnostics.invalidate(); repair.invalidate(); packet.invalidate(); dialogue.invalidate(); notebook.invalidate(); bus.invalidate();
     disposePanels(); panels = createPanels(); projectedGame = null; capture = bus.captureScope(contextFromRuntime(state.runtime));
   };
   const saves = createSaveDialogsController({ api, account, coordinator, store, changed: () => render(), invalidateGameplay,
@@ -261,6 +312,8 @@ export function createIntroductionApplication(host: HTMLElement) {
       preferenceReviewRequired = false; preferenceMessage = 'Account presentation preferences loaded.';
     }
     const game = state.runtime.game;
+    if ((game?.world.roomId ?? null) !== activityRoom) { activityRoom = game?.world.roomId ?? null; activityPanel = null; }
+    panels.contextual(game?.world.roomId);
     panels.sound.show(game?.world.roomId ?? null, presentation, preferenceMessage, { authenticated: matchingPreferenceSession(), busy: !!preferenceOperation || accountSettings?.busy === true, reviewRequired: preferenceReviewRequired });
     frame.element.style.fontSize = `${presentation.textScale}rem`;
     adventureHost.hidden = game === null;
@@ -271,17 +324,25 @@ export function createIntroductionApplication(host: HTMLElement) {
       if (room?.kind !== 'room' || !name) throw new Error('The current room is unavailable.');
       const completions = game.world.completedObjectiveIds.filter(id => !dismissedCompletions.has(id)).flatMap(id => { const objective = registry.record(id); return objective?.kind === 'objective'
         ? [{ id: `completion:${id}`, speaker: 'Investigation progress', text: objective.completionExplanation }] : []; });
+      const symbolProfile = registry.record(q('PROFILE-SYMBOLS'));
+      const samples = symbolProfile?.kind === 'profile' ? inspectClockworksSamples(game, { id: symbolProfile.id, parameters: symbolProfile.parameters } as ToySymbolProfile) : null;
+      const trace = samples?.observations.find(observation => observation.kind === 'toy-trace');
+      const sampling = trace?.kind === 'toy-trace' ? [{ id: 'clockworks-samples', speaker: 'Sampling gate',
+        text: trace.samples.map((sample, index) => `Sample position ${sample.position}: ${sample.value} toy-level represents ${trace.pairs[index]}.`).join(' ') + ' This is the declared teaching map, not a complete PAM4 PHY.' }] : [];
       panels.progress(completions.length > 0);
       panels.show({ roomId: game.world.roomId, safePositionId: game.world.position.safePositionId,
         context: contextFromRuntime(state.runtime), title: name, description: room.description, controls: verbs.controls(), objects: verbs.objects(),
         evidence: notebookView.view.evidence.map(entry => ({ id: entry.id, label: entry.heading, text: entry.text, source: `${entry.sourceRoom} · ${entry.kind}`, freshness: entry.freshness })),
-        captions: [{ id: `ambience:${room.id}`, text: room.ambience.text }, ...completions] });
+        captions: [{ id: `ambience:${room.id}`, text: room.ambience.text }, ...sampling, ...completions] });
     }
     frame.preparePanels();
     panels.inventory.render(inventoryView(registry, state, [q('ITEM-inspection-kit')]), capture);
     panels.notebook.render(notebookView.view, notebookView.capture);
     const dialogueView = dialogue.project(); panels.dialogue.render(dialogueView.view, dialogueView.capture);
     const packetView = packet.project(); panels.packet.render(packetView.view, packetView.capture);
+    const objectiveId = routeObjective(game?.world.roomId);
+    panels.diagnostics.render(activityPanel === 'diagnostics' && objectiveId ? diagnostics.project(objectiveId) : null);
+    panels.repair.render(activityPanel === 'repair' ? repair.project() : null);
     // Focus the invitation only after the panel that just closed restores focus.
     menu.render(title.project());
     // Coordinator events and ordinary reducer edits both update save status.
@@ -311,7 +372,7 @@ export function createIntroductionApplication(host: HTMLElement) {
     if (input.kind === 'replay-dialogue' && input.dialogueId === q('DIALOGUE-photon-intro')) panels.sound.trigger('photon');
   }), unsubscribeAutosave = autosave?.subscribe(() => render()); render(); void saves.bootstrap();
   return { dispose() {
-    if (disposed) return; disposed = true; unsubscribe(); packet.dispose(); dialogue.dispose(); notebook.dispose(); inventory.dispose(); verbs.dispose();
+    if (disposed) return; disposed = true; unsubscribe(); diagnostics.dispose(); repair.dispose(); packet.dispose(); dialogue.dispose(); notebook.dispose(); inventory.dispose(); verbs.dispose();
     unsubscribeAutosave?.(); accountSettings?.dispose(); autosavePanel?.dispose(); settingsPanel?.dispose(); autosave?.dispose(); saves.dispose(); saveDialogs.dispose(); menu.dispose(); disposePanels(); frame.dispose(); bus.dispose();
   } };
 }

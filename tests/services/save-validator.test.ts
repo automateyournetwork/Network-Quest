@@ -157,15 +157,16 @@ describe('T042 new-write validation, without account/HTTP/transaction claims', (
     expect(new TextDecoder().decode(wire)).toBe(future);
   });
 
-  it('bridges real accepted content and rejects metadata-only room/anchor/objective/recruit claims', () => {
+  it('bridges real authored content and rejects reserved rooms, out-of-order objectives and unauthored recruits', () => {
     const { registry, world } = loadIntroductionContent();
     const actual = createSaveContentPolicy(registry, world, { itemMaxQuantities: { 'spec001:ITEM-inspection-kit': 1 }, measurementRules: {}, unsafeFlags: {} });
     const current = new SaveValidator([actual]);
     expect(world.rooms).toHaveLength(12);
-    expect(Object.keys(actual.safePositions)).toHaveLength(2);
+    expect(Object.keys(actual.safePositions)).toEqual(['spec001:R01.entry', 'spec001:R02.entry', 'spec001:R03.entry',
+      'spec001:R04.entry', 'spec001:R09.entry', 'spec001:R10.entry', 'spec001:R11.preparation', 'spec001:R12.entry']);
     expect(current.validateNewWrite(bytes(base)).ok).toBe(true);
     for (const patches of [
-      [set('/world/roomId', 'spec001:R03'), set('/world/position/safePositionId', 'spec001:R03.entry')],
+      [set('/world/roomId', 'spec001:R05'), set('/world/position/safePositionId', 'spec001:R05.entry')],
       [set('/world/completedObjectiveIds', ['spec001:O03'])],
       [set('/world/recruits', [{ characterId: 'spec001:CH01', level: 1, abilityIds: [], progressFlags: [] }])],
       [set('/safeState', 'safe-preparation')],
