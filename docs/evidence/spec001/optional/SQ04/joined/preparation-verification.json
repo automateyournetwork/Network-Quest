@@ -1,0 +1,48 @@
+{
+  "task": "T099",
+  "loop": 112,
+  "phase": "same-worker-disjoint-actual-module-preparation",
+  "baselineCommit": "9a93bf7815cda8b7055a8177bd61d5c468dc8f52",
+  "archive": ".local/sq04-join-prep-9a93bf7",
+  "checkedAt": "2026-11-27T15:12:15.850278+00:00",
+  "scopedModuleTests": {
+    "command": "PATH=\"$PWD/.runtime/node-v26.13.1-darwin-arm64/bin:$PATH\" NQ_PHP_BIN=/opt/homebrew/opt/php@8.4/bin/php ./node_modules/.bin/vitest run --config docs/evidence/spec001/optional/SQ04/joined/vitest.config.ts",
+    "log": "03-frozen-module.log",
+    "passed": 59,
+    "failed": 0,
+    "suites": 1,
+    "durationSeconds": 0.956,
+    "exitCode": 0
+  },
+  "frozenTypecheck": {
+    "command": "PATH=\"$PWD/.runtime/node-v26.13.1-darwin-arm64/bin:$PATH\" ./node_modules/.bin/tsc -p docs/evidence/spec001/optional/SQ04/joined/tsconfig.json",
+    "log": "02-frozen-typecheck.log",
+    "exitCode": 0
+  },
+  "currentTreeScopedTypecheck": {
+    "log": "01-module-typecheck.log",
+    "exitCode": 0,
+    "limitation": "Only the scoped compile was run on the live tree. All execution used the owned frozen archive."
+  },
+  "sourceCopiesMatchExecutedArchive": [
+    "src/state/optional-maintenance.ts",
+    "docs/evidence/spec001/optional/SQ04/SQ04.candidate.json",
+    "docs/evidence/spec001/optional/SQ04/joined/module.test.ts",
+    "docs/evidence/spec001/optional/SQ04/joined/vitest.config.ts",
+    "docs/evidence/spec001/optional/SQ04/joined/tsconfig.json"
+  ],
+  "originalAuthoringOwnedFilesUnchanged": 22,
+  "originalAuthoringSealSha256": "42fec7c9c0b2835e695c8f5f032490ae6b6c31422fd6395aa7e5ca463b055d1f",
+  "loopNoteAppendChangesHistoricalNoteHash": true,
+  "frozenOracleInputsPreserved": true,
+  "noSharedFilesChangedByT099": true,
+  "canonicalSQ04Written": false,
+  "browserLaunched": false,
+  "acceptedTask": false,
+  "pending": [
+    "Root GO after111 SQ03 shared/native freeze",
+    "Actual SQ04 schema/registry/loader/controller/bus/UI/recovery/save/epilogue integration",
+    "Same112 actual coherent verification and native cases",
+    "T104/T105 and human/media/gate acceptance"
+  ]
+}

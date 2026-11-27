@@ -6,6 +6,8 @@ import { optionalActivityDefinition } from '../state/optional-activities';
 import type { OptionalActivitySession, OptionalMode } from '../state/optional-activities';
 import type { GameState } from '../state/types';
 import type { PowerAuditAnswer } from '../state/optional-power-audit';
+import { maintenanceCards, type MaintenanceAnswer } from '../state/optional-maintenance';
+import { renderMaintenanceForm, type MaintenanceView } from './optional-maintenance';
 import type { RadioDiarySubmission } from '../state/optional-radio-diary';
 import { projectRadioDiary, renderRadioDiaryForm, type RadioDiaryView } from './optional-radio-diary';
 import type { ActionId, AttemptId } from '../domain/types';
@@ -21,6 +23,7 @@ export type OptionalActivityIntent =
   | { readonly kind: 'choose-optional-mode'; readonly sessionId: string; readonly mode: OptionalMode }
   | { readonly kind: 'submit-optional'; readonly sessionId: string; readonly bits: string }
   | { readonly kind: 'submit-optional-power'; readonly sessionId: string; readonly answer: PowerAuditAnswer | { readonly assessment: null; readonly difference: null } }
+  | { readonly kind: 'submit-optional-maintenance'; readonly sessionId: string; readonly answer: MaintenanceAnswer }
   | { readonly kind: 'submit-optional-diary'; readonly sessionId: string; readonly answer: RadioDiarySubmission }
   | { readonly kind: 'hint-optional' | 'retry-optional' | 'explain-optional' | 'boundary-optional' | 'exit-optional'; readonly sessionId: string };
 export interface OptionalActivityView {
@@ -31,12 +34,13 @@ export interface OptionalActivityView {
   readonly controls: { readonly practice: string; readonly delivery: string; readonly submit: string; readonly retry: string; readonly exit: string };
   readonly limitations: readonly string[];
   readonly sources: readonly { readonly title: string; readonly section: string; readonly claim: string; readonly url: string | null }[];
-  readonly answerKind: 'bits' | 'power' | 'diary';
+  readonly answerKind: 'bits' | 'power' | 'diary' | 'maintenance';
   readonly diary?: RadioDiaryView;
+  readonly maintenance?: MaintenanceView;
   readonly answerControls: { readonly assessmentLabel: string; readonly withinBudget: string; readonly overBudget: string; readonly differenceLabel: string } | null;
 }
 export interface OptionalSource { readonly id: string; readonly title: string; readonly url: string }
-const optionalKinds: readonly OptionalActivityIntent['kind'][] = ['start-optional', 'choose-optional-mode', 'submit-optional', 'submit-optional-power', 'submit-optional-diary', 'hint-optional', 'retry-optional', 'explain-optional', 'boundary-optional', 'exit-optional'];
+const optionalKinds: readonly OptionalActivityIntent['kind'][] = ['start-optional', 'choose-optional-mode', 'submit-optional', 'submit-optional-power', 'submit-optional-diary', 'submit-optional-maintenance', 'hint-optional', 'retry-optional', 'explain-optional', 'boundary-optional', 'exit-optional'];
 export function createOptionalActivitiesController(options: { readonly registry: ContentRegistry; readonly store: GameplayStore; readonly bus: ActionBus;
   readonly activityIds: readonly QualifiedId[]; readonly sources?: readonly OptionalSource[] }) {
   const { registry, store, bus } = options;
@@ -54,6 +58,7 @@ export function createOptionalActivitiesController(options: { readonly registry:
       case 'choose-optional-mode': operation = { kind: 'choose-mode', sessionId: input.sessionId, mode: input.mode }; break;
       case 'submit-optional': operation = { kind: 'submit', sessionId: input.sessionId, bits: input.bits }; break;
       case 'submit-optional-power': operation = { kind: 'submit-power', sessionId: input.sessionId, answer: input.answer }; break;
+      case 'submit-optional-maintenance': operation = { kind: 'submit-maintenance', sessionId: input.sessionId, answer: input.answer }; break;
       case 'submit-optional-diary': operation = { kind: 'submit-diary', sessionId: input.sessionId, answer: input.answer }; break;
       case 'hint-optional': operation = { kind: 'hint', sessionId: input.sessionId }; break;
       case 'retry-optional': operation = { kind: 'retry', sessionId: input.sessionId, nextAttemptId: crypto.randomUUID() as AttemptId }; break;
@@ -104,8 +109,8 @@ export function projectOptionalActivity(registry: ContentRegistry, game: GameSta
   if (!definition) return { sessionId: session.sessionId, title: 'Optional activity', phase: 'feedback', mode: null,
     instructions: [], map: [], samples: [], feedback: 'This exhibit needs correction. You can leave safely.', hintText: null, completed: false, rewardText: null,
     controls: { practice: 'Practice', delivery: 'Try the full activity', submit: 'Check answer', retry: 'Retry', exit: 'Leave activity' }, limitations: [], sources: [], answerKind: 'bits', answerControls: null };
-  const activity = definition.optionalActivity, profile = registry.record(activity.profileId), room = registry.record(session.entry.roomId);
-  const title = room?.kind === 'room' ? room.hotspots.find(h => h.id === session.entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity';
+  const activity = definition.optionalActivity, profile = 'profileId' in activity ? registry.record(activity.profileId) : null, room = registry.record(session.entry.roomId);
+  const title = activity.kind === 'notebook-combination' ? 'Lost Maintenance Record' : room?.kind === 'room' ? room.hotspots.find(h => h.id === session.entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity';
   const completed = game.world.completedQuestIds.includes(definition.id as QuestId);
   const level = (value: number) => value > 0 ? `+${value}` : String(value).replace('-', '−');
   const parameters = profile?.kind === 'profile' ? profile.parameters as { levels?: readonly { symbol: { value: number }; bits: string }[]; deliveredBudget?: { value: number; unit: string } } : null;
@@ -114,8 +119,9 @@ export function projectOptionalActivity(registry: ContentRegistry, game: GameSta
     samples: session.mode ? activity.kind === 'toy-symbol-message' ? activity[session.mode].samples.map(sample => `Position ${sample.position}: ${level(sample.value)} toy-level`)
       : activity.kind === 'delivered-power-audit' ? [`Delivered allowance: ${parameters?.deliveredBudget?.value} ${parameters?.deliveredBudget?.unit} after losses.`, ...activity[session.mode].demands.map((demand, index) => `Demand card ${index + 1}: ${demand.value} ${demand.unit} delivered after losses.`), 'The supplied port and compatibility checks are satisfied. Power does not prove data connectivity.'] : [] : [],
     feedback: session.feedback, hintText: session.hintText, completed,
-    rewardText: completed && game.notebook.factIds.some(id => id === activity.reward.factId) ? `${activity.reward.alternativeText} ${activity.reward.unavailableText}` : null,
-    controls: activity.controls, limitations: definition.model.limitations, answerKind: activity.kind === 'toy-symbol-message' ? 'bits' : activity.kind === 'delivered-power-audit' ? 'power' : 'diary',
+    rewardText: completed && game.notebook.factIds.some(id => id === activity.reward.factId) ? activity.reward.kind === 'epilogue-maintenance-history' ? activity.reward.epilogueText : `${activity.reward.alternativeText} ${activity.reward.unavailableText}` : null,
+    controls: activity.controls, limitations: definition.model.limitations, answerKind: activity.kind === 'toy-symbol-message' ? 'bits' : activity.kind === 'delivered-power-audit' ? 'power' : activity.kind === 'notebook-combination' ? 'maintenance' : 'diary',
+    ...(activity.kind === 'notebook-combination' ? { maintenance: { cards: maintenanceCards(activity, registry, game, session.mode ?? 'delivery') ?? [], ...activity.answerControls } } : {}),
     ...(activity.kind === 'radio-weather-diary' ? { diary: projectRadioDiary(registry, game, activity, completed && game.notebook.factIds.some(id => String(id) === activity.reward.factId)) } : {}),
     answerControls: activity.kind === 'delivered-power-audit' ? activity.answerControls : null,
     sources: definition.sourceClaims.map(claim => {
@@ -178,7 +184,10 @@ export function createOptionalActivityPanel<Command>(host: HTMLElement, dispatch
         scope.controls, view.controls.submit, scope.abort.signal, answer => send(scope, { kind: 'submit-optional-diary', sessionId: view.sessionId, answer })));
       if (view.diary.depth) { const title = doc.createElement('h3'); title.textContent = view.diary.depth.title; children.push(title, ...view.diary.depth.paragraphs.map(paragraph)); }
     }
-    if (view.mode && !view.diary) {
+    if (view.maintenance && view.mode) children.push(renderMaintenanceForm(doc, view.maintenance,
+      previous?.view.sessionId === view.sessionId && previous.view.mode === view.mode ? previous.controls : new Map(),
+      scope.controls, view.controls.submit, scope.abort.signal, answer => send(scope, { kind: 'submit-optional-maintenance', sessionId: view.sessionId, answer })));
+    if (view.mode && !view.diary && !view.maintenance) {
       const samples = doc.createElement('ol'); samples.setAttribute('aria-label', view.answerKind === 'power' ? 'Power audit cards' : view.mode === 'practice' ? 'Practice samples' : 'Message samples');
       for (const sample of view.samples) { const item = doc.createElement('li'); item.textContent = sample; samples.append(item); } children.push(samples);
       const form = doc.createElement('form'), label = doc.createElement('label'), answer = doc.createElement('input'), submit = doc.createElement('button');
@@ -202,7 +211,7 @@ export function createOptionalActivityPanel<Command>(host: HTMLElement, dispatch
             ? { assessment: selected, difference: { value, unit: 'W' } } : { assessment: null, difference: null } }); }
       }, { signal: scope.abort.signal }); children.push(form);
     }
-    const feedback = paragraph(view.feedback ?? (view.completed ? 'Completion recorded in your journal.' : view.answerKind === 'diary' ? 'Read the worked card or compare your actual observations when ready.' : view.answerKind === 'power' ? 'Choose practice or audit the full plan when ready.' : 'Choose practice or the full message when ready.'));
+    const feedback = paragraph(view.feedback ?? (view.completed ? 'Completion recorded in your journal.' : view.answerKind === 'maintenance' ? 'Choose the supplied practice card or combine your collected records when ready.' : view.answerKind === 'diary' ? 'Read the worked card or compare your actual observations when ready.' : view.answerKind === 'power' ? 'Choose practice or audit the full plan when ready.' : 'Choose practice or the full message when ready.'));
     feedback.setAttribute('role', 'status'); feedback.setAttribute('aria-live', 'polite'); children.push(feedback);
     if (view.hintText) children.push(paragraph(view.hintText));
     if (view.rewardText) children.push(paragraph(view.rewardText));

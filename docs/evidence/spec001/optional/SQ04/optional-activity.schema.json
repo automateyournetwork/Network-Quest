@@ -1,0 +1,311 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://network-quest.example/proposals/optional-notebook-combination.schema.json",
+  "$comment": "Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0. T099 isolated proposal. Actual registry and notebook membership are checked by the pure proposal; no production support is claimed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "speakerId",
+    "instructions",
+    "clues",
+    "practice",
+    "delivery",
+    "answerControls",
+    "feedback",
+    "controls",
+    "recovery",
+    "reward",
+    "entryContexts",
+    "returnPolicy",
+    "timingDefault"
+  ],
+  "properties": {
+    "kind": {
+      "const": "notebook-combination"
+    },
+    "speakerId": {
+      "const": "narrator"
+    },
+    "instructions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "delivery": {
+      "const": {
+        "actionId": "spec001:ACTION-SQ04-combine",
+        "factIds": [
+          "spec001:FACT-O03-defect",
+          "spec001:FACT-O05-inspection",
+          "spec001:FACT-market-ledger"
+        ]
+      }
+    },
+    "practice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "factIds",
+        "explanation"
+      ],
+      "properties": {
+        "factIds": {
+          "const": [
+            "spec001:FACT-O03-defect"
+          ]
+        },
+        "explanation": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "feedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "practice",
+        "delivery",
+        "contentError",
+        "alreadyCompleted"
+      ],
+      "properties": {
+        "practice": {
+          "$ref": "#/$defs/modeFeedback"
+        },
+        "delivery": {
+          "$ref": "#/$defs/modeFeedback"
+        },
+        "contentError": {
+          "$ref": "#/$defs/text"
+        },
+        "alreadyCompleted": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "practice",
+        "delivery",
+        "submit",
+        "retry",
+        "exit"
+      ],
+      "properties": {
+        "practice": {
+          "$ref": "#/$defs/label"
+        },
+        "delivery": {
+          "$ref": "#/$defs/label"
+        },
+        "submit": {
+          "$ref": "#/$defs/label"
+        },
+        "retry": {
+          "$ref": "#/$defs/label"
+        },
+        "exit": {
+          "$ref": "#/$defs/label"
+        }
+      }
+    },
+    "recovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exitExplanation",
+        "retryExplanation"
+      ],
+      "properties": {
+        "exitExplanation": {
+          "$ref": "#/$defs/text"
+        },
+        "retryExplanation": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "reward": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "factId",
+        "sourceRoomIds",
+        "epilogueText"
+      ],
+      "properties": {
+        "kind": {
+          "const": "epilogue-maintenance-history"
+        },
+        "factId": {
+          "const": "spec001:FACT-SQ04-history"
+        },
+        "sourceRoomIds": {
+          "const": [
+            "spec001:R03",
+            "spec001:R05",
+            "spec001:R09"
+          ]
+        },
+        "epilogueText": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "entryContexts": {
+      "const": [
+        {
+          "roomId": "spec001:R03",
+          "safePositionId": "spec001:R03.entry",
+          "hotspotId": "spec001:HOTSPOT-copper-original-section"
+        },
+        {
+          "roomId": "spec001:R05",
+          "safePositionId": "spec001:R05.entry",
+          "hotspotId": "spec001:HOTSPOT-fiber-r05-pr043"
+        },
+        {
+          "roomId": "spec001:R09",
+          "safePositionId": "spec001:R09.entry",
+          "hotspotId": "spec001:HOTSPOT-market-ledger"
+        }
+      ]
+    },
+    "returnPolicy": {
+      "const": "captured-entry"
+    },
+    "timingDefault": {
+      "const": "off"
+    },
+    "clues": {
+      "const": [
+        {
+          "factId": "spec001:FACT-O03-defect",
+          "roomId": "spec001:R03",
+          "evidenceKind": "observation",
+          "label": "Copper Warrens: the documented conductor break",
+          "dialogueId": "spec001:DIALOGUE-copper-bench",
+          "sourceActionId": "spec001:ACTION-copper-read-defect",
+          "description": "You read the bench’s supplied diagnosis of an open required conductor. This is a recorded diagnosis, not a new continuity measurement or a repair."
+        },
+        {
+          "factId": "spec001:FACT-O05-inspection",
+          "roomId": "spec001:R05",
+          "evidenceKind": "observation",
+          "label": "Photon Gardens: the connector inspection",
+          "dialogueId": "spec001:DIALOGUE-fiber-gardens",
+          "sourceActionId": "spec001:ACTION-fiber-inspect-before",
+          "description": "The dock recorded your inspection before intervention. That historical inspection does not assert that the present connection is clean, replaced or currently validated."
+        },
+        {
+          "factId": "spec001:FACT-market-ledger",
+          "roomId": "spec001:R09",
+          "evidenceKind": "context",
+          "label": "Shell Market: the delivered-power ledger",
+          "dialogueId": "spec001:DIALOGUE-market-equipment",
+          "sourceActionId": "spec001:ACTION-market-read-power",
+          "description": "You read the supplied ledger and its delivered-power accounting boundary. Observing this document is not taking a power measurement, selecting equipment or proving a working data link."
+        }
+      ]
+    },
+    "answerControls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "legend",
+        "missingText",
+        "historicalText"
+      ],
+      "properties": {
+        "legend": {
+          "$ref": "#/$defs/text"
+        },
+        "missingText": {
+          "$ref": "#/$defs/text"
+        },
+        "historicalText": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^spec001:[A-Za-z0-9][A-Za-z0-9._-]{0,55}$"
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "\\S"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "pattern": "\\S"
+    },
+    "samples": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 256,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "position",
+          "value",
+          "unit"
+        ],
+        "properties": {
+          "position": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255
+          },
+          "value": {
+            "enum": [
+              -3,
+              -1,
+              1,
+              3
+            ]
+          },
+          "unit": {
+            "const": "toy-level"
+          }
+        }
+      }
+    },
+    "modeFeedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "correct",
+        "incorrect",
+        "invalidInput"
+      ],
+      "properties": {
+        "correct": {
+          "$ref": "#/$defs/text"
+        },
+        "incorrect": {
+          "$ref": "#/$defs/text"
+        },
+        "invalidInput": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/state/maintenance-lifecycle.test.ts (8 tests | 3 failed) 59ms
+   ✓ OPT-SQ04-START executes its actual shared lifecycle expectations 11ms
+   ✓ OPT-SQ04-PRACTICE executes its actual shared lifecycle expectations 6ms
+   ✓ OPT-SQ04-FINISH executes its actual shared lifecycle expectations 8ms
+   × OPT-SQ04-RETRY executes its actual shared lifecycle expectations 9ms
+   × OPT-SQ04-EXIT executes its actual shared lifecycle expectations 9ms
+   × OPT-SQ04-SKIP executes its actual shared lifecycle expectations 3ms
+   ✓ OPT-SQ04-REPLAY executes its actual shared lifecycle expectations 8ms
+   ✓ OPT-SQ04-UNTIMED executes its actual shared lifecycle expectations 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/maintenance-lifecycle.test.ts > OPT-SQ04-RETRY executes its actual shared lifecycle expectations
+AssertionError: expected { retryAvailable: true, …(12) } to deeply equal { retryAvailable: true, …(12) }
+
+- Expected
++ Received
+
+@@ -1,9 +1,9 @@
+  {
+    "attemptReset": true,
+    "clueRetained": true,
+-   "configurationRevisionGreaterThan": 8,
++   "configurationRevisionAdvanced": true,
+    "freshAttemptRequired": true,
+    "hintHistory": [
+      1,
+    ],
+    "personalNotes": "Keep this observation",
+
+ ❯ tests/state/maintenance-lifecycle.test.ts:41:69
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/state/maintenance-lifecycle.test.ts > OPT-SQ04-EXIT executes its actual shared lifecycle expectations
+AssertionError: expected { …(7) } to deeply equal { …(7) }
+
+- Expected
++ Received
+
+@@ -4,11 +4,11 @@
+      "O02",
+    ],
+    "requiredInventory": {
+      "route-tool": 1,
+    },
+-   "requiredRouteReachable": true,
++   "requiredRouteReachable": false,
+    "returnedToSafeActivityOrigin": true,
+    "sameSafetyForEveryListedPhase": true,
+    "saveWritesCausedByExit": 0,
+    "unearnedBenefitGrantCount": 0,
+  }
+
+ ❯ tests/state/maintenance-lifecycle.test.ts:41:69
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/state/maintenance-lifecycle.test.ts > OPT-SQ04-SKIP executes its actual shared lifecycle expectations
+AssertionError: expected { requiredInventory: { …(1) }, …(3) } to deeply equal { requiredInventory: { …(1) }, …(3) }
+
+- Expected
++ Received
+
+@@ -5,7 +5,7 @@
+    ],
+    "optionalBenefitRequired": false,
+    "requiredInventory": {
+      "route-tool": 1,
+    },
+-   "requiredRouteReachable": true,
++   "requiredRouteReachable": false,
+  }
+
+ ❯ tests/state/maintenance-lifecycle.test.ts:41:69
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 5 passed (8)
+   Start at  10:33:29
+   Duration  1.09s (import 84%, transform 8%, tests 8%)
+

@@ -1,0 +1,4674 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://network-quest.example/schemas/content.schema.json",
+  "title": "Network Quest Spec001 content authoring v1",
+  "$comment": "Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0. Structural contract only; registry, source agreement, safe geometry, dialogue/quest reachability and release evidence require separate validation. This is not the save schema.",
+  "description": "Validate a world metadata registry, a single authored record or a nonempty collection of authored records. Reuse $defs for build-time validation; metadata completeness never certifies scene, media or episode acceptance.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/world"
+    },
+    {
+      "$ref": "#/$defs/authoredRecord"
+    },
+    {
+      "$ref": "#/$defs/collection"
+    }
+  ],
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "pattern": "\\S"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^spec[0-9]{3}:[A-Za-z0-9][A-Za-z0-9._-]*$",
+      "maxLength": 128
+    },
+    "roomId": {
+      "type": "string",
+      "pattern": "^spec001:R(?:0[1-9]|1[0-2])$",
+      "maxLength": 128
+    },
+    "objectiveId": {
+      "type": "string",
+      "pattern": "^spec001:O(?:0[1-9]|1[0-2])$",
+      "maxLength": 128
+    },
+    "characterId": {
+      "type": "string",
+      "pattern": "^spec001:CH(?:0[1-9]|1[0-9]|2[0-5])$",
+      "maxLength": 128
+    },
+    "propId": {
+      "type": "string",
+      "pattern": "^spec001:PR(?:00[1-9]|0[1-9][0-9]|1[0-4][0-9]|150)$",
+      "maxLength": 128
+    },
+    "questId": {
+      "type": "string",
+      "pattern": "^spec001:SQ0[1-4]$",
+      "maxLength": 128
+    },
+    "minigameId": {
+      "type": "string",
+      "pattern": "^spec001:MG0[1-3]$",
+      "maxLength": 128
+    },
+    "safePositionId": {
+      "type": "string",
+      "pattern": "^spec001:R(?:0[1-9]|1[0-2])\\.[A-Za-z0-9][A-Za-z0-9._-]*$",
+      "maxLength": 128
+    },
+    "ruleId": {
+      "type": "string",
+      "pattern": "^spec001:(?:PHY(?:0[1-9]|1[01])|STATE0[1-4])$",
+      "maxLength": 128
+    },
+    "sourceId": {
+      "type": "string",
+      "pattern": "^spec001:S(?:0[1-9]|1[0-3])$",
+      "maxLength": 128
+    },
+    "profileId": {
+      "type": "string",
+      "pattern": "^spec001:PROFILE-[A-Z0-9-]+$",
+      "maxLength": 128
+    },
+    "itemId": {
+      "type": "string",
+      "pattern": "^spec001:ITEM-[A-Za-z0-9._-]+$",
+      "maxLength": 128
+    },
+    "abilityId": {
+      "type": "string",
+      "pattern": "^spec001:ABILITY-[A-Za-z0-9._-]+$",
+      "maxLength": 128
+    },
+    "futureDoorId": {
+      "type": "string",
+      "pattern": "^spec001:FD-[A-Za-z0-9._-]+$",
+      "maxLength": 128
+    },
+    "factId": {
+      "type": "string",
+      "pattern": "^spec001:FACT-[A-Za-z0-9._-]+$",
+      "maxLength": 128
+    },
+    "hintId": {
+      "type": "string",
+      "pattern": "^spec001:HINT-[A-Za-z0-9._-]+$",
+      "maxLength": 128
+    },
+    "dialogueNodeId": {
+      "type": "string",
+      "pattern": "^spec001:DIALOGUE-[A-Za-z0-9._-]+$",
+      "maxLength": 128
+    },
+    "flagId": {
+      "type": "string",
+      "pattern": "^spec001:FLAG-[A-Za-z0-9._-]+$",
+      "maxLength": 128
+    },
+    "contentVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "maxLength": 32
+    },
+    "relativeJsonPath": {
+      "type": "string",
+      "pattern": "^content/spec001/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_.-]+\\.json$",
+      "maxLength": 240
+    },
+    "unit": {
+      "enum": [
+        "dBm",
+        "dB",
+        "m",
+        "W",
+        "bit",
+        "symbol",
+        "Mbps",
+        "Hz",
+        "s",
+        "count"
+      ]
+    },
+    "quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "$ref": "#/$defs/unit"
+        }
+      },
+      "required": [
+        "value",
+        "unit"
+      ]
+    },
+    "sourceQuantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "enum": [
+            "dBm",
+            "dB",
+            "m",
+            "W",
+            "bit",
+            "symbol",
+            "Mbps",
+            "Hz",
+            "s",
+            "count",
+            "Mb/s",
+            "toy-level"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "unit"
+      ],
+      "description": "Source authoring preserves reviewed Mb/s and toy-level labels; neither extends the save-v1 reading unit vocabulary. Conversion to runtime readings is explicit, validated and never guessed."
+    },
+    "condition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "always"
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "all"
+            },
+            "conditions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/condition"
+              },
+              "minItems": 1,
+              "maxItems": 32,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "kind",
+            "conditions"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "any"
+            },
+            "conditions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/condition"
+              },
+              "minItems": 1,
+              "maxItems": 32,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "kind",
+            "conditions"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "not"
+            },
+            "condition": {
+              "$ref": "#/$defs/condition"
+            }
+          },
+          "required": [
+            "kind",
+            "condition"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "objective-complete"
+            },
+            "objectiveId": {
+              "$ref": "#/$defs/objectiveId"
+            }
+          },
+          "required": [
+            "kind",
+            "objectiveId"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "quest-complete"
+            },
+            "questId": {
+              "$ref": "#/$defs/questId"
+            }
+          },
+          "required": [
+            "kind",
+            "questId"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "minigame-complete"
+            },
+            "minigameId": {
+              "$ref": "#/$defs/minigameId"
+            }
+          },
+          "required": [
+            "kind",
+            "minigameId"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "flag-equals"
+            },
+            "flagId": {
+              "$ref": "#/$defs/flagId"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "flagId",
+            "value"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "item-available"
+            },
+            "itemId": {
+              "$ref": "#/$defs/itemId"
+            },
+            "quantity": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 999
+            }
+          },
+          "required": [
+            "kind",
+            "itemId",
+            "quantity"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "character-recruited"
+            },
+            "characterId": {
+              "$ref": "#/$defs/characterId"
+            }
+          },
+          "required": [
+            "kind",
+            "characterId"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "future-door-open"
+            },
+            "futureDoorId": {
+              "$ref": "#/$defs/futureDoorId"
+            }
+          },
+          "required": [
+            "kind",
+            "futureDoorId"
+          ]
+        }
+      ],
+      "description": "Pure data, no executable expressions. T015 bounds traversal, resolves references and checks reachability, cycles, optional/future dependencies and equivalent routes."
+    },
+    "sourceClaim": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "$ref": "#/$defs/sourceId"
+        },
+        "section": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "\\S"
+        },
+        "supportedClaim": {
+          "$ref": "#/$defs/text"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "sourceId",
+        "section",
+        "supportedClaim",
+        "limitations"
+      ]
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "enum": [
+            "fictional-teaching-profile",
+            "toy-negotiation",
+            "toy-symbol-map",
+            "known-laboratory-pattern",
+            "scoped-technical-predicate",
+            "design-state-invariant"
+          ]
+        },
+        "scope": {
+          "$ref": "#/$defs/text"
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "label",
+        "scope",
+        "assumptions",
+        "limitations"
+      ]
+    },
+    "parameter": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "$ref": "#/$defs/sourceQuantity"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/parameter"
+          },
+          "minItems": 1,
+          "maxItems": 64
+        },
+        {
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 64,
+          "propertyNames": {
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+          },
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "unit"
+                ]
+              },
+              {
+                "required": [
+                  "value"
+                ]
+              }
+            ]
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/parameter"
+          },
+          "properties": {
+            "unit": {},
+            "value": {}
+          }
+        }
+      ],
+      "description": "Reviewed parameter tree. Bare integers are dimensionless counts/codes only; physical measurements must be sourceQuantity. Numeric agreement with sources.json is a semantic check."
+    },
+    "effect": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "set-flag"
+            },
+            "effectId": {
+              "$ref": "#/$defs/id"
+            },
+            "flagId": {
+              "$ref": "#/$defs/flagId"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "effectId",
+            "flagId",
+            "value"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "grant-item"
+            },
+            "effectId": {
+              "$ref": "#/$defs/id"
+            },
+            "itemId": {
+              "$ref": "#/$defs/itemId"
+            },
+            "quantity": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 999
+            }
+          },
+          "required": [
+            "kind",
+            "effectId",
+            "itemId",
+            "quantity"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "consume-item"
+            },
+            "effectId": {
+              "$ref": "#/$defs/id"
+            },
+            "itemId": {
+              "$ref": "#/$defs/itemId"
+            },
+            "quantity": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 999
+            }
+          },
+          "required": [
+            "kind",
+            "effectId",
+            "itemId",
+            "quantity"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "complete-objective"
+            },
+            "effectId": {
+              "$ref": "#/$defs/id"
+            },
+            "objectiveId": {
+              "$ref": "#/$defs/objectiveId"
+            }
+          },
+          "required": [
+            "kind",
+            "effectId",
+            "objectiveId"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "complete-quest"
+            },
+            "effectId": {
+              "$ref": "#/$defs/id"
+            },
+            "questId": {
+              "$ref": "#/$defs/questId"
+            }
+          },
+          "required": [
+            "kind",
+            "effectId",
+            "questId"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "record-fact"
+            },
+            "effectId": {
+              "$ref": "#/$defs/id"
+            },
+            "factId": {
+              "$ref": "#/$defs/factId"
+            }
+          },
+          "required": [
+            "kind",
+            "effectId",
+            "factId"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "recruit-character"
+            },
+            "effectId": {
+              "$ref": "#/$defs/id"
+            },
+            "characterId": {
+              "$ref": "#/$defs/characterId"
+            }
+          },
+          "required": [
+            "kind",
+            "effectId",
+            "characterId"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "unlock-ability"
+            },
+            "effectId": {
+              "$ref": "#/$defs/id"
+            },
+            "characterId": {
+              "$ref": "#/$defs/characterId"
+            },
+            "abilityId": {
+              "$ref": "#/$defs/abilityId"
+            }
+          },
+          "required": [
+            "kind",
+            "effectId",
+            "characterId",
+            "abilityId"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "set-route"
+            },
+            "effectId": {
+              "$ref": "#/$defs/id"
+            },
+            "route": {
+              "enum": [
+                "copper",
+                "fiber",
+                "radio"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "effectId",
+            "route"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "complete-minigame"
+            },
+            "effectId": {
+              "$ref": "#/$defs/id"
+            },
+            "minigameId": {
+              "$ref": "#/$defs/minigameId"
+            }
+          },
+          "required": [
+            "kind",
+            "effectId",
+            "minigameId"
+          ]
+        }
+      ],
+      "description": "Atomic, idempotent effects interpreted by domain reducers. Presentation, skip/replay, duplicate actions and restored learning history cannot independently apply rewards."
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/factId"
+        },
+        "roomId": {
+          "$ref": "#/$defs/roomId"
+        },
+        "subjectIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "kind": {
+          "enum": [
+            "observation",
+            "measurement",
+            "context"
+          ]
+        },
+        "text": {
+          "$ref": "#/$defs/text"
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleId"
+          },
+          "minItems": 0,
+          "maxItems": 15,
+          "uniqueItems": true
+        },
+        "requiresFreshMeasurement": {
+          "type": "boolean"
+        },
+        "readings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "\\S"
+              },
+              "unit": {
+                "$ref": "#/$defs/unit"
+              }
+            },
+            "required": [
+              "name",
+              "unit"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "roomId",
+        "subjectIds",
+        "kind",
+        "text",
+        "ruleIds",
+        "requiresFreshMeasurement"
+      ]
+    },
+    "hint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/hintId"
+        },
+        "text": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "required": [
+        "id",
+        "text"
+      ]
+    },
+    "hintLadder": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "$ref": "#/$defs/hint"
+        },
+        "workedStep": {
+          "$ref": "#/$defs/hint"
+        },
+        "solution": {
+          "$ref": "#/$defs/hint"
+        }
+      },
+      "required": [
+        "method",
+        "workedStep",
+        "solution"
+      ]
+    },
+    "alternative": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "method": {
+          "enum": [
+            "conventional-tool",
+            "ally-ability",
+            "direct-action"
+          ]
+        },
+        "itemIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/itemId"
+          },
+          "minItems": 0,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "abilityIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/abilityId"
+          },
+          "minItems": 0,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "condition": {
+          "$ref": "#/$defs/condition"
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleId"
+          },
+          "minItems": 1,
+          "maxItems": 15,
+          "uniqueItems": true
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/factId"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/effect"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "explanation": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "method",
+        "itemIds",
+        "abilityIds",
+        "condition",
+        "ruleIds",
+        "evidenceIds",
+        "effects",
+        "explanation"
+      ]
+    },
+    "safePosition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/safePositionId"
+        },
+        "roomId": {
+          "$ref": "#/$defs/roomId"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "eligibleStates": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "stable-exploration",
+              "safe-preparation",
+              "safe-continue"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 3,
+          "uniqueItems": true
+        },
+        "safetyNote": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "required": [
+        "id",
+        "roomId",
+        "label",
+        "description",
+        "eligibleStates",
+        "safetyNote"
+      ],
+      "description": "Semantic restore anchors, not invented scene coordinates. Authored rooms map these IDs onto valid walk regions. Actual state eligibility is rechecked by the save coordinator."
+    },
+    "roomEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/roomId"
+        },
+        "shortId": {
+          "type": "string",
+          "pattern": "^R(?:0[1-9]|1[0-2])$",
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "purpose": {
+          "$ref": "#/$defs/text"
+        },
+        "characterIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/characterId"
+          },
+          "minItems": 1,
+          "maxItems": 25,
+          "uniqueItems": true,
+          "description": "Named room encounters. The player and current recruited party can travel without inventing additional roster entries."
+        },
+        "propIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/propId"
+          },
+          "minItems": 10,
+          "maxItems": 10,
+          "uniqueItems": true
+        },
+        "safePositionIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/safePositionId"
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "guestIntroduction": {
+          "enum": [
+            "full",
+            "partial",
+            "none"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "shortId",
+        "name",
+        "purpose",
+        "characterIds",
+        "propIds",
+        "safePositionIds",
+        "guestIntroduction"
+      ]
+    },
+    "objectiveEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/objectiveId"
+        },
+        "shortId": {
+          "type": "string",
+          "pattern": "^O(?:0[1-9]|1[0-2])$",
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "roomId": {
+          "$ref": "#/$defs/roomId"
+        },
+        "role": {
+          "enum": [
+            "introduction",
+            "route",
+            "common",
+            "finale"
+          ]
+        },
+        "route": {
+          "enum": [
+            "copper",
+            "fiber",
+            "radio",
+            null
+          ]
+        },
+        "prerequisite": {
+          "$ref": "#/$defs/condition"
+        },
+        "completionEvidence": {
+          "$ref": "#/$defs/text"
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleId"
+          },
+          "minItems": 1,
+          "maxItems": 15,
+          "uniqueItems": true
+        },
+        "profileIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/profileId"
+          },
+          "minItems": 0,
+          "maxItems": 7,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "shortId",
+        "name",
+        "roomId",
+        "role",
+        "route",
+        "prerequisite",
+        "completionEvidence",
+        "ruleIds",
+        "profileIds"
+      ]
+    },
+    "characterEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/characterId"
+        },
+        "shortId": {
+          "type": "string",
+          "pattern": "^CH(?:0[1-9]|1[0-9]|2[0-5])$",
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "role": {
+          "$ref": "#/$defs/text"
+        },
+        "roomIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/roomId"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "uniqueItems": true
+        },
+        "recruitable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "shortId",
+        "name",
+        "role",
+        "roomIds",
+        "recruitable"
+      ],
+      "description": "Named encounter locations from the specification; mobile player/recruited-party presence is not an extra character identity or a completed scene placement."
+    },
+    "propEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/propId"
+        },
+        "shortId": {
+          "type": "string",
+          "pattern": "^PR(?:00[1-9]|0[1-9][0-9]|1[0-4][0-9]|150)$",
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "allocation": {
+          "enum": [
+            "R01",
+            "R02",
+            "R03",
+            "R04",
+            "R05",
+            "R06",
+            "R07",
+            "R08",
+            "R09",
+            "R10",
+            "R11",
+            "R12",
+            "Shared"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "shortId",
+        "name",
+        "allocation"
+      ]
+    },
+    "optionalEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/questId"
+            },
+            {
+              "$ref": "#/$defs/minigameId"
+            }
+          ]
+        },
+        "shortId": {
+          "type": "string",
+          "pattern": "^(?:SQ0[1-4]|MG0[1-3])$",
+          "maxLength": 128
+        },
+        "kind": {
+          "enum": [
+            "side-quest",
+            "minigame"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "roomIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/roomId"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "uniqueItems": true
+        },
+        "benefit": {
+          "$ref": "#/$defs/text"
+        },
+        "prerequisite": {
+          "$ref": "#/$defs/condition"
+        },
+        "requiredForMainStory": {
+          "const": false
+        },
+        "timingDefault": {
+          "const": "off"
+        },
+        "skippable": {
+          "const": true
+        }
+      },
+      "required": [
+        "id",
+        "shortId",
+        "kind",
+        "name",
+        "roomIds",
+        "benefit",
+        "prerequisite",
+        "requiredForMainStory",
+        "timingDefault",
+        "skippable"
+      ]
+    },
+    "walkEdge": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "from": {
+          "$ref": "#/$defs/roomId"
+        },
+        "to": {
+          "$ref": "#/$defs/roomId"
+        },
+        "bidirectional": {
+          "const": true
+        },
+        "forwardPrerequisite": {
+          "$ref": "#/$defs/condition"
+        },
+        "returnPolicy": {
+          "const": "available"
+        },
+        "temporaryBlockPolicy": {
+          "const": "narrated-reversible-encounter-only"
+        }
+      },
+      "required": [
+        "from",
+        "to",
+        "bidirectional",
+        "forwardPrerequisite",
+        "returnPolicy",
+        "temporaryBlockPolicy"
+      ]
+    },
+    "branch": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "enum": [
+            "copper",
+            "fiber",
+            "radio"
+          ]
+        },
+        "roomIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/roomId"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true
+        },
+        "objectiveIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/objectiveId"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true
+        },
+        "conventionalSolutionRequired": {
+          "const": true
+        }
+      },
+      "required": [
+        "id",
+        "roomIds",
+        "objectiveIds",
+        "conventionalSolutionRequired"
+      ]
+    },
+    "futureDoor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/futureDoorId"
+        },
+        "roomId": {
+          "$ref": "#/$defs/roomId"
+        },
+        "targetEpisodeId": {
+          "const": "spec002"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "traversable": {
+          "const": false
+        },
+        "requiredForMainStory": {
+          "const": false
+        }
+      },
+      "required": [
+        "id",
+        "roomId",
+        "targetEpisodeId",
+        "label",
+        "description",
+        "traversable",
+        "requiredForMainStory"
+      ]
+    },
+    "sourceMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/sourceId"
+        },
+        "reviewedId": {
+          "type": "string",
+          "pattern": "^S(?:0[1-9]|1[0-3])$",
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "id",
+        "reviewedId"
+      ]
+    },
+    "ruleMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ruleId"
+        },
+        "reviewedId": {
+          "type": "string",
+          "pattern": "^(?:PHY(?:0[1-9]|1[01])|STATE0[1-4])$",
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "id",
+        "reviewedId"
+      ]
+    },
+    "reviewedRegistry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "const": "content/spec001/sources.json"
+        },
+        "identityPolicy": {
+          "$ref": "#/$defs/text"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceMapping"
+          },
+          "minItems": 13,
+          "maxItems": 13,
+          "uniqueItems": true
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleMapping"
+          },
+          "minItems": 15,
+          "maxItems": 15,
+          "uniqueItems": true
+        },
+        "profileIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/profileId"
+          },
+          "minItems": 7,
+          "maxItems": 7,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "path",
+        "identityPolicy",
+        "sources",
+        "rules",
+        "profileIds"
+      ]
+    },
+    "documentReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "room",
+            "objective",
+            "dialogue",
+            "profile",
+            "character",
+            "item",
+            "quest",
+            "minigame"
+          ]
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "path": {
+          "$ref": "#/$defs/relativeJsonPath"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "path"
+      ]
+    },
+    "world": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "world"
+        },
+        "$schema": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "episodeId": {
+          "const": "spec001"
+        },
+        "contentVersion": {
+          "$ref": "#/$defs/contentVersion"
+        },
+        "scope": {
+          "const": "registry-metadata"
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "initialLocation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "roomId": {
+              "$ref": "#/$defs/roomId"
+            },
+            "safePositionId": {
+              "$ref": "#/$defs/safePositionId"
+            }
+          },
+          "required": [
+            "roomId",
+            "safePositionId"
+          ]
+        },
+        "rooms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/roomEntry"
+          },
+          "minItems": 12,
+          "maxItems": 12,
+          "uniqueItems": true
+        },
+        "walkEdges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/walkEdge"
+          },
+          "minItems": 14,
+          "maxItems": 14,
+          "uniqueItems": true
+        },
+        "objectives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/objectiveEntry"
+          },
+          "minItems": 12,
+          "maxItems": 12,
+          "uniqueItems": true
+        },
+        "branches": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/branch"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true
+        },
+        "commonObjectiveIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/objectiveId"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true
+        },
+        "characters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/characterEntry"
+          },
+          "minItems": 25,
+          "maxItems": 25,
+          "uniqueItems": true
+        },
+        "props": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/propEntry"
+          },
+          "minItems": 150,
+          "maxItems": 150,
+          "uniqueItems": true
+        },
+        "optionalActivities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/optionalEntry"
+          },
+          "minItems": 7,
+          "maxItems": 7,
+          "uniqueItems": true
+        },
+        "safePositions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/safePosition"
+          },
+          "minItems": 12,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "futureDoors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/futureDoor"
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "reviewedRegistry": {
+          "$ref": "#/$defs/reviewedRegistry"
+        },
+        "documents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/documentReference"
+          },
+          "minItems": 0,
+          "maxItems": 1024,
+          "uniqueItems": true
+        },
+        "constraints": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "requiredRecruitCount": {
+              "const": 9
+            },
+            "maximumActiveAllies": {
+              "const": 2
+            },
+            "minimumInteractiveProps": {
+              "const": 50
+            },
+            "mainReasoningTimed": {
+              "const": false
+            },
+            "guestContinuesInMemory": {
+              "const": true
+            },
+            "signInRequiredForAccountSave": {
+              "const": true
+            },
+            "allThreeBranchesIndependentlyCompletable": {
+              "const": true
+            },
+            "optionalRewardsRequiredForMainStory": {
+              "const": false
+            },
+            "futureContentRequiredForMainStory": {
+              "const": false
+            },
+            "mediaAcceptance": {
+              "const": "separate-source-export-placement-and-human-review-evidence"
+            }
+          },
+          "required": [
+            "requiredRecruitCount",
+            "maximumActiveAllies",
+            "minimumInteractiveProps",
+            "mainReasoningTimed",
+            "guestContinuesInMemory",
+            "signInRequiredForAccountSave",
+            "allThreeBranchesIndependentlyCompletable",
+            "optionalRewardsRequiredForMainStory",
+            "futureContentRequiredForMainStory",
+            "mediaAcceptance"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "episodeId",
+        "contentVersion",
+        "scope",
+        "description",
+        "initialLocation",
+        "rooms",
+        "walkEdges",
+        "objectives",
+        "branches",
+        "commonObjectiveIds",
+        "characters",
+        "props",
+        "optionalActivities",
+        "safePositions",
+        "futureDoors",
+        "reviewedRegistry",
+        "documents",
+        "constraints"
+      ],
+      "description": "Complete identity/progression inventory only. No room, model, prop, dialogue, media, objective implementation or episode acceptance is certified by registry membership. documents lists only authored records that actually exist; empty is valid during foundation."
+    },
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ]
+    },
+    "walkRegion": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "vertices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/point"
+          },
+          "minItems": 3,
+          "maxItems": 64
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "vertices"
+      ]
+    },
+    "hotspot": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "subjectId": {
+          "$ref": "#/$defs/id"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "verbs": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "walk",
+              "look",
+              "talk",
+              "use"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 4,
+          "uniqueItems": true
+        },
+        "unsupportedVerbText": {
+          "$ref": "#/$defs/text"
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/factId"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "actionIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "subjectId",
+        "label",
+        "description",
+        "verbs",
+        "unsupportedVerbText",
+        "evidenceIds",
+        "actionIds"
+      ]
+    },
+    "room": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "room"
+        },
+        "$schema": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "episodeId": {
+          "const": "spec001"
+        },
+        "contentVersion": {
+          "$ref": "#/$defs/contentVersion"
+        },
+        "id": {
+          "$ref": "#/$defs/roomId"
+        },
+        "presentationMode": {
+          "enum": [
+            "realtime-3d",
+            "rendered-room",
+            "hybrid"
+          ]
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "walkRegions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/walkRegion"
+          },
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "exits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "toRoomId": {
+                "$ref": "#/$defs/roomId"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256,
+                "pattern": "\\S"
+              },
+              "walkRegionId": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "required": [
+              "toRoomId",
+              "label",
+              "walkRegionId"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "uniqueItems": true
+        },
+        "hotspots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/hotspot"
+          },
+          "minItems": 1,
+          "maxItems": 128,
+          "uniqueItems": true
+        },
+        "characterIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/characterId"
+          },
+          "minItems": 0,
+          "maxItems": 25,
+          "uniqueItems": true
+        },
+        "propInstances": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "instanceId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "\\S"
+              },
+              "propId": {
+                "$ref": "#/$defs/propId"
+              },
+              "description": {
+                "$ref": "#/$defs/text"
+              },
+              "assetId": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "required": [
+              "instanceId",
+              "propId",
+              "description",
+              "assetId"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 256,
+          "uniqueItems": true
+        },
+        "safePositions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/safePositionId"
+              },
+              "walkRegionId": {
+                "$ref": "#/$defs/id"
+              },
+              "point": {
+                "$ref": "#/$defs/point"
+              }
+            },
+            "required": [
+              "id",
+              "walkRegionId",
+              "point"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          },
+          "minItems": 1,
+          "maxItems": 128,
+          "uniqueItems": true
+        },
+        "ambience": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "text": {
+              "$ref": "#/$defs/text"
+            },
+            "assetIds": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              },
+              "minItems": 0,
+              "maxItems": 32,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "text",
+            "assetIds"
+          ]
+        },
+        "futureDoorIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/futureDoorId"
+          },
+          "minItems": 0,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "mediaBindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/mediaBinding"
+          },
+          "minItems": 1,
+          "maxItems": 128,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "episodeId",
+        "contentVersion",
+        "id",
+        "presentationMode",
+        "description",
+        "walkRegions",
+        "exits",
+        "hotspots",
+        "characterIds",
+        "propInstances",
+        "safePositions",
+        "evidence",
+        "ambience",
+        "futureDoorIds"
+      ]
+    },
+    "objective": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "objective"
+        },
+        "$schema": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "episodeId": {
+          "const": "spec001"
+        },
+        "contentVersion": {
+          "$ref": "#/$defs/contentVersion"
+        },
+        "id": {
+          "$ref": "#/$defs/objectiveId"
+        },
+        "prerequisite": {
+          "$ref": "#/$defs/condition"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          },
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/alternative"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleId"
+          },
+          "minItems": 1,
+          "maxItems": 15,
+          "uniqueItems": true
+        },
+        "profileIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/profileId"
+          },
+          "minItems": 0,
+          "maxItems": 7,
+          "uniqueItems": true
+        },
+        "sourceClaims": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceClaim"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "model": {
+          "$ref": "#/$defs/model"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/effect"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "hints": {
+          "$ref": "#/$defs/hintLadder"
+        },
+        "observableOutcome": {
+          "$ref": "#/$defs/text"
+        },
+        "completionExplanation": {
+          "$ref": "#/$defs/text"
+        },
+        "requiresReflexTiming": {
+          "const": false
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "episodeId",
+        "contentVersion",
+        "id",
+        "prerequisite",
+        "evidence",
+        "alternatives",
+        "ruleIds",
+        "profileIds",
+        "sourceClaims",
+        "model",
+        "effects",
+        "hints",
+        "observableOutcome",
+        "completionExplanation",
+        "requiresReflexTiming"
+      ]
+    },
+    "dialogueChoice": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "text": {
+          "$ref": "#/$defs/text"
+        },
+        "condition": {
+          "$ref": "#/$defs/condition"
+        },
+        "nextNodeId": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/dialogueNodeId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/effect"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "condition",
+        "nextNodeId",
+        "effects"
+      ]
+    },
+    "dialogueNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/dialogueNodeId"
+        },
+        "speakerId": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/characterId"
+            },
+            {
+              "const": "narrator"
+            }
+          ]
+        },
+        "text": {
+          "$ref": "#/$defs/text"
+        },
+        "condition": {
+          "$ref": "#/$defs/condition"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dialogueChoice"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/effect"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/factId"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "voiceAssetId": {
+          "$ref": "#/$defs/id"
+        },
+        "captionText": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "required": [
+        "id",
+        "speakerId",
+        "text",
+        "condition",
+        "choices",
+        "effects",
+        "evidenceIds"
+      ],
+      "dependentRequired": {
+        "voiceAssetId": [
+          "captionText"
+        ]
+      }
+    },
+    "dialogue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "dialogue"
+        },
+        "$schema": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "episodeId": {
+          "const": "spec001"
+        },
+        "contentVersion": {
+          "$ref": "#/$defs/contentVersion"
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "entryNodeId": {
+          "$ref": "#/$defs/dialogueNodeId"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dialogueNode"
+          },
+          "minItems": 1,
+          "maxItems": 256,
+          "uniqueItems": true
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          },
+          "minItems": 0,
+          "maxItems": 128,
+          "uniqueItems": true
+        },
+        "skipPolicy": {
+          "const": "retain-required-evidence"
+        },
+        "replayPolicy": {
+          "const": "no-duplicate-effects"
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "episodeId",
+        "contentVersion",
+        "id",
+        "entryNodeId",
+        "nodes",
+        "evidence",
+        "skipPolicy",
+        "replayPolicy"
+      ]
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "profile"
+        },
+        "$schema": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "episodeId": {
+          "const": "spec001"
+        },
+        "contentVersion": {
+          "$ref": "#/$defs/contentVersion"
+        },
+        "id": {
+          "$ref": "#/$defs/profileId"
+        },
+        "reviewedProfileId": {
+          "$ref": "#/$defs/profileId"
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleId"
+          },
+          "minItems": 1,
+          "maxItems": 15,
+          "uniqueItems": true
+        },
+        "sourceClaims": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceClaim"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "model": {
+          "$ref": "#/$defs/model"
+        },
+        "parameters": {
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 64,
+          "propertyNames": {
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/parameter"
+          }
+        },
+        "reviewedCaseIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "\\S"
+          },
+          "minItems": 1,
+          "maxItems": 128,
+          "uniqueItems": true
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/alternative"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "episodeId",
+        "contentVersion",
+        "id",
+        "reviewedProfileId",
+        "ruleIds",
+        "sourceClaims",
+        "model",
+        "parameters",
+        "reviewedCaseIds",
+        "alternatives"
+      ]
+    },
+    "ability": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/abilityId"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleId"
+          },
+          "minItems": 1,
+          "maxItems": 15,
+          "uniqueItems": true
+        },
+        "conventionalEquivalentItemIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/itemId"
+          },
+          "minItems": 0,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/effect"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "conventionalEquivalentActionIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "profileIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/profileId"
+          },
+          "minItems": 1,
+          "maxItems": 7,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "limitations",
+        "ruleIds",
+        "conventionalEquivalentItemIds",
+        "effects"
+      ],
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "required": [
+                "conventionalEquivalentItemIds"
+              ],
+              "properties": {
+                "conventionalEquivalentItemIds": {
+                  "type": "array",
+                  "minItems": 1
+                }
+              }
+            },
+            {
+              "required": [
+                "conventionalEquivalentActionIds"
+              ],
+              "properties": {
+                "conventionalEquivalentActionIds": {
+                  "type": "array",
+                  "minItems": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "character": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "character"
+        },
+        "$schema": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "episodeId": {
+          "const": "spec001"
+        },
+        "contentVersion": {
+          "$ref": "#/$defs/contentVersion"
+        },
+        "id": {
+          "$ref": "#/$defs/characterId"
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "dialogueIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 64,
+          "uniqueItems": true,
+          "description": "Only implemented character conversations. An empty list is honest for the player, non-speaking opponents or unimplemented conversations; do not borrow narrator action collections as dialogue."
+        },
+        "compendium": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/id"
+            },
+            "technology": {
+              "$ref": "#/$defs/text"
+            },
+            "abilitySummary": {
+              "$ref": "#/$defs/text"
+            },
+            "limitations": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/text"
+              },
+              "minItems": 1,
+              "maxItems": 32,
+              "uniqueItems": true
+            },
+            "realmNote": {
+              "$ref": "#/$defs/text"
+            },
+            "sourceClaims": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/sourceClaim"
+              },
+              "minItems": 1,
+              "maxItems": 32,
+              "uniqueItems": true
+            },
+            "rpgAttributesLabel": {
+              "const": "fictional-balancing-values"
+            },
+            "portraitAssetId": {
+              "$ref": "#/$defs/id"
+            },
+            "portraitText": {
+              "$ref": "#/$defs/text"
+            },
+            "discovery": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "roomIds": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/roomId"
+                  },
+                  "minItems": 1,
+                  "maxItems": 12,
+                  "uniqueItems": true
+                },
+                "explanation": {
+                  "$ref": "#/$defs/text"
+                }
+              },
+              "required": [
+                "roomIds",
+                "explanation"
+              ]
+            },
+            "recruitmentSummary": {
+              "$ref": "#/$defs/text"
+            },
+            "progressionSummary": {
+              "$ref": "#/$defs/text"
+            },
+            "contextSources": {
+              "type": "array",
+              "minItems": 0,
+              "maxItems": 8,
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "title": {
+                    "$ref": "#/$defs/text"
+                  },
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://",
+                    "maxLength": 2048
+                  },
+                  "section": {
+                    "$ref": "#/$defs/text"
+                  },
+                  "supportedClaim": {
+                    "$ref": "#/$defs/text"
+                  },
+                  "limitations": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/text"
+                    },
+                    "minItems": 1,
+                    "maxItems": 8,
+                    "uniqueItems": true
+                  },
+                  "retrievedDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "scope": {
+                    "const": "descriptive-only-not-scored"
+                  }
+                },
+                "required": [
+                  "title",
+                  "url",
+                  "section",
+                  "supportedClaim",
+                  "limitations",
+                  "retrievedDate",
+                  "scope"
+                ]
+              },
+              "description": "Primary references for non-scored character/exhibit context only. These cannot be selected by ruleIds/sourceId or introduce new thresholds/profile behavior; the reviewed sources.json remains authoritative for scored rules."
+            }
+          },
+          "required": [
+            "id",
+            "technology",
+            "abilitySummary",
+            "limitations",
+            "realmNote",
+            "sourceClaims",
+            "rpgAttributesLabel"
+          ]
+        },
+        "recruitable": {
+          "type": "boolean"
+        },
+        "recruitment": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "condition": {
+              "$ref": "#/$defs/condition"
+            },
+            "demonstratedInteraction": {
+              "$ref": "#/$defs/text"
+            },
+            "effects": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/effect"
+              },
+              "minItems": 1,
+              "maxItems": 16,
+              "uniqueItems": true
+            },
+            "roomIds": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/roomId"
+              },
+              "minItems": 1,
+              "maxItems": 12,
+              "uniqueItems": true
+            },
+            "demonstration": {
+              "$ref": "#/$defs/characterDemonstration"
+            }
+          },
+          "required": [
+            "condition",
+            "demonstratedInteraction",
+            "effects"
+          ]
+        },
+        "abilities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ability"
+          },
+          "minItems": 0,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "progression": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "level": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              },
+              "condition": {
+                "$ref": "#/$defs/condition"
+              },
+              "abilityIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/abilityId"
+                },
+                "minItems": 0,
+                "maxItems": 16,
+                "uniqueItems": true
+              },
+              "explanation": {
+                "$ref": "#/$defs/text"
+              },
+              "demonstration": {
+                "$ref": "#/$defs/characterDemonstration"
+              }
+            },
+            "required": [
+              "level",
+              "condition",
+              "abilityIds",
+              "explanation"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 10,
+          "uniqueItems": true
+        },
+        "assetIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "episodeId",
+        "contentVersion",
+        "id",
+        "description",
+        "dialogueIds",
+        "compendium",
+        "recruitable",
+        "abilities",
+        "progression",
+        "assetIds"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "recruitable": {
+                "const": true
+              }
+            },
+            "required": [
+              "recruitable"
+            ]
+          },
+          "then": {
+            "required": [
+              "recruitment"
+            ],
+            "properties": {
+              "abilities": {
+                "minItems": 1,
+                "type": "array"
+              },
+              "progression": {
+                "minItems": 1,
+                "type": "array"
+              },
+              "recruitment": {}
+            }
+          },
+          "else": {
+            "not": {
+              "required": [
+                "recruitment"
+              ],
+              "properties": {
+                "recruitment": {}
+              }
+            }
+          }
+        }
+      ]
+    },
+    "recovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "policy": {
+          "enum": [
+            "not-consumed",
+            "return-to-source",
+            "reacquire-at-safe-location",
+            "transformation-recoverable"
+          ]
+        },
+        "roomId": {
+          "$ref": "#/$defs/roomId"
+        },
+        "condition": {
+          "$ref": "#/$defs/condition"
+        },
+        "explanation": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "required": [
+        "policy",
+        "roomId",
+        "condition",
+        "explanation"
+      ]
+    },
+    "combination": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "withItemId": {
+          "$ref": "#/$defs/itemId"
+        },
+        "condition": {
+          "$ref": "#/$defs/condition"
+        },
+        "consumesInputs": {
+          "type": "boolean"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/effect"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "explanation": {
+          "$ref": "#/$defs/text"
+        },
+        "recovery": {
+          "$ref": "#/$defs/recovery"
+        }
+      },
+      "required": [
+        "id",
+        "withItemId",
+        "condition",
+        "consumesInputs",
+        "effects",
+        "explanation",
+        "recovery"
+      ]
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "item"
+        },
+        "$schema": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "episodeId": {
+          "const": "spec001"
+        },
+        "contentVersion": {
+          "$ref": "#/$defs/contentVersion"
+        },
+        "id": {
+          "$ref": "#/$defs/itemId"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        },
+        "propId": {
+          "$ref": "#/$defs/propId"
+        },
+        "assetId": {
+          "$ref": "#/$defs/id"
+        },
+        "verbs": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "look",
+              "talk",
+              "use"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 3,
+          "uniqueItems": true
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "essentialForRoutes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "copper",
+              "fiber",
+              "radio"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 3,
+          "uniqueItems": true
+        },
+        "acquisition": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "roomId": {
+              "$ref": "#/$defs/roomId"
+            },
+            "condition": {
+              "$ref": "#/$defs/condition"
+            },
+            "explanation": {
+              "$ref": "#/$defs/text"
+            }
+          },
+          "required": [
+            "roomId",
+            "condition",
+            "explanation"
+          ]
+        },
+        "consumption": {
+          "enum": [
+            "never",
+            "on-documented-transformation"
+          ]
+        },
+        "recovery": {
+          "$ref": "#/$defs/recovery"
+        },
+        "combinations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/combination"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "episodeId",
+        "contentVersion",
+        "id",
+        "name",
+        "description",
+        "propId",
+        "assetId",
+        "verbs",
+        "evidence",
+        "essentialForRoutes",
+        "acquisition",
+        "consumption",
+        "recovery",
+        "combinations"
+      ]
+    },
+    "quest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "quest"
+        },
+        "$schema": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "episodeId": {
+          "const": "spec001"
+        },
+        "contentVersion": {
+          "$ref": "#/$defs/contentVersion"
+        },
+        "id": {
+          "$ref": "#/$defs/questId"
+        },
+        "prerequisite": {
+          "$ref": "#/$defs/condition"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          },
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/alternative"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleId"
+          },
+          "minItems": 1,
+          "maxItems": 15,
+          "uniqueItems": true
+        },
+        "profileIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/profileId"
+          },
+          "minItems": 0,
+          "maxItems": 7,
+          "uniqueItems": true
+        },
+        "sourceClaims": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceClaim"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "model": {
+          "$ref": "#/$defs/model"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/effect"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "hints": {
+          "$ref": "#/$defs/hintLadder"
+        },
+        "observableOutcome": {
+          "$ref": "#/$defs/text"
+        },
+        "completionExplanation": {
+          "$ref": "#/$defs/text"
+        },
+        "requiresReflexTiming": {
+          "const": false
+        },
+        "requiredForMainStory": {
+          "const": false
+        },
+        "skippable": {
+          "const": true
+        },
+        "optionalActivity": {
+          "$ref": "#/$defs/optionalActivity"
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "episodeId",
+        "contentVersion",
+        "id",
+        "prerequisite",
+        "evidence",
+        "alternatives",
+        "ruleIds",
+        "profileIds",
+        "sourceClaims",
+        "model",
+        "effects",
+        "hints",
+        "observableOutcome",
+        "completionExplanation",
+        "requiresReflexTiming",
+        "requiredForMainStory",
+        "skippable"
+      ]
+    },
+    "minigame": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "minigame"
+        },
+        "$schema": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "episodeId": {
+          "const": "spec001"
+        },
+        "contentVersion": {
+          "$ref": "#/$defs/contentVersion"
+        },
+        "id": {
+          "$ref": "#/$defs/minigameId"
+        },
+        "prerequisite": {
+          "$ref": "#/$defs/condition"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          },
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/alternative"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleId"
+          },
+          "minItems": 1,
+          "maxItems": 15,
+          "uniqueItems": true
+        },
+        "profileIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/profileId"
+          },
+          "minItems": 0,
+          "maxItems": 7,
+          "uniqueItems": true
+        },
+        "sourceClaims": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceClaim"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "model": {
+          "$ref": "#/$defs/model"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/effect"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "hints": {
+          "$ref": "#/$defs/hintLadder"
+        },
+        "observableOutcome": {
+          "$ref": "#/$defs/text"
+        },
+        "completionExplanation": {
+          "$ref": "#/$defs/text"
+        },
+        "requiresReflexTiming": {
+          "const": false
+        },
+        "requiredForMainStory": {
+          "const": false
+        },
+        "skippable": {
+          "const": true
+        },
+        "instructions": {
+          "$ref": "#/$defs/text"
+        },
+        "practiceExplanation": {
+          "$ref": "#/$defs/text"
+        },
+        "retryExplanation": {
+          "$ref": "#/$defs/text"
+        },
+        "exitExplanation": {
+          "$ref": "#/$defs/text"
+        },
+        "timingDefault": {
+          "const": "off"
+        },
+        "timingUnlock": {
+          "const": "after-untimed-completion"
+        },
+        "requiredScoreForMainStory": {
+          "const": false
+        },
+        "optionalActivity": {
+          "$ref": "#/$defs/optionalActivity"
+        },
+        "completionAchievementId": {
+          "$ref": "#/$defs/achievementId"
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "episodeId",
+        "contentVersion",
+        "id",
+        "prerequisite",
+        "evidence",
+        "alternatives",
+        "ruleIds",
+        "profileIds",
+        "sourceClaims",
+        "model",
+        "effects",
+        "hints",
+        "observableOutcome",
+        "completionExplanation",
+        "requiresReflexTiming",
+        "requiredForMainStory",
+        "skippable",
+        "instructions",
+        "practiceExplanation",
+        "retryExplanation",
+        "exitExplanation",
+        "timingDefault",
+        "timingUnlock",
+        "requiredScoreForMainStory",
+        "completionAchievementId"
+      ]
+    },
+    "authoredRecord": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/room"
+        },
+        {
+          "$ref": "#/$defs/objective"
+        },
+        {
+          "$ref": "#/$defs/dialogue"
+        },
+        {
+          "$ref": "#/$defs/profile"
+        },
+        {
+          "$ref": "#/$defs/character"
+        },
+        {
+          "$ref": "#/$defs/item"
+        },
+        {
+          "$ref": "#/$defs/quest"
+        },
+        {
+          "$ref": "#/$defs/minigame"
+        }
+      ]
+    },
+    "collection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "kind": {
+          "const": "collection"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "episodeId": {
+          "const": "spec001"
+        },
+        "contentVersion": {
+          "$ref": "#/$defs/contentVersion"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/authoredRecord"
+          },
+          "minItems": 1,
+          "maxItems": 1024,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "episodeId",
+        "contentVersion",
+        "records"
+      ],
+      "description": "Envelope for plural files such as profiles.json/objectives.json/characters.json. Every listed document reference resolves by kind and id inside this file; no empty authored collection."
+    },
+    "mediaBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "assetId": {
+          "$ref": "#/$defs/id"
+        },
+        "contentId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96
+        },
+        "use": {
+          "enum": [
+            "room-architecture",
+            "prop-placement",
+            "character-placement",
+            "background",
+            "midground",
+            "foreground",
+            "voice-line",
+            "music",
+            "effect"
+          ]
+        },
+        "exportPath": {
+          "type": "string",
+          "pattern": "^public/assets/(?:models/[A-Za-z0-9_-]+\\.glb|images/R01/(?:background|midground|foreground)\\.png|audio/auditions/[A-Za-z0-9_-]+\\.mp3)$"
+        },
+        "interactiveOrEvidence": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "assetId",
+        "contentId",
+        "use",
+        "exportPath",
+        "interactiveOrEvidence"
+      ]
+    },
+    "characterDemonstration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "objectiveIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/objectiveId"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "uniqueItems": true
+        },
+        "actionIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/factId"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleId"
+          },
+          "minItems": 1,
+          "maxItems": 15,
+          "uniqueItems": true
+        },
+        "profileIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/profileId"
+          },
+          "minItems": 1,
+          "maxItems": 7,
+          "uniqueItems": true
+        },
+        "evidencePolicy": {
+          "const": "accepted-demonstration-is-learning-only"
+        },
+        "explanation": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "required": [
+        "objectiveIds",
+        "actionIds",
+        "evidenceIds",
+        "ruleIds",
+        "profileIds",
+        "evidencePolicy",
+        "explanation"
+      ],
+      "description": "An authored learning-review contract for T094. Conditions alone never prove a demonstration. A trusted actual canonical evaluation, accepted conclusion and appropriate readings must have been fresh and valid when demonstrated. Its historical receipt can support invitation/progression after movement, never current repair proof. objectiveIds names canonical provenance; a composite objective result need not carry each scoped ability ruleId. Fact membership or caller-supplied history is not a receipt. A distinct level-2 demonstration occurs after recruitment. actionIds names relevant alternatives/steps, not an unconditional all-actions sequence. Contrasts can explain a failed case without calling it a successful repair. Current ability application always performs fresh canonical physical checks."
+    },
+    "optionalid": {
+      "type": "string",
+      "pattern": "^spec001:[A-Za-z0-9][A-Za-z0-9._-]{0,55}$"
+    },
+    "optionallabel": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "\\S"
+    },
+    "optionaltext": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "pattern": "\\S"
+    },
+    "optionalsamples": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 256,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "position",
+          "value",
+          "unit"
+        ],
+        "properties": {
+          "position": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255
+          },
+          "value": {
+            "enum": [
+              -3,
+              -1,
+              1,
+              3
+            ]
+          },
+          "unit": {
+            "const": "toy-level"
+          }
+        }
+      }
+    },
+    "optionalmodeFeedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "correct",
+        "incorrect",
+        "invalidInput"
+      ],
+      "properties": {
+        "correct": {
+          "$ref": "#/$defs/optionaltext"
+        },
+        "incorrect": {
+          "$ref": "#/$defs/optionaltext"
+        },
+        "invalidInput": {
+          "$ref": "#/$defs/optionaltext"
+        }
+      }
+    },
+    "optionalActivity": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "speakerId",
+            "instructions",
+            "profileId",
+            "delivery",
+            "practice",
+            "feedback",
+            "controls",
+            "recovery",
+            "reward",
+            "entryContexts",
+            "returnPolicy",
+            "timingDefault"
+          ],
+          "properties": {
+            "kind": {
+              "const": "toy-symbol-message"
+            },
+            "speakerId": {
+              "$ref": "#/$defs/optionalid"
+            },
+            "instructions": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 8,
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/$defs/optionaltext"
+              }
+            },
+            "profileId": {
+              "const": "spec001:PROFILE-SYMBOLS"
+            },
+            "delivery": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sourceCaseId",
+                "actionId",
+                "samples"
+              ],
+              "properties": {
+                "sourceCaseId": {
+                  "const": "T12"
+                },
+                "actionId": {
+                  "$ref": "#/$defs/optionalid"
+                },
+                "samples": {
+                  "$ref": "#/$defs/optionalsamples"
+                }
+              }
+            },
+            "practice": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sourceCaseId",
+                "samples",
+                "explanation"
+              ],
+              "properties": {
+                "sourceCaseId": {
+                  "const": "B-SYMBOL"
+                },
+                "samples": {
+                  "$ref": "#/$defs/optionalsamples"
+                },
+                "explanation": {
+                  "$ref": "#/$defs/optionaltext"
+                }
+              }
+            },
+            "feedback": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "practice",
+                "delivery",
+                "contentError",
+                "alreadyCompleted"
+              ],
+              "properties": {
+                "practice": {
+                  "$ref": "#/$defs/optionalmodeFeedback"
+                },
+                "delivery": {
+                  "$ref": "#/$defs/optionalmodeFeedback"
+                },
+                "contentError": {
+                  "$ref": "#/$defs/optionaltext"
+                },
+                "alreadyCompleted": {
+                  "$ref": "#/$defs/optionaltext"
+                }
+              }
+            },
+            "controls": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "practice",
+                "delivery",
+                "submit",
+                "retry",
+                "exit"
+              ],
+              "properties": {
+                "practice": {
+                  "$ref": "#/$defs/optionallabel"
+                },
+                "delivery": {
+                  "$ref": "#/$defs/optionallabel"
+                },
+                "submit": {
+                  "$ref": "#/$defs/optionallabel"
+                },
+                "retry": {
+                  "$ref": "#/$defs/optionallabel"
+                },
+                "exit": {
+                  "$ref": "#/$defs/optionallabel"
+                }
+              }
+            },
+            "recovery": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "exitExplanation",
+                "retryExplanation"
+              ],
+              "properties": {
+                "exitExplanation": {
+                  "$ref": "#/$defs/optionaltext"
+                },
+                "retryExplanation": {
+                  "$ref": "#/$defs/optionaltext"
+                }
+              }
+            },
+            "reward": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "factId",
+                "assetId",
+                "alternativeText",
+                "unavailableText"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "journal-illustration"
+                },
+                "factId": {
+                  "$ref": "#/$defs/optionalid"
+                },
+                "assetId": {
+                  "$ref": "#/$defs/optionalid"
+                },
+                "alternativeText": {
+                  "$ref": "#/$defs/optionaltext"
+                },
+                "unavailableText": {
+                  "$ref": "#/$defs/optionaltext"
+                }
+              }
+            },
+            "entryContexts": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 12,
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "roomId",
+                  "safePositionId",
+                  "hotspotId"
+                ],
+                "properties": {
+                  "roomId": {
+                    "$ref": "#/$defs/optionalid"
+                  },
+                  "safePositionId": {
+                    "$ref": "#/$defs/optionalid"
+                  },
+                  "hotspotId": {
+                    "$ref": "#/$defs/optionalid"
+                  }
+                }
+              }
+            },
+            "returnPolicy": {
+              "const": "captured-entry"
+            },
+            "timingDefault": {
+              "const": "off"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "speakerId",
+            "instructions",
+            "profileId",
+            "delivery",
+            "practice",
+            "feedback",
+            "controls",
+            "recovery",
+            "reward",
+            "entryContexts",
+            "returnPolicy",
+            "timingDefault",
+            "boundaryExample",
+            "answerControls"
+          ],
+          "properties": {
+            "kind": {
+              "const": "delivered-power-audit"
+            },
+            "speakerId": {
+              "const": "spec001:CH19"
+            },
+            "instructions": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 8,
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/$defs/optionalPowertext"
+              }
+            },
+            "profileId": {
+              "const": "spec001:PROFILE-POWER"
+            },
+            "delivery": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "sourceCaseId": {
+                  "const": "T10"
+                },
+                "demands": {
+                  "type": "array",
+                  "const": [
+                    {
+                      "value": 12,
+                      "unit": "W"
+                    },
+                    {
+                      "value": 11,
+                      "unit": "W"
+                    },
+                    {
+                      "value": 10,
+                      "unit": "W"
+                    }
+                  ]
+                },
+                "budgetBoundary": {
+                  "const": "delivered-after-losses"
+                },
+                "demandBoundary": {
+                  "const": "delivered-after-losses"
+                },
+                "otherConstraints": {
+                  "const": true
+                },
+                "actionId": {
+                  "const": "spec001:ACTION-SQ02-audit"
+                }
+              },
+              "required": [
+                "sourceCaseId",
+                "demands",
+                "budgetBoundary",
+                "demandBoundary",
+                "otherConstraints",
+                "actionId"
+              ]
+            },
+            "practice": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "sourceCaseId": {
+                  "const": "C-POWER"
+                },
+                "demands": {
+                  "type": "array",
+                  "const": [
+                    {
+                      "value": 12,
+                      "unit": "W"
+                    },
+                    {
+                      "value": 11,
+                      "unit": "W"
+                    }
+                  ]
+                },
+                "budgetBoundary": {
+                  "const": "delivered-after-losses"
+                },
+                "demandBoundary": {
+                  "const": "delivered-after-losses"
+                },
+                "otherConstraints": {
+                  "const": true
+                },
+                "explanation": {
+                  "$ref": "#/$defs/optionalPowertext"
+                }
+              },
+              "required": [
+                "sourceCaseId",
+                "demands",
+                "budgetBoundary",
+                "demandBoundary",
+                "otherConstraints",
+                "explanation"
+              ]
+            },
+            "feedback": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "practice",
+                "delivery",
+                "contentError",
+                "alreadyCompleted"
+              ],
+              "properties": {
+                "practice": {
+                  "$ref": "#/$defs/optionalPowermodeFeedback"
+                },
+                "delivery": {
+                  "$ref": "#/$defs/optionalPowermodeFeedback"
+                },
+                "contentError": {
+                  "$ref": "#/$defs/optionalPowertext"
+                },
+                "alreadyCompleted": {
+                  "$ref": "#/$defs/optionalPowertext"
+                }
+              }
+            },
+            "controls": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "practice",
+                "delivery",
+                "submit",
+                "retry",
+                "exit"
+              ],
+              "properties": {
+                "practice": {
+                  "$ref": "#/$defs/optionalPowerlabel"
+                },
+                "delivery": {
+                  "$ref": "#/$defs/optionalPowerlabel"
+                },
+                "submit": {
+                  "$ref": "#/$defs/optionalPowerlabel"
+                },
+                "retry": {
+                  "$ref": "#/$defs/optionalPowerlabel"
+                },
+                "exit": {
+                  "$ref": "#/$defs/optionalPowerlabel"
+                }
+              }
+            },
+            "recovery": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "exitExplanation",
+                "retryExplanation"
+              ],
+              "properties": {
+                "exitExplanation": {
+                  "$ref": "#/$defs/optionalPowertext"
+                },
+                "retryExplanation": {
+                  "$ref": "#/$defs/optionalPowertext"
+                }
+              }
+            },
+            "reward": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "factId",
+                "assetId",
+                "alternativeText",
+                "unavailableText",
+                "roomId"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "workshop-decoration"
+                },
+                "factId": {
+                  "const": "spec001:FACT-SQ02-audit"
+                },
+                "assetId": {
+                  "const": "spec001:ASSET-ILLUSTRATION-18"
+                },
+                "alternativeText": {
+                  "$ref": "#/$defs/optionalPowertext"
+                },
+                "unavailableText": {
+                  "$ref": "#/$defs/optionalPowertext"
+                },
+                "roomId": {
+                  "const": "spec001:R02"
+                }
+              }
+            },
+            "entryContexts": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 12,
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "roomId",
+                  "safePositionId",
+                  "hotspotId"
+                ],
+                "properties": {
+                  "roomId": {
+                    "$ref": "#/$defs/optionalPowerid"
+                  },
+                  "safePositionId": {
+                    "$ref": "#/$defs/optionalPowerid"
+                  },
+                  "hotspotId": {
+                    "$ref": "#/$defs/optionalPowerid"
+                  }
+                }
+              }
+            },
+            "returnPolicy": {
+              "const": "captured-entry"
+            },
+            "timingDefault": {
+              "const": "off"
+            },
+            "boundaryExample": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "sourceCaseId": {
+                  "const": "B-POWER-30"
+                },
+                "demands": {
+                  "type": "array",
+                  "const": [
+                    {
+                      "value": 12,
+                      "unit": "W"
+                    },
+                    {
+                      "value": 11,
+                      "unit": "W"
+                    },
+                    {
+                      "value": 7,
+                      "unit": "W"
+                    }
+                  ]
+                },
+                "budgetBoundary": {
+                  "const": "delivered-after-losses"
+                },
+                "demandBoundary": {
+                  "const": "delivered-after-losses"
+                },
+                "otherConstraints": {
+                  "const": true
+                },
+                "explanation": {
+                  "$ref": "#/$defs/optionalPowertext"
+                }
+              },
+              "required": [
+                "sourceCaseId",
+                "demands",
+                "budgetBoundary",
+                "demandBoundary",
+                "otherConstraints",
+                "explanation"
+              ]
+            },
+            "answerControls": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "assessmentLabel": {
+                  "$ref": "#/$defs/optionalPowerlabel"
+                },
+                "withinBudget": {
+                  "$ref": "#/$defs/optionalPowerlabel"
+                },
+                "overBudget": {
+                  "$ref": "#/$defs/optionalPowerlabel"
+                },
+                "differenceLabel": {
+                  "$ref": "#/$defs/optionalPowerlabel"
+                }
+              },
+              "required": [
+                "assessmentLabel",
+                "withinBudget",
+                "overBudget",
+                "differenceLabel"
+              ]
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/optionalRadioDiary"
+        }
+      ]
+    },
+    "optionalPowerid": {
+      "type": "string",
+      "pattern": "^spec001:[A-Za-z0-9][A-Za-z0-9._-]{0,55}$"
+    },
+    "optionalPowerlabel": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "\\S"
+    },
+    "optionalPowertext": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "pattern": "\\S"
+    },
+    "optionalPowermodeFeedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "correct",
+        "incorrect",
+        "invalidInput"
+      ],
+      "properties": {
+        "correct": {
+          "$ref": "#/$defs/optionalPowertext"
+        },
+        "incorrect": {
+          "$ref": "#/$defs/optionalPowertext"
+        },
+        "invalidInput": {
+          "$ref": "#/$defs/optionalPowertext"
+        }
+      }
+    },
+    "achievementId": {
+      "type": "string",
+      "pattern": "^spec001:ACHIEVEMENT-[A-Za-z0-9][A-Za-z0-9._-]{0,35}$"
+    },
+    "optionalRadioDiary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "speakerId",
+        "profileId",
+        "instructions",
+        "practice",
+        "delivery",
+        "answerControls",
+        "feedback",
+        "controls",
+        "recovery",
+        "reward",
+        "entryContexts",
+        "returnPolicy",
+        "timingDefault"
+      ],
+      "properties": {
+        "kind": {
+          "const": "radio-weather-diary"
+        },
+        "speakerId": {
+          "const": "spec001:CH10"
+        },
+        "profileId": {
+          "const": "spec001:PROFILE-RADIO"
+        },
+        "instructions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          }
+        },
+        "practice": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sourceCaseId",
+            "signal",
+            "noise",
+            "otherPathChecks",
+            "explanation"
+          ],
+          "properties": {
+            "sourceCaseId": {
+              "const": "B-RADIO-20"
+            },
+            "signal": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "value",
+                "unit"
+              ],
+              "properties": {
+                "value": {
+                  "const": -65
+                },
+                "unit": {
+                  "const": "dBm"
+                }
+              }
+            },
+            "noise": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "value",
+                "unit"
+              ],
+              "properties": {
+                "value": {
+                  "const": -85
+                },
+                "unit": {
+                  "const": "dBm"
+                }
+              }
+            },
+            "otherPathChecks": {
+              "const": true
+            },
+            "explanation": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          }
+        },
+        "delivery": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "actionId",
+            "sourceCaseIds",
+            "measurementObjectiveId",
+            "measurementRuleId",
+            "measurementRoomId",
+            "historicalUse",
+            "currentRequired",
+            "order"
+          ],
+          "properties": {
+            "actionId": {
+              "const": "spec001:ACTION-SQ03-compare"
+            },
+            "sourceCaseIds": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": {
+                "enum": [
+                  "T08",
+                  "T09",
+                  "B-RADIO-20",
+                  "B-RADIO-BELOW"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "measurementObjectiveId": {
+              "const": "spec001:O08"
+            },
+            "measurementRuleId": {
+              "const": "spec001:PHY07"
+            },
+            "measurementRoomId": {
+              "const": "spec001:R08"
+            },
+            "historicalUse": {
+              "const": "comparison-only"
+            },
+            "currentRequired": {
+              "const": true
+            },
+            "order": {
+              "const": "strictly-increasing-configuration-revision"
+            }
+          }
+        },
+        "answerControls": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "earlierLabel",
+            "laterLabel",
+            "comparisonLabel",
+            "increased",
+            "unchanged",
+            "decreased",
+            "assessmentLabel",
+            "meetsThreshold",
+            "belowThreshold",
+            "claimLabel",
+            "currentOnly",
+            "historicalProof",
+            "weatherCause",
+            "throughputProof"
+          ],
+          "properties": {
+            "earlierLabel": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "laterLabel": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "comparisonLabel": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "increased": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "unchanged": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "decreased": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "assessmentLabel": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "meetsThreshold": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "belowThreshold": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "claimLabel": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "currentOnly": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "historicalProof": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "weatherCause": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "throughputProof": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          }
+        },
+        "feedback": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "practice",
+            "delivery",
+            "missingEvidence",
+            "contentError",
+            "alreadyCompleted"
+          ],
+          "properties": {
+            "practice": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "correct",
+                "incorrect",
+                "invalidInput"
+              ],
+              "properties": {
+                "correct": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "incorrect": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "invalidInput": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                }
+              }
+            },
+            "delivery": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "correct",
+                "incorrect",
+                "invalidInput"
+              ],
+              "properties": {
+                "correct": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "incorrect": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "invalidInput": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                }
+              }
+            },
+            "missingEvidence": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "contentError": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "alreadyCompleted": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          }
+        },
+        "controls": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "practice",
+            "delivery",
+            "submit",
+            "retry",
+            "exit"
+          ],
+          "properties": {
+            "practice": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "delivery": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "submit": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "retry": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "exit": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          }
+        },
+        "recovery": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "retryExplanation",
+            "exitExplanation"
+          ],
+          "properties": {
+            "retryExplanation": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "exitExplanation": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          }
+        },
+        "reward": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "factId",
+            "assetId",
+            "title",
+            "paragraphs",
+            "alternativeText",
+            "unavailableText"
+          ],
+          "properties": {
+            "kind": {
+              "const": "optional-radio-depth"
+            },
+            "factId": {
+              "const": "spec001:FACT-SQ03-comparison"
+            },
+            "assetId": {
+              "const": "spec001:ASSET-ILLUSTRATION-16"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "paragraphs": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 8,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              }
+            },
+            "alternativeText": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "unavailableText": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          }
+        },
+        "entryContexts": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "roomId",
+              "safePositionId",
+              "hotspotId"
+            ],
+            "properties": {
+              "roomId": {
+                "const": "spec001:R08"
+              },
+              "safePositionId": {
+                "const": "spec001:R08.entry"
+              },
+              "hotspotId": {
+                "const": "spec001:HOTSPOT-radio-vane"
+              }
+            }
+          }
+        },
+        "returnPolicy": {
+          "const": "captured-entry"
+        },
+        "timingDefault": {
+          "const": "off"
+        }
+      }
+    }
+  }
+}

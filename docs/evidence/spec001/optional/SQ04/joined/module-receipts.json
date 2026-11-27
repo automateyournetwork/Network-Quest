@@ -1,0 +1,168 @@
+{
+  "scope": "Actual optional-maintenance module, existing source acquisition bindings and reducer on accepted 9a93bf7. Safe locations/facts are explicitly prepared where stated. No SQ04 common-controller or browser execution.",
+  "receipts": {
+    "OPT-SQ04-COMBINE": {
+      "status": "correct",
+      "reasonCode": "maintenance-record-combined",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "maintenance-combination",
+          "mode": "delivery",
+          "sourceRoomsPreserved": [
+            "spec001:R03",
+            "spec001:R05",
+            "spec001:R09"
+          ],
+          "missingSourceRooms": [],
+          "activityCompletionEligible": true,
+          "evidenceUse": "historical-notebook-learning",
+          "currentRepairProven": false,
+          "endToEndServiceProven": false,
+          "chronologyProven": false,
+          "requiredObjectiveAward": 0
+        }
+      ]
+    },
+    "OPT-SQ04-NOTE-NOT-CLUE": {
+      "status": "incorrect",
+      "reasonCode": "maintenance-record-incomplete",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "maintenance-combination",
+          "mode": "delivery",
+          "sourceRoomsPreserved": [
+            "spec001:R03",
+            "spec001:R09"
+          ],
+          "missingSourceRooms": [
+            "spec001:R05"
+          ],
+          "activityCompletionEligible": false,
+          "evidenceUse": "historical-notebook-learning",
+          "currentRepairProven": false,
+          "endToEndServiceProven": false,
+          "chronologyProven": false,
+          "requiredObjectiveAward": 0
+        }
+      ]
+    },
+    "OPT-SQ04-DUPLICATE-ROOM": {
+      "status": "incorrect",
+      "reasonCode": "maintenance-record-incomplete",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "maintenance-combination",
+          "mode": "delivery",
+          "sourceRoomsPreserved": [
+            "spec001:R03",
+            "spec001:R09"
+          ],
+          "missingSourceRooms": [
+            "spec001:R05"
+          ],
+          "activityCompletionEligible": false,
+          "evidenceUse": "historical-notebook-learning",
+          "currentRepairProven": false,
+          "endToEndServiceProven": false,
+          "chronologyProven": false,
+          "requiredObjectiveAward": 0
+        }
+      ]
+    },
+    "historical-learning": {
+      "status": "correct",
+      "reasonCode": "maintenance-record-combined",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "maintenance-combination",
+          "mode": "delivery",
+          "sourceRoomsPreserved": [
+            "spec001:R03",
+            "spec001:R05",
+            "spec001:R09"
+          ],
+          "missingSourceRooms": [],
+          "activityCompletionEligible": true,
+          "evidenceUse": "historical-notebook-learning",
+          "currentRepairProven": false,
+          "endToEndServiceProven": false,
+          "chronologyProven": false,
+          "requiredObjectiveAward": 0
+        }
+      ]
+    },
+    "practice-provided-card": {
+      "status": "correct",
+      "reasonCode": "maintenance-record-combined",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "maintenance-combination",
+          "mode": "practice",
+          "sourceRoomsPreserved": [
+            "spec001:R03"
+          ],
+          "missingSourceRooms": [],
+          "activityCompletionEligible": false,
+          "evidenceUse": "supplied-practice-only",
+          "currentRepairProven": false,
+          "endToEndServiceProven": false,
+          "chronologyProven": false,
+          "requiredObjectiveAward": 0
+        }
+      ]
+    },
+    "stale-capture": {
+      "status": "invalid-input",
+      "reasonCode": "stale-action",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "invalid-input",
+          "reason": "stale-action",
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "spec001:ACTION-copper-read-defect": {
+      "status": "correct",
+      "reasonCode": "copper-choice-recorded",
+      "observations": [],
+      "acceptedEffects": [
+        {
+          "kind": "record-fact",
+          "effectId": "spec001:EFFECT-copper-read-defect",
+          "factId": "spec001:FACT-O03-defect"
+        }
+      ]
+    },
+    "spec001:ACTION-fiber-inspect-before": {
+      "status": "correct",
+      "reasonCode": "fiber-choice-recorded",
+      "observations": [],
+      "acceptedEffects": [
+        {
+          "kind": "set-flag",
+          "effectId": "spec001:EFFECT-fiber-inspect-before",
+          "flagId": "spec001:FLAG-fiber-connection",
+          "value": "inspected"
+        },
+        {
+          "kind": "record-fact",
+          "effectId": "spec001:EFFECT-fiber-inspect-before-fact",
+          "factId": "spec001:FACT-O05-inspection"
+        }
+      ]
+    },
+    "spec001:ACTION-market-read-power": {
+      "status": "handled",
+      "reason": "applied",
+      "message": "Read the fictional delivered-power profile and compare the original proposal with both kits."
+    }
+  }
+}

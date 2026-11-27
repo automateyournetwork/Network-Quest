@@ -122,8 +122,13 @@ describe('T087 authored endings: closed content, facts only, no grading', () => 
     for (const r of d.recruits) expect(paragraphs.includes(r.recruited)).toBe(r.id === `spec001:${character}`);
     expect(paragraphs).not.toContain(d.noAllies);
   });
-  it.each(['SQ01', 'SQ02', 'SQ03', 'SQ04'])('personalizes completed %s alone; no unearned reward or quest', quest => {
-    const d = load(), g = game(), changed = { ...g, world: { ...g.world, completedQuestIds: [`spec001:${quest}`] } } as unknown as GameState;
+  it.each(['SQ01', 'SQ02', 'SQ03', 'SQ04'])('personalizes earned %s only; no unearned reward or quest', quest => {
+    const d = load(), g = game(), changed = { ...g, world: { ...g.world, completedQuestIds: [`spec001:${quest}`] },
+      notebook: { ...g.notebook, factIds: quest === 'SQ04' ? ['spec001:FACT-SQ04-history'] : [] } } as unknown as GameState;
+    if (quest === 'SQ04') {
+      const questAlone = { ...changed, notebook: { ...changed.notebook, factIds: [] } };
+      expect(projectEpilogue(d, questAlone, event(questAlone))!.paragraphs).not.toContain(d.sideQuests.find(q => q.id === 'spec001:SQ04')!.text);
+    }
     const paragraphs = projectEpilogue(d, changed, event(changed))!.paragraphs;
     for (const q of d.sideQuests) expect(paragraphs.includes(q.text)).toBe(q.id === `spec001:${quest}`);
     expect(paragraphs).not.toContain(d.noSideQuests);

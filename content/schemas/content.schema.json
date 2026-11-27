@@ -3135,7 +3135,90 @@
         "alternatives": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/alternative"
+            "anyOf": [
+              {
+                "$ref": "#/$defs/alternative"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "const": "spec001:ACTION-SQ04-combine"
+                  },
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 256,
+                    "pattern": "\\S"
+                  },
+                  "method": {
+                    "enum": [
+                      "conventional-tool",
+                      "ally-ability",
+                      "direct-action"
+                    ]
+                  },
+                  "itemIds": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/itemId"
+                    },
+                    "minItems": 0,
+                    "maxItems": 16,
+                    "uniqueItems": true
+                  },
+                  "abilityIds": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/abilityId"
+                    },
+                    "minItems": 0,
+                    "maxItems": 16,
+                    "uniqueItems": true
+                  },
+                  "condition": {
+                    "$ref": "#/$defs/condition"
+                  },
+                  "ruleIds": {
+                    "const": []
+                  },
+                  "evidenceIds": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/factId"
+                    },
+                    "minItems": 1,
+                    "maxItems": 32,
+                    "uniqueItems": true
+                  },
+                  "effects": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/effect"
+                    },
+                    "minItems": 0,
+                    "maxItems": 32,
+                    "uniqueItems": true
+                  },
+                  "explanation": {
+                    "$ref": "#/$defs/text"
+                  }
+                },
+                "required": [
+                  "id",
+                  "label",
+                  "method",
+                  "itemIds",
+                  "abilityIds",
+                  "condition",
+                  "ruleIds",
+                  "evidenceIds",
+                  "effects",
+                  "explanation"
+                ]
+              }
+            ]
           },
           "minItems": 1,
           "maxItems": 32,
@@ -3146,7 +3229,7 @@
           "items": {
             "$ref": "#/$defs/ruleId"
           },
-          "minItems": 1,
+          "minItems": 0,
           "maxItems": 15,
           "uniqueItems": true
         },
@@ -3199,7 +3282,14 @@
           "const": true
         },
         "optionalActivity": {
-          "$ref": "#/$defs/optionalActivity"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/optionalActivity"
+            },
+            {
+              "$ref": "#/$defs/optionalMaintenance"
+            }
+          ]
         }
       },
       "required": [
@@ -3222,6 +3312,144 @@
         "requiresReflexTiming",
         "requiredForMainStory",
         "skippable"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "optionalActivity"
+            ],
+            "properties": {
+              "optionalActivity": {
+                "type": "object",
+                "required": [
+                  "kind"
+                ],
+                "properties": {
+                  "kind": {
+                    "const": "notebook-combination"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "id": {
+                "const": "spec001:SQ04"
+              },
+              "ruleIds": {
+                "const": []
+              },
+              "alternatives": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "const": "spec001:ACTION-SQ04-combine"
+                    },
+                    "label": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 256,
+                      "pattern": "\\S"
+                    },
+                    "method": {
+                      "enum": [
+                        "conventional-tool",
+                        "ally-ability",
+                        "direct-action"
+                      ]
+                    },
+                    "itemIds": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/itemId"
+                      },
+                      "minItems": 0,
+                      "maxItems": 16,
+                      "uniqueItems": true
+                    },
+                    "abilityIds": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/abilityId"
+                      },
+                      "minItems": 0,
+                      "maxItems": 16,
+                      "uniqueItems": true
+                    },
+                    "condition": {
+                      "$ref": "#/$defs/condition"
+                    },
+                    "ruleIds": {
+                      "const": []
+                    },
+                    "evidenceIds": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/factId"
+                      },
+                      "minItems": 1,
+                      "maxItems": 32,
+                      "uniqueItems": true
+                    },
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/effect"
+                      },
+                      "minItems": 0,
+                      "maxItems": 32,
+                      "uniqueItems": true
+                    },
+                    "explanation": {
+                      "$ref": "#/$defs/text"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "label",
+                    "method",
+                    "itemIds",
+                    "abilityIds",
+                    "condition",
+                    "ruleIds",
+                    "evidenceIds",
+                    "effects",
+                    "explanation"
+                  ]
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "ruleIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ruleId"
+                },
+                "minItems": 1,
+                "maxItems": 15,
+                "uniqueItems": true
+              },
+              "alternatives": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/alternative"
+                },
+                "minItems": 1,
+                "maxItems": 32,
+                "uniqueItems": true
+              }
+            }
+          }
+        }
       ]
     },
     "minigame": {
@@ -4667,6 +4895,275 @@
         },
         "timingDefault": {
           "const": "off"
+        }
+      }
+    },
+    "maintenance_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "\\S"
+    },
+    "maintenance_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "pattern": "\\S"
+    },
+    "maintenance_modeFeedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "correct",
+        "incorrect",
+        "invalidInput"
+      ],
+      "properties": {
+        "correct": {
+          "$ref": "#/$defs/maintenance_text"
+        },
+        "incorrect": {
+          "$ref": "#/$defs/maintenance_text"
+        },
+        "invalidInput": {
+          "$ref": "#/$defs/maintenance_text"
+        }
+      }
+    },
+    "optionalMaintenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "speakerId",
+        "instructions",
+        "clues",
+        "practice",
+        "delivery",
+        "answerControls",
+        "feedback",
+        "controls",
+        "recovery",
+        "reward",
+        "entryContexts",
+        "returnPolicy",
+        "timingDefault"
+      ],
+      "properties": {
+        "kind": {
+          "const": "notebook-combination"
+        },
+        "speakerId": {
+          "const": "narrator"
+        },
+        "instructions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/maintenance_text"
+          }
+        },
+        "delivery": {
+          "const": {
+            "actionId": "spec001:ACTION-SQ04-combine",
+            "factIds": [
+              "spec001:FACT-O03-defect",
+              "spec001:FACT-O05-inspection",
+              "spec001:FACT-market-ledger"
+            ]
+          }
+        },
+        "practice": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "factIds",
+            "explanation"
+          ],
+          "properties": {
+            "factIds": {
+              "const": [
+                "spec001:FACT-O03-defect"
+              ]
+            },
+            "explanation": {
+              "$ref": "#/$defs/maintenance_text"
+            }
+          }
+        },
+        "feedback": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "practice",
+            "delivery",
+            "contentError",
+            "alreadyCompleted"
+          ],
+          "properties": {
+            "practice": {
+              "$ref": "#/$defs/maintenance_modeFeedback"
+            },
+            "delivery": {
+              "$ref": "#/$defs/maintenance_modeFeedback"
+            },
+            "contentError": {
+              "$ref": "#/$defs/maintenance_text"
+            },
+            "alreadyCompleted": {
+              "$ref": "#/$defs/maintenance_text"
+            }
+          }
+        },
+        "controls": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "practice",
+            "delivery",
+            "submit",
+            "retry",
+            "exit"
+          ],
+          "properties": {
+            "practice": {
+              "$ref": "#/$defs/maintenance_label"
+            },
+            "delivery": {
+              "$ref": "#/$defs/maintenance_label"
+            },
+            "submit": {
+              "$ref": "#/$defs/maintenance_label"
+            },
+            "retry": {
+              "$ref": "#/$defs/maintenance_label"
+            },
+            "exit": {
+              "$ref": "#/$defs/maintenance_label"
+            }
+          }
+        },
+        "recovery": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "exitExplanation",
+            "retryExplanation"
+          ],
+          "properties": {
+            "exitExplanation": {
+              "$ref": "#/$defs/maintenance_text"
+            },
+            "retryExplanation": {
+              "$ref": "#/$defs/maintenance_text"
+            }
+          }
+        },
+        "reward": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "factId",
+            "sourceRoomIds",
+            "epilogueText"
+          ],
+          "properties": {
+            "kind": {
+              "const": "epilogue-maintenance-history"
+            },
+            "factId": {
+              "const": "spec001:FACT-SQ04-history"
+            },
+            "sourceRoomIds": {
+              "const": [
+                "spec001:R03",
+                "spec001:R05",
+                "spec001:R09"
+              ]
+            },
+            "epilogueText": {
+              "$ref": "#/$defs/maintenance_text"
+            }
+          }
+        },
+        "entryContexts": {
+          "const": [
+            {
+              "roomId": "spec001:R03",
+              "safePositionId": "spec001:R03.entry",
+              "hotspotId": "spec001:HOTSPOT-copper-original-section"
+            },
+            {
+              "roomId": "spec001:R05",
+              "safePositionId": "spec001:R05.entry",
+              "hotspotId": "spec001:HOTSPOT-fiber-r05-pr043"
+            },
+            {
+              "roomId": "spec001:R09",
+              "safePositionId": "spec001:R09.entry",
+              "hotspotId": "spec001:HOTSPOT-market-ledger"
+            }
+          ]
+        },
+        "returnPolicy": {
+          "const": "captured-entry"
+        },
+        "timingDefault": {
+          "const": "off"
+        },
+        "clues": {
+          "const": [
+            {
+              "factId": "spec001:FACT-O03-defect",
+              "roomId": "spec001:R03",
+              "evidenceKind": "observation",
+              "label": "Copper Warrens: the documented conductor break",
+              "dialogueId": "spec001:DIALOGUE-copper-bench",
+              "sourceActionId": "spec001:ACTION-copper-read-defect",
+              "description": "You read the bench\u2019s supplied diagnosis of an open required conductor. This is a recorded diagnosis, not a new continuity measurement or a repair."
+            },
+            {
+              "factId": "spec001:FACT-O05-inspection",
+              "roomId": "spec001:R05",
+              "evidenceKind": "observation",
+              "label": "Photon Gardens: the connector inspection",
+              "dialogueId": "spec001:DIALOGUE-fiber-gardens",
+              "sourceActionId": "spec001:ACTION-fiber-inspect-before",
+              "description": "The dock recorded your inspection before intervention. That historical inspection does not assert that the present connection is clean, replaced or currently validated."
+            },
+            {
+              "factId": "spec001:FACT-market-ledger",
+              "roomId": "spec001:R09",
+              "evidenceKind": "context",
+              "label": "Shell Market: the delivered-power ledger",
+              "dialogueId": "spec001:DIALOGUE-market-equipment",
+              "sourceActionId": "spec001:ACTION-market-read-power",
+              "description": "You read the supplied ledger and its delivered-power accounting boundary. Observing this document is not taking a power measurement, selecting equipment or proving a working data link."
+            }
+          ]
+        },
+        "answerControls": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "legend",
+            "missingText",
+            "historicalText"
+          ],
+          "properties": {
+            "legend": {
+              "$ref": "#/$defs/maintenance_text"
+            },
+            "missingText": {
+              "$ref": "#/$defs/maintenance_text"
+            },
+            "historicalText": {
+              "$ref": "#/$defs/maintenance_text"
+            }
+          }
         }
       }
     }

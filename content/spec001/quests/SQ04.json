@@ -1,0 +1,237 @@
+{
+  "kind": "quest",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:SQ04",
+  "prerequisite": {
+    "kind": "always"
+  },
+  "evidence": [
+    {
+      "id": "spec001:FACT-SQ04-instructions",
+      "roomId": "spec001:R03",
+      "subjectIds": [
+        "spec001:R03",
+        "spec001:R05",
+        "spec001:R09"
+      ],
+      "kind": "context",
+      "text": "The Lost Maintenance Record has become three well-travelled notebook tabs. Read the Copper Warrens’ supplied diagnosis, inspect the Photon Gardens connection before intervention, and read the Shell Market ledger. Select your three recorded notebook entries here. You can practice, ask for help, retry or leave; this history is optional and untimed.",
+      "ruleIds": [],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-SQ04-history",
+      "roomId": "spec001:R03",
+      "subjectIds": [
+        "spec001:R03",
+        "spec001:R05",
+        "spec001:R09"
+      ],
+      "kind": "observation",
+      "text": "You reunited three notebook records: the Copper Warrens’ documented break, the Photon Gardens’ connector inspection, and the Shell Market’s delivered-power ledger. The recovered maintenance history preserves each source. It does not establish when earlier repairs happened, who performed them, or whether a current path or service works.",
+      "ruleIds": [],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "alternatives": [
+    {
+      "id": "spec001:ACTION-SQ04-combine",
+      "label": "Combine the three notebook records",
+      "method": "direct-action",
+      "itemIds": [],
+      "abilityIds": [],
+      "condition": {
+        "kind": "always"
+      },
+      "ruleIds": [],
+      "evidenceIds": [
+        "spec001:FACT-O03-defect",
+        "spec001:FACT-O05-inspection",
+        "spec001:FACT-market-ledger"
+      ],
+      "effects": [],
+      "explanation": "Choose the three exact collected notebook records, one from Copper Warrens, Photon Gardens and Shell Market. Their identities and actual notebook membership decide this authored record-combination task. No physical calculation is scored; notes, hypotheses, duplicate entries and guessed wording cannot supply a missing record."
+    }
+  ],
+  "ruleIds": [],
+  "profileIds": [],
+  "sourceClaims": [
+    {
+      "sourceId": "spec001:S04",
+      "section": "Failures of the Five Wiremap Tests",
+      "supportedClaim": "Wiremap examines conductor continuity and termination; an open can reflect a broken conductor, poor connection or damaged connector.",
+      "limitations": [
+        "The fixture supplies a diagnosed required-path break. An arbitrary open indication alone does not prove its location or cause; tester setup also matters."
+      ]
+    },
+    {
+      "sourceId": "spec001:S10",
+      "section": "Introductory PSE/PD definitions; PoE budget; PoE class, table headings for power delivered to PD versus switch-port output",
+      "supportedClaim": "PSE output and power delivered to a PD are distinct accounting boundaries. Multiple devices must fit the available aggregate budget.",
+      "limitations": [
+        "Only this distinction and aggregate-budget concept are used. No table wattages, PoE class allocation, priority behavior or detection timing are used by the fiction."
+      ]
+    }
+  ],
+  "model": {
+    "label": "design-state-invariant",
+    "scope": "An optional combination of three existing room records into a maintenance history. The selected room facts and sourceClaims preserve existing technical context only. SQ04 has no scored physical rule or physical source case.",
+    "assumptions": [
+      "The exact recorded fact IDs are resolved against their actual authored room records and require actual notebook membership for full combination.",
+      "The three sources are Copper Warrens, Photon Gardens and Shell Market; their supplied diagnosis, inspection and ledger are kept distinct.",
+      "Historical facts retained through retry remain learning records; current flags, room visits, personal notes and hypotheses cannot manufacture a missing observed record."
+    ],
+    "limitations": [
+      "The notebook combination is an authored story condition, not a networking measurement, a physical calculation, a certification or cryptographic provenance.",
+      "The Market clue is observation of a supplied ledger document, not a newly measured power value.",
+      "No repair chronology, named earlier technician or cause of the outage is inferred from the three records.",
+      "Historical learning is allowed without demanding a fresh measurement after every walk. It never proves the current condition, a repaired link or end-to-end service.",
+      "No new physical thresholds, profiles, sources, main objectives, required items or repair effects are introduced."
+    ]
+  },
+  "effects": [
+    {
+      "kind": "record-fact",
+      "effectId": "spec001:EFFECT-SQ04-history",
+      "factId": "spec001:FACT-SQ04-history"
+    },
+    {
+      "kind": "complete-quest",
+      "effectId": "spec001:EFFECT-SQ04-complete",
+      "questId": "spec001:SQ04"
+    }
+  ],
+  "hints": {
+    "method": {
+      "id": "spec001:HINT-SQ04-method",
+      "text": "Check the source room and kind of each notebook entry. You need the recorded copper diagnosis, the recorded connector inspection and the observed Market ledger. Your own notes can help you remember, but do not replace a source record."
+    },
+    "workedStep": {
+      "id": "spec001:HINT-SQ04-step",
+      "text": "The Copper Warrens diagnosis is one record from Copper Warrens. A second copy is still from Copper Warrens. Keep it, then look for the Photon Gardens connector inspection and the Shell Market delivered-power ledger. This worked example adds no clue to your notebook."
+    },
+    "solution": {
+      "id": "spec001:HINT-SQ04-solution",
+      "text": "Record the Copper Warrens diagnosis at the cracked original section, inspect the original connection at the Photon Gardens dock with the ordinary inspection kit, and read the power profile at the Shell Market module display case or ask the Eel. Then select your three recorded notebook entries here and combine them. This records assisted completion, with the same maintenance history reward."
+    }
+  },
+  "observableOutcome": "A correct full combination records one optional maintenance history and completes SQ04 once. It preserves the three source rooms without changing required inventory, main objectives, equipment, party, route or current measurements. Missing clues remain missing; practice grants no completion.",
+  "completionExplanation": "The notebook’s three tabs finally agree to share a page. You reunited three notebook records: the Copper Warrens’ documented break, the Photon Gardens’ connector inspection, and the Shell Market’s delivered-power ledger. The recovered maintenance history preserves each source. It does not establish when earlier repairs happened, who performed them, or whether a current path or service works. Your epilogue can now include this recovered history.",
+  "requiresReflexTiming": false,
+  "requiredForMainStory": false,
+  "skippable": true,
+  "optionalActivity": {
+    "kind": "notebook-combination",
+    "speakerId": "narrator",
+    "instructions": [
+      "Recover the record by collecting three existing notebook entries: the Copper Warrens copper diagnosis, the Photon Gardens connector inspection and the Shell Market power ledger.",
+      "In the full record, select the actual collected entries and combine them. Entry labels show the source room and whether you observed a diagnosis, performed an inspection or read a document.",
+      "Practice uses a supplied copper card. It awards no fact or completion and does not claim you visited that room. Worked help is recorded separately.",
+      "A retained clue may describe an earlier attempt. This history does not certify the current repair. There is no timer, required companion, score or optional-item prerequisite."
+    ],
+    "clues": [
+      {
+        "factId": "spec001:FACT-O03-defect",
+        "roomId": "spec001:R03",
+        "evidenceKind": "observation",
+        "label": "Copper Warrens: the documented conductor break",
+        "dialogueId": "spec001:DIALOGUE-copper-bench",
+        "sourceActionId": "spec001:ACTION-copper-read-defect",
+        "description": "You read the bench’s supplied diagnosis of an open required conductor. This is a recorded diagnosis, not a new continuity measurement or a repair."
+      },
+      {
+        "factId": "spec001:FACT-O05-inspection",
+        "roomId": "spec001:R05",
+        "evidenceKind": "observation",
+        "label": "Photon Gardens: the connector inspection",
+        "dialogueId": "spec001:DIALOGUE-fiber-gardens",
+        "sourceActionId": "spec001:ACTION-fiber-inspect-before",
+        "description": "The dock recorded your inspection before intervention. That historical inspection does not assert that the present connection is clean, replaced or currently validated."
+      },
+      {
+        "factId": "spec001:FACT-market-ledger",
+        "roomId": "spec001:R09",
+        "evidenceKind": "context",
+        "label": "Shell Market: the delivered-power ledger",
+        "dialogueId": "spec001:DIALOGUE-market-equipment",
+        "sourceActionId": "spec001:ACTION-market-read-power",
+        "description": "You read the supplied ledger and its delivered-power accounting boundary. Observing this document is not taking a power measurement, selecting equipment or proving a working data link."
+      }
+    ],
+    "practice": {
+      "factIds": [
+        "spec001:FACT-O03-defect"
+      ],
+      "explanation": "Worked example: select the supplied Copper Warrens diagnosis card. It is an observation of the authored diagnosis from Copper Warrens. The personal sentence “I think the fiber was repaired” is a note, not the missing Photon Gardens observation. Practice supplies this example only; it does not add the copper fact or complete the three-room history."
+    },
+    "delivery": {
+      "actionId": "spec001:ACTION-SQ04-combine",
+      "factIds": [
+        "spec001:FACT-O03-defect",
+        "spec001:FACT-O05-inspection",
+        "spec001:FACT-market-ledger"
+      ]
+    },
+    "answerControls": {
+      "legend": "Notebook records to combine",
+      "missingText": "Not yet recorded. Visit the named source and use its ordinary observation action.",
+      "historicalText": "Historical notebook record; not current repair proof."
+    },
+    "feedback": {
+      "practice": {
+        "correct": "That supplied copper card is the Copper Warrens record. The worked example grants no clue or completion; the full history needs your three actual collected entries.",
+        "incorrect": "A personal note, a hypothesis or another source cannot replace the supplied Copper Warrens diagnosis card. This is practice; use the explanation or retry.",
+        "invalidInput": "Select the supplied copper record for this worked example."
+      },
+      "delivery": {
+        "correct": "The notebook’s three tabs finally agree to share a page. You reunited three notebook records: the Copper Warrens’ documented break, the Photon Gardens’ connector inspection, and the Shell Market’s delivered-power ledger. The recovered maintenance history preserves each source. It does not establish when earlier repairs happened, who performed them, or whether a current path or service works. Your epilogue can now include this recovered history.",
+        "incorrect": "The three-room record is not complete. Keep your notes, but select the actual collected Copper Warrens diagnosis, Photon Gardens inspection and Shell Market ledger. A duplicate room cannot stand in for a missing source. You can leave to collect the missing record and return.",
+        "invalidInput": "Select notebook record cards before combining them. Freeform notes and caller-supplied results are not record selections."
+      },
+      "contentError": "The maintenance record’s authored references need correction. Nothing is awarded or counted as a learner mistake. You can leave safely.",
+      "alreadyCompleted": "The recovered maintenance history is already in your notebook. You can reread or practice without earning it twice."
+    },
+    "controls": {
+      "practice": "Practice with one supplied record",
+      "delivery": "Combine my collected records",
+      "submit": "Combine selected records",
+      "retry": "Try the record again",
+      "exit": "Close the record and return"
+    },
+    "recovery": {
+      "retryExplanation": "Retry clears this selection and returns to its captured preparation with a new attempt. Notebook clues, notes and help remain. Prior measurements stay visible as stale. This does not write a save.",
+      "exitExplanation": "Close the notebook at the same room and safe position where you opened this activity. Exit never chooses a different source room, consumes a required item or writes a save."
+    },
+    "reward": {
+      "kind": "epilogue-maintenance-history",
+      "factId": "spec001:FACT-SQ04-history",
+      "sourceRoomIds": [
+        "spec001:R03",
+        "spec001:R05",
+        "spec001:R09"
+      ],
+      "epilogueText": "You reunited three notebook records: the Copper Warrens’ documented break, the Photon Gardens’ connector inspection, and the Shell Market’s delivered-power ledger. The recovered maintenance history preserves each source. It does not establish when earlier repairs happened, who performed them, or whether a current path or service works."
+    },
+    "entryContexts": [
+      {
+        "roomId": "spec001:R03",
+        "safePositionId": "spec001:R03.entry",
+        "hotspotId": "spec001:HOTSPOT-copper-original-section"
+      },
+      {
+        "roomId": "spec001:R05",
+        "safePositionId": "spec001:R05.entry",
+        "hotspotId": "spec001:HOTSPOT-fiber-r05-pr043"
+      },
+      {
+        "roomId": "spec001:R09",
+        "safePositionId": "spec001:R09.entry",
+        "hotspotId": "spec001:HOTSPOT-market-ledger"
+      }
+    ],
+    "returnPolicy": "captured-entry",
+    "timingDefault": "off"
+  }
+}

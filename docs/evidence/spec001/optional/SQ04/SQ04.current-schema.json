@@ -1,0 +1,170 @@
+{
+  "kind": "quest",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:SQ04",
+  "prerequisite": {
+    "kind": "always"
+  },
+  "evidence": [
+    {
+      "id": "spec001:FACT-SQ04-instructions",
+      "roomId": "spec001:R03",
+      "subjectIds": [
+        "spec001:R03",
+        "spec001:R05",
+        "spec001:R09"
+      ],
+      "kind": "context",
+      "text": "The Lost Maintenance Record has become three well-travelled notebook tabs. Read the Copper Warrens’ supplied diagnosis, inspect the Photon Gardens connection before intervention, and read the Shell Market ledger. Select those three recorded entries in the notebook. You can practice, ask for help, retry or leave; this history is optional and untimed.",
+      "ruleIds": [],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-SQ04-history",
+      "roomId": "spec001:R03",
+      "subjectIds": [
+        "spec001:R03",
+        "spec001:R05",
+        "spec001:R09"
+      ],
+      "kind": "observation",
+      "text": "You reunited three notebook records: the Copper Warrens’ documented break, the Photon Gardens’ connector inspection, and the Shell Market’s delivered-power ledger. The recovered maintenance history preserves each source. It does not establish when earlier repairs happened, who performed them, or whether a current path or service works.",
+      "ruleIds": [],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "alternatives": [
+    {
+      "id": "spec001:ACTION-SQ04-combine",
+      "label": "Combine the three notebook records",
+      "method": "direct-action",
+      "itemIds": [],
+      "abilityIds": [],
+      "condition": {
+        "kind": "always"
+      },
+      "ruleIds": [],
+      "evidenceIds": [
+        "spec001:FACT-O03-defect",
+        "spec001:FACT-O05-inspection",
+        "spec001:FACT-market-ledger"
+      ],
+      "effects": [],
+      "explanation": "Choose the three exact collected notebook records, one from R03, R05 and R09. Their identities and actual notebook membership decide this authored record-combination task. No physical calculation is scored; notes, hypotheses, duplicate entries and guessed wording cannot supply a missing record."
+    }
+  ],
+  "ruleIds": [
+    "spec001:PHY03",
+    "spec001:PHY05",
+    "spec001:PHY06",
+    "spec001:PHY08"
+  ],
+  "profileIds": [],
+  "sourceClaims": [
+    {
+      "sourceId": "spec001:S08",
+      "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+      "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+      "limitations": [
+        "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."
+      ]
+    },
+    {
+      "sourceId": "spec001:S04",
+      "section": "Failures of the Five Wiremap Tests",
+      "supportedClaim": "Wiremap examines conductor continuity and termination; an open can reflect a broken conductor, poor connection or damaged connector.",
+      "limitations": [
+        "The fixture supplies a diagnosed required-path break. An arbitrary open indication alone does not prove its location or cause; tester setup also matters."
+      ]
+    },
+    {
+      "sourceId": "spec001:S03",
+      "section": "Cable Specifications → Ethernet Cable Specifications → Maximum Cable Length",
+      "supportedClaim": "This hardware guide specifies a 100 m maximum Ethernet cable distance between the described router and connected equipment.",
+      "limitations": [
+        "Product-specific illustration only. The game 100 m channel and inclusive comparator remain fictional; no universal limit for all copper or all Ethernet. No certification claim."
+      ]
+    },
+    {
+      "sourceId": "spec001:S07",
+      "section": "Platform support; Product specifications, Table 3 SFP+ port cabling specifications and Table 4 Optical transmit and receive specifications",
+      "supportedClaim": "Module-specific media, wavelength, reach and receiver minimum/maximum power are separate specifications. Host compatibility requires support information.",
+      "limitations": [
+        "No real module is instantiated in the toy optical fixture. Do not generalize shell shape or SMF/MMF slogans; supported combinations vary by module."
+      ]
+    },
+    {
+      "sourceId": "spec001:S10",
+      "section": "Introductory PSE/PD definitions; PoE budget; PoE class, table headings for power delivered to PD versus switch-port output",
+      "supportedClaim": "PSE output and power delivered to a PD are distinct accounting boundaries. Multiple devices must fit the available aggregate budget.",
+      "limitations": [
+        "Only this distinction and aggregate-budget concept are used. No table wattages, PoE class allocation, priority behavior or detection timing are used by the fiction."
+      ]
+    },
+    {
+      "sourceId": "spec001:S05",
+      "section": "Chapter 5 Ethernet networks → Ethernet topologies → Repeater hubs; PDF page 101",
+      "supportedClaim": "Historical Ethernet repeater hubs receive and repeat data to linked segments with amplification and retiming; the described shared medium operates half duplex.",
+      "limitations": [
+        "Not a modern wireless extender or a universal repeater topology allowance. Inability to restore an unchanged physical break is an explicit scenario inference, supported together with S04."
+      ]
+    },
+    {
+      "sourceId": "spec001:S06",
+      "section": "Calculate Power Budget and Power Margin for Fiber-Optic Cables → Calculate Power Budget for Fiber-Optic Cables; How to Calculate Power Margin for Fiber-Optic Cables",
+      "supportedClaim": "Budget equals minimum transmit power minus receiver sensitivity; margin subtracts link loss from that budget. Actual component losses need vendor data.",
+      "limitations": [
+        "Original Juniper URL redirects to publisher HPE documentation. Use equations only; a positive margin does not independently prove the maximum receiver bound. No sample losses or fixture thresholds imported."
+      ]
+    }
+  ],
+  "model": {
+    "label": "design-state-invariant",
+    "scope": "An optional combination of three existing room records into a maintenance history. The ruleIds and sourceClaims preserve the clues’ existing technical context only. SQ04 has no scored physical rule or physical source case.",
+    "assumptions": [
+      "The exact recorded fact IDs are resolved against their actual authored room records and require actual notebook membership for full combination.",
+      "The three sources are R03, R05 and R09; their supplied diagnosis, inspection and ledger are kept distinct.",
+      "Historical facts retained through retry remain learning records; current flags, room visits, personal notes and hypotheses cannot manufacture a missing observed record."
+    ],
+    "limitations": [
+      "The notebook combination is an authored story condition, not a networking measurement, a physical calculation, a certification or cryptographic provenance.",
+      "The Market clue is observation of a supplied ledger document, not a newly measured power value.",
+      "No repair chronology, named earlier technician or cause of the outage is inferred from the three records.",
+      "Historical learning is allowed without demanding a fresh measurement after every walk. It never proves the current condition, a repaired link or end-to-end service.",
+      "No new physical thresholds, profiles, sources, main objectives, required items or repair effects are introduced."
+    ]
+  },
+  "effects": [
+    {
+      "kind": "record-fact",
+      "effectId": "spec001:EFFECT-SQ04-history",
+      "factId": "spec001:FACT-SQ04-history"
+    },
+    {
+      "kind": "complete-quest",
+      "effectId": "spec001:EFFECT-SQ04-complete",
+      "questId": "spec001:SQ04"
+    }
+  ],
+  "hints": {
+    "method": {
+      "id": "spec001:HINT-SQ04-method",
+      "text": "Check the source room and kind of each notebook entry. You need the recorded copper diagnosis, the recorded connector inspection and the observed Market ledger. Your own notes can help you remember, but do not replace a source record."
+    },
+    "workedStep": {
+      "id": "spec001:HINT-SQ04-step",
+      "text": "The Copper Warrens diagnosis is one record from R03. A second copy is still from R03. Keep it, then look for the R05 connector inspection and the R09 delivered-power ledger. This worked example adds no clue to your notebook."
+    },
+    "solution": {
+      "id": "spec001:HINT-SQ04-solution",
+      "text": "Record the Copper Warrens diagnosis at the cracked original section, inspect the original connection at the Photon Gardens dock with the ordinary inspection kit, and read the Shell Market power ledger through its offered power-profile action. Then select those three recorded entries and combine them. This records assisted completion, with the same maintenance history reward."
+    }
+  },
+  "observableOutcome": "A correct full combination records one optional maintenance history and completes SQ04 once. It preserves the three source rooms without changing required inventory, main objectives, equipment, party, route or current measurements. Missing clues remain missing; practice grants no completion.",
+  "completionExplanation": "The notebook’s three tabs finally agree to share a page. You reunited three notebook records: the Copper Warrens’ documented break, the Photon Gardens’ connector inspection, and the Shell Market’s delivered-power ledger. The recovered maintenance history preserves each source. It does not establish when earlier repairs happened, who performed them, or whether a current path or service works. Your epilogue can now include this recovered history.",
+  "requiresReflexTiming": false,
+  "requiredForMainStory": false,
+  "skippable": true
+}

@@ -1,0 +1,24 @@
+{
+  "reason": "Explicit staged whitespace review found one extra trailing blank line in new maintenance contract. Root removed that newline only and regenerated its save-policy provenance. Worker seal and tests remain historical and unchanged. No behavior change.",
+  "policyChangedFields": [
+    "/provenance/inputs/src/content/maintenance-record.ts"
+  ],
+  "checks": [
+    "save-policy:generate PASS",
+    "save-policy:check PASS"
+  ],
+  "files": [
+    {
+      "path": "src/content/maintenance-record.ts",
+      "workerFreezeSha256": "d425216fdbbce6f5dbd6b6bbcb9b98d95681b6d7cc97a15d528b389fc7474368",
+      "finalSha256": "74f624fa0d7223463eec86b2b9621bbdc26cb9646109553db67c653c2b783b0a",
+      "bytes": 11031
+    },
+    {
+      "path": "server/content/save-policy.generated.json",
+      "workerFreezeSha256": "5b2d28daadd965a9dc789e599678380ad0924decc4172ce1b11fbdca2f228db8",
+      "finalSha256": "19356ea4758929cd270194dc065d0add03122dbac2537f842d10cb138443180a",
+      "bytes": 58129
+    }
+  ]
+}

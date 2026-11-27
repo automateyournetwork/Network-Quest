@@ -1,0 +1,82 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts (50 tests | 1 failed) 37991ms
+   ✓ SQ04 source contract and isolated authoring (14)
+     ✓ validates full candidate through the actual registry with explicitly staged schema/variant adapters 524ms
+     ✓ preserves the independent oracle empty scored rules/cases and notebook semantics 1ms
+     ✓ retains exact reviewed source claims only for the clues’ existing physical context 1ms
+     ✓ binds three real room facts, safe entries and ordinary acquisition actions 494ms
+     ✓ validates the closed payload and retains the genuine legacy schema failure 91ms
+     ✓ rejects timed proposal corruption 0ms
+     ✓ rejects missing-exit proposal corruption 0ms
+     ✓ rejects swapped-room proposal corruption 0ms
+     ✓ rejects repeated-room proposal corruption 0ms
+     ✓ rejects forged-fact proposal corruption 0ms
+     ✓ rejects wrong-kind proposal corruption 0ms
+     ✓ rejects hidden-effect proposal corruption 0ms
+     ✓ rejects main-reward proposal corruption 0ms
+     ✓ rejects main progress effects and optional main-route prerequisites in the real registry 707ms
+   ❯ independent SQ04 notebook selection expectations (27)
+     ✓ executes OPT-SQ04-COMBINE with actual identity-bound notebook membership 927ms
+     × executes OPT-SQ04-NOTE-NOT-CLUE without turning a hypothesis/note into the missing observation 946ms
+     ✓ executes OPT-SQ04-DUPLICATE-ROOM without filling R05 918ms
+     ✓ requires the actual 0 record, not merely its selection 913ms
+     ✓ requires the actual 1 record, not merely its selection 926ms
+     ✓ requires the actual 2 record, not merely its selection 942ms
+     ✓ accepts all selection orders while preserving canonical room attribution 897ms
+     ✓ room visits and current inspection flags alone never constitute a clue 897ms
+     ✓ uses retained facts as history without requiring current configuration flags or measurements 902ms
+     ✓ practice uses a clearly supplied card without collecting it or earning completion 924ms
+     ✓ rejects malformed/forged answer null 900ms
+     ✓ rejects malformed/forged answer {} 913ms
+     ✓ rejects malformed/forged answer "" 911ms
+     ✓ rejects malformed/forged answer {"selectedFactIds":[]} 916ms
+     ✓ rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-SQ04-history"]} 903ms
+     ✓ rejects malformed/forged answer {"selectedFactIds":[null]} 896ms
+     ✓ rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"sourceRooms":["R03","R05","R09"]} 912ms
+     ✓ rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"status":"correct"} 907ms
+     ✓ rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"acceptedEffects":[{"kind":"record-fact","effectId":"spec001:EFFECT-SQ04-history","factId":"spec001:FACT-SQ04-history"},{"kind":"complete-quest","effectId":"spec001:EFFECT-SQ04-complete","questId":"spec001:SQ04"}]} 905ms
+     ✓ reports broken fact authoring before absent learner input 912ms
+     ✓ reports broken room authoring before absent learner input 911ms
+     ✓ reports broken kind authoring before absent learner input 923ms
+     ✓ reports broken source authoring before absent learner input 951ms
+     ✓ reports broken action authoring before absent learner input 916ms
+     ✓ reports broken subject authoring before absent learner input 919ms
+     ✓ reports broken freshness authoring before absent learner input 904ms
+     ✓ retains the original action capture and rejects a changed current version 900ms
+   ✓ real source actions and existing atomic receipt boundaries (9)
+     ✓ collects each clue using its actual ordinary room preparation and reducer 1390ms
+     ✓ the existing fiber inspection requires its actual room, before-change state and ordinary kit 462ms
+     ✓ the trusted exact quest/fact batch applies once and changes no main-route state 914ms
+     ✓ rejects an incomplete record-fact-only reward batch 909ms
+     ✓ rejects an incomplete complete-quest-only reward batch 915ms
+     ✓ a raw correct selection predicate carries no completion effects 1821ms
+     ✓ a raw practice selection predicate carries no completion effects 1853ms
+     ✓ a raw missing selection predicate carries no completion effects 1832ms
+     ✓ real encounter rollback retains the history fact but removes its quest reward; no implicit save 1381ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > executes OPT-SQ04-NOTE-NOT-CLUE without turning a hypothesis/note into the missing observation
+AssertionError: expected 'I think the fiber was repaired.' to be 'I think the fiber was repaired' // Object.is equality
+
+Expected: "I think the fiber was repaired"
+Received: "I think the fiber was repaired."
+
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:170:81
+    168|     const before = structuredClone(withNotes), result = evaluate(withN…
+    169|     expect(result.status).toBe('incorrect'); expect(result.observation…
+    170|     expect(withNotes).toEqual(before); expect(withNotes.notebook.perso…
+       |                                                                                 ^
+    171|   });
+    172|   it('executes OPT-SQ04-DUPLICATE-ROOM without filling R05', () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 49 passed (50)
+   Start at  09:32:29
+   Duration  38.21s (tests 100%)
+

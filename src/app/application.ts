@@ -128,7 +128,7 @@ export function createIntroductionApplication(host: HTMLElement) {
     })));
   });
   const notebookPresentation = { ...routeNotebook, facts: [...routeNotebook.facts, ...optionalDefinitions.flatMap(definition => definition.evidence.map(fact => ({
-    id: fact.id, heading: `${world.optionalActivities.find(entry => entry.id === definition.id)!.name}: ${fact.kind === 'observation' ? 'journal entry' : 'instructions'}`,
+    id: fact.id, heading: `${definition.optionalActivity.kind === 'notebook-combination' ? 'Lost Maintenance Record' : world.optionalActivities.find(entry => entry.id === definition.id)!.name}: ${fact.kind === 'observation' ? 'journal entry' : 'instructions'}`,
     sourceId: definition.id, kind: fact.kind === 'observation' ? 'Observation' : 'Scenario context',
   })))] };
   const notebook = createNotebookController({ registry, store, bus, presentation: notebookPresentation, allowDuringEncounter: allowRiftEncounterAction });
@@ -238,7 +238,7 @@ export function createIntroductionApplication(host: HTMLElement) {
         const buttons = projected.entries.map(entry => {
           const button = [...optionalOpeners.querySelectorAll('button')].find(node => node.dataset['activity'] === entry.activityId)
             ?? host.ownerDocument.createElement('button');
-          button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = entry.activityId === q('SQ01') ? 'Serial Post' : entry.activityId === q('SQ02') ? 'Energy audit' : 'Weather Diary';
+          button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = entry.activityId === q('SQ01') ? 'Serial Post' : entry.activityId === q('SQ02') ? 'Energy audit' : entry.activityId === q('SQ03') ? 'Weather Diary' : 'Maintenance record';
           button.setAttribute('aria-label', `Open ${button.textContent}`);
           button.addEventListener('click', () => {
             if (button.isConnected && optionalOpeners.contains(button) && !button.closest('[hidden], [inert]'))

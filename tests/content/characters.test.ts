@@ -135,11 +135,16 @@ describe('T093 bounded schema evolution preserves T092 provenance', () => {
     expect(ability.id).toMatch(/^spec001:ABILITY-/);
     expect(ability.conventionalEquivalentActionIds?.length).toBeGreaterThan(0);
   });
-  it('accepts every old-shaped current document with both schemas', () => {
+  it('accepts genuine old-shaped documents and tests new SQ04 separately against its current schema', () => {
     const compile=(s:any)=>{const a=new Ajv({strict:true,allErrors:true});formats(a);return a.compile(s)};
     const old=compile(originalSchema),current=compile(schema);
     for(const [path,document] of Object.entries(documents)) {
       if(path==='content/spec001/characters.json')continue;
+      if(path==='content/spec001/quests/SQ04.json') {
+        expect(old(document),path).toBe(false);
+        expect(old(json('docs/evidence/spec001/optional/SQ04/SQ04.current-schema.json')),'historical failed SQ04 projection').toBe(false);
+        expect(current(document),path).toBe(true);continue;
+      }
       // New T100 payloads are tested against their explicitly retained old-shaped
       // projections. The immutable T092 schema is never rehashed or refreshed.
       const optional = /^content\/spec001\/quests\/(SQ0[123])\.json$/.exec(path);

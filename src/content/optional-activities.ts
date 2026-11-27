@@ -2,6 +2,7 @@
 import type { ContentRegistry } from './registry';
 import type { OptionalActivityDefinition } from '../state/optional-activities';
 import reviewed from '../../content/spec001/sources.json' with { type: 'json' };
+import { maintenanceContentIssues } from './optional-maintenance.ts';
 import { radioDiaryContentIssues } from './optional-radio-diary.ts';
 import type * as S from './schema-types.generated';
 const isRecord = (value: unknown): value is Record<string, unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
@@ -15,6 +16,7 @@ export function optionalActivityContentIssues(record: unknown, registry: Content
 }
 function checkOptionalContent(record: unknown, registry: ContentRegistry): readonly string[] {
   const errors: string[] = [];
+  if (isRecord(record) && record['kind'] === 'quest' && record['id'] === 'spec001:SQ04') return maintenanceContentIssues(record as unknown as S.quest, registry);
   if (isRecord(record) && record['kind'] === 'quest' && record['id'] === 'spec001:SQ03') return radioDiaryContentIssues(record as unknown as S.quest, registry);
   if (!isRecord(record) || record['kind'] !== 'quest' || !['spec001:SQ01', 'spec001:SQ02'].includes(String(record['id'])) || !isRecord(record['optionalActivity'])) return ['unsupported-optional-activity'];
   const activity = record['optionalActivity'];
@@ -24,7 +26,7 @@ function checkOptionalContent(record: unknown, registry: ContentRegistry): reado
     || activity['timingDefault'] !== 'off' || activity['returnPolicy'] !== 'captured-entry' || !Array.isArray(activity['instructions'])
     || !activity['instructions'].length || !activity['instructions'].every(text)) errors.push('optional-shape');
   const def = record as unknown as OptionalActivityDefinition, authored = def.optionalActivity;
-  if (authored.kind === 'radio-weather-diary') return ['optional-variant-mismatch'];
+  if (authored.kind === 'radio-weather-diary' || authored.kind === 'notebook-combination') return ['optional-variant-mismatch'];
   if (!isRecord(activity['practice']) || !isRecord(activity['delivery']) || !isRecord(activity['feedback']) || !isRecord(activity['reward'])
     || !isRecord(activity['controls']) || !isRecord(activity['recovery']) || !Array.isArray(activity['entryContexts'])
     || !Array.isArray(record['effects']) || !Array.isArray(record['alternatives']) || !Array.isArray(record['evidence'])
@@ -88,6 +90,7 @@ function checkOptionalContent(record: unknown, registry: ContentRegistry): reado
 export function optionalRewardAllocationMatches(definition: OptionalActivityDefinition, manifest: unknown): boolean {
   if (!isRecord(manifest) || !Array.isArray(manifest['assets'])) return false;
   const reward = definition.optionalActivity.reward;
+  if (reward.kind === 'epilogue-maintenance-history') return definition.id === 'spec001:SQ04' && reward.factId === 'spec001:FACT-SQ04-history';
   const matches = manifest['assets'].filter(row => isRecord(row) && row['assetId'] === reward.assetId);
   const expected = definition.id === 'spec001:SQ01' ? '08' : definition.id === 'spec001:SQ02' ? '18' : definition.id === 'spec001:SQ03' ? '16' : null;
   return expected !== null && reward.assetId === `spec001:ASSET-ILLUSTRATION-${expected}` && matches.length === 1 && isRecord(matches[0])

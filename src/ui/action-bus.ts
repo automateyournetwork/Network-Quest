@@ -1,4 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import { maintenanceSubmission } from '../state/optional-maintenance';
 import type { AbilityId, ActionId, AdventureId, CharacterId, FactId, InstanceId, ItemId, MeasurementId, ObjectiveId, QualifiedId, RoomId, Verb, WorldVersion } from '../domain/types';
 import { validNotebookText } from '../state/notebook';
 import type { ReducerCommand, ReducerInput, ReducerState, Reduction } from '../state/reducer';
@@ -96,7 +97,7 @@ const verbs = new Set<string>(['walk', 'look', 'talk', 'use']);
 const panels = new Set<string>(['inventory', 'notebook', 'compendium', 'party', 'settings', 'save']);
 const fields: Record<SemanticAction['kind'], readonly string[]> = {
   'start-optional': ['kind', 'activityId', 'hotspotId'], 'choose-optional-mode': ['kind', 'sessionId', 'mode'],
-  'submit-optional': ['kind', 'sessionId', 'bits'], 'submit-optional-power': ['kind', 'sessionId', 'answer'], 'submit-optional-diary': ['kind', 'sessionId', 'answer'],
+  'submit-optional': ['kind', 'sessionId', 'bits'], 'submit-optional-power': ['kind', 'sessionId', 'answer'], 'submit-optional-diary': ['kind', 'sessionId', 'answer'], 'submit-optional-maintenance': ['kind', 'sessionId', 'answer'],
   'hint-optional': ['kind', 'sessionId'], 'retry-optional': ['kind', 'sessionId'], 'explain-optional': ['kind', 'sessionId'],
   'boundary-optional': ['kind', 'sessionId'], 'exit-optional': ['kind', 'sessionId'],
   'invite-ally': ['kind', 'characterId'], 'begin-ally-practice': ['kind', 'characterId'], 'review-ally-practice': ['kind', 'characterId'],
@@ -132,6 +133,10 @@ export function copySemanticAction(input: SemanticAction): SemanticAction {
     case 'start-optional': if (!qualifiedIdentity(input.activityId) || !qualifiedIdentity(input.hotspotId)) throw new TypeError('Invalid optional activity entry.'); break;
     case 'choose-optional-mode': if (!dialogueSession(input.sessionId) || !['practice', 'delivery'].includes(input.mode)) throw new TypeError('Invalid optional mode.'); break;
     case 'submit-optional': if (!dialogueSession(input.sessionId) || typeof input.bits !== 'string' || input.bits.length > 512) throw new TypeError('Invalid optional answer.'); break;
+    case 'submit-optional-maintenance': {
+      if (!dialogueSession(input.sessionId) || !maintenanceSubmission(input.answer)) throw new TypeError('Invalid maintenance selection.');
+      return Object.freeze({ ...input, answer: Object.freeze({ selectedFactIds: Object.freeze([...input.answer.selectedFactIds]) }) });
+    }
     case 'submit-optional-diary': {
       const answer: unknown = input.answer, keys = ['earlierMeasurementId', 'laterMeasurementId', 'comparison', 'currentAssessment', 'evidenceClaim'];
       if (!dialogueSession(input.sessionId) || !answer || typeof answer !== 'object' || Array.isArray(answer)

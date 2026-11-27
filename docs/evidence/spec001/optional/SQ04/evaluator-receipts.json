@@ -1,0 +1,283 @@
+{
+  "scope": "Isolated notebook-combination proposal, real room action preparations and existing reducer boundaries. No shared activity/controller/browser/human acceptance.",
+  "protectedInputs": {
+    "tests/fixtures/optional-activities.json": "d29ef77428a61f8b6c92dc4fd17e99cd6b8a10a738e68171e1bad59eab9917cb",
+    "tests/fixtures/companions.json": "adce95202c355fcb4e24ef1fca657aab5b8dbf6f36675ccfdd9fcacc6c18db8f",
+    "tests/fixtures/physical-cases.json": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1",
+    "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
+    "content/spec001/rooms/R03.json": "68b2dbd3b48a305e3fa6359933d3ecd644d621677c1a994c1d5066da5b0d8c6f",
+    "content/spec001/rooms/R05.json": "fa332cecdf838044db74eece952b9f86d9f87741614a8d5e9cd59a8724e21fd2",
+    "content/spec001/rooms/R09.json": "b04b9799022e53ca8d9f0de83ee7346313683b837e7a79728ae19dd57276a3b1"
+  },
+  "receipts": {
+    "OPT-SQ04-COMBINE": {
+      "status": "correct",
+      "reasonCode": "maintenance-record-combined",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "maintenance-combination",
+          "mode": "delivery",
+          "sourceRoomsPreserved": [
+            "spec001:R03",
+            "spec001:R05",
+            "spec001:R09"
+          ],
+          "missingSourceRooms": [],
+          "activityCompletionEligible": true,
+          "evidenceUse": "historical-notebook-learning",
+          "currentRepairProven": false,
+          "endToEndServiceProven": false,
+          "chronologyProven": false,
+          "requiredObjectiveAward": 0
+        }
+      ]
+    },
+    "OPT-SQ04-NOTE-NOT-CLUE": {
+      "status": "incorrect",
+      "reasonCode": "maintenance-record-incomplete",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "maintenance-combination",
+          "mode": "delivery",
+          "sourceRoomsPreserved": [
+            "spec001:R03",
+            "spec001:R09"
+          ],
+          "missingSourceRooms": [
+            "spec001:R05"
+          ],
+          "activityCompletionEligible": false,
+          "evidenceUse": "historical-notebook-learning",
+          "currentRepairProven": false,
+          "endToEndServiceProven": false,
+          "chronologyProven": false,
+          "requiredObjectiveAward": 0
+        }
+      ]
+    },
+    "OPT-SQ04-DUPLICATE-ROOM": {
+      "status": "incorrect",
+      "reasonCode": "maintenance-record-incomplete",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "maintenance-combination",
+          "mode": "delivery",
+          "sourceRoomsPreserved": [
+            "spec001:R03",
+            "spec001:R09"
+          ],
+          "missingSourceRooms": [
+            "spec001:R05"
+          ],
+          "activityCompletionEligible": false,
+          "evidenceUse": "historical-notebook-learning",
+          "currentRepairProven": false,
+          "endToEndServiceProven": false,
+          "chronologyProven": false,
+          "requiredObjectiveAward": 0
+        }
+      ]
+    },
+    "practice-only": {
+      "status": "correct",
+      "reasonCode": "maintenance-record-combined",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "maintenance-combination",
+          "mode": "practice",
+          "sourceRoomsPreserved": [
+            "spec001:R03"
+          ],
+          "missingSourceRooms": [],
+          "activityCompletionEligible": false,
+          "evidenceUse": "supplied-practice-only",
+          "currentRepairProven": false,
+          "endToEndServiceProven": false,
+          "chronologyProven": false,
+          "requiredObjectiveAward": 0
+        }
+      ]
+    },
+    "content-fact": {
+      "status": "content-error",
+      "reasonCode": "malformed-authored-challenge",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "content-error",
+          "reason": "malformed-authored-challenge",
+          "issue": {
+            "code": "maintenance-clue-binding",
+            "field": "clues",
+            "message": "The maintenance record must bind the three authored source entries."
+          },
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "content-room": {
+      "status": "content-error",
+      "reasonCode": "malformed-authored-challenge",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "content-error",
+          "reason": "malformed-authored-challenge",
+          "issue": {
+            "code": "maintenance-clue-binding",
+            "field": "clues",
+            "message": "The maintenance record must bind the three authored source entries."
+          },
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "content-kind": {
+      "status": "content-error",
+      "reasonCode": "malformed-authored-challenge",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "content-error",
+          "reason": "malformed-authored-challenge",
+          "issue": {
+            "code": "maintenance-clue-binding",
+            "field": "clues",
+            "message": "The maintenance record must bind the three authored source entries."
+          },
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "content-source": {
+      "status": "content-error",
+      "reasonCode": "malformed-authored-challenge",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "content-error",
+          "reason": "malformed-authored-challenge",
+          "issue": {
+            "code": "maintenance-clue-binding",
+            "field": "clues",
+            "message": "The maintenance record must bind the three authored source entries."
+          },
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "content-action": {
+      "status": "content-error",
+      "reasonCode": "malformed-authored-challenge",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "content-error",
+          "reason": "malformed-authored-challenge",
+          "issue": {
+            "code": "maintenance-clue-binding",
+            "field": "clues",
+            "message": "The maintenance record must bind the three authored source entries."
+          },
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "content-subject": {
+      "status": "content-error",
+      "reasonCode": "malformed-authored-challenge",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "content-error",
+          "reason": "malformed-authored-challenge",
+          "issue": {
+            "code": "maintenance-authored-source",
+            "field": "clues",
+            "message": "The maintenance record must bind the three authored source entries."
+          },
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "content-freshness": {
+      "status": "content-error",
+      "reasonCode": "malformed-authored-challenge",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "content-error",
+          "reason": "malformed-authored-challenge",
+          "issue": {
+            "code": "maintenance-authored-source",
+            "field": "clues",
+            "message": "The maintenance record must bind the three authored source entries."
+          },
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "stale-action": {
+      "status": "invalid-input",
+      "reasonCode": "stale-action",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "invalid-input",
+          "reason": "stale-action",
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "spec001:ACTION-copper-read-defect": {
+      "status": "correct",
+      "reasonCode": "copper-choice-recorded",
+      "observations": [],
+      "acceptedEffects": [
+        {
+          "kind": "record-fact",
+          "effectId": "spec001:EFFECT-copper-read-defect",
+          "factId": "spec001:FACT-O03-defect"
+        }
+      ]
+    },
+    "spec001:ACTION-fiber-inspect-before": {
+      "status": "correct",
+      "reasonCode": "fiber-choice-recorded",
+      "observations": [],
+      "acceptedEffects": [
+        {
+          "kind": "set-flag",
+          "effectId": "spec001:EFFECT-fiber-inspect-before",
+          "flagId": "spec001:FLAG-fiber-connection",
+          "value": "inspected"
+        },
+        {
+          "kind": "record-fact",
+          "effectId": "spec001:EFFECT-fiber-inspect-before-fact",
+          "factId": "spec001:FACT-O05-inspection"
+        }
+      ]
+    },
+    "spec001:ACTION-market-read-power": {
+      "status": "handled",
+      "reason": "applied",
+      "message": "Read the fictional delivered-power profile and compare the original proposal with both kits."
+    },
+    "existing-rollback-boundary": {
+      "status": "applied"
+    }
+  }
+}

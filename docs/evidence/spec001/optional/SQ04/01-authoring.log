@@ -1,0 +1,494 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts (50 tests | 38 failed) 515ms
+   ❯ SQ04 source contract and isolated authoring (14)
+     × validates ordinary projection in the actual registry without loading canonical SQ04 50ms
+     ✓ preserves the independent oracle empty scored rules/cases and notebook semantics 1ms
+     ✓ retains exact reviewed source claims only for the clues’ existing physical context 1ms
+     × binds three real room facts, safe entries and ordinary acquisition actions 16ms
+     ✓ validates closed optional payload and keeps it outside unsupported production variant 21ms
+     ✓ rejects timed proposal corruption 1ms
+     ✓ rejects missing-exit proposal corruption 0ms
+     ✓ rejects swapped-room proposal corruption 0ms
+     ✓ rejects repeated-room proposal corruption 0ms
+     ✓ rejects forged-fact proposal corruption 0ms
+     ✓ rejects wrong-kind proposal corruption 0ms
+     ✓ rejects hidden-effect proposal corruption 0ms
+     ✓ rejects main-reward proposal corruption 0ms
+     ✓ rejects main progress effects and optional main-route prerequisites in the real registry 27ms
+   ❯ independent SQ04 notebook selection expectations (27)
+     × executes OPT-SQ04-COMBINE with actual identity-bound notebook membership 12ms
+     × executes OPT-SQ04-NOTE-NOT-CLUE without turning a hypothesis/note into the missing observation 11ms
+     × executes OPT-SQ04-DUPLICATE-ROOM without filling R05 11ms
+     × requires the actual 0 record, not merely its selection 12ms
+     × requires the actual 1 record, not merely its selection 11ms
+     × requires the actual 2 record, not merely its selection 11ms
+     × accepts all selection orders while preserving canonical room attribution 12ms
+     × room visits and current inspection flags alone never constitute a clue 12ms
+     × uses retained facts as history without requiring current configuration flags or measurements 11ms
+     × practice uses a clearly supplied card without collecting it or earning completion 11ms
+     × rejects malformed/forged answer null 11ms
+     × rejects malformed/forged answer {} 11ms
+     × rejects malformed/forged answer "" 11ms
+     × rejects malformed/forged answer {"selectedFactIds":[]} 11ms
+     × rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-SQ04-history"]} 11ms
+     × rejects malformed/forged answer {"selectedFactIds":[null]} 12ms
+     × rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"sourceRooms":["R03","R05","R09"]} 11ms
+     × rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"status":"correct"} 10ms
+     × rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"acceptedEffects":[{"kind":"record-fact","effectId":"spec001:EFFECT-SQ04-history","factId":"spec001:FACT-SQ04-history"},{"kind":"complete-quest","effectId":"spec001:EFFECT-SQ04-complete","questId":"spec001:SQ04"}]} 10ms
+     × reports broken fact authoring before absent learner input 11ms
+     × reports broken room authoring before absent learner input 11ms
+     × reports broken kind authoring before absent learner input 10ms
+     × reports broken source authoring before absent learner input 10ms
+     × reports broken action authoring before absent learner input 11ms
+     × reports broken subject authoring before absent learner input 11ms
+     × reports broken freshness authoring before absent learner input 11ms
+     × retains the original action capture and rejects a changed current version 10ms
+   ❯ real source actions and existing atomic receipt boundaries (9)
+     × collects each clue using its actual ordinary room preparation and reducer 11ms
+     × the existing fiber inspection requires its actual room, before-change state and ordinary kit 10ms
+     × the trusted exact quest/fact batch applies once and changes no main-route state 11ms
+     × rejects an incomplete record-fact-only reward batch 11ms
+     × rejects an incomplete complete-quest-only reward batch 11ms
+     × a raw correct selection predicate carries no completion effects 11ms
+     × a raw practice selection predicate carries no completion effects 10ms
+     × a raw missing selection predicate carries no completion effects 11ms
+     × real encounter rollback retains the history fact but removes its quest reward; no implicit save 11ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 38 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > SQ04 source contract and isolated authoring > validates ordinary projection in the actual registry without loading canonical SQ04
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:75:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > SQ04 source contract and isolated authoring > binds three real room facts, safe entries and ordinary acquisition actions
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:95:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > executes OPT-SQ04-COMBINE with actual identity-bound notebook membership
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:49:62
+ ❯ evaluate docs/evidence/spec001/optional/SQ04/authoring.test.ts:52:23
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:131:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > executes OPT-SQ04-NOTE-NOT-CLUE without turning a hypothesis/note into the missing observation
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:49:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:138:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > executes OPT-SQ04-DUPLICATE-ROOM without filling R05
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:49:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:146:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > requires the actual 0 record, not merely its selection
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > requires the actual 1 record, not merely its selection
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > requires the actual 2 record, not merely its selection
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:49:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:150:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > accepts all selection orders while preserving canonical room attribution
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:49:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:154:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > room visits and current inspection flags alone never constitute a clue
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:158:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > uses retained facts as history without requiring current configuration flags or measurements
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:49:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:162:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > practice uses a clearly supplied card without collecting it or earning completion
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:166:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer null
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer {}
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer ""
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer {"selectedFactIds":[]}
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-SQ04-history"]}
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer {"selectedFactIds":[null]}
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"sourceRooms":["R03","R05","R09"]}
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"status":"correct"}
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"acceptedEffects":[{"kind":"record-fact","effectId":"spec001:EFFECT-SQ04-history","factId":"spec001:FACT-SQ04-history"},{"kind":"complete-quest","effectId":"spec001:EFFECT-SQ04-complete","questId":"spec001:SQ04"}]}
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:49:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:172:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > reports broken fact authoring before absent learner input
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > reports broken room authoring before absent learner input
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > reports broken kind authoring before absent learner input
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > reports broken source authoring before absent learner input
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > reports broken action authoring before absent learner input
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > reports broken subject authoring before absent learner input
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > reports broken freshness authoring before absent learner input
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:175:63
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > retains the original action capture and rejects a changed current version
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:49:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:192:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > collects each clue using its actual ordinary room preparation and reducer
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ prepared docs/evidence/spec001/optional/SQ04/authoring.test.ts:56:23
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:200:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > the existing fiber inspection requires its actual room, before-change state and ordinary kit
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:217:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > the trusted exact quest/fact batch applies once and changes no main-route state
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:49:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:225:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > rejects an incomplete record-fact-only reward batch
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > rejects an incomplete complete-quest-only reward batch
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ prepared docs/evidence/spec001/optional/SQ04/authoring.test.ts:56:23
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:235:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > a raw correct selection predicate carries no completion effects
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > a raw practice selection predicate carries no completion effects
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > a raw missing selection predicate carries no completion effects
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:49:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:239:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > real encounter rollback retains the history fact but removes its quest reward; no implicit save
+AssertionError: [{"code":"schema","path":"content/spec001/quests/SQ04.json","message":"[{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"scope\"},\"message\":\"must have required property 'scope'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"description\"},\"message\":\"must have required property 'description'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"initialLocation\"},\"message\":\"must have required property 'initialLocation'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"rooms\"},\"message\":\"must have required property 'rooms'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"walkEdges\"},\"message\":\"must have required property 'walkEdges'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"objectives\"},\"message\":\"must have required property 'objectives'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"branches\"},\"message\":\"must have required property 'branches'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"commonObjectiveIds\"},\"message\":\"must have required property 'commonObjectiveIds'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"characters\"},\"message\":\"must have required property 'characters'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"props\"},\"message\":\"must have required property 'props'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"optionalActivities\"},\"message\":\"must have required property 'optionalActivities'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"safePositions\"},\"message\":\"must have required property 'safePositions'\"}]"},{"code":"missing-document","path":"content/spec001/quests/SQ04.json","message":"Listed document was not loaded"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:39:52
+     37| function registry() {
+     38|   const result = validateContent(input());
+     39|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     40|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     41|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:43:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:49:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:244:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/19]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  38 failed | 12 passed (50)
+   Start at  09:29:20
+   Duration  890ms (tests 62%, transform 29%, import 8%)
+

@@ -1,0 +1,14 @@
+
+> network-quest@0.0.0 check
+> npm run typecheck && node tools/validate-content.ts && npm run save-policy:check
+
+
+> network-quest@0.0.0 typecheck
+> tsc --noEmit
+
+Content validation passed: 12 room identities, 80 authored records; independent routes: copper, fiber, radio. Metadata is not playable-content acceptance.
+
+> network-quest@0.0.0 save-policy:check
+> node tools/generate-save-content-policy.ts
+
+server/content/save-policy.generated.json is stale; run node tools/generate-save-content-policy.ts --generate

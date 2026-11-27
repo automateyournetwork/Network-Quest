@@ -1,0 +1,192 @@
+{
+  "task": "T099",
+  "loop": 112,
+  "date": "2026-11-27",
+  "scope": "Disjoint candidate, explicitly staged schema/semantic adapters, real acquisition actions and existing reducer boundaries. Not common runtime or browser acceptance.",
+  "finalTests": {
+    "command": "PATH=\"$PWD/.runtime/node-v26.13.1-darwin-arm64/bin:$PATH\" NQ_PHP_BIN=/opt/homebrew/opt/php@8.4/bin/php ./node_modules/.bin/vitest run --config docs/evidence/spec001/optional/SQ04/vitest.config.ts",
+    "log": "08-reviewed-authoring.log",
+    "exitCode": 0,
+    "suites": 1,
+    "passed": 51,
+    "failed": 0,
+    "durationSeconds": 1.61
+  },
+  "finalTypecheck": {
+    "command": "PATH=\"$PWD/.runtime/node-v26.13.1-darwin-arm64/bin:$PATH\" ./node_modules/.bin/tsc -p docs/evidence/spec001/optional/SQ04/tsconfig.json",
+    "log": "09-reviewed-typecheck.log",
+    "exitCode": 0
+  },
+  "historicalRuns": [
+    {
+      "log": "01-authoring.log",
+      "passed": 12,
+      "failed": 38,
+      "cause": "Real legacy alternative.ruleIds minItems=1; all registry-dependent checks blocked. Root approved bounded staged notebook exception."
+    },
+    {
+      "log": "02-staged-authoring.log",
+      "passed": 12,
+      "failed": 38,
+      "cause": "Dialogue references used sourceId, reserved for authoritative sources. Corrected to dialogueId."
+    },
+    {
+      "log": "03-identity-authoring.log",
+      "passed": 49,
+      "failed": 1,
+      "cause": "Test note added punctuation absent from oracle. Corrected preparation to use exact oracle text."
+    },
+    {
+      "log": "04-typecheck.log",
+      "exitCode": 2,
+      "cause": "Readonly inferred game shape and branded ID comparisons. Corrected types/String comparisons."
+    },
+    {
+      "log": "05-typecheck.log",
+      "exitCode": 0
+    },
+    {
+      "log": "06-authoring-final.log",
+      "passed": 50,
+      "failed": 0
+    },
+    {
+      "log": "07-typecheck-final.log",
+      "exitCode": 0
+    }
+  ],
+  "oraclePreservation": {
+    "unchangedAgainstGitHEAD": [
+      "tests/fixtures/optional-activities.json",
+      "tests/fixtures/companions.json",
+      "tests/fixtures/physical-cases.json"
+    ],
+    "frozenArtifacts": [
+      {
+        "originalPath": ".specify/memory/constitution.md",
+        "checkedPath": ".specify/memory/constitution.md",
+        "expectedSha256": "6d576e5b66eda15325b80f0dd6342cbc826804b3f6f10a81edd824656a56c39a",
+        "actualSha256": "6d576e5b66eda15325b80f0dd6342cbc826804b3f6f10a81edd824656a56c39a",
+        "matches": true
+      },
+      {
+        "originalPath": "SPEC.md",
+        "checkedPath": "SPEC.md",
+        "expectedSha256": "67fecc690bad020b8a3aa0590e6d394ff3a3a3bece14001efb1d5955a3bd448c",
+        "actualSha256": "67fecc690bad020b8a3aa0590e6d394ff3a3a3bece14001efb1d5955a3bd448c",
+        "matches": true
+      },
+      {
+        "originalPath": "PLAN.md",
+        "checkedPath": "PLAN.md",
+        "expectedSha256": "fa3ef64053d72f51402bd5e637b91c5ddf6853430e114e64ec2b3c0df7773302",
+        "actualSha256": "fa3ef64053d72f51402bd5e637b91c5ddf6853430e114e64ec2b3c0df7773302",
+        "matches": true
+      },
+      {
+        "originalPath": "specs/001-physical-layer-underworld/spec.md",
+        "checkedPath": "specs/001-physical-layer-underworld/spec.md",
+        "expectedSha256": "8500b835c59eb7a7ee11b89b14121e84b27385fe3a837f23511fbe7f35d145d7",
+        "actualSha256": "8500b835c59eb7a7ee11b89b14121e84b27385fe3a837f23511fbe7f35d145d7",
+        "matches": true
+      },
+      {
+        "originalPath": "specs/001-physical-layer-underworld/data-model.md",
+        "checkedPath": "specs/001-physical-layer-underworld/data-model.md",
+        "expectedSha256": "2aace177a2fa208e4cb3226f82cbb5f9bf17843329c7f68580d3d77e5473cee7",
+        "actualSha256": "2aace177a2fa208e4cb3226f82cbb5f9bf17843329c7f68580d3d77e5473cee7",
+        "matches": true
+      },
+      {
+        "originalPath": "specs/001-physical-layer-underworld/contracts/gameplay.md",
+        "checkedPath": "specs/001-physical-layer-underworld/contracts/gameplay.md",
+        "expectedSha256": "afb6314a9519446ec6d296eb4d27827f82b99e1c0adad6e5bc45082cb0033bb2",
+        "actualSha256": "afb6314a9519446ec6d296eb4d27827f82b99e1c0adad6e5bc45082cb0033bb2",
+        "matches": true
+      },
+      {
+        "originalPath": "content/schemas/content.schema.json",
+        "checkedPath": "docs/evidence/spec001/characters/content-schema-before-T093.json",
+        "expectedSha256": "712297ffb45b2d1fa9abf75ff042ca1c50a58610d077a61cc1dc13688afbb27b",
+        "actualSha256": "712297ffb45b2d1fa9abf75ff042ca1c50a58610d077a61cc1dc13688afbb27b",
+        "matches": true
+      },
+      {
+        "originalPath": "specs/001-physical-layer-underworld/contracts/save.schema.json",
+        "checkedPath": "specs/001-physical-layer-underworld/contracts/save.schema.json",
+        "expectedSha256": "5323dfc5986f5a70ff7d331e3a756f434d6993ce19aecdfa04745156096fb710",
+        "actualSha256": "5323dfc5986f5a70ff7d331e3a756f434d6993ce19aecdfa04745156096fb710",
+        "matches": true
+      },
+      {
+        "originalPath": "content/spec001/sources.json",
+        "checkedPath": "content/spec001/sources.json",
+        "expectedSha256": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
+        "actualSha256": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
+        "matches": true
+      },
+      {
+        "originalPath": "tests/fixtures/physical-cases.json",
+        "checkedPath": "tests/fixtures/physical-cases.json",
+        "expectedSha256": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1",
+        "actualSha256": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1",
+        "matches": true
+      },
+      {
+        "originalPath": "tests/fixtures/repair-routes.json",
+        "checkedPath": "tests/fixtures/repair-routes.json",
+        "expectedSha256": "ed3a083828188a34fd6f5f345cbd4c69fe8ebb140ea903dbafd9b3f464639877",
+        "actualSha256": "ed3a083828188a34fd6f5f345cbd4c69fe8ebb140ea903dbafd9b3f464639877",
+        "matches": true
+      }
+    ]
+  },
+  "executedOracleLearningCases": [
+    "OPT-SQ04-COMBINE",
+    "OPT-SQ04-NOTE-NOT-CLUE",
+    "OPT-SQ04-DUPLICATE-ROOM"
+  ],
+  "pendingOracleLifecycleCases": [
+    "OPT-SQ04-START",
+    "OPT-SQ04-PRACTICE",
+    "OPT-SQ04-FINISH",
+    "OPT-SQ04-RETRY",
+    "OPT-SQ04-EXIT",
+    "OPT-SQ04-SKIP",
+    "OPT-SQ04-REPLAY",
+    "OPT-SQ04-UNTIMED"
+  ],
+  "canonicalQuestWritten": false,
+  "sharedFilesChangedByT099": false,
+  "acceptedTask": false,
+  "pending": [
+    "Root full-variant review and T100 bounded schema/semantics promotion",
+    "Canonical SQ04/world/loader and actual captured controller selection/UI",
+    "Explicit lessonSources JS/PHP save policy and actual save round trip",
+    "SQ04 projectEpilogue quest-plus-fact gating and authored source-history prose",
+    "Same loop112 final coherent join verification",
+    "T104/T105 browser/recovery, human learning, media and aggregate gates"
+  ],
+  "testDependencyStability": {
+    "dependencyFiles": 132,
+    "changedDuringChecks": [],
+    "postCheckDriftAtSeal": [
+      {
+        "path": "src/app/application.ts",
+        "testedSha256": "36f8082ad03adc10c000f9611b41069ea32e323a8503a0d431597dc1a1b96dcd",
+        "atSealSha256": "e7d6a28f21db2d2582c93a76e64152d5e60908f3031bba3fb22a1975d2b7b0e3"
+      },
+      {
+        "path": "src/state/reducer.ts",
+        "testedSha256": "6e00215807656220b9840c4834c7f209d7f5ed31b640dbe5a69c88924db3c0f3",
+        "atSealSha256": "d889a64481ec181742f86d63bed0d72bf506cc878b49b9e1f9c52495c50755c4"
+      },
+      {
+        "path": "src/ui/optional-activities.ts",
+        "testedSha256": "89af1aaf5d570b1416d9adfdcc3c243f3fe1f5651b8bc11cd0d9e5e5bbb1d8d7",
+        "atSealSha256": "1f5dd8d4f89438dabe94aa7c84ae0a08203d66ac31dbaf30d2859915cb4eda5d"
+      }
+    ],
+    "scope": "Immediately before/after test comparison passed. Later active common-framework edits are not included in this passed test claim."
+  }
+}

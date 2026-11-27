@@ -31,6 +31,7 @@ import repairActions from '../../content/spec001/dialogue/repair-plan-actions.js
 import characters from '../../content/spec001/characters.json' with { type: 'json' };
 import serialPost from '../../content/spec001/quests/SQ01.json' with { type: 'json' };
 import powerAudit from '../../content/spec001/quests/SQ02.json' with { type: 'json' };
+import maintenanceRecord from '../../content/spec001/quests/SQ04.json' with { type: 'json' };
 import weatherDiary from '../../content/spec001/quests/SQ03.json' with { type: 'json' };
 
 /** Explicit public authored documents; metadata reservations never become rooms. */
@@ -57,6 +58,7 @@ export function loadIntroductionContent() {
     'content/spec001/quests/SQ01.json': serialPost,
     'content/spec001/quests/SQ02.json': powerAudit,
     'content/spec001/quests/SQ03.json': weatherDiary,
+    'content/spec001/quests/SQ04.json': maintenanceRecord,
   };
   const canonicalWorld = structuredClone(world) as S.world;
   const result = validateContent({ world: canonicalWorld, sources, documents });

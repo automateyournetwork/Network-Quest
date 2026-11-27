@@ -26,6 +26,30 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
+**116 loops started; 93/170 tasks accepted; no deployment.** Latest pushed commit:
+`979c4929d772875d953a9401bf4ff675697140e6` (Weather Diary SQ03/T098).
+
+- T099/SQ04 is accepted: 207 hashes match; eight actual browser groups pass.
+  Root accounts for 3,918 client checks after the documented 54-check rerun.
+  Its reviewed checkpoint is being prepared for scoped publication.
+- Same 113/T101 has reviewed isolated MG01 implementation (183 hashes matched).
+  It waits for the SQ04 checkpoint before current-tree reconciliation.
+- Same 114/T102 integrates MG02 in its own copy of that frozen MG01 framework.
+- Same 116/T104 has a reviewed companion baseline: 53 native grouped checks,
+  all 25 entries, nine level-2 recruits and 18 nonempty tool comparisons. It now
+  tests available SQ01–03 and earned nonempty party/quest recovery on frozen
+  `979c492`, with synthetic local identity only for save/restore.
+
+T096/T097 remain open for their actual picture rewards; MG03 still needs its
+runtime join. T104/T105, finished media, actual providers and required human
+reviews remain ahead. G0 has named external evidence gaps; G1–G7 remain pending.
+Owner previews on ports 63366/54594 remain protected. Keep untracked T089 raw
+traces and growing preview logs local. See state.json for live ownership and the
+latest appended notes for review details. The original Sierra-inspired direction
+and contained 286-monitor frame remain mandatory.
+
+### Historical checkpoints (preserved; not current ownership)
+
 **116 loops started; 92 of 170 tasks accepted.** T085–T089 are accepted
 for their documented local scope. T089 final12native cases PASS in2.6minutes;
 root final85client suites3065PASS/360unchangedTODO (35.33s), check/buildPASS.
@@ -184,6 +208,12 @@ mediaobligation withzeroquotaacceptance. See optional/SQ03/root-review.md.
 113isolatedMG01 114focusedPASS, native underway;116frozenpartyactualmatrix
 independentheadlesscontext; no performanceclaim.112sharedjoin followspublication.
 116loops/92accepted.
+
+Published and remoteverified `979c4929d772875d953a9401bf4ff675697140e6`:87
+reviewedpaths/3,893,551bytes; exactindex/private/authoredwhitespacePASS,11raw
+runnerfindingspreserved. Same112hasGOexclusiveSQ04sharedjoin.113isolatedMG01
+and116frozencompanions use separateheadlessprofiles/ephemeralservers; no
+performance/OSforeground claim.116loops/92accepted;no deployment.
 
 ## Earlier position and retained progress history — 2026-11-26
 
@@ -1205,3 +1235,38 @@ Allthreeworkers hitexactworkspace-crediterror; ownerthenrequested“get all work
 back up finish to 100%”. Same099/102/103followups issued, countersnotreset.
 103loops/83accepted remain. Rootcontinuesavailablework; creditavailability must
 be observed, notinferred fromthe restartrequest. Currentpublishedcommit unchanged.
+
+
+### Optional integration and companion evidence review — 2026-11-27
+
+Counter remains 116, with 92/170 tasks accepted. Published T098 commit is
+`979c4929d772875d953a9401bf4ff675697140e6`; no deployment. Root matched MG01
+isolated 183 hashes and companion 37 owned + 212 frozen hashes. Their root-review
+files record source and narrow-screen inspection. T101/T104 remain open.
+112 owns the current SQ04 shared join. Same 114 may integrate MG02 in a separate
+copy of reviewed isolated MG01; same 116 continues actual SQ01–03 and nonempty
+party/quest Retry, E03 and synthetic-local save/restore on frozen 979c492.
+113 waits for SQ04 freeze before reconciling MG01. No counter reset or new loop.
+Owner reaffirmed Sierra/King’s Quest direction: composed adventure rooms and
+contextual controls stay within the approved 286-monitor frame. This does not
+approve unfinished media, voices or pacing.
+
+
+### Owner-requested Astra quality wave — 2026-11-27
+
+Owner requested stronger-model review and up to five improvement loops. Root
+will run five fresh, explicitly GPT-6.2 Astra reviews after current optional
+integrations/T104 yield a coherent build, before T105 final gameplay verification
+and bulk media. Scope: architecture/recovery; save/account safety; Sierra-style
+interaction; source-backed puzzle accuracy; meaningful regression coverage.
+Existing workers finish their checkpoints first. Count each review only when
+started within the current 200-loop cap; do not reset 116 or inflate 170 Spec001
+tasks. Make evidence-backed changes, not model-change-driven broad rewrites.
+The current session's model label was not independently verified.
+
+
+T099 accepted after root review: all207finalhashesmatch, actual8nativegroupsPASS,
+278focusedPASS, check/buildPASS. Rootfull3917PASS/1oldpreparedexpectationFAIL/360TODO;
+54affectedPASS after positiveSQ04case includes realhistoryfact and quest-only
+negative retained.3918distinctclientchecksaccounted; no secondfullrun. Root
+inspected1280form/390entryat200%.93/170accepted;116loopsunchanged.

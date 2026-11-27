@@ -1,0 +1,104 @@
+{
+  "task": "T099",
+  "loop": 112,
+  "baselineCommit": "979c4929d772875d953a9401bf4ff675697140e6",
+  "status": "actual-join-ready-for-coordinator-review-not-self-accepted",
+  "canonicalQuest": "content/spec001/quests/SQ04.json",
+  "candidatePromotion": {
+    "source": "docs/evidence/spec001/optional/SQ04/SQ04.candidate.json",
+    "change": "Prose-only room-code labels expanded to friendly names. Exact source identities, rules, effects, clues and scope retained."
+  },
+  "verification": {
+    "focused": {
+      "passed": 278,
+      "todoUnchanged": 140,
+      "files": 15,
+      "log": "docs/evidence/spec001/optional/SQ04/joined/20-focused-final.log"
+    },
+    "native": {
+      "passed": 8,
+      "browser": "Firefox 159.0 headless",
+      "guestAcquisition": "Actual R03/R05/R09 via public UI; no injected state or save.",
+      "report": "docs/evidence/spec001/optional/SQ04/joined/17-native-final-source-labels.json",
+      "axeViolations": 0,
+      "javascriptErrors": 0,
+      "apiOrNonGetRequests": 0,
+      "viewportWidths": [
+        1280,
+        390
+      ],
+      "textScale": 2
+    },
+    "check": {
+      "status": "PASS",
+      "log": "docs/evidence/spec001/optional/SQ04/joined/24-check-final.log"
+    },
+    "build": {
+      "status": "PASS",
+      "log": "docs/evidence/spec001/optional/SQ04/joined/25-build-final.log",
+      "warning": "Existing large production chunk; no performance acceptance."
+    },
+    "rootFullHistorical": {
+      "passed": 3917,
+      "failed": 1,
+      "todoUnchanged": 360,
+      "suites": 108,
+      "log": "docs/evidence/spec001/optional/SQ04/root-checks/01-domain.log",
+      "failure": "Old prepared epilogue test expected quest-only SQ04 personalization."
+    },
+    "affectedAfterRootReview": {
+      "passed": 54,
+      "files": 2,
+      "log": "docs/evidence/spec001/optional/SQ04/joined/26-epilogue-affected.log",
+      "change": "Test-only: supply earned history fact and explicitly reject quest alone; unearned reward assertions preserved.",
+      "globalTypecheck": "PASS",
+      "typecheckLog": "docs/evidence/spec001/optional/SQ04/joined/27-typecheck-final.log",
+      "fullSuiteRerun": false
+    }
+  },
+  "nativeThenCurrent": {
+    "inRunDrift": [],
+    "postRunImportHeaderCleanup": [
+      {
+        "path": "src/content/maintenance-record.ts",
+        "testedSha256": "7bc51263197a2bc5fc5208ec4b5e0b1cc29a22bf9acd8540c2d7b0f34307acf0",
+        "currentSha256": "d425216fdbbce6f5dbd6b6bbcb9b98d95681b6d7cc97a15d528b389fc7474368"
+      },
+      {
+        "path": "src/state/optional-maintenance.ts",
+        "testedSha256": "4d05e1f2457f183828180492518f056c3acb64183ae8c48ee5b2cb30d90943af",
+        "currentSha256": "493d22c61502845efab26b5422ae2fff7ebf11f4190a7b68e88798e6c0b92599"
+      },
+      {
+        "path": "src/ui/action-bus.ts",
+        "testedSha256": "e86c18fe089081cefd56879726fbf6a4d4e993ac4c79fe7fce00e375495c5947",
+        "currentSha256": "a9a1aa06ff25ad325230b1ef0fe9483c1dc4bc24609a1f6fc684385a42971088"
+      },
+      {
+        "path": "src/content/endings.ts",
+        "testedSha256": "6495df30cf79197a44f89c5782a66bbafccb0d76f001d0a3549174075b5a01b2",
+        "currentSha256": "c863a234543b70a14d4483ee62359089bafcce39b335e5e19f04c65d367495ce"
+      }
+    ],
+    "explanation": "Root requested pure structural history-selector move and license header ordering. Affected tests/check/build cover cleanup; old native hashes remain."
+  },
+  "preservedHistory": {
+    "originalAuthoringSealSha256": "42fec7c9c0b2835e695c8f5f032490ae6b6c31422fd6395aa7e5ca463b055d1f",
+    "preparationSealSha256": "b9c5cda7698d39a8d9640e1982731533c9b1dce9185bb5ab16c8eb94858f1b4f",
+    "originalOwnedDrift": [
+      "docs/implementation/loops/112-T099.md"
+    ],
+    "preparationOwnedDrift": [
+      "src/state/optional-maintenance.ts",
+      "docs/implementation/loops/112-T099.md"
+    ],
+    "explanation": "Append-only loop note and authorized preparation-to-actual module evolution are identified, never re-sealed as historical inputs."
+  },
+  "limits": [
+    "Prepared unit/controller/epilogue states are not native full-episode or human play.",
+    "Actual classification and separate borrowed-route maintenance handover unchanged.",
+    "No provider/production API write, finished media/audio/pacing or human accessibility acceptance.",
+    "T104 combined party/quest recovery and aggregate gates remain separate.",
+    "Root owns acceptance, tracking, manifest and Git."
+  ]
+}

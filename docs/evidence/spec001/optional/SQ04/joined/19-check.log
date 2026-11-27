@@ -1,0 +1,13 @@
+
+> network-quest@0.0.0 check
+> npm run typecheck && node tools/validate-content.ts && npm run save-policy:check
+
+
+> network-quest@0.0.0 typecheck
+> tsc --noEmit
+
+tests/state/maintenance-lifecycle.test.ts(18,73): error TS2345: Argument of type '(c: any) => void' is not assignable to parameter of type '(...args: any[] | [any]) => Awaitable<void>'.
+  Types of parameters 'c' and 'args' are incompatible.
+    Type 'any[] | [any]' is not assignable to type '[c: any]'.
+      Type 'any[]' is not assignable to type '[c: any]'.
+        Target requires 1 element(s) but source may have fewer.

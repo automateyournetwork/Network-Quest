@@ -1,4 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import { maintenanceHistoryUnlocked } from './maintenance-record.ts';
 import type { Outcome, Route } from '../domain/types';
 import type { GameState, OutcomeEvent } from '../state/types';
 
@@ -118,7 +119,7 @@ export function projectEpilogue(content: EndingsContent, game: GameState, accept
   const paragraphs: string[] = [content.routes[accepted.route ?? 'none']];
   const recruits = content.recruits.filter(r => game.world.recruits.some(earned => String(earned.characterId) === r.id));
   paragraphs.push(...(recruits.length ? recruits.map(r => game.world.activeAllyIds.some(id => String(id) === r.id) ? r.active : r.recruited) : [content.noAllies]));
-  const quests = content.sideQuests.filter(q => game.world.completedQuestIds.some(id => id === q.id));
+  const quests = content.sideQuests.filter(q => q.id === 'spec001:SQ04' ? maintenanceHistoryUnlocked(game) : game.world.completedQuestIds.some(id => id === q.id));
   paragraphs.push(...(quests.length ? quests.map(q => q.text) : [content.noSideQuests]));
   if (game.notebook.factIds.some(id => String(id) === 'spec001:FACT-repair-maintenance')) paragraphs.push(content.maintenance.recorded);
   return freeze({ kind: 'ending', eventId: accepted.id, outcome: accepted.outcome, route: accepted.route,

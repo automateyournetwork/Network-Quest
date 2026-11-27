@@ -1,0 +1,494 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts (50 tests | 38 failed) 620ms
+   ❯ SQ04 source contract and isolated authoring (14)
+     × validates full candidate through the actual registry with explicitly staged schema/variant adapters 49ms
+     ✓ preserves the independent oracle empty scored rules/cases and notebook semantics 1ms
+     ✓ retains exact reviewed source claims only for the clues’ existing physical context 1ms
+     × binds three real room facts, safe entries and ordinary acquisition actions 18ms
+     ✓ validates the closed payload and retains the genuine legacy schema failure 96ms
+     ✓ rejects timed proposal corruption 0ms
+     ✓ rejects missing-exit proposal corruption 0ms
+     ✓ rejects swapped-room proposal corruption 0ms
+     ✓ rejects repeated-room proposal corruption 0ms
+     ✓ rejects forged-fact proposal corruption 0ms
+     ✓ rejects wrong-kind proposal corruption 0ms
+     ✓ rejects hidden-effect proposal corruption 0ms
+     ✓ rejects main-reward proposal corruption 0ms
+     ✓ rejects main progress effects and optional main-route prerequisites in the real registry 31ms
+   ❯ independent SQ04 notebook selection expectations (27)
+     × executes OPT-SQ04-COMBINE with actual identity-bound notebook membership 14ms
+     × executes OPT-SQ04-NOTE-NOT-CLUE without turning a hypothesis/note into the missing observation 14ms
+     × executes OPT-SQ04-DUPLICATE-ROOM without filling R05 12ms
+     × requires the actual 0 record, not merely its selection 12ms
+     × requires the actual 1 record, not merely its selection 12ms
+     × requires the actual 2 record, not merely its selection 12ms
+     × accepts all selection orders while preserving canonical room attribution 12ms
+     × room visits and current inspection flags alone never constitute a clue 12ms
+     × uses retained facts as history without requiring current configuration flags or measurements 12ms
+     × practice uses a clearly supplied card without collecting it or earning completion 12ms
+     × rejects malformed/forged answer null 12ms
+     × rejects malformed/forged answer {} 12ms
+     × rejects malformed/forged answer "" 12ms
+     × rejects malformed/forged answer {"selectedFactIds":[]} 12ms
+     × rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-SQ04-history"]} 11ms
+     × rejects malformed/forged answer {"selectedFactIds":[null]} 12ms
+     × rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"sourceRooms":["R03","R05","R09"]} 12ms
+     × rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"status":"correct"} 11ms
+     × rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"acceptedEffects":[{"kind":"record-fact","effectId":"spec001:EFFECT-SQ04-history","factId":"spec001:FACT-SQ04-history"},{"kind":"complete-quest","effectId":"spec001:EFFECT-SQ04-complete","questId":"spec001:SQ04"}]} 11ms
+     × reports broken fact authoring before absent learner input 12ms
+     × reports broken room authoring before absent learner input 11ms
+     × reports broken kind authoring before absent learner input 12ms
+     × reports broken source authoring before absent learner input 12ms
+     × reports broken action authoring before absent learner input 11ms
+     × reports broken subject authoring before absent learner input 12ms
+     × reports broken freshness authoring before absent learner input 11ms
+     × retains the original action capture and rejects a changed current version 11ms
+   ❯ real source actions and existing atomic receipt boundaries (9)
+     × collects each clue using its actual ordinary room preparation and reducer 12ms
+     × the existing fiber inspection requires its actual room, before-change state and ordinary kit 11ms
+     × the trusted exact quest/fact batch applies once and changes no main-route state 11ms
+     × rejects an incomplete record-fact-only reward batch 12ms
+     × rejects an incomplete complete-quest-only reward batch 11ms
+     × a raw correct selection predicate carries no completion effects 11ms
+     × a raw practice selection predicate carries no completion effects 12ms
+     × a raw missing selection predicate carries no completion effects 11ms
+     × real encounter rollback retains the history fact but removes its quest reward; no implicit save 11ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 38 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > SQ04 source contract and isolated authoring > validates full candidate through the actual registry with explicitly staged schema/variant adapters
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:97:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > SQ04 source contract and isolated authoring > binds three real room facts, safe entries and ordinary acquisition actions
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:118:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > executes OPT-SQ04-COMBINE with actual identity-bound notebook membership
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:71:62
+ ❯ evaluate docs/evidence/spec001/optional/SQ04/authoring.test.ts:74:23
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:159:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > executes OPT-SQ04-NOTE-NOT-CLUE without turning a hypothesis/note into the missing observation
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:71:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:166:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > executes OPT-SQ04-DUPLICATE-ROOM without filling R05
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:71:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:174:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > requires the actual 0 record, not merely its selection
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > requires the actual 1 record, not merely its selection
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > requires the actual 2 record, not merely its selection
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:71:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:178:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > accepts all selection orders while preserving canonical room attribution
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:71:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:182:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > room visits and current inspection flags alone never constitute a clue
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:186:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > uses retained facts as history without requiring current configuration flags or measurements
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:71:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:190:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > practice uses a clearly supplied card without collecting it or earning completion
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:194:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer null
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer {}
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer ""
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer {"selectedFactIds":[]}
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-SQ04-history"]}
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer {"selectedFactIds":[null]}
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"sourceRooms":["R03","R05","R09"]}
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"status":"correct"}
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > rejects malformed/forged answer {"selectedFactIds":["spec001:FACT-O03-defect","spec001:FACT-O05-inspection","spec001:FACT-market-ledger"],"acceptedEffects":[{"kind":"record-fact","effectId":"spec001:EFFECT-SQ04-history","factId":"spec001:FACT-SQ04-history"},{"kind":"complete-quest","effectId":"spec001:EFFECT-SQ04-complete","questId":"spec001:SQ04"}]}
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:71:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:200:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > reports broken fact authoring before absent learner input
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > reports broken room authoring before absent learner input
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > reports broken kind authoring before absent learner input
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > reports broken source authoring before absent learner input
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > reports broken action authoring before absent learner input
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > reports broken subject authoring before absent learner input
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > reports broken freshness authoring before absent learner input
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:203:63
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > independent SQ04 notebook selection expectations > retains the original action capture and rejects a changed current version
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:71:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:220:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > collects each clue using its actual ordinary room preparation and reducer
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ prepared docs/evidence/spec001/optional/SQ04/authoring.test.ts:78:23
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:228:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > the existing fiber inspection requires its actual room, before-change state and ordinary kit
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:253:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > the trusted exact quest/fact batch applies once and changes no main-route state
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:71:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:261:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > rejects an incomplete record-fact-only reward batch
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > rejects an incomplete complete-quest-only reward batch
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ prepared docs/evidence/spec001/optional/SQ04/authoring.test.ts:78:23
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:271:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > a raw correct selection predicate carries no completion effects
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > a raw practice selection predicate carries no completion effects
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > a raw missing selection predicate carries no completion effects
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:71:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:275:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/19]⎯
+
+ FAIL  docs/evidence/spec001/optional/SQ04/authoring.test.ts > real source actions and existing atomic receipt boundaries > real encounter rollback retains the history fact but removes its quest reward; no implicit save
+AssertionError: [{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/0/sourceId","message":"Unknown source: spec001:DIALOGUE-copper-bench"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/1/sourceId","message":"Unknown source: spec001:DIALOGUE-fiber-gardens"},{"code":"unknown-reference","path":"spec001:SQ04/optionalActivity/clues/2/sourceId","message":"Unknown source: spec001:DIALOGUE-market-equipment"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ registry docs/evidence/spec001/optional/SQ04/authoring.test.ts:61:52
+     59| function registry() {
+     60|   const result = validateContent(input());
+     61|   expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                    ^
+     62|   if (!result.ok || !result.registry) throw new Error('SQ04 projection…
+     63|   return result.registry;
+ ❯ game docs/evidence/spec001/optional/SQ04/authoring.test.ts:65:38
+ ❯ collected docs/evidence/spec001/optional/SQ04/authoring.test.ts:71:62
+ ❯ docs/evidence/spec001/optional/SQ04/authoring.test.ts:280:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/19]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  38 failed | 12 passed (50)
+   Start at  09:32:12
+   Duration  890ms (tests 75%, import 14%, transform 11%)
+
