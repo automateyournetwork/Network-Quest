@@ -36,3 +36,11 @@ policy generation/check pass. The two final file hashes and exact policy-field
 delta are in `root-checks/publication-seal.json`. The worker seal remains the
 historical tested source boundary. No additional behavior test was needed for
 this whitespace-only correction.
+
+Subsequent T104 comparison with the exact original T092 cases found narrower
+coverage than the eight passing lifecycle test names imply: the SQ04 Retry setup
+did not first submit the prescribed wrong answer, and the one-hour fake-clock
+case did not background the application. These are still open integration-test
+details, not proven passes from the existing groups. T104 is adding exact
+assertions while preserving the original reports. T099's implemented quest and
+local verification remain accepted; complete lifecycle acceptance stays pending.

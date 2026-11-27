@@ -1,0 +1,249 @@
+{
+  "kind": "minigame",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:MG01",
+  "completionAchievementId": "spec001:ACHIEVEMENT-MG01-complete",
+  "prerequisite": {
+    "kind": "always"
+  },
+  "evidence": [
+    {
+      "id": "spec001:FACT-MG01-instructions",
+      "roomId": "spec001:R10",
+      "subjectIds": [
+        "spec001:CH21",
+        "spec001:PR092"
+      ],
+      "kind": "context",
+      "text": "The Metronome Golem offers an optional Bit Loom exercise. Read the ordered samples with the displayed map, practice with one symbol, then try the full strip when ready. You may pause, ask for help, retry or leave. No clock, score, recruit or inventory item is required, and this exercise never gates Clockworks calibration.",
+      "ruleIds": [
+        "spec001:PHY10"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-MG01-symbol-strip",
+      "roomId": "spec001:R10",
+      "subjectIds": [
+        "spec001:PR092",
+        "spec001:PR093",
+        "spec001:PR096",
+        "spec001:PROFILE-SYMBOLS"
+      ],
+      "kind": "context",
+      "text": "The toy map is −3 → 00; −1 → 01; +1 → 10; +3 → 11. The full strip supplies position 0 = −3, position 1 = +1, position 2 = +3, position 3 = −1, all in toy-level units. Read the positions in order at your own pace. These are dimensionless teaching labels, not measured volts or a real electrical interface.",
+      "ruleIds": [
+        "spec001:PHY10"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-MG01-completion",
+      "roomId": "spec001:R10",
+      "subjectIds": [
+        "spec001:CH21",
+        "spec001:PR092",
+        "spec001:PROFILE-SYMBOLS"
+      ],
+      "kind": "observation",
+      "text": "You decoded the complete optional Bit Loom strip: 00 | 10 | 11 | 01 = 00101101. Four symbols represent eight bits in the declared toy map. This records an optional exercise, with help use kept separately. It is not an Clockworks calibration calibration result, live link measurement, physical repair or proof of independent understanding.",
+      "ruleIds": [
+        "spec001:PHY10"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "alternatives": [
+    {
+      "id": "spec001:ACTION-MG01-decode",
+      "label": "Decode the full loom strip",
+      "method": "direct-action",
+      "itemIds": [],
+      "abilityIds": [],
+      "condition": {
+        "kind": "always"
+      },
+      "ruleIds": [
+        "spec001:PHY10"
+      ],
+      "evidenceIds": [
+        "spec001:FACT-MG01-symbol-strip"
+      ],
+      "effects": [],
+      "explanation": "Copy all four supplied symbols in their displayed order. A correct full strip records the optional exercise once. The one-symbol practice, inspecting the map and an incorrect answer do not complete the full exercise."
+    }
+  ],
+  "ruleIds": [
+    "spec001:PHY10"
+  ],
+  "profileIds": [
+    "spec001:PROFILE-SYMBOLS"
+  ],
+  "sourceClaims": [
+    {
+      "sourceId": "spec001:S01",
+      "section": "7.7.2; 7.7.3.3–7.7.3.4; 7.7.4.4; printed pages 49–51, PDF pages 53–55",
+      "supportedClaim": "Physical entities transmit bits over physical media and can relay interconnected circuits; transmission may be synchronous or asynchronous.",
+      "limitations": [
+        "Conceptual architecture only. No universal medium, numeric threshold, wire header, or claim that PHYs never have their own error mechanisms."
+      ]
+    },
+    {
+      "sourceId": "spec001:S12",
+      "section": "2.1 Naming Conventions; Table 4 Linear and Gray Coding",
+      "supportedClaim": "Four amplitude levels can represent four two-bit combinations; the source distinguishes linear and Gray coding.",
+      "limitations": [
+        "T12 deliberately uses the declared linear toy labels. Do not substitute a real PHY map, count useful bitrate from symbol count, or imply the toy implements PAM4."
+      ]
+    },
+    {
+      "sourceId": "spec001:S13",
+      "section": "4.2.3 Clock and Data Recovery (CDR)",
+      "supportedClaim": "High-speed serial reception includes clock/data recovery; multilevel signaling requires appropriate timing recovery.",
+      "limitations": [
+        "Physical timing context only. The toy uses explicit discrete sampling; no analog jitter model, NTP synchronization, timing reflex requirement or CDR implementation."
+      ]
+    }
+  ],
+  "model": {
+    "label": "toy-symbol-map",
+    "scope": "Optional Clockworks practice using the existing reviewed four-level linear toy map and explicitly positioned discrete samples. The sample positions are given; no timing reflex is assessed.",
+    "assumptions": [
+      "T12 supplies the full four-symbol strip. B-SYMBOL supplies a separate one-symbol practice strip.",
+      "The full map and ordered values stay readable while answering; there is no elapsed-time input or countdown.",
+      "Once at the R10 loom, no completed objective, recruited ally, other optional activity or inventory item is required."
+    ],
+    "limitations": [
+      "The toy-level labels are not volts; this is not UART, RS-232, a complete PAM4 PHY or analog clock recovery.",
+      "Eight represented bits in four symbols does not establish useful bits per second or network throughput; no elapsed transmission time is supplied.",
+      "Supplied sample positions illustrate order and sampling context, not NTP, address discovery, routing or application login.",
+      "Undefined authored symbols or missing positions are content-error; missing learner input is invalid-input. Neither earns a penalty or completion.",
+      "Completion is an optional practice record, not proof of independent understanding, current physical repair or Clockworks calibration completion. Clockworks calibration needs no minigame score or completion."
+    ]
+  },
+  "effects": [
+    {
+      "kind": "record-fact",
+      "effectId": "spec001:EFFECT-MG01-notebook",
+      "factId": "spec001:FACT-MG01-completion"
+    },
+    {
+      "kind": "complete-minigame",
+      "effectId": "spec001:EFFECT-MG01-complete",
+      "minigameId": "spec001:MG01"
+    }
+  ],
+  "hints": {
+    "method": {
+      "id": "spec001:HINT-MG01-method",
+      "text": "Keep the supplied order. Match the first level to its two-bit pair, copy it, then repeat for each next position. The map stays visible and you can take as long as you need."
+    },
+    "workedStep": {
+      "id": "spec001:HINT-MG01-step",
+      "text": "Position 0 is −3, so write 00. Position 1 is +1, so append 10: the first four bits are 0010. Continue with positions 2 and 3."
+    },
+    "solution": {
+      "id": "spec001:HINT-MG01-solution",
+      "text": "The full strip is −3, +1, +3, −1 → 00 | 10 | 11 | 01 → 00101101. Using this solution is assisted completion with the same optional practice record and no punishment."
+    }
+  },
+  "observableOutcome": "The correct full strip records one optional completion and its notebook explanation. Wrong answers leave the exercise open with feedback and retry. Practice teaches only its one sample. Leaving preserves required tools and the independent Clockworks calibration lesson.",
+  "completionExplanation": "“A well-ordered scarf,” says the Metronome Golem. “Unfashionable, but exact.” The full strip is 00 | 10 | 11 | 01, or 00101101: eight represented bits in four toy symbols. Your notebook records this optional exercise. Clockworks calibration has its own calibration checks.",
+  "requiresReflexTiming": false,
+  "requiredForMainStory": false,
+  "skippable": true,
+  "instructions": "Read the displayed map and copy the ordered toy levels as bits. Choose the one-symbol practice or full four-symbol strip. Take as long as you need; help, explanation, retry and exit remain available. Clockworks calibration never needs this exercise or a score.",
+  "practiceExplanation": "One +3 symbol maps to 11: two represented bits. This sample is separate from the four-symbol completion strip and cannot finish the full exercise.",
+  "retryExplanation": "Start a fresh untimed loom attempt. Keep your clues, personal notes and hint history. Earlier-attempt measurements remain visible as stale. Retry does not create a save or an unearned completion.",
+  "exitExplanation": "Leave the Bit Loom at the captured Clockworks entry. Your required tools, main objectives and route stay intact. Leaving does not move you, refresh a measurement or save the adventure.",
+  "timingDefault": "off",
+  "timingUnlock": "after-untimed-completion",
+  "requiredScoreForMainStory": false,
+  "optionalActivity": {
+    "kind": "toy-symbol-loom",
+    "speakerId": "spec001:CH21",
+    "instructions": [
+      "“We weave in order,” says the Metronome Golem. “Speed is an optional accessory we have declined to install.”",
+      "Use the displayed toy map to copy the ordered samples as 0s and 1s. Read and think for as long as you need.",
+      "Try one symbol, decode the full strip, ask for help or leave. The optional exercise uses no required tool and never blocks Clockworks calibration."
+    ],
+    "profileId": "spec001:PROFILE-SYMBOLS",
+    "delivery": {
+      "sourceCaseId": "T12",
+      "actionId": "spec001:ACTION-MG01-decode",
+      "samples": [
+        {
+          "position": 0,
+          "value": -3,
+          "unit": "toy-level"
+        },
+        {
+          "position": 1,
+          "value": 1,
+          "unit": "toy-level"
+        },
+        {
+          "position": 2,
+          "value": 3,
+          "unit": "toy-level"
+        },
+        {
+          "position": 3,
+          "value": -1,
+          "unit": "toy-level"
+        }
+      ]
+    },
+    "practice": {
+      "sourceCaseId": "B-SYMBOL",
+      "samples": [
+        {
+          "position": 0,
+          "value": 3,
+          "unit": "toy-level"
+        }
+      ],
+      "explanation": "The single +3 symbol maps to 11: two represented bits in one symbol. This is one-symbol practice, not the full four-symbol exercise. Try the full strip whenever you are ready, or leave."
+    },
+    "feedback": {
+      "practice": {
+        "correct": "The single +3 symbol maps to 11: two represented bits in one symbol. Practice explains this sample; the full four-symbol exercise is still open.",
+        "incorrect": "For this practice sample, +3 maps to 11. Copy those two bits. You may try again or leave; this sample does not complete the full exercise.",
+        "invalidInput": "Enter a nonempty string of 0s and 1s for this practice sample. No answer was judged and no completion was recorded."
+      },
+      "delivery": {
+        "correct": "“A well-ordered scarf,” says the Metronome Golem. “Unfashionable, but exact.” The full strip is 00 | 10 | 11 | 01, or 00101101: eight represented bits in four toy symbols. Your notebook records this optional exercise. Clockworks calibration has its own calibration checks.",
+        "incorrect": "That copy does not match the supplied strip. Read −3 → 00, +1 → 10, +3 → 11, −1 → 01. The full strip is 00101101. Retry when ready, or leave; help does not reduce the optional completion.",
+        "invalidInput": "Enter a nonempty full strip using only 0s and 1s. No answer was judged and no completion was recorded. You can try again or leave."
+      },
+      "contentError": "The loom cannot read its supplied exercise. This is an authoring problem, not a mistake in your answer. No completion or penalty was recorded. You can leave safely.",
+      "alreadyCompleted": "Your notebook already records this optional loom exercise. Read its explanation or practice again; the same completion is not awarded twice."
+    },
+    "controls": {
+      "practice": "Practice one symbol",
+      "delivery": "Decode the full strip",
+      "submit": "Check the copied bits",
+      "retry": "Try the loom again",
+      "exit": "Leave the Bit Loom"
+    },
+    "recovery": {
+      "exitExplanation": "Leave the Bit Loom at the captured Clockworks entry. Your required tools, main objectives and route stay intact. Leaving does not move you, refresh a measurement or save the adventure.",
+      "retryExplanation": "Start a fresh untimed loom attempt. Keep your clues, personal notes and hint history. Earlier-attempt measurements remain visible as stale. Retry does not create a save or an unearned completion."
+    },
+    "reward": {
+      "kind": "optional-practice-only",
+      "factId": "spec001:FACT-MG01-completion"
+    },
+    "entryContexts": [
+      {
+        "roomId": "spec001:R10",
+        "safePositionId": "spec001:R10.entry",
+        "hotspotId": "spec001:HOTSPOT-clockworks-loom"
+      }
+    ],
+    "returnPolicy": "captured-entry",
+    "timingDefault": "off"
+  }
+}

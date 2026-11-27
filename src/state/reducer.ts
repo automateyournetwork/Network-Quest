@@ -465,7 +465,7 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
         candidateGame = prepared.value.game;
       }
       if (!legalWorld(candidateGame.world) || candidateGame.assistance.length > 2048) return reject('invalid-state');
-      const session = finalizeOptionalSession(result.session, candidateGame);
+      const session = finalizeOptionalSession(result.session, candidateGame, registry);
       const reduced = accept(state, command.actionId, { game: candidateGame, activity: result.activity,
         changed: canonical(candidateGame) !== canonical(game), revision: candidateGame.world.configurationRevision });
       if (reduced.status === 'rejected') return reduced;

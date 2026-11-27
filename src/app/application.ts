@@ -67,6 +67,11 @@ import { introductionBindings } from './introduction';
 import { introductionSavePolicy } from './save-policy';
 
 const q = <T extends string = string>(id: string) => `spec001:${id}` as QualifiedId<T>;
+const optionalNames: Readonly<Record<string, string>> = {
+  'spec001:SQ01': 'Serial Post', 'spec001:SQ02': 'Energy audit', 'spec001:SQ03': 'Weather Diary',
+  'spec001:SQ04': 'Maintenance record', 'spec001:MG01': 'Bit Loom',
+  'spec001:MG02': 'Prism Budget Bench', 'spec001:MG03': 'Channel Scout',
+};
 /** Actual browser composition. No public state hook, browser storage or provider simulation. */
 export function createIntroductionApplication(host: HTMLElement) {
   const { registry, world } = loadIntroductionContent(), bindings = introductionBindings(registry), media = resolveRoomMedia(registry);
@@ -238,7 +243,7 @@ export function createIntroductionApplication(host: HTMLElement) {
         const buttons = projected.entries.map(entry => {
           const button = [...optionalOpeners.querySelectorAll('button')].find(node => node.dataset['activity'] === entry.activityId)
             ?? host.ownerDocument.createElement('button');
-          button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = entry.activityId === q('SQ01') ? 'Serial Post' : entry.activityId === q('SQ02') ? 'Energy audit' : entry.activityId === q('SQ03') ? 'Weather Diary' : 'Maintenance record';
+          button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = optionalNames[entry.activityId] ?? world.optionalActivities.find(activity => activity.id === entry.activityId)?.name ?? entry.label;
           button.setAttribute('aria-label', `Open ${button.textContent}`);
           button.addEventListener('click', () => {
             if (button.isConnected && optionalOpeners.contains(button) && !button.closest('[hidden], [inert]'))

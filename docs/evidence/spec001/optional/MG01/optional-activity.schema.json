@@ -1,0 +1,279 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://network-quest.example/proposals/optional-toy-loom.schema.json",
+  "$comment": "Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0. Isolated T101 proposal for the later reviewed T100 variant join; not an active schema. The actual registry and decoder establish source/reference/receipt semantics.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "speakerId",
+    "instructions",
+    "profileId",
+    "delivery",
+    "practice",
+    "feedback",
+    "controls",
+    "recovery",
+    "reward",
+    "entryContexts",
+    "returnPolicy",
+    "timingDefault"
+  ],
+  "properties": {
+    "kind": {
+      "const": "toy-symbol-loom"
+    },
+    "speakerId": {
+      "const": "spec001:CH21"
+    },
+    "instructions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "profileId": {
+      "const": "spec001:PROFILE-SYMBOLS"
+    },
+    "delivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceCaseId",
+        "actionId",
+        "samples"
+      ],
+      "properties": {
+        "sourceCaseId": {
+          "const": "T12"
+        },
+        "actionId": {
+          "const": "spec001:ACTION-MG01-decode"
+        },
+        "samples": {
+          "const": [
+            {
+              "position": 0,
+              "value": -3,
+              "unit": "toy-level"
+            },
+            {
+              "position": 1,
+              "value": 1,
+              "unit": "toy-level"
+            },
+            {
+              "position": 2,
+              "value": 3,
+              "unit": "toy-level"
+            },
+            {
+              "position": 3,
+              "value": -1,
+              "unit": "toy-level"
+            }
+          ]
+        }
+      }
+    },
+    "practice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceCaseId",
+        "samples",
+        "explanation"
+      ],
+      "properties": {
+        "sourceCaseId": {
+          "const": "B-SYMBOL"
+        },
+        "samples": {
+          "const": [
+            {
+              "position": 0,
+              "value": 3,
+              "unit": "toy-level"
+            }
+          ]
+        },
+        "explanation": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "feedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "practice",
+        "delivery",
+        "contentError",
+        "alreadyCompleted"
+      ],
+      "properties": {
+        "practice": {
+          "$ref": "#/$defs/modeFeedback"
+        },
+        "delivery": {
+          "$ref": "#/$defs/modeFeedback"
+        },
+        "contentError": {
+          "$ref": "#/$defs/text"
+        },
+        "alreadyCompleted": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "practice",
+        "delivery",
+        "submit",
+        "retry",
+        "exit"
+      ],
+      "properties": {
+        "practice": {
+          "$ref": "#/$defs/label"
+        },
+        "delivery": {
+          "$ref": "#/$defs/label"
+        },
+        "submit": {
+          "$ref": "#/$defs/label"
+        },
+        "retry": {
+          "$ref": "#/$defs/label"
+        },
+        "exit": {
+          "$ref": "#/$defs/label"
+        }
+      }
+    },
+    "recovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exitExplanation",
+        "retryExplanation"
+      ],
+      "properties": {
+        "exitExplanation": {
+          "$ref": "#/$defs/text"
+        },
+        "retryExplanation": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "reward": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "factId"
+      ],
+      "properties": {
+        "kind": {
+          "const": "optional-practice-only"
+        },
+        "factId": {
+          "const": "spec001:FACT-MG01-completion"
+        }
+      }
+    },
+    "entryContexts": {
+      "const": [
+        {
+          "roomId": "spec001:R10",
+          "safePositionId": "spec001:R10.entry",
+          "hotspotId": "spec001:HOTSPOT-clockworks-loom"
+        }
+      ]
+    },
+    "returnPolicy": {
+      "const": "captured-entry"
+    },
+    "timingDefault": {
+      "const": "off"
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^spec001:[A-Za-z0-9][A-Za-z0-9._-]{0,55}$"
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "\\S"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "pattern": "\\S"
+    },
+    "samples": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 256,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "position",
+          "value",
+          "unit"
+        ],
+        "properties": {
+          "position": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255
+          },
+          "value": {
+            "enum": [
+              -3,
+              -1,
+              1,
+              3
+            ]
+          },
+          "unit": {
+            "const": "toy-level"
+          }
+        }
+      }
+    },
+    "modeFeedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "correct",
+        "incorrect",
+        "invalidInput"
+      ],
+      "properties": {
+        "correct": {
+          "$ref": "#/$defs/text"
+        },
+        "incorrect": {
+          "$ref": "#/$defs/text"
+        },
+        "invalidInput": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    }
+  }
+}

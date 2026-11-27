@@ -105,7 +105,7 @@ describe('T100 real SQ01 shared logic before shared-schema join', () => {
     const reduce = createReducer({ registry: ctx.registry, bindings: optionalEffectBindings(definition) });
     const accepted = reduce(ctx.state, { ...answer, adventureId: ctx.game.adventureId, input: { kind: 'apply', evaluation: selected.evaluation } });
     expect(accepted.status).toBe('applied'); const completed = accepted.state.runtime.game!;
-    const session = finalizeOptionalSession(selected.session, completed)!;
+    const session = finalizeOptionalSession(selected.session, completed, ctx.registry)!;
     const retry = prepareOptionalActivityChange(ctx.registry, completed, { kind: 'active-optional' }, session,
       { kind: 'retry', sessionId, nextAttemptId: '00000000-0000-4000-8000-000000000102' as AttemptId });
     expect(retry.ok).toBe(true); if (!retry.ok) return;

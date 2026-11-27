@@ -25,6 +25,8 @@ function fixture() {
   record.effects = record.effects.map((effect: any) => effect.kind === 'complete-quest'
     ? { kind: 'complete-minigame', effectId: effect.effectId, minigameId: identity } : effect);
   const path = 'content/spec001/minigames/MG01.json';
+  // Replace the actual MG01 registration only inside this synthetic mapping fixture.
+  world.documents = world.documents.filter(ref => ref.id !== identity);
   const documents = Object.fromEntries(world.documents.map(ref => [ref.path, json(ref.path)]));
   world.documents.push({ kind: 'minigame', id: identity, path }); documents[path] = record;
   const input = { world, sources: source, documents }, loaded = validateContent(input);

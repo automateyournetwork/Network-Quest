@@ -1,0 +1,67 @@
+{
+  "recordedAt": "2026-11-27T15:54:05.345002+00:00",
+  "task": "T101",
+  "loop": 113,
+  "baseCommit": "58ce1a0ce71c2c5f6ce6a52f7913cdbf5c75129a",
+  "scope": "Actual current-tree reviewed MG01 integration, frozen for coordinator review; no self-acceptance.",
+  "checks": [
+    {
+      "kind": "final-combined-actual-runtime",
+      "passed": 303,
+      "failed": 0,
+      "mg01Cases": 54,
+      "commonCases": 62,
+      "diaryMaintenanceCompatibilityCases": 187,
+      "report": "11-combined-final.json"
+    },
+    {
+      "kind": "strict-harness-typecheck",
+      "exitCode": 0,
+      "log": "08-harness-typecheck.log"
+    },
+    {
+      "kind": "check",
+      "exitCode": 0,
+      "log": "14-final-check.log"
+    },
+    {
+      "kind": "build",
+      "exitCode": 0,
+      "log": "10-build.log"
+    },
+    {
+      "kind": "actual-built-guest-firefox",
+      "groupsPassed": 11,
+      "browser": "159.0",
+      "axeViolations": 0,
+      "pageErrors": 0,
+      "apiRequests": 0,
+      "changedSources": [],
+      "report": "12-native-current.json"
+    },
+    {
+      "kind": "protected-baselines",
+      "matched": 18,
+      "report": "13-protected-content.json"
+    },
+    {
+      "kind": "historical-preservation",
+      "authoringOwned": 22,
+      "isolatedExecuted": 154,
+      "isolatedOwned": 29,
+      "allMatch": true,
+      "report": "historical-preservation.json"
+    }
+  ],
+  "retainedFailure": {
+    "report": "05-explanation-before.json",
+    "failed": 1,
+    "reason": "Quest-only completion explanation did not recognize the actual MG01 achievement. Corrected through registry-bound completion helper and verified in final 303-test pass."
+  },
+  "limits": [
+    "Automated local guest evidence; no human technical/usability or provider/account/production transport acceptance.",
+    "No performance or OS-foreground claim.",
+    "T104/T105 and aggregate gates remain independently tracked.",
+    "Original historical results and seals are not rewritten as current source acceptance."
+  ]
+}

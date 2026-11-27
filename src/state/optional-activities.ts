@@ -9,9 +9,9 @@ import { evaluateMaintenanceAnswer, maintenanceSubmission, type MaintenanceActiv
 import { evaluateDiaryAnswer, radioDiaryEvidence } from './optional-radio-diary';
 import type { RadioDiaryActivity, RadioDiarySubmission } from './optional-radio-diary';
 import type { ToySample, ToySymbolProfile } from '../domain/packet-journey';
-import type { AttemptId, ConfigurationRevision, DomainAction, EvaluationResult, EvaluationStatus, HintId, QualifiedId, QuestId } from '../domain/types';
+import type { AttemptId, ConfigurationRevision, DomainAction, EvaluationResult, EvaluationStatus, HintId, MinigameId, QualifiedId, QuestId } from '../domain/types';
 import type { EffectBinding, StateEffect } from './reducer';
-import { conditionSatisfied } from './conditions';
+import { conditionSatisfied, minigameAchievement } from './conditions';
 import type { ActivityState, ClientGeneration, GameState, HintLevel, HintUse, SafeState, WorldState } from './types';
 import { optionalActivityContentIssues } from '../content/optional-activities';
 export { optionalActivityContentIssues, optionalRewardAllocationMatches } from '../content/optional-activities';
@@ -34,7 +34,16 @@ export interface ToyMessageActivity {
 }
 interface ModeFeedback { readonly correct: string; readonly incorrect: string; readonly invalidInput: string }
 export interface OptionalEntry { readonly roomId: string; readonly safePositionId: string; readonly hotspotId: string }
-export type OptionalActivityDefinition = Readonly<Omit<S.quest, 'optionalActivity'>> & { readonly optionalActivity: ToyMessageActivity | DeliveredPowerAudit | RadioDiaryActivity | MaintenanceActivity };
+export interface ToySymbolLoomActivity extends Omit<ToyMessageActivity, 'kind' | 'speakerId' | 'reward'> {
+  readonly kind: 'toy-symbol-loom';
+  readonly speakerId: 'spec001:CH21';
+  readonly reward: { readonly kind: 'optional-practice-only'; readonly factId: 'spec001:FACT-MG01-completion' };
+}
+export type OptionalActivityDefinition = (Readonly<Omit<S.quest, 'optionalActivity'>> | Readonly<Omit<S.minigame, 'optionalActivity'>>)
+  & { readonly optionalActivity: ToyMessageActivity | DeliveredPowerAudit | RadioDiaryActivity | MaintenanceActivity | ToySymbolLoomActivity };
+export function isToySymbolActivity(activity: OptionalActivityDefinition['optionalActivity']): activity is ToyMessageActivity | ToySymbolLoomActivity {
+  return activity.kind === 'toy-symbol-message' || activity.kind === 'toy-symbol-loom';
+}
 export type OptionalMode = 'practice' | 'delivery';
 export interface OptionalActivitySession {
   readonly sessionId: string;
@@ -75,11 +84,18 @@ const text = (value: unknown) => typeof value === 'string' && value.trim().lengt
 
 export function optionalActivityDefinition(registry: ContentRegistry, id: string): OptionalActivityDefinition | null {
   const record = registry.record(id);
-  return optionalActivityContentIssues(record, registry).length ? null : record as OptionalActivityDefinition;
+  return record?.id !== id || optionalActivityContentIssues(record, registry).length ? null : record as OptionalActivityDefinition;
 }
 export function optionalEffectBindings(definition: OptionalActivityDefinition): readonly EffectBinding[] {
   return [...definition.effects, ...definition.alternatives.flatMap(a => a.effects)].map(effect => ({ sourceId: definition.id as QualifiedId,
-    effectId: effect.effectId as StateEffect['effectId'], mode: 'once', receipt: { kind: 'quest', id: definition.id as QuestId } }));
+    effectId: effect.effectId as StateEffect['effectId'], mode: 'once', receipt: definition.kind === 'quest' ? { kind: 'quest', id: definition.id as QuestId } : { kind: 'minigame', id: definition.id as MinigameId } }));
+}
+export function optionalActivityCompleted(registry: ContentRegistry, definition: OptionalActivityDefinition, game: GameState): boolean {
+  const record = registry.record(definition.id);
+  if (record?.id !== definition.id || record.kind !== definition.kind) return false;
+  if (definition.kind === 'quest') return registry.has('quest', definition.id) && game.world.completedQuestIds.includes(definition.id as QuestId);
+  const achievement = minigameAchievement(registry, definition.id);
+  return achievement !== null && achievement === definition.completionAchievementId && game.world.achievementIds.includes(achievement);
 }
 export function evaluateOptionalAnswer(registry: ContentRegistry, definition: OptionalActivityDefinition, mode: OptionalMode,
   action: DomainAction<unknown>, game: GameState): {
@@ -89,14 +105,15 @@ export function evaluateOptionalAnswer(registry: ContentRegistry, definition: Op
   if (optionalActivityContentIssues(definition, registry).length) return { evaluation: contentError({ code: 'optional-content', field: definition.id, message: 'The optional exhibit needs correction.' }),
     feedback: text(activity?.feedback?.contentError) ? activity.feedback.contentError : 'This exhibit needs correction. You can leave safely.', assistanceLevel: null };
   const profile = ('profileId' in activity ? registry.record(activity.profileId) : null) as S.profile;
-  const result = activity.kind === 'toy-symbol-message' ? evaluateSymbolAnswer({ profile: { id: profile.id, parameters: profile.parameters } as ToySymbolProfile,
+  const result = isToySymbolActivity(activity) ? evaluateSymbolAnswer({ profile: { id: profile.id, parameters: profile.parameters } as ToySymbolProfile,
     samples: activity[mode].samples }, action as DomainAction<{ readonly bits: string }>, game.world)
     : activity.kind === 'delivered-power-audit' ? evaluateAuditAnswer({ sourceCaseId: activity[mode].sourceCaseId, demands: activity[mode].demands, budgetBoundary: activity[mode].budgetBoundary,
       demandBoundary: activity[mode].demandBoundary, otherConstraints: true }, { id: profile.id, parameters: profile.parameters }, action, game.world)
     : activity.kind === 'notebook-combination' ? evaluateMaintenanceAnswer(activity, registry, mode, action, game)
-    : mode === 'delivery' ? evaluateDiaryAnswer(activity.delivery, registry, action, game) : invalidInput('diary-practice-is-read-only');
+    : activity.kind === 'radio-weather-diary' ? mode === 'delivery' ? evaluateDiaryAnswer(activity.delivery, registry, action, game) : invalidInput('diary-practice-is-read-only')
+    : contentError({ code: 'optional-content', field: definition.id, message: 'Unsupported optional activity.' });
   const feedback = result.status === 'content-error' ? activity.feedback.contentError : activity.feedback[mode][result.status === 'invalid-input' ? 'invalidInput' : result.status];
-  const completed = game.world.completedQuestIds.includes(definition.id as QuestId);
+  const completed = optionalActivityCompleted(registry, definition, game);
   const alternative = definition.alternatives.find(a => a.id === activity.delivery.actionId)!;
   const effects = mode === 'delivery' && result.status === 'correct' && !completed && conditionSatisfied(definition.prerequisite, game.world, registry)
     && conditionSatisfied(alternative.condition, game.world, registry) ? [...definition.effects, ...alternative.effects] as StateEffect[] : [];
@@ -113,12 +130,23 @@ function assistance(game: GameState, definition: OptionalActivityDefinition, lev
   const used: HintUse = { objectiveId: definition.id as HintUse['objectiveId'], hintId: hint.id as HintId, level, attemptId: game.world.attemptId };
   return { ...game, assistance: [...game.assistance, used] };
 }
-/** Call only after the reducer has accepted the actual full completion batch. */
-export function finalizeOptionalSession(session: OptionalActivitySession | null, game: GameState): OptionalActivitySession | null {
-  if (!session || session.mode !== 'delivery' || session.result !== 'correct' || !game.world.completedQuestIds.some(id => id === session.activityId)) return session;
-  // This optional attempt has succeeded. Replaying it retains its accepted
-  // benefit; the separate encounter checkpoint still rewinds the whole world.
-  return freeze({ ...session, preparation: structuredClone(game.world) });
+/** Call only after the reducer accepts the complete batch; preserve entry equipment. */
+export function finalizeOptionalSession(session: OptionalActivitySession | null, game: GameState, registry: ContentRegistry): OptionalActivitySession | null {
+  if (!session || session.adventureId !== game.adventureId || session.mode !== 'delivery' || session.result !== 'correct') return session;
+  const definition = optionalActivityDefinition(registry, session.activityId);
+  if (!definition || !optionalActivityCompleted(registry, definition, game)
+    || !game.notebook.factIds.some(id => id === definition.optionalActivity.reward.factId)) return session;
+  // Advance only this activity's actual receipt. Entry flags, tools, route and
+  // unrelated progress stay captured; facts/notes/help live outside this world.
+  const preparation = session.preparation;
+  if (definition.kind === 'quest') {
+    const id = definition.id as QuestId;
+    if (preparation.completedQuestIds.includes(id)) return session;
+    return freeze({ ...session, preparation: { ...structuredClone(preparation), completedQuestIds: [...preparation.completedQuestIds, id] } });
+  }
+  const id = minigameAchievement(registry, definition.id);
+  if (!id || preparation.achievementIds.includes(id)) return session;
+  return freeze({ ...session, preparation: { ...structuredClone(preparation), achievementIds: [...preparation.achievementIds, id] } });
 }
 /** Shared recovery primitive; callers install the result in the same reducer CAS. */
 export function rewindOptionalPreparation(game: GameState, session: OptionalActivitySession, nextAttemptId: AttemptId,
@@ -195,13 +223,13 @@ export function prepareOptionalActivityChange(registry: ContentRegistry, game: G
     const used = game.assistance.filter(h => h.objectiveId === definition.id).reduce<number>((max, hint) => Math.max(max, hint.level), 0);
     const level = (operation.kind === 'explanation' ? session.mode === 'practice' ? 2 : 3 : Math.min(3, used + 1)) as HintLevel;
     const hintText = operation.kind === 'explanation' ? session.mode === 'practice' ? definition.optionalActivity.practice.explanation
-      : game.world.completedQuestIds.some(id => id === definition.id) ? definition.completionExplanation : definition.hints.solution.text
+      : optionalActivityCompleted(registry, definition, game) ? definition.completionExplanation : definition.hints.solution.text
       : [definition.hints.method.text, definition.hints.workedStep.text, definition.hints.solution.text][level - 1]!;
     const nextGame = assistance(game, definition, level);
     return nextGame ? success({ ...session, hintText }, nextGame) : fail('invalid-state');
   }
   if (!session.mode || !action || (operation.kind !== 'submit' && operation.kind !== 'submit-power' && operation.kind !== 'submit-diary' && operation.kind !== 'submit-maintenance')) return fail('invalid-input');
-  if (operation.kind === 'submit' && (definition.optionalActivity.kind !== 'toy-symbol-message' || typeof operation.bits !== 'string' || operation.bits.length > 512)
+  if (operation.kind === 'submit' && (!isToySymbolActivity(definition.optionalActivity) || typeof operation.bits !== 'string' || operation.bits.length > 512)
     || operation.kind === 'submit-power' && definition.optionalActivity.kind !== 'delivered-power-audit'
     || operation.kind === 'submit-maintenance' && (definition.optionalActivity.kind !== 'notebook-combination' || !maintenanceSubmission(operation.answer))
     || operation.kind === 'submit-diary' && (definition.optionalActivity.kind !== 'radio-weather-diary' || session.mode !== 'delivery')) return fail('invalid-input');

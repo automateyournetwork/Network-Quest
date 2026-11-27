@@ -1,0 +1,80 @@
+{
+  "recordedAt": "2026-11-27T15:26:44.893188+00:00",
+  "task": "T101",
+  "loop": 113,
+  "baseCommit": "9a93bf7815cda8b7055a8177bd61d5c468dc8f52",
+  "sourceRoot": "/Users/john.capobianco/Network-Quest/.local/mg01-join-9a93bf7",
+  "scope": "Isolated actual MG01 implementation. Current-tree shared promotion and final integrated acceptance remain pending root GO after SQ04.",
+  "checks": [
+    {
+      "kind": "focused-production-controller-regressions",
+      "passed": 114,
+      "mg01Cases": 52,
+      "existingFrameworkCases": 62,
+      "durationSeconds": 4.03,
+      "log": "08-runtime-green.log"
+    },
+    {
+      "kind": "scoped-strict-types",
+      "exitCode": 0,
+      "log": "09-runtime-types-green.log"
+    },
+    {
+      "kind": "full-isolated-client",
+      "passed": 3806,
+      "failed": 1,
+      "todo": 360,
+      "suites": 100,
+      "durationSeconds": 38.81,
+      "log": "11-full-client.log"
+    },
+    {
+      "kind": "affected-compatibility-rerun",
+      "passed": 24,
+      "durationSeconds": 8.63,
+      "distinctClientPassesAccounted": 3807,
+      "log": "13-compatibility-rerun.log"
+    },
+    {
+      "kind": "final-check",
+      "exitCode": 0,
+      "log": "15-final-check.log"
+    },
+    {
+      "kind": "production-build",
+      "exitCode": 0,
+      "log": "12-build.log"
+    },
+    {
+      "kind": "actual-built-guest-firefox",
+      "groupsPassed": 11,
+      "browserVersion": "159.0",
+      "receipt": "14-native-initial.json",
+      "axeViolations": 0,
+      "pageErrors": 0,
+      "apiRequests": 0,
+      "changedSources": []
+    },
+    {
+      "kind": "actual-JavaScript-PHP-policy-parity",
+      "candidates": 7,
+      "coveredBy": "runtime.test.ts / 08-runtime-green.log",
+      "scope": "Local validation of actual earned safe snapshot; no remote transport/provider claim."
+    }
+  ],
+  "retainedFailures": [
+    "01-content-generate.log: missing new .ts import suffix under Node direct loader",
+    "06-runtime-types.log: five harness type diagnostics",
+    "11-full-client.log: preserved old-schema assumption for new minigame document"
+  ],
+  "pending": [
+    "Root review and explicit SQ03/SQ04-aware current-tree reconciliation",
+    "Actual merged variant/source/schema/policy regeneration and affected checks/native rerun",
+    "T104/T105 wider episode and encounter/account recovery",
+    "Actual providers/save transport, human technical/learning/owner review, finished media and aggregate gates"
+  ],
+  "sharedCurrentTreeWrites": false,
+  "taskAccepted": false,
+  "gitIndexChanged": false,
+  "deployment": false
+}

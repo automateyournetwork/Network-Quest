@@ -1,0 +1,1263 @@
+--- a/content/schemas/content.schema.json
++++ b/content/schemas/content.schema.json
+@@ -4166,6 +4166,211 @@
+               ]
+             }
+           }
++        },
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "kind",
++            "speakerId",
++            "instructions",
++            "profileId",
++            "delivery",
++            "practice",
++            "feedback",
++            "controls",
++            "recovery",
++            "reward",
++            "entryContexts",
++            "returnPolicy",
++            "timingDefault"
++          ],
++          "properties": {
++            "kind": {
++              "const": "toy-symbol-loom"
++            },
++            "speakerId": {
++              "const": "spec001:CH21"
++            },
++            "instructions": {
++              "type": "array",
++              "minItems": 1,
++              "maxItems": 8,
++              "uniqueItems": true,
++              "items": {
++                "$ref": "#/$defs/optionalLoomtext"
++              }
++            },
++            "profileId": {
++              "const": "spec001:PROFILE-SYMBOLS"
++            },
++            "delivery": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "sourceCaseId",
++                "actionId",
++                "samples"
++              ],
++              "properties": {
++                "sourceCaseId": {
++                  "const": "T12"
++                },
++                "actionId": {
++                  "const": "spec001:ACTION-MG01-decode"
++                },
++                "samples": {
++                  "const": [
++                    {
++                      "position": 0,
++                      "value": -3,
++                      "unit": "toy-level"
++                    },
++                    {
++                      "position": 1,
++                      "value": 1,
++                      "unit": "toy-level"
++                    },
++                    {
++                      "position": 2,
++                      "value": 3,
++                      "unit": "toy-level"
++                    },
++                    {
++                      "position": 3,
++                      "value": -1,
++                      "unit": "toy-level"
++                    }
++                  ]
++                }
++              }
++            },
++            "practice": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "sourceCaseId",
++                "samples",
++                "explanation"
++              ],
++              "properties": {
++                "sourceCaseId": {
++                  "const": "B-SYMBOL"
++                },
++                "samples": {
++                  "const": [
++                    {
++                      "position": 0,
++                      "value": 3,
++                      "unit": "toy-level"
++                    }
++                  ]
++                },
++                "explanation": {
++                  "$ref": "#/$defs/optionalLoomtext"
++                }
++              }
++            },
++            "feedback": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "practice",
++                "delivery",
++                "contentError",
++                "alreadyCompleted"
++              ],
++              "properties": {
++                "practice": {
++                  "$ref": "#/$defs/optionalLoommodeFeedback"
++                },
++                "delivery": {
++                  "$ref": "#/$defs/optionalLoommodeFeedback"
++                },
++                "contentError": {
++                  "$ref": "#/$defs/optionalLoomtext"
++                },
++                "alreadyCompleted": {
++                  "$ref": "#/$defs/optionalLoomtext"
++                }
++              }
++            },
++            "controls": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "practice",
++                "delivery",
++                "submit",
++                "retry",
++                "exit"
++              ],
++              "properties": {
++                "practice": {
++                  "$ref": "#/$defs/optionalLoomlabel"
++                },
++                "delivery": {
++                  "$ref": "#/$defs/optionalLoomlabel"
++                },
++                "submit": {
++                  "$ref": "#/$defs/optionalLoomlabel"
++                },
++                "retry": {
++                  "$ref": "#/$defs/optionalLoomlabel"
++                },
++                "exit": {
++                  "$ref": "#/$defs/optionalLoomlabel"
++                }
++              }
++            },
++            "recovery": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "exitExplanation",
++                "retryExplanation"
++              ],
++              "properties": {
++                "exitExplanation": {
++                  "$ref": "#/$defs/optionalLoomtext"
++                },
++                "retryExplanation": {
++                  "$ref": "#/$defs/optionalLoomtext"
++                }
++              }
++            },
++            "reward": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "kind",
++                "factId"
++              ],
++              "properties": {
++                "kind": {
++                  "const": "optional-practice-only"
++                },
++                "factId": {
++                  "const": "spec001:FACT-MG01-completion"
++                }
++              }
++            },
++            "entryContexts": {
++              "const": [
++                {
++                  "roomId": "spec001:R10",
++                  "safePositionId": "spec001:R10.entry",
++                  "hotspotId": "spec001:HOTSPOT-clockworks-loom"
++                }
++              ]
++            },
++            "returnPolicy": {
++              "const": "captured-entry"
++            },
++            "timingDefault": {
++              "const": "off"
++            }
++          }
+         }
+       ]
+     },
+@@ -4208,6 +4413,75 @@
+     "achievementId": {
+       "type": "string",
+       "pattern": "^spec001:ACHIEVEMENT-[A-Za-z0-9][A-Za-z0-9._-]{0,35}$"
++    },
++    "optionalLoomid": {
++      "type": "string",
++      "pattern": "^spec001:[A-Za-z0-9][A-Za-z0-9._-]{0,55}$"
++    },
++    "optionalLoomlabel": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 128,
++      "pattern": "\\S"
++    },
++    "optionalLoomtext": {
++      "type": "string",
++      "minLength": 1,
++      "maxLength": 4096,
++      "pattern": "\\S"
++    },
++    "optionalLoomsamples": {
++      "type": "array",
++      "minItems": 1,
++      "maxItems": 256,
++      "uniqueItems": true,
++      "items": {
++        "type": "object",
++        "additionalProperties": false,
++        "required": [
++          "position",
++          "value",
++          "unit"
++        ],
++        "properties": {
++          "position": {
++            "type": "integer",
++            "minimum": 0,
++            "maximum": 255
++          },
++          "value": {
++            "enum": [
++              -3,
++              -1,
++              1,
++              3
++            ]
++          },
++          "unit": {
++            "const": "toy-level"
++          }
++        }
++      }
++    },
++    "optionalLoommodeFeedback": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "correct",
++        "incorrect",
++        "invalidInput"
++      ],
++      "properties": {
++        "correct": {
++          "$ref": "#/$defs/optionalLoomtext"
++        },
++        "incorrect": {
++          "$ref": "#/$defs/optionalLoomtext"
++        },
++        "invalidInput": {
++          "$ref": "#/$defs/optionalLoomtext"
++        }
++      }
+     }
+   }
+ }
+--- a/content/spec001/world.json
++++ b/content/spec001/world.json
+@@ -2314,7 +2314,7 @@
+       "id": "spec001:FD-IRON-CITY",
+       "roomId": "spec001:R12",
+       "targetEpisodeId": "spec002",
+-      "label": "The Iron City — future episode",
++      "label": "The Iron City \u2014 future episode",
+       "description": "Story boundary until Spec002 is released. The distant application beacon gives context; its services are not simulated. Spec001 endings and all valid repair options remain completable.",
+       "traversable": false,
+       "requiredForMainStory": false
+@@ -2839,6 +2839,11 @@
+       "kind": "quest",
+       "id": "spec001:SQ02",
+       "path": "content/spec001/quests/SQ02.json"
++    },
++    {
++      "kind": "minigame",
++      "id": "spec001:MG01",
++      "path": "content/spec001/minigames/MG01.json"
+     }
+   ],
+   "constraints": {
+--- /dev/null
++++ b/content/spec001/minigames/MG01.json
+@@ -0,0 +1,249 @@
++{
++  "kind": "minigame",
++  "schemaVersion": 1,
++  "episodeId": "spec001",
++  "contentVersion": "1.0.0",
++  "id": "spec001:MG01",
++  "completionAchievementId": "spec001:ACHIEVEMENT-MG01-complete",
++  "prerequisite": {
++    "kind": "always"
++  },
++  "evidence": [
++    {
++      "id": "spec001:FACT-MG01-instructions",
++      "roomId": "spec001:R10",
++      "subjectIds": [
++        "spec001:CH21",
++        "spec001:PR092"
++      ],
++      "kind": "context",
++      "text": "The Metronome Golem offers an optional Bit Loom exercise. Read the ordered samples with the displayed map, practice with one symbol, then try the full strip when ready. You may pause, ask for help, retry or leave. No clock, score, recruit or inventory item is required, and this exercise never gates Clockworks calibration.",
++      "ruleIds": [
++        "spec001:PHY10"
++      ],
++      "requiresFreshMeasurement": false
++    },
++    {
++      "id": "spec001:FACT-MG01-symbol-strip",
++      "roomId": "spec001:R10",
++      "subjectIds": [
++        "spec001:PR092",
++        "spec001:PR093",
++        "spec001:PR096",
++        "spec001:PROFILE-SYMBOLS"
++      ],
++      "kind": "context",
++      "text": "The toy map is −3 → 00; −1 → 01; +1 → 10; +3 → 11. The full strip supplies position 0 = −3, position 1 = +1, position 2 = +3, position 3 = −1, all in toy-level units. Read the positions in order at your own pace. These are dimensionless teaching labels, not measured volts or a real electrical interface.",
++      "ruleIds": [
++        "spec001:PHY10"
++      ],
++      "requiresFreshMeasurement": false
++    },
++    {
++      "id": "spec001:FACT-MG01-completion",
++      "roomId": "spec001:R10",
++      "subjectIds": [
++        "spec001:CH21",
++        "spec001:PR092",
++        "spec001:PROFILE-SYMBOLS"
++      ],
++      "kind": "observation",
++      "text": "You decoded the complete optional Bit Loom strip: 00 | 10 | 11 | 01 = 00101101. Four symbols represent eight bits in the declared toy map. This records an optional exercise, with help use kept separately. It is not an Clockworks calibration calibration result, live link measurement, physical repair or proof of independent understanding.",
++      "ruleIds": [
++        "spec001:PHY10"
++      ],
++      "requiresFreshMeasurement": false
++    }
++  ],
++  "alternatives": [
++    {
++      "id": "spec001:ACTION-MG01-decode",
++      "label": "Decode the full loom strip",
++      "method": "direct-action",
++      "itemIds": [],
++      "abilityIds": [],
++      "condition": {
++        "kind": "always"
++      },
++      "ruleIds": [
++        "spec001:PHY10"
++      ],
++      "evidenceIds": [
++        "spec001:FACT-MG01-symbol-strip"
++      ],
++      "effects": [],
++      "explanation": "Copy all four supplied symbols in their displayed order. A correct full strip records the optional exercise once. The one-symbol practice, inspecting the map and an incorrect answer do not complete the full exercise."
++    }
++  ],
++  "ruleIds": [
++    "spec001:PHY10"
++  ],
++  "profileIds": [
++    "spec001:PROFILE-SYMBOLS"
++  ],
++  "sourceClaims": [
++    {
++      "sourceId": "spec001:S01",
++      "section": "7.7.2; 7.7.3.3–7.7.3.4; 7.7.4.4; printed pages 49–51, PDF pages 53–55",
++      "supportedClaim": "Physical entities transmit bits over physical media and can relay interconnected circuits; transmission may be synchronous or asynchronous.",
++      "limitations": [
++        "Conceptual architecture only. No universal medium, numeric threshold, wire header, or claim that PHYs never have their own error mechanisms."
++      ]
++    },
++    {
++      "sourceId": "spec001:S12",
++      "section": "2.1 Naming Conventions; Table 4 Linear and Gray Coding",
++      "supportedClaim": "Four amplitude levels can represent four two-bit combinations; the source distinguishes linear and Gray coding.",
++      "limitations": [
++        "T12 deliberately uses the declared linear toy labels. Do not substitute a real PHY map, count useful bitrate from symbol count, or imply the toy implements PAM4."
++      ]
++    },
++    {
++      "sourceId": "spec001:S13",
++      "section": "4.2.3 Clock and Data Recovery (CDR)",
++      "supportedClaim": "High-speed serial reception includes clock/data recovery; multilevel signaling requires appropriate timing recovery.",
++      "limitations": [
++        "Physical timing context only. The toy uses explicit discrete sampling; no analog jitter model, NTP synchronization, timing reflex requirement or CDR implementation."
++      ]
++    }
++  ],
++  "model": {
++    "label": "toy-symbol-map",
++    "scope": "Optional Clockworks practice using the existing reviewed four-level linear toy map and explicitly positioned discrete samples. The sample positions are given; no timing reflex is assessed.",
++    "assumptions": [
++      "T12 supplies the full four-symbol strip. B-SYMBOL supplies a separate one-symbol practice strip.",
++      "The full map and ordered values stay readable while answering; there is no elapsed-time input or countdown.",
++      "Once at the R10 loom, no completed objective, recruited ally, other optional activity or inventory item is required."
++    ],
++    "limitations": [
++      "The toy-level labels are not volts; this is not UART, RS-232, a complete PAM4 PHY or analog clock recovery.",
++      "Eight represented bits in four symbols does not establish useful bits per second or network throughput; no elapsed transmission time is supplied.",
++      "Supplied sample positions illustrate order and sampling context, not NTP, address discovery, routing or application login.",
++      "Undefined authored symbols or missing positions are content-error; missing learner input is invalid-input. Neither earns a penalty or completion.",
++      "Completion is an optional practice record, not proof of independent understanding, current physical repair or Clockworks calibration completion. Clockworks calibration needs no minigame score or completion."
++    ]
++  },
++  "effects": [
++    {
++      "kind": "record-fact",
++      "effectId": "spec001:EFFECT-MG01-notebook",
++      "factId": "spec001:FACT-MG01-completion"
++    },
++    {
++      "kind": "complete-minigame",
++      "effectId": "spec001:EFFECT-MG01-complete",
++      "minigameId": "spec001:MG01"
++    }
++  ],
++  "hints": {
++    "method": {
++      "id": "spec001:HINT-MG01-method",
++      "text": "Keep the supplied order. Match the first level to its two-bit pair, copy it, then repeat for each next position. The map stays visible and you can take as long as you need."
++    },
++    "workedStep": {
++      "id": "spec001:HINT-MG01-step",
++      "text": "Position 0 is −3, so write 00. Position 1 is +1, so append 10: the first four bits are 0010. Continue with positions 2 and 3."
++    },
++    "solution": {
++      "id": "spec001:HINT-MG01-solution",
++      "text": "The full strip is −3, +1, +3, −1 → 00 | 10 | 11 | 01 → 00101101. Using this solution is assisted completion with the same optional practice record and no punishment."
++    }
++  },
++  "observableOutcome": "The correct full strip records one optional completion and its notebook explanation. Wrong answers leave the exercise open with feedback and retry. Practice teaches only its one sample. Leaving preserves required tools and the independent Clockworks calibration lesson.",
++  "completionExplanation": "“A well-ordered scarf,” says the Metronome Golem. “Unfashionable, but exact.” The full strip is 00 | 10 | 11 | 01, or 00101101: eight represented bits in four toy symbols. Your notebook records this optional exercise. Clockworks calibration has its own calibration checks.",
++  "requiresReflexTiming": false,
++  "requiredForMainStory": false,
++  "skippable": true,
++  "instructions": "Read the displayed map and copy the ordered toy levels as bits. Choose the one-symbol practice or full four-symbol strip. Take as long as you need; help, explanation, retry and exit remain available. Clockworks calibration never needs this exercise or a score.",
++  "practiceExplanation": "One +3 symbol maps to 11: two represented bits. This sample is separate from the four-symbol completion strip and cannot finish the full exercise.",
++  "retryExplanation": "Start a fresh untimed loom attempt. Keep your clues, personal notes and hint history. Earlier-attempt measurements remain visible as stale. Retry does not create a save or an unearned completion.",
++  "exitExplanation": "Leave the Bit Loom at the captured Clockworks entry. Your required tools, main objectives and route stay intact. Leaving does not move you, refresh a measurement or save the adventure.",
++  "timingDefault": "off",
++  "timingUnlock": "after-untimed-completion",
++  "requiredScoreForMainStory": false,
++  "optionalActivity": {
++    "kind": "toy-symbol-loom",
++    "speakerId": "spec001:CH21",
++    "instructions": [
++      "“We weave in order,” says the Metronome Golem. “Speed is an optional accessory we have declined to install.”",
++      "Use the displayed toy map to copy the ordered samples as 0s and 1s. Read and think for as long as you need.",
++      "Try one symbol, decode the full strip, ask for help or leave. The optional exercise uses no required tool and never blocks Clockworks calibration."
++    ],
++    "profileId": "spec001:PROFILE-SYMBOLS",
++    "delivery": {
++      "sourceCaseId": "T12",
++      "actionId": "spec001:ACTION-MG01-decode",
++      "samples": [
++        {
++          "position": 0,
++          "value": -3,
++          "unit": "toy-level"
++        },
++        {
++          "position": 1,
++          "value": 1,
++          "unit": "toy-level"
++        },
++        {
++          "position": 2,
++          "value": 3,
++          "unit": "toy-level"
++        },
++        {
++          "position": 3,
++          "value": -1,
++          "unit": "toy-level"
++        }
++      ]
++    },
++    "practice": {
++      "sourceCaseId": "B-SYMBOL",
++      "samples": [
++        {
++          "position": 0,
++          "value": 3,
++          "unit": "toy-level"
++        }
++      ],
++      "explanation": "The single +3 symbol maps to 11: two represented bits in one symbol. This is one-symbol practice, not the full four-symbol exercise. Try the full strip whenever you are ready, or leave."
++    },
++    "feedback": {
++      "practice": {
++        "correct": "The single +3 symbol maps to 11: two represented bits in one symbol. Practice explains this sample; the full four-symbol exercise is still open.",
++        "incorrect": "For this practice sample, +3 maps to 11. Copy those two bits. You may try again or leave; this sample does not complete the full exercise.",
++        "invalidInput": "Enter a nonempty string of 0s and 1s for this practice sample. No answer was judged and no completion was recorded."
++      },
++      "delivery": {
++        "correct": "“A well-ordered scarf,” says the Metronome Golem. “Unfashionable, but exact.” The full strip is 00 | 10 | 11 | 01, or 00101101: eight represented bits in four toy symbols. Your notebook records this optional exercise. Clockworks calibration has its own calibration checks.",
++        "incorrect": "That copy does not match the supplied strip. Read −3 → 00, +1 → 10, +3 → 11, −1 → 01. The full strip is 00101101. Retry when ready, or leave; help does not reduce the optional completion.",
++        "invalidInput": "Enter a nonempty full strip using only 0s and 1s. No answer was judged and no completion was recorded. You can try again or leave."
++      },
++      "contentError": "The loom cannot read its supplied exercise. This is an authoring problem, not a mistake in your answer. No completion or penalty was recorded. You can leave safely.",
++      "alreadyCompleted": "Your notebook already records this optional loom exercise. Read its explanation or practice again; the same completion is not awarded twice."
++    },
++    "controls": {
++      "practice": "Practice one symbol",
++      "delivery": "Decode the full strip",
++      "submit": "Check the copied bits",
++      "retry": "Try the loom again",
++      "exit": "Leave the Bit Loom"
++    },
++    "recovery": {
++      "exitExplanation": "Leave the Bit Loom at the captured Clockworks entry. Your required tools, main objectives and route stay intact. Leaving does not move you, refresh a measurement or save the adventure.",
++      "retryExplanation": "Start a fresh untimed loom attempt. Keep your clues, personal notes and hint history. Earlier-attempt measurements remain visible as stale. Retry does not create a save or an unearned completion."
++    },
++    "reward": {
++      "kind": "optional-practice-only",
++      "factId": "spec001:FACT-MG01-completion"
++    },
++    "entryContexts": [
++      {
++        "roomId": "spec001:R10",
++        "safePositionId": "spec001:R10.entry",
++        "hotspotId": "spec001:HOTSPOT-clockworks-loom"
++      }
++    ],
++    "returnPolicy": "captured-entry",
++    "timingDefault": "off"
++  }
++}
+--- a/src/app/content.ts
++++ b/src/app/content.ts
+@@ -29,6 +29,7 @@
+ import packetRepair from '../../content/spec001/dialogue/packet-r12.json' with { type: 'json' };
+ import repairActions from '../../content/spec001/dialogue/repair-plan-actions.json' with { type: 'json' };
+ import characters from '../../content/spec001/characters.json' with { type: 'json' };
++import bitLoom from '../../content/spec001/minigames/MG01.json' with { type: 'json' };
+ import serialPost from '../../content/spec001/quests/SQ01.json' with { type: 'json' };
+ import powerAudit from '../../content/spec001/quests/SQ02.json' with { type: 'json' };
+ 
+@@ -53,6 +54,7 @@
+     'content/spec001/dialogue/repair-plan-actions.json': repairActions,
+     'content/spec001/dialogue/packet-r12.json': packetRepair,
+     'content/spec001/characters.json': characters,
++    'content/spec001/minigames/MG01.json': bitLoom,
+     'content/spec001/quests/SQ01.json': serialPost,
+     'content/spec001/quests/SQ02.json': powerAudit,
+   };
+--- a/src/app/application.ts
++++ b/src/app/application.ts
+@@ -238,7 +238,7 @@
+         const buttons = projected.entries.map(entry => {
+           const button = [...optionalOpeners.querySelectorAll('button')].find(node => node.dataset['activity'] === entry.activityId)
+             ?? host.ownerDocument.createElement('button');
+-          button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = entry.activityId === q('SQ01') ? 'Serial Post' : 'Energy audit';
++          button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = entry.activityId === q('MG01') ? 'Bit Loom' : entry.activityId === q('SQ01') ? 'Serial Post' : 'Energy audit';
+           button.setAttribute('aria-label', `Open ${button.textContent}`);
+           button.addEventListener('click', () => {
+             if (button.isConnected && optionalOpeners.contains(button) && !button.closest('[hidden], [inert]'))
+--- a/src/content/optional-activities.ts
++++ b/src/content/optional-activities.ts
+@@ -1,6 +1,7 @@
+ // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+ import type { ContentRegistry } from './registry';
+ import type { OptionalActivityDefinition } from '../state/optional-activities';
++import { optionalLoomContentIssues } from './optional-symbol-loom.ts';
+ import reviewed from '../../content/spec001/sources.json' with { type: 'json' };
+ const isRecord = (value: unknown): value is Record<string, unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
+ const exact = (value: Record<string, unknown>, keys: readonly string[]) => Object.keys(value).length === keys.length && Object.keys(value).every(key => keys.includes(key));
+@@ -12,6 +13,7 @@
+   try { return checkOptionalContent(record, registry); } catch { return ['optional-malformed']; }
+ }
+ function checkOptionalContent(record: unknown, registry: ContentRegistry): readonly string[] {
++  if (isRecord(record) && record['kind'] === 'minigame') return optionalLoomContentIssues(record, registry);
+   const errors: string[] = [];
+   if (!isRecord(record) || record['kind'] !== 'quest' || !['spec001:SQ01', 'spec001:SQ02'].includes(String(record['id'])) || !isRecord(record['optionalActivity'])) return ['unsupported-optional-activity'];
+   const activity = record['optionalActivity'];
+@@ -21,6 +23,7 @@
+     || activity['timingDefault'] !== 'off' || activity['returnPolicy'] !== 'captured-entry' || !Array.isArray(activity['instructions'])
+     || !activity['instructions'].length || !activity['instructions'].every(text)) errors.push('optional-shape');
+   const def = record as unknown as OptionalActivityDefinition, authored = def.optionalActivity;
++  if (authored.kind === 'toy-symbol-loom') return ['unsupported-optional-activity'];
+   if (!isRecord(activity['practice']) || !isRecord(activity['delivery']) || !isRecord(activity['feedback']) || !isRecord(activity['reward'])
+     || !isRecord(activity['controls']) || !isRecord(activity['recovery']) || !Array.isArray(activity['entryContexts'])
+     || !Array.isArray(record['effects']) || !Array.isArray(record['alternatives']) || !Array.isArray(record['evidence'])
+@@ -84,6 +87,7 @@
+ export function optionalRewardAllocationMatches(definition: OptionalActivityDefinition, manifest: unknown): boolean {
+   if (!isRecord(manifest) || !Array.isArray(manifest['assets'])) return false;
+   const reward = definition.optionalActivity.reward;
++  if (reward.kind === 'optional-practice-only') return false; // No media allocation is declared or required.
+   const matches = manifest['assets'].filter(row => isRecord(row) && row['assetId'] === reward.assetId);
+   const expected = definition.id === 'spec001:SQ01' ? '08' : definition.id === 'spec001:SQ02' ? '18' : null;
+   return expected !== null && reward.assetId === `spec001:ASSET-ILLUSTRATION-${expected}` && matches.length === 1 && isRecord(matches[0])
+--- /dev/null
++++ b/src/content/optional-symbol-loom.ts
+@@ -0,0 +1,40 @@
++// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
++import type { ContentRegistry } from './registry';
++import type * as S from './schema-types.generated';
++import validateSchema from './schema.generated.js';
++import reviewed from '../../content/spec001/sources.json' with { type: 'json' };
++
++const same = (left: unknown, right: unknown) => JSON.stringify(left) === JSON.stringify(right);
++/** Only the reviewed MG01 variant is admitted; later minigames remain unavailable. */
++export function optionalLoomContentIssues(record: unknown, registry: ContentRegistry): readonly string[] {
++  if (!validateSchema(record)) return ['optional-loom-shape'];
++  const definition = record as S.minigame, activity = definition.optionalActivity;
++  if (definition.kind !== 'minigame' || definition.id !== 'spec001:MG01' || activity?.kind !== 'toy-symbol-loom'
++    || definition.completionAchievementId !== 'spec001:ACHIEVEMENT-MG01-complete') return ['unsupported-optional-activity'];
++  const errors: string[] = [];
++  const profile = registry.record(activity.profileId);
++  if (profile?.kind !== 'profile' || profile.id !== 'spec001:PROFILE-SYMBOLS' || profile.reviewedProfileId !== profile.id
++    || !profile.ruleIds.includes('spec001:PHY10') || !same(definition.profileIds, [profile.id])
++    || !same(definition.ruleIds, ['spec001:PHY10']) || !same(definition.sourceClaims, profile.sourceClaims)) errors.push('optional-profile');
++  for (const [mode, expectedCase] of [['practice', 'B-SYMBOL'], ['delivery', 'T12']] as const) {
++    const part = activity[mode], reference = [...reviewed.referenceCases, ...reviewed.reviewCases].find(c => c.id === expectedCase);
++    const symbols = reference && 'symbols' in reference.inputs ? reference.inputs.symbols : undefined;
++    if (part.sourceCaseId !== expectedCase || !same(part.samples.map(({ value, unit }) => ({ value, unit })), symbols)
++      || !part.samples.every((sample, index) => sample.position === index)) errors.push(`optional-${mode}-source`);
++  }
++  const entry = activity.entryContexts[0], room = registry.record(entry.roomId), anchor = registry.safePosition(entry.safePositionId);
++  if (registry.record(activity.speakerId)?.kind !== 'character' || room?.kind !== 'room' || room.id !== entry.roomId
++    || !room.characterIds.includes(activity.speakerId) || !room.hotspots.some(h => h.id === entry.hotspotId && h.verbs.includes('look'))
++    || anchor?.roomId !== room.id || !anchor.eligibleStates.includes('stable-exploration')
++    || !definition.evidence.every(f => f.roomId === room.id)) errors.push('optional-entry');
++  const alternative = definition.alternatives[0];
++  if (definition.alternatives.length !== 1 || alternative?.id !== activity.delivery.actionId || alternative.method !== 'direct-action'
++    || alternative.condition.kind !== 'always' || alternative.itemIds.length || alternative.abilityIds.length || alternative.effects.length) errors.push('optional-alternative');
++  if (!same(definition.effects, [
++    { kind: 'record-fact', effectId: 'spec001:EFFECT-MG01-notebook', factId: activity.reward.factId },
++    { kind: 'complete-minigame', effectId: 'spec001:EFFECT-MG01-complete', minigameId: definition.id },
++  ]) || !definition.evidence.some(e => e.id === activity.reward.factId && e.kind === 'observation')) errors.push('optional-reward');
++  if (definition.prerequisite.kind !== 'always' || definition.requiredForMainStory !== false || definition.requiresReflexTiming !== false
++    || definition.requiredScoreForMainStory !== false || definition.skippable !== true || definition.timingDefault !== 'off') errors.push('optional-safety');
++  return errors;
++}
+--- a/src/state/optional-activities.ts
++++ b/src/state/optional-activities.ts
+@@ -6,9 +6,9 @@
+ import { evaluateAuditAnswer } from './optional-power-audit';
+ import type { DeliveredPowerAudit, PowerAuditAnswer } from './optional-power-audit';
+ import type { ToySample, ToySymbolProfile } from '../domain/packet-journey';
+-import type { AttemptId, ConfigurationRevision, DomainAction, EvaluationResult, EvaluationStatus, HintId, QualifiedId, QuestId } from '../domain/types';
++import type { AttemptId, ConfigurationRevision, DomainAction, EvaluationResult, EvaluationStatus, HintId, MinigameId, QualifiedId, QuestId } from '../domain/types';
+ import type { EffectBinding, StateEffect } from './reducer';
+-import { conditionSatisfied } from './conditions';
++import { conditionSatisfied, minigameAchievement } from './conditions';
+ import type { ActivityState, ClientGeneration, GameState, HintLevel, HintUse, SafeState, WorldState } from './types';
+ import { optionalActivityContentIssues } from '../content/optional-activities';
+ export { optionalActivityContentIssues, optionalRewardAllocationMatches } from '../content/optional-activities';
+@@ -31,7 +31,13 @@
+ }
+ interface ModeFeedback { readonly correct: string; readonly incorrect: string; readonly invalidInput: string }
+ export interface OptionalEntry { readonly roomId: string; readonly safePositionId: string; readonly hotspotId: string }
+-export type OptionalActivityDefinition = Readonly<Omit<S.quest, 'optionalActivity'>> & { readonly optionalActivity: ToyMessageActivity | DeliveredPowerAudit };
++export interface ToySymbolLoomActivity extends Omit<ToyMessageActivity, 'kind' | 'speakerId' | 'reward'> {
++  readonly kind: 'toy-symbol-loom';
++  readonly speakerId: 'spec001:CH21';
++  readonly reward: { readonly kind: 'optional-practice-only'; readonly factId: 'spec001:FACT-MG01-completion' };
++}
++export type OptionalActivityDefinition = (Readonly<Omit<S.quest, 'optionalActivity'>> | Readonly<Omit<S.minigame, 'optionalActivity'>>)
++  & { readonly optionalActivity: ToyMessageActivity | DeliveredPowerAudit | ToySymbolLoomActivity };
+ export type OptionalMode = 'practice' | 'delivery';
+ export interface OptionalActivitySession {
+   readonly sessionId: string;
+@@ -70,11 +76,18 @@
+ 
+ export function optionalActivityDefinition(registry: ContentRegistry, id: string): OptionalActivityDefinition | null {
+   const record = registry.record(id);
+-  return optionalActivityContentIssues(record, registry).length ? null : record as OptionalActivityDefinition;
++  return record?.id !== id || optionalActivityContentIssues(record, registry).length ? null : record as OptionalActivityDefinition;
+ }
+ export function optionalEffectBindings(definition: OptionalActivityDefinition): readonly EffectBinding[] {
+   return [...definition.effects, ...definition.alternatives.flatMap(a => a.effects)].map(effect => ({ sourceId: definition.id as QualifiedId,
+-    effectId: effect.effectId as StateEffect['effectId'], mode: 'once', receipt: { kind: 'quest', id: definition.id as QuestId } }));
++    effectId: effect.effectId as StateEffect['effectId'], mode: 'once', receipt: definition.kind === 'quest' ? { kind: 'quest', id: definition.id as QuestId } : { kind: 'minigame', id: definition.id as MinigameId } }));
++}
++export function optionalActivityCompleted(registry: ContentRegistry, definition: OptionalActivityDefinition, game: GameState): boolean {
++  const record = registry.record(definition.id);
++  if (record?.id !== definition.id || record.kind !== definition.kind) return false;
++  if (definition.kind === 'quest') return registry.has('quest', definition.id) && game.world.completedQuestIds.includes(definition.id as QuestId);
++  const achievement = minigameAchievement(registry, definition.id);
++  return achievement !== null && achievement === definition.completionAchievementId && game.world.achievementIds.includes(achievement);
+ }
+ export function evaluateOptionalAnswer(registry: ContentRegistry, definition: OptionalActivityDefinition, mode: OptionalMode,
+   action: DomainAction<unknown>, game: GameState): {
+@@ -85,12 +98,12 @@
+     feedback: text(activity?.feedback?.contentError) ? activity.feedback.contentError : 'This exhibit needs correction. You can leave safely.', assistanceLevel: null };
+   const profile = registry.record(activity.profileId) as S.profile;
+   const part = activity[mode];
+-  const result = activity.kind === 'toy-symbol-message' ? evaluateSymbolAnswer({ profile: { id: profile.id, parameters: profile.parameters } as ToySymbolProfile,
++  const result = activity.kind !== 'delivered-power-audit' ? evaluateSymbolAnswer({ profile: { id: profile.id, parameters: profile.parameters } as ToySymbolProfile,
+     samples: activity[mode].samples }, action as DomainAction<{ readonly bits: string }>, game.world)
+     : evaluateAuditAnswer({ sourceCaseId: part.sourceCaseId, demands: activity[mode].demands, budgetBoundary: activity[mode].budgetBoundary,
+       demandBoundary: activity[mode].demandBoundary, otherConstraints: true }, { id: profile.id, parameters: profile.parameters }, action, game.world);
+   const feedback = result.status === 'content-error' ? activity.feedback.contentError : activity.feedback[mode][result.status === 'invalid-input' ? 'invalidInput' : result.status];
+-  const completed = game.world.completedQuestIds.includes(definition.id as QuestId);
++  const completed = optionalActivityCompleted(registry, definition, game);
+   const alternative = definition.alternatives.find(a => a.id === activity.delivery.actionId)!;
+   const effects = mode === 'delivery' && result.status === 'correct' && !completed && conditionSatisfied(definition.prerequisite, game.world, registry)
+     && conditionSatisfied(alternative.condition, game.world, registry) ? [...definition.effects, ...alternative.effects] as StateEffect[] : [];
+@@ -107,12 +120,23 @@
+   const used: HintUse = { objectiveId: definition.id as HintUse['objectiveId'], hintId: hint.id as HintId, level, attemptId: game.world.attemptId };
+   return { ...game, assistance: [...game.assistance, used] };
+ }
+-/** Call only after the reducer has accepted the actual full completion batch. */
+-export function finalizeOptionalSession(session: OptionalActivitySession | null, game: GameState): OptionalActivitySession | null {
+-  if (!session || session.mode !== 'delivery' || session.result !== 'correct' || !game.world.completedQuestIds.some(id => id === session.activityId)) return session;
+-  // This optional attempt has succeeded. Replaying it retains its accepted
+-  // benefit; the separate encounter checkpoint still rewinds the whole world.
+-  return freeze({ ...session, preparation: structuredClone(game.world) });
++/** Call only after the reducer accepts the complete batch; preserve entry equipment. */
++export function finalizeOptionalSession(session: OptionalActivitySession | null, game: GameState, registry: ContentRegistry): OptionalActivitySession | null {
++  if (!session || session.adventureId !== game.adventureId || session.mode !== 'delivery' || session.result !== 'correct') return session;
++  const definition = optionalActivityDefinition(registry, session.activityId);
++  if (!definition || !optionalActivityCompleted(registry, definition, game)
++    || !game.notebook.factIds.some(id => id === definition.optionalActivity.reward.factId)) return session;
++  // Advance only this activity's actual receipt. Entry flags, tools, route and
++  // unrelated progress stay captured; facts/notes/help live outside this world.
++  const preparation = session.preparation;
++  if (definition.kind === 'quest') {
++    const id = definition.id as QuestId;
++    if (preparation.completedQuestIds.includes(id)) return session;
++    return freeze({ ...session, preparation: { ...structuredClone(preparation), completedQuestIds: [...preparation.completedQuestIds, id] } });
++  }
++  const id = minigameAchievement(registry, definition.id);
++  if (!id || preparation.achievementIds.includes(id)) return session;
++  return freeze({ ...session, preparation: { ...structuredClone(preparation), achievementIds: [...preparation.achievementIds, id] } });
+ }
+ /** Shared recovery primitive; callers install the result in the same reducer CAS. */
+ export function rewindOptionalPreparation(game: GameState, session: OptionalActivitySession, nextAttemptId: AttemptId,
+@@ -176,13 +200,13 @@
+     const used = game.assistance.filter(h => h.objectiveId === definition.id).reduce<number>((max, hint) => Math.max(max, hint.level), 0);
+     const level = (operation.kind === 'explanation' ? session.mode === 'practice' ? 2 : 3 : Math.min(3, used + 1)) as HintLevel;
+     const hintText = operation.kind === 'explanation' ? session.mode === 'practice' ? definition.optionalActivity.practice.explanation
+-      : game.world.completedQuestIds.some(id => id === definition.id) ? definition.completionExplanation : definition.hints.solution.text
++      : optionalActivityCompleted(registry, definition, game) ? definition.completionExplanation : definition.hints.solution.text
+       : [definition.hints.method.text, definition.hints.workedStep.text, definition.hints.solution.text][level - 1]!;
+     const nextGame = assistance(game, definition, level);
+     return nextGame ? success({ ...session, hintText }, nextGame) : fail('invalid-state');
+   }
+   if (!session.mode || !action || (operation.kind !== 'submit' && operation.kind !== 'submit-power')) return fail('invalid-input');
+-  if (operation.kind === 'submit' && (definition.optionalActivity.kind !== 'toy-symbol-message' || typeof operation.bits !== 'string' || operation.bits.length > 512)
++  if (operation.kind === 'submit' && (definition.optionalActivity.kind === 'delivered-power-audit' || typeof operation.bits !== 'string' || operation.bits.length > 512)
+     || operation.kind === 'submit-power' && definition.optionalActivity.kind !== 'delivered-power-audit') return fail('invalid-input');
+   const result = evaluateOptionalAnswer(registry, definition, session.mode, { ...action, input: operation.kind === 'submit' ? { bits: operation.bits } : operation.answer }, game);
+   const nextGame = result.assistanceLevel ? assistance(game, definition, result.assistanceLevel) : game;
+--- a/src/state/reducer.ts
++++ b/src/state/reducer.ts
+@@ -465,7 +465,7 @@
+         candidateGame = prepared.value.game;
+       }
+       if (!legalWorld(candidateGame.world) || candidateGame.assistance.length > 2048) return reject('invalid-state');
+-      const session = finalizeOptionalSession(result.session, candidateGame);
++      const session = finalizeOptionalSession(result.session, candidateGame, registry);
+       const reduced = accept(state, command.actionId, { game: candidateGame, activity: result.activity,
+         changed: canonical(candidateGame) !== canonical(game), revision: candidateGame.world.configurationRevision });
+       if (reduced.status === 'rejected') return reduced;
+--- a/src/ui/optional-activities.ts
++++ b/src/ui/optional-activities.ts
+@@ -1,8 +1,8 @@
+ // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+ import './optional-activities.css';
+ import type { ContentRegistry } from '../content/registry';
+-import type { QualifiedId, QuestId } from '../domain/types';
+-import { optionalActivityDefinition } from '../state/optional-activities';
++import type { QualifiedId } from '../domain/types';
++import { optionalActivityDefinition, optionalActivityCompleted } from '../state/optional-activities';
+ import type { OptionalActivitySession, OptionalMode } from '../state/optional-activities';
+ import type { GameState } from '../state/types';
+ import type { PowerAuditAnswer } from '../state/optional-power-audit';
+@@ -101,16 +101,16 @@
+     controls: { practice: 'Practice', delivery: 'Try the full activity', submit: 'Check answer', retry: 'Retry', exit: 'Leave activity' }, limitations: [], sources: [], answerKind: 'bits', answerControls: null };
+   const activity = definition.optionalActivity, profile = registry.record(activity.profileId), room = registry.record(session.entry.roomId);
+   const title = room?.kind === 'room' ? room.hotspots.find(h => h.id === session.entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity';
+-  const completed = game.world.completedQuestIds.includes(definition.id as QuestId);
++  const completed = optionalActivityCompleted(registry, definition, game);
+   const level = (value: number) => value > 0 ? `+${value}` : String(value).replace('-', '−');
+   const parameters = profile?.kind === 'profile' ? profile.parameters as { levels?: readonly { symbol: { value: number }; bits: string }[]; deliveredBudget?: { value: number; unit: string } } : null;
+   return { sessionId: session.sessionId, title, phase: session.phase, mode: session.mode, instructions: activity.instructions,
+-    map: activity.kind === 'toy-symbol-message' ? parameters?.levels?.map(row => `${level(row.symbol.value)} → ${row.bits}`) ?? [] : [],
+-    samples: session.mode ? activity.kind === 'toy-symbol-message' ? activity[session.mode].samples.map(sample => `Position ${sample.position}: ${level(sample.value)} toy-level`)
++    map: activity.kind !== 'delivered-power-audit' ? parameters?.levels?.map(row => `${level(row.symbol.value)} → ${row.bits}`) ?? [] : [],
++    samples: session.mode ? activity.kind !== 'delivered-power-audit' ? activity[session.mode].samples.map(sample => `Position ${sample.position}: ${level(sample.value)} toy-level`)
+       : [`Delivered allowance: ${parameters?.deliveredBudget?.value} ${parameters?.deliveredBudget?.unit} after losses.`, ...activity[session.mode].demands.map((demand, index) => `Demand card ${index + 1}: ${demand.value} ${demand.unit} delivered after losses.`), 'The supplied port and compatibility checks are satisfied. Power does not prove data connectivity.'] : [],
+     feedback: session.feedback, hintText: session.hintText, completed,
+-    rewardText: completed && game.notebook.factIds.some(id => id === activity.reward.factId) ? `${activity.reward.alternativeText} ${activity.reward.unavailableText}` : null,
+-    controls: activity.controls, limitations: definition.model.limitations, answerKind: activity.kind === 'toy-symbol-message' ? 'bits' : 'power',
++    rewardText: activity.reward.kind !== 'optional-practice-only' && completed && game.notebook.factIds.some(id => id === activity.reward.factId) ? `${activity.reward.alternativeText} ${activity.reward.unavailableText}` : null,
++    controls: activity.controls, limitations: definition.model.limitations, answerKind: activity.kind !== 'delivered-power-audit' ? 'bits' : 'power',
+     answerControls: activity.kind === 'delivered-power-audit' ? activity.answerControls : null,
+     sources: definition.sourceClaims.map(claim => {
+       const source = sources.find(s => s.id === claim.sourceId || `spec001:${s.id}` === claim.sourceId);
+--- a/tools/generate-save-content-policy.ts
++++ b/tools/generate-save-content-policy.ts
+@@ -21,7 +21,7 @@
+     const paths = [...new Set(['content/spec001/world.json', 'content/spec001/sources.json',
+       ...world.documents.map(document => document.path), 'content/schemas/content.schema.json',
+       'src/app/content.ts', 'src/app/save-policy.ts', 'src/content/registry.ts', 'src/services/save-validator.ts',
+-      'src/state/notebook.ts', 'src/content/optional-activities.ts', 'src/state/optional-activities.ts', 'src/state/optional-power-audit.ts', 'src/state/conditions.ts', 'src/state/party.ts', 'src/state/objective-history.ts', 'src/domain/copper.ts', 'docs/evidence/spec001/rule-source-review.md',
++      'src/state/notebook.ts', 'src/content/optional-activities.ts', 'src/content/optional-symbol-loom.ts', 'src/state/optional-activities.ts', 'src/state/optional-power-audit.ts', 'src/state/conditions.ts', 'src/state/party.ts', 'src/state/objective-history.ts', 'src/domain/copper.ts', 'docs/evidence/spec001/rule-source-review.md',
+       'src/state/objectives.ts', 'src/state/copper-scenario.ts', 'src/state/fiber-scenario.ts', 'src/state/radio-scenario.ts', 'src/state/equipment-scenarios.ts', 'src/state/repair-plan.ts', 'src/state/outcomes.ts',
+       'src/domain/optics.ts', 'src/domain/radio.ts', 'src/domain/power.ts', 'src/domain/capabilities.ts', 'src/domain/packet-journey.ts',
+       'tools/generate-save-content-policy.ts'])].sort();
+--- /dev/null
++++ b/tests/state/minigame-loom.test.ts
+@@ -0,0 +1,3 @@
++// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
++// Real authored MG01 loader/controller/reducer coverage; native browser checks remain separate.
++import '../../docs/evidence/spec001/optional/MG01/joined/runtime.test';
+--- a/tests/content/characters.test.ts
++++ b/tests/content/characters.test.ts
+@@ -140,6 +140,9 @@
+     const old=compile(originalSchema),current=compile(schema);
+     for(const [path,document] of Object.entries(documents)) {
+       if(path==='content/spec001/characters.json')continue;
++      // MG01 uses the explicitly added completion achievement/effect. No old
++      // minigame document existed, so the preserved T092 schema must reject it.
++      if(path==='content/spec001/minigames/MG01.json') { expect(old(document),path).toBe(false);expect(current(document),path).toBe(true);continue; }
+       // New T100 payloads are tested against their explicitly retained old-shaped
+       // projections. The immutable T092 schema is never rehashed or refreshed.
+       const optional = /^content\/spec001\/quests\/(SQ0[12])\.json$/.exec(path);
+--- a/docs/evidence/spec001/optional/framework/logic.test.ts
++++ b/docs/evidence/spec001/optional/framework/logic.test.ts
+@@ -105,7 +105,7 @@
+     const reduce = createReducer({ registry: ctx.registry, bindings: optionalEffectBindings(definition) });
+     const accepted = reduce(ctx.state, { ...answer, adventureId: ctx.game.adventureId, input: { kind: 'apply', evaluation: selected.evaluation } });
+     expect(accepted.status).toBe('applied'); const completed = accepted.state.runtime.game!;
+-    const session = finalizeOptionalSession(selected.session, completed)!;
++    const session = finalizeOptionalSession(selected.session, completed, ctx.registry)!;
+     const retry = prepareOptionalActivityChange(ctx.registry, completed, { kind: 'active-optional' }, session,
+       { kind: 'retry', sessionId, nextAttemptId: '00000000-0000-4000-8000-000000000102' as AttemptId });
+     expect(retry.ok).toBe(true); if (!retry.ok) return;
+--- a/docs/evidence/spec001/optional/framework/minigame-persistence.test.ts
++++ b/docs/evidence/spec001/optional/framework/minigame-persistence.test.ts
+@@ -25,6 +25,8 @@
+   record.effects = record.effects.map((effect: any) => effect.kind === 'complete-quest'
+     ? { kind: 'complete-minigame', effectId: effect.effectId, minigameId: identity } : effect);
+   const path = 'content/spec001/minigames/MG01.json';
++  // Replace the actual MG01 record only inside this historical mechanism fixture.
++  world.documents = world.documents.filter(ref => ref.id !== identity);
+   const documents = Object.fromEntries(world.documents.map(ref => [ref.path, json(ref.path)]));
+   world.documents.push({ kind: 'minigame', id: identity, path }); documents[path] = record;
+   const input = { world, sources: source, documents }, loaded = validateContent(input);
+--- /dev/null
++++ b/docs/evidence/spec001/optional/MG01/joined/runtime.test.ts
+@@ -0,0 +1,268 @@
++// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
++// Actual isolated loader/controller/bus/reducer tests; safe initial locations are prepared fixtures.
++import { readFileSync } from 'node:fs';
++import { spawnSync } from 'node:child_process';
++import { describe, expect, it, vi } from 'vitest';
++import { loadIntroductionContent } from '../../../../../../src/app/content';
++import { createIntroductionRuntime, startIntroduction } from '../../../../../../src/app/adventure';
++import { introductionSavePolicy } from '../../../../../../src/app/save-policy';
++import { createReducer, createReducerState, type ReducerState, type StateEffect, type ReducerInput } from '../../../../../../src/state/reducer';
++import { optionalActivityDefinition, optionalEffectBindings, optionalActivityCompleted, evaluateOptionalAnswer, finalizeOptionalSession } from '../../../../../../src/state/optional-activities';
++import { createOptionalActivitiesController, type OptionalActivityIntent } from '../../../../../../src/ui/optional-activities';
++import { createActionBus, contextFromRuntime, copySemanticAction } from '../../../../../../src/ui/action-bus';
++import { captureSafeSnapshot } from '../../../../../../src/state/snapshot';
++import { SaveValidator } from '../../../../../../src/services/save-validator';
++import { validateContent, type ContentRegistry } from '../../../../../../src/content/registry';
++import { conditionSatisfied } from '../../../../../../src/state/conditions';
++import { equipmentInteractionBindings, createEquipmentScenarioResolver, resolveEquipmentScenario } from '../../../../../../src/state/equipment-scenarios';
++import { objectiveEffectBindings } from '../../../../../../src/state/objectives';
++import type { ActionId, MeasurementId, QualifiedId, AchievementId } from '../../../../../../src/domain/types';
++import type { ClientGeneration } from '../../../../../../src/state/types';
++import type * as S from '../../../../../../src/content/schema-types.generated';
++const q = <T extends string = string>(id: string) => `spec001:${id}` as QualifiedId<T>;
++const json = (path: string): any => JSON.parse(readFileSync(new URL(`../../../../../../${path}`, import.meta.url), 'utf8'));
++const { registry, world } = loadIntroductionContent();
++const definition = optionalActivityDefinition(registry, q('MG01'))!;
++const definitions = ['SQ01', 'SQ02', 'MG01'].map(id => optionalActivityDefinition(registry, q(id))!);
++const policy = introductionSavePolicy(registry, world), validator = new SaveValidator([policy]);
++const expected = (id: string) => json('tests/fixtures/optional-activities.json').cases.find((c: any) => c.id === id).expected;
++function fixture() {
++  const runtime = startIntroduction(createIntroductionRuntime(), registry), original = runtime.game!;
++  let state = createReducerState({ ...runtime, game: { ...original, world: { ...original.world,
++    roomId: q('R10'), position: { safePositionId: q('R10.entry') }, completedObjectiveIds: [q('O01'), q('O02')],
++    inventory: [{ itemId: q('ITEM-inspection-kit'), quantity: 1 }] }, notebook: { ...original.notebook, personalNotes: 'Keep this observation' } } });
++  let blocked = false, commits = 0, corrupt = false;
++  const proxy: ContentRegistry = { ...registry, record: id => {
++    const record = registry.record(id);
++    if (!corrupt || id !== q('MG01')) return record;
++    const clone = structuredClone(record) as any; clone.optionalActivity.delivery.samples[0].value = 2; return clone;
++  } };
++  const reduce = createReducer({ registry: proxy, bindings: [...definitions.flatMap(optionalEffectBindings), ...objectiveEffectBindings(proxy), ...equipmentInteractionBindings(proxy).effects], objectiveScenario: createEquipmentScenarioResolver(proxy) });
++  const store = { getState: () => state, reduce, compareAndSet(before: ReducerState, next: ReducerState) {
++    if (blocked || before !== state) return false; state = next; commits++; return true;
++  } };
++  const bus = createActionBus({ getContext: () => contextFromRuntime(state.runtime) });
++  const controller = createOptionalActivitiesController({ registry: proxy, store, bus, activityIds: [q('MG01'), q('MG02'), q('MG03')] });
++  const send = (input: OptionalActivityIntent) => bus.dispatch(controller.project().capture(input));
++  const start = () => send({ kind: 'start-optional', activityId: q('MG01'), hotspotId: q('HOTSPOT-clockworks-loom') });
++  const sessionId = () => state.control.optionalActivity!.sessionId;
++  const mode = (mode: 'practice' | 'delivery') => send({ kind: 'choose-optional-mode', sessionId: sessionId(), mode });
++  const bits = (bits: string) => send({ kind: 'submit-optional', sessionId: sessionId(), bits });
++  const simple = (kind: 'hint-optional' | 'explain-optional' | 'retry-optional' | 'exit-optional') => send({ kind, sessionId: sessionId() });
++  const command = (input: ReducerInput) => { const game = state.runtime.game!; const result = reduce(state, { actionId: crypto.randomUUID() as ActionId, adventureId: game.adventureId, expectedVersion: game.world, input });
++    expect(result.status, result.reason).not.toBe('rejected'); state = result.state; return result; };
++  return { store, bus, controller, send, start, sessionId, mode, bits, simple, command, state: () => state, commits: () => commits,
++    block: (v: boolean) => { blocked = v; }, corrupt: () => { corrupt = true; }, replace: (v: ReducerState) => { state = v; } };
++}
++function calibration(f: ReturnType<typeof fixture>, method: 'step-and-decode' | 'notebook-and-replay', submit = true) {
++  const controls = (json('content/spec001/dialogue/equipment-actions.json') as S.collection).records.filter((r): r is S.dialogue => r.kind === 'dialogue');
++  for (const suffix of ['equipment-mode-100-full', `clock-${method}`, 'clock-role-physical', 'clock-read-scope', ...['00', '10', '11', '01'].map((pair, i) => `clock-pair-${i}-${pair}`)]) {
++    const choice = controls.flatMap(d => d.nodes.flatMap(n => n.choices)).find(c => c.id === q(`ACTION-${suffix}`))!;
++    f.command({ kind: 'apply', evaluation: { status: 'correct', reasonCode: 'actual-authored-calibration-choice', observations: [], acceptedEffects: choice.effects as StateEffect[] } });
++  }
++  const scenario = resolveEquipmentScenario(f.state().runtime.game!, q('O10'))!, id = crypto.randomUUID() as MeasurementId;
++  f.command({ kind: 'objective', operation: { kind: 'measure', objectiveId: q('O10'), alternativeId: scenario.alternativeId, id } });
++  if (submit) f.command({ kind: 'objective', operation: { kind: 'submit', objectiveId: q('O10'), alternativeId: scenario.alternativeId, measurementId: id } });
++  return id;
++}
++function finish(f: ReturnType<typeof fixture>) { f.start(); f.mode('delivery'); expect(f.bits('00101101').status).toBe('handled'); }
++
++describe('MG01 actual isolated lifecycle against unchanged T092 expectations', () => {
++  it('OPT-MG01-START opens its only real minigame entry with instructions, practice, exit and timing off', () => {
++    const f = fixture(); expect(definition.kind).toBe('minigame'); expect(f.controller.project().entries.map(e => e.activityId)).toEqual([q('MG01')]);
++    expect(f.start().status).toBe('handled'); const view = f.controller.project().view!;
++    expect(view.instructions.length).toBeGreaterThan(0); expect(view.controls.practice).toBeTruthy(); expect(view.controls.exit).toBeTruthy();
++    expect(view).toMatchObject({ phase: 'instructions', mode: null, completed: false, rewardText: null, answerKind: 'bits' });
++    expect(view.map).toHaveLength(4); expect(f.state().control.optionalActivity?.timingEnabled).toBe(expected('OPT-MG01-START').timerRunning);
++    expect(f.state().runtime.game!.world.achievementIds).toHaveLength(expected('OPT-MG01-START').completionAward);
++  });
++  it('OPT-MG01-PRACTICE is read-only to world, explains one symbol, and records real MG01 assistance', () => {
++    const f = fixture(); f.start(); const before = f.state().runtime.game!.world; f.mode('practice'); f.bits('11');
++    expect(f.state().runtime.game!.world).toEqual(before); expect(f.controller.project().view?.feedback).toContain('two represented bits');
++    expect(f.controller.project().view?.feedback).not.toContain('00101101'); expect(f.controller.project().view?.completed).toBe(false);
++    expect(f.state().runtime.game!.assistance).toMatchObject([{ objectiveId: q('MG01'), hintId: q('HINT-MG01-step'), level: 2 }]);
++    expect(expected('OPT-MG01-PRACTICE')).toMatchObject({ assistanceRecorded: true, unassistedClaim: false });
++  });
++  it('OPT-MG01-FINISH records exactly its achievement and fact through full decoder/captured CAS', () => {
++    const f = fixture(), before = f.state().runtime.game!.world; finish(f); const game = f.state().runtime.game!;
++    expect(game.world.achievementIds).toEqual([q('ACHIEVEMENT-MG01-complete')]); expect(game.notebook.factIds).toContain(q('FACT-MG01-completion'));
++    expect(game.world.completedObjectiveIds).toEqual(before.completedObjectiveIds); expect(game.world.completedQuestIds).toEqual([]);
++    expect(game.world.inventory).toEqual(before.inventory); expect(f.controller.project().view?.rewardText).toBeNull();
++    expect(f.controller.project().view?.feedback).not.toMatch(/undefined|not available|ASSET-/);
++    expect(optionalActivityCompleted(registry, definition, game)).toBe(true);
++    expect(expected('OPT-MG01-FINISH')).toMatchObject({ optionalBenefit: 'optional-practice-only', benefitGrantCount: 1, mainObjectiveAward: 0 });
++    expect(f.state().runtime.persistence.pendingRequest).toBeNull();
++  });
++  it('OPT-MG01-RETRY retains clues/notes/help, stales actual calibration measurements and preserves entry tools', () => {
++    const f = fixture(); calibration(f, 'step-and-decode', false); f.start(); const entry = f.state().control.optionalActivity!.preparation;
++    f.mode('delivery'); f.bits('00011011'); const before = f.state().runtime.game!; expect(f.simple('retry-optional').status).toBe('handled');
++    const after = f.state().runtime.game!;
++    expect(after.world.attemptId).not.toBe(before.world.attemptId); expect(after.world.configurationRevision).toBeGreaterThan(before.world.configurationRevision);
++    expect(after.world.flags).toEqual(entry.flags); expect(after.world.inventory).toEqual(entry.inventory);
++    expect(after.notebook.factIds).toEqual(before.notebook.factIds); expect(after.notebook.personalNotes).toBe(expected('OPT-MG01-RETRY').personalNotes);
++    expect(after.assistance).toEqual(before.assistance); expect(after.notebook.measurements).toHaveLength(1); expect(after.notebook.measurements.every(m => m.stale)).toBe(true);
++    expect(after.world.achievementIds).toEqual([]); expect(f.state().runtime.persistence.pendingRequest).toBeNull(); expect(f.controller.project().view?.phase).toBe('instructions');
++  });
++  it.each(['instructions', 'practice', 'solving', 'feedback', 'completed'] as const)('OPT-MG01-EXIT closes safely during %s without saving or navigating', phase => {
++    const f = fixture(); f.start();
++    if (phase !== 'instructions') f.mode(phase === 'practice' ? 'practice' : 'delivery');
++    if (phase === 'feedback') f.bits('00011011'); if (phase === 'completed') f.bits('00101101');
++    const game = f.state().runtime.game; expect(f.simple('exit-optional').status).toBe('handled');
++    expect(f.state().runtime.game).toBe(game); expect(f.state().control.optionalActivity).toBeNull(); expect(f.controller.project().view).toBeNull();
++    expect(f.state().runtime.activity?.kind).toBe('stable-exploration'); expect(f.state().runtime.persistence.pendingRequest).toBeNull();
++  });
++  it.each(['step-and-decode', 'notebook-and-replay'] as const)('OPT-MG01-SKIP / NO-O10-SCORE: actual %s calibration completes without optional progress', method => {
++    const f = fixture(); calibration(f, method); const game = f.state().runtime.game!;
++    expect(game.world.completedObjectiveIds).toContain(q('O10')); expect(game.world.achievementIds).toEqual([]);
++    expect(game.notebook.factIds).not.toContain(q('FACT-MG01-completion')); expect(f.state().control.optionalActivity).toBeNull();
++    expect(expected('OPT-MG01-NO-O10-SCORE')).toEqual({ O10CompletionEligible: true, MG01CompletionRequired: false, scoreRequired: false });
++  });
++  it('OPT-MG01-REPLAY keeps a single receipt on exact-action/new-action, retry and new session', () => {
++    const f = fixture(); f.start(); f.mode('delivery'); const action = f.controller.project().capture({ kind: 'submit-optional', sessionId: f.sessionId(), bits: '00101101' });
++    f.bus.dispatch(action); const state = f.state(), commits = f.commits(); expect(f.bus.dispatch(action).status).toBe('handled'); expect(f.state()).toBe(state); expect(f.commits()).toBe(commits);
++    f.bits('00101101'); f.simple('retry-optional'); expect(f.state().runtime.game!.world.achievementIds).toEqual([q('ACHIEVEMENT-MG01-complete')]);
++    f.mode('delivery'); f.bits('00101101'); f.simple('exit-optional'); f.start(); f.mode('delivery'); f.bits('00101101');
++    expect(f.state().runtime.game!.world.achievementIds).toHaveLength(expected('OPT-MG01-REPLAY').benefitGrantCountAfter);
++    expect(f.state().runtime.game!.notebook.factIds.filter(id => id === q('FACT-MG01-completion'))).toHaveLength(1);
++    expect(f.controller.project().view?.feedback).toBe(definition.optionalActivity.feedback.alreadyCompleted);
++  });
++  it('OPT-MG01-UNTIMED offers no timed capability and still completes after a long logical delay', () => {
++    vi.useFakeTimers(); try { const f = fixture(); f.start(); f.mode('delivery'); vi.advanceTimersByTime(24 * 60 * 60 * 1000);
++      expect(f.state().control.optionalActivity?.timingEnabled).toBe(false); expect(f.state().runtime.game!.world.achievementIds).toEqual([]);
++      expect(f.bits('00101101').status).toBe('handled'); expect(f.controller.project().view?.completed).toBe(true);
++      expect(expected('OPT-MG01-UNTIMED')).toMatchObject({ failureFromDelay: false, mainScoreRequirement: null });
++    } finally { vi.useRealTimers(); }
++  });
++});
++
++describe('MG01 failures, captured intents and safe persistence', () => {
++  it.each(['', '2', '0010 1101'])('invalid answer %j requests input without an award or penalty', bits => {
++    const f = fixture(); f.start(); f.mode('delivery'); const world = f.state().runtime.game!.world; f.bits(bits);
++    expect(f.state().control.optionalActivity?.result).toBe('invalid-input'); expect(f.state().runtime.game!.world).toEqual(world);
++    expect(f.simple('retry-optional').status).toBe('handled'); expect(f.simple('exit-optional').status).toBe('handled');
++  });
++  it('wrong order shows honest corrective feedback and own solution assistance, then accepts assisted completion', () => {
++    const f = fixture(); f.start(); f.mode('delivery'); f.bits('00011011');
++    expect(f.state().control.optionalActivity?.result).toBe('incorrect'); expect(f.controller.project().view?.feedback).toContain('does not match the supplied strip');
++    expect(f.state().runtime.game!.assistance.at(-1)).toMatchObject({ objectiveId: q('MG01'), hintId: q('HINT-MG01-solution'), level: 3 });
++    expect(f.state().runtime.game!.world.achievementIds).toEqual([]); f.bits('00101101'); expect(f.controller.project().view?.completed).toBe(true);
++  });
++  it('malformed authored content precedes input judgment and keeps the matching exit usable', () => {
++    const f = fixture(); f.start(); f.mode('delivery'); const broken: any = structuredClone(definition); broken.optionalActivity.delivery.samples[0].value = 2;
++    const evaluated = evaluateOptionalAnswer(registry, broken, 'delivery', { actionId: 'corrupt' as ActionId, expectedVersion: f.state().runtime.game!.world, input: { bits: null } }, f.state().runtime.game!);
++    expect(evaluated.evaluation.status).toBe('content-error'); expect(evaluated.evaluation.acceptedEffects).toEqual([]);
++    f.corrupt(); const before = f.state(); expect(f.bits('00101101').status).toBe('rejected'); expect(f.state()).toBe(before);
++    expect(f.controller.project().view?.feedback).toContain('You can leave safely'); expect(f.simple('exit-optional').status).toBe('handled');
++  });
++  it.each(['start', 'answer', 'hint', 'retry', 'exit'])('failed %s CAS installs no partial progress, hint, session or save', step => {
++    const f = fixture(); if (step !== 'start') { f.start(); f.mode('delivery'); } const before = f.state(); f.block(true);
++    const result = step === 'start' ? f.start() : step === 'answer' ? f.bits('00101101') : f.simple(step === 'hint' ? 'hint-optional' : step === 'retry' ? 'retry-optional' : 'exit-optional');
++    expect(result.status).toBe('rejected'); expect(f.state()).toBe(before);
++  });
++  it.each(['mode', 'retry', 'exit', 'account', 'restore'])('rejects a previously captured answer after %s', change => {
++    const f = fixture(); f.start(); f.mode('delivery'); const old = f.controller.project().capture({ kind: 'submit-optional', sessionId: f.sessionId(), bits: '00101101' });
++    if (change === 'mode') f.mode('practice');
++    if (change === 'retry') f.simple('retry-optional');
++    if (change === 'exit') f.simple('exit-optional');
++    if (change === 'account') { const s = f.state(); f.replace({ ...s, runtime: { ...s.runtime, auth: { ...s.runtime.auth, clientGeneration: (s.runtime.auth.clientGeneration + 1) as ClientGeneration } } }); }
++    if (change === 'restore') f.replace(createReducerState(structuredClone(f.state().runtime)));
++    const current = f.state(); expect(f.bus.dispatch(old).status).toBe('rejected'); expect(f.state()).toBe(current);
++  });
++  it('rejects forged verdict/effect/version/score fields and other minigames', () => {
++    const f = fixture(); f.start(); f.mode('delivery');
++    for (const extra of [{ verdict: 'correct' }, { acceptedEffects: definition.effects }, { expectedVersion: f.state().runtime.game!.world }, { score: 100 }])
++      expect(() => copySemanticAction({ kind: 'submit-optional', sessionId: f.sessionId(), bits: '00101101', ...extra } as never)).toThrow();
++    expect(f.send({ kind: 'submit-optional-power', sessionId: f.sessionId(), answer: { assessment: 'over-budget', difference: { value: 3, unit: 'W' } } }).status).toBe('rejected');
++    f.simple('exit-optional'); expect(f.send({ kind: 'start-optional', activityId: q('MG03'), hotspotId: q('HOTSPOT-clockworks-loom') }).status).not.toBe('handled');
++  });
++  it('requires the full group and refuses generic effect application during active play', () => {
++    const f = fixture(); const game = f.state().runtime.game!;
++    const apply = (effects: readonly StateEffect[]) => f.store.reduce(f.state(), { actionId: crypto.randomUUID() as ActionId, adventureId: game.adventureId, expectedVersion: f.state().runtime.game!.world,
++      input: { kind: 'apply', evaluation: { status: 'correct', reasonCode: 'trusted-group-boundary', observations: [], acceptedEffects: effects } } });
++    for (const effect of definition.effects) expect(apply([effect as StateEffect]).status).toBe('rejected');
++    f.start(); expect(apply(definition.effects as StateEffect[]).status).toBe('rejected'); expect(f.state().runtime.game!.world.achievementIds).toEqual([]);
++  });
++  it('records method/worked/solution hints under MG01 and reserves earned narrative for completion', () => {
++    const f = fixture(); f.start(); for (let i = 0; i < 3; i++) f.simple('hint-optional');
++    expect(f.state().runtime.game!.assistance.map(h => [h.objectiveId, h.level])).toEqual([[q('MG01'), 1], [q('MG01'), 2], [q('MG01'), 3]]);
++    expect(f.controller.project().view?.hintText).toBe(definition.hints.solution.text); expect(f.controller.project().view?.completed).toBe(false);
++    f.mode('practice'); f.simple('explain-optional'); expect(f.controller.project().view?.hintText).toBe(definition.optionalActivity.practice.explanation);
++  });
++  it('only captures safe save-v1 snapshots after exit and restores receipt replay without a transient session', () => {
++    const f = fixture(); f.start(); f.mode('practice'); f.bits('11'); f.mode('delivery'); f.bits('00101101');
++    expect(captureSafeSnapshot(f.state(), validator).ok).toBe(false); f.simple('exit-optional'); const capture = captureSafeSnapshot(f.state(), validator);
++    expect(capture.ok, JSON.stringify(capture)).toBe(true); if (!capture.ok) return;
++    const snapshot = JSON.parse(new TextDecoder().decode(new Uint8Array(capture.capture.bodyBytes)));
++    expect(snapshot.world.achievementIds).toEqual([q('ACHIEVEMENT-MG01-complete')]); expect(snapshot.assistance[0].objectiveId).toBe(q('MG01'));
++    expect(snapshot).not.toHaveProperty('optionalActivity'); expect(snapshot.world).not.toHaveProperty('minigameScores');
++    const restored = createReducerState({ ...f.state().runtime, game: structuredClone(f.state().runtime.game!) }); f.replace(restored);
++    expect(f.state().control.optionalActivity).toBeNull(); f.start(); f.mode('delivery'); f.bits('00101101'); expect(f.state().runtime.game!.world.achievementIds).toHaveLength(1);
++  });
++  it('validates actual achievement/fact/help snapshots identically in JavaScript and PHP without objective/quest aliases', () => {
++    const f = fixture(); finish(f); f.simple('hint-optional'); f.simple('exit-optional'); const capture = captureSafeSnapshot(f.state(), validator); expect(capture.ok).toBe(true); if (!capture.ok) return;
++    const base = capture.capture.snapshot, inputs = [base,
++      { ...base, world: { ...base.world, completedObjectiveIds: [q('MG01')] } },
++      { ...base, world: { ...base.world, completedQuestIds: [q('MG01')] } },
++      { ...base, world: { ...base.world, achievementIds: [q('ACHIEVEMENT-MG03-complete')] } },
++      { ...base, assistance: [{ ...base.assistance[0], objectiveId: q('O10') }] },
++      { ...base, assistance: [{ ...base.assistance[0], hintId: q('HINT-SQ01-method') }] },
++      { ...base, world: { ...base.world, achievementIds: [] } },
++    ];
++    const results = inputs.map(input => { const r = validator.validateNewWrite(new TextEncoder().encode(JSON.stringify(input))); return { ok: r.ok, code: r.ok ? null : r.code }; });
++    const code = "require 'server/vendor/autoload.php';require 'server/src/SaveValidator.php';$i=json_decode(stream_get_contents(STDIN));$v=new NetworkQuest\\SaveValidator([$i->policy]);$o=[];foreach($i->inputs as $c){$r=$v->validateNewWrite(json_encode($c));$o[]=['ok'=>$r->ok,'code'=>$r->code];}echo json_encode($o);";
++    const php = spawnSync('/opt/homebrew/opt/php@8.4/bin/php', ['-d','auto_prepend_file=','-d','auto_append_file=','-r',code], { encoding: 'utf8', input: JSON.stringify({ policy, inputs }), env: { PATH: process.env['PATH'] ?? '', LANG: 'C', LC_ALL: 'C' }, timeout: 10000 });
++    expect(php.status, php.stderr).toBe(0); expect(JSON.parse(php.stdout)).toEqual(results); expect(results.map(r => r.ok)).toEqual([true,false,false,false,false,false,true]);
++    expect(policy.members.objective).toHaveLength(12); expect(policy.members.quest).not.toContain(q('MG01')); expect(policy.lessonSources).toContain(q('MG01'));
++    expect(json('server/content/save-policy.generated.json').policies).toEqual([JSON.parse(JSON.stringify(policy))]);
++  });
++});
++
++describe('Exact own-completion replay preparation for quests and minigames', () => {
++  it.each(['MG01', 'SQ01', 'SQ02'])('%s advances only its accepted receipt while preserving entry physical state and prior progress', id => {
++    const target = optionalActivityDefinition(registry, q(id))!; const f = fixture(); f.start();
++    const original = f.state().control.optionalActivity!, entry = { ...original.preparation, completedQuestIds: [q<'quest'>('SQ02')], achievementIds: [q('ACHIEVEMENT-prior') as AchievementId] };
++    const session = { ...original, activityId: q(id), mode: 'delivery' as const, result: 'correct' as const, preparation: entry };
++    const ownAchievement = target.kind === 'minigame' ? target.completionAchievementId as AchievementId : null;
++    const game = { ...f.state().runtime.game!, world: { ...entry, flags: { ...entry.flags, 'spec001:FLAG-caller': true }, inventory: [], route: 'radio' as const,
++      completedObjectiveIds: [q<'objective'>('O10')], completedQuestIds: [q<'quest'>('SQ01'), q<'quest'>('SQ02')], achievementIds: [...entry.achievementIds, ...(ownAchievement ? [ownAchievement] : []), q('ACHIEVEMENT-unrelated') as AchievementId] },
++      notebook: { ...f.state().runtime.game!.notebook, factIds: [target.optionalActivity.reward.factId as QualifiedId<'fact'>] } };
++    const finalized = finalizeOptionalSession(session, game, registry)!;
++    expect(finalized.preparation).toEqual({ ...entry, ...(target.kind === 'quest'
++      ? { completedQuestIds: [...new Set([...entry.completedQuestIds, target.id])] }
++      : { achievementIds: [...entry.achievementIds, ownAchievement] }) });
++    expect(finalized.preparation.flags).toEqual(entry.flags); expect(finalized.preparation.inventory).toEqual(entry.inventory);
++    expect(entry).toEqual(session.preparation); expect(game.world.inventory).toEqual([]);
++  });
++  it.each(['no-fact', 'fact-only', 'practice', 'incorrect', 'wrong-adventure'])('does not advance preparation from %s', omission => {
++    const f = fixture(); f.start(); f.mode('delivery'); f.bits('00101101'); const game = f.state().runtime.game!, actual = f.state().control.optionalActivity!;
++    const entry = { ...actual.preparation, achievementIds: [] }, session = { ...actual, preparation: entry };
++    const modified = { ...game, notebook: omission === 'no-fact' ? { ...game.notebook, factIds: [] } : game.notebook,
++      world: omission === 'fact-only' ? { ...game.world, achievementIds: [] } : game.world };
++    const s = omission === 'practice' ? { ...session, mode: 'practice' as const } : omission === 'incorrect' ? { ...session, result: 'incorrect' as const }
++      : omission === 'wrong-adventure' ? { ...session, adventureId: crypto.randomUUID() as typeof game.adventureId } : session;
++    expect(finalizeOptionalSession(s, modified, registry)).toBe(s);
++  });
++  it('fails closed without the actual registered minigame mapping, even with receipt and fact present', () => {
++    const f = fixture(); finish(f); const game = f.state().runtime.game!, session = { ...f.state().control.optionalActivity!, preparation: { ...f.state().control.optionalActivity!.preparation, achievementIds: [] } };
++    const broken: ContentRegistry = { ...registry, record: id => id === q('MG01') ? registry.record(q('SQ01')) : registry.record(id) };
++    expect(finalizeOptionalSession(session, game, broken)).toBe(session); expect(conditionSatisfied({ kind: 'minigame-complete', minigameId: q('MG01') }, game.world, broken)).toBe(false);
++  });
++});
++
++describe('MG01 production registry semantic boundary', () => {
++  it.each(['source', 'profile', 'speaker', 'entry', 'samples', 'completion', 'main-award', 'fact', 'prerequisite', 'media'])('rejects corrupt %s', change => {
++    const metadata = structuredClone(world), documents = Object.fromEntries([...new Set(metadata.documents.map(d => d.path))].map(path => [path, json(path)]));
++    const c = documents['content/spec001/minigames/MG01.json'];
++    if (change === 'source') c.sourceClaims = [];
++    if (change === 'profile') c.profileIds = [q('PROFILE-POWER')];
++    if (change === 'speaker') c.optionalActivity.speakerId = q('CH13');
++    if (change === 'entry') c.optionalActivity.entryContexts[0].roomId = q('R04');
++    if (change === 'samples') c.optionalActivity.delivery.samples[0].value = 3;
++    if (change === 'completion') c.completionAchievementId = q('ACHIEVEMENT-forged');
++    if (change === 'main-award') c.effects[1] = { kind: 'complete-objective', effectId: q('EFFECT-MG01-complete'), objectiveId: q('O10') };
++    if (change === 'fact') c.effects[0].factId = q('FACT-clockworks-role');
++    if (change === 'prerequisite') c.prerequisite = { kind: 'objective-complete', objectiveId: q('O10') };
++    if (change === 'media') c.optionalActivity.reward.assetId = q('ASSET-ILLUSTRATION-19');
++    expect(validateContent({ world: metadata, sources: json('content/spec001/sources.json'), documents }).ok).toBe(false);
++  });
++});
+--- /dev/null
++++ b/docs/evidence/spec001/optional/MG01/joined/vitest.config.ts
+@@ -0,0 +1,6 @@
++// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
++import { defineConfig } from 'vitest/config';
++export default defineConfig({ envDir: false, test: { environment: 'node',
++  include: ['docs/evidence/spec001/optional/MG01/joined/runtime.test.ts', 'docs/evidence/spec001/optional/framework/*.test.ts'],
++  passWithNoTests: false, allowOnly: false,
++} });
+--- /dev/null
++++ b/docs/evidence/spec001/optional/MG01/joined/tsconfig.json
+@@ -0,0 +1,5 @@
++{
++  "extends": "../../../../../../tsconfig.json",
++  "compilerOptions": { "resolveJsonModule": true },
++  "include": ["runtime.test.ts", "vitest.config.ts"]
++}
+--- /dev/null
++++ b/docs/evidence/spec001/optional/MG01/joined/application.browser.mjs
+@@ -0,0 +1,93 @@
++// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
++// Actual built guest application: no injected game state, verdict, auth or save.
++import assert from 'node:assert/strict';
++import { readFile, writeFile } from 'node:fs/promises';
++import { createHash } from 'node:crypto';
++import { preview } from 'vite';
++import { firefox, expect } from '@playwright/test';
++import AxeBuilder from '@axe-core/playwright';
++import { clickButton, closeFrame, openFrame } from '../../../../../../tests/e2e/support/adventure-controls.ts';
++const directory = '/Users/john.capobianco/Network-Quest/docs/evidence/spec001/optional/MG01/joined/';
++const output = process.argv[2] ?? directory + '14-native-initial.json';
++const report = { task: 'T101', scope: 'Isolated accepted-9a93bf7 plus reviewed MG01 actual built guest journey; no account/provider, performance, OS foreground or current-tree acceptance.', observedAt: new Date().toISOString(), results: [], errors: [], requests: [], sources: {} };
++const paths = ['src/state/optional-activities.ts','src/content/optional-activities.ts','src/content/optional-symbol-loom.ts','src/state/reducer.ts','src/ui/optional-activities.ts','src/ui/optional-activities.css','src/ui/action-bus.ts','src/app/application.ts','src/app/application.css','src/app/content.ts','content/spec001/minigames/MG01.json','content/spec001/rooms/R10.json','content/spec001/world.json','content/schemas/content.schema.json','dist/.vite/manifest.json','docs/evidence/spec001/optional/MG01/joined/application.browser.mjs'];
++for (const path of paths) report.sources[path] = createHash('sha256').update(await readFile(path)).digest('hex');
++const server = await preview({ preview: { port: 0, host: '127.0.0.1' }, logLevel: 'error' });
++let browser, page;
++try {
++  browser = await firefox.launch({ headless: true }); report.browser = browser.version();
++  const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
++  page = await context.newPage(); page.setDefaultTimeout(15000);
++  page.on('pageerror', error => report.errors.push(error.message));
++  page.on('request', request => { const url = new URL(request.url()); if (url.pathname.includes('/api/') || request.method() !== 'GET') report.requests.push({ path: url.pathname, method: request.method() }); });
++  const checked = name => report.results.push({ name, status: 'PASS' });
++  const panel = () => page.getByRole('dialog', { name: 'Optional activity', exact: true });
++  const feedback = () => panel().locator('[role="status"]:not(.nq-shell-status)');
++  const click = async name => { if (['Diagnostics','Open Bit Loom'].includes(name)) await closeFrame(page); await clickButton(page, name); };
++  const walk = async name => { await click('Walk'); await click(`Walk to ${name}`); await expect(page.locator('.nq-game-location')).toHaveText(name); };
++  const bits = async (value, practice = false) => { await panel().getByRole('textbox', { name: practice ? 'Practice bits' : 'Full message bits', exact: true }).fill(value); await click('Check the copied bits'); };
++  await page.goto(`http://127.0.0.1:${server.httpServer.address().port}/arcade/play/network-quest/`);
++  await click('New Adventure'); await click('Look'); await click('Look at power indication'); await click('Look at link indication'); await click('Talk'); await click('Talk to Photon the Firefly'); await click('Skip dialogue'); await click('Use'); await click('Inspect physical path');
++  await walk("The Titan's Workshop"); await click('Talk'); await click('Talk to the Titan'); await click('Skip dialogue'); await click('Look'); await click('Identify known-good endpoints'); await click('Identify physical path under test');
++  await click('Notebook'); await page.getByRole('textbox', { name: 'Hypothesis', exact: true }).fill('Decode the supplied physical symbols before drawing a conclusion.'); await click('Pin hypothesis'); await page.getByRole('textbox', { name: 'Personal notes', exact: true }).fill('Keep my Clockworks observation through optional Retry.'); await click('Close notebook'); await click('Continue as guest');
++  await walk('The Clockworks'); await click('Use');
++  for (const name of ['Select 100/full','Use untimed step-by-step decoding','Explain: sample physical signals representing bits; this does not discover addresses','Read and record the physical-role and upper-layer explanation','Write 00 for sample position 0','Write 10 for sample position 1','Write 11 for sample position 2','Write 01 for sample position 3']) await click(name);
++  await click('Diagnostics'); await click('Take measurement'); const diagnostics = page.getByRole('dialog', { name: 'Diagnostics', exact: true });
++  await diagnostics.locator('ol[aria-label="Recorded measurements"] > li').last().getByRole('button', { name: 'Submit this reading', exact: true }).click();
++  await expect(diagnostics).toContainText('Objective complete.'); await click('Close diagnostics');
++  checked('OPT-MG01-SKIP / NO-O10-SCORE: actual mandatory Clockworks calibration completes before any optional loom session');
++  await closeFrame(page); await page.getByRole('button', { name: 'Open Bit Loom', exact: true }).press('Enter');
++  await expect(panel().getByRole('heading', { level: 2 })).toBeFocused(); await expect(panel()).toContainText('Optional · Untimed'); await expect(panel()).toContainText('Toy map:');
++  await expect(panel()).not.toContainText('undefined'); await expect(panel()).not.toContainText('O10'); await expect(panel().getByRole('timer')).toHaveCount(0); checked('OPT-MG01-START: keyboard opener, instructions, persistent map, owned focus and no timing control');
++  await click('Practice one symbol'); await bits('11', true); await expect(feedback()).toContainText('two represented bits'); await expect(feedback()).not.toContainText('00101101');
++  await expect(panel()).not.toContainText('Your notebook records this optional exercise.');
++  const detached = await panel().getByRole('button', { name: 'Check the copied bits', exact: true }).elementHandle();
++  await click('Decode the full strip'); await detached.evaluate(button => button.click()); await expect(feedback()).not.toContainText('Your notebook records this optional exercise.');
++  await bits(''); await expect(feedback()).toContainText('No answer was judged');
++  await bits('00011011'); await expect(feedback()).toContainText('does not match the supplied strip'); checked('OPT-MG01-PRACTICE: one symbol, detached callback, blank and wrong full answer never claim completion');
++  await click('Try the loom again'); await expect(feedback()).toContainText('Choose practice or the full message'); await page.keyboard.press('Escape'); await expect(panel()).toBeHidden();
++  await expect(page.getByRole('button', { name: 'Open Bit Loom', exact: true })).toBeFocused();
++  await click('Notebook'); await expect(page.getByRole('textbox', { name: 'Personal notes', exact: true })).toHaveValue('Keep my Clockworks observation through optional Retry.');
++  await expect(page.getByRole('dialog', { name: 'Notebook', exact: true })).toContainText('stale'); await click('Close notebook'); checked('OPT-MG01-RETRY: real calibration reading retained stale and notes retained; Escape restores opener focus');
++  for (const phase of ['instructions','practice','solving','feedback']) {
++    await click('Open Bit Loom'); if (phase !== 'instructions') await click(phase === 'practice' ? 'Practice one symbol' : 'Decode the full strip');
++    if (phase === 'feedback') await bits('00011011');
++    await click('Leave the Bit Loom'); await expect(panel()).toBeHidden(); await expect(page.getByRole('button', { name: 'Open Bit Loom', exact: true })).toBeFocused();
++    await expect(page.locator('.nq-game-location')).toHaveText('The Clockworks');
++  }
++  checked('OPT-MG01-EXIT: instructions, practice, solving and incorrect-feedback exit safely to the actual captured room');
++  await click('Open Bit Loom'); await click('Decode the full strip');
++  await page.waitForTimeout(750); await expect(panel().getByRole('timer')).toHaveCount(0); await bits('00101101');
++  await expect(feedback()).toContainText('Your notebook records this optional exercise.'); await expect(panel()).not.toContainText('not available in this build'); await expect(panel()).not.toContainText('undefined');
++  checked('OPT-MG01-FINISH / UNTIMED: actual full decode completes after pause with no score, timer or media reward');
++  await click('Try the loom again'); await expect(feedback()).toContainText('Completion recorded in your journal.'); await click('Decode the full strip'); await bits('00101101'); await expect(feedback()).toContainText('already records this optional loom exercise');
++  await page.keyboard.press('Escape'); await expect(panel()).toBeHidden(); await expect(page.getByRole('button', { name: 'Open Bit Loom', exact: true })).toBeFocused();
++  await click('Open Bit Loom'); await click('Decode the full strip'); await bits('00101101'); await expect(feedback()).toContainText('already records this optional loom exercise');
++  checked('OPT-MG01-REPLAY / completed EXIT: same-session retry and later replay preserve the recorded optional completion');
++  await panel().getByText('Technical details and sources', { exact: true }).press('Enter');
++  const sources = panel().locator('a[target="_blank"]'); assert.ok(await sources.count() > 0);
++  for (const link of await sources.all()) { assert.match(await link.getAttribute('href'), /^https:\/\//); assert.match(await link.getAttribute('rel'), /noopener/); }
++  await page.keyboard.press('Escape'); await expect(panel()).toBeHidden(); checked('Actual profile/source links and keyboard Escape remain available');
++  await openFrame(page, 'Sound and reading'); await page.getByRole('slider', { name: 'Text size', exact: true }).focus(); await page.keyboard.press('End'); await closeFrame(page);
++  for (const width of [1280,390]) {
++    await page.setViewportSize({ width, height: 900 }); await click('Open Bit Loom'); await expect(panel().getByRole('heading', { level: 2 })).toBeFocused(); await click('Decode the full strip');
++    const metrics = await panel().getByRole('textbox', { name: 'Full message bits', exact: true }).evaluate(node => { const r = node.getBoundingClientRect(); return { font: getComputedStyle(node).fontSize, height: r.height, x: r.x, right: r.right }; });
++    assert.equal(metrics.font, '32px'); assert.ok(metrics.height >= 45 && metrics.x >= 0 && metrics.right <= width, JSON.stringify(metrics));
++    const size = await panel().evaluate(node => ({ font: getComputedStyle(node).fontSize, width: node.clientWidth, scroll: node.scrollWidth, x: node.getBoundingClientRect().x, right: node.getBoundingClientRect().right }));
++    assert.equal(size.font, '32px'); assert.ok(size.scroll <= size.width + 1 && size.x >= 0 && size.right <= width, JSON.stringify(size));
++    const summary = panel().getByText('Technical details and sources', { exact: true }); await summary.focus(); await summary.press('Enter');
++    const visible = await summary.evaluate(node => { const r = node.getBoundingClientRect(); return { top: r.top, bottom: r.bottom, focused: document.activeElement === node, unobscured: node.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)) }; });
++    assert.ok(visible.focused && visible.unobscured && visible.top >= 0 && visible.bottom <= 900, JSON.stringify(visible));
++    report.results.push({ name: `${width}px at 200%: contained real input, inherited text and unobscured keyboard focus`, status: 'PASS', metrics, size, visible });
++    await page.screenshot({ path: directory + `mg01-${width}-200.png` }); await page.keyboard.press('Escape'); await expect(panel()).toBeHidden(); await expect(page.getByRole('button', { name: 'Open Bit Loom', exact: true })).toBeFocused();
++  }
++  await click('Open Bit Loom'); report.axe = (await new AxeBuilder({ page }).include('.nq-game').analyze()).violations; assert.deepEqual(report.axe, []); checked('Actual contained frame accessibility scan has zero reported violations');
++  assert.deepEqual(report.errors, []); assert.deepEqual(report.requests, []); report.changedSources = [];
++  for (const [path, hash] of Object.entries(report.sources)) if (createHash('sha256').update(await readFile(path)).digest('hex') !== hash) report.changedSources.push(path);
++  assert.deepEqual(report.changedSources, []);
++} catch (error) {
++  report.error = String(error); if (page) { report.lastText = (await page.locator('body').innerText()).slice(-14000); await page.screenshot({ path: output.replace('.json', '-failure.png') }); }
++} finally {
++  await browser?.close(); await new Promise(resolve => server.httpServer.close(resolve)); await writeFile(output, JSON.stringify(report, null, 2) + '\n');
++}
++console.log(JSON.stringify({ output, pass: report.results.length, error: report.error })); if (report.error) process.exitCode = 1;

@@ -1,0 +1,86 @@
+{
+  "recordedAt": "2026-11-27T14:47:57.071442+00:00",
+  "task": "T101",
+  "loop": 113,
+  "scope": "Reviewed unloaded canonical MG01 projection, full proposed candidate, actual decoder/reducer receipt boundary and mandatory O10 independence. No active optional runtime promotion.",
+  "status": "coordinator-reviewed-canonical-projection-unloaded",
+  "checks": [
+    {
+      "command": "PATH=\"$PWD/.runtime/node-v26.13.1-darwin-arm64/bin:$PATH\" node_modules/.bin/vitest run --config docs/evidence/spec001/optional/MG01/vitest.config.ts",
+      "exitCode": 0,
+      "testsPassed": 56,
+      "durationSeconds": 14.2,
+      "log": "docs/evidence/spec001/optional/MG01/07-reviewed-projection.log"
+    },
+    {
+      "command": "PATH=\"$PWD/.runtime/node-v26.13.1-darwin-arm64/bin:$PATH\" node_modules/.bin/tsc -p docs/evidence/spec001/optional/MG01/tsconfig.json",
+      "exitCode": 0,
+      "log": "docs/evidence/spec001/optional/MG01/08-reviewed-typecheck.log"
+    },
+    {
+      "kind": "before-after-public-dependency-hashes",
+      "checked": 69,
+      "changed": 0,
+      "result": "docs/evidence/spec001/optional/MG01/09-reviewed-dependency-check.json"
+    }
+  ],
+  "retainedFailure": {
+    "log": "docs/evidence/spec001/optional/MG01/01-before-authoring.log",
+    "scope": "Expected test-first missing candidate import; zero tests ran, not a prior implementation regression."
+  },
+  "oracleCoverage": {
+    "fullyScopedEvaluatorChecks": [
+      "OPT-MG01-DECODE: decoder status/8 bits/4 symbols only; activity completion awaits join",
+      "OPT-MG01-WRONG-ORDER: decoder incorrect/zero effects only; runtime retry awaits join",
+      "OPT-MG01-ONE-SYMBOL: decoder correct/2 bits/1 symbol/no effects only"
+    ],
+    "partialStatusChecks": [
+      "OPT-MALFORMED-SYMBOLS: content-error, zero penalty/effects; actual safe exit pending",
+      "OPT-EMPTY-ANSWER: invalid-input, zero penalty/effects; actual retry pending"
+    ],
+    "actualO10Independence": [
+      "OPT-MG01-NO-O10-SCORE: both step-and-decode and notebook-and-replay complete through actual mandatory reducer with no MG01 achievement"
+    ],
+    "lifecyclePending": [
+      "OPT-MG01-START",
+      "OPT-MG01-PRACTICE",
+      "OPT-MG01-FINISH",
+      "OPT-MG01-RETRY",
+      "OPT-MG01-EXIT",
+      "OPT-MG01-SKIP",
+      "OPT-MG01-REPLAY",
+      "OPT-MG01-UNTIMED"
+    ],
+    "timing": "No timing capability authored. Guard/default-off structural checks pass; native no-timer behavior remains pending."
+  },
+  "pending": [
+    "Explicit common toy-symbol-loom minigame variant/schema/registry/loader/controller/action-bus/UI integration",
+    "MG01 achievement/fact/LessonSourceId JS and PHP save-policy binding with unchanged save-v1 shape",
+    "All eight actual lifecycle checks, session CAS/stale callback/account/restore invalidation and assistance tracking",
+    "Actual native contained controls, keyboard/focus, narrow/200% text and every-phase exit",
+    "Encounter retry/E03 recovery, account save/restore and T104/T105 integrated regressions",
+    "Human technical/learning/owner review, finished media and aggregate gates"
+  ],
+  "filesNotChanged": [
+    "tests/fixtures/optional-activities.json",
+    "tests/fixtures/physical-cases.json",
+    "tests/fixtures/companions.json",
+    "content/spec001/rooms/R10.json",
+    "content/spec001/profiles.json",
+    "content/spec001/sources.json"
+  ],
+  "publication": {
+    "gitCommit": false,
+    "gitPush": false,
+    "deployment": false,
+    "taskAccepted": false
+  },
+  "canonicalProjection": {
+    "path": "content/spec001/minigames/MG01.json",
+    "sha256": "df3ab9cbe59db9a5c823c3c483367773cca3540f252c7bece967cbfe54eb96b8",
+    "matchesProjectionBytes": true,
+    "listedInWorld": false,
+    "loadedByApplication": false,
+    "approval": "Root reviewed candidate and approved unloaded canonical projection after player-copy corrections."
+  }
+}

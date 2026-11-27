@@ -26,14 +26,14 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**116 loops started; 93/170 tasks accepted; no deployment.** Latest pushed commit:
-`979c4929d772875d953a9401bf4ff675697140e6` (Weather Diary SQ03/T098).
+**116 loops started; 94/170 tasks accepted; no deployment.** Latest pushed commit:
+`58ce1a0ce71c2c5f6ce6a52f7913cdbf5c75129a` (Lost Maintenance Record SQ04/T099).
 
 - T099/SQ04 is accepted: 207 hashes match; eight actual browser groups pass.
   Root accounts for 3,918 client checks after the documented 54-check rerun.
-  Its reviewed checkpoint is being prepared for scoped publication.
-- Same 113/T101 has reviewed isolated MG01 implementation (183 hashes matched).
-  It waits for the SQ04 checkpoint before current-tree reconciliation.
+  Its reviewed checkpoint is published and remote-verified.
+- Same 113/T101 owns current-tree MG01 reconciliation after the SQ04 checkpoint.
+  Its isolated implementation was reviewed with 183 matching hashes.
 - Same 114/T102 integrates MG02 in its own copy of that frozen MG01 framework.
 - Same 116/T104 has a reviewed companion baseline: 53 native grouped checks,
   all 25 entries, nine level-2 recruits and 18 nonempty tool comparisons. It now
@@ -1270,3 +1270,28 @@ T099 accepted after root review: all207finalhashesmatch, actual8nativegroupsPASS
 54affectedPASS after positiveSQ04case includes realhistoryfact and quest-only
 negative retained.3918distinctclientchecksaccounted; no secondfullrun. Root
 inspected1280form/390entryat200%.93/170accepted;116loopsunchanged.
+
+
+T099 checkpoint published and remote-verified at
+`58ce1a0ce71c2c5f6ce6a52f7913cdbf5c75129a`:115reviewedpaths/3588357bytes,
+exactindex/blob/private/authoredwhitespacePASS;22rawrunnerfindingsretained.
+OneEOFblankremoved from newcontract; policyprovenance regenerated and checked.
+Worker207hashfreeze retained with additive root publicationseal. No deployment.
+Same113nowowns actualMG01sharedreconciliation;114isolatedMG02 and116mappingcontinue.
+
+
+Root reviewed116secondnativepacket:17owned+243executedhashesmatch. Actual
+SQ01–03progress, EchoL1/EelL2,11manualwritesinoneslot, Retry/E03worldrollback
+and exactwhole-snapshotRestoreSave pass. Onlyidentitysynthetic;0providerclaims.
+24operationalactivityrows are not automatic closure of allT092details. Same116
+maps exactcases/gaps before finalall7currentbuild; taskremainsopen. E03textdensity
+is noted for owner-requested Q03 Sierra interaction review, not approved as final.
+
+
+T101 accepted: root250hashesmatched, current304combinedchecks/type/check/buildPASS,
+11actualnativegroups with disclosed pre-diary-fix boundary. Review caught and
+fixed quest-only completion explanation and dropped SQ03picturetext; genuineREDs
+retained. RootconfiguredPHPtestfix passes its7differentialcandidates (oneaffected
+test;54filtered). Additivefinaltesthash recorded; no newfull-clientclaim.
+94/170accepted,116loopsunchanged. Publishthen114currentMG02;115isolatedMG03 and
+116exactT092gaptests continue. FivefreshAstrareviews queued,none started yet.

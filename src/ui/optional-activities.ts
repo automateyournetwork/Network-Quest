@@ -1,9 +1,9 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import './optional-activities.css';
 import type { ContentRegistry } from '../content/registry';
-import type { QualifiedId, QuestId } from '../domain/types';
-import { optionalActivityDefinition } from '../state/optional-activities';
-import type { OptionalActivitySession, OptionalMode } from '../state/optional-activities';
+import type { QualifiedId } from '../domain/types';
+import { optionalActivityDefinition, optionalActivityCompleted, isToySymbolActivity } from '../state/optional-activities';
+import type { OptionalActivityDefinition, OptionalActivitySession, OptionalMode } from '../state/optional-activities';
 import type { GameState } from '../state/types';
 import type { PowerAuditAnswer } from '../state/optional-power-audit';
 import { maintenanceCards, type MaintenanceAnswer } from '../state/optional-maintenance';
@@ -39,6 +39,10 @@ export interface OptionalActivityView {
   readonly maintenance?: MaintenanceView;
   readonly answerControls: { readonly assessmentLabel: string; readonly withinBudget: string; readonly overBudget: string; readonly differenceLabel: string } | null;
 }
+const answerKinds: Readonly<Record<OptionalActivityDefinition['optionalActivity']['kind'], OptionalActivityView['answerKind']>> = {
+  'toy-symbol-message': 'bits', 'toy-symbol-loom': 'bits', 'delivered-power-audit': 'power',
+  'radio-weather-diary': 'diary', 'notebook-combination': 'maintenance',
+};
 export interface OptionalSource { readonly id: string; readonly title: string; readonly url: string }
 const optionalKinds: readonly OptionalActivityIntent['kind'][] = ['start-optional', 'choose-optional-mode', 'submit-optional', 'submit-optional-power', 'submit-optional-diary', 'submit-optional-maintenance', 'hint-optional', 'retry-optional', 'explain-optional', 'boundary-optional', 'exit-optional'];
 export function createOptionalActivitiesController(options: { readonly registry: ContentRegistry; readonly store: GameplayStore; readonly bus: ActionBus;
@@ -111,16 +115,19 @@ export function projectOptionalActivity(registry: ContentRegistry, game: GameSta
     controls: { practice: 'Practice', delivery: 'Try the full activity', submit: 'Check answer', retry: 'Retry', exit: 'Leave activity' }, limitations: [], sources: [], answerKind: 'bits', answerControls: null };
   const activity = definition.optionalActivity, profile = 'profileId' in activity ? registry.record(activity.profileId) : null, room = registry.record(session.entry.roomId);
   const title = activity.kind === 'notebook-combination' ? 'Lost Maintenance Record' : room?.kind === 'room' ? room.hotspots.find(h => h.id === session.entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity';
-  const completed = game.world.completedQuestIds.includes(definition.id as QuestId);
+  const completed = optionalActivityCompleted(registry, definition, game);
   const level = (value: number) => value > 0 ? `+${value}` : String(value).replace('-', '−');
   const parameters = profile?.kind === 'profile' ? profile.parameters as { levels?: readonly { symbol: { value: number }; bits: string }[]; deliveredBudget?: { value: number; unit: string } } : null;
   return { sessionId: session.sessionId, title, phase: session.phase, mode: session.mode, instructions: activity.instructions,
-    map: activity.kind === 'toy-symbol-message' ? parameters?.levels?.map(row => `${level(row.symbol.value)} → ${row.bits}`) ?? [] : [],
-    samples: session.mode ? activity.kind === 'toy-symbol-message' ? activity[session.mode].samples.map(sample => `Position ${sample.position}: ${level(sample.value)} toy-level`)
+    map: isToySymbolActivity(activity) ? parameters?.levels?.map(row => `${level(row.symbol.value)} → ${row.bits}`) ?? [] : [],
+    samples: session.mode ? isToySymbolActivity(activity) ? activity[session.mode].samples.map(sample => `Position ${sample.position}: ${level(sample.value)} toy-level`)
       : activity.kind === 'delivered-power-audit' ? [`Delivered allowance: ${parameters?.deliveredBudget?.value} ${parameters?.deliveredBudget?.unit} after losses.`, ...activity[session.mode].demands.map((demand, index) => `Demand card ${index + 1}: ${demand.value} ${demand.unit} delivered after losses.`), 'The supplied port and compatibility checks are satisfied. Power does not prove data connectivity.'] : [] : [],
     feedback: session.feedback, hintText: session.hintText, completed,
-    rewardText: completed && game.notebook.factIds.some(id => id === activity.reward.factId) ? activity.reward.kind === 'epilogue-maintenance-history' ? activity.reward.epilogueText : `${activity.reward.alternativeText} ${activity.reward.unavailableText}` : null,
-    controls: activity.controls, limitations: definition.model.limitations, answerKind: activity.kind === 'toy-symbol-message' ? 'bits' : activity.kind === 'delivered-power-audit' ? 'power' : activity.kind === 'notebook-combination' ? 'maintenance' : 'diary',
+    rewardText: completed && game.notebook.factIds.some(id => id === activity.reward.factId)
+      ? activity.reward.kind === 'epilogue-maintenance-history' ? activity.reward.epilogueText
+        : activity.reward.kind === 'journal-illustration' || activity.reward.kind === 'workshop-decoration' || activity.reward.kind === 'optional-radio-depth' ? `${activity.reward.alternativeText} ${activity.reward.unavailableText}` : null
+      : null,
+    controls: activity.controls, limitations: definition.model.limitations, answerKind: answerKinds[activity.kind],
     ...(activity.kind === 'notebook-combination' ? { maintenance: { cards: maintenanceCards(activity, registry, game, session.mode ?? 'delivery') ?? [], ...activity.answerControls } } : {}),
     ...(activity.kind === 'radio-weather-diary' ? { diary: projectRadioDiary(registry, game, activity, completed && game.notebook.factIds.some(id => String(id) === activity.reward.factId)) } : {}),
     answerControls: activity.kind === 'delivered-power-audit' ? activity.answerControls : null,
