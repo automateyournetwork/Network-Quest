@@ -60,6 +60,9 @@ import { createIntroductionGraybox, type GrayboxGeometry, type IntroductionGrayb
 import { createRoomAdapter, type RoomSettings } from '../presentation/room-adapter';
 import { createResourcePool } from '../presentation/resource-pool';
 import { createThreeRoom, type RoomResource } from '../presentation/three-room';
+import { createWorkshopDecoration } from '../presentation/workshop-decoration';
+import { createRegisteredLayeredRooms } from '../presentation/layered-room';
+import type { RoomRenderer } from '../presentation/room-adapter';
 import { resolveRoomMedia } from '../presentation/room-media';
 import { createRoomAudioPanel } from '../presentation/room-audio';
 import { createIntroductionRuntime, restoreIntroduction, startIntroduction } from './adventure';
@@ -174,28 +177,48 @@ export function createIntroductionApplication(host: HTMLElement) {
     const pool = createResourcePool<GrayboxGeometry>({ maxEntries: 2, maxInFlight: 1, maxPrefetch: 0, maxLeases: 2, maxBytes: 32_768 });
     const layouts = { version: 1, rooms: [...introLayouts.rooms, ...routeLayouts.rooms] };
     const graybox = createIntroductionGraybox(shell.presentationHost, { data: layouts, roomIds: layouts.rooms.map(room => room.roomId) });
-    const mediaPool = createResourcePool<RoomResource>({ maxEntries: 16, maxInFlight: 4, maxPrefetch: 0, maxLeases: 32, maxBytes: 244_000_000 });
+    const mediaPool = createResourcePool<RoomResource>({ maxEntries: 32, maxInFlight: 4, maxPrefetch: 0, maxLeases: 32, maxBytes: 244_000_000 });
     const finished = createThreeRoom(shell.presentationHost, media, publicPaths.gameBase);
-    const sound = createRoomAudioPanel(mediaHost, media, publicPaths.gameBase, next => { void changePresentation(next); }, () => { void refreshPresentation(); });
+    const layered = createRegisteredLayeredRooms(shell.presentationHost, registry, publicPaths.gameBase, { 'spec001:R02': createWorkshopDecoration });
+    type SpriteRenderer = RoomRenderer<RoomResource> & Pick<typeof finished, 'react' | 'dispose'>;
+    let sprite: SpriteRenderer | undefined;
+    const spriteRenderer: RoomRenderer<RoomResource> = { reuseView: true, async prepare(request) {
+      const { createSpriteRoom } = await import('../presentation/sprite-room');
+      if (request.signal.aborted) throw new Error('Room was left during sprite loading');
+      sprite ??= createSpriteRoom(shell.presentationHost, registry, publicPaths.gameBase);
+      return sprite.prepare(request);
+    } };
+    const sound = createRoomAudioPanel(mediaHost, media, publicPaths.gameBase, next => { void changePresentation(next); }, () => { void refreshPresentation(); }, registry);
     let mode: RoomSettings['mode'] = 'three', detail: RoomSettings['detail'] = 'default';
+    const motionPreference = host.ownerDocument.defaultView!.matchMedia('(prefers-reduced-motion: reduce)');
     const reducedMotion = () => {
       const preference = presentation.reducedMotion;
-      return preference === 'on' || (preference === 'system' && host.ownerDocument.defaultView?.matchMedia('(prefers-reduced-motion: reduce)').matches === true);
+      return preference === 'on' || (preference === 'system' && motionPreference.matches);
     };
+    let roomId: string | null = null, failedRoom: string | null = null;
     const onView = (view: Parameters<typeof shell.render>[0] | null, originalCapture?: Parameters<typeof shell.render>[1]) => {
       if (view) { shell.render(view, originalCapture); frame.sync(!!state.runtime.game); }
-      if (view?.presentationStatus.startsWith('Visual presentation unavailable')) mode = 'text';
+      if (view?.presentationStatus.startsWith('Visual presentation unavailable')) failedRoom = roomId;
     };
     const grayAdapter = createRoomAdapter({ pool, dispatcher: bus, renderers: { three: graybox }, onView });
-    const finishedAdapter = createRoomAdapter({ pool: mediaPool, dispatcher: bus, renderers: { three: finished }, onView });
-    let roomId: string | null = null;
-    const activeAdapter = () => roomId === 'spec001:R01' ? finishedAdapter : grayAdapter;
+    const threeRenderer: RoomRenderer<RoomResource> = { reuseView: true,
+      prepare: request => request.view.roomId === q<'room'>('R01') ? finished.prepare(request) : layered.prepare(request),
+    };
+    const finishedAdapter = createRoomAdapter({ pool: mediaPool, dispatcher: bus, renderers: { three: threeRenderer, layered, sprite: spriteRenderer }, onView });
+    const visualMode = (): Exclude<RoomSettings['mode'], 'text'> => {
+      const room = roomId && registry.record(roomId);
+      if (room && room.kind === 'room' && room.presentationMode === 'hybrid' && layered.supports(room.id)) return 'layered';
+      if (room && room.kind === 'room' && room.presentationMode === 'rendered-room' && room.mediaBindings?.some(b => b.use === 'sprite-animation')) return 'sprite';
+      return 'three';
+    };
+    const activeAdapter = () => roomId === 'spec001:R01' || (roomId && layered.supports(roomId)) || visualMode() === 'sprite' ? finishedAdapter : grayAdapter;
+    const selectedMode = () => mode === 'text' || (roomId && roomId === failedRoom) ? 'text' : visualMode();
     const visualControls = host.ownerDocument.createElement('div'); visualControls.className = 'nq-graybox-controls';
     visualControls.setAttribute('role', 'group'); visualControls.setAttribute('aria-label', 'Scene presentation');
     const events = new AbortController();
     for (const [label, nextMode, nextDetail] of [['Retry visual scene', 'three', 'default'], ['Text scene', 'text', 'default'], ['Low detail scene', 'three', 'low']] as const) {
       const button = host.ownerDocument.createElement('button'); button.type = 'button'; button.textContent = label;
-      button.addEventListener('click', () => { mode = nextMode; detail = nextDetail; activeAdapter().setMode(mode, detail); }, { signal: events.signal }); visualControls.append(button);
+      button.addEventListener('click', () => { failedRoom = null; mode = nextMode; detail = nextDetail; activeAdapter().setMode(selectedMode(), detail); }, { signal: events.signal }); visualControls.append(button);
     }
     frame.attach(shell, visualControls);
     const diagnosticButton = host.ownerDocument.createElement('button'), repairButton = host.ownerDocument.createElement('button');
@@ -216,6 +239,7 @@ export function createIntroductionApplication(host: HTMLElement) {
       progressGame.world.completedObjectiveIds.forEach(id => dismissedCompletions.add(id));
       autosave?.objectiveFeedbackDismissed(); render();
     }, { signal: events.signal });
+    motionPreference.addEventListener('change', () => { if (presentation.reducedMotion === 'system' && state.runtime.game) render(); }, { signal: events.signal });
     const pause = () => { grayAdapter.setPaused(host.ownerDocument.hidden); finishedAdapter.setPaused(host.ownerDocument.hidden); };
     host.ownerDocument.addEventListener('visibilitychange', pause, { signal: events.signal }); pause();
     // First visible gameplay dialog owns the frame. A recovery confirmation
@@ -230,9 +254,13 @@ export function createIntroductionApplication(host: HTMLElement) {
       dispatch: command => command(), isCurrent: projection => projection === narrativeProjection && state === narrativeState,
     });
     if (retainedEpilogue) epilogue.mount(shell.panelHost);
-    return { shell, sound, react: finished.react, show: (view: IntroductionGrayboxView) => {
-      if (roomId !== view.roomId) { activeAdapter().hide(); roomId = view.roomId; }
-      activeAdapter().show(view, { mode, detail, reducedMotion: reducedMotion() });
+    return { shell, sound, react(kind: 'walk' | 'reaction') {
+      if (roomId === 'spec001:R01') finished.react(kind);
+      else if (roomId && layered.supports(roomId)) layered.react(kind);
+      else if (visualMode() === 'sprite') sprite?.react(kind);
+    }, show: (view: IntroductionGrayboxView) => {
+      if (roomId !== view.roomId) { activeAdapter().hide(); failedRoom = null; roomId = view.roomId; }
+      activeAdapter().show(view, { mode: selectedMode(), detail, reducedMotion: reducedMotion() });
     },
       progress: (visible: boolean) => { progressGame = state.runtime.game; dismissProgress.hidden = !visible; },
       contextual: (currentRoom: string | undefined) => {
@@ -257,7 +285,7 @@ export function createIntroductionApplication(host: HTMLElement) {
         });
         if (buttons.length !== optionalOpeners.children.length || buttons.some((button, index) => optionalOpeners.children[index] !== button)) optionalOpeners.replaceChildren(...buttons);
       },
-      disposeScene: () => { events.abort(); optionalOpenerEvents.abort(); grayAdapter.dispose(); finishedAdapter.dispose(); graybox.dispose(); finished.dispose(); pool.dispose(); mediaPool.dispose(); sound.dispose(); visualControls.remove(); },
+      disposeScene: () => { events.abort(); optionalOpenerEvents.abort(); grayAdapter.dispose(); finishedAdapter.dispose(); graybox.dispose(); finished.dispose(); layered.dispose(); sprite?.dispose(); pool.dispose(); mediaPool.dispose(); sound.dispose(); visualControls.remove(); },
       epilogue, recovery: recoveryPanel,
       notebook: createNotebookPanel(shell.panelHost, bus), compendium: createCompendiumPanel(shell.panelHost, bus), party: createPartyPanel(shell.panelHost, bus), dialogue: createDialoguePanel(shell.panelHost, bus), inventory: createInventoryPanel(shell.panelHost, bus),
       optional: createOptionalActivityPanel(shell.panelHost, bus),
@@ -440,7 +468,7 @@ export function createIntroductionApplication(host: HTMLElement) {
     if (narrative) activityPanel = null;
     if ((game?.world.roomId ?? null) !== activityRoom) { activityRoom = game?.world.roomId ?? null; activityPanel = null; }
     panels.contextual(game?.world.roomId);
-    panels.sound.show(game?.world.roomId ?? null, presentation, preferenceMessage, { authenticated: matchingPreferenceSession(), busy: !!preferenceOperation || accountSettings?.busy === true, reviewRequired: preferenceReviewRequired });
+    panels.sound.show(game?.world.roomId ?? null, presentation, preferenceMessage, { authenticated: matchingPreferenceSession(), busy: !!preferenceOperation || accountSettings?.busy === true, reviewRequired: preferenceReviewRequired }, state.runtime);
     frame.element.style.fontSize = `${presentation.textScale}rem`;
     adventureHost.hidden = game === null;
     if (game !== projectedGame) { projectedGame = game; capture = bus.captureScope(contextFromRuntime(state.runtime)); }
@@ -466,7 +494,7 @@ export function createIntroductionApplication(host: HTMLElement) {
           text: illustration ? reward.alternativeText : `${reward.alternativeText} ${reward.unavailableText}` }];
       });
       panels.progress(completions.length > 0);
-      panels.show({ roomId: game.world.roomId, safePositionId: game.world.position.safePositionId,
+      panels.show({ roomId: game.world.roomId, activeAllyIds: game.world.activeAllyIds, safePositionId: game.world.position.safePositionId,
         context: contextFromRuntime(state.runtime), title: name, description: room.description, controls: verbs.controls(), objects: verbs.objects(),
         evidence: notebookView.view.evidence.map(entry => ({ id: entry.id, label: entry.heading, text: entry.text, source: `${entry.sourceRoom} · ${entry.kind}`, freshness: entry.freshness })),
         captions: [{ id: `ambience:${room.id}`, text: room.ambience.text }, ...sampling, ...completions, ...decorations] });
@@ -523,10 +551,14 @@ export function createIntroductionApplication(host: HTMLElement) {
   // Every controller subscriber was registered before this final render observer.
   const unsubscribe = bus.subscribe((action, result) => {
     render();
-    if (result.status !== 'handled' || state.runtime.game?.world.roomId !== q('R01')) return;
+    panels.sound.action(action.input, result, state.runtime);
+    if (result.status !== 'handled') return;
     const input = action.input;
     if (input.kind === 'interact' || input.kind === 'choose-hotspot-action') {
       panels.react(input.verb === 'walk' ? 'walk' : 'reaction');
+    }
+    if (state.runtime.game?.world.roomId !== q('R01')) return;
+    if (input.kind === 'interact' || input.kind === 'choose-hotspot-action') {
       if (input.verb === 'look' && input.targetId === 'spec001:HOTSPOT-power') panels.sound.trigger('control');
       if (input.verb === 'talk' && input.targetId === 'spec001:HOTSPOT-photon') panels.sound.trigger('photon');
     }

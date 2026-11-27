@@ -17,6 +17,7 @@ import { createVerbController } from '../../src/ui/verbs';
 const q = <T extends string = string>(id: string) => `spec001:${id}` as QualifiedId<T>;
 const read = async <T>(path: string): Promise<T> => JSON.parse(await readFile(new URL(`../../${path}`, import.meta.url), 'utf8')) as T;
 const canonicalWorld = await read<S.world>('content/spec001/world.json');
+const layout = await read<{rooms: {roomId: string; propPlacements: {semanticId: string; sourceAllocation: string}[]}[]}>('assets-src/rooms/scene-layouts.json');
 const sources = await read<unknown>('content/spec001/sources.json');
 const documents = Object.fromEntries(await Promise.all([...new Set(canonicalWorld.documents.map(d => d.path))].map(async path => [path, await read(path)])));
 const { registry, world } = loadIntroductionContent();
@@ -92,7 +93,9 @@ describe('T081 canonical twelve-room selection and exact SPEC graph', () => {
     expect(value.safePositions.map(p => p.id)).toEqual([q(id === 'R11' ? 'R11.preparation' : `${id}.entry`)]);
     expect(value.safePositions.map(p => p.id)).toEqual(allocation.safePositionIds);
     expect(value.characterIds).toEqual(allocation.characterIds);
-    expect(value.propInstances.map(p => p.propId)).toEqual(allocation.propIds);
+    const placements = layout.rooms.find(room => room.roomId === value.id)!.propPlacements;
+    const shared = value.mediaBindings?.length ? placements.filter(p => p.sourceAllocation === 'Shared').map(p => p.semanticId) : [];
+    expect(value.propInstances.map(p => p.propId)).toEqual([...allocation.propIds, ...shared]);
     const f = walkFixture(id, ['O01', 'O02', 'O03', 'O04', 'O09', 'O10', 'O11']);
     expect(f.walk(id === 'R11' ? 'R11.preparation' : `${id}.entry`).status).toBe('handled');
     f.close();

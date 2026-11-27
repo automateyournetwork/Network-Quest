@@ -1,0 +1,663 @@
+{
+  "blender": "5.2.1 LTS",
+  "engine": "CYCLES",
+  "samples": 24,
+  "fps": 24,
+  "stageSize": [
+    1024,
+    576
+  ],
+  "camera": {
+    "projection": "orthographic",
+    "position": [
+      7.5,
+      8.8,
+      19
+    ],
+    "target": [
+      5,
+      1,
+      3
+    ],
+    "up": [
+      0,
+      1,
+      0
+    ],
+    "near": 0.1,
+    "far": 80,
+    "span": 13,
+    "minimumHeightSpan": 9,
+    "resizeRule": "heightSpan=max(minimumHeightSpan,span/aspect); widthSpan=heightSpan*aspect",
+    "plateSpan": [
+      16.0,
+      9
+    ],
+    "basePlatePixels": [
+      1280,
+      720
+    ],
+    "blenderPosition": [
+      7.5,
+      -19,
+      8.8
+    ],
+    "blenderTarget": [
+      5,
+      -3,
+      1
+    ],
+    "status": "frozen authoring camera; native keyframe/source/plate registration pending"
+  },
+  "inputs": [
+    {
+      "assetId": "spec001:ASSET-CH01",
+      "source": "assets-src/characters/CH01.blend",
+      "sha256": "85236060e9cfcb199c318496c80d750d04ef7798bdf5cd9626eefce8dbb89903"
+    },
+    {
+      "assetId": "spec001:ASSET-CH13",
+      "source": "assets-src/characters/CH13.blend",
+      "sha256": "91b684b7f675b996a3c8611e05661040fbbcffa5efecd91d652057b7f79a3078"
+    },
+    {
+      "assetId": "spec001:ASSET-CH20",
+      "source": "assets-src/characters/CH20.blend",
+      "sha256": "da01e9e572e524ceb91d379659f10006043b67ba95221c0e82881578a9479657"
+    },
+    {
+      "assetId": "spec001:ASSET-PR031",
+      "source": "public/assets/models/R03-R04/PR031.glb",
+      "sha256": "2488e77d38bb47fc951c9f6f85a16993704be2465466f219601d51d68c29cb96"
+    },
+    {
+      "assetId": "spec001:ASSET-PR032",
+      "source": "public/assets/models/R03-R04/PR032.glb",
+      "sha256": "c642ec195c7524130e3d409e0509d886c69478358467a8944718a0c4ed76a898"
+    },
+    {
+      "assetId": "spec001:ASSET-PR033",
+      "source": "public/assets/models/R03-R04/PR033.glb",
+      "sha256": "cd7a1cc674c07bf0cb5c4f556f883a6896860d9c3cd63687170cb5aae3ecda19"
+    },
+    {
+      "assetId": "spec001:ASSET-PR034",
+      "source": "public/assets/models/R03-R04/PR034.glb",
+      "sha256": "042aed8c6bea81807340c783859cd7a09934d12df94c01e205a040179f60dd4f"
+    },
+    {
+      "assetId": "spec001:ASSET-PR035",
+      "source": "public/assets/models/R03-R04/PR035.glb",
+      "sha256": "215a97806a5b8b3021b99b421af2b4220d5cbcd2d56e39e23d24b4508da95bc2"
+    },
+    {
+      "assetId": "spec001:ASSET-PR036",
+      "source": "public/assets/models/R03-R04/PR036.glb",
+      "sha256": "ea593aa0615a8cd9a0ca7e53fa0076790fa0c03937918c0de8fd86e09a75d151"
+    },
+    {
+      "assetId": "spec001:ASSET-PR037",
+      "source": "public/assets/models/R03-R04/PR037.glb",
+      "sha256": "b533e3ce90a9c11047eaa82919c93256967d6332eb12528a63ae60fe6c5c5b4a"
+    },
+    {
+      "assetId": "spec001:ASSET-PR038",
+      "source": "public/assets/models/R03-R04/PR038.glb",
+      "sha256": "b1fd21b161d78ced58be1ad0d6765f4de4edb44b2202ca8a6cc8edbee58508d8"
+    },
+    {
+      "assetId": "spec001:ASSET-PR039",
+      "source": "public/assets/models/R03-R04/PR039.glb",
+      "sha256": "cc6b535c9f2bd1343499ffb9b1b49d61d06219e34d25d42b9af1113a2aa2c402"
+    },
+    {
+      "assetId": "spec001:ASSET-PR040",
+      "source": "public/assets/models/R03-R04/PR040.glb",
+      "sha256": "cafb2af96422c3f8639058d9a7fdfc25bc95734c149012d1ba1f932518d15c57"
+    },
+    {
+      "assetId": "spec001:ASSET-PR134",
+      "source": "public/assets/models/shared/PR134.glb",
+      "sha256": "99ad6fe62f0bd3a1d5161803598d97d44053f9fa8fa4b169329af16c414e23ea"
+    },
+    {
+      "assetId": "spec001:ASSET-PR135",
+      "source": "public/assets/models/shared/PR135.glb",
+      "sha256": "2ff99aa72a654c6decab070b20de3bc3b060e15d4a004624ef861ff7429c246b"
+    }
+  ],
+  "subjects": {
+    "CH01": {
+      "stagePivot": [
+        512.0,
+        345.66
+      ],
+      "renderCrop": [
+        364,
+        191,
+        660,
+        406
+      ],
+      "cameraDepth": 18.40865,
+      "clips": {
+        "idle": {
+          "sourceFrames": [
+            0,
+            8,
+            16,
+            24,
+            32,
+            40,
+            48,
+            56,
+            64,
+            72,
+            80,
+            88
+          ],
+          "endFrameExclusive": 96
+        },
+        "walk": {
+          "sourceFrames": [
+            0,
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20,
+            22
+          ],
+          "endFrameExclusive": 24
+        },
+        "reaction": {
+          "sourceFrames": [
+            0,
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20,
+            22
+          ],
+          "endFrameExclusive": 24
+        }
+      }
+    },
+    "CH13": {
+      "stagePivot": [
+        660.795,
+        364.182
+      ],
+      "renderCrop": [
+        513,
+        209,
+        809,
+        424
+      ],
+      "cameraDepth": 17.8078,
+      "clips": {
+        "idle": {
+          "sourceFrames": [
+            0,
+            6,
+            12,
+            18,
+            24,
+            30,
+            36,
+            42,
+            48,
+            54,
+            60,
+            66
+          ],
+          "endFrameExclusive": 72
+        },
+        "reaction": {
+          "sourceFrames": [
+            0,
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24,
+            27,
+            30,
+            33,
+            36,
+            39
+          ],
+          "endFrameExclusive": 40
+        }
+      }
+    },
+    "CH20": {
+      "stagePivot": [
+        540.257,
+        249.193
+      ],
+      "renderCrop": [
+        392,
+        94,
+        688,
+        309
+      ],
+      "cameraDepth": 21.53805,
+      "clips": {
+        "idle": {
+          "sourceFrames": [
+            0,
+            8,
+            16,
+            24,
+            32,
+            40,
+            48,
+            56,
+            64,
+            72,
+            80,
+            88
+          ],
+          "endFrameExclusive": 96
+        },
+        "reaction": {
+          "sourceFrames": [
+            0,
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20,
+            22
+          ],
+          "endFrameExclusive": 24
+        }
+      }
+    },
+    "PR031": {
+      "stagePivot": [
+        364.885,
+        286.494
+      ],
+      "renderCrop": [
+        217,
+        131,
+        513,
+        346
+      ],
+      "cameraDepth": 20.32801,
+      "clips": {
+        "rest": {
+          "sourceFrames": [
+            0
+          ],
+          "endFrameExclusive": 1
+        }
+      }
+    },
+    "PR032": {
+      "stagePivot": [
+        252.647,
+        346.346
+      ],
+      "renderCrop": [
+        105,
+        191,
+        401,
+        406
+      ],
+      "cameraDepth": 18.38639,
+      "clips": {
+        "rest": {
+          "sourceFrames": [
+            0
+          ],
+          "endFrameExclusive": 1
+        }
+      }
+    },
+    "PR033": {
+      "stagePivot": [
+        727.387,
+        332.155
+      ],
+      "renderCrop": [
+        579,
+        177,
+        875,
+        392
+      ],
+      "cameraDepth": 18.84676,
+      "clips": {
+        "rest": {
+          "sourceFrames": [
+            0
+          ],
+          "endFrameExclusive": 1
+        }
+      }
+    },
+    "PR034": {
+      "stagePivot": [
+        807.613,
+        298.241
+      ],
+      "renderCrop": [
+        660,
+        143,
+        956,
+        358
+      ],
+      "cameraDepth": 19.94692,
+      "clips": {
+        "rest": {
+          "sourceFrames": [
+            0
+          ],
+          "endFrameExclusive": 1
+        }
+      }
+    },
+    "PR035": {
+      "stagePivot": [
+        306.889,
+        393.593
+      ],
+      "renderCrop": [
+        159,
+        239,
+        455,
+        454
+      ],
+      "cameraDepth": 16.85369,
+      "clips": {
+        "rest": {
+          "sourceFrames": [
+            0
+          ],
+          "endFrameExclusive": 1
+        }
+      }
+    },
+    "PR036": {
+      "stagePivot": [
+        614.062,
+        278.09
+      ],
+      "renderCrop": [
+        466,
+        123,
+        762,
+        338
+      ],
+      "cameraDepth": 20.60062,
+      "clips": {
+        "rest": {
+          "sourceFrames": [
+            0
+          ],
+          "endFrameExclusive": 1
+        }
+      }
+    },
+    "PR037": {
+      "stagePivot": [
+        449.656,
+        266.943
+      ],
+      "renderCrop": [
+        302,
+        112,
+        598,
+        327
+      ],
+      "cameraDepth": 20.96224,
+      "clips": {
+        "rest": {
+          "sourceFrames": [
+            0
+          ],
+          "endFrameExclusive": 1
+        }
+      }
+    },
+    "PR038": {
+      "stagePivot": [
+        284.164,
+        276.804
+      ],
+      "renderCrop": [
+        136,
+        122,
+        432,
+        337
+      ],
+      "cameraDepth": 20.64234,
+      "clips": {
+        "rest": {
+          "sourceFrames": [
+            0
+          ],
+          "endFrameExclusive": 1
+        }
+      }
+    },
+    "PR039": {
+      "stagePivot": [
+        496.192,
+        299.613
+      ],
+      "renderCrop": [
+        348,
+        145,
+        644,
+        360
+      ],
+      "cameraDepth": 19.90241,
+      "clips": {
+        "rest": {
+          "sourceFrames": [
+            0
+          ],
+          "endFrameExclusive": 1
+        }
+      }
+    },
+    "PR040": {
+      "stagePivot": [
+        719.977,
+        397.709
+      ],
+      "renderCrop": [
+        572,
+        243,
+        868,
+        458
+      ],
+      "cameraDepth": 16.72016,
+      "clips": {
+        "rest": {
+          "sourceFrames": [
+            0
+          ],
+          "endFrameExclusive": 1
+        }
+      }
+    },
+    "PR134": {
+      "stagePivot": [
+        190.797,
+        401.182
+      ],
+      "renderCrop": [
+        43,
+        246,
+        339,
+        461
+      ],
+      "cameraDepth": 16.60751,
+      "clips": {
+        "rest": {
+          "sourceFrames": [
+            0
+          ],
+          "endFrameExclusive": 1
+        }
+      }
+    },
+    "PR135": {
+      "stagePivot": [
+        571.874,
+        63.941
+      ],
+      "renderCrop": [
+        424,
+        0,
+        720,
+        124
+      ],
+      "cameraDepth": 20.05819,
+      "clips": {
+        "rest": {
+          "sourceFrames": [
+            0
+          ],
+          "endFrameExclusive": 1
+        }
+      }
+    }
+  },
+  "anchors": [
+    {
+      "objectId": "spec001:HOTSPOT-echo-before-case",
+      "point": [
+        283.176,
+        235.726
+      ]
+    },
+    {
+      "objectId": "spec001:HOTSPOT-echo-after-station",
+      "point": [
+        363.897,
+        233.884
+      ]
+    },
+    {
+      "objectId": "spec001:HOTSPOT-echo-repeater-core",
+      "point": [
+        448.668,
+        195.882
+      ]
+    },
+    {
+      "objectId": "spec001:HOTSPOT-echo-amplitude-ladder",
+      "point": [
+        495.204,
+        242.391
+      ]
+    },
+    {
+      "objectId": "spec001:HOTSPOT-echo-reflector",
+      "point": [
+        251.659,
+        284.511
+      ]
+    },
+    {
+      "objectId": "spec001:HOTSPOT-echo-gong",
+      "point": [
+        305.901,
+        313.307
+      ]
+    },
+    {
+      "objectId": "spec001:HOTSPOT-echo-historical-case",
+      "point": [
+        613.074,
+        220.868
+      ]
+    },
+    {
+      "objectId": "spec001:HOTSPOT-echo-bat",
+      "point": [
+        540.257,
+        192.975
+      ]
+    },
+    {
+      "objectId": "spec001:HOTSPOT-echo-tortoise",
+      "point": [
+        660.795,
+        322.955
+      ]
+    },
+    {
+      "objectId": "spec001:HOTSPOT-echo-serial-post",
+      "point": [
+        726.399,
+        281.851
+      ]
+    },
+    {
+      "objectId": "spec001:HOTSPOT-echo-route-notice",
+      "point": [
+        806.625,
+        236.406
+      ]
+    },
+    {
+      "objectId": "spec001:HOTSPOT-echo-hint-slate",
+      "point": [
+        718.989,
+        342.793
+      ]
+    },
+    {
+      "objectId": "exit:spec001:R04:spec001:R03",
+      "point": [
+        389.487,
+        335.335
+      ]
+    },
+    {
+      "objectId": "exit:spec001:R04:spec001:R11",
+      "point": [
+        784.691,
+        362.131
+      ]
+    },
+    {
+      "objectId": "spec001:WALK-R04",
+      "point": [
+        479.198,
+        382.789
+      ]
+    },
+    {
+      "objectId": "spec001:R04.entry",
+      "point": [
+        512.0,
+        345.66
+      ]
+    }
+  ]
+}

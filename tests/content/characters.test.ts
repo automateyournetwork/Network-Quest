@@ -154,6 +154,9 @@ describe('T093 bounded schema evolution preserves T092 provenance', () => {
   it('accepts genuine old-shaped documents and tests SQ04 and loaded canonical minigames against their current schema', () => {
     const compile=(s:any)=>{const a=new Ajv({strict:true,allErrors:true});formats(a);return a.compile(s)};
     const old=compile(originalSchema),current=compile(schema);
+    const benchmark = json('assets-src/integration/R01-T066.json') as {assets: {usedBy: {evidencePath: string}[]}[]};
+    const arrivalBindings = benchmark.assets.flatMap(asset => asset.usedBy.flatMap(use => json(use.evidencePath).details.bindings));
+    expect(arrivalBindings).toHaveLength(21);
     for(const [path,document] of Object.entries(documents)) {
       if(path==='content/spec001/characters.json')continue;
       if(['content/spec001/minigames/MG01.json','content/spec001/minigames/MG02.json','content/spec001/minigames/MG03.json'].includes(path)) {
@@ -172,6 +175,12 @@ describe('T093 bounded schema evolution preserves T092 provenance', () => {
       if (oldShaped.kind === 'room' && oldShaped.illustrationBindings) {
         expect(old(document),path).toBe(false);
         delete oldShaped.illustrationBindings;
+      }
+      if (oldShaped.kind === 'room') {
+        // T092 registered media only in the Arrival Lift. Restore its exact
+        // benchmark bindings when checking the historical schema.
+        if (oldShaped.id === 'spec001:R01') oldShaped.mediaBindings = arrivalBindings;
+        else delete oldShaped.mediaBindings;
       }
       expect(old(oldShaped),path).toBe(true);expect(current(document),path).toBe(true);
     }

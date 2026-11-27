@@ -6,8 +6,9 @@ import type { mediaBinding } from '../content/schema-types.generated';
 export type Triple = readonly [number, number, number];
 export interface RoomComposition {
   version: 1; roomId: string; safePositionId: string;
+  partyPositions?: readonly Triple[];
   camera: { position: Triple; target: Triple; near: number; far: number; span: number; minimumHeightSpan: number; plateSpan: readonly [number, number] };
-  models: readonly { assetId: string; semanticId: string; position: Triple; objectId: string | null; character: boolean }[];
+  models: readonly { assetId: string; semanticId: string; position: Triple; objectId: string | null; character: boolean; rotation?: Triple; scale?: number; supportHeight?: number }[];
   layers: readonly { assetId: string; plane: 'background' | 'midground' | 'foreground' }[];
   anchors: readonly { objectId: string; position: Triple }[];
   audio: readonly { assetId: string; channel: 'music' | 'effects' | 'voice'; text: string; trigger: 'arrival' | 'photon' | 'title' | 'control'; loop: false }[];
@@ -26,12 +27,14 @@ export function resolveRoomMedia(registry: ContentRegistry, value: unknown = aut
     || !Array.isArray(data.anchors) || data.anchors.length !== 10 || !Array.isArray(data.audio) || data.audio.length !== 5) fail();
   const room = registry.record(data.roomId);
   if (room?.kind !== 'room' || !room.mediaBindings) return fail();
-  const bindings = new Map(room.mediaBindings.map(binding => [binding.assetId, Object.freeze({ ...binding })]));
   const ids = [...data.models, ...data.layers, ...data.audio].map(item => item.assetId);
+  const baseIds = new Set(ids);
+  const bindings = new Map(room.mediaBindings.filter(b => baseIds.has(b.assetId)).map(binding => [binding.assetId, Object.freeze({ ...binding })]));
+  if (room.mediaBindings.some(b => !baseIds.has(b.assetId) && !['party-placement', 'ambience', 'music', 'effect', 'voice-line'].includes(b.use))) fail();
   if (new Set(ids).size !== ids.length || bindings.size !== ids.length || ids.some(id => !bindings.has(id))) fail();
   const binding = (id: string, use: string, suffix: string) => { const b = bindings.get(id); if (!b || b.use !== use || !b.exportPath.endsWith(suffix)) return fail(); return b; };
   for (const model of data.models) {
-    if (!tuple(model.position, 3) || typeof model.character !== 'boolean' || (model.objectId !== null && !data.anchors.some(a => a.objectId === model.objectId))) fail();
+    if (model.scale !== undefined || !tuple(model.position, 3) || typeof model.character !== 'boolean' || (model.objectId !== null && !data.anchors.some(a => a.objectId === model.objectId))) fail();
     const b = bindings.get(model.assetId)!;
     binding(model.assetId, model.character ? 'character-placement' : model.assetId === 'spec001:ASSET-ARCH-R01' ? 'room-architecture' : 'prop-placement', '.glb');
     if (b.contentId !== data.roomId || b.exportPath.endsWith('/R01.glb')) fail(); // comparison scene would duplicate all ten props

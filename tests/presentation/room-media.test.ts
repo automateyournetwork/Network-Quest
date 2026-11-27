@@ -1,6 +1,9 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
+import layeredRoom from '../../content/spec001/presentation/R03.json';
+import { resolveLayeredRoomMedia } from '../../src/presentation/layered-room';
+import type { RoomComposition } from '../../src/presentation/room-media';
 import authored from '../../content/spec001/presentation/R01.json';
 import sourceCamera from '../../assets-src/rooms/R01-camera.json';
 import sourcePlacements from '../../assets-src/rooms/R01-placements.json';
@@ -21,7 +24,8 @@ describe('actual R01 media admission', () => {
     const studies = observed.uses.filter(use => use.use === 'diagnostic-illustration');
     expect(studies.map(use => use.assetId).sort()).toEqual(['spec001:ASSET-ILLUSTRATION-01', 'spec001:ASSET-ILLUSTRATION-02']);
     expect(bindings.size).toBe(21);
-    expect(observed.uses).toHaveLength(bindings.size + studies.length);
+    expect(observed.uses.filter(use => bindings.has(use.assetId))).toHaveLength(21);
+    expect(observed.uses).toHaveLength(arrival.mediaBindings.length + studies.length);
     for (const binding of bindings.values()) { expect(observed.uses).toContainEqual(binding); expect(readFileSync(binding.exportPath).length).toBeGreaterThan(0); expect(publicMediaUrl(binding, '/arcade/play/network-quest/')).toBe('/arcade/play/network-quest/' + binding.exportPath.slice(7)); }
     expect(composition.models).toHaveLength(13); expect([...bindings.values()].some(b => b.exportPath === 'public/assets/models/R01.glb')).toBe(false);
     expect(composition.audio.filter(cue => cue.channel === 'voice').map(c => c.text)).toEqual([
@@ -62,4 +66,17 @@ describe('actual R01 media admission', () => {
     const loop = structuredClone(authored); loop.audio[2]!.loop = true; expect(() => resolveRoomMedia(registry,loop)).toThrow();
     expect(() => publicMediaUrl({ ...resolveRoomMedia(registry).bindings.values().next().value!, exportPath: 'public/assets/../../private.json' }, '/')).toThrow();
   });
+});
+
+it('allows explicit bounded uniform prop scale on registered compositions and preserves native character and R01 scale', () => {
+  const mark = (value: number, character: boolean) => {
+    const data = structuredClone(layeredRoom) as unknown as RoomComposition;
+    data.models.find(model => character ? model.character : model.assetId.startsWith('spec001:ASSET-PR'))!.scale = value;
+    return data;
+  };
+  expect(() => resolveLayeredRoomMedia(registry, mark(.72, false))).not.toThrow();
+  for (const scale of [NaN, Infinity, 0, .49, 1.51]) expect(() => resolveLayeredRoomMedia(registry, mark(scale, false))).toThrow();
+  expect(() => resolveLayeredRoomMedia(registry, mark(.72, true))).toThrow();
+  const benchmark = structuredClone(authored) as unknown as RoomComposition;
+  benchmark.models[1]!.scale = .72; expect(() => resolveRoomMedia(registry, benchmark)).toThrow();
 });

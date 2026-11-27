@@ -3742,12 +3742,15 @@
             "foreground",
             "voice-line",
             "music",
-            "effect"
+            "effect",
+            "sprite-animation",
+            "party-placement",
+            "ambience"
           ]
         },
         "exportPath": {
           "type": "string",
-          "pattern": "^public/assets/(?:models/[A-Za-z0-9_-]+\\.glb|images/R01/(?:background|midground|foreground)\\.png|audio/auditions/[A-Za-z0-9_-]+\\.mp3)$"
+          "pattern": "^public/assets/(?:models/(?:[A-Za-z0-9_-]+/)?[A-Za-z0-9_-]+\\.glb|images/R01/(?:background|midground|foreground)\\.png|images/R(?:0[2-9]|1[0-2])/(?:background|midground|foreground)\\.webp|sprites/R04/(?:CH01|CH13|CH20|props)\\.webp|audio/(?:auditions|ambience|music|effects|voices)/[A-Za-z0-9_-]+\\.mp3)$"
         },
         "interactiveOrEvidence": {
           "type": "boolean"

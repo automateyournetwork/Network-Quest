@@ -1,0 +1,712 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "assets": [
+    {
+      "assetId": "spec001:ASSET-SPRITE-R04-CH01",
+      "semanticIdentity": "spec001:SPRITE-R04-CH01",
+      "kind": "sprite-sheet",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": true,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-CH01"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/sprites/R04/R04-sprite-stage.blend",
+            "sha256": "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "bytes": 1182672,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T134/CH01-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/sprites/R04/render.py",
+            "sha256": "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "bytes": 9231,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Python",
+          "version": "3"
+        },
+        {
+          "file": {
+            "path": "assets-src/sprites/R04/pack.py",
+            "sha256": "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "bytes": 4228,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Python",
+          "version": "3"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/sprites/R04/CH01.webp",
+            "sha256": "8264d771d26aa7d1d715a6508c00701e1716d3b9a78c57e9281a5dd5fc4bd569",
+            "bytes": 276548,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc"
+          ],
+          "tool": "Blender and Pillow",
+          "preset": "24 fps source, fixed camera and pivots, native cropped straight alpha frames, lossless WebP",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T134/CH01-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "blender-rendered",
+          "tool": "Blender Cycles",
+          "version": "5.2.1 LTS",
+          "modelRevision": "not-applicable",
+          "eventId": "r04-registered-sprites-v1-CH01",
+          "settingsPath": "assets-src/sprites/R04/native-frames.json",
+          "promptOrScriptPath": "assets-src/sprites/R04/render.py",
+          "referenceHashes": [
+            "85236060e9cfcb199c318496c80d750d04ef7798bdf5cd9626eefce8dbb89903"
+          ],
+          "outputHashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6"
+          ],
+          "notes": "The reopened native stage supplied registered isolated frames. Pillow packed the camera crops with lossless WebP and fixed subject pivots."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco and Network Quest contributors",
+          "OpenAI Codex (assisted original staging and code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/sprites/R04/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/sprites/R04/NOTICE.md"
+        ],
+        "aiDisclosure": "Agent-assisted staging and tools. All sprite pixels rendered in Blender from project-owned source assets."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R04",
+          "use": "sprite-animation",
+          "evidencePath": "docs/evidence/spec001/assets/T134/CH01-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop 151 / T134",
+          "date": "2026-11-27",
+          "environment": "Mac16,7/macOS 26.6.2 arm64; Blender 5.2.1 LTS Cycles; Pillow 12.1.0; native Firefox 159; pinned Node 26.13.1",
+          "hashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "8264d771d26aa7d1d715a6508c00701e1716d3b9a78c57e9281a5dd5fc4bd569"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/T134/CH01-source-reopen.json",
+          "findings": "Blender reopened the assembled native stage, evaluated the original rig tracks and rendered the saved camera crops."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop 151 / T134",
+          "date": "2026-11-27",
+          "environment": "Mac16,7/macOS 26.6.2 arm64; Blender 5.2.1 LTS Cycles; Pillow 12.1.0; native Firefox 159; pinned Node 26.13.1",
+          "hashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "8264d771d26aa7d1d715a6508c00701e1716d3b9a78c57e9281a5dd5fc4bd569"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/T134/CH01-visual.json",
+          "findings": "Inspected the registered room, extracted poses, feathered contact shadows, alpha edges and floor-disabled comparison."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop 151 / T134",
+          "date": "2026-11-27",
+          "environment": "Mac16,7/macOS 26.6.2 arm64; Blender 5.2.1 LTS Cycles; Pillow 12.1.0; native Firefox 159; pinned Node 26.13.1",
+          "hashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "8264d771d26aa7d1d715a6508c00701e1716d3b9a78c57e9281a5dd5fc4bd569"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/T134/CH01-browser-comparison.json",
+          "findings": "The native guest camera showed the Apprentice and safe floor. Firefox fetched the exact export bytes and the renderer used the registered frame cells."
+        }
+      ],
+      "image": {
+        "width": 599,
+        "height": 714,
+        "colorSpace": "sRGB",
+        "alpha": true,
+        "cameraRecordPath": "assets-src/images/R04/camera.json",
+        "layerRole": "depth-ordered cast sprites",
+        "registrationPath": "content/spec001/presentation/R04.json",
+        "frameTimingPath": "content/spec001/presentation/R04.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-SPRITE-R04-CH13",
+      "semanticIdentity": "spec001:SPRITE-R04-CH13",
+      "kind": "sprite-sheet",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": true,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-CH13"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/sprites/R04/R04-sprite-stage.blend",
+            "sha256": "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "bytes": 1182672,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T134/CH13-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/sprites/R04/render.py",
+            "sha256": "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "bytes": 9231,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Python",
+          "version": "3"
+        },
+        {
+          "file": {
+            "path": "assets-src/sprites/R04/pack.py",
+            "sha256": "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "bytes": 4228,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Python",
+          "version": "3"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/sprites/R04/CH13.webp",
+            "sha256": "15a7f15126411c4461c4339493d0db2f221200e404788e136811bedd7f2f6eb1",
+            "bytes": 277680,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc"
+          ],
+          "tool": "Blender and Pillow",
+          "preset": "24 fps source, fixed camera and pivots, native cropped straight alpha frames, lossless WebP",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T134/CH13-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "blender-rendered",
+          "tool": "Blender Cycles",
+          "version": "5.2.1 LTS",
+          "modelRevision": "not-applicable",
+          "eventId": "r04-registered-sprites-v1-CH13",
+          "settingsPath": "assets-src/sprites/R04/native-frames.json",
+          "promptOrScriptPath": "assets-src/sprites/R04/render.py",
+          "referenceHashes": [
+            "91b684b7f675b996a3c8611e05661040fbbcffa5efecd91d652057b7f79a3078"
+          ],
+          "outputHashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6"
+          ],
+          "notes": "The reopened native stage supplied registered isolated frames. Pillow packed the camera crops with lossless WebP and fixed subject pivots."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco and Network Quest contributors",
+          "OpenAI Codex (assisted original staging and code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/sprites/R04/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/sprites/R04/NOTICE.md"
+        ],
+        "aiDisclosure": "Agent-assisted staging and tools. All sprite pixels rendered in Blender from project-owned source assets."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R04",
+          "use": "sprite-animation",
+          "evidencePath": "docs/evidence/spec001/assets/T134/CH13-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop 151 / T134",
+          "date": "2026-11-27",
+          "environment": "Mac16,7/macOS 26.6.2 arm64; Blender 5.2.1 LTS Cycles; Pillow 12.1.0; native Firefox 159; pinned Node 26.13.1",
+          "hashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "15a7f15126411c4461c4339493d0db2f221200e404788e136811bedd7f2f6eb1"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/T134/CH13-source-reopen.json",
+          "findings": "Blender reopened the assembled native stage, evaluated the original rig tracks and rendered the saved camera crops."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop 151 / T134",
+          "date": "2026-11-27",
+          "environment": "Mac16,7/macOS 26.6.2 arm64; Blender 5.2.1 LTS Cycles; Pillow 12.1.0; native Firefox 159; pinned Node 26.13.1",
+          "hashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "15a7f15126411c4461c4339493d0db2f221200e404788e136811bedd7f2f6eb1"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/T134/CH13-visual.json",
+          "findings": "Inspected the registered room, extracted poses, feathered contact shadows, alpha edges and floor-disabled comparison."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop 151 / T134",
+          "date": "2026-11-27",
+          "environment": "Mac16,7/macOS 26.6.2 arm64; Blender 5.2.1 LTS Cycles; Pillow 12.1.0; native Firefox 159; pinned Node 26.13.1",
+          "hashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "15a7f15126411c4461c4339493d0db2f221200e404788e136811bedd7f2f6eb1"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/T134/CH13-browser-comparison.json",
+          "findings": "The native guest camera showed Ancient Tortoise. Firefox fetched the exact export bytes and the renderer used the registered frame cells."
+        }
+      ],
+      "image": {
+        "width": 483,
+        "height": 755,
+        "colorSpace": "sRGB",
+        "alpha": true,
+        "cameraRecordPath": "assets-src/images/R04/camera.json",
+        "layerRole": "depth-ordered cast sprites",
+        "registrationPath": "content/spec001/presentation/R04.json",
+        "frameTimingPath": "content/spec001/presentation/R04.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-SPRITE-R04-CH20",
+      "semanticIdentity": "spec001:SPRITE-R04-CH20",
+      "kind": "sprite-sheet",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": true,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-CH20"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/sprites/R04/R04-sprite-stage.blend",
+            "sha256": "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "bytes": 1182672,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T134/CH20-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/sprites/R04/render.py",
+            "sha256": "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "bytes": 9231,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Python",
+          "version": "3"
+        },
+        {
+          "file": {
+            "path": "assets-src/sprites/R04/pack.py",
+            "sha256": "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "bytes": 4228,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Python",
+          "version": "3"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/sprites/R04/CH20.webp",
+            "sha256": "bedaede932a92fccd6aa3dfec3793608fc0fd83335d1ec88234d7b948e6a2b6c",
+            "bytes": 472176,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc"
+          ],
+          "tool": "Blender and Pillow",
+          "preset": "24 fps source, fixed camera and pivots, native cropped straight alpha frames, lossless WebP",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T134/CH20-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "blender-rendered",
+          "tool": "Blender Cycles",
+          "version": "5.2.1 LTS",
+          "modelRevision": "not-applicable",
+          "eventId": "r04-registered-sprites-v1-CH20",
+          "settingsPath": "assets-src/sprites/R04/native-frames.json",
+          "promptOrScriptPath": "assets-src/sprites/R04/render.py",
+          "referenceHashes": [
+            "da01e9e572e524ceb91d379659f10006043b67ba95221c0e82881578a9479657"
+          ],
+          "outputHashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6"
+          ],
+          "notes": "The reopened native stage supplied registered isolated frames. Pillow packed the camera crops with lossless WebP and fixed subject pivots."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco and Network Quest contributors",
+          "OpenAI Codex (assisted original staging and code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/sprites/R04/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/sprites/R04/NOTICE.md"
+        ],
+        "aiDisclosure": "Agent-assisted staging and tools. All sprite pixels rendered in Blender from project-owned source assets."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R04",
+          "use": "sprite-animation",
+          "evidencePath": "docs/evidence/spec001/assets/T134/CH20-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop 151 / T134",
+          "date": "2026-11-27",
+          "environment": "Mac16,7/macOS 26.6.2 arm64; Blender 5.2.1 LTS Cycles; Pillow 12.1.0; native Firefox 159; pinned Node 26.13.1",
+          "hashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "bedaede932a92fccd6aa3dfec3793608fc0fd83335d1ec88234d7b948e6a2b6c"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/T134/CH20-source-reopen.json",
+          "findings": "Blender reopened the assembled native stage, evaluated the original rig tracks and rendered the saved camera crops."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop 151 / T134",
+          "date": "2026-11-27",
+          "environment": "Mac16,7/macOS 26.6.2 arm64; Blender 5.2.1 LTS Cycles; Pillow 12.1.0; native Firefox 159; pinned Node 26.13.1",
+          "hashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "bedaede932a92fccd6aa3dfec3793608fc0fd83335d1ec88234d7b948e6a2b6c"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/T134/CH20-visual.json",
+          "findings": "Inspected the registered room, extracted poses, feathered contact shadows, alpha edges and floor-disabled comparison."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop 151 / T134",
+          "date": "2026-11-27",
+          "environment": "Mac16,7/macOS 26.6.2 arm64; Blender 5.2.1 LTS Cycles; Pillow 12.1.0; native Firefox 159; pinned Node 26.13.1",
+          "hashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "bedaede932a92fccd6aa3dfec3793608fc0fd83335d1ec88234d7b948e6a2b6c"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/T134/CH20-browser-comparison.json",
+          "findings": "The native guest camera showed Echo Bat. Firefox fetched the exact export bytes and the renderer used the registered frame cells."
+        }
+      ],
+      "image": {
+        "width": 641,
+        "height": 1063,
+        "colorSpace": "sRGB",
+        "alpha": true,
+        "cameraRecordPath": "assets-src/images/R04/camera.json",
+        "layerRole": "depth-ordered cast sprites",
+        "registrationPath": "content/spec001/presentation/R04.json",
+        "frameTimingPath": "content/spec001/presentation/R04.json"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-SPRITE-R04-props",
+      "semanticIdentity": "spec001:SPRITE-R04-props",
+      "kind": "sprite-sheet",
+      "status": "integrated",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": true,
+      "variantOf": null,
+      "derivedFrom": [
+        "spec001:ASSET-PR037",
+        "spec001:ASSET-PR038",
+        "spec001:ASSET-PR036",
+        "spec001:ASSET-PR031",
+        "spec001:ASSET-PR135",
+        "spec001:ASSET-PR034",
+        "spec001:ASSET-PR039",
+        "spec001:ASSET-PR033",
+        "spec001:ASSET-PR032",
+        "spec001:ASSET-PR035",
+        "spec001:ASSET-PR040",
+        "spec001:ASSET-PR134"
+      ],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/sprites/R04/R04-sprite-stage.blend",
+            "sha256": "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "bytes": 1182672,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T134/props-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/sprites/R04/render.py",
+            "sha256": "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "bytes": 9231,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Python",
+          "version": "3"
+        },
+        {
+          "file": {
+            "path": "assets-src/sprites/R04/pack.py",
+            "sha256": "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "bytes": 4228,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Python",
+          "version": "3"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/sprites/R04/props.webp",
+            "sha256": "7c6d38972b9a9e6eacf7e82c6e4622b88aa129003b5446be37d05d5f94521fdc",
+            "bytes": 105930,
+            "format": "webp"
+          },
+          "mimeType": "image/webp",
+          "sourceHashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc"
+          ],
+          "tool": "Blender and Pillow",
+          "preset": "24 fps source, fixed camera and pivots, native cropped straight alpha frames, lossless WebP",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T134/props-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "blender-rendered",
+          "tool": "Blender Cycles",
+          "version": "5.2.1 LTS",
+          "modelRevision": "not-applicable",
+          "eventId": "r04-registered-sprites-v1-props",
+          "settingsPath": "assets-src/sprites/R04/native-frames.json",
+          "promptOrScriptPath": "assets-src/sprites/R04/render.py",
+          "referenceHashes": [
+            "2488e77d38bb47fc951c9f6f85a16993704be2465466f219601d51d68c29cb96",
+            "c642ec195c7524130e3d409e0509d886c69478358467a8944718a0c4ed76a898",
+            "cd7a1cc674c07bf0cb5c4f556f883a6896860d9c3cd63687170cb5aae3ecda19",
+            "042aed8c6bea81807340c783859cd7a09934d12df94c01e205a040179f60dd4f",
+            "215a97806a5b8b3021b99b421af2b4220d5cbcd2d56e39e23d24b4508da95bc2",
+            "ea593aa0615a8cd9a0ca7e53fa0076790fa0c03937918c0de8fd86e09a75d151",
+            "b533e3ce90a9c11047eaa82919c93256967d6332eb12528a63ae60fe6c5c5b4a",
+            "b1fd21b161d78ced58be1ad0d6765f4de4edb44b2202ca8a6cc8edbee58508d8",
+            "cc6b535c9f2bd1343499ffb9b1b49d61d06219e34d25d42b9af1113a2aa2c402",
+            "cafb2af96422c3f8639058d9a7fdfc25bc95734c149012d1ba1f932518d15c57",
+            "99ad6fe62f0bd3a1d5161803598d97d44053f9fa8fa4b169329af16c414e23ea",
+            "2ff99aa72a654c6decab070b20de3bc3b060e15d4a004624ef861ff7429c246b"
+          ],
+          "outputHashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6"
+          ],
+          "notes": "The reopened native stage supplied registered isolated frames. Pillow packed the camera crops with lossless WebP and fixed subject pivots."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco and Network Quest contributors",
+          "OpenAI Codex (assisted original staging and code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/sprites/R04/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/sprites/R04/NOTICE.md"
+        ],
+        "aiDisclosure": "Agent-assisted staging and tools. All sprite pixels rendered in Blender from project-owned source assets."
+      },
+      "usedBy": [
+        {
+          "contentId": "spec001:R04",
+          "use": "sprite-animation",
+          "evidencePath": "docs/evidence/spec001/assets/T134/props-usage.json"
+        }
+      ],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop 151 / T134",
+          "date": "2026-11-27",
+          "environment": "Mac16,7/macOS 26.6.2 arm64; Blender 5.2.1 LTS Cycles; Pillow 12.1.0; native Firefox 159; pinned Node 26.13.1",
+          "hashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "7c6d38972b9a9e6eacf7e82c6e4622b88aa129003b5446be37d05d5f94521fdc"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/T134/props-source-reopen.json",
+          "findings": "Blender reopened the assembled native stage, evaluated the original rig tracks and rendered the saved camera crops."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex loop 151 / T134",
+          "date": "2026-11-27",
+          "environment": "Mac16,7/macOS 26.6.2 arm64; Blender 5.2.1 LTS Cycles; Pillow 12.1.0; native Firefox 159; pinned Node 26.13.1",
+          "hashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "7c6d38972b9a9e6eacf7e82c6e4622b88aa129003b5446be37d05d5f94521fdc"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/T134/props-visual.json",
+          "findings": "Inspected the registered room, extracted poses, feathered contact shadows, alpha edges and floor-disabled comparison."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex loop 151 / T134",
+          "date": "2026-11-27",
+          "environment": "Mac16,7/macOS 26.6.2 arm64; Blender 5.2.1 LTS Cycles; Pillow 12.1.0; native Firefox 159; pinned Node 26.13.1",
+          "hashes": [
+            "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+            "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+            "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+            "7c6d38972b9a9e6eacf7e82c6e4622b88aa129003b5446be37d05d5f94521fdc"
+          ],
+          "evidencePath": "docs/evidence/spec001/assets/T134/props-browser-comparison.json",
+          "findings": "The native guest camera showed 12 depth-ordered pieces of apparatus. Firefox fetched the exact export bytes and the renderer used the registered frame cells."
+        }
+      ],
+      "image": {
+        "width": 340,
+        "height": 448,
+        "colorSpace": "sRGB",
+        "alpha": true,
+        "cameraRecordPath": "assets-src/images/R04/camera.json",
+        "layerRole": "depth-ordered cast sprites",
+        "registrationPath": "content/spec001/presentation/R04.json",
+        "frameTimingPath": "content/spec001/presentation/R04.json"
+      }
+    }
+  ]
+}

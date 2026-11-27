@@ -314,7 +314,16 @@ describe('planned catalog source reconciliation', () => {
     expect(allocated).toHaveLength(380);
     expect(allocated.map(a => a.assetId)).toEqual(assetAllocations.map(a => a.assetId));
     const additional = plannedManifest.assets.filter(a => !allocatedIds.has(a.assetId));
-    for (const a of additional) { expect(a.kind).toBe('room-model'); expect(a.countsTowardQuota).toBe(false); }
+    const production = JSON.parse(await readFile(resolve(project, 'assets-src/production-allocation.json'), 'utf8')) as {
+      uncountedSupportReservations: {assetId: string; kind: string}[];
+    };
+    const supportKinds = new Map(production.uncountedSupportReservations.map(row => [row.assetId, row.kind]));
+    supportKinds.set('spec001:ASSET-ARCH-R01', 'room-model');
+    supportKinds.set('spec001:ASSET-SPRITE-R04-props', 'sprite-sheet');
+    for (const asset of additional) {
+      expect(supportKinds.get(asset.assetId)).toBe(asset.kind);
+      expect(asset.countsTowardQuota).toBe(false);
+    }
     expect(new Set(plannedManifest.assets.map(a => a.assetId)).size).toBe(plannedManifest.assets.length);
     // T061 established the empty plan. Later production may advance individual
     // rows; the independent oracle still tests planned/partial quota exclusion.

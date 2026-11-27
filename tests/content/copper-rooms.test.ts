@@ -125,7 +125,7 @@ describe('T075 Copper Warrens and Echo Cavern authored room contract', () => {
     for (const id of ['R03', 'R04']) {
       const value = room(id), metadata = world.rooms.find(r => r.id === value.id)!;
       expect(value.characterIds).toEqual(metadata.characterIds);
-      expect(value.propInstances.map(p => p.propId)).toEqual(metadata.propIds);
+      expect(value.propInstances.filter(p => world.props.find(a => a.id === p.propId)?.allocation !== 'Shared').map(p => p.propId)).toEqual(metadata.propIds);
       expect(value.safePositions.map(p => p.id)).toEqual(metadata.safePositionIds);
       expect(value.futureDoorIds).toEqual([]);
     }
@@ -144,12 +144,12 @@ describe('T075 Copper Warrens and Echo Cavern authored room contract', () => {
       }
     }
   });
-  it('makes no finished media, audio, recruitment or direct completion claim', () => {
+  it('keeps visual bindings separate from audio, recruitment and completion', () => {
     for (const id of ['R03', 'R04']) {
       const value = room(id);
-      expect(value.mediaBindings).toBeUndefined();
+      expect((value.mediaBindings ?? []).every(b => b.contentId === value.id && !['music', 'effect', 'voice-line'].includes(b.use))).toBe(true);
       expect(value.ambience.assetIds).toEqual([]);
-      expect(value.propInstances.every(p => p.assetId.startsWith('spec001:DEV-'))).toBe(true);
+      expect(value.propInstances.every(p => p.assetId === p.propId.replace(':', value.mediaBindings ? ':ASSET-' : ':DEV-'))).toBe(true);
       expect(JSON.stringify(value)).not.toMatch(/"(?:effects|acceptedEffects|recruitment)"|"complete-objective"|"grant-item"/);
     }
     expect(room('R04').presentationMode).toBe('rendered-room');

@@ -7,7 +7,7 @@ import { createResourceScope } from './resource-pool';
 import type { ResourcePool, ResourceScope } from './resource-pool';
 
 /** A projection of validated authoritative state, never a mutable GameState or reward channel. */
-export interface RoomView extends Omit<AppShellView, 'presentationStatus'> { readonly roomId: RoomId }
+export interface RoomView extends Omit<AppShellView, 'presentationStatus'> { readonly roomId: RoomId; readonly activeAllyIds?: readonly string[] }
 export type RoomMode = 'three' | 'layered' | 'sprite' | 'text';
 export interface RoomSettings {
   readonly mode: RoomMode;
@@ -64,7 +64,7 @@ function snapshot(view: RoomView): RoomView {
     ids.add(input.id);
     return Object.freeze({ ...input, action: copySemanticAction(input.action) });
   };
-  return Object.freeze({ ...view, context: view.context && Object.freeze({ ...view.context }),
+  return Object.freeze({ ...view, ...(view.activeAllyIds ? { activeAllyIds: Object.freeze([...view.activeAllyIds]) } : {}), context: view.context && Object.freeze({ ...view.context }),
     controls: Object.freeze(view.controls.map(control)),
     objects: Object.freeze(view.objects.map(object => Object.freeze({ ...object, actions: Object.freeze(object.actions.map(control)) }))),
     evidence: Object.freeze(view.evidence.map(evidence => Object.freeze({ ...evidence, ...(evidence.action ? { action: control(evidence.action) } : {}) }))),

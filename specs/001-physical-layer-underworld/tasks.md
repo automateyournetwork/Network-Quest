@@ -772,8 +772,8 @@ settled the playable routes. Reconcile the candidate with that accepted build.
 
 **Ready after**: T106–T132.
 
-- [ ] T133 [P] [US8] Complete camera-registered layered imagery, real-time characters/props and occluder handling in `src/presentation/layered-room.ts`; retain the shared semantic action/state model and low-detail equivalents.
-- [ ] T134 [P] [US8] Implement Blender-rendered sprite atlas/frame timing/pivots and room composition in `src/presentation/sprite-room.ts`; validate source render settings against playback without inventing gameplay outcomes.
+- [X] T133 [P] [US8] Complete camera-registered layered imagery, real-time characters/props and occluder handling in `src/presentation/layered-room.ts`; retain the shared semantic action/state model and low-detail equivalents.
+- [X] T134 [P] [US8] Implement Blender-rendered sprite atlas/frame timing/pivots and room composition in `src/presentation/sprite-room.ts`; validate source render settings against playback without inventing gameplay outcomes.
 - [ ] T135 [US8] Finish native R01/R02 compositions and production placements in `assets-src/rooms/R02.blend`, `content/spec001/presentation/R01.json` and `content/spec001/presentation/R02.json`; preserve the real-time R01 benchmark and integrate all accepted scene audio.
 - [ ] T136 [P] [US8] Finish R03/R04 native scenes and placements in `assets-src/rooms/R03.blend`, `assets-src/rooms/R04.blend` and `content/spec001/presentation/R03.json` and `content/spec001/presentation/R04.json`; export/review R04 sprite animation with matching interaction coordinates.
 - [ ] T137 [P] [US8] Finish R05/R06 native scenes and placements in `assets-src/rooms/R05.blend`, `assets-src/rooms/R06.blend` and `content/spec001/presentation/R06.json` and `content/spec001/presentation/R05.json`; prove R05 layers plus real-time characters/props and preserve readable optical evidence.

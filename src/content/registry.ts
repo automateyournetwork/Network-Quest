@@ -453,15 +453,47 @@ function checkRecord(r: S.authoredRecord, w: S.world, records: S.authoredRecord[
     const bindings = r.mediaBindings ?? [];
     if (new Set(bindings.map(b => b.assetId)).size !== bindings.length) fail('media-binding', r.id, 'A room asset has more than one runtime binding');
     for (const binding of bindings) {
-      const local = ['room-architecture', 'prop-placement', 'character-placement', 'background', 'midground', 'foreground'].includes(binding.use);
+      const local = ['room-architecture', 'prop-placement', 'character-placement', 'background', 'midground', 'foreground', 'sprite-animation', 'party-placement', 'ambience'].includes(binding.use);
       if (local && binding.contentId !== r.id) fail('media-binding', binding.assetId, 'Room placement must name its actual room');
-      if (binding.use === 'prop-placement' && !r.propInstances.some(p => p.assetId === binding.assetId)) fail('media-binding', binding.assetId, 'Prop export must match an authored room instance');
       if (binding.use === 'voice-line' && !records.some(rec => rec.kind === 'dialogue' && rec.nodes.some(n => n.id === binding.contentId))) fail('media-binding', binding.assetId, 'Voice export must name an actual authored line');
-      if (binding.use === 'effect' && !r.hotspots.some(h => h.actionIds.includes(binding.contentId))) fail('media-binding', binding.assetId, 'Effect must name an exposed authored room action');
+      if (binding.use === 'effect' && !r.hotspots.some(h => h.actionIds.includes(binding.contentId))) {
+        const number = /^spec001:ASSET-EFFECT-(\d{3})$/.exec(binding.assetId)?.[1];
+        if (binding.contentId !== r.id || !number || ![`public/assets/audio/effects/fx-${number}.mp3`, `public/assets/audio/effects/effect-${number}.mp3`, `public/assets/audio/auditions/effect-${number}.mp3`].includes(binding.exportPath)) fail('media-binding', binding.assetId, 'Effect must identify its authored action or registered room cue');
+      }
       if (binding.use === 'music' && binding.contentId !== r.id && binding.contentId !== 'spec001:TITLE') fail('media-binding', binding.assetId, 'Music must name its actual room or title surface');
-      const suffix = ['room-architecture', 'prop-placement', 'character-placement'].includes(binding.use) ? '.glb' : ['background', 'midground', 'foreground'].includes(binding.use) ? '.png' : '.mp3';
-      if (!binding.exportPath.endsWith(suffix)) fail('media-binding', binding.assetId, 'Export format differs from its authored use');
-      if (binding.interactiveOrEvidence && binding.use !== 'prop-placement') fail('media-binding', binding.assetId, 'Interactive prop evidence is not a decorative media claim');
+      const roomCode = r.id.split(':')[1];
+      const isLayer = ['background', 'midground', 'foreground'].includes(binding.use);
+      if (isLayer) {
+        const extension = roomCode === 'R01' ? 'png' : 'webp';
+        if (binding.assetId !== `spec001:ASSET-LAYER-${roomCode}-${binding.use}` ||
+          binding.exportPath !== `public/assets/images/${roomCode}/${binding.use}.${extension}`) fail('media-binding', binding.assetId, 'Layer identity, plane, export and room must agree');
+      } else if (binding.use === 'sprite-animation') {
+        const sheet = binding.assetId.split('-').at(-1);
+        if (r.presentationMode !== 'rendered-room' || binding.assetId !== `spec001:ASSET-SPRITE-${roomCode}-${sheet}` ||
+          binding.exportPath !== `public/assets/sprites/${roomCode}/${sheet}.webp`) fail('media-binding', binding.assetId, 'Atlas must identify its rendered room');
+      } else if (binding.use === 'party-placement') {
+        const code = binding.assetId.replace('spec001:ASSET-', ''), characterId = `spec001:${code}`;
+        if (!w.characters.some(c => c.id === characterId && c.recruitable) || r.characterIds.includes(characterId) ||
+          binding.exportPath !== `public/assets/models/${code}.glb`) fail('media-binding', binding.assetId, 'Party placement must resolve an eligible nonresident companion export');
+      } else if (binding.use === 'ambience') {
+        if (binding.assetId !== `spec001:ASSET-AMBIENCE-${roomCode}` || binding.exportPath !== `public/assets/audio/ambience/${roomCode!.toLowerCase()}.mp3`) fail('media-binding', binding.assetId, 'Ambience must match its room identity and export');
+      } else if (binding.use === 'character-placement' || binding.use === 'prop-placement') {
+        const code = binding.assetId.replace('spec001:ASSET-', '');
+        const identity = `spec001:${code}`;
+        if (binding.use === 'character-placement') {
+          if ((identity !== 'spec001:CH01' && !r.characterIds.includes(identity)) || binding.exportPath !== `public/assets/models/${code}.glb`) fail('media-binding', binding.assetId, 'Character export must match the apprentice or an authored local character');
+        } else if (!r.propInstances.some(p => p.propId === identity && p.assetId === binding.assetId) ||
+          !(binding.exportPath.endsWith(`/${code}.glb`) || (roomCode === 'R01' && binding.exportPath === `public/assets/models/R01-${code}.glb`))) fail('media-binding', binding.assetId, 'Prop export must match the registered prop identity');
+      } else {
+        const suffix = binding.use === 'room-architecture' ? '.glb' : '.mp3';
+        if (!binding.exportPath.endsWith(suffix)) fail('media-binding', binding.assetId, 'Export format differs from its authored use');
+      }
+      if (binding.interactiveOrEvidence && binding.use !== 'prop-placement') {
+        const sheet = binding.assetId.split('-').at(-1);
+        const hasSpriteTarget = binding.use === 'sprite-animation' && ((sheet === 'CH01' && r.safePositions.length > 0) || r.hotspots.some(h =>
+          sheet === 'props' ? r.propInstances.some(p => p.propId === h.subjectId) : h.subjectId === `spec001:${sheet}`));
+        if (!hasSpriteTarget) fail('media-binding', binding.assetId, 'Interactive media must identify a prop or a selectable atlas subject');
+      }
     }
     for (const hotspot of r.hotspots) for (const actionId of hotspot.actionIds) {
       for (const dialogue of records.filter(rec => rec.kind === 'dialogue')) {

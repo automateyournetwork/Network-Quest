@@ -92,7 +92,7 @@ main:has(> .nq-game) { max-width: none; margin: 0; padding: 0; }
 .nq-game-stage .nq-graybox-stage { position:absolute; inset:0; width:100%; height:100%; }
 .nq-game-toolbar { display:flex; align-items:stretch; gap:.5em; padding:6px; border-top:3px ridge #ac8c56; background:linear-gradient(#314044,#172b32); min-height:68px; flex-shrink:0; }
 .nq-game-toolbar .nq-shell-controls { display:flex; flex:1; gap:4px; flex-wrap:wrap; align-items:stretch; }
-.nq-game-toolbar .nq-shell-control { display:flex; flex:1; }
+.nq-game-toolbar .nq-shell-control { display:flex; flex:1; min-width:min-content; overflow-wrap:normal; }
 .nq-game-toolbar .nq-shell-control > button { width:100%; text-align:center; padding:.3em .45em; }
 .nq-game-toolbar kbd { font-size:.7em; margin-left:.45em; color:inherit; opacity:.85; }
 .nq-frame-tools { display:flex; flex-wrap:wrap; gap:4px; }
@@ -142,7 +142,8 @@ main:has(> .nq-game) { max-width: none; margin: 0; padding: 0; }
   .nq-game-toolbar .nq-shell-controls { flex-basis:100%; }
   .nq-game-toolbar .nq-shell-control { flex:1 1 20%; }
   .nq-frame-tools { width:100%; }
-  .nq-frame-tools button { flex:1; }
+  .nq-frame-tools button { flex:1 0 auto; }
+  .nq-frame-tools .nq-optional-openers { display:contents; }
   .nq-game .nq-window-active { inset:6px; width:calc(100% - 12px); max-height:calc(100% - 12px); padding:.6em; }
   .nq-game .nq-title-window { padding:1em; }
 }
