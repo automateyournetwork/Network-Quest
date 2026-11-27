@@ -10,6 +10,8 @@ import type { ActivityState, DirtyGeneration, GameState, Measurement, RuntimeSta
 import { conditionSupported as supportedCondition, conditionSatisfied as conditionMet } from './conditions';
 import { prepareNotebookChange } from './notebook';
 import type { NotebookOperation } from './notebook';
+import { prepareObjectiveChange } from './objectives';
+import type { ObjectiveOperation, ObjectiveScenarioResolver } from './objectives';
 
 /** Authored effects only. Evaluators select them; the reducer never scores physics. */
 export type StateEffect = S.effect & IdentifiedEffect;
@@ -42,6 +44,7 @@ interface EffectRequest {
   readonly destination?: Destination;
 }
 export type ReducerInput =
+  | { readonly kind: 'objective'; readonly operation: ObjectiveOperation }
   | { readonly kind: 'notebook'; readonly operation: NotebookOperation }
   | (EffectRequest & { readonly kind: 'apply' })
   | (EffectRequest & { readonly kind: 'begin'; readonly activity: 'pending-effect' | 'room-transition' | 'dialogue-transaction' })
@@ -84,6 +87,7 @@ export interface Reduction {
 export interface ReducerOptions {
   readonly registry: ContentRegistry;
   readonly bindings: readonly EffectBinding[];
+  readonly objectiveScenario?: ObjectiveScenarioResolver;
   /**
    * Trusted pure navigation adapter, using actual unlocked/reversible paths in
    * the supplied candidate world. Default proves only a zero-step path. T028
@@ -414,9 +418,10 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
       return accept(state, command.actionId, { ...result.value, activity: pending.request.destination ? result.value.activity : pending.previousActivity }, true);
     }
     if (pending) return reject('transition-pending');
-    if (input.kind === 'notebook') {
+    if (input.kind === 'notebook' || input.kind === 'objective') {
       if (!safeKinds.has(state.runtime.activity.kind)) return reject('invalid-state');
-      const notebook = prepareNotebookChange(registry, game, input.operation);
+      const notebook = input.kind === 'notebook' ? prepareNotebookChange(registry, game, input.operation)
+        : prepareObjectiveChange(registry, options.objectiveScenario, game, input.operation);
       if (!notebook.ok) return reject(notebook.reason);
       const prepared = prepare(state, { evaluation: notebook.evaluation });
       if (!prepared.ok) return reject(prepared.reason);

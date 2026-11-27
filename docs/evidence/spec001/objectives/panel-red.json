@@ -1,0 +1,73 @@
+{
+  "task": "T074",
+  "surface": "actual Playwright Firefox DOM",
+  "observedAt": "2026-11-27T00:30:16.991Z",
+  "source": "src/ui/diagnostics.ts",
+  "results": [
+    {
+      "name": "detached buttons from a prior render cannot measure, hint or close a newer view",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "render(null) retires hidden same-version controls and restores opener focus",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n2 !== 0\n"
+    },
+    {
+      "name": "close retires immediately even when the owner callback does not rerender",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n2 !== 1\n"
+    },
+    {
+      "name": "old close control cannot close a newly reopened same-version panel",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "hint focus remains on the hint when a measurement inserts another button",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'Submit this reading'\n- 'Show method hint'\n"
+    },
+    {
+      "name": "close focus remains on close when the measurement list grows",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'Submit this reading'\n- 'Close diagnostics'\n"
+    },
+    {
+      "name": "measurement focus follows the recorded ID when list order changes",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: {\"calls\":[],\"closed\":0,\"hidden\":false,\"focus\":\"Submit this reading\",\"reading\":\"Current reading: Reading 1Submit this reading\",\"buttons\":[\"Take measurement\",\"Submit this reading\",\"Submit this reading\",\"Submit this reading\",\"Show method hint\",\"Close diagnostics\"]}"
+    },
+    {
+      "name": "unchanged render retains controls and one valid dispatch",
+      "status": "PASS"
+    },
+    {
+      "name": "actual keyboard Enter activates a hint and Escape closes once with focus return",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n2 !== 1\n"
+    },
+    {
+      "name": "disabled/stale measurement cannot dispatch even via synthetic event",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "dispose retires controls and cannot be reversed by render",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n"
+    },
+    {
+      "name": "detached overlay host cannot dispatch or close",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1 !== 0\n"
+    }
+  ],
+  "pageErrors": [],
+  "browserVersion": "159.0",
+  "passed": 1,
+  "failed": 11,
+  "sourceSha256": "d357e021bdec9fd3af34dab1c32a56daef31f3d891cfb099268a4163c96d06d2",
+  "sourceSha256Basis": "pre-correction source seal"
+}

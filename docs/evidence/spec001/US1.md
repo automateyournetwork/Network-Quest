@@ -309,3 +309,12 @@ production media, actual Safari/full browser/performance/visibility matrix,
 human reviews and owner satisfaction are not certified by this increment.
 See [loop046](../../implementation/loops/046-T035.md) for exact commands, retained
 failure history, measured graybox budgets and artifact seals.
+
+## Scoped guest checkpoint accepted — 2026-11-26
+
+T035 and the US1 opening review are accepted after independent loop086 reassessment
+of actual guest/four-verb/O01–O02/initialpacket evidence, corrected contained-screen
+owner approval and native pause review. See [reassessment](guest-checkpoint-reassessment-2026-11-26.md).
+Final077 and later copper results retain their separate candidate scopes. No new
+browser run is claimed. Aggregate G1 stays pending on named G0 prerequisites;
+complete episode, provider, human learning and later room/media work remain open.

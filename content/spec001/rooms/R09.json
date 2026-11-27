@@ -1,0 +1,490 @@
+{
+  "kind": "room",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:R09",
+  "presentationMode": "hybrid",
+  "description": "A vaulted bazaar glows beneath shell-shaped awnings. The Hermit Crab has arranged modules like very expensive chocolates; the Chimera keeps trying to sell you the box. Across the aisle, the Electric Eel balances a power ledger on a thoroughly insulated stand. The Mole and Badger tend quieter exhibits about telephone pairs and coaxial cable. A chalk line leads from the display cases to a compatibility chart, then to two loan-kit trays and the test bench. Every specification is readable; nothing depends on telling two shiny shells apart. The workshop doorway stays clear. You may prepare equipment before finishing a media branch, and return for another kit without buying, recruiting or winning anything.",
+  "walkRegions": [
+    {
+      "id": "spec001:WALK-R09",
+      "label": "Clear market aisle",
+      "vertices": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 12,
+          "y": 0
+        },
+        {
+          "x": 12,
+          "y": 7
+        },
+        {
+          "x": 0,
+          "y": 7
+        }
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "toRoomId": "spec001:R02",
+      "label": "Walk to The Titan's Workshop",
+      "walkRegionId": "spec001:WALK-R09"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "spec001:HOTSPOT-market-case",
+      "subjectId": "spec001:PR081",
+      "label": "Module display case",
+      "description": "Two complete route-kit trays sit beside a shell with the wrong physical profile. The Hermit Crab has labeled all three clearly: a convincing silhouette cannot replace a supported combination. Look at the cards, then use the compatibility chart and power ledger before validating either complete kit.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "evidenceIds": [
+        "spec001:FACT-O09-module",
+        "spec001:FACT-market-checklist"
+      ],
+      "actionIds": [
+        "spec001:ACTION-market-original-over-budget",
+        "spec001:ACTION-market-compatible-kit-A",
+        "spec001:ACTION-market-compatible-kit-B",
+        "spec001:ACTION-market-same-shell-mismatch",
+        "spec001:ACTION-market-per-port-failure",
+        "spec001:ACTION-market-read-checklist",
+        "spec001:ACTION-market-read-power"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-market-sfp",
+      "subjectId": "spec001:PR082",
+      "label": "SFP test cage",
+      "description": "The cage accepts a familiar shell shape. Its host card is a separate document. “My house fitting through your door does not mean I can run your kitchen,” says the Hermit Crab. Read the selected module, medium, PHY, host and power requirements together.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "evidenceIds": [
+        "spec001:FACT-market-checklist"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-market-qsfp",
+      "subjectId": "spec001:PR083",
+      "label": "QSFP test cage",
+      "description": "A many-laned diagram decorates the broad cage. The Chimera is proud of the diagram; it proves neither a particular supported rate nor a compatible host. The declared module and host profiles determine those facts.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "evidenceIds": [
+        "spec001:FACT-market-checklist"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-market-chart",
+      "subjectId": "spec001:PR088",
+      "label": "Equipment compatibility chart",
+      "description": "Read each supplied row before testing the kit: form factor; PHY; medium; supported rate; host support; power method; each occupied port. A single failed row prevents readiness. The endpoint cards both negotiate: A advertises 1000/full and 100/full; B advertises 100/full and 10/half. Only 100/full appears in both.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "evidenceIds": [
+        "spec001:FACT-O09-module",
+        "spec001:FACT-O09-capability",
+        "spec001:FACT-market-checklist"
+      ],
+      "actionIds": [
+        "spec001:ACTION-equipment-read-capabilities",
+        "spec001:ACTION-equipment-mode-100-full",
+        "spec001:ACTION-equipment-mode-1000-full",
+        "spec001:ACTION-equipment-mode-10-half"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-market-injector",
+      "subjectId": "spec001:PR084",
+      "label": "Delivered-power injector",
+      "description": "The fictional label reads “30 W delivered to endpoints, after losses.” This is the comparison boundary for every demand card. The light indicates power; it does not announce a working data link or a successful application.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "evidenceIds": [
+        "spec001:FACT-O09-power",
+        "spec001:FACT-market-ledger"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-market-endpoints",
+      "subjectId": "spec001:PR085",
+      "label": "Endpoint demand cards",
+      "description": "The original three cards require 12 W, 11 W and 10 W. Total them before choosing a tray. Kit A uses the compatible 12 W and 11 W endpoints; kit B adds the supplied compatible 7 W endpoint. Both kits preserve their required route equipment; neither means discarding a mandatory tool to make the sum fit.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "evidenceIds": [
+        "spec001:FACT-market-ledger"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-market-ledger",
+      "subjectId": "spec001:PR089",
+      "label": "Power ledger",
+      "description": "Keep the over-budget proposal visible while testing a replacement. Use the reusable inspection kit to capture the chosen kit’s current power and common-capability readings, check every compatibility row and occupied port, then submit that captured evidence. Compare 33 W before with 23 W or 30 W after. A label, button press or glowing lamp earns no equipment approval by itself.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "evidenceIds": [
+        "spec001:FACT-O09-power",
+        "spec001:FACT-O09-capability",
+        "spec001:FACT-market-ledger"
+      ],
+      "actionIds": [
+        "spec001:ACTION-O09-compatible-kit-A",
+        "spec001:ACTION-O09-compatible-kit-B"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-market-counter",
+      "subjectId": "spec001:PR090",
+      "label": "Loan counter",
+      "description": "Borrow either complete kit and inspect it with the ordinary kit from your satchel. There is no fee or exhausted supply. You can return to the workshop, switch kits and test again. Help offers method, worked step and solution without a penalty. The Eel’s optional Energy Audit and the old maintenance record are separate errands.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "evidenceIds": [
+        "spec001:FACT-market-loans"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-market-coax",
+      "subjectId": "spec001:PR086",
+      "label": "Coaxial cross-section",
+      "description": "The Badger taps the outer conductor with a pencil. “A cable has a history, and sometimes a very persuasive sales representative.” The cutaway illustrates a coaxial medium; its shape and history do not certify it for the route you are repairing.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "evidenceIds": [
+        "spec001:FACT-O09-module"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-market-telephone",
+      "subjectId": "spec001:PR087",
+      "label": "Telephone demarcation exhibit",
+      "description": "A pair of wires disappears into an unplugged demonstration box. The Mole explains that an existing telephone medium has its own equipment context. Neither two wires nor a familiar plug establishes the required PHY, reach or host support for this repair.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "evidenceIds": [
+        "spec001:FACT-O09-module"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-market-hermit",
+      "subjectId": "spec001:CH16",
+      "label": "SFP Hermit Crab",
+      "description": "“Look at my shell. Now look at my card. Excellent: two different acts of engineering.” The Hermit Crab explains the compatibility chart without requiring recruitment. His advice remains on the readable chart after you finish talking.",
+      "verbs": [
+        "look",
+        "talk"
+      ],
+      "unsupportedVerbText": "The Hermit Crab is a helpful adviser, not an interchangeable module. Talk about the equipment card, or use the ordinary inspection kit at the ledger.",
+      "evidenceIds": [
+        "spec001:FACT-market-checklist"
+      ],
+      "actionIds": [
+        "spec001:ACTION-market-read-checklist"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-market-chimera",
+      "subjectId": "spec001:CH17",
+      "label": "QSFP Chimera",
+      "description": "The Chimera’s heads agree on one thing: “More lanes on a picture do not grant an unsupported mode.” Read the exact module and host specifications; form factor alone determines neither PHY, medium nor supplied power.",
+      "verbs": [
+        "look",
+        "talk"
+      ],
+      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "evidenceIds": [
+        "spec001:FACT-market-checklist"
+      ],
+      "actionIds": [
+        "spec001:ACTION-market-read-checklist"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-market-eel",
+      "subjectId": "spec001:CH19",
+      "label": "Electric Eel",
+      "description": "“Thirty-three watts is a splendid ambition for a thirty-watt allowance,” says the Eel. “It is also three watts too many.” Ask for the power profile; he explains the accounting boundary and individual port checks. You can do every required check with the ordinary inspection kit.",
+      "verbs": [
+        "look",
+        "talk"
+      ],
+      "unsupportedVerbText": "The Eel declines to become a jumper lead. Talk for the power explanation, or inspect the isolated ledger with your reusable kit.",
+      "evidenceIds": [
+        "spec001:FACT-market-ledger"
+      ],
+      "actionIds": [
+        "spec001:ACTION-market-read-power"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-market-mole",
+      "subjectId": "spec001:CH14",
+      "label": "DSL Mole",
+      "description": "The Mole brushes dust from a telephone-pair diagram. “Old infrastructure is a context, not a universal adapter.” His exhibit invites a look at the medium; the compatibility chart still decides the supplied repair.",
+      "verbs": [
+        "look",
+        "talk"
+      ],
+      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "evidenceIds": [
+        "spec001:FACT-O09-module"
+      ],
+      "actionIds": [
+        "spec001:ACTION-market-read-checklist"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-market-badger",
+      "subjectId": "spec001:CH15",
+      "label": "DOCSIS Badger",
+      "description": "The Badger guards a coaxial cutaway with the solemnity of a museum curator who has misplaced the museum. He points you toward its conductor labels and then the equipment compatibility chart.",
+      "verbs": [
+        "look",
+        "talk"
+      ],
+      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "evidenceIds": [
+        "spec001:FACT-O09-module"
+      ],
+      "actionIds": [
+        "spec001:ACTION-market-read-checklist"
+      ]
+    }
+  ],
+  "characterIds": [
+    "spec001:CH14",
+    "spec001:CH15",
+    "spec001:CH16",
+    "spec001:CH17",
+    "spec001:CH19"
+  ],
+  "propInstances": [
+    {
+      "instanceId": "r09-pr081",
+      "propId": "spec001:PR081",
+      "description": "Two fitted trays in a glass case distinguish complete compatible kit A from complete compatible kit B; a third display holds a deliberately mismatched shell for inspection.",
+      "assetId": "spec001:ASSET-PR081"
+    },
+    {
+      "instanceId": "r09-pr082",
+      "propId": "spec001:PR082",
+      "description": "The SFP test cage exposes its host support card beside its mechanical outline; fit and supported operation are separate checks.",
+      "assetId": "spec001:ASSET-PR082"
+    },
+    {
+      "instanceId": "r09-pr083",
+      "propId": "spec001:PR083",
+      "description": "The QSFP test cage has a lane diagram and an explicit reminder to consult the module and host profiles.",
+      "assetId": "spec001:ASSET-PR083"
+    },
+    {
+      "instanceId": "r09-pr084",
+      "propId": "spec001:PR084",
+      "description": "An isolated teaching power injector carries the accounting label: 30 W delivered to endpoints after losses.",
+      "assetId": "spec001:ASSET-PR084"
+    },
+    {
+      "instanceId": "r09-pr085",
+      "propId": "spec001:PR085",
+      "description": "Three detachable endpoint demand cards read 12 W, 11 W and 10 W; a replacement third demand card reads 7 W.",
+      "assetId": "spec001:ASSET-PR085"
+    },
+    {
+      "instanceId": "r09-pr086",
+      "propId": "spec001:PR086",
+      "description": "A cutaway of coaxial cable reveals the center conductor, surrounding insulation and outer conductor without claiming it fits the chosen repair.",
+      "assetId": "spec001:ASSET-PR086"
+    },
+    {
+      "instanceId": "r09-pr087",
+      "propId": "spec001:PR087",
+      "description": "An unplugged telephone demarcation exhibit explains an existing telephone-pair context without substituting it for a compatible Ethernet path.",
+      "assetId": "spec001:ASSET-PR087"
+    },
+    {
+      "instanceId": "r09-pr088",
+      "propId": "spec001:PR088",
+      "description": "A full compatibility checklist separates form factor, PHY, medium, supported rate, host support, power method and per-port constraints.",
+      "assetId": "spec001:ASSET-PR088"
+    },
+    {
+      "instanceId": "r09-pr089",
+      "propId": "spec001:PR089",
+      "description": "A ruled ledger preserves the original 33 W proposal beside fresh 23 W or 30 W readings; old readings remain visible after equipment changes.",
+      "assetId": "spec001:ASSET-PR089"
+    },
+    {
+      "instanceId": "r09-pr090",
+      "propId": "spec001:PR090",
+      "description": "The loan counter holds the route kit cards, a reminder that the inspection kit is reusable, and the return route to the workshop.",
+      "assetId": "spec001:ASSET-PR090"
+    }
+  ],
+  "safePositions": [
+    {
+      "id": "spec001:R09.entry",
+      "walkRegionId": "spec001:WALK-R09",
+      "point": {
+        "x": 6,
+        "y": 2
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec001:FACT-O09-module",
+      "roomId": "spec001:R09",
+      "subjectIds": [
+        "spec001:R09",
+        "spec001:PROFILE-POWER",
+        "spec001:PROFILE-CAPABILITIES"
+      ],
+      "kind": "context",
+      "text": "Shell Market checks form factor, PHY, medium, supported rate, host support, power method and per-port limits for the chosen route kit. Matching an SFP-shaped shell alone is insufficient. The supplied compatible kits explicitly satisfy each field; tools remain recoverable without side-quest rewards.",
+      "ruleIds": [
+        "spec001:PHY03",
+        "spec001:PHY08",
+        "spec001:PHY09"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-O09-power",
+      "roomId": "spec001:R09",
+      "subjectIds": [
+        "spec001:PROFILE-POWER"
+      ],
+      "kind": "measurement",
+      "text": "This fictional budget is 30 W delivered at the endpoint boundary after losses. Compatible kit A demands 12 W + 11 W = 23 W, leaving 7 W. Kit B demands 12 W + 11 W + 7 W = 30 W, leaving zero. Both fit the inclusive budget when each port constraint also passes. The 12 W + 11 W + 10 W proposal totals 33 W and exceeds it by 3 W. Do not subtract unspecified line losses a second time.",
+      "ruleIds": [
+        "spec001:PHY08"
+      ],
+      "requiresFreshMeasurement": true,
+      "readings": [
+        {
+          "name": "Delivered budget",
+          "unit": "W"
+        },
+        {
+          "name": "Total delivered demand",
+          "unit": "W"
+        },
+        {
+          "name": "Delivered headroom",
+          "unit": "W"
+        }
+      ]
+    },
+    {
+      "id": "spec001:FACT-O09-capability",
+      "roomId": "spec001:R09",
+      "subjectIds": [
+        "spec001:PROFILE-CAPABILITIES"
+      ],
+      "kind": "measurement",
+      "text": "Both toy endpoints negotiate. A advertises 1000/full and 100/full; B advertises 100/full and 10/half. The only common member is 100/full. The rates are decimal megabits per second; neither endpoint gains unsupported modes.",
+      "ruleIds": [
+        "spec001:PHY09"
+      ],
+      "requiresFreshMeasurement": true,
+      "readings": [
+        {
+          "name": "Selected common rate",
+          "unit": "Mbps"
+        }
+      ]
+    },
+    {
+      "id": "spec001:FACT-market-checklist",
+      "roomId": "spec001:R09",
+      "subjectIds": [
+        "spec001:PR088",
+        "spec001:PR082",
+        "spec001:PR083"
+      ],
+      "kind": "context",
+      "text": "Source: the compatibility chart in the Shell Market. The supplied kit cards explicitly mark form factor matched, PHY and medium matched, supported rate checked, host support confirmed, power method compatible, and each occupied port within its stated constraints. These are separate supplied checks, not conclusions from a fitting shell or a power sum. A same-shaped module with a mismatched PHY or medium remains incompatible even at 23 W. A failed per-port check still fails with 7 W aggregate headroom. The exhibit supplies pass/fail port checks; it does not invent numeric port ratings. Check the chosen route card again whenever you change equipment.",
+      "ruleIds": [
+        "spec001:PHY03",
+        "spec001:PHY08",
+        "spec001:PHY09"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-market-ledger",
+      "roomId": "spec001:R09",
+      "subjectIds": [
+        "spec001:PR084",
+        "spec001:PR085",
+        "spec001:PR089"
+      ],
+      "kind": "context",
+      "text": "Source: the power ledger in the Shell Market. Before repair: the proposal asks for 12 W + 11 W + 10 W = 33 W, exceeding the fictional delivered capacity of 30 W by 3 W. After choosing kit A: 12 W + 11 W = 23 W, leaving 7 W. After choosing kit B: 12 W + 11 W + 7 W = 30 W, leaving 0 W; the inclusive limit permits it. Each occupied port and every compatibility field must also pass. Both budget and demands are measured at the endpoint boundary after losses; do not silently use a switch-output budget or subtract line loss again. A reading describes the equipment when it was taken. Changing the kit leaves that reading stale until you measure again; submitting an old reading does not retest it.",
+      "ruleIds": [
+        "spec001:PHY08",
+        "spec001:STATE01",
+        "spec001:STATE02"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-market-loans",
+      "roomId": "spec001:R09",
+      "subjectIds": [
+        "spec001:PR090",
+        "spec001:ITEM-inspection-kit"
+      ],
+      "kind": "context",
+      "text": "Source: the loan counter in the Shell Market. The two complete kits are equally valid when their own checks pass. The ordinary inspection kit performs the checks; it is never consumed. If you left it behind, the satchel in the Arrival Lift is still reachable through the workshop. Neither the Energy Audit nor a recruit supplies a mandatory reward. Keep route-required tools available. Ask for a method, a worked step or the full solution whenever useful; help is recorded separately and does not reduce a correct result.",
+      "ruleIds": [
+        "spec001:STATE02",
+        "spec001:STATE03"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "ambience": {
+    "text": "The stalls murmur and an insulated bell gives an occasional polite ping. The text labels carry all equipment, power and outcome information; no sound is a diagnostic result.",
+    "assetIds": []
+  },
+  "futureDoorIds": []
+}

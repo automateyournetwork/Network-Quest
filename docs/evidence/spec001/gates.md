@@ -317,3 +317,11 @@ The native foreground blocker is superseded; all historical failures remain.
 G0 is still blocked by named host/provider checks; G1–G3 aggregate acceptance
 remains pending. Local route work may continue on the verified actual inputs.
 No whole episode, live provider, production deployment or G3 PASS is inferred.
+
+### Guest checkpoint reassessed — 2026-11-26
+
+T035 local review/US1 opening accepted following independent086 evidence review;
+no remaining local guest/initialpacket defect identified. [Reassessment](guest-checkpoint-reassessment-2026-11-26.md)
+checks final077/078/native and later copper evidence without rerunning unchanged
+browsers. Aggregate G1 remains PENDING because G0 is not accepted. No finalepisode
+or provider acceptance is inferred.

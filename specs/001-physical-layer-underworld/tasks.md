@@ -309,6 +309,19 @@ follow the existing dependency sequence with isolated services. Aggregate G0–G
 real providers and production hosting remain separately pending. Bulk media
 retains T105/layout and its actual source/rights/review prerequisites.
 
+T075/T076 may prepare their disjoint authored room documents and schema tests
+while T074 finishes its controller, using the accepted T069 definitions, T070–T073
+rules and existing room/content contracts. This authoring does not depend on the
+other room pair. Final controller binding/acceptance joins the implemented T074
+API in listed order; T078 still verifies the full copper route before broadening.
+
+T077 may prepare its disjoint R11/R12 authored documents and independent test
+expectations while T074's final panel review closes. T078 may prepare its browser
+test and inspect the existing harness during that work. Dependent implementation
+and acceptance remain ordered: T074–T076 join before T077 execution, then T077
+before T078's application integration and complete-route checkpoint. Preparation
+does not mark either task complete or permit broader room/media production.
+
 ## Required verification and production rules
 
 - Independently review scored-rule source/model/correct/incorrect/boundary cases before implementing evaluators. Keep the source fixture IDs T01–T16 distinct from checklist IDs T001 onward. Pending evaluator tests remain pending until implemented; no implementation-derived expected answers.
@@ -385,7 +398,7 @@ retains T105/layout and its actual source/rights/review prerequisites.
 
 **Ready after**: T031–T034.
 
-- [ ] T035 [US1] Review the actual R01/R02 four-verb investigation and initial packet view, then record G1 and US1 acceptance in `docs/evidence/spec001/gates.md` and `docs/evidence/spec001/US1.md`; a useful guest increment does not waive remaining rooms/media.
+- [X] T035 [US1] Review the actual R01/R02 four-verb investigation and initial packet view, then record G1 and US1 acceptance in `docs/evidence/spec001/gates.md` and `docs/evidence/spec001/US1.md`; a useful guest increment does not waive remaining rooms/media.
 
 ## Phase 4: User Story 2 — Diagnose and validate a physical repair (P1)
 
@@ -402,12 +415,12 @@ retains T105/layout and its actual source/rights/review prerequisites.
 - [X] T068 [US2] Extend reviewed independent fixtures for every O03–O12 alternative/boundary and T03–T16 in `tests/fixtures/repair-routes.json` and `tests/domain/repair-routes.test.ts`; verify optical −11dBm/3dB, −13dBm/1dB, inclusive −12dBm/2dB and radio 25dB/13dB expectations before implementation.
 - [X] T069 [US2] Author bounded copper/fiber/radio/power/capability profiles with units, source references and fictional-threshold labels in `content/spec001/profiles.json` and `content/spec001/objectives.json`; every mandatory objective needs evidence, alternatives, effects and its method/worked/solution hint ladder.
 - [X] T070 [P] [US2] Complete copper compatibility/length/continuity/regeneration evaluation in `src/domain/copper.ts` against T01–T03 and boundary fixtures; a repeater cannot bridge the declared physical break.
-- [ ] T071 [P] [US2] Implement optical profile compatibility, receive power/sensitivity/overload and reserve margin in `src/domain/optics.ts` against T04–T07/T15; retain dBm versus dB and reject incompatible optics before a passing numerical budget.
-- [ ] T072 [P] [US2] Implement scoped path/channel/compatibility and SNR evaluation in `src/domain/radio.ts` against T08/T09 and independent boundaries; signal strength alone never promises throughput.
-- [ ] T073 [P] [US2] Implement delivered-power allocation and common-capability selection in `src/domain/power.ts` and `src/domain/capabilities.ts` against T10/T11; 33W exceeds 30W by 3W and common capability is 100/full without inventing support.
-- [ ] T074 [US2] Implement objective prerequisite/alternative evaluation, fresh-evidence validation and nonpunitive hint tracking in `src/state/objectives.ts` and `src/ui/diagnostics.ts`; T13/T14/T16 must reject stale/content errors and accept every technically valid solution.
-- [ ] T075 [US2] Author Copper Warrens/Echo Cavern interactions and O03/O04 in `content/spec001/rooms/R03.json` and `content/spec001/rooms/R04.json`; use shared controllers, meaningful before/after evidence and recoverable conventional tools.
-- [ ] T076 [US2] Author Shell Market/Clockworks and O09/O10 in `content/spec001/rooms/R09.json` and `content/spec001/rooms/R10.json`; distinguish form factor, PHY, medium, supplied power and signal timing, reusing the independently checked toy decoder.
+- [X] T071 [P] [US2] Implement optical profile compatibility, receive power/sensitivity/overload and reserve margin in `src/domain/optics.ts` against T04–T07/T15; retain dBm versus dB and reject incompatible optics before a passing numerical budget.
+- [X] T072 [P] [US2] Implement scoped path/channel/compatibility and SNR evaluation in `src/domain/radio.ts` against T08/T09 and independent boundaries; signal strength alone never promises throughput.
+- [X] T073 [P] [US2] Implement delivered-power allocation and common-capability selection in `src/domain/power.ts` and `src/domain/capabilities.ts` against T10/T11; 33W exceeds 30W by 3W and common capability is 100/full without inventing support.
+- [X] T074 [US2] Implement objective prerequisite/alternative evaluation, fresh-evidence validation and nonpunitive hint tracking in `src/state/objectives.ts` and `src/ui/diagnostics.ts`; T13/T14/T16 must reject stale/content errors and accept every technically valid solution.
+- [X] T075 [US2] Author Copper Warrens/Echo Cavern interactions and O03/O04 in `content/spec001/rooms/R03.json` and `content/spec001/rooms/R04.json`; use shared controllers, meaningful before/after evidence and recoverable conventional tools.
+- [X] T076 [US2] Author Shell Market/Clockworks and O09/O10 in `content/spec001/rooms/R09.json` and `content/spec001/rooms/R10.json`; distinguish form factor, PHY, medium, supplied power and signal timing, reusing the independently checked toy decoder.
 - [ ] T077 [US2] Author branch-plan execution and fresh validation balcony interactions for O11/O12 in `content/spec001/rooms/R11.json`, `content/spec001/rooms/R12.json` and `src/state/repair-plan.ts`; reaching R12 alone must not award restored service.
 - [ ] T078 [US2] Complete and verify a copper route from R01 through a valid R12 repair using temporary geometry for unfinished art in `tests/e2e/first-repair-route.spec.ts`; record the W05 complete-route checkpoint in `docs/evidence/spec001/first-route.md` before broadening room production.
 

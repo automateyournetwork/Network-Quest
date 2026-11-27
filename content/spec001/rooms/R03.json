@@ -1,0 +1,351 @@
+{
+  "kind": "room",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:R03",
+  "presentationMode": "hybrid",
+  "description": "Copper roots braid through the Warrens, each tied with a maintenance tag much neater than the tunnel itself. A cracked spool sits between two repair paths. Above it, the Crosstalk Twins have pinned a sign: BLAME THE MOTOR. Copperhead has quietly added: AFTER TESTING. The workshop door stays behind you; beyond the test bench, a cool draft carries every small sound toward the Echo Cavern. The bench initially selects the original broken 105 m test path.",
+  "walkRegions": [
+    {
+      "id": "spec001:WALK-R03",
+      "label": "Clear maintenance walkway",
+      "vertices": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 6
+        },
+        {
+          "x": 0,
+          "y": 6
+        }
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "toRoomId": "spec001:R02",
+      "label": "Walk to The Titan's Workshop",
+      "walkRegionId": "spec001:WALK-R03"
+    },
+    {
+      "toRoomId": "spec001:R04",
+      "label": "Walk to The Echo Cavern",
+      "walkRegionId": "spec001:WALK-R03"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "spec001:HOTSPOT-copper-bench-cards",
+      "subjectId": "spec001:PR022",
+      "label": "Copper patch panel and bench cards",
+      "description": "The sender, receiver, copper medium and terminations are declared compatible for this fictional exercise. A matching plug shape is only one clue; read the supplied compatibility card. Both repair paths use this same matched equipment. The patch panel separates the original test section from the replacement stock so you can investigate without risking a working network.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at the compatibility card, then choose a repair at the bench. A connector that fits is not permission to assume every physical requirement passes.",
+      "evidenceIds": [
+        "spec001:FACT-O03-compatibility"
+      ],
+      "actionIds": [
+        "spec001:ACTION-copper-read-compatibility"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-original-section",
+      "subjectId": "spec001:PR023",
+      "label": "Cracked original section",
+      "description": "The original path is 95 m + 10 m: 105 m in all, 5 m beyond the fictional inclusive 100 m maximum. The supplied diagnosis identifies a break in a required conductor of this cracked section. Record an actual inspection before changing it. A crack you can see is useful evidence here because the bench diagnosis names this section; an open reading alone would not locate every real fault.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Use the continuity pedestal to inspect the selected path. If you repaired before measuring, return the original section to the test bench, measure its open conductor, then repair and measure again.",
+      "evidenceIds": [
+        "spec001:FACT-O03-defect"
+      ],
+      "actionIds": [
+        "spec001:ACTION-copper-read-defect",
+        "spec001:ACTION-copper-restore-original"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-replacement",
+      "subjectId": "spec001:PR024",
+      "label": "Short replacement path",
+      "description": "A tray elbow leads to clean replacement stock. The bench handle replaces the diagnosed section and selects 85 m + 10 m: 95 m total, leaving 5 m below the fictional limit. The inspection kit checks the result; it does not mend copper. Choose this path, inspect compatibility, length and every required conductor, then submit the reading for preparation.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Use the bench choice to fit the supplied section, then inspect it. Choosing a short path does not itself record a passing test or prove a service works.",
+      "evidenceIds": [
+        "spec001:FACT-O03-compatibility",
+        "spec001:FACT-O03-path"
+      ],
+      "actionIds": [
+        "spec001:ACTION-O03-section-replacement",
+        "spec001:ACTION-copper-replace-section"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-alternate-path",
+      "subjectId": "spec001:PR030",
+      "label": "Alternate path and route-length wheel",
+      "description": "The other tray takes a broad turn around the cracked section: 90 m + 10 m, exactly 100 m. The fictional limit includes equality, so this intact compatible path is just as valid as the 95 m choice. Zero length headroom is not an extra failure rule. Turn the bench selector, inspect the whole supplied passive path and use that reading when you submit.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Use the alternate path choice and inspect again. Both reviewed paths are valid when their compatibility, length and all required conductors pass; there is no preferred answer to guess.",
+      "evidenceIds": [
+        "spec001:FACT-O03-path"
+      ],
+      "actionIds": [
+        "spec001:ACTION-O03-alternate-passive-path",
+        "spec001:ACTION-copper-alternate-path"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-continuity-pedestal",
+      "subjectId": "spec001:PR029",
+      "label": "Continuity pedestal",
+      "description": "A handwritten instruction reads: TEST FIRST; KEEP THE BAD NEWS. The ordinary inspection kit reports total channel length and open required conductors for the selected path. Keep the actual open-before reading for the Echo Cavern. After either repair, inspect again; a remembered pass from another path does not test this one. The original section can be restored to the test bench if you need to recover a missed before reading.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Inspect with the reusable kit before and after the change. Reading this label supplies instructions, not a measurement; the result comes from the actual test.",
+      "evidenceIds": [
+        "spec001:FACT-O03-defect",
+        "spec001:FACT-O03-path"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-pair-cutaway",
+      "subjectId": "spec001:PR021",
+      "label": "Twisted-pair cutaway",
+      "description": "A transparent cutaway lets you follow the paired strands to their labeled contacts. The nearby card names the required terminations. Copperhead has drawn a tiny pair of spectacles over the words CHECK BOTH ENDS. Appearance helps you follow the path; the supplied compatibility and conductor tests decide whether this exercise passes.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look along the paired strands and compare the termination card. Do not infer continuity or compatibility from the drawing alone.",
+      "evidenceIds": [
+        "spec001:FACT-O03-compatibility"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-pair-separator",
+      "subjectId": "spec001:PR025",
+      "label": "Pair separator and damaged plug",
+      "description": "The separator holds the tagged pairs beside a damaged plug, leaving each contact visible. The plug is an inspection clue, not an automatic verdict. The known fault in this exercise is the diagnosed open conductor in the cracked section; replacing unrelated parts cannot make that break disappear.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the contacts and the diagnosed defect. Use the bench test to distinguish a supplied fault from a suspicious-looking spare.",
+      "evidenceIds": [
+        "spec001:FACT-O03-defect"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-motor",
+      "subjectId": "spec001:PR026",
+      "label": "Interference motor and shielding sample",
+      "description": "The motor rattles under a shielding cross-section. Its maintenance card asks you to consider the physical surroundings; it supplies no interference measurement or shielding score. Noise you can hear is not a measurement of electrical interference. The diagnosed open conductor remains a separate, testable fault even while the motor makes its theatrical complaint.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the card and test the path. Silencing this motor is not a substitute for repairing the documented open conductor.",
+      "evidenceIds": [
+        "spec001:FACT-O03-defect"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-copperhead",
+      "subjectId": "spec001:CH04",
+      "label": "Copperhead",
+      "description": "Copperhead has coiled around a spare test reel, keeping the contacts clear. A signed note reads: I carry electrical signals. I do not grow new copper across a gap. You have ordinary tools and supplied repair stock; my company is optional. Beneath the signature is a small drawing of a snake refusing to be used as a patch lead.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Copperhead is not a replacement conductor. Inspect the bench and use its ordinary tools; no recruit or side-quest reward is required.",
+      "evidenceIds": [
+        "spec001:FACT-O03-defect"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-crosstalk-twins",
+      "subjectId": "spec001:CH24",
+      "label": "The Crosstalk Twins",
+      "description": "The twins argue over whose whisper shook the motor. Their competing statements are pinned beside the notebook shelf as hypotheses, not measured facts. One has crossed out the other's word CERTAINLY twelve times. You can settle this exercise with the documented path and tests without winning the argument.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at their claims, keep them separate from observations, and inspect the actual path. Their argument does not hide a required item or impose a timer.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-copper-recovery-card",
+      "subjectId": "spec001:PR028",
+      "label": "Tool and return card",
+      "description": "Your reusable inspection kit is never consumed. If it is not in your satchel, the Arrival Lift remains reachable through the workshop and its kit is available without a side quest. The bench supplies both repair paths. The notebook offers method, worked-step and solution hints; using them does not make a technically valid repair less valid.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the recovery card or return through the workshop. No item is spent by inspecting, changing paths or asking for a hint.",
+      "evidenceIds": [],
+      "actionIds": []
+    }
+  ],
+  "characterIds": [
+    "spec001:CH04",
+    "spec001:CH24"
+  ],
+  "propInstances": [
+    {
+      "instanceId": "r03-pr021",
+      "propId": "spec001:PR021",
+      "description": "Transparent twisted-pair cutaway with traceable paired strands and labeled contacts.",
+      "assetId": "spec001:DEV-PR021"
+    },
+    {
+      "instanceId": "r03-pr022",
+      "propId": "spec001:PR022",
+      "description": "Copper patch panel with supplied endpoint, medium and termination compatibility cards.",
+      "assetId": "spec001:DEV-PR022"
+    },
+    {
+      "instanceId": "r03-pr023",
+      "propId": "spec001:PR023",
+      "description": "Cracked original cable spool kept at the reversible test bench.",
+      "assetId": "spec001:DEV-PR023"
+    },
+    {
+      "instanceId": "r03-pr024",
+      "propId": "spec001:PR024",
+      "description": "Cable tray elbow and supplied stock for the 85 m replacement section.",
+      "assetId": "spec001:DEV-PR024"
+    },
+    {
+      "instanceId": "r03-pr025",
+      "propId": "spec001:PR025",
+      "description": "Pair separator beside the contact inspection area.",
+      "assetId": "spec001:DEV-PR025"
+    },
+    {
+      "instanceId": "r03-pr026",
+      "propId": "spec001:PR026",
+      "description": "Interference motor with an explicit unmeasured-environment notice.",
+      "assetId": "spec001:DEV-PR026"
+    },
+    {
+      "instanceId": "r03-pr027",
+      "propId": "spec001:PR027",
+      "description": "Shielding cross-section displayed beside the motor without a scoring promise.",
+      "assetId": "spec001:DEV-PR027"
+    },
+    {
+      "instanceId": "r03-pr028",
+      "propId": "spec001:PR028",
+      "description": "Damaged plug beside a tool-recovery and return card.",
+      "assetId": "spec001:DEV-PR028"
+    },
+    {
+      "instanceId": "r03-pr029",
+      "propId": "spec001:PR029",
+      "description": "Continuity pedestal for actual before and after conductor inspections.",
+      "assetId": "spec001:DEV-PR029"
+    },
+    {
+      "instanceId": "r03-pr030",
+      "propId": "spec001:PR030",
+      "description": "Route-length wheel labeling both accepted passive path lengths.",
+      "assetId": "spec001:DEV-PR030"
+    }
+  ],
+  "safePositions": [
+    {
+      "id": "spec001:R03.entry",
+      "walkRegionId": "spec001:WALK-R03",
+      "point": {
+        "x": 5,
+        "y": 3
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec001:FACT-O03-compatibility",
+      "roomId": "spec001:R03",
+      "subjectIds": [
+        "spec001:PR022",
+        "spec001:PROFILE-COPPER-100"
+      ],
+      "kind": "context",
+      "text": "Copper Warrens bench cards declare compatible sender, receiver, copper medium and terminations for the selected passive channel. Connector appearance alone cannot establish compatibility. Read every supplied compatibility field before choosing a path.",
+      "ruleIds": [
+        "spec001:PHY03"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-O03-defect",
+      "roomId": "spec001:R03",
+      "subjectIds": [
+        "spec001:PR023",
+        "spec001:PR029"
+      ],
+      "kind": "observation",
+      "text": "The continuity pedestal diagnoses an open in a required conductor of the cracked section. Removing that diagnosed defect is separate from choosing a short enough cable. Every required conductor must be intact after the intervention.",
+      "ruleIds": [
+        "spec001:PHY05"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-O03-path",
+      "roomId": "spec001:R03",
+      "subjectIds": [
+        "spec001:PR030",
+        "spec001:PR029",
+        "spec001:PROFILE-COPPER-100"
+      ],
+      "kind": "measurement",
+      "text": "The route-length wheel and continuity pedestal report the selected path: section replacement uses 85 m plus 10 m, totaling 95 m; the alternate passive path uses 90 m plus 10 m, totaling exactly 100 m. Both supplied compatible choices remove the defect and meet the fictional inclusive 100 m maximum. The original 95 m plus 10 m path is 105 m, exceeding it by 5 m. An intact length alone is not whole-route or service proof.",
+      "ruleIds": [
+        "spec001:PHY04",
+        "spec001:PHY05"
+      ],
+      "requiresFreshMeasurement": true,
+      "readings": [
+        {
+          "name": "Total channel length",
+          "unit": "m"
+        },
+        {
+          "name": "Open required conductors",
+          "unit": "count"
+        }
+      ]
+    }
+  ],
+  "ambience": {
+    "text": "The motor rattles, the twins whisper, and the cable tags tap together. These sounds are described here; no clue depends on hearing them.",
+    "assetIds": []
+  },
+  "futureDoorIds": []
+}

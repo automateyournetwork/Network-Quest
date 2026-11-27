@@ -777,3 +777,48 @@ T070 accepted: root reviewed scoped compatibility/path/termination validation,
 exactdecimal and break/repeater behavior, originalAPI preserved;100copper tests
 and625joinedPASS/120existingTODO/typecheck. No effects granted by pure readings.
 84loops/64accepted;084power/capability replaces completed081, with082/083ongoing.
+
+Reviewed checkpoint2abc3c4d13c49a93542617cbf74f26e149ff92f4 is pushed and
+remote-verified.81explicitpaths/69.64MB, exact stagedhash/privatekey/literal/
+whitespace checks pass. Unfinished082/083/084 and two growing previewlogs excluded.
+No deployment. Publication pointer stays dirty until next scoped checkpoint.
+
+T071/T072 accepted after root source review, handoffhash checks and joined648PASS/
+120existingTODO/typecheck.084 final114focusedPASS/typecheck after root caught
+entire-world capture; only revision+attempt are now copied. Evidence handoffpending.
+085 now owns objective/diagnostics plus narrow reducer/actionbusjoin exclusively;
+no other worker edits those files.086 independently reassesses T035 local review.
+86loops/66accepted; fullwave/no aggregate gate implied.
+
+T073 final114focusedPASS/typecheck and14-file handoff reviewed/accepted.
+T035 local review/US1 opening accepted after independent086 actualevidence and
+seal review; aggregateG1 remains pendingonG0.88loops/68accepted.
+085 owns objective/controller/reducer/actionbus; fresh087/088 author disjoint
+Copper and equipment/Clockworks room documents/tests on acceptedmodels/schema.
+Their final binding joins085 in listed order; no runtime/application edits while
+that API stabilizes. T078 must still prove first fullroute.
+
+Root fixed088's actual graph-bounds failure without hiding choices or increasing
+4096cap. Structural route memoization projects only unreferenced diagnostic flags
+and inert fact/flag receipts; condition flags, inventory, dialogue, recoveries and
+once grants stay concrete.120 joined content checks PASS (including actual new
+rooms and original graph safety cases). New test union guard corrected afterward;
+final typecheck joins active batch. See route-proof-projection.md.
+
+### First-route preparation — continuation, 2026-11-26
+
+T075/T076 stable scoped32/41PASS and root source review completed. T074 core has
+190PASS; root requested same-loop panel correction for obsolete controls after
+close/rerender and semantic focus restoration.085 verifies that actual DOM in an
+isolated Firefox harness. Final joined acceptance/typecheck follows stable source.
+Fresh089/T077 prepares disjoint R11/R12 authoring and independent expectations;
+fresh090/T078 prepares browser tests/harness only. Dependent implementation stays
+ordered after predecessor acceptance.90loops/68accepted. No broadroom production,
+new gate acceptance or deployment. Owner Safari previews remain untouched.
+
+T074–T076 accepted in order after root323PASS/14suites, actual diagnostics DOM
+RED11/PASS1→12PASS, finaltypecheckPASS and postcorrection28PASS. Root fixed one
+test-only99m quantity brand; historical087hash retained with explicit follow-up.
+See first-route-foundation-review.md.90loops/71accepted. Root freezes shared
+files briefly for reviewed publication, then089 owns narrowrepair-plan reducer/
+actionbusjoin.090 prepares first-route browser expectations only untilT077joins.

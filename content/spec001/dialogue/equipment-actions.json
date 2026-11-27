@@ -1,0 +1,811 @@
+{
+  "kind": "collection",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "records": [
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-market-equipment",
+      "entryNodeId": "spec001:DIALOGUE-market-equipment-entry",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-market-equipment-entry",
+          "speakerId": "narrator",
+          "text": "Inspect the original proposal or select a complete loan kit. These isolated teaching cards explicitly supply the compatibility and port checks; none is inferred from appearance. Both complete kits remain available. Choosing changes preparation only; measure and submit current evidence separately.",
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-market-original-over-budget",
+              "text": "Inspect the original 12 W + 11 W + 10 W proposal",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-market-original-over-budget",
+                  "flagId": "spec001:FLAG-market-kit",
+                  "value": "original-over-budget"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-market-compatible-kit-A",
+              "text": "Choose complete kit A: 12 W + 11 W",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-market-compatible-kit-A",
+                  "flagId": "spec001:FLAG-market-kit",
+                  "value": "compatible-kit-A"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-market-compatible-kit-B",
+              "text": "Choose complete kit B: 12 W + 11 W + 7 W",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-market-compatible-kit-B",
+                  "flagId": "spec001:FLAG-market-kit",
+                  "value": "compatible-kit-B"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-market-same-shell-mismatch",
+              "text": "Inspect the same-shaped, mismatched module at 23 W",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-market-same-shell-mismatch",
+                  "flagId": "spec001:FLAG-market-kit",
+                  "value": "same-shell-mismatch"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-market-per-port-failure",
+              "text": "Inspect the 23 W allocation with a failed port check",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-market-per-port-failure",
+                  "flagId": "spec001:FLAG-market-kit",
+                  "value": "per-port-failure"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-market-read-checklist",
+              "text": "Read and record all separate equipment checks",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-market-read-checklist",
+                  "factId": "spec001:FACT-O09-module"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-market-read-power",
+              "text": "Read the fictional delivered-power profile and compare the original proposal with both kits.",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-market-read-power",
+                  "factId": "spec001:FACT-market-ledger"
+                }
+              ]
+            }
+          ],
+          "effects": [],
+          "evidenceIds": [
+            "spec001:FACT-O09-module",
+            "spec001:FACT-market-checklist",
+            "spec001:FACT-market-ledger"
+          ]
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-equipment-capabilities",
+      "entryNodeId": "spec001:DIALOGUE-equipment-capabilities-entry",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-equipment-capabilities-entry",
+          "speakerId": "narrator",
+          "text": "Both supplied endpoints negotiate. A advertises 1000/full and 100/full; B advertises 100/full and 10/half. Select a mode to check. A selection does not add support to either endpoint and does not prove service.",
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-equipment-mode-100-full",
+              "text": "Select 100/full",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-equipment-mode-100-full",
+                  "flagId": "spec001:FLAG-equipment-capability",
+                  "value": "100/full"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-equipment-mode-1000-full",
+              "text": "Try 1000/full",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-equipment-mode-1000-full",
+                  "flagId": "spec001:FLAG-equipment-capability",
+                  "value": "1000/full"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-equipment-mode-10-half",
+              "text": "Try 10/half",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-equipment-mode-10-half",
+                  "flagId": "spec001:FLAG-equipment-capability",
+                  "value": "10/half"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-equipment-read-capabilities",
+              "text": "Read both advertised lists and their shared 100/full option; selecting it cannot prove an application service.",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-equipment-read-capabilities",
+                  "factId": "spec001:FACT-market-checklist"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-read-capabilities",
+              "text": "Read both advertised lists and their shared 100/full option; selecting it cannot prove an application service.",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-clock-read-capabilities",
+                  "factId": "spec001:FACT-clockworks-capabilities"
+                }
+              ]
+            }
+          ],
+          "effects": [],
+          "evidenceIds": [
+            "spec001:FACT-O09-capability",
+            "spec001:FACT-clockworks-capabilities"
+          ]
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-clockwork-calibration",
+      "entryNodeId": "spec001:DIALOGUE-clockwork-calibration-entry",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-clockwork-calibration-entry",
+          "speakerId": "narrator",
+          "text": "Choose either untimed method and explain what physical sampling accomplishes. Enter each two-bit answer separately at the answer desk. The same current evidence and common-mode checks apply to both methods. Reading or replaying this explanation grants no objective completion.",
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-clock-step-and-decode",
+              "text": "Use untimed step-by-step decoding",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-step-and-decode",
+                  "flagId": "spec001:FLAG-clock-method",
+                  "value": "step-and-decode"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-notebook-and-replay",
+              "text": "Use the notebook and replay",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-notebook-and-replay",
+                  "flagId": "spec001:FLAG-clock-method",
+                  "value": "notebook-and-replay"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-role-physical",
+              "text": "Explain: sample physical signals representing bits; this does not discover addresses",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-role-physical",
+                  "flagId": "spec001:FLAG-clock-role",
+                  "value": "physical-sampling-not-address-discovery"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-role-address",
+              "text": "Claim: a physical repeater resolves an IP address",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-role-address",
+                  "flagId": "spec001:FLAG-clock-role",
+                  "value": "physical-repeater-resolves-IP-address"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-read-scope",
+              "text": "Read and record the physical-role and upper-layer explanation",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-clock-read-scope",
+                  "factId": "spec001:FACT-O10-scope"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-read-samples",
+              "text": "Read the declared toy map and ordered sample positions at your own pace.",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-clock-read-samples",
+                  "factId": "spec001:FACT-clockworks-sampling"
+                }
+              ]
+            }
+          ],
+          "effects": [],
+          "evidenceIds": [
+            "spec001:FACT-O10-scope",
+            "spec001:FACT-clockworks-replay"
+          ]
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-clockwork-samples",
+      "entryNodeId": "spec001:DIALOGUE-clockwork-samples-entry",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-clockwork-samples-entry",
+          "speakerId": "narrator",
+          "text": "Read the complete ordered sample list: position 0 is −3, 1 is +1, 2 is +3, 3 is −1. Inspect a prefix of the sequence or replay the first sample. The existing toy decoder describes what you inspected; your answer stays separate. Nothing advances while you wait, and no timing score is required.",
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-clock-sample-0",
+              "text": "Inspect sample position 0",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-sample-0",
+                  "flagId": "spec001:FLAG-clock-sample",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-sample-1",
+              "text": "Inspect sample position 1",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-sample-1",
+                  "flagId": "spec001:FLAG-clock-sample",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-sample-2",
+              "text": "Inspect sample position 2",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-sample-2",
+                  "flagId": "spec001:FLAG-clock-sample",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-sample-3",
+              "text": "Inspect sample position 3",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-sample-3",
+                  "flagId": "spec001:FLAG-clock-sample",
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-replay",
+              "text": "Replay from the first sample without changing my answer",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-replay",
+                  "flagId": "spec001:FLAG-clock-sample",
+                  "value": 0
+                }
+              ]
+            }
+          ],
+          "effects": [],
+          "evidenceIds": [
+            "spec001:FACT-clockworks-sampling",
+            "spec001:FACT-clockworks-replay"
+          ]
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-clockwork-answers",
+      "entryNodeId": "spec001:DIALOGUE-clockwork-answers-entry",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-clockwork-answers-entry",
+          "speakerId": "narrator",
+          "text": "Use the declared map to write one two-bit pair at each of the four sample positions. You can change any pair and inspect the map again. No whole-pattern answer is preselected. Measure only after choosing all four pairs, a common mode and your physical-role explanation; submit that recorded reading separately.",
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-clock-pair-0-00",
+              "text": "Write 00 for sample position 0",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-0-00",
+                  "flagId": "spec001:FLAG-clock-bits-0",
+                  "value": "00"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-0-01",
+              "text": "Write 01 for sample position 0",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-0-01",
+                  "flagId": "spec001:FLAG-clock-bits-0",
+                  "value": "01"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-0-10",
+              "text": "Write 10 for sample position 0",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-0-10",
+                  "flagId": "spec001:FLAG-clock-bits-0",
+                  "value": "10"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-0-11",
+              "text": "Write 11 for sample position 0",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-0-11",
+                  "flagId": "spec001:FLAG-clock-bits-0",
+                  "value": "11"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-1-00",
+              "text": "Write 00 for sample position 1",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-1-00",
+                  "flagId": "spec001:FLAG-clock-bits-1",
+                  "value": "00"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-1-01",
+              "text": "Write 01 for sample position 1",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-1-01",
+                  "flagId": "spec001:FLAG-clock-bits-1",
+                  "value": "01"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-1-10",
+              "text": "Write 10 for sample position 1",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-1-10",
+                  "flagId": "spec001:FLAG-clock-bits-1",
+                  "value": "10"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-1-11",
+              "text": "Write 11 for sample position 1",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-1-11",
+                  "flagId": "spec001:FLAG-clock-bits-1",
+                  "value": "11"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-2-00",
+              "text": "Write 00 for sample position 2",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-2-00",
+                  "flagId": "spec001:FLAG-clock-bits-2",
+                  "value": "00"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-2-01",
+              "text": "Write 01 for sample position 2",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-2-01",
+                  "flagId": "spec001:FLAG-clock-bits-2",
+                  "value": "01"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-2-10",
+              "text": "Write 10 for sample position 2",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-2-10",
+                  "flagId": "spec001:FLAG-clock-bits-2",
+                  "value": "10"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-2-11",
+              "text": "Write 11 for sample position 2",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-2-11",
+                  "flagId": "spec001:FLAG-clock-bits-2",
+                  "value": "11"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-3-00",
+              "text": "Write 00 for sample position 3",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-3-00",
+                  "flagId": "spec001:FLAG-clock-bits-3",
+                  "value": "00"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-3-01",
+              "text": "Write 01 for sample position 3",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-3-01",
+                  "flagId": "spec001:FLAG-clock-bits-3",
+                  "value": "01"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-3-10",
+              "text": "Write 10 for sample position 3",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-3-10",
+                  "flagId": "spec001:FLAG-clock-bits-3",
+                  "value": "10"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-clock-pair-3-11",
+              "text": "Write 11 for sample position 3",
+              "condition": {
+                "kind": "objective-complete",
+                "objectiveId": "spec001:O02"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-clock-pair-3-11",
+                  "flagId": "spec001:FLAG-clock-bits-3",
+                  "value": "11"
+                }
+              ]
+            }
+          ],
+          "effects": [],
+          "evidenceIds": [
+            "spec001:FACT-O10-symbols",
+            "spec001:FACT-clockworks-sampling"
+          ]
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    }
+  ]
+}

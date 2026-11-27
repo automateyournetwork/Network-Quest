@@ -1,0 +1,224 @@
+{
+  "kind": "collection",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "records": [
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-copper-bench",
+      "entryNodeId": "spec001:DIALOGUE-copper-bench-menu",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-copper-bench-menu",
+          "speakerId": "narrator",
+          "text": "The original broken 105 m test path is selected when you first arrive. Read the cards, inspect before changing it, then choose either supplied repair. You may restore the original test section and try again at any time. Selecting a path changes the bench; it does not take a measurement or complete the investigation. The kit stays in your inventory.",
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-copper-read-compatibility",
+              "text": "Read and keep the supplied compatibility card",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-copper-read-compatibility",
+                  "factId": "spec001:FACT-O03-compatibility"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-copper-read-defect",
+              "text": "Read and keep the diagnosed-defect card; this is not a performed measurement",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-copper-read-defect",
+                  "factId": "spec001:FACT-O03-defect"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-copper-restore-original",
+              "text": "Restore the original 105 m test path with its diagnosed open conductor",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-copper-restore-original",
+                  "flagId": "spec001:FLAG-copper-path",
+                  "value": "original-broken"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-copper-replace-section",
+              "text": "Fit the supplied replacement section: 85 m + 10 m",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-copper-replace-section",
+                  "flagId": "spec001:FLAG-copper-path",
+                  "value": "section-replacement"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-copper-alternate-path",
+              "text": "Select the intact alternate path: 90 m + 10 m",
+              "condition": {
+                "kind": "item-available",
+                "itemId": "spec001:ITEM-inspection-kit",
+                "quantity": 1
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-copper-alternate-path",
+                  "flagId": "spec001:FLAG-copper-path",
+                  "value": "alternate-passive-path"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-copper-leave-bench",
+              "text": "Leave everything as it is",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": []
+            }
+          ],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-copper-exhibit",
+      "entryNodeId": "spec001:DIALOGUE-copper-exhibit-menu",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-copper-exhibit-menu",
+          "speakerId": "narrator",
+          "text": "Compare your actual open-before record with a fresh test of the repaired path. Read the repeater explanation and choose what the machine can do about an unchanged severed conductor. Your proposal is recorded for the comparison; the test decides whether it is supported. No proposal performs an inspection or restores service.",
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-copper-read-before",
+              "text": "Read and keep the before-record instructions; retain an actual measured open result",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-copper-read-before",
+                  "factId": "spec001:FACT-O04-before"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-copper-read-repeater",
+              "text": "Read and keep the repeater role and limits",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-copper-read-repeater",
+                  "factId": "spec001:FACT-O04-repeater-limit"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-copper-repeater-requires-continuity",
+              "text": "Conclude: a repeater needs the physical connection restored",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-copper-repeater-requires-continuity",
+                  "flagId": "spec001:FLAG-copper-repeater-claim",
+                  "value": "requires-continuity"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-copper-repeater-bridges-open",
+              "text": "Propose: a powered repeater alone bridges the unchanged severed conductor",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-copper-repeater-bridges-open",
+                  "flagId": "spec001:FLAG-copper-repeater-claim",
+                  "value": "bridges-open"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-copper-leave-exhibit",
+              "text": "Leave everything as it is",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": []
+            }
+          ],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    }
+  ]
+}

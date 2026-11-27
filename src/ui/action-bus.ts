@@ -6,6 +6,9 @@ import type { RuntimeState, UiState } from '../state/types';
 
 /** Intent only. Renderers cannot submit evaluations, effects or arbitrary payloads. */
 export type SemanticAction =
+  | { readonly kind: 'measure-objective'; readonly objectiveId: ObjectiveId; readonly alternativeId: QualifiedId }
+  | { readonly kind: 'submit-objective'; readonly objectiveId: ObjectiveId; readonly alternativeId: QualifiedId; readonly measurementId: MeasurementId }
+  | { readonly kind: 'request-objective-hint'; readonly objectiveId: ObjectiveId }
   | { readonly kind: 'select-verb'; readonly verb: Verb }
   | { readonly kind: 'open-panel'; readonly panel: Exclude<UiState['panel'], 'none'> }
   | { readonly kind: 'close-panel' }
@@ -81,6 +84,9 @@ function sameContext(a: ActionContext | null, b: ActionContext | null): boolean 
 const verbs = new Set<string>(['walk', 'look', 'talk', 'use']);
 const panels = new Set<string>(['inventory', 'notebook', 'compendium', 'settings', 'save']);
 const fields: Record<SemanticAction['kind'], readonly string[]> = {
+  'measure-objective': ['kind', 'objectiveId', 'alternativeId'],
+  'submit-objective': ['kind', 'objectiveId', 'alternativeId', 'measurementId'],
+  'request-objective-hint': ['kind', 'objectiveId'],
   'edit-personal-notes': ['kind', 'text'], 'pin-hypothesis': ['kind', 'text'],
   'pin-objective': ['kind', 'objectiveId'], 'highlight-map-room': ['kind', 'roomId'],
   'step-packet': ['kind', 'sessionId'], 'pause-packet': ['kind', 'sessionId'], 'resume-packet': ['kind', 'sessionId'],
@@ -103,6 +109,10 @@ export function copySemanticAction(input: SemanticAction): SemanticAction {
   const keys = fields[input.kind];
   if (Object.keys(input).length !== keys.length || Object.keys(input).some(key => !keys.includes(key))) throw new TypeError('Semantic actions contain intent only.');
   switch (input.kind) {
+    case 'measure-objective': case 'submit-objective':
+      if (!qualifiedIdentity(input.objectiveId) || !qualifiedIdentity(input.alternativeId)
+        || (input.kind === 'submit-objective' && !dialogueSession(input.measurementId))) throw new TypeError('Invalid objective evidence selection.'); break;
+    case 'request-objective-hint': if (!qualifiedIdentity(input.objectiveId)) throw new TypeError('Invalid objective identity.'); break;
     case 'edit-personal-notes': if (!validNotebookText(input.text, 4096)) throw new TypeError('Notes require valid Unicode text of at most 4096 characters.'); break;
     case 'pin-hypothesis': if (!validNotebookText(input.text, 512, true)) throw new TypeError('A hypothesis requires 1–512 Unicode characters.'); break;
     case 'pin-objective': if (!qualifiedIdentity(input.objectiveId)) throw new TypeError('Invalid objective identity.'); break;

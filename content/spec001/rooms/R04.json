@@ -1,0 +1,353 @@
+{
+  "kind": "room",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:R04",
+  "presentationMode": "rendered-room",
+  "description": "The passage opens into a cavern shaped like an enormous listening cup. Echo Bat hangs above a repeater station, while the Ancient Tortoise tends a serial post with the patience of a geological era. On a dry ledge, the broken-section case sits beside a clean comparison slate. The slate has two spaces: BEFORE and AFTER. A path returns to the Warrens; a guarded walkway continues toward the Backhoe Rift.",
+  "walkRegions": [
+    {
+      "id": "spec001:WALK-R04",
+      "label": "Dry cavern ledge",
+      "vertices": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 0
+        },
+        {
+          "x": 10,
+          "y": 6
+        },
+        {
+          "x": 0,
+          "y": 6
+        }
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "toRoomId": "spec001:R03",
+      "label": "Walk to The Copper Warrens",
+      "walkRegionId": "spec001:WALK-R04"
+    },
+    {
+      "toRoomId": "spec001:R11",
+      "label": "Walk to The Backhoe Rift",
+      "walkRegionId": "spec001:WALK-R04"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "spec001:HOTSPOT-echo-before-case",
+      "subjectId": "spec001:PR038",
+      "label": "Isolated broken span and before record",
+      "description": "The isolated case preserves the severed test section and a place for your measured open-before record. Compare that actual record with a fresh test of the repaired path. A note about a break is useful context, but it cannot stand in for a reading you never took. The old failure stays visible as history after the repair; it is not a current passing result.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at the retained before record. If it is missing, return to the Warrens, restore the original test section, inspect its open conductor, then repair and measure again.",
+      "evidenceIds": [
+        "spec001:FACT-O04-before"
+      ],
+      "actionIds": [
+        "spec001:ACTION-copper-read-before"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-after-station",
+      "subjectId": "spec001:PR031",
+      "label": "Copper comparison station",
+      "description": "Connect the ordinary inspection kit to the selected repaired path and take an after reading. Compare the required conductors and total length with the open-before record. Both the 95 m replacement and the exactly 100 m alternate path can pass the fictional inclusive limit. If you changed the path or started a new attempt, measure again; submitting an older reading does not silently retest it.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Use the comparison controls to inspect, then submit the reading you selected. A passing copper check proves this physical path only; an endpoint service test still lies ahead.",
+      "evidenceIds": [
+        "spec001:FACT-O04-after"
+      ],
+      "actionIds": [
+        "spec001:ACTION-O04-conventional-continuity-tool"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-repeater-core",
+      "subjectId": "spec001:PR037",
+      "label": "Repeater station and regenerator core",
+      "description": "An etched teaching panel labels connected input → repeated and retimed output. This is the historical wired repeater role: regenerate a received signal on connected segments. The panel is an explanation, not a live performance measurement. A repeater cannot carry a signal across the unchanged severed conductor in the case; adding power to the core does not restore that path.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at the explanation and compare the broken span. Distinguish restoring a received signal from repairing the missing physical connection.",
+      "evidenceIds": [
+        "spec001:FACT-O04-repeater-limit"
+      ],
+      "actionIds": [
+        "spec001:ACTION-copper-read-repeater",
+        "spec001:ACTION-copper-repeater-requires-continuity",
+        "spec001:ACTION-copper-repeater-bridges-open"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-amplitude-ladder",
+      "subjectId": "spec001:PR039",
+      "label": "Input and output comparison ladder",
+      "description": "Two printed traces show an incoming signal and the repeated, retimed output described by the exhibit. The labels name the operation without assigning invented voltages, reach or throughput. No separately reviewed segment limits are supplied for a new regenerated route, so the diagram cannot authorize one. Your repair uses the declared passive copper path.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the input and output labels. They explain regeneration; they do not replace the actual continuity and length readings of your chosen path.",
+      "evidenceIds": [
+        "spec001:FACT-O04-repeater-limit"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-reflector",
+      "subjectId": "spec001:PR032",
+      "label": "Echo reflector",
+      "description": "Your reflection appears in a brass cup large enough to flatter a giant. An inscription says: A REPEATED SOUND IS AN ANALOGY, NOT A NETWORK TEST. Echo Bat has underlined the last five words. Follow the labeled electrical path at the station; the cavern's acoustics cannot prove it is connected.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the analogy, then use the actual path inspection. Shouting, listening or playing without sound changes no networking result.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-gong",
+      "subjectId": "spec001:PR035",
+      "label": "Signal gong",
+      "description": "The gong carries a delivery notice: RINGING IS OPTIONAL; EVIDENCE IS NOT. A diagram points back to the comparison station. A successful physical check still does not prove that an application service works. The later endpoint test will ask a separate question, even if this gong is very persuasive.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the notice and the recorded test. A sound cue or celebratory animation is never evidence that a service has recovered.",
+      "evidenceIds": [
+        "spec001:FACT-O04-after"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-historical-case",
+      "subjectId": "spec001:PR036",
+      "label": "Historical cable case",
+      "description": "The history case separates the passive copper exercise from a wired repeater-hub exhibit. Its label says the exhibit repeats signals; it does not learn addresses or choose an IP route. Historical context helps explain the machine without pretending it has the powers of every later networking device.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the historical label. A familiar case or connector does not give the exhibit switching, routing or an unreviewed reach allowance.",
+      "evidenceIds": [
+        "spec001:FACT-O04-repeater-limit"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-bat",
+      "subjectId": "spec001:CH20",
+      "label": "Echo Bat",
+      "description": "Echo Bat has written a modest advertisement: RECEIVED SIGNALS REPEATED. GAPS STILL REQUIRE COPPER. Below it, in smaller lettering: No address learning. No route selection. The ordinary continuity tool can provide the same required evidence; you do not need to recruit a companion to finish this investigation.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Read Echo Bat's role card, then inspect the connected path. A companion cannot turn an unchanged severed conductor into a correct repair.",
+      "evidenceIds": [
+        "spec001:FACT-O04-repeater-limit"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-tortoise",
+      "subjectId": "spec001:CH13",
+      "label": "Ancient Tortoise",
+      "description": "The Tortoise sits beside a message printer, sorting letters by the patience of their senders. A card invites a later visit to the Antique Serial Post. The optional delivery has its own story; no letter, reward or recruitment is required for the copper comparison or the onward path.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the invitation or continue your investigation. The serial post is optional and cannot withhold the ordinary tools needed for a repair.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-serial-post",
+      "subjectId": "spec001:PR033",
+      "label": "Antique Serial Post",
+      "description": "The telegraph, connector display and message printer form a small museum of messages sent one patient step at a time. The Tortoise's unclaimed envelope waits under a paperweight. This display offers a place to return for the optional delivery; it does not impose a timed decoding challenge on the main path.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the exhibit and leave freely. The optional post never consumes your inspection kit or gates copper validation.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-route-notice",
+      "subjectId": "spec001:PR034",
+      "label": "Onward and return notice",
+      "description": "The Warrens path is open for another inspection or a different repair. The Rift walkway requires a validated media branch and the Clockworks safety briefing. Completing the copper comparison is one part of preparation; the shared equipment work remains necessary before the intervention. Reaching the Rift will not itself prove repaired service.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Return to the Warrens or workshop as needed. Read the notebook objectives for the remaining preparation; no extra copper result is awarded for walking through a door.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-echo-hint-slate",
+      "subjectId": "spec001:PR040",
+      "label": "Comparison instructions and hint slate",
+      "description": "Keep the before record, inspect the repaired path, and explain why the repeater alone cannot bridge the break. The notebook offers a method hint, a worked step and a solution. Assistance is recorded separately from completion and never penalizes a technically correct result. Every essential instruction remains readable with the cavern silent.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the steps or ask for the next notebook hint. A hint explains the test; it does not create a reading or mark the repair complete.",
+      "evidenceIds": [],
+      "actionIds": []
+    }
+  ],
+  "characterIds": [
+    "spec001:CH13",
+    "spec001:CH20"
+  ],
+  "propInstances": [
+    {
+      "instanceId": "r04-pr031",
+      "propId": "spec001:PR031",
+      "description": "Repeater and copper comparison station with separate explanation and actual-test roles.",
+      "assetId": "spec001:DEV-PR031"
+    },
+    {
+      "instanceId": "r04-pr032",
+      "propId": "spec001:PR032",
+      "description": "Brass acoustic echo reflector labeled as an analogy.",
+      "assetId": "spec001:DEV-PR032"
+    },
+    {
+      "instanceId": "r04-pr033",
+      "propId": "spec001:PR033",
+      "description": "Optional serial telegraph display.",
+      "assetId": "spec001:DEV-PR033"
+    },
+    {
+      "instanceId": "r04-pr034",
+      "propId": "spec001:PR034",
+      "description": "Serial connector display with onward and return notice.",
+      "assetId": "spec001:DEV-PR034"
+    },
+    {
+      "instanceId": "r04-pr035",
+      "propId": "spec001:PR035",
+      "description": "Cavern signal gong with text that separates celebration from service proof.",
+      "assetId": "spec001:DEV-PR035"
+    },
+    {
+      "instanceId": "r04-pr036",
+      "propId": "spec001:PR036",
+      "description": "Historical cable case distinguishing wired repeating from routing.",
+      "assetId": "spec001:DEV-PR036"
+    },
+    {
+      "instanceId": "r04-pr037",
+      "propId": "spec001:PR037",
+      "description": "Regenerator core with connected-input and retimed-output labels.",
+      "assetId": "spec001:DEV-PR037"
+    },
+    {
+      "instanceId": "r04-pr038",
+      "propId": "spec001:PR038",
+      "description": "Isolated broken span beside the retained actual open-before record.",
+      "assetId": "spec001:DEV-PR038"
+    },
+    {
+      "instanceId": "r04-pr039",
+      "propId": "spec001:PR039",
+      "description": "Qualitative input/output amplitude ladder with no invented numeric scoring.",
+      "assetId": "spec001:DEV-PR039"
+    },
+    {
+      "instanceId": "r04-pr040",
+      "propId": "spec001:PR040",
+      "description": "Antique message printer beside comparison instructions and hint slate.",
+      "assetId": "spec001:DEV-PR040"
+    }
+  ],
+  "safePositions": [
+    {
+      "id": "spec001:R04.entry",
+      "walkRegionId": "spec001:WALK-R04",
+      "point": {
+        "x": 5,
+        "y": 3
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec001:FACT-O04-before",
+      "roomId": "spec001:R04",
+      "subjectIds": [
+        "spec001:PR038"
+      ],
+      "kind": "observation",
+      "text": "The retained Copper Warrens record shows the required conductor open before repair. Keep this historical failure visible; it is a comparison baseline, not a current passing measurement.",
+      "ruleIds": [
+        "spec001:PHY05"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-O04-after",
+      "roomId": "spec001:R04",
+      "subjectIds": [
+        "spec001:PR031",
+        "spec001:PROFILE-COPPER-100"
+      ],
+      "kind": "measurement",
+      "text": "The conventional continuity tool now measures the chosen passive path: every required conductor intact and total length at or below 100 m. Compare this fresh result with the recorded open-before result. Both the selected path and current attempt must match; presenting an older pass is stale evidence.",
+      "ruleIds": [
+        "spec001:PHY04",
+        "spec001:PHY05",
+        "spec001:STATE01"
+      ],
+      "requiresFreshMeasurement": true,
+      "readings": [
+        {
+          "name": "Total channel length",
+          "unit": "m"
+        },
+        {
+          "name": "Open required conductors",
+          "unit": "count"
+        }
+      ]
+    },
+    {
+      "id": "spec001:FACT-O04-repeater-limit",
+      "roomId": "spec001:R04",
+      "subjectIds": [
+        "spec001:PR031",
+        "spec001:PR037",
+        "spec001:PR038"
+      ],
+      "kind": "context",
+      "text": "The repeater exhibit repeats/regenerates a signal on connected segments; it does not bridge the unchanged severed span, learn addresses or route traffic. Adding a repeater without restoring required continuity fails the severed-cable test. A new regenerated topology is unsupported until its segment limits are separately reviewed.",
+      "ruleIds": [
+        "spec001:PHY05"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "ambience": {
+    "text": "A small sound returns as a long echo, and the message printer occasionally clicks. All teaching and comparison information is available as text without these sounds.",
+    "assetIds": []
+  },
+  "futureDoorIds": []
+}

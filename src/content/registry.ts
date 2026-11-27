@@ -529,9 +529,34 @@ interface ProofState extends State {
   recoveries: Map<string, S.recovery>;
 }
 const MAX_PROOF_STATES = 4096;
-function proofKey(s: ProofState): string {
+interface ProofProjection {
+  readonly conditionFlags: ReadonlySet<string>;
+  readonly inertEffectIds: ReadonlySet<string>;
+}
+/**
+ * This is a structural route proof, not a simulation of diagnostic answers.
+ * Keep every flag read by any authored condition. A write to any other flag,
+ * or a notebook fact receipt, cannot affect any successor/availability decision
+ * in this proof. Only those inert dimensions may be omitted from memoization;
+ * inventory, once-only grants/consumption, dialogue and recovery remain concrete.
+ */
+function routeProofProjection(w: S.world, records: S.authoredRecord[]): ProofProjection {
+  const conditionFlags = new Set<string>();
+  visit([w, ...records], node => {
+    if (node['kind'] === 'flag-equals' && typeof node['flagId'] === 'string') conditionFlags.add(node['flagId']);
+  });
+  const inertEffectIds = new Set<string>();
+  visit(records, node => {
+    if (typeof node['effectId'] !== 'string') return;
+    if (node['kind'] === 'record-fact' || (node['kind'] === 'set-flag'
+      && typeof node['flagId'] === 'string' && !conditionFlags.has(node['flagId']))) inertEffectIds.add(node['effectId']);
+  });
+  return { conditionFlags, inertEffectIds };
+}
+function proofKey(s: ProofState, projection: ProofProjection): string {
   const entries = <T>(map: Map<string, T>) => [...map].sort(([a], [b]) => a.localeCompare(b));
-  return canonical([[...s.completed].sort(), entries(s.items), entries(s.flags), [...s.acquired].sort(), [...s.applied].sort(), s.dialogue, entries(s.recoveries)]);
+  return canonical([[...s.completed].sort(), entries(s.items), entries(s.flags).filter(([id]) => projection.conditionFlags.has(id)),
+    [...s.acquired].sort(), [...s.applied].filter(id => !projection.inertEffectIds.has(id)).sort(), s.dialogue, entries(s.recoveries)]);
 }
 function copyProof(s: ProofState): ProofState {
   return { completed: new Set(s.completed), items: new Map(s.items), flags: new Map(s.flags), recruits: new Set(s.recruits), optional: new Set(s.optional), acquired: new Set(s.acquired), applied: new Set(s.applied), dialogue: s.dialogue ? { ...s.dialogue } : null, recoveries: new Map(s.recoveries) };
@@ -570,6 +595,7 @@ function reachableRooms(w: S.world, s: State): Set<string> {
 }
 function checkRoutes(w: S.world, records: S.authoredRecord[], fail: Fail): string[] {
   const success: string[] = [];
+  const projection = routeProofProjection(w, records);
   const objectives = new Map(records.filter(r => r.kind === 'objective').map(r => [r.id, r]));
   const items = records.filter(r => r.kind === 'item');
   const dialogues = new Map(records.filter(r => r.kind === 'dialogue').map(r => [r.id, r]));
@@ -602,13 +628,13 @@ function checkRoutes(w: S.world, records: S.authoredRecord[], fail: Fail): strin
     }
     const initial: ProofState = { ...initialState(), acquired: new Set(), applied: new Set(), dialogue: null, recoveries: new Map() };
     const queue: ProofState[] = [initial];
-    const visited = new Set([proofKey(initial)]);
+    const visited = new Set([proofKey(initial, projection)]);
     const obtained = new Set<string>();
     let completed = false;
     let bounded = false;
     const enqueue = (state: ProofState | null) => {
       if (!state || bounded) return;
-      const key = proofKey(state);
+      const key = proofKey(state, projection);
       if (visited.has(key)) return;
       if (visited.size >= MAX_PROOF_STATES) { bounded = true; return; }
       visited.add(key); queue.push(state);

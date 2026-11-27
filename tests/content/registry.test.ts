@@ -251,6 +251,35 @@ describe('authored reachability, equivalents, recovery and safe positions', () =
     const records = Array.from({ length: 13 }, (_, n) => { const i = item(`ITEM-many-${n}`); i.acquisition.roomId = q('R01'); return i; });
     rejects(input(records), 'graph-bounds');
   });
+  function diagnosticPanel() {
+    const r = room(), d = dialogue();
+    d.nodes = [{ ...d.nodes[0], choices: Array.from({ length: 13 }, (_, index) => ({
+      id: q(`CHOICE-answer-${index}`), text: `Set diagnostic answer ${index}`, condition: always(), nextNodeId: null,
+      effects: [setFlag(`answer-${index}`, `answer-${index}`, true), { kind: 'record-fact', effectId: q(`EFFECT-answer-fact-${index}`), factId: q('FACT-power') }],
+    })) }];
+    r.hotspots[0].actionIds = d.nodes[0].choices.map((choice: any) => choice.id);
+    return { r, d };
+  }
+  it('proves routes without enumerating diagnostic flags or fact receipts that no condition reads', () => {
+    // Thirteen independent controls previously exhausted the 4096-state cap.
+    // They stay exposed; this is no suppression of player choices or larger cap.
+    const { r, d } = diagnosticPanel();
+    const result = validateContent(input([r, d]));
+    expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+    if (!result.ok) return;
+    expect(result.routes).toEqual(['copper', 'fiber', 'radio']);
+  });
+  it('still keeps overwritten prerequisite flags distinct beside independent diagnostic controls', () => {
+    const { r, d } = diagnosticPanel();
+    const first = objectiveFor('O01'), next = objectiveFor('O02'), copper = objectiveFor('O03');
+    first.effects.push(setFlag('gate-start', 'gate', true));
+    next.effects.push(setFlag('gate-overwrite', 'gate', false));
+    copper.prerequisite = flag('gate', true);
+    const result = validateContent(input([r, d, first, next, copper]));
+    expect(result.ok).toBe(false);
+    expect(result.issues.some(issue => issue.code === 'route-unreachable')).toBe(true);
+    expect(result.issues.some(issue => issue.code === 'graph-bounds')).toBe(false);
+  });
   it('accepts an optional extra solution while retaining an ordinary independent route', () => {
     const o = objective(); const alternate = alternative('ACTION-optional'); alternate.condition = { kind: 'quest-complete', questId: q('SQ01') } as any;
     o.alternatives.push(alternate); expect(validateContent(input([o])).ok).toBe(true);
