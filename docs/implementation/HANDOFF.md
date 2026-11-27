@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**151 loops started; 118/170 tasks accepted; no deployment.** All sixty voice lines have verified native projects, masters, browser exports and captions. Fifty-two new takes await owner listening. The consolidated [listening index](../evidence/spec001/audio-production/listening.md) includes all eight production packets.
+**152 loops started; 119/170 tasks accepted; no deployment.** All sixty voice lines reached the remote branch at `cc8aeca36e9038772b19de896b1a0f642c3d1f30` with verified native projects, masters, browser exports and captions. Fifty-two new takes await owner listening. The consolidated [listening index](../evidence/spec001/audio-production/listening.md) includes all eight production packets.
 
 Twelve room ambience beds, forty effects and their [listening packets](../evidence/spec001/audio-production/listening.md)
 reached GitHub at `05537c5c476fc0964c24b7373ea6264f4a3a796c`. The
@@ -137,8 +137,10 @@ Loop 146/T129: All twenty scripts have verified native sources, exports and brow
 
 Loop 148/T131: All twenty Photon and Hermit lines passed native and browser verification. Seventeen new recordings await two-output human review. [Verification](loops/148-T131.md).
 
+Loop 149/T132: All 380 allocated media identities and the R01 architecture are reconciled. Every historical live use and both alternate renditions are preserved. Inventory and 4,339 full domain tests passed. [Verification](loops/149-T132.md).
+
 <!-- current production assignments -->
-Active assignments: 149/T132, 150/T133, 151/T134.
+Active assignments: 150/T133, 151/T134, 152/T135.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

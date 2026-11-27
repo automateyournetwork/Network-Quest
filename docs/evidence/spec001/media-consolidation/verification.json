@@ -1,0 +1,443 @@
+{
+  "date": "2026-11-27",
+  "task": "T132",
+  "scope": "Production inventory checkpoint. Registration, sources, usage evidence and review status at the tested revision. No new human decision, remote retrieval, game deployment or G5 acceptance.",
+  "baseCommit": "cc8aeca36e9038772b19de896b1a0f642c3d1f30",
+  "manifest": {
+    "path": "assets-src/manifest.json",
+    "bytes": 3824573,
+    "sha256": "dfbc9189bc9996298af20d0c0d6cd7a378330f893080991feb27ffd2e06cb48a",
+    "primaryRows": 381,
+    "additionalRenditions": 2,
+    "allocatedIdentities": 380,
+    "supportArchitecture": 1,
+    "primaryStatus": {
+      "integrated": 70,
+      "exported": 311
+    },
+    "additionalStatus": {
+      "exported": 2
+    }
+  },
+  "productionInputSha256": {
+    "assets-src/production-allocation.json": "0310f8ae4e006fbe70d2ed49645fd4cf4bd5d491b7a7ccfec7c9b052e7abacc1",
+    "assets-src/integration/R01-T066.json": "ff82e082143e8a1fb9213765ddd40f2c8e5a6c609f20d779f6683cf025bccada",
+    "assets-src/audio/auditions/metadata-followup/manifest-candidates.json": "752eb9ea9b10b79f5ca70379c0236d5d1972b99de752db84b969b80d84f36e81",
+    "assets-src/characters/photon-inspection/manifest.json": "774e4e3e729377898ced00118b380eb2557caaf21388509ba743b4f1730a5374",
+    "assets-src/characters/batch-a.json": "fb543b5a2b9a24b61bb378d071e69b0f637da4c388dc72d472e1e5dacc265766",
+    "assets-src/characters/batch-b.json": "37a29cb04de4505df2fbe9030a95e5dbb9c3044ed483779d2a73e751bb6827a1",
+    "assets-src/characters/batch-c.json": "cd083c9aa62eb96fde7865dfe09f159b7465282ebacab4cb0b56cc36dacdbbc9",
+    "assets-src/rooms/R01-placements.json": "f741fd95f38108cdb4f3f7300d407a45e592776f3b5f8036af1b613189c41c35",
+    "assets-src/props/R01-R02/manifest.json": "988c36a9f0621fcafe05e6af3113f840ac16bfe36d6db74194fa895629dcd6eb",
+    "assets-src/props/R03-R04/manifest.json": "ab8d3704811bf9305f26059df98846eadbe0c877a0e0599d1c9bade727514385",
+    "assets-src/props/R05-R06/manifest.json": "d71972fa2c3819e5260d36c66a83121a99bee8512c777921e970d207bee1274f",
+    "assets-src/props/R07-R08/manifest.json": "1d889a14837e453e9e61fb23429cb13088151afb4abd1fc2ad49ab5c408b3e05",
+    "assets-src/props/R09-R10/manifest.json": "40c269d70bb035cacdd453a29e1a286332acebd5c83ec3d1b6855532f550cad3",
+    "assets-src/props/R11-R12/manifest.json": "e71071fcdfd6b67a2d5d22860424572639bc6249da3f1b0238a9419017d2ea22",
+    "assets-src/props/shared/manifest.json": "65a49d26684b7eccfdf974509be25180d0ae4e979f28077dfeda65e0b1781df7",
+    "assets-src/images/rooms-01-04.json": "1722e4a5afd6d731e553c2dd36f8b85e62997f4ab6db90ae69df192e1cc006d9",
+    "assets-src/images/rooms-05-08.json": "9b43db1afb2c0c31b65f803af030f30dc2ed1a89dffea9179829591b5cd402f2",
+    "assets-src/images/rooms-09-12.json": "db2560555b466f4df21a2d6ffb7dd2b2fbc254b2dfbd5380f369c392e92e3a59",
+    "assets-src/images/portraits-01-13.json": "da2335ec68cdcc3b1e8460f83c7d7a2043a7023ec714696f99375d6963d8c5cc",
+    "assets-src/images/portraits-14-25.json": "61494defa44d41fd7af2158ef620312d907a9d2f004a8be145c4ba3281af368f",
+    "assets-src/images/illustrations-01-12.json": "017fdc6175948399502305dd7c7a35db78c4e2e7019ce64a46673c7d8d237ef9",
+    "assets-src/images/illustrations-13-24.json": "f3f932d2daea5ec7f3247cdacc5b547208b11e129da98d24d66b6fc1d368e520",
+    "assets-src/audio/music-a.json": "f10e83209646d265decc1de97f3752a9df0241c285019bbaf1ed77bd36dcb07c",
+    "assets-src/audio/music-b.json": "6379db3f83613572927d25adb1a8e69b16d5468730b9f8c50def18b8f2f6624e",
+    "assets-src/audio/ambiences.json": "68e68e850da711072d1f0437182f553e3b50565ed8d8351bdcf713dd31266f85",
+    "assets-src/audio/effects-01-20.json": "50fc7873627898fce0e9e89f79d40633f4e0477dc4d60c6205de537a5fc87b8a",
+    "assets-src/audio/effects-21-40.json": "980ab8df7ae6cdc909cf46dc0d834aaf82729c70ed347da43394f12e2c0e0f8e",
+    "assets-src/audio/voices-01-20.json": "01b058a6f514a49562b294c7fd7f01976ba26200f8ac2a0254baf0aee312180a",
+    "assets-src/audio/voices-21-40.json": "c33ef5c2c5745af904370f8c8d3d3dda7118656a0f53fe912fbeda2de077feb1",
+    "assets-src/audio/voices-41-60.json": "7116d28e382ca51f720a3290f4bca0147b5f81eb892e6fcece28b016ca5e6832"
+  },
+  "files": {
+    "sourceEntries": 1093,
+    "uniqueSourcePaths": 915,
+    "exportEntries": 408,
+    "uniqueExportPaths": 408,
+    "uniquePaths": 1323,
+    "totalUniqueBytes": 2008233117,
+    "filesHashAlgorithm": "SHA-256 verified once per unique source/export plus independent rooted repository audit",
+    "publicRetrievalDeclarations": 0
+  },
+  "primaryByKind": {
+    "character-model": {
+      "identities": 25,
+      "status": {
+        "integrated": 2,
+        "exported": 23
+      },
+      "rightsReview": {
+        "pending": 17,
+        "accepted": 8
+      }
+    },
+    "prop-model": {
+      "identities": 150,
+      "status": {
+        "integrated": 10,
+        "exported": 140
+      },
+      "rightsReview": {
+        "pending": 40,
+        "accepted": 110
+      }
+    },
+    "scene-layer": {
+      "identities": 36,
+      "status": {
+        "integrated": 3,
+        "exported": 33
+      },
+      "rightsReview": {
+        "pending": 15,
+        "accepted": 21
+      }
+    },
+    "portrait": {
+      "identities": 25,
+      "status": {
+        "integrated": 25
+      },
+      "rightsReview": {
+        "accepted": 13,
+        "pending": 12
+      }
+    },
+    "illustration": {
+      "identities": 24,
+      "status": {
+        "integrated": 24
+      },
+      "rightsReview": {
+        "accepted": 12,
+        "pending": 12
+      }
+    },
+    "music": {
+      "identities": 8,
+      "status": {
+        "integrated": 1,
+        "exported": 7
+      },
+      "rightsReview": {
+        "accepted": 8
+      }
+    },
+    "ambience": {
+      "identities": 12,
+      "status": {
+        "exported": 12
+      },
+      "rightsReview": {
+        "accepted": 12
+      }
+    },
+    "effect": {
+      "identities": 40,
+      "status": {
+        "integrated": 2,
+        "exported": 38
+      },
+      "rightsReview": {
+        "accepted": 40
+      }
+    },
+    "voice": {
+      "identities": 60,
+      "status": {
+        "integrated": 2,
+        "exported": 58
+      },
+      "rightsReview": {
+        "accepted": 60
+      }
+    },
+    "room-model": {
+      "identities": 1,
+      "status": {
+        "integrated": 1
+      },
+      "rightsReview": {
+        "pending": 1
+      }
+    }
+  },
+  "listeningByRecording": {
+    "music": {
+      "passed": 1,
+      "pending": 8
+    },
+    "ambience": {
+      "pending": 12
+    },
+    "effect": {
+      "passed": 3,
+      "pending": 37
+    },
+    "voice": {
+      "passed": 8,
+      "pending": 52
+    }
+  },
+  "registry": {
+    "worldEntries": 83,
+    "uniqueDocuments": 31,
+    "distinctBindings": 70,
+    "bindingKinds": {
+      "room-architecture": 1,
+      "character-placement": 2,
+      "effect": 2,
+      "diagnostic-illustration": 18,
+      "inventory-illustration": 6,
+      "background": 1,
+      "foreground": 1,
+      "midground": 1,
+      "music": 1,
+      "compendium-portrait": 25,
+      "prop-placement": 10,
+      "voice-line": 2
+    },
+    "sha256": {
+      "content/spec001/world.json": "1392f456205ca517d1142cb122e800fabb021625f9a71d8dccc3c64e44e0a7a7",
+      "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
+      "content/spec001/characters.json": "576d6983e626840352105e63bcb50773167072cda59d99ea29cd94f1af741ba7",
+      "content/spec001/dialogue/copper-actions.json": "e41e67089e559f78771d2e4b64acd53382b67bd6edf145749d155ef7fbb3a982",
+      "content/spec001/dialogue/equipment-actions.json": "391585a743b58e6a252206814e380f73a867b02debe07a33d31b152ea405f2b3",
+      "content/spec001/dialogue/fiber-actions.json": "c7060a4630e47f4d420ec561cf7c0d91361cace7d5ecb33f06489f9d504283a0",
+      "content/spec001/dialogue/interactions.json": "7de25e0d9311b3dd2ffa4dba7bc4788d94f325b75f04d92686716bfe71268132",
+      "content/spec001/dialogue/introduction.json": "4739496058df4c1b7f2ac8a87c5fff7ce9e499d7630dde9781a6583cabeda171",
+      "content/spec001/dialogue/packet-r12.json": "69dadb2f7a331a7a91c8ba872f2cdf2391d60f2632032245845d6d3ddfee23d2",
+      "content/spec001/dialogue/radio-actions.json": "8db4dc8b23353f15408a2855dea7c20fd44563d21f2d477b30d80ef6fdbc4603",
+      "content/spec001/dialogue/repair-plan-actions.json": "7fa17cd93871c28a18b84048b8ada9036f0e93b4b3e8c7a23a00985f8295a697",
+      "content/spec001/items-introduction.json": "e75bcb31821a1a29f2817998a9b3e2f51d256f0f823ff5f628ffa0842d4382a9",
+      "content/spec001/minigames/MG01.json": "b9f0f8dc764678a6d49fe431ec8788fe2e7b90263ee6f31271ea85d801136045",
+      "content/spec001/minigames/MG02.json": "f9305d409cc1b186298a908c7ed6f7a25ce1318395496efcb91a902db1503b20",
+      "content/spec001/minigames/MG03.json": "b51f3a94fdfaf42fe4eef0a1e993b95f44b1c0520fabbe5e58b5aa4eb4bc6f57",
+      "content/spec001/objectives.json": "b5e2212d581caebc4419f683dc47e337dabba157dc569369f5413e13511f9b98",
+      "content/spec001/profiles.json": "93c0dfe3d40c74e68b2e4e025518e2efe1c3e82abb5438d233fddeb9b0834cc3",
+      "content/spec001/quests/SQ01.json": "315a28efef411497b1f86fafd4b5a14dd659e016f01eee361aa280946b6467d5",
+      "content/spec001/quests/SQ02.json": "55c6093c2d1968704da47d6bc069721d066a042892976ce4bcb0868e75b92907",
+      "content/spec001/quests/SQ03.json": "eb860e2295ce21b2b40bedb5b06bd028dda1105e834343766f36e80a34f10489",
+      "content/spec001/quests/SQ04.json": "b8f61aedcaf8944c3f7e0e10eb2c24673314229d111093a0d9659d4fa811da8d",
+      "content/spec001/rooms/R01.json": "bf49d22296b7b74fe4f568c99fef03d9c47b584afef55d97379b849b8b8cc33d",
+      "content/spec001/rooms/R02.json": "f5987a9ffcc1d60dda7110bac29bbe7e36c914ccbf976e466edd9d8dcb87b51c",
+      "content/spec001/rooms/R03.json": "1290f08bbe60ec711d386b677a6a59ccb677376baf8d8480b04b6820b5e5ab13",
+      "content/spec001/rooms/R04.json": "a68bbfcdc10c0b9bbd38c26b14ca17da1353d1608f88158529962af2fb242618",
+      "content/spec001/rooms/R05.json": "bc1eca946acc5d6b5a5d509cf255dbccf61c4b37b5d7c2c5adef33cea860dc57",
+      "content/spec001/rooms/R06.json": "eb6cd2499f9131aac35149acf448b38aa44f99a347383174fe67cac6f205a06c",
+      "content/spec001/rooms/R07.json": "b083ee54456bc61395074f81024baa1f4ab81e180c0efa4b660dc32326676fcb",
+      "content/spec001/rooms/R08.json": "558cdc15844774f22fe313257d85634bc297230b50ce148a5bde68f281dd3c1e",
+      "content/spec001/rooms/R09.json": "4dd721c3f7d36d58b8231e8c81623f2b8fb0d271e7b92ffc63fa25f1cfb219cb",
+      "content/spec001/rooms/R10.json": "c092b8dcf3c3365410d08d9cb96fc821163b3deeab50bc30998d39650568ee1f",
+      "content/spec001/rooms/R11.json": "ed143052d12f2df897ad228ad403214bc4409687f1c97d4da77319572684ec42",
+      "content/spec001/rooms/R12.json": "e6070c51037b02fe16ecebefb97091aaefdcb2a392d59e74b5979f067883dc10"
+    }
+  },
+  "benchmark": {
+    "registeredIdentities": 21,
+    "auditionRecordCount": 12,
+    "primaryAuditionTitle": {
+      "path": "public/assets/audio/auditions/music-title.mp3",
+      "sha256": "9bfa196a51c64f6b716da508d6f76b09a2284cb7f0edec310fa793342c58d408",
+      "bytes": 481580,
+      "format": "MP3"
+    },
+    "fullAdditionalTitle": {
+      "path": "public/assets/audio/music/title.mp3",
+      "sha256": "bfceceba89fcc84b828167eac040b513e2cbb171cf8792c14ca2ec1589c9712d",
+      "bytes": 1738988,
+      "format": "mp3"
+    },
+    "standaloneReference": {
+      "path": "public/assets/models/R01.glb",
+      "bytes": 1670328,
+      "sha256": "edf7f8b0445c81a4be73adcde1bbb881d73a1ece47f085f7afdd7d91e0998f56"
+    }
+  },
+  "historicalSeals": {
+    "assets-src/audio/auditions/provenance/review-packet-seal.json": {
+      "sealSha256": "89e98ccf375c685164ba63b046a9c8daf17286cb8e0fa171d3a74e7900e6f3e0",
+      "entries": 33,
+      "wholeFilesMatched": 33,
+      "appendOnlyNotes": []
+    },
+    "assets-src/audio/auditions/sha256-manifest.json": {
+      "sealSha256": "d57a0db5b15f1cab21c404246400e42c4793e7af673db6a404fd35b277d97823",
+      "entries": 207,
+      "wholeFilesMatched": 207,
+      "appendOnlyNotes": []
+    },
+    "assets-src/audio/auditions/metadata-followup/sha256-manifest.json": {
+      "sealSha256": "83a44f652f38cad943f47f65353b158c6dd6bca8daaf468b8854044888ffc96d",
+      "entries": 27,
+      "wholeFilesMatched": 27,
+      "appendOnlyNotes": []
+    },
+    "assets-src/images/R01/artifact-seals.json": {
+      "sealSha256": "664a627f7a8bb34b8d46d59993875f912a1a4a4e9561868946ed538b811a844c",
+      "entries": 68,
+      "wholeFilesMatched": 67,
+      "appendOnlyNotes": [
+        {
+          "path": "docs/implementation/loops/069-T064.md",
+          "sealedBytes": 5913,
+          "sealedPrefixSha256": "7a00f3a492a5d6952e4cec16e89571fbf0ed4b9c53a95ce3cd43add56880c49b",
+          "observed": {
+            "bytes": 6672,
+            "sha256": "09a9afcec9359b83331b5ae960de258fe4beaf905f168d93cf418b648fc2b9ce"
+          },
+          "difference": "Dated coordinator acceptance appended to the sealed worker note. Sealed prefix matches."
+        }
+      ]
+    }
+  },
+  "inventory": {
+    "valid": true,
+    "exitCode": 0,
+    "counts": {
+      "characterModels": 0,
+      "props": 0,
+      "interactiveProps": 0,
+      "roomsWithImageSet": 0,
+      "sceneLayers": 0,
+      "portraits": 0,
+      "illustrations": 0,
+      "music": 0,
+      "ambience": 0,
+      "effects": 0,
+      "voices": 0
+    },
+    "issues": {},
+    "issueCount": 0,
+    "maximumResidentBytes": 267157504,
+    "wallSeconds": 3.78
+  },
+  "release": {
+    "valid": false,
+    "exitCode": 1,
+    "counts": {
+      "characterModels": 0,
+      "props": 0,
+      "interactiveProps": 0,
+      "roomsWithImageSet": 0,
+      "sceneLayers": 0,
+      "portraits": 0,
+      "illustrations": 0,
+      "music": 0,
+      "ambience": 0,
+      "effects": 0,
+      "voices": 0
+    },
+    "issues": {
+      "QUOTA_MINIMUM": 11,
+      "REQUIRED_IDENTITY_MISSING": 175,
+      "ROOM_IMAGE_SET_INCOMPLETE": 1,
+      "MUSIC_COVERAGE": 1,
+      "AMBIENCE_COVERAGE": 1,
+      "VOICE_SPEAKER_COVERAGE": 1,
+      "PORTRAIT_COVERAGE": 1
+    },
+    "issueCount": 191,
+    "maximumResidentBytes": 274677760,
+    "wallSeconds": 3.78
+  },
+  "negativeInventoryProbes": {
+    "omit-live-title-rendition": {
+      "exitCode": 1,
+      "mode": "inventory",
+      "valid": false,
+      "issues": [
+        {
+          "code": "REGISTERED_USE_MISSING",
+          "assetId": "spec001:ASSET-MUSIC-title",
+          "path": "public/assets/audio/auditions/music-title.mp3"
+        }
+      ],
+      "counts": {
+        "characterModels": 0,
+        "props": 0,
+        "interactiveProps": 0,
+        "roomsWithImageSet": 0,
+        "sceneLayers": 0,
+        "portraits": 0,
+        "illustrations": 0,
+        "music": 0,
+        "ambience": 0,
+        "effects": 0,
+        "voices": 0
+      },
+      "scope": "Offline source/evidence consistency; no human audition, owner approval, finished-room or gate certification."
+    },
+    "borrow-audition-review-and-corrupt-inspection-hash": {
+      "exitCode": 1,
+      "mode": "inventory",
+      "valid": false,
+      "issues": [
+        {
+          "code": "FILE_HASH_MISMATCH",
+          "assetId": "spec001:ASSET-CH03",
+          "path": "public/assets/models/CH03-inspection.glb"
+        },
+        {
+          "code": "REVIEW_HASH_MISMATCH",
+          "assetId": "spec001:ASSET-CH03"
+        },
+        {
+          "code": "REVIEW_HASH_MISMATCH",
+          "assetId": "spec001:ASSET-MUSIC-title"
+        }
+      ],
+      "counts": {
+        "characterModels": 0,
+        "props": 0,
+        "interactiveProps": 0,
+        "roomsWithImageSet": 0,
+        "sceneLayers": 0,
+        "portraits": 0,
+        "illustrations": 0,
+        "music": 0,
+        "ambience": 0,
+        "effects": 0,
+        "voices": 0
+      },
+      "scope": "Offline source/evidence consistency; no human audition, owner approval, finished-room or gate certification."
+    }
+  },
+  "checks": {
+    "npmRunCheck": "passed",
+    "maxVitestWorkers": 4,
+    "suiteCounts": {
+      "tests/content/maintenance-record.test.ts": 24,
+      "tests/content/asset-adapter.test.ts": 46,
+      "tests/content/assets.test.ts": 250,
+      "tests/ui/compendium.test.ts": 33,
+      "tests/content/voice-evidence-binding.test.ts": 47,
+      "tests/content/room-models.test.ts": 25,
+      "tests/presentation/room-adapter.test.ts": 9,
+      "tests/presentation/audio.test.ts": 13,
+      "tests/content/illustrations.test.ts": 4,
+      "tests/content/characters.test.ts": 25,
+      "tests/content/radio-diary.test.ts": 16,
+      "tests/presentation/room-media.test.ts": 4
+    }
+  },
+  "inputsUnderTest": {
+    "specs/001-physical-layer-underworld/contracts/asset-manifest.schema.json": "19e04d5b7cdbb06942a7f0b9ca44e26b419b8b637dd02e45331909e506c87367",
+    "tools/asset-files.ts": "89b3cc7e769f7acaf28044c45fd443181fb32e8852866cad20fb9801fbcfbbbd",
+    "tools/asset-types.ts": "040ff00762c10341455735d3a52a7536452f59cc7721547ba9005fd04a4e3e68",
+    "tools/validate-assets.ts": "61040384125b2c82892d23a9b1ce95da2653014f27ffda89a00f85f58998b27b",
+    "tools/reconcile-production.ts": "29fd4838fb03249cf05f6438b356ddbe36f18cf9659bdded1c86593791068b72",
+    "tests/content/asset-adapter.test.ts": "dc70d36f41d643fa8673c9b41c197fc0ea8e350b726c63e2402fd0cb2438d75f"
+  },
+  "coordinatorDomainRun": {
+    "baseCommit": "cc8aeca36e9038772b19de896b1a0f642c3d1f30",
+    "source": "Independent clean-checkout coordinator run with six task validator/manifest/test overlays",
+    "maxVitestWorkers": 4,
+    "passedSuites": 114,
+    "passedTests": 4339,
+    "existingTodos": 360,
+    "wallSeconds": 79.37
+  }
+}

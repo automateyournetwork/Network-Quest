@@ -9,7 +9,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterEach, describe, expect, it } from 'vitest';
 import { assetAllocations } from '../../tools/asset-allocations.ts';
-import { AssetFileReader, auditAssetRepository, extractAuthoredAssetContent, publicAssetPath } from '../../tools/asset-files.ts';
+import { AssetFileReader, auditAssetRepository, extractAuthoredAssetContent, missingRegisteredAssetUses, publicAssetPath } from '../../tools/asset-files.ts';
 import { validateAssetManifest } from '../../tools/validate-assets.ts';
 import { emptyCounts } from '../../tools/asset-types.ts';
 import type { Asset, AssetEvidenceRecord, AssetEvidenceSnapshot, AssetManifest } from '../../tools/asset-types.ts';
@@ -64,6 +64,50 @@ function images() {
 }
 
 describe('additional asset semantic boundaries', () => {
+  it('audits alternate production bytes separately and denies a second quota or inherited review', () => {
+    const f = images(), primary = f.input.assets[0]!;
+    const alternate = structuredClone(primary);
+    const bytes = new TextEncoder().encode('SYNTHETIC independently exported version');
+    const file = { ...alternate.exports[0]!.file, path: 'public/assets/images/second.webp', sha256: hash(bytes), bytes: bytes.length };
+    f.files[file.path] = bytes;
+    alternate.exports[0]!.file = file;
+    alternate.status = 'exported';
+    alternate.countsTowardQuota = false;
+    alternate.verification = [];
+    alternate.usedBy = [];
+    alternate.rights.reviewStatus = 'pending';
+    f.input.additionalRenditions = [alternate];
+    const audit = () => validateAssetManifest(f.input, f.evidence, { mode: 'inventory' });
+    expect(audit()).toEqual({ valid: true, issues: [], counts: { ...emptyCounts(), sceneLayers: 2 } });
+    alternate.verification = [primary.verification.find(v => v.check === 'visual')!];
+    expect(audit().issues.map(i => i.code)).toContain('REVIEW_HASH_MISMATCH');
+    alternate.verification = [];
+    f.files[file.path] = new Uint8Array([0]);
+    expect(audit().issues.map(i => i.code)).toContain('FILE_HASH_MISMATCH');
+    f.files[file.path] = bytes;
+    alternate.countsTowardQuota = true;
+    expect(audit().issues.map(i => i.code)).toContain('SCHEMA_INVALID');
+    alternate.countsTowardQuota = false;
+    alternate.semanticIdentity = 'spec001:different';
+    expect(audit().issues.map(i => i.code)).toContain('RENDITION_IDENTITY_MISMATCH');
+    alternate.semanticIdentity = primary.semanticIdentity;
+    alternate.exports = primary.exports;
+    expect(audit().issues.map(i => i.code)).toContain('RENDITION_EXPORT_DUPLICATE');
+  });
+  it('an exact registered use survives only on the rendition whose export was bound', () => {
+    const f = images(), primary = f.input.assets[0]!;
+    const use = f.evidence.content.uses[0]!;
+    const { path } = primary.exports[0]!.file;
+    const audition = structuredClone(primary);
+    audition.countsTowardQuota = false;
+    primary.exports[0]!.file.path = 'public/assets/images/new-production.webp';
+    primary.usedBy = [];
+    f.input.additionalRenditions = [audition];
+    expect(missingRegisteredAssetUses(f.input, [use])).toEqual([]);
+    audition.usedBy = [];
+    primary.usedBy = [{ contentId: use.contentId, use: use.use, evidencePath: 'docs/evidence/spec001/assets/use.json' }];
+    expect(missingRegisteredAssetUses(f.input, [use])).toEqual([{ code: 'REGISTERED_USE_MISSING', assetId: use.assetId, path }]);
+  });
   it('accepts AI-assisted composition and synthesis with preserved MIDI, native project and master, without inventing model generation', () => {
     const f = images(); f.input.assets.splice(1); f.evidence.content.uses.splice(1);
     let a = f.input.assets[0]!;
@@ -230,10 +274,10 @@ describe('bounded rooted asset filesystem adapter', () => {
     const binding = { assetId: a.assetId, contentId: 'spec001:R01', use: 'prop-placement', exportPath: 'public/assets/models/one.glb', interactiveOrEvidence: true };
     expect(extractAuthoredAssetContent(world, [{ ...graybox, bindings: [binding] }]).uses).toEqual([binding]);
   });
-  it('actual repository planned inventory passes while release fails with zero accepted counts', async () => {
+  it('actual repository inventory passes while release fails with zero accepted counts', async () => {
     expect(await auditAssetRepository(project, 'inventory')).toEqual({ valid: true, issues: [], counts: emptyCounts() });
     const release = await auditAssetRepository(project, 'release'); expect(release.valid).toBe(false); expect(release.counts).toEqual(emptyCounts()); expect(release.issues.map(i => i.code)).toContain('QUOTA_MINIMUM');
-  });
+  }, 30_000); // Two complete disk audits of the production corpus.
   it('CLI emits structured failure without printing arbitrary private bytes', async () => {
     const root = await sandbox(); await put(root, 'assets-src/manifest.json', JSON.stringify(manifest()));
     let output = '';

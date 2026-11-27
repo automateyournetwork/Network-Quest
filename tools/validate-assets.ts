@@ -6,7 +6,7 @@ import { pathToFileURL } from 'node:url';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import schema from '../specs/001-physical-layer-underworld/contracts/asset-manifest.schema.json' with { type: 'json' };
-import { emptyCounts, minimums } from './asset-types.ts';
+import { emptyCounts, manifestRenditions, minimums } from './asset-types.ts';
 import type { Asset, AssetCounts, AssetEvidenceRecord, AssetEvidenceSnapshot, AssetFileDigest, AssetManifest, AssetValidationResult } from './asset-types.ts';
 export type { AssetEvidenceSnapshot, AssetValidationResult } from './asset-types.ts';
 
@@ -119,8 +119,25 @@ export function validateAssetObservations(manifest: unknown, evidence: AssetEvid
   duplicate(a => a.assetId, 'DUPLICATE_ASSET_ID');
   duplicate(a => a.semanticIdentity, 'DUPLICATE_SEMANTIC_IDENTITY');
   duplicate(a => a.model?.objectIds.length ? `${a.model.blendSourcePath}:${[...a.model.objectIds].sort().join('|')}` : undefined, 'DUPLICATE_MODEL_OBJECTS');
+  // One identity can have an audition or a new animation with separate bytes.
+  // Each version must prove its own production, export, use and reviews below.
+  const versions = manifestRenditions(manifest);
+  const seenExports = new Map<string, Set<string>>();
+  const exportOwners = new Map<string, Asset>();
+  for (const a of versions) {
+    const primary = byId.get(a.assetId);
+    if (primary?.kind !== a.kind || primary.semanticIdentity !== a.semanticIdentity) add('RENDITION_IDENTITY_MISMATCH', a.assetId);
+    const seen = seenExports.get(a.assetId) ?? new Set<string>();
+    for (const { file } of a.exports) {
+      if (a !== primary && (seen.has(file.path) || seen.has(file.sha256))) add('RENDITION_EXPORT_DUPLICATE', a.assetId, file.path);
+      seen.add(file.path);
+      seen.add(file.sha256);
+      exportOwners.set(JSON.stringify([a.assetId, file.path]), a);
+    }
+    seenExports.set(a.assetId, seen);
+  }
   let graphSteps = 0;
-  for (const a of assets) {
+  for (const a of versions) {
     const assetRecords = recordsByAsset.get(a.assetId) ?? [];
     for (const parent of a.derivedFrom) if (!byId.has(parent)) add('DERIVATION_UNRESOLVED', a.assetId);
     if (a.variantOf !== null && !byId.has(a.variantOf)) add('VARIANT_UNRESOLVED', a.assetId);
@@ -273,7 +290,13 @@ export function validateAssetObservations(manifest: unknown, evidence: AssetEvid
       };
       const [verbs, kinds] = allowed[a.kind]!;
       if (!verbs.includes(use.use) || (target && !kinds.includes(target.kind)) || (a.kind === 'scene-layer' && use.use !== a.image?.layerRole)) add('USE_KIND_MISMATCH', a.assetId);
-      const bindings = evidence.content.uses.filter(u => u.assetId === a.assetId && u.contentId === use.contentId && u.use === use.use);
+      const bindings = evidence.content.uses.filter(u => {
+        if (u.assetId !== a.assetId || u.contentId !== use.contentId || u.use !== use.use) return false;
+        const owner = exportOwners.get(JSON.stringify([u.assetId, u.exportPath]));
+        // Another rendition can legitimately serve the same room. An unknown
+        // export must still reach the mismatch check below.
+        return owner === undefined || owner === a;
+      });
       if (!bindings.length) add('RUNTIME_USE_MISSING', a.assetId);
       if (bindings.some(b => !a.exports.some(e => e.file.path === b.exportPath))) add('RUNTIME_EXPORT_MISMATCH', a.assetId);
       const r = get(use.evidencePath, a, 'USE_EVIDENCE_MISMATCH');

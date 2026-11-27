@@ -16,6 +16,17 @@
         "$ref": "#/$defs/asset"
       },
       "maxItems": 5000
+    },
+    "additionalRenditions": {
+      "description": "Separately produced versions of an existing primary identity. Each has its own sources, exports, rights, review and use evidence. Only a primary identity may count toward a quota.",
+      "type": "array",
+      "maxItems": 5000,
+      "items": {
+        "allOf": [
+          { "$ref": "#/$defs/asset" },
+          { "properties": { "countsTowardQuota": { "const": false }, "exports": { "minItems": 1 } } }
+        ]
+      }
     }
   },
   "required": [

@@ -766,7 +766,7 @@ settled the playable routes. Reconcile the candidate with that accepted build.
 - [ ] T129 [P] [US8] Render and review selected voice lines 001–020 from the locked narrator/Titan/Photon/Hermit script plan in `assets-src/audio/voices-01-20.json`; retain exact script/caption, pronunciation, selected voice/model, raw generation and native mix/master/export.
 - [ ] T130 [P] [US8] Render and listen to selected lines 021–040 with cast-consistent delivery and technical pronunciation in `assets-src/audio/voices-21-40.json`; record actual model/component rights and caption/in-game references.
 - [ ] T131 [P] [US8] Render and listen to selected lines 041–060, including key outcomes and reactions, in `assets-src/audio/voices-41-60.json`; retain all provenance and intelligibility/performance findings before acceptance.
-- [ ] T132 [US8] Validate and consolidate per-batch source/export/rights records into `assets-src/manifest.json`; reconcile exactly 25 modeled identities, 150 props, 36 layers, 25 portraits, 24 illustrations and all audio quotas without claiming runtime integration prematurely.
+- [X] T132 [US8] Validate and consolidate per-batch source/export/rights records into `assets-src/manifest.json`; reconcile exactly 25 modeled identities, 150 props, 36 layers, 25 portraits, 24 illustrations and all audio quotas without claiming runtime integration prematurely.
 
 ### Finished rooms, presentation modes and G5
 

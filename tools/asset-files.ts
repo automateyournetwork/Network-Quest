@@ -6,7 +6,7 @@ import { lstat, open, realpath, readdir } from 'node:fs/promises';
 import { dirname, relative, resolve, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateContent } from '../src/content/registry.ts';
-import { emptyCounts } from './asset-types.ts';
+import { emptyCounts, manifestRenditions } from './asset-types.ts';
 import type { AssetEvidenceSnapshot, AssetFileDigest, AssetEntity, AssetIssue, AssetUse, AssetManifest, AssetValidationResult } from './asset-types.ts';
 import { isAssetManifest, isEvidenceRecord, validateAssetObservations } from './validate-assets.ts';
 
@@ -181,7 +181,7 @@ export function extractAuthoredAssetContent(world: unknown, documents: unknown[]
 function manifestPaths(manifest: AssetManifest): { files: Set<string>; records: Set<string> } {
   const files = new Set<string>(), records = new Set<string>();
   const proof = (path: string | undefined) => { if (path) { files.add(path); records.add(path); } };
-  for (const a of manifest.assets) {
+  for (const a of manifestRenditions(manifest)) {
     for (const s of a.sources) { files.add(s.file.path); if (a.status === 'accepted' || a.verification.some(v => v.status === 'passed' && v.evidencePath === s.reopenEvidencePath)) proof(s.reopenEvidencePath); if (s.retrieval) files.add(s.retrieval.instructionsPath); }
     for (const e of a.exports) { files.add(e.file.path); if (a.status === 'accepted' || a.verification.some(v => v.status === 'passed' && v.evidencePath === e.integrationEvidencePath)) proof(e.integrationEvidencePath); }
     for (const p of a.production) { files.add(p.settingsPath); files.add(p.promptOrScriptPath); }
@@ -194,6 +194,20 @@ function manifestPaths(manifest: AssetManifest): { files: Set<string>; records: 
   return { files, records };
 }
 
+/** Batch fragments can be partial. The canonical inventory must also cover
+ * every exact registered export/use exposed by the game, in the reverse direction. */
+export function missingRegisteredAssetUses(manifest: AssetManifest, uses: readonly AssetUse[]): AssetIssue[] {
+  const represented = new Map<string, Set<string>>();
+  for (const a of manifestRenditions(manifest)) {
+    const locations = new Set(a.usedBy.map(u => JSON.stringify([u.contentId, u.use])));
+    for (const { file } of a.exports) {
+      represented.set(JSON.stringify([a.assetId, file.path]), locations);
+    }
+  }
+  return uses.filter(u => !represented.get(JSON.stringify([u.assetId, u.exportPath]))?.has(JSON.stringify([u.contentId, u.use])))
+    .map(u => ({ code: 'REGISTERED_USE_MISSING', assetId: u.assetId, path: u.exportPath }));
+}
+
 export async function auditAssetRepository(root: string, mode: 'inventory' | 'release', manifestPath = 'assets-src/manifest.json'): Promise<AssetValidationResult> {
   const failures: AssetIssue[] = [];
   const empty = () => ({ valid: false, issues: failures, counts: emptyCounts() });
@@ -204,7 +218,8 @@ export async function auditAssetRepository(root: string, mode: 'inventory' | 're
     const files: Record<string, Uint8Array> = Object.create(null), records: Record<string, AssetEvidenceSnapshot['records'][string]> = Object.create(null);
     const paths = manifestPaths(manifest);
     const media = new Map<string, AssetFileDigest>();
-    const parsedPaths = new Set(manifest.assets.flatMap(a => [
+    const renditions = manifestRenditions(manifest);
+    const parsedPaths = new Set(renditions.flatMap(a => [
       ...a.production.map(event => event.promptOrScriptPath),
       ...(a.image ? [a.image.cameraRecordPath, a.image.registrationPath] : []),
       ...(a.audio?.voiceRecordPath ? [a.audio.voiceRecordPath] : []),
@@ -227,6 +242,7 @@ export async function auditAssetRepository(root: string, mode: 'inventory' | 're
       } catch (error) { failures.push(issueFor(error, 'FILE_READ_FAILED', path)); }
     }
     snapshot.content = await loadContent(reader);
+    if (manifestPath === 'assets-src/manifest.json') failures.push(...missingRegisteredAssetUses(manifest, snapshot.content.uses));
     const validated = validateAssetObservations(manifest, { ...snapshot, files, records }, { mode }, media);
     // An adapter failure cannot yield accepted counts, even if unreferenced
     // evidence was malformed or a content dependency could not be read safely.

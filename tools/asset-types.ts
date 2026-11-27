@@ -38,6 +38,7 @@ export type Asset = {
   image?: { width: number; height: number; colorSpace: string; alpha: boolean; cameraRecordPath: string; layerRole: string; registrationPath: string };
   audio?: { nativeProjectPath: string; masterPath: string; codec: string; sampleRate: number; channels: number; durationSeconds: number; loopStartSample: number | null; loopEndSample: number | null; loudnessLufs: number; peakDbfs: number; captionId: string | null; voiceRecordPath?: string };
 };
-export type AssetManifest = { schemaVersion: 1; episodeId: 'spec001'; assets: Asset[] };
+export type AssetManifest = { schemaVersion: 1; episodeId: 'spec001'; assets: Asset[]; additionalRenditions?: Asset[] };
+export const manifestRenditions = (manifest: AssetManifest): Asset[] => [...manifest.assets, ...(manifest.additionalRenditions ?? [])];
 export const minimums: Readonly<AssetCounts> = Object.freeze({ characterModels: 25, props: 150, interactiveProps: 50, roomsWithImageSet: 12, sceneLayers: 36, portraits: 25, illustrations: 24, music: 8, ambience: 12, effects: 40, voices: 60 });
 export const emptyCounts = (): AssetCounts => ({ characterModels: 0, props: 0, interactiveProps: 0, roomsWithImageSet: 0, sceneLayers: 0, portraits: 0, illustrations: 0, music: 0, ambience: 0, effects: 0, voices: 0 });
