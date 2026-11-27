@@ -1,0 +1,105 @@
+{
+  "model": "openai/whisper-base.en",
+  "revision": "911407f4214e0e1d82085af863093ec0b66f9cd6",
+  "weightsSha256": "d4dd5542fd6a1d35639e21384238f3bfe6c557c849d392b5905d33ee29e71db5",
+  "device": "CPU",
+  "transformers": "5.24.1",
+  "torch": "2.15.0",
+  "beams": 5,
+  "method": "Unprompted English transcription from the decoded 16 kHz mono final MP3, independent segments, deterministic decoding; word alignment lowercases and removes punctuation. Interpret recognized differences by line. A recognition result cannot establish a human listener’s judgment.",
+  "lines": [
+    {
+      "assetId": "spec001:ASSET-VOICE-047",
+      "web": {
+        "path": "public/assets/audio/voices/voice-047.mp3",
+        "bytes": 104492,
+        "sha256": "a02a5a3d84991a4a075c82d058d5dea788e2de711eb7f59f7f63af68f77b903c"
+      },
+      "caption": "Borrowed dawn is still dawn. Let us keep the temporary part written where nobody can miss it.",
+      "transcript": "Borrow Dawn is still Dawn. Let us keep the temporary part written where nobody can miss it.",
+      "caseAndPunctuationNormalizedDifferences": [
+        {
+          "change": "replace",
+          "expected": "borrowed",
+          "recognized": "borrow"
+        }
+      ]
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-051",
+      "web": {
+        "path": "public/assets/audio/auditions/hermit-051.mp3",
+        "bytes": 117164,
+        "sha256": "12b68409c4f59a6b9336f08d464cf2a61fcf985b148ca28e1b5682ea0dca1eff"
+      },
+      "caption": "S F P names a form factor here. The particular module tells you what it actually supports.",
+      "transcript": "SFP names a form factor here. The particular module tells you what it actually supports.",
+      "caseAndPunctuationNormalizedDifferences": [
+        {
+          "change": "replace",
+          "expected": "s f p",
+          "recognized": "sfp"
+        }
+      ]
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-054",
+      "web": {
+        "path": "public/assets/audio/voices/voice-054.mp3",
+        "bytes": 111020,
+        "sha256": "15ef75eafe0ec43553ddb8e701c307b8e65b813c56bbd337d134ea8b54286d20"
+      },
+      "caption": "Twelve, eleven and ten watts total thirty-three. This supplied thirty-watt budget is three watts short.",
+      "transcript": "12, 11, and 10 watts total 33. This supplied 30-watt budget is 3-watt short.",
+      "caseAndPunctuationNormalizedDifferences": [
+        {
+          "change": "replace",
+          "expected": "twelve eleven",
+          "recognized": "12 11"
+        },
+        {
+          "change": "replace",
+          "expected": "ten",
+          "recognized": "10"
+        },
+        {
+          "change": "replace",
+          "expected": "thirty three",
+          "recognized": "33"
+        },
+        {
+          "change": "replace",
+          "expected": "thirty",
+          "recognized": "30"
+        },
+        {
+          "change": "replace",
+          "expected": "three watts",
+          "recognized": "3 watt"
+        }
+      ]
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-057",
+      "web": {
+        "path": "public/assets/audio/auditions/hermit-057.mp3",
+        "bytes": 140588,
+        "sha256": "1bdc5b8fb6a23332be59929a14af0068e0d34de58788d223ac2c0b2548150346"
+      },
+      "caption": "D B M is a power level. D B expresses a difference or ratio. Keep their labels attached to the numbers.",
+      "transcript": "DBM is a power level. DB expresses a difference or ratio. Keep their labels attached to the numbers.",
+      "caseAndPunctuationNormalizedDifferences": [
+        {
+          "change": "replace",
+          "expected": "d b m",
+          "recognized": "dbm"
+        },
+        {
+          "change": "replace",
+          "expected": "d b",
+          "recognized": "db"
+        }
+      ]
+    }
+  ]
+}

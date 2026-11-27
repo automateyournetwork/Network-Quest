@@ -9,5 +9,8 @@ Each packet opens locally and plays the files identified in its checksum record.
 | [Twelve rooms of ambience](../../../../assets-src/audio/T126/review.html) | 8m 53s of full room beds, with separate join and dialogue comparisons. Check room identity, fatigue, masking and transition sounds. |
 | [Effects 001–020](../../../../assets-src/audio/T127/review.html) | Eighteen new effects and a 52-second contextual mix. The unchanged wooden tick and lift latch retain their solo approvals. |
 | [Effects 021–040](../../../../assets-src/audio/T128/review.html) | Nineteen new solo effects and twenty room mixes. Both playlists take about 75 seconds per output. The unchanged solo Photon glimmer retains its approval. |
+| [Voice lines 001–020](../../../../assets-src/audio/T129/review.html) | Check “upper layers” on 006 and “The Borrowed Dawn” on 016 against their captions. Prior solo approval remains on 001, 005, 019. |
+| [Voice lines 021–040](../../../../assets-src/audio/T130/review.html) | Follow the displayed script while listening for character delivery, units and technical terms. Prior solo approval remains on 025, 035. |
+| [Voice lines 041–060](../../../../assets-src/audio/T131/review.html) | Listen for “Borrowed dawn” on 047 and “three watts short” on 054. Prior solo approvals cover 042, 051 and 057. |
 
 The [implementation ledger](../../../implementation/state.json) identifies each packet, seal and recorded decision. Browser playback and file integrity have their own evidence in the linked packets.

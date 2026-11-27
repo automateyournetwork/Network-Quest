@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Underworld voices · @@FIRST@@–@@LAST@@</title><style>
+:root{color-scheme:light dark;font:1em/1.55 system-ui,sans-serif}body{max-width:46rem;margin:auto;padding:1rem;overflow-wrap:anywhere}
+section{border-top:1px solid GrayText;padding-block:1rem}h1,h2{line-height:1.2}button{font:inherit;min-height:2.5rem;padding:.3rem .7rem;margin:.25rem .1rem .25rem 0}audio{display:block;max-width:100%;margin-block:.5rem}.caption{font-size:1.18em}
+:focus-visible{outline:.2rem solid Highlight;outline-offset:.2rem}
+</style></head><body><main><h1>Underworld voices · @@FIRST@@–@@LAST@@</h1>
+<p>Listen to the new lines on ordinary speakers and headphones. To request a change, give the line number, playback device and word or moment to revise. Replaying a line stops the sequence. The written dialogue stays available throughout.</p>
+<p>Listening packet <code>@@PACKET@@</code></p>
+<div><button type="button" id="sequence">Play all lines in order</button><button type="button" id="skip">Skip current line</button><button type="button" id="stop">Stop playback</button></div>
+<p role="status" id="status">Ready.</p>
+@@ROWS@@
+</main><script>
+const lines=[...document.querySelectorAll('audio')];
+const statusText=document.getElementById('status');
+let current=null, sequence=false;
+function stop() {
+  sequence=false;
+  for(const element of lines){element.pause();element.currentTime=0}
+  current=null;
+  statusText.textContent='Playback stopped.';
+}
+function play(element) {
+  current=element;
+  element.currentTime=0;
+  element.play().catch(()=>{stop();statusText.textContent='Audio unavailable. The written dialogue is below.'});
+}
+function advance(){
+  const next=lines[lines.indexOf(current)+1];
+  if(sequence && next){current.pause();play(next)}else{stop()}
+}
+for(const element of lines){
+  element.addEventListener('play',()=>{
+    if(current!==element){sequence=false;current=element}
+    for(const other of lines)if(other!==element)other.pause();
+    statusText.textContent='Playing '+element.getAttribute('aria-label')+'.';
+  });
+  element.addEventListener('ended',()=>{if(current===element)advance()});
+}
+for(const button of document.querySelectorAll('[data-play]')){
+  button.addEventListener('click',()=>{stop();play(document.getElementById('audio-'+button.dataset.play))});
+}
+document.getElementById('sequence').addEventListener('click',()=>{stop();sequence=true;play(lines[0])});
+document.getElementById('skip').addEventListener('click',()=>{if(current)advance()});
+document.getElementById('stop').addEventListener('click',stop);
+</script></body></html>

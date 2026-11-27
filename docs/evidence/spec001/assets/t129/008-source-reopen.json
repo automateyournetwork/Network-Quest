@@ -1,0 +1,30 @@
+{
+  "type": "review",
+  "actor": "tool",
+  "status": "passed",
+  "assetId": "spec001:ASSET-VOICE-008",
+  "reviewer": "Codex loop146/T129",
+  "date": "2026-11-27",
+  "environment": "Mac ARM64; CPU Kokoro 0.9.4, FFmpeg 9.0.1, official Audacity 4.0.2 Linux ARM64 on a task-local virtual display; headless Chromium and Firefox.",
+  "hashes": [
+    "381ae990a3de0bce155a47b0c130f200d704493f920d563ecd05a96ecd481551",
+    "0b1a186543f0be3a5d43171a2d80ccc1ae22914cfeeb3755f0ac5d41d498110a",
+    "b68247b4105d677c4b33296d6a0759f6d46789430330a64a9323fb5bcf8c0fb0",
+    "ba86430a72f251c92a7f063110d518cd70bfcb88657d1a649c0934611b6c8e94",
+    "3c9fe756ca1df5a1b97fbc0b390cf860a20e109efffe375194e2ab19a2337e1a",
+    "2aca0c9ff06c3b2413fac17f2cbd4f9488dbfe89e10482fae6e383d17c31c953"
+  ],
+  "details": {
+    "receipt": {
+      "path": "assets-src/audio/T129/records/voice-008-native.json",
+      "bytes": 910,
+      "sha256": "0da01b0a64908167c2dd59eba5635781ba0a3641ea7cb32e75baaedad6206229"
+    },
+    "nativeSha256": "ba86430a72f251c92a7f063110d518cd70bfcb88657d1a649c0934611b6c8e94",
+    "observedTrack": "Track 1: voice-008, audio track, selected",
+    "sqliteIntegrity": "ok",
+    "preparedToNativeMaximumSampleResidual": 1.0728972262953954e-06,
+    "findings": "Audacity saved the named track, restarted, reopened the same project and exported PCM24 with the expected track content."
+  },
+  "check": "source-reopen"
+}

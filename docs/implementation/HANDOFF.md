@@ -26,7 +26,14 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**148 loops started; 118/170 tasks accepted; no deployment.** All 24 instructional illustrations and the two earned quest rewards reached the remote
+**151 loops started; 118/170 tasks accepted; no deployment.** All sixty voice lines have verified native projects, masters, browser exports and captions. Fifty-two new takes await owner listening. The consolidated [listening index](../evidence/spec001/audio-production/listening.md) includes all eight production packets.
+
+Twelve room ambience beds, forty effects and their [listening packets](../evidence/spec001/audio-production/listening.md)
+reached GitHub at `05537c5c476fc0964c24b7373ea6264f4a3a796c`. The
+[streaming inventory check](../evidence/spec001/audio-production/inventory-scale.json)
+verified 1.68 GB of unique sources and exports using 247 MB peak memory. The
+full domain run passed 4,337 executable tests with four workers and retained 360 TODOs.
+All 24 instructional illustrations and the two earned quest rewards reached the remote
 feature branch at `232325c58d7358dc92af9d0cf9149dc575e4d383`. The final local HTTPS
 journey used normal controls and retained all rewards through Retry, E03 Continue and one-slot restore.
 Eight full music cues and their listening packets reached the remote feature branch at
@@ -124,8 +131,14 @@ Loop 144/T127: Twenty verified effects and the spoken comparison are ready. The 
 
 Loop 145/T128: All twenty effects and room contexts passed browser and source checks. Nineteen new solo recordings and the mixes await hearing on both output types. [Verification](loops/145-T128.md).
 
+Loop 147/T130: Twenty exact lines passed caption, native and browser checks. Eighteen new lines await listening on speakers and headphones; 025 and 035 retain their recorded approvals. [Verification](loops/147-T130.md).
+
+Loop 146/T129: All twenty scripts have verified native sources, exports and browser playback. Seventeen new takes await two-output owner listening. [Verification](loops/146-T129.md).
+
+Loop 148/T131: All twenty Photon and Hermit lines passed native and browser verification. Seventeen new recordings await two-output human review. [Verification](loops/148-T131.md).
+
 <!-- current production assignments -->
-Active assignments: 146/T129, 147/T130, 148/T131.
+Active assignments: 149/T132, 150/T133, 151/T134.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

@@ -1,0 +1,30 @@
+{
+  "type": "production",
+  "actor": "tool",
+  "status": "passed",
+  "assetId": "spec001:ASSET-VOICE-017",
+  "reviewer": "Codex loop146/T129",
+  "date": "2026-11-27",
+  "environment": "Mac ARM64; CPU Kokoro 0.9.4, FFmpeg 9.0.1, official Audacity 4.0.2 Linux ARM64 on a task-local virtual display; headless Chromium and Firefox.",
+  "hashes": [
+    "556be9bb2278adad5e77499e17f93aded78927a31e6fb17c711f07ce6e804e4a"
+  ],
+  "details": {
+    "method": "mixed",
+    "tool": "FFmpeg",
+    "version": "9.0.1",
+    "modelRevision": "local-audio-processing",
+    "eventId": "t129-voice-017-level-a",
+    "settingsPath": "assets-src/audio/T129/records/voice-017-generation.json",
+    "promptOrScriptPath": "assets-src/audio/voice-batch/generate.py",
+    "referenceHashes": [
+      "b1d1e13f301cfa8720d5006676af2186bf890b4b0422fb6cf39c23fd5fed4037"
+    ],
+    "outputHashes": [
+      "556be9bb2278adad5e77499e17f93aded78927a31e6fb17c711f07ce6e804e4a"
+    ],
+    "notes": "Two-pass loudness normalization and 48 kHz mono resampling. The generation receipt records the measured input and final filter.",
+    "settingsSha256": "8114d6b43f985f70aa1f98ae2cedcdfc7f6efe0626a3fd7332fccfa3534b2852",
+    "promptSha256": "cb3e416ede5b072345799e2498b047a0a71b68a5447a8f6c44308c83b2b06b65"
+  }
+}

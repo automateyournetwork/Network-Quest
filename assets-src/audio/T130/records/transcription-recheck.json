@@ -1,0 +1,40 @@
+{
+  "model": "openai/whisper-base.en",
+  "revision": "911407f4214e0e1d82085af863093ec0b66f9cd6",
+  "weightsSha256": "d4dd5542fd6a1d35639e21384238f3bfe6c557c849d392b5905d33ee29e71db5",
+  "device": "CPU",
+  "transformers": "5.24.1",
+  "torch": "2.15.0",
+  "beams": 5,
+  "method": "Unprompted English transcription from the decoded 16 kHz mono final MP3, independent segments, deterministic decoding; word alignment lowercases and removes punctuation. Interpret recognized differences by line. A recognition result cannot establish a human listener’s judgment.",
+  "lines": [
+    {
+      "assetId": "spec001:ASSET-VOICE-031",
+      "web": {
+        "path": "public/assets/audio/voices/voice-031.mp3",
+        "bytes": 138284,
+        "sha256": "b1394daf4334b93a3a52bf0cd54065ac65cb140a0ed9733e3f67f5bc81525156"
+      },
+      "caption": "Repeat the link measurements and the declared endpoint test. Arrival at the balcony is not evidence of recovery.",
+      "transcript": "Repeat the link measurements and the declared end point test. Arrival at the balcony is not evidence of recovery.",
+      "caseAndPunctuationNormalizedDifferences": [
+        {
+          "change": "replace",
+          "expected": "endpoint",
+          "recognized": "end point"
+        }
+      ]
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-034",
+      "web": {
+        "path": "public/assets/audio/voices/voice-034.mp3",
+        "bytes": 129068,
+        "sha256": "38760c1a79838d1fd73f8b502d5cb98e7122af57f6bae18e931e3a3be6710a36"
+      },
+      "caption": "You chose to isolate an unresolved fault safely. Continue when you are ready to return to preparation.",
+      "transcript": "You chose to isolate an unresolved fault safely. Continue when you are ready to return to preparation.",
+      "caseAndPunctuationNormalizedDifferences": []
+    }
+  ]
+}

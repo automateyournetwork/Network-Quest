@@ -1,0 +1,27 @@
+{
+  "type": "review",
+  "actor": "tool",
+  "status": "passed",
+  "assetId": "spec001:ASSET-VOICE-014",
+  "reviewer": "Codex loop146/T129",
+  "date": "2026-11-27",
+  "environment": "Mac ARM64; CPU Kokoro 0.9.4, FFmpeg 9.0.1, official Audacity 4.0.2 Linux ARM64 on a task-local virtual display; headless Chromium and Firefox.",
+  "hashes": [
+    "ba5ce87f77e2689d77a3cc6a526e7c99c38d398c4ce4bc492a5cdd781679ff50",
+    "005d2f10884ce8d4c78f26f433d42c1b45edb7ebdb6b0a3de6e3d4fefd0ed024",
+    "749295b202815e33da60e84a8e1b5b6d284801397f5712e25e2f4f66254d0dfa",
+    "f0a28a097d1e323230c1fd0bad53566ef6943da2d654883c9678999637069036",
+    "9b8e048c3b2e671050c181e26cf3eb81265479cac60608f55a76658d77137240",
+    "b40c0b193204b71f207bef0b472ed36a0cb3e70cab4e166ad15beb5cd4c9cb52"
+  ],
+  "details": {
+    "browserEvidencePath": "assets-src/audio/T129/records/browser.json",
+    "captionSha256": "005d2f10884ce8d4c78f26f433d42c1b45edb7ebdb6b0a3de6e3d4fefd0ed024",
+    "webFrames": 426000,
+    "samplePeakDbfs": -2.4370929755290174,
+    "mp3TruePeakDbtp": -2.43,
+    "mp3MasterCorrelation": 0.9999022511195328,
+    "findings": "Actual mono MP3 decoded in both browser engines. The exact caption stayed visible during interruption and replay."
+  },
+  "check": "structure"
+}

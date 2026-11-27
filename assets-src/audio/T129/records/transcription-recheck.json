@@ -1,0 +1,102 @@
+{
+  "model": "openai/whisper-base.en",
+  "revision": "911407f4214e0e1d82085af863093ec0b66f9cd6",
+  "weightsSha256": "d4dd5542fd6a1d35639e21384238f3bfe6c557c849d392b5905d33ee29e71db5",
+  "device": "CPU",
+  "transformers": "5.24.1",
+  "torch": "2.15.0",
+  "beams": 5,
+  "method": "Unprompted English transcription from the decoded 16 kHz mono final MP3, independent segments, deterministic decoding; word alignment lowercases and removes punctuation. Interpret recognized differences by line. A recognition result cannot establish a human listener’s judgment.",
+  "lines": [
+    {
+      "assetId": "spec001:ASSET-VOICE-005",
+      "web": {
+        "path": "public/assets/audio/auditions/narrator-005.mp3",
+        "bytes": 132908,
+        "sha256": "1e7d5db8425391ab2847fae3ef52cc626c58674df00188ef5e81ea8915e5c514"
+      },
+      "caption": "This lab highlights the bytes four E and five one inside a larger supplied frame. They are our known test pattern.",
+      "transcript": "This lab highlights the bytes 4e and 5e inside a larger supplied frame. They are our known test pattern.",
+      "caseAndPunctuationNormalizedDifferences": [
+        {
+          "change": "replace",
+          "expected": "four e",
+          "recognized": "4e"
+        },
+        {
+          "change": "replace",
+          "expected": "five one",
+          "recognized": "5e"
+        }
+      ]
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-006",
+      "web": {
+        "path": "public/assets/audio/voices/voice-006.mp3",
+        "bytes": 116012,
+        "sha256": "9b22063c585b66fc6b277815e82847f9ef811087a381b8f305de5c2710fc48d1"
+      },
+      "caption": "Here, the upper layers supply context. The activity simulates only the declared physical path.",
+      "transcript": "Here, the upper layer supply context. The activity simulates only the declared physical path.",
+      "caseAndPunctuationNormalizedDifferences": [
+        {
+          "change": "replace",
+          "expected": "layers",
+          "recognized": "layer"
+        }
+      ]
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-007",
+      "web": {
+        "path": "public/assets/audio/voices/voice-007.mp3",
+        "bytes": 120620,
+        "sha256": "c99c74883b8c3a946841ceec29ba26acc10bd9ab25255b5305fbad925a656ce8"
+      },
+      "caption": "This fictional copper profile permits one hundred metres. Count the whole declared path before you choose.",
+      "transcript": "This fictional copper profile permits 100 meters. Count the whole declared path before you choose.",
+      "caseAndPunctuationNormalizedDifferences": [
+        {
+          "change": "replace",
+          "expected": "one hundred metres",
+          "recognized": "100 meters"
+        }
+      ]
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-015",
+      "web": {
+        "path": "public/assets/audio/voices/voice-015.mp3",
+        "bytes": 127148,
+        "sha256": "c6ca36e5d6eb5e9cd602ae02b2c6fd457fe03921b0faa1ab40bb2b8eb737051f"
+      },
+      "caption": "The Steady Light: the permanent route passed its declared checks. The maintenance record remembers how you got here.",
+      "transcript": "The steady light, the permanent route past its declared checks. The maintenance record remembers how you got here.",
+      "caseAndPunctuationNormalizedDifferences": [
+        {
+          "change": "replace",
+          "expected": "passed",
+          "recognized": "past"
+        }
+      ]
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-016",
+      "web": {
+        "path": "public/assets/audio/voices/voice-016.mp3",
+        "bytes": 146348,
+        "sha256": "0d08d8277a2ba110d508134c6e833505e24285a7b635c488c9c4427ec28895ad"
+      },
+      "caption": "The Borrowed Dawn: service is restored through a temporary route. Its limitation and the next repair belong in the record.",
+      "transcript": "The Baro Don, service is restored through a temporary route. Its limitation and the next repair belong in the record.",
+      "caseAndPunctuationNormalizedDifferences": [
+        {
+          "change": "replace",
+          "expected": "borrowed dawn",
+          "recognized": "baro don"
+        }
+      ]
+    }
+  ]
+}
