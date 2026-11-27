@@ -1,0 +1,7 @@
+# Underworld effects 001–020
+
+Credit John Capobianco / Network Quest. Original sounds, gestures, raw audio, mixes and project files are available under CC BY 4.0 to the extent the project controls their rights. Credit the project and identify changes. The production scripts use Apache-2.0. [Asset license](../../../LICENSE-ASSETS) · [Code license](../../../LICENSE)
+
+The eighteen new foley designs use original Codex-assisted synthesis code. Each gesture has its own hand-authored time course, pressure or contact sequence and material parameters. Noise, oscillators, envelopes and filters generated the raw takes locally. The sessions used no microphone recordings, third-party sample libraries, imitated performers or externally generated audio. NumPy, SciPy, Audacity and FFmpeg supplied production tools. Each Audacity project retains its named, levelled track. The synthesis code, raw PCM and prepared PCM preserve earlier editing stages.
+
+The interface focus tick and lift latch retain their T065 audio, masters, project, usage records and rights notice at their original paths. The listening reel also uses excerpts of the previously auditioned title and dialogue. Their original generation records, attribution and input permissions apply. The reel has no separate gameplay identity. [T065 rights notice](../auditions/rights/NOTICE.md) · [T065 owner listening](../auditions/provenance/owner-listening.json)

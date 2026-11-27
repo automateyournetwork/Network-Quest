@@ -1,14 +1,19 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import { constants } from 'node:fs';
+import { createHash } from 'node:crypto';
+import type { FileHandle } from 'node:fs/promises';
 import { lstat, open, realpath, readdir } from 'node:fs/promises';
 import { dirname, relative, resolve, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateContent } from '../src/content/registry.ts';
 import { emptyCounts } from './asset-types.ts';
-import type { AssetEvidenceSnapshot, AssetEntity, AssetIssue, AssetUse, AssetManifest, AssetValidationResult } from './asset-types.ts';
-import { isAssetManifest, isEvidenceRecord, validateAssetManifest } from './validate-assets.ts';
+import type { AssetEvidenceSnapshot, AssetFileDigest, AssetEntity, AssetIssue, AssetUse, AssetManifest, AssetValidationResult } from './asset-types.ts';
+import { isAssetManifest, isEvidenceRecord, validateAssetObservations } from './validate-assets.ts';
 
 const jsonLimit = 4_194_304, fileLimit = 268_435_456, totalLimit = 1_073_741_824;
+// Bound total media I/O independently from the original 1 GiB in-memory evidence ceiling.
+const mediaReadLimit = 8 * totalLimit;
+const mediaFile = /\.(?:aup4|blend|glb|png|webp|avif|jpe?g|wav|ogg|flac|mp3|zip|tar|gz)$/i;
 const isObject = (v: unknown): v is Record<string, unknown> => v !== null && typeof v === 'object' && !Array.isArray(v);
 class AuditError extends Error {
   readonly code: string;
@@ -28,6 +33,7 @@ export function publicAssetPath(path: string): boolean {
  * No URL retrieval, archive extraction, secret lookup or media write occurs. */
 export class AssetFileReader {
   private total = 0;
+  private streamed = 0;
   private readonly cache = new Map<string, Uint8Array>();
   private readonly root: string;
   private constructor(root: string) { this.root = root; }
@@ -47,27 +53,53 @@ export class AssetFileReader {
     if (canonical !== target) throw new AuditError('SYMLINK_DENIED', path);
     return target;
   }
-  async read(path: string, limit = fileLimit): Promise<Uint8Array> {
-    const existing = this.cache.get(path);
-    if (existing) { if (existing.byteLength > limit) throw new AuditError('FILE_TOO_LARGE', path); return existing; }
+  private async withCheckedFile<T>(path: string, limit: number, consume: (file: FileHandle, size: number) => Promise<T>): Promise<T> {
     const target = await this.check(path);
     const file = await open(target, constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK);
     try {
-      const status = await file.stat();
-      if (!status.isFile()) throw new AuditError('FILE_TYPE_INVALID', path);
-      if (status.size > limit) throw new AuditError('FILE_TOO_LARGE', path);
-      if (this.total + status.size > totalLimit || this.cache.size >= 100_000) throw new AuditError('EVIDENCE_LIMIT', path);
+      const before = await file.stat();
+      if (!before.isFile()) throw new AuditError('FILE_TYPE_INVALID', path);
+      if (before.size > limit) throw new AuditError('FILE_TOO_LARGE', path);
       await this.check(path);
       const current = await lstat(target);
-      if (current.ino !== status.ino || current.dev !== status.dev) throw new AuditError('FILE_CHANGED', path);
-      // Read the admitted size, never an unbounded readFile after a racing grow.
-      const bytes = Buffer.alloc(status.size + 1); let offset = 0;
-      while (offset < bytes.length) { const read = await file.read(bytes, offset, bytes.length - offset, offset); if (read.bytesRead === 0) break; offset += read.bytesRead; }
+      if (current.ino !== before.ino || current.dev !== before.dev) throw new AuditError('FILE_CHANGED', path);
+      const result = await consume(file, before.size);
       const after = await file.stat();
-      if (offset !== status.size || after.size !== status.size || after.mtimeMs !== status.mtimeMs) throw new AuditError('FILE_CHANGED', path);
-      this.total += offset;
-      const result = bytes.subarray(0, offset); this.cache.set(path, result); return result;
+      if (after.size !== before.size || after.mtimeMs !== before.mtimeMs || after.ctimeMs !== before.ctimeMs) throw new AuditError('FILE_CHANGED', path);
+      return result;
     } finally { await file.close(); }
+  }
+  async read(path: string, limit = fileLimit): Promise<Uint8Array> {
+    const existing = this.cache.get(path);
+    if (existing) { if (existing.byteLength > limit) throw new AuditError('FILE_TOO_LARGE', path); return existing; }
+    const bytes = await this.withCheckedFile(path, limit, async (file, size) => {
+      if (this.total + size > totalLimit || this.cache.size >= 100_000) throw new AuditError('EVIDENCE_LIMIT', path);
+      const data = Buffer.alloc(size);
+      for (let offset = 0; offset < size;) {
+        const { bytesRead } = await file.read(data, offset, size - offset, offset);
+        if (!bytesRead) throw new AuditError('FILE_CHANGED', path);
+        offset += bytesRead;
+      }
+      return data;
+    });
+    this.total += bytes.byteLength;
+    this.cache.set(path, bytes);
+    return bytes;
+  }
+  async measureMedia(path: string): Promise<AssetFileDigest> {
+    return this.withCheckedFile(path, fileLimit, async (file, size) => {
+      if (this.streamed + size > mediaReadLimit) throw new AuditError('EVIDENCE_LIMIT', path);
+      this.streamed += size;
+      const buffer = Buffer.allocUnsafe(Math.min(size, 256 * 1024));
+      const hash = createHash('sha256');
+      for (let offset = 0; offset < size;) {
+        const { bytesRead } = await file.read(buffer, 0, Math.min(buffer.length, size - offset), offset);
+        if (!bytesRead) throw new AuditError('FILE_CHANGED', path);
+        hash.update(buffer.subarray(0, bytesRead));
+        offset += bytesRead;
+      }
+      return { bytes: size, sha256: hash.digest('hex') };
+    });
   }
   async json(path: string): Promise<unknown> {
     const bytes = await this.read(path, jsonLimit);
@@ -171,6 +203,12 @@ export async function auditAssetRepository(root: string, mode: 'inventory' | 're
     const snapshot: AssetEvidenceSnapshot = { files: Object.create(null), records: Object.create(null), content: { entities: [], uses: [] } };
     const files: Record<string, Uint8Array> = Object.create(null), records: Record<string, AssetEvidenceSnapshot['records'][string]> = Object.create(null);
     const paths = manifestPaths(manifest);
+    const media = new Map<string, AssetFileDigest>();
+    const parsedPaths = new Set(manifest.assets.flatMap(a => [
+      ...a.production.map(event => event.promptOrScriptPath),
+      ...(a.image ? [a.image.cameraRecordPath, a.image.registrationPath] : []),
+      ...(a.audio?.voiceRecordPath ? [a.audio.voiceRecordPath] : []),
+    ]));
     for (const path of await reader.evidencePaths()) paths.records.add(path);
     for (const path of paths.records) {
       try {
@@ -180,12 +218,16 @@ export async function auditAssetRepository(root: string, mode: 'inventory' | 're
         if (record.type === 'retrieval' && typeof record.details['archivePath'] === 'string') paths.files.add(record.details['archivePath']);
       } catch (error) { failures.push(issueFor(error, 'EVIDENCE_READ_FAILED', path)); }
     }
+    if (new Set([...paths.files, ...paths.records]).size > 100_000) throw new AuditError('EVIDENCE_LIMIT');
     for (const path of paths.files) {
       if (Object.hasOwn(files, path)) continue;
-      try { files[path] = await reader.read(path); } catch (error) { failures.push(issueFor(error, 'FILE_READ_FAILED', path)); }
+      try {
+        if (mediaFile.test(path) && !parsedPaths.has(path)) media.set(path, await reader.measureMedia(path));
+        else files[path] = await reader.read(path);
+      } catch (error) { failures.push(issueFor(error, 'FILE_READ_FAILED', path)); }
     }
     snapshot.content = await loadContent(reader);
-    const validated = validateAssetManifest(manifest, { ...snapshot, files, records }, { mode });
+    const validated = validateAssetObservations(manifest, { ...snapshot, files, records }, { mode }, media);
     // An adapter failure cannot yield accepted counts, even if unreferenced
     // evidence was malformed or a content dependency could not be read safely.
     if (failures.length) return { valid: false, issues: [...failures, ...validated.issues], counts: emptyCounts() };

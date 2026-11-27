@@ -26,7 +26,10 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**145 loops started; 118/170 tasks accepted; no deployment.** Eight full music cues and their listening packets reached the remote feature branch at
+**148 loops started; 118/170 tasks accepted; no deployment.** All 24 instructional illustrations and the two earned quest rewards reached the remote
+feature branch at `232325c58d7358dc92af9d0cf9149dc575e4d383`. The final local HTTPS
+journey used normal controls and retained all rewards through Retry, E03 Continue and one-slot restore.
+Eight full music cues and their listening packets reached the remote feature branch at
 `321d1d5879e83442db3485112acf9c4a854c0b1f`. Actual human speaker and headphone
 review remains open for T124/T125. The compendium checkpoint for all 25 discovered
 portraits was `462129824acd676afb9e1cfae35fbe9a1857aff0`.
@@ -115,8 +118,14 @@ Loop 110/T097: The earned 3 W-shortfall ledger now appears on the Workshop wall,
 
 The final reward joins for loops 108 and 110 are recorded in the [all-seven journey and Workshop review](../evidence/spec001/image-production/illustration-join/rewards.md).
 
+Loop 143/T126: Twelve distinct two-track ambience beds passed native, browser and inventory checks. Owner speaker and headphone listening remains open. [Verification](loops/143-T126.md).
+
+Loop 144/T127: Twenty verified effects and the spoken comparison are ready. The eighteen new effects need actual listening; the two unchanged audition approvals are preserved. [Verification](loops/144-T127.md).
+
+Loop 145/T128: All twenty effects and room contexts passed browser and source checks. Nineteen new solo recordings and the mixes await hearing on both output types. [Verification](loops/145-T128.md).
+
 <!-- current production assignments -->
-Active assignments: 143/T126, 144/T127, 145/T128.
+Active assignments: 146/T129, 147/T130, 148/T131.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

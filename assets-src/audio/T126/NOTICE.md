@@ -1,0 +1,9 @@
+# Underworld room ambience
+
+Credit John Capobianco / Network Quest and identify changes. The original room directions, sound designs, recorded synthesis outputs, native project edits and audio exports use CC BY 4.0 to the extent the project controls those rights. The production scripts use Apache-2.0. [Asset license](../../../LICENSE-ASSETS) · [Code license](../../../LICENSE)
+
+Codex assisted the original sound design and synthesis code. Each room has a separately authored score function, two independent studio tracks and a fixed seed. NumPy 2.3.5 synthesizes oscillators and noise. SciPy 1.17.0 filters the signals. SoundFile 0.13.1 writes the stereo 24-bit FLAC source tracks. All oscillator, resonator, spatial, envelope and timing choices are in the score. There are no imported musical recordings, sound libraries, performer references, samples or external audio-model outputs in the beds. [Scores and regeneration](synthesize.py) · [Frozen room directions](../production-plan.json)
+
+Production took place on the project Mac. The first FLAC was losslessly decoded to PCM24 WAV for import. Audacity 4.0.2 on the isolated ARM64 Linux desktop imported the second FLAC as a separate track. The saved project retains both named stereo tracks. A fresh process reopened each project, then mixed and exported its stereo PCM24 master. FFmpeg encodes the web copies with libmp3lame at 128 kbps. The per-room records identify each source and the observed reopened tracks. [Native pair procedure](native-pair.py) · [Isolated studio](../T124/native-studio.md) · [Export verification](export.py)
+
+The three speech audition reels include Titan’s unchanged T065 line 019 for intelligibility comparison only. Its script, spoken performance and permissions have separate attribution. Each join excerpt uses only its room's decoded web export. Excerpts and speech reels carry no quota identity. [Voice attribution](../auditions/rights/NOTICE.md)

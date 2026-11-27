@@ -1,0 +1,38 @@
+{
+  "type": "review",
+  "actor": "tool",
+  "status": "passed",
+  "assetId": "spec001:ASSET-EFFECT-027",
+  "reviewer": "Codex loop145/T128",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 / macOS 26.6.2 ARM64; NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1; official Audacity 4.0.2 ARM64, isolated Ubuntu/Xvfb studio on the Mac; FFmpeg 9.0.1",
+  "hashes": [
+    "e756a3c75a3b5f7657c54df2b2d7d6133c9570145b9f2c5df30dc0ad3522384a",
+    "353a07c8a2691e4d0af4e709c425758a69e0bced9fcd4f547ce7cdb4d49a87a2",
+    "5a16b5e381cd31cf840209e35ab550222e2db75d515909cb884df429f3087393",
+    "e2c36631ba680e13f4b3db1669f4f2ddaf0aa37782b6001febb26fcbe50959e8",
+    "289939776bee28687888630574f6e02700bd7f7a923f40da258e394c729c26c1",
+    "4aa360a3b14c02e2eb16dd7878d68958c131dfd2cba646c64df66d4cd563f6b3"
+  ],
+  "details": {
+    "receipt": {
+      "path": "assets-src/audio/T128/records/27-native.json",
+      "sha256": "789dc6a6fe96730b39028c773cde321140ea61474fe355d48680c2a1655f8cec",
+      "bytes": 1304
+    },
+    "originalProject": {
+      "path": "assets-src/audio/T128/projects/effect-027.aup4",
+      "sha256": "e2c36631ba680e13f4b3db1669f4f2ddaf0aa37782b6001febb26fcbe50959e8",
+      "bytes": 917504,
+      "format": "aup4"
+    },
+    "observedTracks": [
+      "Track 1: fx27-feather-fan, audio track, selected",
+      "Track 2: fx27-survey-sweep, audio track, selected"
+    ],
+    "sqliteIntegrity": "ok",
+    "nativeMixVsSourceMaxError": 1.0039657354354858e-06,
+    "findings": "Two correctly named editable tracks observed after closing Audacity and reopening the saved project in a fresh process."
+  },
+  "check": "source-reopen"
+}

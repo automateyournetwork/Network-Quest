@@ -15,7 +15,8 @@ export type AssetEvidenceSnapshot = {
   files: Readonly<Record<string, Uint8Array>>; records: Readonly<Record<string, AssetEvidenceRecord>>;
   content: { entities: AssetEntity[]; uses: AssetUse[] };
 };
-export type AssetFile = { path: string; sha256: string; bytes: number; format: string };
+export type AssetFileDigest = { sha256: string; bytes: number };
+export type AssetFile = AssetFileDigest & { path: string; format: string };
 export type AssetSource = {
   file: AssetFile; role: string; application: string; version: string; reopenEvidencePath?: string;
   retrieval?: { url: string; archiveSha256: string; memberPath: string; release: string; instructionsPath: string };

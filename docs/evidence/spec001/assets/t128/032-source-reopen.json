@@ -1,0 +1,38 @@
+{
+  "type": "review",
+  "actor": "tool",
+  "status": "passed",
+  "assetId": "spec001:ASSET-EFFECT-032",
+  "reviewer": "Codex loop145/T128",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 / macOS 26.6.2 ARM64; NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1; official Audacity 4.0.2 ARM64, isolated Ubuntu/Xvfb studio on the Mac; FFmpeg 9.0.1",
+  "hashes": [
+    "f4203697cdeac8a2ac637f3aebd366bdc6aca21776a11cb0ab102a5bd89843ad",
+    "814994cfd9dbd4b10f1e434fd16b2a653c0c04be032d802d13806ba0e2b87f63",
+    "5a16b5e381cd31cf840209e35ab550222e2db75d515909cb884df429f3087393",
+    "4f510778f06caabfd8106acf0c0e135c7be019ef0e6e4dd7a9c9bef4a6184ae3",
+    "37b68ddd9da9201e7ff28784651a2ddfc2be59d56858ecc96ef109f996cd06a6",
+    "3471736b6d7d970f4a40c5703ee74af19750ebab1e4da5e908d5a7309f5bf140"
+  ],
+  "details": {
+    "receipt": {
+      "path": "assets-src/audio/T128/records/32-native.json",
+      "sha256": "184a9c6322f9162f0da30bf5a3fe36db95d27c1c83e654e0f159d89cc19158ce",
+      "bytes": 1305
+    },
+    "originalProject": {
+      "path": "assets-src/audio/T128/projects/effect-032.aup4",
+      "sha256": "4f510778f06caabfd8106acf0c0e135c7be019ef0e6e4dd7a9c9bef4a6184ae3",
+      "bytes": 655360,
+      "format": "aup4"
+    },
+    "observedTracks": [
+      "Track 1: fx32-meter-scan, audio track, selected",
+      "Track 2: fx32-stylus-texture, audio track, selected"
+    ],
+    "sqliteIntegrity": "ok",
+    "nativeMixVsSourceMaxError": 9.826908353716135e-07,
+    "findings": "Two correctly named editable tracks observed after closing Audacity and reopening the saved project in a fresh process."
+  },
+  "check": "source-reopen"
+}

@@ -1,0 +1,38 @@
+{
+  "type": "review",
+  "actor": "tool",
+  "status": "passed",
+  "assetId": "spec001:ASSET-EFFECT-025",
+  "reviewer": "Codex loop145/T128",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 / macOS 26.6.2 ARM64; NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1; official Audacity 4.0.2 ARM64, isolated Ubuntu/Xvfb studio on the Mac; FFmpeg 9.0.1",
+  "hashes": [
+    "6715c0b035574202d5528a2f8879d5e98e99bb8ab13f2cfabb529c23c3ac638d",
+    "2dc5889a45c10dde851f9390bd481907d56eed835a8ed0bcae1554110153dbc5",
+    "5a16b5e381cd31cf840209e35ab550222e2db75d515909cb884df429f3087393",
+    "023daf3f9a50d32825d1e4c5b9f2115bc87b2106c56e8b9576d5dccd3e67c1f9",
+    "9bdb84f10587e08cdadc864222142cae94ff2feecf4c78020be61c16fb20f840",
+    "e79d6035961772707d79a13ed05244c23063ed056b79d6a789c3bd2a297a1d6c"
+  ],
+  "details": {
+    "receipt": {
+      "path": "assets-src/audio/T128/records/25-native.json",
+      "sha256": "c34b9ab0b93416a5d4e9d4606d920a1e5d1ead496f69049cbd9d9103baf6fcd5",
+      "bytes": 1304
+    },
+    "originalProject": {
+      "path": "assets-src/audio/T128/projects/effect-025.aup4",
+      "sha256": "023daf3f9a50d32825d1e4c5b9f2115bc87b2106c56e8b9576d5dccd3e67c1f9",
+      "bytes": 917504,
+      "format": "aup4"
+    },
+    "observedTracks": [
+      "Track 1: fx25-bowed-glass, audio track, selected",
+      "Track 2: fx25-bow-friction, audio track, selected"
+    ],
+    "sqliteIntegrity": "ok",
+    "nativeMixVsSourceMaxError": 9.676441550254822e-07,
+    "findings": "Two correctly named editable tracks observed after closing Audacity and reopening the saved project in a fresh process."
+  },
+  "check": "source-reopen"
+}

@@ -1,0 +1,152 @@
+{
+  "task": "T128",
+  "loop": 145,
+  "method": "Isolated official Audacity 4.0.2 Linux ARM64 application running on the Mac. Distinct creation and reopen processes, full-project mono WAV PCM24 at 48000 Hz.",
+  "nativeProcedures": [
+    {
+      "path": "assets-src/audio/T128/native-initial.py",
+      "sha256": "5947b0c59ee07e3470f855983456d5ac5f4b4741b6deccdff729fe3380cc2b71",
+      "appliesTo": [
+        21,
+        22,
+        24
+      ]
+    },
+    {
+      "path": "assets-src/audio/T128/native-foley.py",
+      "sha256": "e04270781acdcd1fa02a18bcd0782ca97145b3d46622842859b304d791de973a",
+      "appliesTo": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40
+      ]
+    },
+    {
+      "path": "assets-src/audio/T124/native-roundtrip.py",
+      "sha256": "147c466660c6369a8d4a16f563ad4fb1949c69945c690d0b44bc537fd95ae7c0",
+      "appliesTo": [
+        21,
+        22,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40
+      ]
+    }
+  ],
+  "checkedGuestHelperSha256": "147c466660c6369a8d4a16f563ad4fb1949c69945c690d0b44bc537fd95ae7c0",
+  "allocationInputs": [
+    {
+      "path": "assets-src/audio/production-plan.json",
+      "sha256": "6eb159ddd9f9a4db887dba137b70c80a829b2e0848cbceaf13157315d84bb4e9"
+    },
+    {
+      "path": "assets-src/production-allocation.json",
+      "sha256": "0310f8ae4e006fbe70d2ed49645fd4cf4bd5d491b7a7ccfec7c9b052e7abacc1"
+    },
+    {
+      "path": "assets-src/rooms/scene-layouts.json",
+      "sha256": "e75a138c9d925489134a1a97b141ffca34c4081f7e782b0037569ef2568efedf"
+    }
+  ],
+  "corrections": [
+    "During effect 025 import a destroyed Qt accessibility object interrupted enumeration. The first project attempt was separately saved, closed and integrity-checked in the isolated studio. Its SHA-256 was 0d5df71ccecf3bb7ab7b49d519f608d88d83d570eadb952805535950fa5cb3ef. A bounded retry handles that specific stale snapshot. A new verified native round trip produced the release candidate.",
+    "Early export probing found trailing FFmpeg progress text after the loudness JSON. The metric reader now consumes one JSON object and preserves non-finite integrated loudness values as null.",
+    "A two-clip Firefox playback probe received a repeated playing notification after seeking. The final test uses play for transport starts, checks one ended event per full file, and avoids redundant seeks. Chromium and Firefox repeated the bounded check successfully before the full run."
+  ],
+  "priorOwnerClip": "EFFECT-023",
+  "priorOwnerFile": {
+    "path": "public/assets/audio/auditions/effect-023.mp3",
+    "sha256": "ad19178c063e42f9a2ef0ad83afc66fbb5516293b8c5d1a1e96d5f6a51160383",
+    "bytes": 29612
+  },
+  "pendingOwnerSolo": [
+    21,
+    22,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40
+  ],
+  "pendingOwnerRoomMix": [
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40
+  ],
+  "scope": "Candidate effects and listening packet; game integration and final playthrough remain separate.",
+  "validatedFragment": {
+    "mode": "inventory",
+    "valid": true,
+    "issues": [],
+    "counts": {
+      "characterModels": 0,
+      "props": 0,
+      "interactiveProps": 0,
+      "roomsWithImageSet": 0,
+      "sceneLayers": 0,
+      "portraits": 0,
+      "illustrations": 0,
+      "music": 0,
+      "ambience": 0,
+      "effects": 0,
+      "voices": 0
+    },
+    "scope": "Offline source/evidence consistency; no human audition, owner approval, finished-room or gate certification."
+  }
+}

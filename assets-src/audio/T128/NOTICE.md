@@ -1,0 +1,9 @@
+# Underworld effects 021–040
+
+Copyright 2026 John Capobianco. Original sound designs, synthesized layers, native projects, masters, web audio and authored direction are available under [CC BY 4.0](../../../LICENSE-ASSETS) to the extent the project controls the rights. Credit “John Capobianco / Network Quest” and identify changes. Production and verification scripts use the [Apache License 2.0](../../../LICENSE).
+
+Network Quest commissioned these effects for its Physical Layer episode. The nineteen new effects were written as original mathematical models of gestures and materials. Codex assisted in writing and editing the score and code. NumPy and SciPy synthesize the waveforms from oscillators and reproducible noise in Python. SoundFile writes them, Audacity mixes their independently editable tracks, and FFmpeg encodes the finished masters. Those tools supply no instrument patches, recorded samples or external sound libraries. There was no audio-model inference, recording of a performer, downloaded Foley, third-party composition or simulated appearance of a native project.
+
+Photon’s existing glimmer, effect 023, uses the original T065 NumPy synthesis and the previous native project and approved web bytes. Its [original notice](../auditions/rights/NOTICE.md) and production records remain authoritative. Replays, use of the same glimmer in different rooms, and the supplied music excerpts for context do not add effects to the asset count.
+
+The room-mix listening copies combine these one-shots with short excerpts from Network Quest’s T126 room ambience and, in scored rooms, the T124 or T125 original score. Their source and license records travel with the episode. [Ambience production](../T126/) · [First four music cues](../T124/NOTICE.md) · [Final four music cues](../T125/NOTICE.md). The export index records each background file hash, offset, gain, cue entry and duration.

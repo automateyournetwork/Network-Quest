@@ -197,6 +197,31 @@ describe('bounded rooted asset filesystem adapter', () => {
     await mkdir(resolve(root, 'assets-src/directory'));
     await expect(reader.read('assets-src/directory')).rejects.toMatchObject({ code: 'FILE_TYPE_INVALID' });
   });
+  it('measures a multi-chunk media file from disk, including its final partial chunk', async () => {
+    const root = await sandbox();
+    const path = 'assets-src/mix.wav';
+    const data = Buffer.alloc(590_017, 0x53);
+    data[data.length - 1] = 0x41;
+    await mkdir(resolve(root, 'assets-src'));
+    await writeFile(resolve(root, path), data);
+    const reader = await AssetFileReader.create(root);
+    expect(await reader.measureMedia(path)).toEqual({ bytes: data.length, sha256: hash(data) });
+    data[data.length - 1] = 0x42;
+    await writeFile(resolve(root, path), data);
+    expect(await reader.measureMedia(path)).toEqual({ bytes: data.length, sha256: hash(data) });
+    await truncate(resolve(root, path), 268_435_457);
+    await expect(reader.measureMedia(path)).rejects.toMatchObject({ code: 'FILE_TOO_LARGE' });
+    await symlink(resolve(root, path), resolve(root, 'assets-src/alias.wav'));
+    await expect(reader.measureMedia('assets-src/alias.wav')).rejects.toMatchObject({ code: 'SYMLINK_DENIED' });
+  });
+  it('keeps caller-supplied hash declarations outside the byte-backed fixture API', () => {
+    const asset = planned();
+    const file = { path: 'assets-src/mix.wav', sha256: hash('invented'), bytes: 8, format: 'wav' };
+    asset.sources.push({ file, role: 'native', application: 'fixture', version: '1' });
+    const evidence = Object.assign(emptyEvidence(), { media: { [file.path]: file } });
+    expect(validateAssetManifest(manifest(asset), evidence, { mode: 'inventory' }).issues)
+      .toContainEqual({ code: 'FILE_MISSING', assetId: asset.assetId, path: file.path });
+  });
   it('requires exact authored export bindings and does not infer them from rosters or manifest-style usedBy', () => {
     const world = { rooms: [{ id: 'spec001:R01' }], props: [{ id: 'spec001:PR001' }] };
     const a = planned(); a.usedBy.push({ contentId: 'spec001:R01', use: 'prop-placement', evidencePath: 'docs/evidence/spec001/assets/use.json' });

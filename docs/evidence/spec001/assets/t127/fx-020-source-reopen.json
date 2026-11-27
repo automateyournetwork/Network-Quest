@@ -1,0 +1,28 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-EFFECT-020",
+  "hashes": [
+    "fe24f8504a3ce6dab9faf2af49819d01cc4fa1a11f9c1ab6700921b67b74c363",
+    "b136b5294ceff3b72d76c22093934660ac74db272628d7d2ea3c2c996e6e9b83",
+    "a8ee36054d8c18a91ba0a32b422b3d4dce29f4c8d6c001e0e2697ed233176d01",
+    "331279a3c97a370f5dd77496a75efa78ad1478980dd148d12a8f267b3e4dfd61",
+    "22dab28a96ba2e39dc3bf59f2c3855e632fb23d16a69ec5082c87a21fe3ad484",
+    "c42e3190cb9dfa5d7cc976e40d4a702f64c5564e2e1f2612679916ae36bda5ab"
+  ],
+  "status": "passed",
+  "actor": "tool",
+  "reviewer": "Codex loop144/T127",
+  "date": "2026-11-27",
+  "environment": "macOS ARM64 / NumPy 2.3.5 and SciPy 1.17.0 / Audacity 4.0.2 in isolated Linux ARM64 Xvfb / FFmpeg 9.0.1 / chromium 159.0.8154.6, firefox 159.0",
+  "details": {
+    "nativeProjectPath": "assets-src/audio/T127/projects/fx-020.aup4",
+    "nativeRecordPath": "assets-src/audio/T127/records/fx-020-native.json",
+    "freshProcess": true,
+    "observedTrack": "Track 1: fx-020, audio track, selected",
+    "sqliteIntegrity": "ok",
+    "masterVsPreparedMaxAbsError": 9.5367431640625e-07,
+    "nativeTrailingFramesLost": 0,
+    "findings": "Fresh Audacity 4.0.2 process reopened the saved project and exported its named track. Prepared PCM and native master passed sample comparison."
+  },
+  "check": "source-reopen"
+}

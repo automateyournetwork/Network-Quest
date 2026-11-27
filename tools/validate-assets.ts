@@ -7,7 +7,7 @@ import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import schema from '../specs/001-physical-layer-underworld/contracts/asset-manifest.schema.json' with { type: 'json' };
 import { emptyCounts, minimums } from './asset-types.ts';
-import type { Asset, AssetCounts, AssetEvidenceRecord, AssetEvidenceSnapshot, AssetManifest, AssetValidationResult } from './asset-types.ts';
+import type { Asset, AssetCounts, AssetEvidenceRecord, AssetEvidenceSnapshot, AssetFileDigest, AssetManifest, AssetValidationResult } from './asset-types.ts';
 export type { AssetEvidenceSnapshot, AssetValidationResult } from './asset-types.ts';
 
 const ajv = new Ajv2020({ strict: true, strictTypes: false, strictRequired: false, allowUnionTypes: true });
@@ -74,6 +74,13 @@ const audioKind = (kind: string) => ['music', 'ambience', 'effect', 'voice'].inc
  * Blender reopening, visual inspection or owner acceptance. roomsWithImageSet is
  * an image-distribution count and never claims twelve finished playable rooms. */
 export function validateAssetManifest(manifest: unknown, evidence: AssetEvidenceSnapshot, options: { mode: 'inventory' | 'release' }): AssetValidationResult {
+  return validateAssetObservations(manifest, evidence, options, new Map());
+}
+
+/** The repository adapter computes media digests directly from open files.
+ * The public fixture API above still demands the supplied bytes for every file. */
+export function validateAssetObservations(manifest: unknown, evidence: AssetEvidenceSnapshot, options: { mode: 'inventory' | 'release' },
+  media: ReadonlyMap<string, AssetFileDigest>): AssetValidationResult {
   const result: AssetValidationResult = { valid: false, issues: [], counts: emptyCounts() };
   const issueKeys = new Set<string>(); let issueLimit = false;
   const add = (code: string, assetId?: string, path?: string) => {
@@ -89,9 +96,10 @@ export function validateAssetManifest(manifest: unknown, evidence: AssetEvidence
   const entities = new Map(evidence.content.entities.map(e => [e.id, e]));
   if (entities.size !== evidence.content.entities.length) { add('CONTENT_IDENTITY_DUPLICATE'); return result; }
   const fileAt = (path: string) => Object.hasOwn(evidence.files, path) ? evidence.files[path] : undefined;
+  const hasFile = (path: string) => Object.hasOwn(evidence.files, path) || media.has(path);
   const recordAt = (path: string) => Object.hasOwn(evidence.records, path) ? evidence.records[path] : undefined;
   const bytesHash = new Map<string, string>();
-  const hashAt = (path: string) => { const bytes = fileAt(path); if (!bytes) return undefined; if (!bytesHash.has(path)) bytesHash.set(path, digest(bytes)); return bytesHash.get(path); };
+  const hashAt = (path: string) => { const bytes = fileAt(path); if (!bytes) return media.get(path)?.sha256; if (!bytesHash.has(path)) bytesHash.set(path, digest(bytes)); return bytesHash.get(path); };
   const records = Object.entries(evidence.records);
   const recordsByAsset = new Map<string, typeof records>();
   for (const [path, record] of records) {
@@ -129,9 +137,9 @@ export function validateAssetManifest(manifest: unknown, evidence: AssetEvidence
       const f = entry.file;
       if (privatePath(f.path)) add('SOURCE_NOT_PUBLIC', a.assetId, f.path);
       if (f.path.includes('/feasibility/')) add('FEASIBILITY_NOT_PRODUCTION', a.assetId, f.path);
-      const bytes = fileAt(f.path);
-      if (!bytes) add('FILE_MISSING', a.assetId, f.path);
-      else { if (hashAt(f.path) !== f.sha256) add('FILE_HASH_MISMATCH', a.assetId, f.path); if (bytes.byteLength !== f.bytes) add('FILE_SIZE_MISMATCH', a.assetId, f.path); }
+      const measuredSize = fileAt(f.path)?.byteLength ?? media.get(f.path)?.bytes;
+      if (measuredSize === undefined) add('FILE_MISSING', a.assetId, f.path);
+      else { if (hashAt(f.path) !== f.sha256) add('FILE_HASH_MISMATCH', a.assetId, f.path); if (measuredSize !== f.bytes) add('FILE_SIZE_MISMATCH', a.assetId, f.path); }
     }
     if (accepted && model) {
       const identity = entities.get(a.semanticIdentity), expected = a.kind === 'character-model' ? 'character' : a.kind === 'room-model' ? 'room' : 'prop';
@@ -152,7 +160,7 @@ export function validateAssetManifest(manifest: unknown, evidence: AssetEvidence
       if (retrieval) {
         const found = assetRecords.find(([, r]) => r.type === 'retrieval');
         const r = get(found?.[0], a, 'RETRIEVAL_UNVERIFIED');
-        if (!fileAt(retrieval.instructionsPath)) add('RETRIEVAL_INSTRUCTIONS_MISSING', a.assetId);
+        if (!hasFile(retrieval.instructionsPath)) add('RETRIEVAL_INSTRUCTIONS_MISSING', a.assetId);
         if (r) {
           const d = r.details;
           if (r.status !== 'passed' || d['url'] !== retrieval.url || d['release'] !== retrieval.release) add('RETRIEVAL_UNVERIFIED', a.assetId);
@@ -176,7 +184,7 @@ export function validateAssetManifest(manifest: unknown, evidence: AssetEvidence
       if (!p.outputHashes.length || !covers(sourceHashes, p.outputHashes)) add('PRODUCTION_OUTPUT_HASH', a.assetId);
       if (p.method === 'openai-generated' && !/openai/i.test(p.tool)) add('PRODUCTION_METHOD_MISMATCH', a.assetId);
       if (generated(p.method) && !a.sources.some(s => s.role === 'raw-generation' && p.outputHashes.includes(s.file.sha256))) add('RAW_GENERATION_REQUIRED', a.assetId);
-      if (!fileAt(p.settingsPath) || !fileAt(p.promptOrScriptPath)) add('PRODUCTION_INPUT_MISSING', a.assetId);
+      if (!hasFile(p.settingsPath) || !hasFile(p.promptOrScriptPath)) add('PRODUCTION_INPUT_MISSING', a.assetId);
       const matching = assetRecords.filter(([, r]) => r.type === 'production' && r.details['eventId'] === p.eventId);
       const voiceGeneration = a.kind === 'voice' && p.method === 'tts-generated';
       let r: AssetEvidenceRecord | undefined;
@@ -212,7 +220,7 @@ export function validateAssetManifest(manifest: unknown, evidence: AssetEvidence
     }
     if (accepted || a.rights.reviewStatus === 'accepted') {
       const rights = a.rights;
-      if (!rights.creators.length || !rights.licenseIds.length || !rights.noticePaths.length || [...rights.noticePaths, ...rights.termsSnapshotPaths, ...rights.inputPermissionPaths].some(p => !fileAt(p)) || (a.production.some(p => generated(p.method)) && (!rights.termsSnapshotPaths.length || !nonempty(rights.aiDisclosure)))) add('RIGHTS_INCOMPLETE', a.assetId);
+      if (!rights.creators.length || !rights.licenseIds.length || !rights.noticePaths.length || [...rights.noticePaths, ...rights.termsSnapshotPaths, ...rights.inputPermissionPaths].some(p => !hasFile(p)) || (a.production.some(p => generated(p.method)) && (!rights.termsSnapshotPaths.length || !nonempty(rights.aiDisclosure)))) add('RIGHTS_INCOMPLETE', a.assetId);
       // A production revision can retain an asset ID already used by its audition.
       // The manifest's declared review identifies the intended rights testimony.
       const declared = a.verification.find(v => v.check === 'rights' && v.status === 'passed');

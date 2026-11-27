@@ -1,0 +1,38 @@
+{
+  "type": "review",
+  "actor": "tool",
+  "status": "passed",
+  "assetId": "spec001:ASSET-EFFECT-034",
+  "reviewer": "Codex loop145/T128",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 / macOS 26.6.2 ARM64; NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1; official Audacity 4.0.2 ARM64, isolated Ubuntu/Xvfb studio on the Mac; FFmpeg 9.0.1",
+  "hashes": [
+    "6be854ffc1d276795c5342889f067a473c9329992c9bf4be13054b866318e8eb",
+    "d97cadb377a67cd5d84535b675841150e91aa1990b4a35baff1247354aa01285",
+    "5a16b5e381cd31cf840209e35ab550222e2db75d515909cb884df429f3087393",
+    "f90e6cf3aec28e925c878930dc143e24b3559033c2650de3a1531d1aec882525",
+    "41bc7ccb4fa94e4b1562efcc4b9e5818023d042071e4fe2cfec8f3da60b595a5",
+    "aa653f37463777bc9685df77b73db7e421e12d32b277545e02179da7930ab60d"
+  ],
+  "details": {
+    "receipt": {
+      "path": "assets-src/audio/T128/records/34-native.json",
+      "sha256": "7fa157dae97623f254fa24ef536df507f0b3feb4b8808bbc0c7d155ac3e94338",
+      "bytes": 1317
+    },
+    "originalProject": {
+      "path": "assets-src/audio/T128/projects/effect-034.aup4",
+      "sha256": "f90e6cf3aec28e925c878930dc143e24b3559033c2650de3a1531d1aec882525",
+      "bytes": 786432,
+      "format": "aup4"
+    },
+    "observedTracks": [
+      "Track 1: fx34-hovering-low, audio track, selected",
+      "Track 2: fx34-unsettled-upper, audio track, selected"
+    ],
+    "sqliteIntegrity": "ok",
+    "nativeMixVsSourceMaxError": 1.12876296043396e-06,
+    "findings": "Two correctly named editable tracks observed after closing Audacity and reopening the saved project in a fresh process."
+  },
+  "check": "source-reopen"
+}

@@ -1,0 +1,3126 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "assets": [
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R01",
+      "semanticIdentity": "spec001:AMBIENCE-R01",
+      "kind": "ambience",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r01-lift-ventilator.flac",
+            "sha256": "aa4388331f0c9870b9313fddd0752183ef722c89868854a75b4376d548d3c615",
+            "bytes": 3430861,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r01-cage-and-bell.flac",
+            "sha256": "11efb777262ea12a787fc96a9e2e632ea07d5c909fbaa2486e636721f80b0ca0",
+            "bytes": 448063,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/synthesize.py",
+            "sha256": "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "bytes": 11941,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Network Quest sound design",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/records/r01-score.json",
+            "sha256": "30d37b2acb7c8304fec59531c266d8f5c1f1aa8ca020128bd91280da8669d33e",
+            "bytes": 1007,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest score receipt",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/projects/r01.aup4",
+            "sha256": "d36e3ca4dbdcba31ea4df4414d063ac584b836485a2475b0af506c22678f6d94",
+            "bytes": 30015488,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t126/r01-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/masters/r01.wav",
+            "sha256": "8b1bac46e69acf2440327acc27ffb49329f5b52101d807ea458129ac60e483fd",
+            "bytes": 10944146,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/ambience/r01.mp3",
+            "sha256": "bd2688e0c6b1f4f2bbedbdd8c4b95518ed8eee1ea6dfbfa11fa3d667c60877b6",
+            "bytes": 609068,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "8b1bac46e69acf2440327acc27ffb49329f5b52101d807ea458129ac60e483fd"
+          ],
+          "tool": "FFmpeg 9.0.1 with libmp3lame",
+          "preset": "128 kbps CBR stereo at 48000 Hz. Master and decoded frame counts agree in both browsers.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t126/r01-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "synthesized",
+          "tool": "NumPy and SciPy",
+          "version": "2.3.5/1.17.0",
+          "modelRevision": "procedural-score-v1",
+          "eventId": "t126-r01-synthesized-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r01-score.json",
+          "promptOrScriptPath": "assets-src/audio/T126/synthesize.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "aa4388331f0c9870b9313fddd0752183ef722c89868854a75b4376d548d3c615",
+            "11efb777262ea12a787fc96a9e2e632ea07d5c909fbaa2486e636721f80b0ca0"
+          ],
+          "notes": "Original AI-assisted score and local synthesis produced two independent stereo stems. Full second render reproduced both FLAC files byte for byte."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t126-r01-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r01-native.json",
+          "promptOrScriptPath": "assets-src/audio/T126/records/native-pair-first-eight.py",
+          "referenceHashes": [
+            "aa4388331f0c9870b9313fddd0752183ef722c89868854a75b4376d548d3c615",
+            "11efb777262ea12a787fc96a9e2e632ea07d5c909fbaa2486e636721f80b0ca0"
+          ],
+          "outputHashes": [
+            "d36e3ca4dbdcba31ea4df4414d063ac584b836485a2475b0af506c22678f6d94",
+            "8b1bac46e69acf2440327acc27ffb49329f5b52101d807ea458129ac60e483fd"
+          ],
+          "notes": "The native project mixes two independently editable stem tracks. The reopened project exported the complete PCM24 production master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest with Codex-assisted sound design and production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T126/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T126/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "aiDisclosure": "Original AI-assisted procedural synthesis. The project authored all source code, material behavior and event timing. No recordings, pretrained audio outputs or reference samples enter the beds. Attribution and changes accompany reuse."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "aa4388331f0c9870b9313fddd0752183ef722c89868854a75b4376d548d3c615",
+            "11efb777262ea12a787fc96a9e2e632ea07d5c909fbaa2486e636721f80b0ca0",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "30d37b2acb7c8304fec59531c266d8f5c1f1aa8ca020128bd91280da8669d33e",
+            "d36e3ca4dbdcba31ea4df4414d063ac584b836485a2475b0af506c22678f6d94",
+            "8b1bac46e69acf2440327acc27ffb49329f5b52101d807ea458129ac60e483fd",
+            "bd2688e0c6b1f4f2bbedbdd8c4b95518ed8eee1ea6dfbfa11fa3d667c60877b6"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r01-rights.json",
+          "findings": "Original synthesis, score and project sources reviewed for the asset and code licenses."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "aa4388331f0c9870b9313fddd0752183ef722c89868854a75b4376d548d3c615",
+            "11efb777262ea12a787fc96a9e2e632ea07d5c909fbaa2486e636721f80b0ca0",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "30d37b2acb7c8304fec59531c266d8f5c1f1aa8ca020128bd91280da8669d33e",
+            "d36e3ca4dbdcba31ea4df4414d063ac584b836485a2475b0af506c22678f6d94",
+            "8b1bac46e69acf2440327acc27ffb49329f5b52101d807ea458129ac60e483fd",
+            "bd2688e0c6b1f4f2bbedbdd8c4b95518ed8eee1ea6dfbfa11fa3d667c60877b6"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r01-structure.json",
+          "findings": "Independent stem sum, master and exact web duration verified. Two browsers rendered three complete end-to-start joins and duck/mute controls."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "aa4388331f0c9870b9313fddd0752183ef722c89868854a75b4376d548d3c615",
+            "11efb777262ea12a787fc96a9e2e632ea07d5c909fbaa2486e636721f80b0ca0",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "30d37b2acb7c8304fec59531c266d8f5c1f1aa8ca020128bd91280da8669d33e",
+            "d36e3ca4dbdcba31ea4df4414d063ac584b836485a2475b0af506c22678f6d94",
+            "8b1bac46e69acf2440327acc27ffb49329f5b52101d807ea458129ac60e483fd",
+            "bd2688e0c6b1f4f2bbedbdd8c4b95518ed8eee1ea6dfbfa11fa3d667c60877b6"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r01-source-reopen.json",
+          "findings": "A fresh Audacity process reopened both named tracks and exported the master through the application."
+        },
+        {
+          "check": "budget",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "aa4388331f0c9870b9313fddd0752183ef722c89868854a75b4376d548d3c615",
+            "11efb777262ea12a787fc96a9e2e632ea07d5c909fbaa2486e636721f80b0ca0",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "30d37b2acb7c8304fec59531c266d8f5c1f1aa8ca020128bd91280da8669d33e",
+            "d36e3ca4dbdcba31ea4df4414d063ac584b836485a2475b0af506c22678f6d94",
+            "8b1bac46e69acf2440327acc27ffb49329f5b52101d807ea458129ac60e483fd",
+            "bd2688e0c6b1f4f2bbedbdd8c4b95518ed8eee1ea6dfbfa11fa3d667c60877b6"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r01-budget.json",
+          "findings": "Measured per-file bytes, decoded footprint, true peak and loudness for the isolated production asset."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "aa4388331f0c9870b9313fddd0752183ef722c89868854a75b4376d548d3c615",
+            "11efb777262ea12a787fc96a9e2e632ea07d5c909fbaa2486e636721f80b0ca0",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "30d37b2acb7c8304fec59531c266d8f5c1f1aa8ca020128bd91280da8669d33e",
+            "d36e3ca4dbdcba31ea4df4414d063ac584b836485a2475b0af506c22678f6d94",
+            "8b1bac46e69acf2440327acc27ffb49329f5b52101d807ea458129ac60e483fd",
+            "bd2688e0c6b1f4f2bbedbdd8c4b95518ed8eee1ea6dfbfa11fa3d667c60877b6"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r01-listening.json",
+          "findings": "A human listener has yet to record both playback systems, three joins, full-bed listening and speech intelligibility."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T126/projects/r01.aup4",
+        "masterPath": "assets-src/audio/T126/masters/r01.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 38.0,
+        "loopStartSample": 0,
+        "loopEndSample": 1824000,
+        "loudnessLufs": -30.44,
+        "peakDbfs": -15.8284680985062,
+        "captionId": "spec001:CAPTION-AMBIENCE-R01"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R02",
+      "semanticIdentity": "spec001:AMBIENCE-R02",
+      "kind": "ambience",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r02-furnace-draught.flac",
+            "sha256": "c95efc2604e6cc892121038d7096f8387c2c2fd6822109a546316de4e9757a6c",
+            "bytes": 3342443,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r02-bellows-and-cooling-metal.flac",
+            "sha256": "076942d3b14f7e1c4b52b56aac0ee88bb14100963f6adf6bd6fcbb20bc22cba8",
+            "bytes": 1341558,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/synthesize.py",
+            "sha256": "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "bytes": 11941,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Network Quest sound design",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/records/r02-score.json",
+            "sha256": "c682ff74bcf4675fdb8b22409d1cc97c7d62d5040a8765d88015602772f02bde",
+            "bytes": 1020,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest score receipt",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/projects/r02.aup4",
+            "sha256": "afbc39b7d78339008616d5e0573c6f2882ac6a08c1504aafc73b42ccaffa9bb5",
+            "bytes": 33882112,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t126/r02-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/masters/r02.wav",
+            "sha256": "8e777f9f3788d92bfa8bde251b624467c54a2cf289d7bc6afa7ded689dc9f08c",
+            "bytes": 12384146,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/ambience/r02.mp3",
+            "sha256": "e5eb0f0cdab3b398b61a7efc24e2d6d6fb2e627dc97fc3d40a29956790c1959c",
+            "bytes": 688940,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "8e777f9f3788d92bfa8bde251b624467c54a2cf289d7bc6afa7ded689dc9f08c"
+          ],
+          "tool": "FFmpeg 9.0.1 with libmp3lame",
+          "preset": "128 kbps CBR stereo at 48000 Hz. Master and decoded frame counts agree in both browsers.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t126/r02-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "synthesized",
+          "tool": "NumPy and SciPy",
+          "version": "2.3.5/1.17.0",
+          "modelRevision": "procedural-score-v1",
+          "eventId": "t126-r02-synthesized-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r02-score.json",
+          "promptOrScriptPath": "assets-src/audio/T126/synthesize.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "c95efc2604e6cc892121038d7096f8387c2c2fd6822109a546316de4e9757a6c",
+            "076942d3b14f7e1c4b52b56aac0ee88bb14100963f6adf6bd6fcbb20bc22cba8"
+          ],
+          "notes": "Original AI-assisted score and local synthesis produced two independent stereo stems. Full second render reproduced both FLAC files byte for byte."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t126-r02-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r02-native.json",
+          "promptOrScriptPath": "assets-src/audio/T126/records/native-pair-first-eight.py",
+          "referenceHashes": [
+            "c95efc2604e6cc892121038d7096f8387c2c2fd6822109a546316de4e9757a6c",
+            "076942d3b14f7e1c4b52b56aac0ee88bb14100963f6adf6bd6fcbb20bc22cba8"
+          ],
+          "outputHashes": [
+            "afbc39b7d78339008616d5e0573c6f2882ac6a08c1504aafc73b42ccaffa9bb5",
+            "8e777f9f3788d92bfa8bde251b624467c54a2cf289d7bc6afa7ded689dc9f08c"
+          ],
+          "notes": "The native project mixes two independently editable stem tracks. The reopened project exported the complete PCM24 production master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest with Codex-assisted sound design and production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T126/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T126/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "aiDisclosure": "Original AI-assisted procedural synthesis. The project authored all source code, material behavior and event timing. No recordings, pretrained audio outputs or reference samples enter the beds. Attribution and changes accompany reuse."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "c95efc2604e6cc892121038d7096f8387c2c2fd6822109a546316de4e9757a6c",
+            "076942d3b14f7e1c4b52b56aac0ee88bb14100963f6adf6bd6fcbb20bc22cba8",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "c682ff74bcf4675fdb8b22409d1cc97c7d62d5040a8765d88015602772f02bde",
+            "afbc39b7d78339008616d5e0573c6f2882ac6a08c1504aafc73b42ccaffa9bb5",
+            "8e777f9f3788d92bfa8bde251b624467c54a2cf289d7bc6afa7ded689dc9f08c",
+            "e5eb0f0cdab3b398b61a7efc24e2d6d6fb2e627dc97fc3d40a29956790c1959c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r02-rights.json",
+          "findings": "Original synthesis, score and project sources reviewed for the asset and code licenses."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "c95efc2604e6cc892121038d7096f8387c2c2fd6822109a546316de4e9757a6c",
+            "076942d3b14f7e1c4b52b56aac0ee88bb14100963f6adf6bd6fcbb20bc22cba8",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "c682ff74bcf4675fdb8b22409d1cc97c7d62d5040a8765d88015602772f02bde",
+            "afbc39b7d78339008616d5e0573c6f2882ac6a08c1504aafc73b42ccaffa9bb5",
+            "8e777f9f3788d92bfa8bde251b624467c54a2cf289d7bc6afa7ded689dc9f08c",
+            "e5eb0f0cdab3b398b61a7efc24e2d6d6fb2e627dc97fc3d40a29956790c1959c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r02-structure.json",
+          "findings": "Independent stem sum, master and exact web duration verified. Two browsers rendered three complete end-to-start joins and duck/mute controls."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "c95efc2604e6cc892121038d7096f8387c2c2fd6822109a546316de4e9757a6c",
+            "076942d3b14f7e1c4b52b56aac0ee88bb14100963f6adf6bd6fcbb20bc22cba8",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "c682ff74bcf4675fdb8b22409d1cc97c7d62d5040a8765d88015602772f02bde",
+            "afbc39b7d78339008616d5e0573c6f2882ac6a08c1504aafc73b42ccaffa9bb5",
+            "8e777f9f3788d92bfa8bde251b624467c54a2cf289d7bc6afa7ded689dc9f08c",
+            "e5eb0f0cdab3b398b61a7efc24e2d6d6fb2e627dc97fc3d40a29956790c1959c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r02-source-reopen.json",
+          "findings": "A fresh Audacity process reopened both named tracks and exported the master through the application."
+        },
+        {
+          "check": "budget",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "c95efc2604e6cc892121038d7096f8387c2c2fd6822109a546316de4e9757a6c",
+            "076942d3b14f7e1c4b52b56aac0ee88bb14100963f6adf6bd6fcbb20bc22cba8",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "c682ff74bcf4675fdb8b22409d1cc97c7d62d5040a8765d88015602772f02bde",
+            "afbc39b7d78339008616d5e0573c6f2882ac6a08c1504aafc73b42ccaffa9bb5",
+            "8e777f9f3788d92bfa8bde251b624467c54a2cf289d7bc6afa7ded689dc9f08c",
+            "e5eb0f0cdab3b398b61a7efc24e2d6d6fb2e627dc97fc3d40a29956790c1959c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r02-budget.json",
+          "findings": "Measured per-file bytes, decoded footprint, true peak and loudness for the isolated production asset."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "c95efc2604e6cc892121038d7096f8387c2c2fd6822109a546316de4e9757a6c",
+            "076942d3b14f7e1c4b52b56aac0ee88bb14100963f6adf6bd6fcbb20bc22cba8",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "c682ff74bcf4675fdb8b22409d1cc97c7d62d5040a8765d88015602772f02bde",
+            "afbc39b7d78339008616d5e0573c6f2882ac6a08c1504aafc73b42ccaffa9bb5",
+            "8e777f9f3788d92bfa8bde251b624467c54a2cf289d7bc6afa7ded689dc9f08c",
+            "e5eb0f0cdab3b398b61a7efc24e2d6d6fb2e627dc97fc3d40a29956790c1959c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r02-listening.json",
+          "findings": "A human listener has yet to record both playback systems, three joins, full-bed listening and speech intelligibility."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T126/projects/r02.aup4",
+        "masterPath": "assets-src/audio/T126/masters/r02.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 43.0,
+        "loopStartSample": 0,
+        "loopEndSample": 2064000,
+        "loudnessLufs": -30.45,
+        "peakDbfs": -16.804411230039133,
+        "captionId": "spec001:CAPTION-AMBIENCE-R02"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R03",
+      "semanticIdentity": "spec001:AMBIENCE-R03",
+      "kind": "ambience",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r03-motor-armature.flac",
+            "sha256": "ebb8e2851df99c37081574b7b6003bb61a6d845de4856efb5de1499206329e3e",
+            "bytes": 2145689,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r03-cable-tray-resonance.flac",
+            "sha256": "c443cd2efc1b10a396080542db566bfeb956d456ff222bd863afdc0a31952284",
+            "bytes": 2153614,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/synthesize.py",
+            "sha256": "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "bytes": 11941,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Network Quest sound design",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/records/r03-score.json",
+            "sha256": "c491793b718e5314b36860006729ab2209adfe8b05bd3ca8203bc100e35c6665",
+            "bytes": 1006,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest score receipt",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/projects/r03.aup4",
+            "sha256": "7845717a462038c9b3595e1a313ba5529c34e7c51cb8b851d3912493e2ae41b7",
+            "bytes": 31522816,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t126/r03-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/masters/r03.wav",
+            "sha256": "a0e30b9cccebb7ba45ac81bf46abb86a04b74acef58fef0af178b632f36e77e8",
+            "bytes": 11520146,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/ambience/r03.mp3",
+            "sha256": "5c79700817acf108a9cb7c472fb5982e0567abe0e2822a8b7b42d6fb99da29c2",
+            "bytes": 640940,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "a0e30b9cccebb7ba45ac81bf46abb86a04b74acef58fef0af178b632f36e77e8"
+          ],
+          "tool": "FFmpeg 9.0.1 with libmp3lame",
+          "preset": "128 kbps CBR stereo at 48000 Hz. Master and decoded frame counts agree in both browsers.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t126/r03-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "synthesized",
+          "tool": "NumPy and SciPy",
+          "version": "2.3.5/1.17.0",
+          "modelRevision": "procedural-score-v1",
+          "eventId": "t126-r03-synthesized-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r03-score.json",
+          "promptOrScriptPath": "assets-src/audio/T126/synthesize.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "ebb8e2851df99c37081574b7b6003bb61a6d845de4856efb5de1499206329e3e",
+            "c443cd2efc1b10a396080542db566bfeb956d456ff222bd863afdc0a31952284"
+          ],
+          "notes": "Original AI-assisted score and local synthesis produced two independent stereo stems. Full second render reproduced both FLAC files byte for byte."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t126-r03-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r03-native.json",
+          "promptOrScriptPath": "assets-src/audio/T126/records/native-pair-first-eight.py",
+          "referenceHashes": [
+            "ebb8e2851df99c37081574b7b6003bb61a6d845de4856efb5de1499206329e3e",
+            "c443cd2efc1b10a396080542db566bfeb956d456ff222bd863afdc0a31952284"
+          ],
+          "outputHashes": [
+            "7845717a462038c9b3595e1a313ba5529c34e7c51cb8b851d3912493e2ae41b7",
+            "a0e30b9cccebb7ba45ac81bf46abb86a04b74acef58fef0af178b632f36e77e8"
+          ],
+          "notes": "The native project mixes two independently editable stem tracks. The reopened project exported the complete PCM24 production master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest with Codex-assisted sound design and production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T126/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T126/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "aiDisclosure": "Original AI-assisted procedural synthesis. The project authored all source code, material behavior and event timing. No recordings, pretrained audio outputs or reference samples enter the beds. Attribution and changes accompany reuse."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "ebb8e2851df99c37081574b7b6003bb61a6d845de4856efb5de1499206329e3e",
+            "c443cd2efc1b10a396080542db566bfeb956d456ff222bd863afdc0a31952284",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "c491793b718e5314b36860006729ab2209adfe8b05bd3ca8203bc100e35c6665",
+            "7845717a462038c9b3595e1a313ba5529c34e7c51cb8b851d3912493e2ae41b7",
+            "a0e30b9cccebb7ba45ac81bf46abb86a04b74acef58fef0af178b632f36e77e8",
+            "5c79700817acf108a9cb7c472fb5982e0567abe0e2822a8b7b42d6fb99da29c2"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r03-rights.json",
+          "findings": "Original synthesis, score and project sources reviewed for the asset and code licenses."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "ebb8e2851df99c37081574b7b6003bb61a6d845de4856efb5de1499206329e3e",
+            "c443cd2efc1b10a396080542db566bfeb956d456ff222bd863afdc0a31952284",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "c491793b718e5314b36860006729ab2209adfe8b05bd3ca8203bc100e35c6665",
+            "7845717a462038c9b3595e1a313ba5529c34e7c51cb8b851d3912493e2ae41b7",
+            "a0e30b9cccebb7ba45ac81bf46abb86a04b74acef58fef0af178b632f36e77e8",
+            "5c79700817acf108a9cb7c472fb5982e0567abe0e2822a8b7b42d6fb99da29c2"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r03-structure.json",
+          "findings": "Independent stem sum, master and exact web duration verified. Two browsers rendered three complete end-to-start joins and duck/mute controls."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "ebb8e2851df99c37081574b7b6003bb61a6d845de4856efb5de1499206329e3e",
+            "c443cd2efc1b10a396080542db566bfeb956d456ff222bd863afdc0a31952284",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "c491793b718e5314b36860006729ab2209adfe8b05bd3ca8203bc100e35c6665",
+            "7845717a462038c9b3595e1a313ba5529c34e7c51cb8b851d3912493e2ae41b7",
+            "a0e30b9cccebb7ba45ac81bf46abb86a04b74acef58fef0af178b632f36e77e8",
+            "5c79700817acf108a9cb7c472fb5982e0567abe0e2822a8b7b42d6fb99da29c2"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r03-source-reopen.json",
+          "findings": "A fresh Audacity process reopened both named tracks and exported the master through the application."
+        },
+        {
+          "check": "budget",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "ebb8e2851df99c37081574b7b6003bb61a6d845de4856efb5de1499206329e3e",
+            "c443cd2efc1b10a396080542db566bfeb956d456ff222bd863afdc0a31952284",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "c491793b718e5314b36860006729ab2209adfe8b05bd3ca8203bc100e35c6665",
+            "7845717a462038c9b3595e1a313ba5529c34e7c51cb8b851d3912493e2ae41b7",
+            "a0e30b9cccebb7ba45ac81bf46abb86a04b74acef58fef0af178b632f36e77e8",
+            "5c79700817acf108a9cb7c472fb5982e0567abe0e2822a8b7b42d6fb99da29c2"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r03-budget.json",
+          "findings": "Measured per-file bytes, decoded footprint, true peak and loudness for the isolated production asset."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "ebb8e2851df99c37081574b7b6003bb61a6d845de4856efb5de1499206329e3e",
+            "c443cd2efc1b10a396080542db566bfeb956d456ff222bd863afdc0a31952284",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "c491793b718e5314b36860006729ab2209adfe8b05bd3ca8203bc100e35c6665",
+            "7845717a462038c9b3595e1a313ba5529c34e7c51cb8b851d3912493e2ae41b7",
+            "a0e30b9cccebb7ba45ac81bf46abb86a04b74acef58fef0af178b632f36e77e8",
+            "5c79700817acf108a9cb7c472fb5982e0567abe0e2822a8b7b42d6fb99da29c2"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r03-listening.json",
+          "findings": "A human listener has yet to record both playback systems, three joins, full-bed listening and speech intelligibility."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T126/projects/r03.aup4",
+        "masterPath": "assets-src/audio/T126/masters/r03.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 40.0,
+        "loopStartSample": 0,
+        "loopEndSample": 1920000,
+        "loudnessLufs": -30.44,
+        "peakDbfs": -17.820403585656376,
+        "captionId": "spec001:CAPTION-AMBIENCE-R03"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R04",
+      "semanticIdentity": "spec001:AMBIENCE-R04",
+      "kind": "ambience",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r04-cavern-foundry-return.flac",
+            "sha256": "f34ea3ff90a92b1123a16cf5cf79d8a75761eb95e62f3520477b926a5ea6b398",
+            "bytes": 3097075,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r04-dripping-ledge.flac",
+            "sha256": "a49b12e8a9721be2cfe7175b3ebc8d02d52e40b8c54b3110d432c560188cbe56",
+            "bytes": 245739,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/synthesize.py",
+            "sha256": "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "bytes": 11941,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Network Quest sound design",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/records/r04-score.json",
+            "sha256": "39eba0f220cda4b878299fd88ba13b8564295e98669b7566324c4bf0fb737b09",
+            "bytes": 1019,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest score receipt",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/projects/r04.aup4",
+            "sha256": "9cad8ecede0240c6105b9db72b91aa01857376a6d4bf28a64fff0120363c667c",
+            "bytes": 36306944,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t126/r04-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/masters/r04.wav",
+            "sha256": "3bb9dddb708ca29b1442aecd418f59f6a9b9d78e091f05ccb8a2dca990cf4052",
+            "bytes": 13248146,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/ambience/r04.mp3",
+            "sha256": "11758699231c68cb4ec216830b772e56ee2a2f00d0b22ca720bd9b6717c840fc",
+            "bytes": 736940,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "3bb9dddb708ca29b1442aecd418f59f6a9b9d78e091f05ccb8a2dca990cf4052"
+          ],
+          "tool": "FFmpeg 9.0.1 with libmp3lame",
+          "preset": "128 kbps CBR stereo at 48000 Hz. Master and decoded frame counts agree in both browsers.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t126/r04-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "synthesized",
+          "tool": "NumPy and SciPy",
+          "version": "2.3.5/1.17.0",
+          "modelRevision": "procedural-score-v1",
+          "eventId": "t126-r04-synthesized-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r04-score.json",
+          "promptOrScriptPath": "assets-src/audio/T126/synthesize.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "f34ea3ff90a92b1123a16cf5cf79d8a75761eb95e62f3520477b926a5ea6b398",
+            "a49b12e8a9721be2cfe7175b3ebc8d02d52e40b8c54b3110d432c560188cbe56"
+          ],
+          "notes": "Original AI-assisted score and local synthesis produced two independent stereo stems. Full second render reproduced both FLAC files byte for byte."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t126-r04-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r04-native.json",
+          "promptOrScriptPath": "assets-src/audio/T126/records/native-pair-first-eight.py",
+          "referenceHashes": [
+            "f34ea3ff90a92b1123a16cf5cf79d8a75761eb95e62f3520477b926a5ea6b398",
+            "a49b12e8a9721be2cfe7175b3ebc8d02d52e40b8c54b3110d432c560188cbe56"
+          ],
+          "outputHashes": [
+            "9cad8ecede0240c6105b9db72b91aa01857376a6d4bf28a64fff0120363c667c",
+            "3bb9dddb708ca29b1442aecd418f59f6a9b9d78e091f05ccb8a2dca990cf4052"
+          ],
+          "notes": "The native project mixes two independently editable stem tracks. The reopened project exported the complete PCM24 production master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest with Codex-assisted sound design and production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T126/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T126/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "aiDisclosure": "Original AI-assisted procedural synthesis. The project authored all source code, material behavior and event timing. No recordings, pretrained audio outputs or reference samples enter the beds. Attribution and changes accompany reuse."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "f34ea3ff90a92b1123a16cf5cf79d8a75761eb95e62f3520477b926a5ea6b398",
+            "a49b12e8a9721be2cfe7175b3ebc8d02d52e40b8c54b3110d432c560188cbe56",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "39eba0f220cda4b878299fd88ba13b8564295e98669b7566324c4bf0fb737b09",
+            "9cad8ecede0240c6105b9db72b91aa01857376a6d4bf28a64fff0120363c667c",
+            "3bb9dddb708ca29b1442aecd418f59f6a9b9d78e091f05ccb8a2dca990cf4052",
+            "11758699231c68cb4ec216830b772e56ee2a2f00d0b22ca720bd9b6717c840fc"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r04-rights.json",
+          "findings": "Original synthesis, score and project sources reviewed for the asset and code licenses."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "f34ea3ff90a92b1123a16cf5cf79d8a75761eb95e62f3520477b926a5ea6b398",
+            "a49b12e8a9721be2cfe7175b3ebc8d02d52e40b8c54b3110d432c560188cbe56",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "39eba0f220cda4b878299fd88ba13b8564295e98669b7566324c4bf0fb737b09",
+            "9cad8ecede0240c6105b9db72b91aa01857376a6d4bf28a64fff0120363c667c",
+            "3bb9dddb708ca29b1442aecd418f59f6a9b9d78e091f05ccb8a2dca990cf4052",
+            "11758699231c68cb4ec216830b772e56ee2a2f00d0b22ca720bd9b6717c840fc"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r04-structure.json",
+          "findings": "Independent stem sum, master and exact web duration verified. Two browsers rendered three complete end-to-start joins and duck/mute controls."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "f34ea3ff90a92b1123a16cf5cf79d8a75761eb95e62f3520477b926a5ea6b398",
+            "a49b12e8a9721be2cfe7175b3ebc8d02d52e40b8c54b3110d432c560188cbe56",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "39eba0f220cda4b878299fd88ba13b8564295e98669b7566324c4bf0fb737b09",
+            "9cad8ecede0240c6105b9db72b91aa01857376a6d4bf28a64fff0120363c667c",
+            "3bb9dddb708ca29b1442aecd418f59f6a9b9d78e091f05ccb8a2dca990cf4052",
+            "11758699231c68cb4ec216830b772e56ee2a2f00d0b22ca720bd9b6717c840fc"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r04-source-reopen.json",
+          "findings": "A fresh Audacity process reopened both named tracks and exported the master through the application."
+        },
+        {
+          "check": "budget",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "f34ea3ff90a92b1123a16cf5cf79d8a75761eb95e62f3520477b926a5ea6b398",
+            "a49b12e8a9721be2cfe7175b3ebc8d02d52e40b8c54b3110d432c560188cbe56",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "39eba0f220cda4b878299fd88ba13b8564295e98669b7566324c4bf0fb737b09",
+            "9cad8ecede0240c6105b9db72b91aa01857376a6d4bf28a64fff0120363c667c",
+            "3bb9dddb708ca29b1442aecd418f59f6a9b9d78e091f05ccb8a2dca990cf4052",
+            "11758699231c68cb4ec216830b772e56ee2a2f00d0b22ca720bd9b6717c840fc"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r04-budget.json",
+          "findings": "Measured per-file bytes, decoded footprint, true peak and loudness for the isolated production asset."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "f34ea3ff90a92b1123a16cf5cf79d8a75761eb95e62f3520477b926a5ea6b398",
+            "a49b12e8a9721be2cfe7175b3ebc8d02d52e40b8c54b3110d432c560188cbe56",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "39eba0f220cda4b878299fd88ba13b8564295e98669b7566324c4bf0fb737b09",
+            "9cad8ecede0240c6105b9db72b91aa01857376a6d4bf28a64fff0120363c667c",
+            "3bb9dddb708ca29b1442aecd418f59f6a9b9d78e091f05ccb8a2dca990cf4052",
+            "11758699231c68cb4ec216830b772e56ee2a2f00d0b22ca720bd9b6717c840fc"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r04-listening.json",
+          "findings": "A human listener has yet to record both playback systems, three joins, full-bed listening and speech intelligibility."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T126/projects/r04.aup4",
+        "masterPath": "assets-src/audio/T126/masters/r04.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 46.0,
+        "loopStartSample": 0,
+        "loopEndSample": 2208000,
+        "loudnessLufs": -30.45,
+        "peakDbfs": -12.901234970782468,
+        "captionId": "spec001:CAPTION-AMBIENCE-R04"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R05",
+      "semanticIdentity": "spec001:AMBIENCE-R05",
+      "kind": "ambience",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r05-garden-air-handler.flac",
+            "sha256": "7310ff18c0bb3da44d760ee4c250358bd350c981ebe194e04334ef251b21bd6d",
+            "bytes": 4380260,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r05-glass-reeds.flac",
+            "sha256": "2b8d539c24c3646a4c05ab1b65dfc5e38a4ef037b5403db2d1f2b463cbd705e3",
+            "bytes": 2241797,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/synthesize.py",
+            "sha256": "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "bytes": 11941,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Network Quest sound design",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/records/r05-score.json",
+            "sha256": "383ddc222ca0375bea9d6d7ab84ea4a20ad145d4dfb20c31304e6dea05d96ec2",
+            "bytes": 996,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest score receipt",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/projects/r05.aup4",
+            "sha256": "97c58a9eb7c739d7db39df1a1cf9ba98ae8943e70a321048c40038b3708fe767",
+            "bytes": 34734080,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t126/r05-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/masters/r05.wav",
+            "sha256": "5aa0025022c11fc52b3f9e038db78fe6b0f746ca398193447997a9092f4a40aa",
+            "bytes": 12672146,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/ambience/r05.mp3",
+            "sha256": "b4e1004992d6dd5313807cf89e0f00610afe6140a23c5a40600f85ce3f5bdb12",
+            "bytes": 705068,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "5aa0025022c11fc52b3f9e038db78fe6b0f746ca398193447997a9092f4a40aa"
+          ],
+          "tool": "FFmpeg 9.0.1 with libmp3lame",
+          "preset": "128 kbps CBR stereo at 48000 Hz. Master and decoded frame counts agree in both browsers.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t126/r05-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "synthesized",
+          "tool": "NumPy and SciPy",
+          "version": "2.3.5/1.17.0",
+          "modelRevision": "procedural-score-v1",
+          "eventId": "t126-r05-synthesized-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r05-score.json",
+          "promptOrScriptPath": "assets-src/audio/T126/synthesize.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "7310ff18c0bb3da44d760ee4c250358bd350c981ebe194e04334ef251b21bd6d",
+            "2b8d539c24c3646a4c05ab1b65dfc5e38a4ef037b5403db2d1f2b463cbd705e3"
+          ],
+          "notes": "Original AI-assisted score and local synthesis produced two independent stereo stems. Full second render reproduced both FLAC files byte for byte."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t126-r05-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r05-native.json",
+          "promptOrScriptPath": "assets-src/audio/T126/records/native-pair-first-eight.py",
+          "referenceHashes": [
+            "7310ff18c0bb3da44d760ee4c250358bd350c981ebe194e04334ef251b21bd6d",
+            "2b8d539c24c3646a4c05ab1b65dfc5e38a4ef037b5403db2d1f2b463cbd705e3"
+          ],
+          "outputHashes": [
+            "97c58a9eb7c739d7db39df1a1cf9ba98ae8943e70a321048c40038b3708fe767",
+            "5aa0025022c11fc52b3f9e038db78fe6b0f746ca398193447997a9092f4a40aa"
+          ],
+          "notes": "The native project mixes two independently editable stem tracks. The reopened project exported the complete PCM24 production master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest with Codex-assisted sound design and production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T126/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T126/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "aiDisclosure": "Original AI-assisted procedural synthesis. The project authored all source code, material behavior and event timing. No recordings, pretrained audio outputs or reference samples enter the beds. Attribution and changes accompany reuse."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "7310ff18c0bb3da44d760ee4c250358bd350c981ebe194e04334ef251b21bd6d",
+            "2b8d539c24c3646a4c05ab1b65dfc5e38a4ef037b5403db2d1f2b463cbd705e3",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "383ddc222ca0375bea9d6d7ab84ea4a20ad145d4dfb20c31304e6dea05d96ec2",
+            "97c58a9eb7c739d7db39df1a1cf9ba98ae8943e70a321048c40038b3708fe767",
+            "5aa0025022c11fc52b3f9e038db78fe6b0f746ca398193447997a9092f4a40aa",
+            "b4e1004992d6dd5313807cf89e0f00610afe6140a23c5a40600f85ce3f5bdb12"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r05-rights.json",
+          "findings": "Original synthesis, score and project sources reviewed for the asset and code licenses."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "7310ff18c0bb3da44d760ee4c250358bd350c981ebe194e04334ef251b21bd6d",
+            "2b8d539c24c3646a4c05ab1b65dfc5e38a4ef037b5403db2d1f2b463cbd705e3",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "383ddc222ca0375bea9d6d7ab84ea4a20ad145d4dfb20c31304e6dea05d96ec2",
+            "97c58a9eb7c739d7db39df1a1cf9ba98ae8943e70a321048c40038b3708fe767",
+            "5aa0025022c11fc52b3f9e038db78fe6b0f746ca398193447997a9092f4a40aa",
+            "b4e1004992d6dd5313807cf89e0f00610afe6140a23c5a40600f85ce3f5bdb12"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r05-structure.json",
+          "findings": "Independent stem sum, master and exact web duration verified. Two browsers rendered three complete end-to-start joins and duck/mute controls."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "7310ff18c0bb3da44d760ee4c250358bd350c981ebe194e04334ef251b21bd6d",
+            "2b8d539c24c3646a4c05ab1b65dfc5e38a4ef037b5403db2d1f2b463cbd705e3",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "383ddc222ca0375bea9d6d7ab84ea4a20ad145d4dfb20c31304e6dea05d96ec2",
+            "97c58a9eb7c739d7db39df1a1cf9ba98ae8943e70a321048c40038b3708fe767",
+            "5aa0025022c11fc52b3f9e038db78fe6b0f746ca398193447997a9092f4a40aa",
+            "b4e1004992d6dd5313807cf89e0f00610afe6140a23c5a40600f85ce3f5bdb12"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r05-source-reopen.json",
+          "findings": "A fresh Audacity process reopened both named tracks and exported the master through the application."
+        },
+        {
+          "check": "budget",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "7310ff18c0bb3da44d760ee4c250358bd350c981ebe194e04334ef251b21bd6d",
+            "2b8d539c24c3646a4c05ab1b65dfc5e38a4ef037b5403db2d1f2b463cbd705e3",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "383ddc222ca0375bea9d6d7ab84ea4a20ad145d4dfb20c31304e6dea05d96ec2",
+            "97c58a9eb7c739d7db39df1a1cf9ba98ae8943e70a321048c40038b3708fe767",
+            "5aa0025022c11fc52b3f9e038db78fe6b0f746ca398193447997a9092f4a40aa",
+            "b4e1004992d6dd5313807cf89e0f00610afe6140a23c5a40600f85ce3f5bdb12"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r05-budget.json",
+          "findings": "Measured per-file bytes, decoded footprint, true peak and loudness for the isolated production asset."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "7310ff18c0bb3da44d760ee4c250358bd350c981ebe194e04334ef251b21bd6d",
+            "2b8d539c24c3646a4c05ab1b65dfc5e38a4ef037b5403db2d1f2b463cbd705e3",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "383ddc222ca0375bea9d6d7ab84ea4a20ad145d4dfb20c31304e6dea05d96ec2",
+            "97c58a9eb7c739d7db39df1a1cf9ba98ae8943e70a321048c40038b3708fe767",
+            "5aa0025022c11fc52b3f9e038db78fe6b0f746ca398193447997a9092f4a40aa",
+            "b4e1004992d6dd5313807cf89e0f00610afe6140a23c5a40600f85ce3f5bdb12"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r05-listening.json",
+          "findings": "A human listener has yet to record both playback systems, three joins, full-bed listening and speech intelligibility."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T126/projects/r05.aup4",
+        "masterPath": "assets-src/audio/T126/masters/r05.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 44.0,
+        "loopStartSample": 0,
+        "loopEndSample": 2112000,
+        "loudnessLufs": -30.44,
+        "peakDbfs": -18.292551040408874,
+        "captionId": "spec001:CAPTION-AMBIENCE-R05"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R06",
+      "semanticIdentity": "spec001:AMBIENCE-R06",
+      "kind": "ambience",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r06-vault-glass-resonance.flac",
+            "sha256": "359c94b2c207403846676cdd23121167fbf22abf5525a86a14f229c602cd5e90",
+            "bytes": 2605357,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r06-shutter-mechanism.flac",
+            "sha256": "80bcb2e57a7819ce353bece5aa3797c47e7fecd8b2365dc5139e47757a838c49",
+            "bytes": 566990,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/synthesize.py",
+            "sha256": "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "bytes": 11941,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Network Quest sound design",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/records/r06-score.json",
+            "sha256": "5d1b37ac08d6e5bf41dabf51f3eb37681f5eb6544fb61450707a9ef7f9b5119b",
+            "bytes": 1012,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest score receipt",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/projects/r06.aup4",
+            "sha256": "94da1a0030d789e6bc600025ad389cdddc1b586ee6f58fcb2e2ba1be6d2e15e1",
+            "bytes": 37879808,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t126/r06-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/masters/r06.wav",
+            "sha256": "a3c33f824ceefc74e1733335fcd43b4465b296bccb6da18289f3fc8f503e8255",
+            "bytes": 13824146,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/ambience/r06.mp3",
+            "sha256": "3b336fa7d4402aa1de51b8e9e57ae3787060d792fddd79c97cffab242ff5153c",
+            "bytes": 768812,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "a3c33f824ceefc74e1733335fcd43b4465b296bccb6da18289f3fc8f503e8255"
+          ],
+          "tool": "FFmpeg 9.0.1 with libmp3lame",
+          "preset": "128 kbps CBR stereo at 48000 Hz. Master and decoded frame counts agree in both browsers.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t126/r06-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "synthesized",
+          "tool": "NumPy and SciPy",
+          "version": "2.3.5/1.17.0",
+          "modelRevision": "procedural-score-v1",
+          "eventId": "t126-r06-synthesized-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r06-score.json",
+          "promptOrScriptPath": "assets-src/audio/T126/synthesize.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "359c94b2c207403846676cdd23121167fbf22abf5525a86a14f229c602cd5e90",
+            "80bcb2e57a7819ce353bece5aa3797c47e7fecd8b2365dc5139e47757a838c49"
+          ],
+          "notes": "Original AI-assisted score and local synthesis produced two independent stereo stems. Full second render reproduced both FLAC files byte for byte."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t126-r06-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r06-native.json",
+          "promptOrScriptPath": "assets-src/audio/T126/records/native-pair-first-eight.py",
+          "referenceHashes": [
+            "359c94b2c207403846676cdd23121167fbf22abf5525a86a14f229c602cd5e90",
+            "80bcb2e57a7819ce353bece5aa3797c47e7fecd8b2365dc5139e47757a838c49"
+          ],
+          "outputHashes": [
+            "94da1a0030d789e6bc600025ad389cdddc1b586ee6f58fcb2e2ba1be6d2e15e1",
+            "a3c33f824ceefc74e1733335fcd43b4465b296bccb6da18289f3fc8f503e8255"
+          ],
+          "notes": "The native project mixes two independently editable stem tracks. The reopened project exported the complete PCM24 production master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest with Codex-assisted sound design and production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T126/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T126/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "aiDisclosure": "Original AI-assisted procedural synthesis. The project authored all source code, material behavior and event timing. No recordings, pretrained audio outputs or reference samples enter the beds. Attribution and changes accompany reuse."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "359c94b2c207403846676cdd23121167fbf22abf5525a86a14f229c602cd5e90",
+            "80bcb2e57a7819ce353bece5aa3797c47e7fecd8b2365dc5139e47757a838c49",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "5d1b37ac08d6e5bf41dabf51f3eb37681f5eb6544fb61450707a9ef7f9b5119b",
+            "94da1a0030d789e6bc600025ad389cdddc1b586ee6f58fcb2e2ba1be6d2e15e1",
+            "a3c33f824ceefc74e1733335fcd43b4465b296bccb6da18289f3fc8f503e8255",
+            "3b336fa7d4402aa1de51b8e9e57ae3787060d792fddd79c97cffab242ff5153c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r06-rights.json",
+          "findings": "Original synthesis, score and project sources reviewed for the asset and code licenses."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "359c94b2c207403846676cdd23121167fbf22abf5525a86a14f229c602cd5e90",
+            "80bcb2e57a7819ce353bece5aa3797c47e7fecd8b2365dc5139e47757a838c49",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "5d1b37ac08d6e5bf41dabf51f3eb37681f5eb6544fb61450707a9ef7f9b5119b",
+            "94da1a0030d789e6bc600025ad389cdddc1b586ee6f58fcb2e2ba1be6d2e15e1",
+            "a3c33f824ceefc74e1733335fcd43b4465b296bccb6da18289f3fc8f503e8255",
+            "3b336fa7d4402aa1de51b8e9e57ae3787060d792fddd79c97cffab242ff5153c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r06-structure.json",
+          "findings": "Independent stem sum, master and exact web duration verified. Two browsers rendered three complete end-to-start joins and duck/mute controls."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "359c94b2c207403846676cdd23121167fbf22abf5525a86a14f229c602cd5e90",
+            "80bcb2e57a7819ce353bece5aa3797c47e7fecd8b2365dc5139e47757a838c49",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "5d1b37ac08d6e5bf41dabf51f3eb37681f5eb6544fb61450707a9ef7f9b5119b",
+            "94da1a0030d789e6bc600025ad389cdddc1b586ee6f58fcb2e2ba1be6d2e15e1",
+            "a3c33f824ceefc74e1733335fcd43b4465b296bccb6da18289f3fc8f503e8255",
+            "3b336fa7d4402aa1de51b8e9e57ae3787060d792fddd79c97cffab242ff5153c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r06-source-reopen.json",
+          "findings": "A fresh Audacity process reopened both named tracks and exported the master through the application."
+        },
+        {
+          "check": "budget",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "359c94b2c207403846676cdd23121167fbf22abf5525a86a14f229c602cd5e90",
+            "80bcb2e57a7819ce353bece5aa3797c47e7fecd8b2365dc5139e47757a838c49",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "5d1b37ac08d6e5bf41dabf51f3eb37681f5eb6544fb61450707a9ef7f9b5119b",
+            "94da1a0030d789e6bc600025ad389cdddc1b586ee6f58fcb2e2ba1be6d2e15e1",
+            "a3c33f824ceefc74e1733335fcd43b4465b296bccb6da18289f3fc8f503e8255",
+            "3b336fa7d4402aa1de51b8e9e57ae3787060d792fddd79c97cffab242ff5153c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r06-budget.json",
+          "findings": "Measured per-file bytes, decoded footprint, true peak and loudness for the isolated production asset."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "359c94b2c207403846676cdd23121167fbf22abf5525a86a14f229c602cd5e90",
+            "80bcb2e57a7819ce353bece5aa3797c47e7fecd8b2365dc5139e47757a838c49",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "5d1b37ac08d6e5bf41dabf51f3eb37681f5eb6544fb61450707a9ef7f9b5119b",
+            "94da1a0030d789e6bc600025ad389cdddc1b586ee6f58fcb2e2ba1be6d2e15e1",
+            "a3c33f824ceefc74e1733335fcd43b4465b296bccb6da18289f3fc8f503e8255",
+            "3b336fa7d4402aa1de51b8e9e57ae3787060d792fddd79c97cffab242ff5153c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r06-listening.json",
+          "findings": "A human listener has yet to record both playback systems, three joins, full-bed listening and speech intelligibility."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T126/projects/r06.aup4",
+        "masterPath": "assets-src/audio/T126/masters/r06.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 48.0,
+        "loopStartSample": 0,
+        "loopEndSample": 2304000,
+        "loudnessLufs": -30.44,
+        "peakDbfs": -18.854854741179974,
+        "captionId": "spec001:CAPTION-AMBIENCE-R06"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R07",
+      "semanticIdentity": "spec001:AMBIENCE-R07",
+      "kind": "ambience",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r07-skywell-wind.flac",
+            "sha256": "31f0ff7090a6baa91cd52fd41bd83d5c8cf6872720c93f5987ab39087b347321",
+            "bytes": 5208302,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r07-mast-and-stays.flac",
+            "sha256": "0d414386338d3db914f8a2f6d38a90968b291174eb2faeb1194641edcdf39fb7",
+            "bytes": 237729,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/synthesize.py",
+            "sha256": "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "bytes": 11941,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Network Quest sound design",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/records/r07-score.json",
+            "sha256": "149885aa08951b5fe46d0d495881ef5424b5c7fd8cfa37594c6dddcf78717c1c",
+            "bytes": 988,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest score receipt",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/projects/r07.aup4",
+            "sha256": "272d5ab12b29271e519f0fd1cbf774152a0f5a6caeb55991049547862faa66f1",
+            "bytes": 33095680,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t126/r07-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/masters/r07.wav",
+            "sha256": "ebeb6adf5a74f7d7b5403492b06dc5b358a1a7f290091683c6ccb745ad67c088",
+            "bytes": 12096146,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/ambience/r07.mp3",
+            "sha256": "c578ca1ac9b30918771e7d62e0b040761c00dadd88ef1a40ade584fc90e9b556",
+            "bytes": 672812,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "ebeb6adf5a74f7d7b5403492b06dc5b358a1a7f290091683c6ccb745ad67c088"
+          ],
+          "tool": "FFmpeg 9.0.1 with libmp3lame",
+          "preset": "128 kbps CBR stereo at 48000 Hz. Master and decoded frame counts agree in both browsers.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t126/r07-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "synthesized",
+          "tool": "NumPy and SciPy",
+          "version": "2.3.5/1.17.0",
+          "modelRevision": "procedural-score-v1",
+          "eventId": "t126-r07-synthesized-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r07-score.json",
+          "promptOrScriptPath": "assets-src/audio/T126/synthesize.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "31f0ff7090a6baa91cd52fd41bd83d5c8cf6872720c93f5987ab39087b347321",
+            "0d414386338d3db914f8a2f6d38a90968b291174eb2faeb1194641edcdf39fb7"
+          ],
+          "notes": "Original AI-assisted score and local synthesis produced two independent stereo stems. Full second render reproduced both FLAC files byte for byte."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t126-r07-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r07-native.json",
+          "promptOrScriptPath": "assets-src/audio/T126/records/native-pair-first-eight.py",
+          "referenceHashes": [
+            "31f0ff7090a6baa91cd52fd41bd83d5c8cf6872720c93f5987ab39087b347321",
+            "0d414386338d3db914f8a2f6d38a90968b291174eb2faeb1194641edcdf39fb7"
+          ],
+          "outputHashes": [
+            "272d5ab12b29271e519f0fd1cbf774152a0f5a6caeb55991049547862faa66f1",
+            "ebeb6adf5a74f7d7b5403492b06dc5b358a1a7f290091683c6ccb745ad67c088"
+          ],
+          "notes": "The native project mixes two independently editable stem tracks. The reopened project exported the complete PCM24 production master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest with Codex-assisted sound design and production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T126/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T126/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "aiDisclosure": "Original AI-assisted procedural synthesis. The project authored all source code, material behavior and event timing. No recordings, pretrained audio outputs or reference samples enter the beds. Attribution and changes accompany reuse."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "31f0ff7090a6baa91cd52fd41bd83d5c8cf6872720c93f5987ab39087b347321",
+            "0d414386338d3db914f8a2f6d38a90968b291174eb2faeb1194641edcdf39fb7",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "149885aa08951b5fe46d0d495881ef5424b5c7fd8cfa37594c6dddcf78717c1c",
+            "272d5ab12b29271e519f0fd1cbf774152a0f5a6caeb55991049547862faa66f1",
+            "ebeb6adf5a74f7d7b5403492b06dc5b358a1a7f290091683c6ccb745ad67c088",
+            "c578ca1ac9b30918771e7d62e0b040761c00dadd88ef1a40ade584fc90e9b556"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r07-rights.json",
+          "findings": "Original synthesis, score and project sources reviewed for the asset and code licenses."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "31f0ff7090a6baa91cd52fd41bd83d5c8cf6872720c93f5987ab39087b347321",
+            "0d414386338d3db914f8a2f6d38a90968b291174eb2faeb1194641edcdf39fb7",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "149885aa08951b5fe46d0d495881ef5424b5c7fd8cfa37594c6dddcf78717c1c",
+            "272d5ab12b29271e519f0fd1cbf774152a0f5a6caeb55991049547862faa66f1",
+            "ebeb6adf5a74f7d7b5403492b06dc5b358a1a7f290091683c6ccb745ad67c088",
+            "c578ca1ac9b30918771e7d62e0b040761c00dadd88ef1a40ade584fc90e9b556"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r07-structure.json",
+          "findings": "Independent stem sum, master and exact web duration verified. Two browsers rendered three complete end-to-start joins and duck/mute controls."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "31f0ff7090a6baa91cd52fd41bd83d5c8cf6872720c93f5987ab39087b347321",
+            "0d414386338d3db914f8a2f6d38a90968b291174eb2faeb1194641edcdf39fb7",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "149885aa08951b5fe46d0d495881ef5424b5c7fd8cfa37594c6dddcf78717c1c",
+            "272d5ab12b29271e519f0fd1cbf774152a0f5a6caeb55991049547862faa66f1",
+            "ebeb6adf5a74f7d7b5403492b06dc5b358a1a7f290091683c6ccb745ad67c088",
+            "c578ca1ac9b30918771e7d62e0b040761c00dadd88ef1a40ade584fc90e9b556"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r07-source-reopen.json",
+          "findings": "A fresh Audacity process reopened both named tracks and exported the master through the application."
+        },
+        {
+          "check": "budget",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "31f0ff7090a6baa91cd52fd41bd83d5c8cf6872720c93f5987ab39087b347321",
+            "0d414386338d3db914f8a2f6d38a90968b291174eb2faeb1194641edcdf39fb7",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "149885aa08951b5fe46d0d495881ef5424b5c7fd8cfa37594c6dddcf78717c1c",
+            "272d5ab12b29271e519f0fd1cbf774152a0f5a6caeb55991049547862faa66f1",
+            "ebeb6adf5a74f7d7b5403492b06dc5b358a1a7f290091683c6ccb745ad67c088",
+            "c578ca1ac9b30918771e7d62e0b040761c00dadd88ef1a40ade584fc90e9b556"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r07-budget.json",
+          "findings": "Measured per-file bytes, decoded footprint, true peak and loudness for the isolated production asset."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "31f0ff7090a6baa91cd52fd41bd83d5c8cf6872720c93f5987ab39087b347321",
+            "0d414386338d3db914f8a2f6d38a90968b291174eb2faeb1194641edcdf39fb7",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "149885aa08951b5fe46d0d495881ef5424b5c7fd8cfa37594c6dddcf78717c1c",
+            "272d5ab12b29271e519f0fd1cbf774152a0f5a6caeb55991049547862faa66f1",
+            "ebeb6adf5a74f7d7b5403492b06dc5b358a1a7f290091683c6ccb745ad67c088",
+            "c578ca1ac9b30918771e7d62e0b040761c00dadd88ef1a40ade584fc90e9b556"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r07-listening.json",
+          "findings": "A human listener has yet to record both playback systems, three joins, full-bed listening and speech intelligibility."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T126/projects/r07.aup4",
+        "masterPath": "assets-src/audio/T126/masters/r07.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 42.0,
+        "loopStartSample": 0,
+        "loopEndSample": 2016000,
+        "loudnessLufs": -30.44,
+        "peakDbfs": -15.59137260355618,
+        "captionId": "spec001:CAPTION-AMBIENCE-R07"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R08",
+      "semanticIdentity": "spec001:AMBIENCE-R08",
+      "kind": "ambience",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r08-rain-on-the-dome.flac",
+            "sha256": "0670b2910ebb00a29fb7d0be13e24634880f85305307705feb4ab004459799e6",
+            "bytes": 8084111,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r08-far-thunder.flac",
+            "sha256": "ef44c5a77e57ee3edda84241499ad6c1749243e56a2d644314a6f4dacf919e65",
+            "bytes": 753627,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/synthesize.py",
+            "sha256": "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "bytes": 11941,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Network Quest sound design",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/records/r08-score.json",
+            "sha256": "57e30f8f251be0b17c561b3c030a5d8ff16b319f24e4e44a3b22d6499e5dbe3a",
+            "bytes": 996,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest score receipt",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/projects/r08.aup4",
+            "sha256": "0d0bfe88c13f7133d841b4832ee38940cf571fb0625f90a67b0f0525af01f802",
+            "bytes": 38535168,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t126/r08-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/masters/r08.wav",
+            "sha256": "583e9c0e1d0767b6ae42979be52d602bd8e9674e0363ec2721ed2c9a30cee424",
+            "bytes": 14112146,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/ambience/r08.mp3",
+            "sha256": "e962164d06f4e7c8ba42bc3e0cfe694d05593b4343c03628e42a625cfd85bb29",
+            "bytes": 784940,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "583e9c0e1d0767b6ae42979be52d602bd8e9674e0363ec2721ed2c9a30cee424"
+          ],
+          "tool": "FFmpeg 9.0.1 with libmp3lame",
+          "preset": "128 kbps CBR stereo at 48000 Hz. Master and decoded frame counts agree in both browsers.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t126/r08-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "synthesized",
+          "tool": "NumPy and SciPy",
+          "version": "2.3.5/1.17.0",
+          "modelRevision": "procedural-score-v1",
+          "eventId": "t126-r08-synthesized-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r08-score.json",
+          "promptOrScriptPath": "assets-src/audio/T126/synthesize.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "0670b2910ebb00a29fb7d0be13e24634880f85305307705feb4ab004459799e6",
+            "ef44c5a77e57ee3edda84241499ad6c1749243e56a2d644314a6f4dacf919e65"
+          ],
+          "notes": "Original AI-assisted score and local synthesis produced two independent stereo stems. Full second render reproduced both FLAC files byte for byte."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t126-r08-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r08-native.json",
+          "promptOrScriptPath": "assets-src/audio/T126/records/native-pair-first-eight.py",
+          "referenceHashes": [
+            "0670b2910ebb00a29fb7d0be13e24634880f85305307705feb4ab004459799e6",
+            "ef44c5a77e57ee3edda84241499ad6c1749243e56a2d644314a6f4dacf919e65"
+          ],
+          "outputHashes": [
+            "0d0bfe88c13f7133d841b4832ee38940cf571fb0625f90a67b0f0525af01f802",
+            "583e9c0e1d0767b6ae42979be52d602bd8e9674e0363ec2721ed2c9a30cee424"
+          ],
+          "notes": "The native project mixes two independently editable stem tracks. The reopened project exported the complete PCM24 production master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest with Codex-assisted sound design and production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T126/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T126/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "aiDisclosure": "Original AI-assisted procedural synthesis. The project authored all source code, material behavior and event timing. No recordings, pretrained audio outputs or reference samples enter the beds. Attribution and changes accompany reuse."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "0670b2910ebb00a29fb7d0be13e24634880f85305307705feb4ab004459799e6",
+            "ef44c5a77e57ee3edda84241499ad6c1749243e56a2d644314a6f4dacf919e65",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "57e30f8f251be0b17c561b3c030a5d8ff16b319f24e4e44a3b22d6499e5dbe3a",
+            "0d0bfe88c13f7133d841b4832ee38940cf571fb0625f90a67b0f0525af01f802",
+            "583e9c0e1d0767b6ae42979be52d602bd8e9674e0363ec2721ed2c9a30cee424",
+            "e962164d06f4e7c8ba42bc3e0cfe694d05593b4343c03628e42a625cfd85bb29"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r08-rights.json",
+          "findings": "Original synthesis, score and project sources reviewed for the asset and code licenses."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "0670b2910ebb00a29fb7d0be13e24634880f85305307705feb4ab004459799e6",
+            "ef44c5a77e57ee3edda84241499ad6c1749243e56a2d644314a6f4dacf919e65",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "57e30f8f251be0b17c561b3c030a5d8ff16b319f24e4e44a3b22d6499e5dbe3a",
+            "0d0bfe88c13f7133d841b4832ee38940cf571fb0625f90a67b0f0525af01f802",
+            "583e9c0e1d0767b6ae42979be52d602bd8e9674e0363ec2721ed2c9a30cee424",
+            "e962164d06f4e7c8ba42bc3e0cfe694d05593b4343c03628e42a625cfd85bb29"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r08-structure.json",
+          "findings": "Independent stem sum, master and exact web duration verified. Two browsers rendered three complete end-to-start joins and duck/mute controls."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "0670b2910ebb00a29fb7d0be13e24634880f85305307705feb4ab004459799e6",
+            "ef44c5a77e57ee3edda84241499ad6c1749243e56a2d644314a6f4dacf919e65",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "57e30f8f251be0b17c561b3c030a5d8ff16b319f24e4e44a3b22d6499e5dbe3a",
+            "0d0bfe88c13f7133d841b4832ee38940cf571fb0625f90a67b0f0525af01f802",
+            "583e9c0e1d0767b6ae42979be52d602bd8e9674e0363ec2721ed2c9a30cee424",
+            "e962164d06f4e7c8ba42bc3e0cfe694d05593b4343c03628e42a625cfd85bb29"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r08-source-reopen.json",
+          "findings": "A fresh Audacity process reopened both named tracks and exported the master through the application."
+        },
+        {
+          "check": "budget",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "0670b2910ebb00a29fb7d0be13e24634880f85305307705feb4ab004459799e6",
+            "ef44c5a77e57ee3edda84241499ad6c1749243e56a2d644314a6f4dacf919e65",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "57e30f8f251be0b17c561b3c030a5d8ff16b319f24e4e44a3b22d6499e5dbe3a",
+            "0d0bfe88c13f7133d841b4832ee38940cf571fb0625f90a67b0f0525af01f802",
+            "583e9c0e1d0767b6ae42979be52d602bd8e9674e0363ec2721ed2c9a30cee424",
+            "e962164d06f4e7c8ba42bc3e0cfe694d05593b4343c03628e42a625cfd85bb29"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r08-budget.json",
+          "findings": "Measured per-file bytes, decoded footprint, true peak and loudness for the isolated production asset."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "0670b2910ebb00a29fb7d0be13e24634880f85305307705feb4ab004459799e6",
+            "ef44c5a77e57ee3edda84241499ad6c1749243e56a2d644314a6f4dacf919e65",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "57e30f8f251be0b17c561b3c030a5d8ff16b319f24e4e44a3b22d6499e5dbe3a",
+            "0d0bfe88c13f7133d841b4832ee38940cf571fb0625f90a67b0f0525af01f802",
+            "583e9c0e1d0767b6ae42979be52d602bd8e9674e0363ec2721ed2c9a30cee424",
+            "e962164d06f4e7c8ba42bc3e0cfe694d05593b4343c03628e42a625cfd85bb29"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r08-listening.json",
+          "findings": "A human listener has yet to record both playback systems, three joins, full-bed listening and speech intelligibility."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T126/projects/r08.aup4",
+        "masterPath": "assets-src/audio/T126/masters/r08.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 49.0,
+        "loopStartSample": 0,
+        "loopEndSample": 2352000,
+        "loudnessLufs": -30.4,
+        "peakDbfs": -13.941649123796488,
+        "captionId": "spec001:CAPTION-AMBIENCE-R08"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R09",
+      "semanticIdentity": "spec001:AMBIENCE-R09",
+      "kind": "ambience",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r09-market-and-cooling-fans.flac",
+            "sha256": "3e12226744f12dab00971a6efcb44ff0ab8665ef8a0a3dd1c53322e00fb2d4fc",
+            "bytes": 4042694,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r09-shell-counter.flac",
+            "sha256": "caabba13bd1bf0439cfc16c4cb3950ab7db9cbc7e7b19008c48345485f8eec51",
+            "bytes": 160934,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/synthesize.py",
+            "sha256": "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "bytes": 11941,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Network Quest sound design",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/records/r09-score.json",
+            "sha256": "45201ff32488dc13523f85b383411997ee22d0c0bf6bbce787709db884bd7f8d",
+            "bytes": 1009,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest score receipt",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/projects/r09.aup4",
+            "sha256": "afa131d6b4196944e57b118934ae06b1f3d697d5a15b1226591a225f6cda7b72",
+            "bytes": 32309248,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t126/r09-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/masters/r09.wav",
+            "sha256": "0e7b1b21e411d4e86da5d3805ab147a7abb2ba2c4c3cec21b45d5885a74c612e",
+            "bytes": 11808146,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/ambience/r09.mp3",
+            "sha256": "b4ac2bbe801e089758847f1e7256e360a337152f7a0ca2d57869d33386b4acb3",
+            "bytes": 657068,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "0e7b1b21e411d4e86da5d3805ab147a7abb2ba2c4c3cec21b45d5885a74c612e"
+          ],
+          "tool": "FFmpeg 9.0.1 with libmp3lame",
+          "preset": "128 kbps CBR stereo at 48000 Hz. Master and decoded frame counts agree in both browsers.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t126/r09-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "synthesized",
+          "tool": "NumPy and SciPy",
+          "version": "2.3.5/1.17.0",
+          "modelRevision": "procedural-score-v1",
+          "eventId": "t126-r09-synthesized-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r09-score.json",
+          "promptOrScriptPath": "assets-src/audio/T126/synthesize.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "3e12226744f12dab00971a6efcb44ff0ab8665ef8a0a3dd1c53322e00fb2d4fc",
+            "caabba13bd1bf0439cfc16c4cb3950ab7db9cbc7e7b19008c48345485f8eec51"
+          ],
+          "notes": "Original AI-assisted score and local synthesis produced two independent stereo stems. Full second render reproduced both FLAC files byte for byte."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t126-r09-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r09-native.json",
+          "promptOrScriptPath": "assets-src/audio/T126/native-pair.py",
+          "referenceHashes": [
+            "3e12226744f12dab00971a6efcb44ff0ab8665ef8a0a3dd1c53322e00fb2d4fc",
+            "caabba13bd1bf0439cfc16c4cb3950ab7db9cbc7e7b19008c48345485f8eec51"
+          ],
+          "outputHashes": [
+            "afa131d6b4196944e57b118934ae06b1f3d697d5a15b1226591a225f6cda7b72",
+            "0e7b1b21e411d4e86da5d3805ab147a7abb2ba2c4c3cec21b45d5885a74c612e"
+          ],
+          "notes": "The native project mixes two independently editable stem tracks. The reopened project exported the complete PCM24 production master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest with Codex-assisted sound design and production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T126/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T126/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "aiDisclosure": "Original AI-assisted procedural synthesis. The project authored all source code, material behavior and event timing. No recordings, pretrained audio outputs or reference samples enter the beds. Attribution and changes accompany reuse."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "3e12226744f12dab00971a6efcb44ff0ab8665ef8a0a3dd1c53322e00fb2d4fc",
+            "caabba13bd1bf0439cfc16c4cb3950ab7db9cbc7e7b19008c48345485f8eec51",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "45201ff32488dc13523f85b383411997ee22d0c0bf6bbce787709db884bd7f8d",
+            "afa131d6b4196944e57b118934ae06b1f3d697d5a15b1226591a225f6cda7b72",
+            "0e7b1b21e411d4e86da5d3805ab147a7abb2ba2c4c3cec21b45d5885a74c612e",
+            "b4ac2bbe801e089758847f1e7256e360a337152f7a0ca2d57869d33386b4acb3"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r09-rights.json",
+          "findings": "Original synthesis, score and project sources reviewed for the asset and code licenses."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "3e12226744f12dab00971a6efcb44ff0ab8665ef8a0a3dd1c53322e00fb2d4fc",
+            "caabba13bd1bf0439cfc16c4cb3950ab7db9cbc7e7b19008c48345485f8eec51",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "45201ff32488dc13523f85b383411997ee22d0c0bf6bbce787709db884bd7f8d",
+            "afa131d6b4196944e57b118934ae06b1f3d697d5a15b1226591a225f6cda7b72",
+            "0e7b1b21e411d4e86da5d3805ab147a7abb2ba2c4c3cec21b45d5885a74c612e",
+            "b4ac2bbe801e089758847f1e7256e360a337152f7a0ca2d57869d33386b4acb3"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r09-structure.json",
+          "findings": "Independent stem sum, master and exact web duration verified. Two browsers rendered three complete end-to-start joins and duck/mute controls."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "3e12226744f12dab00971a6efcb44ff0ab8665ef8a0a3dd1c53322e00fb2d4fc",
+            "caabba13bd1bf0439cfc16c4cb3950ab7db9cbc7e7b19008c48345485f8eec51",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "45201ff32488dc13523f85b383411997ee22d0c0bf6bbce787709db884bd7f8d",
+            "afa131d6b4196944e57b118934ae06b1f3d697d5a15b1226591a225f6cda7b72",
+            "0e7b1b21e411d4e86da5d3805ab147a7abb2ba2c4c3cec21b45d5885a74c612e",
+            "b4ac2bbe801e089758847f1e7256e360a337152f7a0ca2d57869d33386b4acb3"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r09-source-reopen.json",
+          "findings": "A fresh Audacity process reopened both named tracks and exported the master through the application."
+        },
+        {
+          "check": "budget",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "3e12226744f12dab00971a6efcb44ff0ab8665ef8a0a3dd1c53322e00fb2d4fc",
+            "caabba13bd1bf0439cfc16c4cb3950ab7db9cbc7e7b19008c48345485f8eec51",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "45201ff32488dc13523f85b383411997ee22d0c0bf6bbce787709db884bd7f8d",
+            "afa131d6b4196944e57b118934ae06b1f3d697d5a15b1226591a225f6cda7b72",
+            "0e7b1b21e411d4e86da5d3805ab147a7abb2ba2c4c3cec21b45d5885a74c612e",
+            "b4ac2bbe801e089758847f1e7256e360a337152f7a0ca2d57869d33386b4acb3"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r09-budget.json",
+          "findings": "Measured per-file bytes, decoded footprint, true peak and loudness for the isolated production asset."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "3e12226744f12dab00971a6efcb44ff0ab8665ef8a0a3dd1c53322e00fb2d4fc",
+            "caabba13bd1bf0439cfc16c4cb3950ab7db9cbc7e7b19008c48345485f8eec51",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "45201ff32488dc13523f85b383411997ee22d0c0bf6bbce787709db884bd7f8d",
+            "afa131d6b4196944e57b118934ae06b1f3d697d5a15b1226591a225f6cda7b72",
+            "0e7b1b21e411d4e86da5d3805ab147a7abb2ba2c4c3cec21b45d5885a74c612e",
+            "b4ac2bbe801e089758847f1e7256e360a337152f7a0ca2d57869d33386b4acb3"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r09-listening.json",
+          "findings": "A human listener has yet to record both playback systems, three joins, full-bed listening and speech intelligibility."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T126/projects/r09.aup4",
+        "masterPath": "assets-src/audio/T126/masters/r09.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 41.0,
+        "loopStartSample": 0,
+        "loopEndSample": 1968000,
+        "loudnessLufs": -30.45,
+        "peakDbfs": -16.38069508572669,
+        "captionId": "spec001:CAPTION-AMBIENCE-R09"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R10",
+      "semanticIdentity": "spec001:AMBIENCE-R10",
+      "kind": "ambience",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r10-drive-belt.flac",
+            "sha256": "4ecafeb49a97d9c21a0464cf2b5bff932679e001c9dfa1ff935deabc09765e27",
+            "bytes": 4373862,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r10-escapement.flac",
+            "sha256": "07667d3a6cc99fdd3eb037f5993d987f859ed04c25c5d2d32a1bd5a3b1c1e430",
+            "bytes": 537802,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/synthesize.py",
+            "sha256": "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "bytes": 11941,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Network Quest sound design",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/records/r10-score.json",
+            "sha256": "b633e5631da7d60d42a1140cac8ee951a56a1e2e292cc55c480b7973763d684f",
+            "bytes": 994,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest score receipt",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/projects/r10.aup4",
+            "sha256": "0748a98c9aba99be5c177598e777b84b796223c0dbc4d685700b48c772e685c8",
+            "bytes": 35520512,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t126/r10-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/masters/r10.wav",
+            "sha256": "27694570a0ab1f4fa07d81ff6d664f0708b708a895e560678d7e3757b3bd3844",
+            "bytes": 12960146,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/ambience/r10.mp3",
+            "sha256": "c94071a643869b8b7f5cda12590a5c97e6e2748661c27acbcf1d7b1e9a16e4c6",
+            "bytes": 720812,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "27694570a0ab1f4fa07d81ff6d664f0708b708a895e560678d7e3757b3bd3844"
+          ],
+          "tool": "FFmpeg 9.0.1 with libmp3lame",
+          "preset": "128 kbps CBR stereo at 48000 Hz. Master and decoded frame counts agree in both browsers.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t126/r10-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "synthesized",
+          "tool": "NumPy and SciPy",
+          "version": "2.3.5/1.17.0",
+          "modelRevision": "procedural-score-v1",
+          "eventId": "t126-r10-synthesized-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r10-score.json",
+          "promptOrScriptPath": "assets-src/audio/T126/synthesize.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "4ecafeb49a97d9c21a0464cf2b5bff932679e001c9dfa1ff935deabc09765e27",
+            "07667d3a6cc99fdd3eb037f5993d987f859ed04c25c5d2d32a1bd5a3b1c1e430"
+          ],
+          "notes": "Original AI-assisted score and local synthesis produced two independent stereo stems. Full second render reproduced both FLAC files byte for byte."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t126-r10-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r10-native.json",
+          "promptOrScriptPath": "assets-src/audio/T126/native-pair.py",
+          "referenceHashes": [
+            "4ecafeb49a97d9c21a0464cf2b5bff932679e001c9dfa1ff935deabc09765e27",
+            "07667d3a6cc99fdd3eb037f5993d987f859ed04c25c5d2d32a1bd5a3b1c1e430"
+          ],
+          "outputHashes": [
+            "0748a98c9aba99be5c177598e777b84b796223c0dbc4d685700b48c772e685c8",
+            "27694570a0ab1f4fa07d81ff6d664f0708b708a895e560678d7e3757b3bd3844"
+          ],
+          "notes": "The native project mixes two independently editable stem tracks. The reopened project exported the complete PCM24 production master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest with Codex-assisted sound design and production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T126/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T126/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "aiDisclosure": "Original AI-assisted procedural synthesis. The project authored all source code, material behavior and event timing. No recordings, pretrained audio outputs or reference samples enter the beds. Attribution and changes accompany reuse."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "4ecafeb49a97d9c21a0464cf2b5bff932679e001c9dfa1ff935deabc09765e27",
+            "07667d3a6cc99fdd3eb037f5993d987f859ed04c25c5d2d32a1bd5a3b1c1e430",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "b633e5631da7d60d42a1140cac8ee951a56a1e2e292cc55c480b7973763d684f",
+            "0748a98c9aba99be5c177598e777b84b796223c0dbc4d685700b48c772e685c8",
+            "27694570a0ab1f4fa07d81ff6d664f0708b708a895e560678d7e3757b3bd3844",
+            "c94071a643869b8b7f5cda12590a5c97e6e2748661c27acbcf1d7b1e9a16e4c6"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r10-rights.json",
+          "findings": "Original synthesis, score and project sources reviewed for the asset and code licenses."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "4ecafeb49a97d9c21a0464cf2b5bff932679e001c9dfa1ff935deabc09765e27",
+            "07667d3a6cc99fdd3eb037f5993d987f859ed04c25c5d2d32a1bd5a3b1c1e430",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "b633e5631da7d60d42a1140cac8ee951a56a1e2e292cc55c480b7973763d684f",
+            "0748a98c9aba99be5c177598e777b84b796223c0dbc4d685700b48c772e685c8",
+            "27694570a0ab1f4fa07d81ff6d664f0708b708a895e560678d7e3757b3bd3844",
+            "c94071a643869b8b7f5cda12590a5c97e6e2748661c27acbcf1d7b1e9a16e4c6"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r10-structure.json",
+          "findings": "Independent stem sum, master and exact web duration verified. Two browsers rendered three complete end-to-start joins and duck/mute controls."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "4ecafeb49a97d9c21a0464cf2b5bff932679e001c9dfa1ff935deabc09765e27",
+            "07667d3a6cc99fdd3eb037f5993d987f859ed04c25c5d2d32a1bd5a3b1c1e430",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "b633e5631da7d60d42a1140cac8ee951a56a1e2e292cc55c480b7973763d684f",
+            "0748a98c9aba99be5c177598e777b84b796223c0dbc4d685700b48c772e685c8",
+            "27694570a0ab1f4fa07d81ff6d664f0708b708a895e560678d7e3757b3bd3844",
+            "c94071a643869b8b7f5cda12590a5c97e6e2748661c27acbcf1d7b1e9a16e4c6"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r10-source-reopen.json",
+          "findings": "A fresh Audacity process reopened both named tracks and exported the master through the application."
+        },
+        {
+          "check": "budget",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "4ecafeb49a97d9c21a0464cf2b5bff932679e001c9dfa1ff935deabc09765e27",
+            "07667d3a6cc99fdd3eb037f5993d987f859ed04c25c5d2d32a1bd5a3b1c1e430",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "b633e5631da7d60d42a1140cac8ee951a56a1e2e292cc55c480b7973763d684f",
+            "0748a98c9aba99be5c177598e777b84b796223c0dbc4d685700b48c772e685c8",
+            "27694570a0ab1f4fa07d81ff6d664f0708b708a895e560678d7e3757b3bd3844",
+            "c94071a643869b8b7f5cda12590a5c97e6e2748661c27acbcf1d7b1e9a16e4c6"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r10-budget.json",
+          "findings": "Measured per-file bytes, decoded footprint, true peak and loudness for the isolated production asset."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "4ecafeb49a97d9c21a0464cf2b5bff932679e001c9dfa1ff935deabc09765e27",
+            "07667d3a6cc99fdd3eb037f5993d987f859ed04c25c5d2d32a1bd5a3b1c1e430",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "b633e5631da7d60d42a1140cac8ee951a56a1e2e292cc55c480b7973763d684f",
+            "0748a98c9aba99be5c177598e777b84b796223c0dbc4d685700b48c772e685c8",
+            "27694570a0ab1f4fa07d81ff6d664f0708b708a895e560678d7e3757b3bd3844",
+            "c94071a643869b8b7f5cda12590a5c97e6e2748661c27acbcf1d7b1e9a16e4c6"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r10-listening.json",
+          "findings": "A human listener has yet to record both playback systems, three joins, full-bed listening and speech intelligibility."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T126/projects/r10.aup4",
+        "masterPath": "assets-src/audio/T126/masters/r10.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 45.0,
+        "loopStartSample": 0,
+        "loopEndSample": 2160000,
+        "loudnessLufs": -30.45,
+        "peakDbfs": -15.368452377750746,
+        "captionId": "spec001:CAPTION-AMBIENCE-R10"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R11",
+      "semanticIdentity": "spec001:AMBIENCE-R11",
+      "kind": "ambience",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r11-excavator-idle.flac",
+            "sha256": "85a64922a5ad9eb2e914852c9f02c503f35d416c6776dd8d1575b598e2ac2ef9",
+            "bytes": 2982556,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r11-aggregate-and-settling.flac",
+            "sha256": "74f91a5e96e629fa31d11612608e93d23c4c849b23726fe73a72d904dacb0dab",
+            "bytes": 510143,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/synthesize.py",
+            "sha256": "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "bytes": 11941,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Network Quest sound design",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/records/r11-score.json",
+            "sha256": "55ae400cf4baf47f5418850d1ed9272785e9d41d8b5323d7751c94e5dcedb058",
+            "bytes": 1007,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest score receipt",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/projects/r11.aup4",
+            "sha256": "1cfebb0784d679906b67f8d5fdc3411f7693667ea38dff554b4aa96b8e1b0fce",
+            "bytes": 37093376,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t126/r11-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/masters/r11.wav",
+            "sha256": "c96508203dfb786756c39168dccdb10e0282a8685d4628db0edb4917760f6f63",
+            "bytes": 13536146,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/ambience/r11.mp3",
+            "sha256": "705d3c6004bc30ff1ac7672e3229e830e503753643859e87ee3057d1a6e394d0",
+            "bytes": 753068,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "c96508203dfb786756c39168dccdb10e0282a8685d4628db0edb4917760f6f63"
+          ],
+          "tool": "FFmpeg 9.0.1 with libmp3lame",
+          "preset": "128 kbps CBR stereo at 48000 Hz. Master and decoded frame counts agree in both browsers.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t126/r11-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "synthesized",
+          "tool": "NumPy and SciPy",
+          "version": "2.3.5/1.17.0",
+          "modelRevision": "procedural-score-v1",
+          "eventId": "t126-r11-synthesized-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r11-score.json",
+          "promptOrScriptPath": "assets-src/audio/T126/synthesize.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "85a64922a5ad9eb2e914852c9f02c503f35d416c6776dd8d1575b598e2ac2ef9",
+            "74f91a5e96e629fa31d11612608e93d23c4c849b23726fe73a72d904dacb0dab"
+          ],
+          "notes": "Original AI-assisted score and local synthesis produced two independent stereo stems. Full second render reproduced both FLAC files byte for byte."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t126-r11-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r11-native.json",
+          "promptOrScriptPath": "assets-src/audio/T126/native-pair.py",
+          "referenceHashes": [
+            "85a64922a5ad9eb2e914852c9f02c503f35d416c6776dd8d1575b598e2ac2ef9",
+            "74f91a5e96e629fa31d11612608e93d23c4c849b23726fe73a72d904dacb0dab"
+          ],
+          "outputHashes": [
+            "1cfebb0784d679906b67f8d5fdc3411f7693667ea38dff554b4aa96b8e1b0fce",
+            "c96508203dfb786756c39168dccdb10e0282a8685d4628db0edb4917760f6f63"
+          ],
+          "notes": "The native project mixes two independently editable stem tracks. The reopened project exported the complete PCM24 production master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest with Codex-assisted sound design and production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T126/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T126/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "aiDisclosure": "Original AI-assisted procedural synthesis. The project authored all source code, material behavior and event timing. No recordings, pretrained audio outputs or reference samples enter the beds. Attribution and changes accompany reuse."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "85a64922a5ad9eb2e914852c9f02c503f35d416c6776dd8d1575b598e2ac2ef9",
+            "74f91a5e96e629fa31d11612608e93d23c4c849b23726fe73a72d904dacb0dab",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "55ae400cf4baf47f5418850d1ed9272785e9d41d8b5323d7751c94e5dcedb058",
+            "1cfebb0784d679906b67f8d5fdc3411f7693667ea38dff554b4aa96b8e1b0fce",
+            "c96508203dfb786756c39168dccdb10e0282a8685d4628db0edb4917760f6f63",
+            "705d3c6004bc30ff1ac7672e3229e830e503753643859e87ee3057d1a6e394d0"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r11-rights.json",
+          "findings": "Original synthesis, score and project sources reviewed for the asset and code licenses."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "85a64922a5ad9eb2e914852c9f02c503f35d416c6776dd8d1575b598e2ac2ef9",
+            "74f91a5e96e629fa31d11612608e93d23c4c849b23726fe73a72d904dacb0dab",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "55ae400cf4baf47f5418850d1ed9272785e9d41d8b5323d7751c94e5dcedb058",
+            "1cfebb0784d679906b67f8d5fdc3411f7693667ea38dff554b4aa96b8e1b0fce",
+            "c96508203dfb786756c39168dccdb10e0282a8685d4628db0edb4917760f6f63",
+            "705d3c6004bc30ff1ac7672e3229e830e503753643859e87ee3057d1a6e394d0"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r11-structure.json",
+          "findings": "Independent stem sum, master and exact web duration verified. Two browsers rendered three complete end-to-start joins and duck/mute controls."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "85a64922a5ad9eb2e914852c9f02c503f35d416c6776dd8d1575b598e2ac2ef9",
+            "74f91a5e96e629fa31d11612608e93d23c4c849b23726fe73a72d904dacb0dab",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "55ae400cf4baf47f5418850d1ed9272785e9d41d8b5323d7751c94e5dcedb058",
+            "1cfebb0784d679906b67f8d5fdc3411f7693667ea38dff554b4aa96b8e1b0fce",
+            "c96508203dfb786756c39168dccdb10e0282a8685d4628db0edb4917760f6f63",
+            "705d3c6004bc30ff1ac7672e3229e830e503753643859e87ee3057d1a6e394d0"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r11-source-reopen.json",
+          "findings": "A fresh Audacity process reopened both named tracks and exported the master through the application."
+        },
+        {
+          "check": "budget",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "85a64922a5ad9eb2e914852c9f02c503f35d416c6776dd8d1575b598e2ac2ef9",
+            "74f91a5e96e629fa31d11612608e93d23c4c849b23726fe73a72d904dacb0dab",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "55ae400cf4baf47f5418850d1ed9272785e9d41d8b5323d7751c94e5dcedb058",
+            "1cfebb0784d679906b67f8d5fdc3411f7693667ea38dff554b4aa96b8e1b0fce",
+            "c96508203dfb786756c39168dccdb10e0282a8685d4628db0edb4917760f6f63",
+            "705d3c6004bc30ff1ac7672e3229e830e503753643859e87ee3057d1a6e394d0"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r11-budget.json",
+          "findings": "Measured per-file bytes, decoded footprint, true peak and loudness for the isolated production asset."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "85a64922a5ad9eb2e914852c9f02c503f35d416c6776dd8d1575b598e2ac2ef9",
+            "74f91a5e96e629fa31d11612608e93d23c4c849b23726fe73a72d904dacb0dab",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "55ae400cf4baf47f5418850d1ed9272785e9d41d8b5323d7751c94e5dcedb058",
+            "1cfebb0784d679906b67f8d5fdc3411f7693667ea38dff554b4aa96b8e1b0fce",
+            "c96508203dfb786756c39168dccdb10e0282a8685d4628db0edb4917760f6f63",
+            "705d3c6004bc30ff1ac7672e3229e830e503753643859e87ee3057d1a6e394d0"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r11-listening.json",
+          "findings": "A human listener has yet to record both playback systems, three joins, full-bed listening and speech intelligibility."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T126/projects/r11.aup4",
+        "masterPath": "assets-src/audio/T126/masters/r11.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 47.0,
+        "loopStartSample": 0,
+        "loopEndSample": 2256000,
+        "loudnessLufs": -30.44,
+        "peakDbfs": -17.145443726257618,
+        "captionId": "spec001:CAPTION-AMBIENCE-R11"
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R12",
+      "semanticIdentity": "spec001:AMBIENCE-R12",
+      "kind": "ambience",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r12-threshold-and-city-air.flac",
+            "sha256": "72bb117dd06c21408f40362c761ea6f3f47bcccdff2c27f5c6c3c3b132b8c023",
+            "bytes": 4050510,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/sources/r12-maintenance-wind-chime.flac",
+            "sha256": "88064491c513b669e20712049497f84ad96187bc4cebc3a10b97a295b1f55950",
+            "bytes": 988696,
+            "format": "flac"
+          },
+          "role": "raw-generation",
+          "application": "NumPy/SciPy original synthesis",
+          "version": "2.3.5/1.17.0"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/synthesize.py",
+            "sha256": "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "bytes": 11941,
+            "format": "py"
+          },
+          "role": "script",
+          "application": "Network Quest sound design",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/records/r12-score.json",
+            "sha256": "99ea59d444f4576d6a7ec29f91f0392049f99831f151f552805476a278e85ac8",
+            "bytes": 1028,
+            "format": "json"
+          },
+          "role": "script",
+          "application": "Network Quest score receipt",
+          "version": "2026-11-27"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/projects/r12.aup4",
+            "sha256": "761c686943a36dce1e3275bd4e9b34e6462f08a516c1da1add0d664042323915",
+            "bytes": 39387136,
+            "format": "aup4"
+          },
+          "role": "native",
+          "application": "Audacity",
+          "version": "4.0.2",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/t126/r12-source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/audio/T126/masters/r12.wav",
+            "sha256": "c6fa6d4d0d1d68bebfa72017e306284d922fd4d97e881c718bf8426b92be9296",
+            "bytes": 14400146,
+            "format": "wav"
+          },
+          "role": "master",
+          "application": "Audacity",
+          "version": "4.0.2"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/audio/ambience/r12.mp3",
+            "sha256": "a4a58db4932c44d169919b33dd165df357474bf373f19da8335637913f650d1c",
+            "bytes": 801068,
+            "format": "mp3"
+          },
+          "mimeType": "audio/mpeg",
+          "sourceHashes": [
+            "c6fa6d4d0d1d68bebfa72017e306284d922fd4d97e881c718bf8426b92be9296"
+          ],
+          "tool": "FFmpeg 9.0.1 with libmp3lame",
+          "preset": "128 kbps CBR stereo at 48000 Hz. Master and decoded frame counts agree in both browsers.",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/t126/r12-integration-pending.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "synthesized",
+          "tool": "NumPy and SciPy",
+          "version": "2.3.5/1.17.0",
+          "modelRevision": "procedural-score-v1",
+          "eventId": "t126-r12-synthesized-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r12-score.json",
+          "promptOrScriptPath": "assets-src/audio/T126/synthesize.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "72bb117dd06c21408f40362c761ea6f3f47bcccdff2c27f5c6c3c3b132b8c023",
+            "88064491c513b669e20712049497f84ad96187bc4cebc3a10b97a295b1f55950"
+          ],
+          "notes": "Original AI-assisted score and local synthesis produced two independent stereo stems. Full second render reproduced both FLAC files byte for byte."
+        },
+        {
+          "method": "mixed",
+          "tool": "Audacity",
+          "version": "4.0.2",
+          "modelRevision": "native-4.0.2-linux-arm64",
+          "eventId": "t126-r12-mixed-20261127-a",
+          "settingsPath": "assets-src/audio/T126/records/r12-native.json",
+          "promptOrScriptPath": "assets-src/audio/T126/native-pair.py",
+          "referenceHashes": [
+            "72bb117dd06c21408f40362c761ea6f3f47bcccdff2c27f5c6c3c3b132b8c023",
+            "88064491c513b669e20712049497f84ad96187bc4cebc3a10b97a295b1f55950"
+          ],
+          "outputHashes": [
+            "761c686943a36dce1e3275bd4e9b34e6462f08a516c1da1add0d664042323915",
+            "c6fa6d4d0d1d68bebfa72017e306284d922fd4d97e881c718bf8426b92be9296"
+          ],
+          "notes": "The native project mixes two independently editable stem tracks. The reopened project exported the complete PCM24 production master."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco / Network Quest with Codex-assisted sound design and production"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0",
+          "Apache-2.0"
+        ],
+        "noticePaths": [
+          "assets-src/audio/T126/NOTICE.md",
+          "LICENSE-ASSETS",
+          "LICENSE"
+        ],
+        "termsSnapshotPaths": [
+          "LICENSE-ASSETS"
+        ],
+        "inputPermissionPaths": [
+          "assets-src/audio/T126/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "aiDisclosure": "Original AI-assisted procedural synthesis. The project authored all source code, material behavior and event timing. No recordings, pretrained audio outputs or reference samples enter the beds. Attribution and changes accompany reuse."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "72bb117dd06c21408f40362c761ea6f3f47bcccdff2c27f5c6c3c3b132b8c023",
+            "88064491c513b669e20712049497f84ad96187bc4cebc3a10b97a295b1f55950",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "99ea59d444f4576d6a7ec29f91f0392049f99831f151f552805476a278e85ac8",
+            "761c686943a36dce1e3275bd4e9b34e6462f08a516c1da1add0d664042323915",
+            "c6fa6d4d0d1d68bebfa72017e306284d922fd4d97e881c718bf8426b92be9296",
+            "a4a58db4932c44d169919b33dd165df357474bf373f19da8335637913f650d1c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r12-rights.json",
+          "findings": "Original synthesis, score and project sources reviewed for the asset and code licenses."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "72bb117dd06c21408f40362c761ea6f3f47bcccdff2c27f5c6c3c3b132b8c023",
+            "88064491c513b669e20712049497f84ad96187bc4cebc3a10b97a295b1f55950",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "99ea59d444f4576d6a7ec29f91f0392049f99831f151f552805476a278e85ac8",
+            "761c686943a36dce1e3275bd4e9b34e6462f08a516c1da1add0d664042323915",
+            "c6fa6d4d0d1d68bebfa72017e306284d922fd4d97e881c718bf8426b92be9296",
+            "a4a58db4932c44d169919b33dd165df357474bf373f19da8335637913f650d1c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r12-structure.json",
+          "findings": "Independent stem sum, master and exact web duration verified. Two browsers rendered three complete end-to-start joins and duck/mute controls."
+        },
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "72bb117dd06c21408f40362c761ea6f3f47bcccdff2c27f5c6c3c3b132b8c023",
+            "88064491c513b669e20712049497f84ad96187bc4cebc3a10b97a295b1f55950",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "99ea59d444f4576d6a7ec29f91f0392049f99831f151f552805476a278e85ac8",
+            "761c686943a36dce1e3275bd4e9b34e6462f08a516c1da1add0d664042323915",
+            "c6fa6d4d0d1d68bebfa72017e306284d922fd4d97e881c718bf8426b92be9296",
+            "a4a58db4932c44d169919b33dd165df357474bf373f19da8335637913f650d1c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r12-source-reopen.json",
+          "findings": "A fresh Audacity process reopened both named tracks and exported the master through the application."
+        },
+        {
+          "check": "budget",
+          "status": "passed",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "72bb117dd06c21408f40362c761ea6f3f47bcccdff2c27f5c6c3c3b132b8c023",
+            "88064491c513b669e20712049497f84ad96187bc4cebc3a10b97a295b1f55950",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "99ea59d444f4576d6a7ec29f91f0392049f99831f151f552805476a278e85ac8",
+            "761c686943a36dce1e3275bd4e9b34e6462f08a516c1da1add0d664042323915",
+            "c6fa6d4d0d1d68bebfa72017e306284d922fd4d97e881c718bf8426b92be9296",
+            "a4a58db4932c44d169919b33dd165df357474bf373f19da8335637913f650d1c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r12-budget.json",
+          "findings": "Measured per-file bytes, decoded footprint, true peak and loudness for the isolated production asset."
+        },
+        {
+          "check": "listening",
+          "status": "pending",
+          "reviewer": "Codex loop143/T126",
+          "date": "2026-11-27",
+          "hashes": [
+            "72bb117dd06c21408f40362c761ea6f3f47bcccdff2c27f5c6c3c3b132b8c023",
+            "88064491c513b669e20712049497f84ad96187bc4cebc3a10b97a295b1f55950",
+            "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+            "99ea59d444f4576d6a7ec29f91f0392049f99831f151f552805476a278e85ac8",
+            "761c686943a36dce1e3275bd4e9b34e6462f08a516c1da1add0d664042323915",
+            "c6fa6d4d0d1d68bebfa72017e306284d922fd4d97e881c718bf8426b92be9296",
+            "a4a58db4932c44d169919b33dd165df357474bf373f19da8335637913f650d1c"
+          ],
+          "environment": "Mac16,7 / macOS 26.6.2 arm64, NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1, Audacity 4.0.2 official Linux ARM64 under isolated Lima/Xvfb, FFmpeg 9.0.1, Chromium 159.0.8154.6, Firefox 159.0.",
+          "evidencePath": "docs/evidence/spec001/assets/t126/r12-listening.json",
+          "findings": "A human listener has yet to record both playback systems, three joins, full-bed listening and speech intelligibility."
+        }
+      ],
+      "audio": {
+        "nativeProjectPath": "assets-src/audio/T126/projects/r12.aup4",
+        "masterPath": "assets-src/audio/T126/masters/r12.wav",
+        "codec": "MP3",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 50.0,
+        "loopStartSample": 0,
+        "loopEndSample": 2400000,
+        "loudnessLufs": -30.45,
+        "peakDbfs": -16.452358834296035,
+        "captionId": "spec001:CAPTION-AMBIENCE-R12"
+      }
+    }
+  ]
+}

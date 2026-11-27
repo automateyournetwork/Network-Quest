@@ -1,0 +1,92 @@
+{
+  "scope": "Isolated production audit plus comparison with the exact frozen direction and allocation. G5 and human listening remain open.",
+  "fragment": {
+    "path": "assets-src/audio/ambiences.json",
+    "sha256": "68e68e850da711072d1f0437182f553e3b50565ed8d8351bdcf713dd31266f85"
+  },
+  "inventoryAudit": {
+    "mode": "inventory",
+    "valid": true,
+    "issues": [],
+    "counts": {
+      "characterModels": 0,
+      "props": 0,
+      "interactiveProps": 0,
+      "roomsWithImageSet": 0,
+      "sceneLayers": 0,
+      "portraits": 0,
+      "illustrations": 0,
+      "music": 0,
+      "ambience": 0,
+      "effects": 0,
+      "voices": 0
+    },
+    "scope": "Offline source/evidence consistency; no human audition, owner approval, finished-room or gate certification."
+  },
+  "listeningSeal": {
+    "path": "assets-src/audio/T126/records/listening-seal.json",
+    "sha256": "7d5f4ac1cd26e9cd3796dfec14c71819d2b702a7f8b0ea8b8abaa9a4758c5909",
+    "checkedFilePaths": 117
+  },
+  "allocatedRoomCount": 12,
+  "distinctSynthesisSourceStems": 24,
+  "byteIdenticalRegeneratedSourceStems": 24,
+  "distinctNativeProjectHashes": 12,
+  "distinctWebHashes": 12,
+  "masterSeconds": 533.0,
+  "largestProjectBytes": 39387136,
+  "webBytesEntireLibrary": 8539536,
+  "largestRoomDecodedStereoFloat32Bytes": 19200000,
+  "firstRoomWebBytes": 609068,
+  "maximumStemSumAbsoluteError": 1.3113021850585938e-06,
+  "monoFoldVsStereoRmsDbRange": [
+    -0.6917973227765895,
+    -0.06290882182958098
+  ],
+  "longTermSpectrumComparison": {
+    "method": "Welch mono fold-down over full decoded web file, 8192 frames, no overlap. Bhattacharyya affinity over normalized one-third-octave bands beginning at 40 Hz; identical spectra have affinity 1.",
+    "pairCount": 66,
+    "mostSimilar": {
+      "rooms": [
+        "r01",
+        "r02"
+      ],
+      "affinity": 0.955571
+    },
+    "leastSimilar": {
+      "rooms": [
+        "r03",
+        "r06"
+      ],
+      "affinity": 0.21696
+    }
+  },
+  "browsers": [
+    {
+      "name": "chromium",
+      "version": "159.0.8154.6",
+      "rooms": 12,
+      "joins": 36,
+      "sampleWindowsMaxError": 0,
+      "minMasterAnchorCorrelation": 0.9859582877842251,
+      "directedTransitions": 28,
+      "maxTransitionError": 1.0287078730519816e-08,
+      "liveSourceEnds": 56,
+      "maxSpeechMixError": 3.323150810086162e-08,
+      "maxMutedSample": 0
+    },
+    {
+      "name": "firefox",
+      "version": "159.0",
+      "rooms": 12,
+      "joins": 36,
+      "sampleWindowsMaxError": 0,
+      "minMasterAnchorCorrelation": 0.9859320674218336,
+      "directedTransitions": 28,
+      "maxTransitionError": 9.292736649624267e-09,
+      "liveSourceEnds": 56,
+      "maxSpeechMixError": 3.239335999438708e-08,
+      "maxMutedSample": 0
+    }
+  ]
+}

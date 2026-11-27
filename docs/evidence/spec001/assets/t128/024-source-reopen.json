@@ -1,0 +1,38 @@
+{
+  "type": "review",
+  "actor": "tool",
+  "status": "passed",
+  "assetId": "spec001:ASSET-EFFECT-024",
+  "reviewer": "Codex loop145/T128",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 / macOS 26.6.2 ARM64; NumPy 2.3.5, SciPy 1.17.0, SoundFile 0.13.1; official Audacity 4.0.2 ARM64, isolated Ubuntu/Xvfb studio on the Mac; FFmpeg 9.0.1",
+  "hashes": [
+    "dcfc1b1a15b8bd8af83b6ffd7b126676600986582f3b1fc1d5d57cde43f9beda",
+    "b5a32fe8924bdefc3030e67d3794ac9cc35d805647c3393e6d69a1e95b042659",
+    "5a16b5e381cd31cf840209e35ab550222e2db75d515909cb884df429f3087393",
+    "7996cfb32273d2bba131abef6133f793ec6ee7bd67e667f72af130212d17f920",
+    "75f9f4b11b78909fa406abf9e8368677ce88b9bfb32bb5e53f6f6f18303f9645",
+    "541d86168a3412e7eedcc910f3db4985a78806b90be0d9901ed6d7278a13249a"
+  ],
+  "details": {
+    "receipt": {
+      "path": "assets-src/audio/T128/records/24-native.json",
+      "sha256": "2cf2fa7a67b922d1ff9d5596dd061dcd1b5facf27b9bfd5b052cf605fe1ba27b",
+      "bytes": 1332
+    },
+    "originalProject": {
+      "path": "assets-src/audio/T128/projects/effect-024.aup4",
+      "sha256": "7996cfb32273d2bba131abef6133f793ec6ee7bd67e667f72af130212d17f920",
+      "bytes": 786432,
+      "format": "aup4"
+    },
+    "observedTracks": [
+      "Track 1: fx24-continuity-pulses, audio track, selected",
+      "Track 2: fx24-braid-touch, audio track, selected"
+    ],
+    "sqliteIntegrity": "ok",
+    "nativeMixVsSourceMaxError": 1.085922122001648e-06,
+    "findings": "Two correctly named editable tracks observed after closing Audacity and reopening the saved project in a fresh process."
+  },
+  "check": "source-reopen"
+}
