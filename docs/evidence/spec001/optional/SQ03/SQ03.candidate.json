@@ -1,0 +1,260 @@
+{
+  "kind": "quest",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:SQ03",
+  "prerequisite": {
+    "kind": "always"
+  },
+  "evidence": [
+    {
+      "id": "spec001:FACT-SQ03-instructions",
+      "roomId": "spec001:R08",
+      "subjectIds": [
+        "spec001:CH10",
+        "spec001:PR076",
+        "spec001:PR079",
+        "spec001:PROFILE-RADIO"
+      ],
+      "kind": "context",
+      "text": "The Phoenix opens a diary under the rattling weather vane. “A diary records what we observed. The weather has already volunteered to take all the blame.” Choose an earlier and a later actual radio reading from your notebook. Compare their SNR and distinguish a current observation from a historical one. No timer, ally or optional reward is needed.",
+      "ruleIds": [
+        "spec001:PHY07",
+        "spec001:STATE01"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-SQ03-method",
+      "roomId": "spec001:R08",
+      "subjectIds": [
+        "spec001:CH10",
+        "spec001:PR076",
+        "spec001:PR079",
+        "spec001:PROFILE-RADIO"
+      ],
+      "kind": "context",
+      "text": "The notebook supplies the actual source room, profile, attempt, configuration revision, signal in dBm, noise in dBm and SNR in dB for each reading. A later revision is a recorded sequence, not a wall-clock date or elapsed duration. A changed configuration makes the earlier record historical. Close the diary to change the radio controls or measure again, then reopen it.",
+      "ruleIds": [
+        "spec001:PHY07",
+        "spec001:STATE01"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-SQ03-comparison",
+      "roomId": "spec001:R08",
+      "subjectIds": [
+        "spec001:CH10",
+        "spec001:PR076",
+        "spec001:PR079",
+        "spec001:PROFILE-RADIO"
+      ],
+      "kind": "observation",
+      "text": "You compared two actual Storm Observatory radio readings while preserving their recorded conditions and history. The later reading was current when the comparison was made; that is a historical learning achievement, not a promise that the link stays healthy. The optional radio explanation is unlocked. The diary changes no path, completes no main objective and does not establish a weather cause or throughput.",
+      "ruleIds": [
+        "spec001:PHY07",
+        "spec001:STATE01"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "alternatives": [
+    {
+      "id": "spec001:ACTION-SQ03-compare",
+      "label": "Record the weather diary comparison",
+      "method": "direct-action",
+      "itemIds": [],
+      "abilityIds": [],
+      "condition": {
+        "kind": "always"
+      },
+      "ruleIds": [
+        "spec001:PHY07",
+        "spec001:STATE01"
+      ],
+      "evidenceIds": [
+        "spec001:FACT-SQ03-method"
+      ],
+      "effects": [],
+      "explanation": "Compare two actual recorded radio observations in their recorded order, with a current later sample. Correctly explain the SNR change, whether the current sample meets the supplied threshold and what the observations can prove. Historical passing evidence cannot prove the current link."
+    }
+  ],
+  "ruleIds": [
+    "spec001:PHY07",
+    "spec001:STATE01"
+  ],
+  "profileIds": [
+    "spec001:PROFILE-RADIO"
+  ],
+  "sourceClaims": [
+    {
+      "sourceId": "spec001:S08",
+      "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+      "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+      "limitations": [
+        "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile."
+      ]
+    },
+    {
+      "sourceId": "spec001:S09",
+      "section": "What is Signal-to-Noise Ratio (SNR)?",
+      "supportedClaim": "SNR is a signal-to-noise power ratio; its dB value is ten times the base-ten logarithm of that ratio.",
+      "limitations": [
+        "For compatible power measurements with one reference, subtracting dBm yields dB. No universal acceptable threshold follows from this definition."
+      ]
+    }
+  ],
+  "model": {
+    "label": "fictional-teaching-profile",
+    "scope": "Optional comparison of actual R08/O08 radio observations using the reviewed T08, T09, B-RADIO-20 and B-RADIO-BELOW values and existing STATE01 freshness. The diary adds no propagation or weather model.",
+    "assumptions": [
+      "Each selected sample is an actual notebook measurement from the reviewed R08/O08 radio path, with its original room, subjects, attempt, configuration revision and readings.",
+      "Both selected records contain viable-path and compatible-settings observations. The earlier record precedes the later configuration revision; the later record must match the current attempt and configuration and be explicitly nonstale.",
+      "The diary can be opened without an objective completion, party member, item or optional-activity prerequisite. A full comparison remains unavailable until the necessary actual measurements exist."
+    ],
+    "limitations": [
+      "The supplied 20 dB inclusive minimum is a fictional threshold, not a universal radio or Wi-Fi requirement.",
+      "Recorded revision order does not establish a wall-clock timestamp, elapsed interval or weather causation. No rain attenuation, distance, gain or frequency formula is modeled.",
+      "An SNR comparison does not guarantee throughput, end-to-end service or a repaired path. Path viability and compatible settings remain independent requirements.",
+      "A correct diary diagnosis can describe a physically failed current link. It changes no equipment and does not complete O07 or O08.",
+      "Historical readings remain historical. A prediction or old passing sample cannot replace an actual current reading after a configuration change or Retry."
+    ]
+  },
+  "effects": [
+    {
+      "kind": "record-fact",
+      "effectId": "spec001:EFFECT-SQ03-comparison",
+      "factId": "spec001:FACT-SQ03-comparison"
+    },
+    {
+      "kind": "complete-quest",
+      "effectId": "spec001:EFFECT-SQ03-complete",
+      "questId": "spec001:SQ03"
+    }
+  ],
+  "hints": {
+    "method": {
+      "id": "spec001:HINT-SQ03-method",
+      "text": "Choose two actual readings in recorded revision order. Read their SNR values in dB and compare the later value with the supplied inclusive 20 dB minimum. Keep the earlier record as history."
+    },
+    "workedStep": {
+      "id": "spec001:HINT-SQ03-step",
+      "text": "Worked example: −65 dBm signal above −90 dBm noise gives 25 dB SNR. The same signal above −78 dBm noise gives 13 dB. The later SNR decreased by 12 dB and is below the fictional 20 dB minimum. The measurements alone do not identify a weather cause."
+    },
+    "solution": {
+      "id": "spec001:HINT-SQ03-solution",
+      "text": "For the 25 dB then 13 dB example, choose “SNR decreased”, “Below the supplied threshold” and “Use the current reading; cause and throughput remain unproven”. The old passing record is history. Other reviewed observation pairs may rise, stay equal or meet the threshold; compare your displayed readings. Help records assistance and earns the same optional depth."
+    }
+  },
+  "observableOutcome": "A correct comparison records the diary once and unlocks optional radio depth. It preserves both readings and their freshness. Wrong or missing answers receive an explanation and retry; missing actual evidence leaves full delivery unavailable. Exit stays at the captured Observatory location without consuming items or saving.",
+  "completionExplanation": "“Excellent,” says the Phoenix. “The diary now contains observations instead of a weather forecast wearing a laboratory coat.” Your comparison is recorded and the deeper radio explanation is unlocked. The physical link still has the status shown by its latest actual reading; the diary has repaired nothing.",
+  "requiresReflexTiming": false,
+  "requiredForMainStory": false,
+  "skippable": true,
+  "optionalActivity": {
+    "kind": "radio-weather-diary",
+    "speakerId": "spec001:CH10",
+    "profileId": "spec001:PROFILE-RADIO",
+    "instructions": [
+      "The Phoenix invites you to compare two actual radio readings. Choose an earlier record and a later record from your notebook. Their quantities, units and provenance remain visible.",
+      "Read the change in SNR, compare the later reading with the supplied inclusive 20 dB minimum, and choose the claim the observations justify. The earlier reading can inform the comparison but cannot prove the current link.",
+      "No suitable current pair? Close the diary, use the ordinary Skywell and Observatory controls to prepare a path and take actual measurements before and after a change, then reopen. A proposal or a weather illustration is not a measurement.",
+      "The actual Observatory readings include surveyed channel A, surveyed channel B, raised noise and the near-boundary exercise. Compare their recorded SNR without rounding a near miss into a pass. Each choice still needs viable-path and compatible-settings evidence."
+    ],
+    "practice": {
+      "sourceCaseId": "B-RADIO-20",
+      "signal": {
+        "value": -65,
+        "unit": "dBm"
+      },
+      "noise": {
+        "value": -85,
+        "unit": "dBm"
+      },
+      "otherPathChecks": true,
+      "explanation": "Worked boundary card, not an earned notebook measurement: −65 dBm − (−85 dBm) gives exactly 20 dB SNR, meeting the fictional inclusive minimum when path and settings pass. It guarantees no throughput. Practice records assistance and earns no diary completion."
+    },
+    "delivery": {
+      "actionId": "spec001:ACTION-SQ03-compare",
+      "sourceCaseIds": [
+        "T08",
+        "T09",
+        "B-RADIO-20",
+        "B-RADIO-BELOW"
+      ],
+      "measurementObjectiveId": "spec001:O08",
+      "measurementRuleId": "spec001:PHY07",
+      "measurementRoomId": "spec001:R08",
+      "historicalUse": "comparison-only",
+      "currentRequired": true,
+      "order": "strictly-increasing-configuration-revision"
+    },
+    "answerControls": {
+      "earlierLabel": "Earlier actual radio reading",
+      "laterLabel": "Later current radio reading",
+      "comparisonLabel": "How did the SNR change?",
+      "increased": "SNR increased",
+      "unchanged": "SNR stayed the same",
+      "decreased": "SNR decreased",
+      "assessmentLabel": "Does the later reading meet the supplied threshold?",
+      "meetsThreshold": "Meets the supplied threshold",
+      "belowThreshold": "Below the supplied threshold",
+      "claimLabel": "What can these observations support?",
+      "currentOnly": "Use the current reading; cause and throughput remain unproven",
+      "historicalProof": "The earlier passing record proves the current link",
+      "weatherCause": "The comparison proves weather caused the change",
+      "throughputProof": "The SNR proves guaranteed throughput"
+    },
+    "feedback": {
+      "practice": {
+        "correct": "Exactly 20 dB meets this supplied inclusive minimum. The worked card is practice, not a new actual reading or diary reward.",
+        "incorrect": "This worked card shows 20 dB, which meets the inclusive minimum. It does not guarantee throughput. Practice has not completed the diary.",
+        "invalidInput": "Choose the boundary-card conclusion before checking it. No answer has been judged."
+      },
+      "delivery": {
+        "correct": "“Excellent,” says the Phoenix. “The diary now contains observations instead of a weather forecast wearing a laboratory coat.” Your comparison is recorded and the deeper radio explanation is unlocked. The physical link still has the status shown by its latest actual reading; the diary has repaired nothing.",
+        "incorrect": "Recheck the two displayed SNR values and the later value against the inclusive 20 dB minimum. Only the current later reading is current proof; the earlier record stays historical. The observations do not establish weather causation or guaranteed throughput. You can retry or leave.",
+        "invalidInput": "Select two actual readings and each comparison choice. Missing or stale evidence is not a wrong engineering answer; close the diary and take a new reading if needed."
+      },
+      "missingEvidence": "The diary needs an earlier actual R08 radio reading and a later reading that is current now. Your old observations stay visible as history. Close the diary to prepare or measure the path, then reopen; no completion has been recorded.",
+      "contentError": "The diary cannot verify its supplied content or selected measurement record. This is an exhibit problem, not a learner failure. No reward or penalty was recorded; safe exit remains available.",
+      "alreadyCompleted": "Your diary comparison and optional radio depth are already recorded. You can reread the explanation or practice without receiving another reward."
+    },
+    "controls": {
+      "practice": "Read the worked boundary card",
+      "delivery": "Compare my actual observations",
+      "submit": "Check the comparison",
+      "retry": "Start a fresh diary attempt",
+      "exit": "Close the diary"
+    },
+    "recovery": {
+      "retryExplanation": "Start a fresh diary attempt at the captured Observatory preparation. Keep clues, notes and assistance history. Retained measurements become stale; close the diary and measure again before submitting a current comparison. Retry creates no save.",
+      "exitExplanation": "Close the diary at the same Observatory entry where you opened it. Keep required tools, party and main progress. Leaving does not refresh a reading or save the adventure."
+    },
+    "reward": {
+      "kind": "optional-radio-depth",
+      "factId": "spec001:FACT-SQ03-comparison",
+      "assetId": "spec001:ASSET-ILLUSTRATION-16",
+      "title": "Radio depth: a diary is not a forecast",
+      "paragraphs": [
+        "SNR here compares received signal and noise at the same supplied boundary. Their dBm power levels differ by an SNR in dB; the existing evaluator performs that calculation. Two observations can share a signal level while their noise and SNR differ.",
+        "The supplied minimum includes equality: exactly 20 dB meets it. A 13 dB current sample fails it even when a historical 25 dB sample passed. Neither a signal-strength bar nor a passing SNR guarantees throughput or service health.",
+        "Each record keeps its source, attempt and configuration revision. A later revision orders the observations; it supplies no wall-clock date. Changing configuration or Retry leaves the earlier reading historical, even if you later return the controls to their old positions.",
+        "A weather picture, a prediction and a measured change are different kinds of information. This diary establishes no weather cause. Use the ordinary path and settings checks, perform the next relevant measurement and retain the observations without overstating them."
+      ],
+      "alternativeText": "Two views of the same Observatory antenna sit beside separate observation spaces. Exact measured values, revision order and freshness are supplied as readable text; the pictured conditions establish no weather cause.",
+      "unavailableText": "The diary illustration is unavailable. Your explanation remains readable."
+    },
+    "entryContexts": [
+      {
+        "roomId": "spec001:R08",
+        "safePositionId": "spec001:R08.entry",
+        "hotspotId": "spec001:HOTSPOT-radio-vane"
+      }
+    ],
+    "returnPolicy": "captured-entry",
+    "timingDefault": "off"
+  }
+}

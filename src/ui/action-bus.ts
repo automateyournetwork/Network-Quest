@@ -96,7 +96,7 @@ const verbs = new Set<string>(['walk', 'look', 'talk', 'use']);
 const panels = new Set<string>(['inventory', 'notebook', 'compendium', 'party', 'settings', 'save']);
 const fields: Record<SemanticAction['kind'], readonly string[]> = {
   'start-optional': ['kind', 'activityId', 'hotspotId'], 'choose-optional-mode': ['kind', 'sessionId', 'mode'],
-  'submit-optional': ['kind', 'sessionId', 'bits'], 'submit-optional-power': ['kind', 'sessionId', 'answer'],
+  'submit-optional': ['kind', 'sessionId', 'bits'], 'submit-optional-power': ['kind', 'sessionId', 'answer'], 'submit-optional-diary': ['kind', 'sessionId', 'answer'],
   'hint-optional': ['kind', 'sessionId'], 'retry-optional': ['kind', 'sessionId'], 'explain-optional': ['kind', 'sessionId'],
   'boundary-optional': ['kind', 'sessionId'], 'exit-optional': ['kind', 'sessionId'],
   'invite-ally': ['kind', 'characterId'], 'begin-ally-practice': ['kind', 'characterId'], 'review-ally-practice': ['kind', 'characterId'],
@@ -132,6 +132,17 @@ export function copySemanticAction(input: SemanticAction): SemanticAction {
     case 'start-optional': if (!qualifiedIdentity(input.activityId) || !qualifiedIdentity(input.hotspotId)) throw new TypeError('Invalid optional activity entry.'); break;
     case 'choose-optional-mode': if (!dialogueSession(input.sessionId) || !['practice', 'delivery'].includes(input.mode)) throw new TypeError('Invalid optional mode.'); break;
     case 'submit-optional': if (!dialogueSession(input.sessionId) || typeof input.bits !== 'string' || input.bits.length > 512) throw new TypeError('Invalid optional answer.'); break;
+    case 'submit-optional-diary': {
+      const answer: unknown = input.answer, keys = ['earlierMeasurementId', 'laterMeasurementId', 'comparison', 'currentAssessment', 'evidenceClaim'];
+      if (!dialogueSession(input.sessionId) || !answer || typeof answer !== 'object' || Array.isArray(answer)
+        || Object.keys(answer).length !== keys.length || Object.keys(answer).some(key => !keys.includes(key))) throw new TypeError('Invalid diary answer.');
+      const a = answer as Record<string, unknown>;
+      if (!['earlierMeasurementId', 'laterMeasurementId'].every(key => a[key] === null || dialogueSession(a[key]))
+        || ![null, 'increased', 'unchanged', 'decreased'].includes(a['comparison'] as string | null)
+        || ![null, 'meets-threshold', 'below-threshold'].includes(a['currentAssessment'] as string | null)
+        || ![null, 'current-reading-only-no-cause', 'earlier-proves-current', 'weather-proven', 'throughput-proven'].includes(a['evidenceClaim'] as string | null)) throw new TypeError('Invalid diary answer.');
+      return Object.freeze({ ...input, answer: Object.freeze({ ...input.answer }) });
+    }
     case 'submit-optional-power': {
       const answer: unknown = input.answer, object = (value: unknown): value is Record<string, unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
       if (!dialogueSession(input.sessionId) || !object(answer) || Object.keys(answer).length !== 2 || !Object.hasOwn(answer, 'assessment') || !Object.hasOwn(answer, 'difference')) throw new TypeError('Invalid power audit answer.');

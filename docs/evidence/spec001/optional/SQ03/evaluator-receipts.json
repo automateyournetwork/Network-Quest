@@ -1,0 +1,632 @@
+{
+  "scope": "Real radio evaluator and reducer-created records through an isolated diary proposal; no shared activity/browser/media acceptance.",
+  "protectedInputs": {
+    "tests/fixtures/optional-activities.json": "d29ef77428a61f8b6c92dc4fd17e99cd6b8a10a738e68171e1bad59eab9917cb",
+    "tests/fixtures/companions.json": "adce95202c355fcb4e24ef1fca657aab5b8dbf6f36675ccfdd9fcacc6c18db8f",
+    "tests/fixtures/physical-cases.json": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1",
+    "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
+    "content/spec001/rooms/R07.json": "173a0202a3df706204d220810737ee4d1984d0492b36b0c863e0f96f19f24ea6",
+    "content/spec001/rooms/R08.json": "141104d203bcdc45b40d375be262e2fff771167e87ea2981e3c45ddace68da28"
+  },
+  "receipts": {
+    "OPT-SQ03-COMPARE": {
+      "status": "correct",
+      "reasonCode": "radio-diary-comparison-correct",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "radio-diary-comparison",
+          "earlier": {
+            "record": {
+              "id": "00000000-0000-4000-8000-000000000002",
+              "ruleId": "spec001:PHY07",
+              "roomId": "spec001:R08",
+              "subjectIds": [
+                "spec001:O08",
+                "spec001:PROFILE-RADIO",
+                "spec001:R08"
+              ],
+              "configurationRevision": 4,
+              "attemptId": "76eedd78-cec0-46a3-afe3-1449f0d3b0f8",
+              "stale": true,
+              "readings": [
+                {
+                  "name": "Viable path",
+                  "value": 1,
+                  "unit": "count"
+                },
+                {
+                  "name": "Compatible settings",
+                  "value": 1,
+                  "unit": "count"
+                },
+                {
+                  "name": "Received signal",
+                  "value": -65,
+                  "unit": "dBm"
+                },
+                {
+                  "name": "Received noise",
+                  "value": -90,
+                  "unit": "dBm"
+                },
+                {
+                  "name": "Signal-to-noise ratio",
+                  "value": 25,
+                  "unit": "dB"
+                },
+                {
+                  "name": "Required signal-to-noise ratio",
+                  "value": 20,
+                  "unit": "dB"
+                }
+              ],
+              "conclusionCode": "O08:ACTION-O08-scenario-channel-A:correct"
+            },
+            "observation": {
+              "profileId": "spec001:PROFILE-RADIO",
+              "version": {
+                "configurationRevision": 4,
+                "attemptId": "76eedd78-cec0-46a3-afe3-1449f0d3b0f8"
+              },
+              "throughputProven": false,
+              "wholeRouteProven": false,
+              "kind": "radio-link",
+              "scope": "supplied radio path and SNR only",
+              "viablePath": true,
+              "settingsCompatible": true,
+              "signal": {
+                "value": -65,
+                "unit": "dBm"
+              },
+              "noise": {
+                "value": -90,
+                "unit": "dBm"
+              },
+              "snr": {
+                "value": 25,
+                "unit": "dB"
+              },
+              "minimum": {
+                "value": 20,
+                "unit": "dB"
+              },
+              "snrProven": true,
+              "thresholdMet": true,
+              "usableLink": true
+            },
+            "physicalStatus": "correct",
+            "use": "historical-only",
+            "usableAsCurrent": false
+          },
+          "later": {
+            "record": {
+              "id": "00000000-0000-4000-8000-000000000003",
+              "ruleId": "spec001:PHY07",
+              "roomId": "spec001:R08",
+              "subjectIds": [
+                "spec001:O08",
+                "spec001:PROFILE-RADIO",
+                "spec001:R08"
+              ],
+              "configurationRevision": 5,
+              "attemptId": "76eedd78-cec0-46a3-afe3-1449f0d3b0f8",
+              "stale": false,
+              "readings": [
+                {
+                  "name": "Viable path",
+                  "value": 1,
+                  "unit": "count"
+                },
+                {
+                  "name": "Compatible settings",
+                  "value": 1,
+                  "unit": "count"
+                },
+                {
+                  "name": "Received signal",
+                  "value": -65,
+                  "unit": "dBm"
+                },
+                {
+                  "name": "Received noise",
+                  "value": -78,
+                  "unit": "dBm"
+                },
+                {
+                  "name": "Signal-to-noise ratio",
+                  "value": 13,
+                  "unit": "dB"
+                },
+                {
+                  "name": "Required signal-to-noise ratio",
+                  "value": 20,
+                  "unit": "dB"
+                }
+              ],
+              "conclusionCode": "O08:ACTION-O08-scenario-channel-A:incorrect"
+            },
+            "observation": {
+              "profileId": "spec001:PROFILE-RADIO",
+              "version": {
+                "configurationRevision": 5,
+                "attemptId": "76eedd78-cec0-46a3-afe3-1449f0d3b0f8"
+              },
+              "throughputProven": false,
+              "wholeRouteProven": false,
+              "kind": "radio-link",
+              "scope": "supplied radio path and SNR only",
+              "viablePath": true,
+              "settingsCompatible": true,
+              "signal": {
+                "value": -65,
+                "unit": "dBm"
+              },
+              "noise": {
+                "value": -78,
+                "unit": "dBm"
+              },
+              "snr": {
+                "value": 13,
+                "unit": "dB"
+              },
+              "minimum": {
+                "value": 20,
+                "unit": "dB"
+              },
+              "snrProven": true,
+              "thresholdMet": false,
+              "usableLink": false
+            },
+            "physicalStatus": "incorrect"
+          },
+          "snrChange": {
+            "value": -12,
+            "unit": "dB"
+          },
+          "expectedComparison": "decreased",
+          "expectedAssessment": "below-threshold",
+          "currentLinkPass": false,
+          "learnerStatus": "correct",
+          "weatherCausationProven": false,
+          "throughputProven": false,
+          "wholeRouteProven": false,
+          "repaired": false,
+          "progressAward": 0,
+          "attemptPenalty": 0
+        }
+      ]
+    },
+    "OPT-SQ03-BOUNDARY": {
+      "status": "correct",
+      "reasonCode": "snr-meets-profile",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "profileId": "spec001:PROFILE-RADIO",
+          "version": {
+            "configurationRevision": 5,
+            "attemptId": "5e1693be-e71e-4092-909f-9c0776d88d5c"
+          },
+          "throughputProven": false,
+          "wholeRouteProven": false,
+          "kind": "radio-snr",
+          "scope": "SNR with supplied path prerequisites",
+          "otherPathChecks": true,
+          "signal": {
+            "value": -65,
+            "unit": "dBm"
+          },
+          "noise": {
+            "value": -85,
+            "unit": "dBm"
+          },
+          "snr": {
+            "value": 20,
+            "unit": "dB"
+          },
+          "minimum": {
+            "value": 20,
+            "unit": "dB"
+          },
+          "snrProven": true,
+          "thresholdMet": true,
+          "usableLink": true
+        }
+      ]
+    },
+    "OPT-SQ03-STALE-PREDICTION": {
+      "status": "invalid-input",
+      "reasonCode": "diary-current-measurement-required",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "invalid-input",
+          "reason": "diary-current-measurement-required",
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "missing-evidence": {
+      "status": "invalid-input",
+      "reasonCode": "diary-missing-evidence",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "invalid-input",
+          "reason": "diary-missing-evidence",
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "reviewed-near-boundary-comparison": {
+      "status": "correct",
+      "reasonCode": "radio-diary-comparison-correct",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "radio-diary-comparison",
+          "earlier": {
+            "record": {
+              "id": "00000000-0000-4000-8000-000000000002",
+              "ruleId": "spec001:PHY07",
+              "roomId": "spec001:R08",
+              "subjectIds": [
+                "spec001:O08",
+                "spec001:PROFILE-RADIO",
+                "spec001:R08"
+              ],
+              "configurationRevision": 5,
+              "attemptId": "66487602-15af-4440-a30c-15d56fcd9851",
+              "stale": true,
+              "readings": [
+                {
+                  "name": "Viable path",
+                  "value": 1,
+                  "unit": "count"
+                },
+                {
+                  "name": "Compatible settings",
+                  "value": 1,
+                  "unit": "count"
+                },
+                {
+                  "name": "Received signal",
+                  "value": -65,
+                  "unit": "dBm"
+                },
+                {
+                  "name": "Received noise",
+                  "value": -85,
+                  "unit": "dBm"
+                },
+                {
+                  "name": "Signal-to-noise ratio",
+                  "value": 20,
+                  "unit": "dB"
+                },
+                {
+                  "name": "Required signal-to-noise ratio",
+                  "value": 20,
+                  "unit": "dB"
+                }
+              ],
+              "conclusionCode": "O08:ACTION-O08-scenario-channel-B:correct"
+            },
+            "observation": {
+              "profileId": "spec001:PROFILE-RADIO",
+              "version": {
+                "configurationRevision": 5,
+                "attemptId": "66487602-15af-4440-a30c-15d56fcd9851"
+              },
+              "throughputProven": false,
+              "wholeRouteProven": false,
+              "kind": "radio-link",
+              "scope": "supplied radio path and SNR only",
+              "viablePath": true,
+              "settingsCompatible": true,
+              "signal": {
+                "value": -65,
+                "unit": "dBm"
+              },
+              "noise": {
+                "value": -85,
+                "unit": "dBm"
+              },
+              "snr": {
+                "value": 20,
+                "unit": "dB"
+              },
+              "minimum": {
+                "value": 20,
+                "unit": "dB"
+              },
+              "snrProven": true,
+              "thresholdMet": true,
+              "usableLink": true
+            },
+            "physicalStatus": "correct",
+            "use": "historical-only",
+            "usableAsCurrent": false
+          },
+          "later": {
+            "record": {
+              "id": "00000000-0000-4000-8000-000000000004",
+              "ruleId": "spec001:PHY07",
+              "roomId": "spec001:R08",
+              "subjectIds": [
+                "spec001:O08",
+                "spec001:PROFILE-RADIO",
+                "spec001:R08"
+              ],
+              "configurationRevision": 6,
+              "attemptId": "66487602-15af-4440-a30c-15d56fcd9851",
+              "stale": false,
+              "readings": [
+                {
+                  "name": "Viable path",
+                  "value": 1,
+                  "unit": "count"
+                },
+                {
+                  "name": "Compatible settings",
+                  "value": 1,
+                  "unit": "count"
+                },
+                {
+                  "name": "Received signal",
+                  "value": -65,
+                  "unit": "dBm"
+                },
+                {
+                  "name": "Received noise",
+                  "value": -84.99,
+                  "unit": "dBm"
+                },
+                {
+                  "name": "Signal-to-noise ratio",
+                  "value": 19.99,
+                  "unit": "dB"
+                },
+                {
+                  "name": "Required signal-to-noise ratio",
+                  "value": 20,
+                  "unit": "dB"
+                }
+              ],
+              "conclusionCode": "O08:ACTION-O08-scenario-channel-B:incorrect"
+            },
+            "observation": {
+              "profileId": "spec001:PROFILE-RADIO",
+              "version": {
+                "configurationRevision": 6,
+                "attemptId": "66487602-15af-4440-a30c-15d56fcd9851"
+              },
+              "throughputProven": false,
+              "wholeRouteProven": false,
+              "kind": "radio-link",
+              "scope": "supplied radio path and SNR only",
+              "viablePath": true,
+              "settingsCompatible": true,
+              "signal": {
+                "value": -65,
+                "unit": "dBm"
+              },
+              "noise": {
+                "value": -84.99,
+                "unit": "dBm"
+              },
+              "snr": {
+                "value": 19.99,
+                "unit": "dB"
+              },
+              "minimum": {
+                "value": 20,
+                "unit": "dB"
+              },
+              "snrProven": true,
+              "thresholdMet": false,
+              "usableLink": false
+            },
+            "physicalStatus": "incorrect"
+          },
+          "snrChange": {
+            "value": -0.01,
+            "unit": "dB"
+          },
+          "expectedComparison": "decreased",
+          "expectedAssessment": "below-threshold",
+          "currentLinkPass": false,
+          "learnerStatus": "correct",
+          "weatherCausationProven": false,
+          "throughputProven": false,
+          "wholeRouteProven": false,
+          "repaired": false,
+          "progressAward": 0,
+          "attemptPenalty": 0
+        }
+      ]
+    },
+    "existing-encounter-retry": {
+      "status": "applied",
+      "game": {
+        "episodeId": "spec001",
+        "contentVersion": "1.0.0",
+        "adventureId": "250be17f-c110-4191-8834-6918cb66b507",
+        "world": {
+          "roomId": "spec001:R11",
+          "position": {
+            "safePositionId": "spec001:R11.preparation"
+          },
+          "attemptId": "00000000-0000-4000-8000-000000000111",
+          "configurationRevision": 6,
+          "flags": {
+            "spec001:FLAG-radio-path": "aligned-existing",
+            "spec001:FLAG-radio-settings": "matched",
+            "spec001:FLAG-radio-conditions": "raised-noise"
+          },
+          "completedObjectiveIds": [
+            "spec001:O01",
+            "spec001:O02",
+            "spec001:O07"
+          ],
+          "completedQuestIds": [],
+          "achievementIds": [],
+          "dialogueEffectIds": [],
+          "inventory": [
+            {
+              "itemId": "spec001:ITEM-inspection-kit",
+              "quantity": 1
+            }
+          ],
+          "recruits": [],
+          "activeAllyIds": [],
+          "compendiumIds": [
+            "spec001:COMPENDIUM-CH01"
+          ],
+          "route": null,
+          "continueOutcome": null
+        },
+        "notebook": {
+          "factIds": [
+            "spec001:FACT-O07-path",
+            "spec001:FACT-O07-settings",
+            "spec001:FACT-O08-survey",
+            "spec001:FACT-SQ03-comparison"
+          ],
+          "mapRoomIds": [
+            "spec001:R01",
+            "spec001:R07",
+            "spec001:R08"
+          ],
+          "personalNotes": "Compare observations; do not blame the weather.",
+          "hypotheses": [],
+          "measurements": [
+            {
+              "id": "00000000-0000-4000-8000-000000000001",
+              "ruleId": "spec001:PHY07",
+              "roomId": "spec001:R07",
+              "subjectIds": [
+                "spec001:O07",
+                "spec001:PROFILE-RADIO",
+                "spec001:R07"
+              ],
+              "configurationRevision": 2,
+              "attemptId": "013069ae-e67d-4739-a84b-ae56432a6c14",
+              "stale": true,
+              "readings": [
+                {
+                  "name": "Viable path",
+                  "value": 1,
+                  "unit": "count"
+                },
+                {
+                  "name": "Compatible settings",
+                  "value": 1,
+                  "unit": "count"
+                }
+              ],
+              "conclusionCode": "O07:ACTION-O07-align-existing-path:correct"
+            },
+            {
+              "id": "00000000-0000-4000-8000-000000000002",
+              "ruleId": "spec001:PHY07",
+              "roomId": "spec001:R08",
+              "subjectIds": [
+                "spec001:O08",
+                "spec001:PROFILE-RADIO",
+                "spec001:R08"
+              ],
+              "configurationRevision": 4,
+              "attemptId": "013069ae-e67d-4739-a84b-ae56432a6c14",
+              "stale": true,
+              "readings": [
+                {
+                  "name": "Viable path",
+                  "value": 1,
+                  "unit": "count"
+                },
+                {
+                  "name": "Compatible settings",
+                  "value": 1,
+                  "unit": "count"
+                },
+                {
+                  "name": "Received signal",
+                  "value": -65,
+                  "unit": "dBm"
+                },
+                {
+                  "name": "Received noise",
+                  "value": -90,
+                  "unit": "dBm"
+                },
+                {
+                  "name": "Signal-to-noise ratio",
+                  "value": 25,
+                  "unit": "dB"
+                },
+                {
+                  "name": "Required signal-to-noise ratio",
+                  "value": 20,
+                  "unit": "dB"
+                }
+              ],
+              "conclusionCode": "O08:ACTION-O08-scenario-channel-A:correct"
+            },
+            {
+              "id": "00000000-0000-4000-8000-000000000003",
+              "ruleId": "spec001:PHY07",
+              "roomId": "spec001:R08",
+              "subjectIds": [
+                "spec001:O08",
+                "spec001:PROFILE-RADIO",
+                "spec001:R08"
+              ],
+              "configurationRevision": 5,
+              "attemptId": "013069ae-e67d-4739-a84b-ae56432a6c14",
+              "stale": true,
+              "readings": [
+                {
+                  "name": "Viable path",
+                  "value": 1,
+                  "unit": "count"
+                },
+                {
+                  "name": "Compatible settings",
+                  "value": 1,
+                  "unit": "count"
+                },
+                {
+                  "name": "Received signal",
+                  "value": -65,
+                  "unit": "dBm"
+                },
+                {
+                  "name": "Received noise",
+                  "value": -78,
+                  "unit": "dBm"
+                },
+                {
+                  "name": "Signal-to-noise ratio",
+                  "value": 13,
+                  "unit": "dB"
+                },
+                {
+                  "name": "Required signal-to-noise ratio",
+                  "value": 20,
+                  "unit": "dB"
+                }
+              ],
+              "conclusionCode": "O08:ACTION-O08-scenario-channel-A:incorrect"
+            }
+          ]
+        },
+        "assistance": [],
+        "outcomeHistory": []
+      }
+    }
+  }
+}

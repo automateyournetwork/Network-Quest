@@ -238,7 +238,7 @@ export function createIntroductionApplication(host: HTMLElement) {
         const buttons = projected.entries.map(entry => {
           const button = [...optionalOpeners.querySelectorAll('button')].find(node => node.dataset['activity'] === entry.activityId)
             ?? host.ownerDocument.createElement('button');
-          button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = entry.activityId === q('SQ01') ? 'Serial Post' : 'Energy audit';
+          button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = entry.activityId === q('SQ01') ? 'Serial Post' : entry.activityId === q('SQ02') ? 'Energy audit' : 'Weather Diary';
           button.setAttribute('aria-label', `Open ${button.textContent}`);
           button.addEventListener('click', () => {
             if (button.isConnected && optionalOpeners.contains(button) && !button.closest('[hidden], [inert]'))

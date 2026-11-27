@@ -668,12 +668,18 @@ changes remain serialized under the current owner. Canonical promotion and task
 acceptance wait for their reviewed common runtime binding; this preparation
 exception does not execute unreviewed activities or pass any gate.
 
+T104 may begin the independent companion/discovery/progression and conventional-
+tool browser matrix on accepted T093–T095 code while later optional variants
+join. Use an explicit frozen source snapshot and isolated browser resources. Its
+SQ/MG matrix, joined nonempty progress recovery and final current-build regression
+remain pending their actual integrations; this does not accept T104 early.
+
 - [X] T093 [US7] Author all CH01–CH25 roles, limitations, realm notes, recruitment/progression and portrait/source references in `content/spec001/characters.json`; preserve nine recruits (Photon, Copperhead, Unicorn, optical Hydra, Thunderbird, Hermit, Eel, Echo Bat, Chameleon).
 - [X] T094 [US7] Implement demonstrated recruitment, meaningful progression, max-two active allies and free preparation swaps in `src/state/party.ts` and `src/ui/party.ts`; abilities apply the same validated physical effects as conventional tools.
 - [X] T095 [US7] Build the illustrated discovered-entry compendium and cross-room evidence navigation in `src/ui/compendium.ts`; retain source/freshness and distinguish notes/hypotheses from fact, without exposing undiscovered content as completed.
 - [ ] T096 [P] [US7] Implement Antique Serial Post SQ01 in `content/spec001/quests/SQ01.json` using R04 evidence and existing declared signal rules; deliver the optional illustration and safe exit without a required-route dependency.
 - [ ] T097 [P] [US7] Implement Eel's Energy Audit SQ02 in `content/spec001/quests/SQ02.json`; reuse supplied delivered-power rules and award only the optional workshop decoration.
-- [ ] T098 [P] [US7] Implement Skywell Weather Diary SQ03 in `content/spec001/quests/SQ03.json`; compare time-separated observations with honest freshness and unlock optional radio depth.
+- [X] T098 [P] [US7] Implement Skywell Weather Diary SQ03 in `content/spec001/quests/SQ03.json`; compare time-separated observations with honest freshness and unlock optional radio depth.
 - [ ] T099 [P] [US7] Implement Lost Maintenance Record SQ04 in `content/spec001/quests/SQ04.json`; combine R03/R05/R09 notebook clues and personalize maintenance history without gating a main route.
 - [X] T100 [US7] Implement shared optional activity instructions/practice/explanation/retry/exit and default-off timing in `src/state/optional-activities.ts` and `src/ui/optional-activities.ts`; leaving or skipping never loses required items.
 - [ ] T101 [P] [US7] Author Clockworks Bit Loom MG01 in `content/spec001/minigames/MG01.json`, reusing the toy decoder with untimed practice and no score requirement for O10.

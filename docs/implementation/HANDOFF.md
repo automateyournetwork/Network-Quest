@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**115 loops started; 91 of 170 tasks accepted.** T085–T089 are accepted
+**116 loops started; 92 of 170 tasks accepted.** T085–T089 are accepted
 for their documented local scope. T089 final12native cases PASS in2.6minutes;
 root final85client suites3065PASS/360unchangedTODO (35.33s), check/buildPASS.
 Root matched61finalpublicseal entries and inspected narrow/desktop recovery
@@ -147,6 +147,43 @@ SQ02 same110 join approved:9 scenario checksPASS,8 actual JS/PHP policycases,
 strictTS;root57 final hashes match and native27 source14matches. Runtime is
 ready; T097 remains open for its actual cosmetic reward. Root publishes the
 coherent optional checkpoint next, then111 owns SQ03 common integration.
+
+Published and remote-verified `9a93bf7815cda8b7055a8177bd61d5c468dc8f52`:163
+reviewed paths/3,394,683 bytes. Exact staged hashes, private scan and authored
+whitespace pass;33 raw runner findings retained. No deployment. Same111 now
+owns SQ03 shared/runtime/native window;114MG02 and115MG03 remain disjoint.
+115 loops/91 accepted.
+
+MG02 reviewed canonical projection is authored but unloaded. Same114 final
+72 focused checks/strictTS passed against frozen9a93bf7; current111 source drift
+is preserved, not treated as a candidate failure. Same112 resumes disjoint
+maintenance module/tests while111 retains shared files/browser. No new loop.
+MG03 review caught full-world replay-baseline adoption: its Retry must restore
+entry radio configuration while preserving only the exact earned completion.
+115 records that distinction before actual integration.
+
+MG03 independent stage76focusedPASS plus1test-only affectedrerun/strictTS
+on frozen9a93bf7; unloadedprojection and explicitcompletion-onlyreplay policy
+ready. Same113 resumes actualMG01 integration in its OWN isolatedcheckout;
+main-tree shared files remain111 then112. Root caught malformed-enum coercion
+and rawUUID/IDs in SQ03 playerdisplay;111 correctedboth,171relevantchecksPASS,
+initial9nativePASS retained and finalnative rerun pending. No newloop.
+
+Same112 disjoint module59PASS/strictTS and preparedjoinplan ready; main-tree
+window follows111 freeze. Fresh116/T104 begins independent companion native
+matrix against accepted9a93bf7; optionalmatrix/currentfinalregression stillwait
+actualjoins. Explicitpreparationorder recorded in tasks.md; noearlyT104acceptance.
+116loops/91accepted. Browserreservation remains111 untilrelease.
+
+T098 accepted after root source/test review and203matchingseal entries. Root
+fullclient3796PASS/360TODO (102suites39.98s); finalfocused41PASS including7
+JS/PHPcases; check/buildPASS; final9nativegroupsPASS, rootviewed1280/390at200%.
+Strict-enum and readableprovenance corrections verified; originalrunsretained.
+The specified deeperradioexplanation isdelivered; illustration16 remainsglobal
+mediaobligation withzeroquotaacceptance. See optional/SQ03/root-review.md.
+113isolatedMG01 114focusedPASS, native underway;116frozenpartyactualmatrix
+independentheadlesscontext; no performanceclaim.112sharedjoin followspublication.
+116loops/92accepted.
 
 ## Earlier position and retained progress history — 2026-11-26
 

@@ -6,6 +6,8 @@ import { optionalActivityDefinition } from '../state/optional-activities';
 import type { OptionalActivitySession, OptionalMode } from '../state/optional-activities';
 import type { GameState } from '../state/types';
 import type { PowerAuditAnswer } from '../state/optional-power-audit';
+import type { RadioDiarySubmission } from '../state/optional-radio-diary';
+import { projectRadioDiary, renderRadioDiaryForm, type RadioDiaryView } from './optional-radio-diary';
 import type { ActionId, AttemptId } from '../domain/types';
 import type { OptionalActivityOperation } from '../state/optional-activities';
 import { contextFromRuntime } from './action-bus';
@@ -19,6 +21,7 @@ export type OptionalActivityIntent =
   | { readonly kind: 'choose-optional-mode'; readonly sessionId: string; readonly mode: OptionalMode }
   | { readonly kind: 'submit-optional'; readonly sessionId: string; readonly bits: string }
   | { readonly kind: 'submit-optional-power'; readonly sessionId: string; readonly answer: PowerAuditAnswer | { readonly assessment: null; readonly difference: null } }
+  | { readonly kind: 'submit-optional-diary'; readonly sessionId: string; readonly answer: RadioDiarySubmission }
   | { readonly kind: 'hint-optional' | 'retry-optional' | 'explain-optional' | 'boundary-optional' | 'exit-optional'; readonly sessionId: string };
 export interface OptionalActivityView {
   readonly sessionId: string; readonly title: string; readonly phase: OptionalActivitySession['phase']; readonly mode: OptionalMode | null;
@@ -28,11 +31,12 @@ export interface OptionalActivityView {
   readonly controls: { readonly practice: string; readonly delivery: string; readonly submit: string; readonly retry: string; readonly exit: string };
   readonly limitations: readonly string[];
   readonly sources: readonly { readonly title: string; readonly section: string; readonly claim: string; readonly url: string | null }[];
-  readonly answerKind: 'bits' | 'power';
+  readonly answerKind: 'bits' | 'power' | 'diary';
+  readonly diary?: RadioDiaryView;
   readonly answerControls: { readonly assessmentLabel: string; readonly withinBudget: string; readonly overBudget: string; readonly differenceLabel: string } | null;
 }
 export interface OptionalSource { readonly id: string; readonly title: string; readonly url: string }
-const optionalKinds: readonly OptionalActivityIntent['kind'][] = ['start-optional', 'choose-optional-mode', 'submit-optional', 'submit-optional-power', 'hint-optional', 'retry-optional', 'explain-optional', 'boundary-optional', 'exit-optional'];
+const optionalKinds: readonly OptionalActivityIntent['kind'][] = ['start-optional', 'choose-optional-mode', 'submit-optional', 'submit-optional-power', 'submit-optional-diary', 'hint-optional', 'retry-optional', 'explain-optional', 'boundary-optional', 'exit-optional'];
 export function createOptionalActivitiesController(options: { readonly registry: ContentRegistry; readonly store: GameplayStore; readonly bus: ActionBus;
   readonly activityIds: readonly QualifiedId[]; readonly sources?: readonly OptionalSource[] }) {
   const { registry, store, bus } = options;
@@ -50,6 +54,7 @@ export function createOptionalActivitiesController(options: { readonly registry:
       case 'choose-optional-mode': operation = { kind: 'choose-mode', sessionId: input.sessionId, mode: input.mode }; break;
       case 'submit-optional': operation = { kind: 'submit', sessionId: input.sessionId, bits: input.bits }; break;
       case 'submit-optional-power': operation = { kind: 'submit-power', sessionId: input.sessionId, answer: input.answer }; break;
+      case 'submit-optional-diary': operation = { kind: 'submit-diary', sessionId: input.sessionId, answer: input.answer }; break;
       case 'hint-optional': operation = { kind: 'hint', sessionId: input.sessionId }; break;
       case 'retry-optional': operation = { kind: 'retry', sessionId: input.sessionId, nextAttemptId: crypto.randomUUID() as AttemptId }; break;
       case 'explain-optional': operation = { kind: 'explanation', sessionId: input.sessionId }; break;
@@ -107,10 +112,11 @@ export function projectOptionalActivity(registry: ContentRegistry, game: GameSta
   return { sessionId: session.sessionId, title, phase: session.phase, mode: session.mode, instructions: activity.instructions,
     map: activity.kind === 'toy-symbol-message' ? parameters?.levels?.map(row => `${level(row.symbol.value)} → ${row.bits}`) ?? [] : [],
     samples: session.mode ? activity.kind === 'toy-symbol-message' ? activity[session.mode].samples.map(sample => `Position ${sample.position}: ${level(sample.value)} toy-level`)
-      : [`Delivered allowance: ${parameters?.deliveredBudget?.value} ${parameters?.deliveredBudget?.unit} after losses.`, ...activity[session.mode].demands.map((demand, index) => `Demand card ${index + 1}: ${demand.value} ${demand.unit} delivered after losses.`), 'The supplied port and compatibility checks are satisfied. Power does not prove data connectivity.'] : [],
+      : activity.kind === 'delivered-power-audit' ? [`Delivered allowance: ${parameters?.deliveredBudget?.value} ${parameters?.deliveredBudget?.unit} after losses.`, ...activity[session.mode].demands.map((demand, index) => `Demand card ${index + 1}: ${demand.value} ${demand.unit} delivered after losses.`), 'The supplied port and compatibility checks are satisfied. Power does not prove data connectivity.'] : [] : [],
     feedback: session.feedback, hintText: session.hintText, completed,
     rewardText: completed && game.notebook.factIds.some(id => id === activity.reward.factId) ? `${activity.reward.alternativeText} ${activity.reward.unavailableText}` : null,
-    controls: activity.controls, limitations: definition.model.limitations, answerKind: activity.kind === 'toy-symbol-message' ? 'bits' : 'power',
+    controls: activity.controls, limitations: definition.model.limitations, answerKind: activity.kind === 'toy-symbol-message' ? 'bits' : activity.kind === 'delivered-power-audit' ? 'power' : 'diary',
+    ...(activity.kind === 'radio-weather-diary' ? { diary: projectRadioDiary(registry, game, activity, completed && game.notebook.factIds.some(id => String(id) === activity.reward.factId)) } : {}),
     answerControls: activity.kind === 'delivered-power-audit' ? activity.answerControls : null,
     sources: definition.sourceClaims.map(claim => {
       const source = sources.find(s => s.id === claim.sourceId || `spec001:${s.id}` === claim.sourceId);
@@ -157,10 +163,22 @@ export function createOptionalActivityPanel<Command>(host: HTMLElement, dispatch
     current = scope; heading.textContent = view.title; element.hidden = false;
     const children: HTMLElement[] = [paragraph('Optional · Untimed'), ...view.instructions.map(paragraph)];
     const actions = doc.createElement('div'); actions.setAttribute('aria-label', 'Activity choices');
-    actions.append(button(scope, 'practice', view.controls.practice, { kind: 'choose-optional-mode', sessionId: view.sessionId, mode: 'practice' }),
-      button(scope, 'delivery', view.controls.delivery, { kind: 'choose-optional-mode', sessionId: view.sessionId, mode: 'delivery' })); children.push(actions);
+    const delivery = button(scope, 'delivery', view.controls.delivery, { kind: 'choose-optional-mode', sessionId: view.sessionId, mode: 'delivery' });
+    if (view.diary && !view.diary.available) delivery.disabled = true;
+    actions.append(button(scope, 'practice', view.controls.practice, { kind: 'choose-optional-mode', sessionId: view.sessionId, mode: 'practice' }), delivery); children.push(actions);
     if (view.map.length) children.push(paragraph(`Toy map: ${view.map.join('; ')}. These are labels, not measured volts.`));
-    if (view.mode) {
+    if (view.diary) {
+      if (!view.diary.available) children.push(paragraph(view.diary.missingEvidence));
+      if (view.diary.records.length) {
+        const records = doc.createElement('ol'); records.setAttribute('aria-label', 'Actual radio observations');
+        for (const row of view.diary.records) { const item = doc.createElement('li'); item.textContent = row.text; records.append(item); } children.push(records);
+      }
+      if (view.mode === 'delivery' && view.diary.available) children.push(renderRadioDiaryForm(doc, view.diary,
+        previous?.view.sessionId === view.sessionId && previous.view.mode === view.mode ? previous.controls : new Map(),
+        scope.controls, view.controls.submit, scope.abort.signal, answer => send(scope, { kind: 'submit-optional-diary', sessionId: view.sessionId, answer })));
+      if (view.diary.depth) { const title = doc.createElement('h3'); title.textContent = view.diary.depth.title; children.push(title, ...view.diary.depth.paragraphs.map(paragraph)); }
+    }
+    if (view.mode && !view.diary) {
       const samples = doc.createElement('ol'); samples.setAttribute('aria-label', view.answerKind === 'power' ? 'Power audit cards' : view.mode === 'practice' ? 'Practice samples' : 'Message samples');
       for (const sample of view.samples) { const item = doc.createElement('li'); item.textContent = sample; samples.append(item); } children.push(samples);
       const form = doc.createElement('form'), label = doc.createElement('label'), answer = doc.createElement('input'), submit = doc.createElement('button');
@@ -184,7 +202,7 @@ export function createOptionalActivityPanel<Command>(host: HTMLElement, dispatch
             ? { assessment: selected, difference: { value, unit: 'W' } } : { assessment: null, difference: null } }); }
       }, { signal: scope.abort.signal }); children.push(form);
     }
-    const feedback = paragraph(view.feedback ?? (view.completed ? 'Completion recorded in your journal.' : view.answerKind === 'power' ? 'Choose practice or audit the full plan when ready.' : 'Choose practice or the full message when ready.'));
+    const feedback = paragraph(view.feedback ?? (view.completed ? 'Completion recorded in your journal.' : view.answerKind === 'diary' ? 'Read the worked card or compare your actual observations when ready.' : view.answerKind === 'power' ? 'Choose practice or audit the full plan when ready.' : 'Choose practice or the full message when ready.'));
     feedback.setAttribute('role', 'status'); feedback.setAttribute('aria-live', 'polite'); children.push(feedback);
     if (view.hintText) children.push(paragraph(view.hintText));
     if (view.rewardText) children.push(paragraph(view.rewardText));

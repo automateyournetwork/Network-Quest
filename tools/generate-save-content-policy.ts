@@ -21,7 +21,7 @@ export async function saveContentPolicyArtifact(): Promise<string> {
     const paths = [...new Set(['content/spec001/world.json', 'content/spec001/sources.json',
       ...world.documents.map(document => document.path), 'content/schemas/content.schema.json',
       'src/app/content.ts', 'src/app/save-policy.ts', 'src/content/registry.ts', 'src/services/save-validator.ts',
-      'src/state/notebook.ts', 'src/content/optional-activities.ts', 'src/state/optional-activities.ts', 'src/state/optional-power-audit.ts', 'src/state/conditions.ts', 'src/state/party.ts', 'src/state/objective-history.ts', 'src/domain/copper.ts', 'docs/evidence/spec001/rule-source-review.md',
+      'src/state/notebook.ts', 'src/content/optional-activities.ts', 'src/state/optional-activities.ts', 'src/state/optional-power-audit.ts', 'src/state/optional-radio-diary.ts', 'src/content/optional-radio-diary.ts', 'src/state/conditions.ts', 'src/state/party.ts', 'src/state/objective-history.ts', 'src/domain/copper.ts', 'docs/evidence/spec001/rule-source-review.md',
       'src/state/objectives.ts', 'src/state/copper-scenario.ts', 'src/state/fiber-scenario.ts', 'src/state/radio-scenario.ts', 'src/state/equipment-scenarios.ts', 'src/state/repair-plan.ts', 'src/state/outcomes.ts',
       'src/domain/optics.ts', 'src/domain/radio.ts', 'src/domain/power.ts', 'src/domain/capabilities.ts', 'src/domain/packet-journey.ts',
       'tools/generate-save-content-policy.ts'])].sort();

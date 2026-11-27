@@ -1,0 +1,61 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ docs/evidence/spec001/optional/SQ03/authoring.test.ts (59 tests) 23532ms
+   ✓ SQ03 candidate source, schema and allocation (14)
+     ✓ passes actual registry with its current-schema projection and preserves the full projection 550ms
+     ✓ uses the actual safe R08 diary shelf and present Phoenix without party or tool entry gates 498ms
+     ✓ rejects a main dependency or undocumented rule in the actual registry 443ms
+   ✓ real radio measurements and proposed diary scoring (40)
+     ✓ executes the frozen25→13 comparison with independently expected values and preserved originals 476ms
+     ✓ executes the frozen boundary20 through actual evaluateRadio and actual reducer records 483ms
+     ✓ accepts the reverse reviewed13→25 and same13→13 comparisons without an author-preferred direction 947ms
+     ✓ executes the frozen stale-prediction boundary after mitigation without making a measurement 467ms
+     ✓ rejects the well-formed wrong comparison conclusion without modifying the link 483ms
+     ✓ rejects the well-formed wrong threshold conclusion without modifying the link 472ms
+     ✓ rejects the well-formed wrong history conclusion without modifying the link 473ms
+     ✓ rejects the well-formed wrong weather conclusion without modifying the link 495ms
+     ✓ rejects the well-formed wrong throughput conclusion without modifying the link 498ms
+     ✓ rejects empty/malformed/forged input null 518ms
+     ✓ rejects empty/malformed/forged input {} 501ms
+     ✓ rejects empty/malformed/forged input "" 492ms
+     ✓ rejects empty/malformed/forged input {"earlierMeasurementId":"","laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","evidenceClaim":"current-reading-only-no-cause"} 484ms
+     ✓ rejects empty/malformed/forged input {"earlierMeasurementId":"00000000-0000-4000-8000-000000000002","laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"","evidenceClaim":"current-reading-only-no-cause"} 476ms
+     ✓ rejects empty/malformed/forged input {"earlierMeasurementId":"00000000-0000-4000-8000-000000000002","laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":1,"currentAssessment":"below-threshold","evidenceClaim":"current-reading-only-no-cause"} 475ms
+     ✓ rejects empty/malformed/forged input {"earlierMeasurementId":"00000000-0000-4000-8000-000000000002","laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","evidenceClaim":"current-reading-only-no-cause","effects":[{"kind":"record-fact","effectId":"spec001:EFFECT-SQ03-comparison","factId":"spec001:FACT-SQ03-comparison"},{"kind":"complete-quest","effectId":"spec001:EFFECT-SQ03-complete","questId":"spec001:SQ03"}]} 492ms
+     ✓ rejects empty/malformed/forged input {"earlierMeasurementId":"00000000-0000-4000-8000-000000000002","laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","evidenceClaim":"current-reading-only-no-cause","correct":true} 503ms
+     ✓ rejects empty/malformed/forged input {"earlierMeasurementId":"00000000-0000-4000-8000-000000000002","laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","evidenceClaim":"current-reading-only-no-cause","freshVersion":999} 491ms
+     ✓ rejects empty/malformed/forged input {"earlierMeasurementId":"00000000-0000-4000-8000-000000000002","laterMeasurementId":"00000000-0000-4000-8000-000000000003","comparison":"decreased","currentAssessment":"below-threshold","evidenceClaim":"current-reading-only-no-cause","signal":{"value":-65,"unit":"dBm"}} 467ms
+     ✓ rejects missing-earlier evidence without learner failure 501ms
+     ✓ rejects same-id evidence without learner failure 464ms
+     ✓ rejects reverse evidence without learner failure 480ms
+     ✓ rejects same-revision evidence without learner failure 469ms
+     ✓ rejects wrong-attempt evidence without learner failure 468ms
+     ✓ rejects explicit-stale evidence without learner failure 482ms
+     ✓ rejects stale-capture evidence without learner failure 473ms
+     ✓ rejects not-latest evidence without learner failure 466ms
+     ✓ rejects corrupt original room provenance as a content error 477ms
+     ✓ rejects corrupt original rule provenance as a content error 470ms
+     ✓ rejects corrupt original subject provenance as a content error 474ms
+     ✓ rejects corrupt original quantity provenance as a content error 478ms
+     ✓ rejects corrupt original unit provenance as a content error 474ms
+     ✓ rejects corrupt original path provenance as a content error 468ms
+     ✓ rejects corrupt original conclusion provenance as a content error 471ms
+     ✓ rejects corrupt original future-revision provenance as a content error 471ms
+     ✓ rejects corrupt original channel provenance as a content error 467ms
+     ✓ rejects corrupt original duplicate-id provenance as a content error 474ms
+     ✓ requires current record to match the actual scenario, not just a caller-preserved revision 473ms
+     ✓ rejects unsupported delivery content before empty input 471ms
+     ✓ never promotes a missing or boundary-card record into notebook evidence 489ms
+   ✓ existing reducer receipt and encounter Retry boundaries, not common activity acceptance (5)
+     ✓ awards the full quest+fact batch once, preserves the current failed link and required progress 489ms
+     ✓ rejects a partial fact receipt batch 466ms
+     ✓ rejects a partial quest receipt batch 489ms
+     ✓ raw correct proposal output cannot award a quest or change measurements 465ms
+     ✓ actual encounter Retry retains comparison learning but rewinds completion and stales both measurements 472ms
+
+ Test Files  1 passed (1)
+      Tests  59 passed (59)
+   Start at  09:29:11
+   Duration  23.90s (tests 99%, transform 1%)
+
