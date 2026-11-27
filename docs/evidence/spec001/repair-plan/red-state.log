@@ -1,0 +1,30 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/state/repair-plan.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/state/repair-plan.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/repair-plan.test.ts [ tests/state/repair-plan.test.ts ]
+Error: Cannot find module '../../src/state/repair-plan' imported from /Users/john.capobianco/Network-Quest/tests/state/repair-plan-fixture.ts
+ ❯ tests/state/repair-plan-fixture.ts:8:1
+      6| import { createReducer, createReducerState } from '../../src/state/red…
+      7| import type { ReducerInput } from '../../src/state/reducer';
+      8| import { createRepairScenarioResolver, prepareRepairPlanChange, repair…
+       | ^
+      9| import type { RepairPlanOperation, RepairScenarioResolver } from '../.…
+     10| import { authoredInput, setup } from '../ui/inventory-fixture';
+ ❯ tests/state/repair-plan.test.ts:3:1
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  19:35:47
+   Duration  112ms (worker 97%, environment 3%)
+

@@ -1,0 +1,29 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/ui/repair-plan.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/ui/repair-plan.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ui/repair-plan.test.ts [ tests/ui/repair-plan.test.ts ]
+Error: Cannot find module '../../src/ui/repair-plan' imported from /Users/john.capobianco/Network-Quest/tests/ui/repair-plan.test.ts
+ ❯ tests/ui/repair-plan.test.ts:3:1
+      1| // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+      2| import { describe, expect, it } from 'vitest';
+      3| import { createRepairPlanController } from '../../src/ui/repair-plan';
+       | ^
+      4| import { contextFromRuntime, copySemanticAction, createActionBus } fro…
+      5| import type { SemanticAction } from '../../src/ui/action-bus';
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  19:42:47
+   Duration  87ms (worker 96%, environment 4%)
+

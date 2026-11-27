@@ -3,9 +3,14 @@ import type { ActionId, AdventureId, FactId, InstanceId, ItemId, MeasurementId, 
 import { validNotebookText } from '../state/notebook';
 import type { ReducerCommand, ReducerInput, ReducerState, Reduction } from '../state/reducer';
 import type { RuntimeState, UiState } from '../state/types';
+import type { RepairClassification } from '../state/repair-plan';
 
 /** Intent only. Renderers cannot submit evaluations, effects or arbitrary payloads. */
 export type SemanticAction =
+  | { readonly kind: 'choose-repair-plan'; readonly choiceId: QualifiedId }
+  | { readonly kind: 'review-repair-plan' | 'measure-repair-link' | 'test-repair-endpoint' }
+  | { readonly kind: 'execute-repair-plan'; readonly reviewId: MeasurementId; readonly warningAcknowledged: boolean }
+  | { readonly kind: 'classify-repair'; readonly selection: RepairClassification; readonly linkId: MeasurementId | null; readonly endpointId: MeasurementId | null }
   | { readonly kind: 'measure-objective'; readonly objectiveId: ObjectiveId; readonly alternativeId: QualifiedId }
   | { readonly kind: 'submit-objective'; readonly objectiveId: ObjectiveId; readonly alternativeId: QualifiedId; readonly measurementId: MeasurementId }
   | { readonly kind: 'request-objective-hint'; readonly objectiveId: ObjectiveId }
@@ -84,6 +89,8 @@ function sameContext(a: ActionContext | null, b: ActionContext | null): boolean 
 const verbs = new Set<string>(['walk', 'look', 'talk', 'use']);
 const panels = new Set<string>(['inventory', 'notebook', 'compendium', 'settings', 'save']);
 const fields: Record<SemanticAction['kind'], readonly string[]> = {
+  'choose-repair-plan': ['kind', 'choiceId'], 'review-repair-plan': ['kind'], 'measure-repair-link': ['kind'], 'test-repair-endpoint': ['kind'],
+  'execute-repair-plan': ['kind', 'reviewId', 'warningAcknowledged'], 'classify-repair': ['kind', 'selection', 'linkId', 'endpointId'],
   'measure-objective': ['kind', 'objectiveId', 'alternativeId'],
   'submit-objective': ['kind', 'objectiveId', 'alternativeId', 'measurementId'],
   'request-objective-hint': ['kind', 'objectiveId'],
@@ -109,6 +116,11 @@ export function copySemanticAction(input: SemanticAction): SemanticAction {
   const keys = fields[input.kind];
   if (Object.keys(input).length !== keys.length || Object.keys(input).some(key => !keys.includes(key))) throw new TypeError('Semantic actions contain intent only.');
   switch (input.kind) {
+    case 'choose-repair-plan': if (!qualifiedIdentity(input.choiceId)) throw new TypeError('Invalid repair choice.'); break;
+    case 'review-repair-plan': case 'measure-repair-link': case 'test-repair-endpoint': break;
+    case 'execute-repair-plan': if (!dialogueSession(input.reviewId) || typeof input.warningAcknowledged !== 'boolean') throw new TypeError('Invalid repair acknowledgement.'); break;
+    case 'classify-repair': if (!['permanent', 'temporary', 'shutdown'].includes(input.selection)
+      || (input.linkId !== null && !dialogueSession(input.linkId)) || (input.endpointId !== null && !dialogueSession(input.endpointId))) throw new TypeError('Invalid final evidence selection.'); break;
     case 'measure-objective': case 'submit-objective':
       if (!qualifiedIdentity(input.objectiveId) || !qualifiedIdentity(input.alternativeId)
         || (input.kind === 'submit-objective' && !dialogueSession(input.measurementId))) throw new TypeError('Invalid objective evidence selection.'); break;

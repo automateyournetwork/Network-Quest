@@ -1,0 +1,6032 @@
+{
+  "fixtureVersion": 1,
+  "task": "T082",
+  "scope": "Independent semantic outcome oracle preparation; no application execution or gate acceptance.",
+  "license": "CC-BY-4.0",
+  "inputConvention": "Cases are semantic requirements, not a production API. Labels for attempts, items, helpers and safe-location roles are local fixture labels. Future adapters bind actual authored IDs and source cases; they must not calculate expected answers or return these expectations.",
+  "frozenArtifacts": {
+    "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
+    "tests/fixtures/physical-cases.json": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1",
+    "tests/fixtures/repair-routes.json": "ed3a083828188a34fd6f5f345cbd4c69fe8ebb140ea903dbafd9b3f464639877"
+  },
+  "authorities": [
+    ".specify/memory/constitution.md",
+    "SPEC.md",
+    "PLAN.md",
+    "specs/001-physical-layer-underworld/spec.md",
+    "specs/001-physical-layer-underworld/data-model.md",
+    "specs/001-physical-layer-underworld/contracts/gameplay.md",
+    "docs/evidence/spec001/rule-source-review.md",
+    "docs/evidence/spec001/repair-route-fixtures.md",
+    "docs/evidence/spec001/repair-definitions.md"
+  ],
+  "inputGaps": [
+    "T079-T081 full authored independent route/world join",
+    "T084 encounter preparation and monotonic rollback interface",
+    "T086 outcome event and exact authored safe Continue bindings",
+    "T087 epilogue prose and skippable failure rendering",
+    "T088 recovery UI and T089 actual browser/save joins"
+  ],
+  "cases": [
+    {
+      "id": "OUT-E01-COPPER",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E01",
+        "T16"
+      ],
+      "repairCaseIds": [
+        "RR-O12-PERMANENT",
+        "RR-O11-COPPER"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E01",
+        "awardedRestoredService": true,
+        "permanentRepair": true,
+        "assistanceChangesClassification": false,
+        "requiredCaveats": []
+      },
+      "independentReasoning": "A complete chosen branch and common preparation suffice. Every current scoped physical and separate endpoint check passes, the defect is removed, and no temporary dependency remains.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E01-FIBER",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E01",
+        "T16"
+      ],
+      "repairCaseIds": [
+        "RR-O12-PERMANENT",
+        "RR-O11-FIBER"
+      ],
+      "inputs": {
+        "route": "fiber",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O05",
+          "O06",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E01",
+        "awardedRestoredService": true,
+        "permanentRepair": true,
+        "assistanceChangesClassification": false,
+        "requiredCaveats": []
+      },
+      "independentReasoning": "A complete chosen branch and common preparation suffice. Every current scoped physical and separate endpoint check passes, the defect is removed, and no temporary dependency remains.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E01-RADIO",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E01",
+        "T16"
+      ],
+      "repairCaseIds": [
+        "RR-O12-PERMANENT",
+        "RR-O11-RADIO"
+      ],
+      "inputs": {
+        "route": "radio",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O07",
+          "O08",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "radio",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "radio",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E01",
+        "awardedRestoredService": true,
+        "permanentRepair": true,
+        "assistanceChangesClassification": false,
+        "requiredCaveats": []
+      },
+      "independentReasoning": "A complete chosen branch and common preparation suffice. Every current scoped physical and separate endpoint check passes, the defect is removed, and no temporary dependency remains.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E02-COPPER",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E02",
+        "T16"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMPORARY",
+        "RR-O11-COPPER"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E02",
+        "awardedRestoredService": true,
+        "permanentRepair": false,
+        "assistanceChangesClassification": false,
+        "requiredCaveats": [
+          "dependency",
+          "limitation",
+          "followup"
+        ]
+      },
+      "independentReasoning": "A complete chosen branch and common preparation suffice. The same current physical and endpoint service checks pass, while the named temporary dependency, limitation and follow-up prevent a permanent repair claim.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E02-FIBER",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E02",
+        "T16"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMPORARY",
+        "RR-O11-FIBER"
+      ],
+      "inputs": {
+        "route": "fiber",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O05",
+          "O06",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E02",
+        "awardedRestoredService": true,
+        "permanentRepair": false,
+        "assistanceChangesClassification": false,
+        "requiredCaveats": [
+          "dependency",
+          "limitation",
+          "followup"
+        ]
+      },
+      "independentReasoning": "A complete chosen branch and common preparation suffice. The same current physical and endpoint service checks pass, while the named temporary dependency, limitation and follow-up prevent a permanent repair claim.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E02-RADIO",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E02",
+        "T16"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMPORARY",
+        "RR-O11-RADIO"
+      ],
+      "inputs": {
+        "route": "radio",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O07",
+          "O08",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "radio",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "radio",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E02",
+        "awardedRestoredService": true,
+        "permanentRepair": false,
+        "assistanceChangesClassification": false,
+        "requiredCaveats": [
+          "dependency",
+          "limitation",
+          "followup"
+        ]
+      },
+      "independentReasoning": "A complete chosen branch and common preparation suffice. The same current physical and endpoint service checks pass, while the named temporary dependency, limitation and follow-up prevent a permanent repair claim.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E03-COPPER",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E03",
+        "T16"
+      ],
+      "repairCaseIds": [
+        "RR-O12-SHUTDOWN",
+        "RR-O11-COPPER"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "shutdown",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": false,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "endpoint": null,
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": "Required original conductor remains severed.",
+          "deliberate": true,
+          "recoveryPlan": "Keep the unsafe path isolated; replace the damaged section and repeat physical and endpoint tests."
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E03",
+        "awardedRestoredService": false,
+        "permanentRepair": false,
+        "assistanceChangesClassification": false,
+        "requiredCaveats": [
+          "unresolvedDefect",
+          "recoveryPlan"
+        ]
+      },
+      "independentReasoning": "A complete chosen branch and common preparation suffice. The named unresolved defect was deliberately isolated with recovery recorded. No passing endpoint result is invented or required to call this an unresolved shutdown.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E03-FIBER",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E03",
+        "T16"
+      ],
+      "repairCaseIds": [
+        "RR-O12-SHUTDOWN",
+        "RR-O11-FIBER"
+      ],
+      "inputs": {
+        "route": "fiber",
+        "selection": "shutdown",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O05",
+          "O06",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": false,
+        "physical": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "endpoint": null,
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": "Original connector remains contaminated and unsafe to use.",
+          "deliberate": true,
+          "recoveryPlan": "Keep the unsafe path isolated; replace the damaged section and repeat physical and endpoint tests."
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E03",
+        "awardedRestoredService": false,
+        "permanentRepair": false,
+        "assistanceChangesClassification": false,
+        "requiredCaveats": [
+          "unresolvedDefect",
+          "recoveryPlan"
+        ]
+      },
+      "independentReasoning": "A complete chosen branch and common preparation suffice. The named unresolved defect was deliberately isolated with recovery recorded. No passing endpoint result is invented or required to call this an unresolved shutdown.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E03-RADIO",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E03",
+        "T16"
+      ],
+      "repairCaseIds": [
+        "RR-O12-SHUTDOWN",
+        "RR-O11-RADIO"
+      ],
+      "inputs": {
+        "route": "radio",
+        "selection": "shutdown",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O07",
+          "O08",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": false,
+        "physical": {
+          "route": "radio",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "endpoint": null,
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": "Original radio path remains obstructed.",
+          "deliberate": true,
+          "recoveryPlan": "Keep the unsafe path isolated; replace the damaged section and repeat physical and endpoint tests."
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E03",
+        "awardedRestoredService": false,
+        "permanentRepair": false,
+        "assistanceChangesClassification": false,
+        "requiredCaveats": [
+          "unresolvedDefect",
+          "recoveryPlan"
+        ]
+      },
+      "independentReasoning": "A complete chosen branch and common preparation suffice. The named unresolved defect was deliberately isolated with recovery recorded. No passing endpoint result is invented or required to call this an unresolved shutdown.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E01-HINT-1",
+      "kind": "classification",
+      "requirements": [
+        "FR-004",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E01"
+      ],
+      "repairCaseIds": [
+        "RR-O12-PERMANENT"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [
+          1
+        ],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E01",
+        "awardedRestoredService": true,
+        "permanentRepair": true,
+        "assistanceChangesClassification": false,
+        "retainedHintLevels": [
+          1
+        ]
+      },
+      "independentReasoning": "Changing assistance alone preserves the technical classification and keeps every used hint recorded; asking for method, worked step or solution cannot produce a punitive ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E01-HINT-2",
+      "kind": "classification",
+      "requirements": [
+        "FR-004",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E01"
+      ],
+      "repairCaseIds": [
+        "RR-O12-PERMANENT"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [
+          1,
+          2
+        ],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E01",
+        "awardedRestoredService": true,
+        "permanentRepair": true,
+        "assistanceChangesClassification": false,
+        "retainedHintLevels": [
+          1,
+          2
+        ]
+      },
+      "independentReasoning": "Changing assistance alone preserves the technical classification and keeps every used hint recorded; asking for method, worked step or solution cannot produce a punitive ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E01-HINT-3",
+      "kind": "classification",
+      "requirements": [
+        "FR-004",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E01"
+      ],
+      "repairCaseIds": [
+        "RR-O12-PERMANENT"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [
+          1,
+          2,
+          3
+        ],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E01",
+        "awardedRestoredService": true,
+        "permanentRepair": true,
+        "assistanceChangesClassification": false,
+        "retainedHintLevels": [
+          1,
+          2,
+          3
+        ]
+      },
+      "independentReasoning": "Changing assistance alone preserves the technical classification and keeps every used hint recorded; asking for method, worked step or solution cannot produce a punitive ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E02-HINT-1",
+      "kind": "classification",
+      "requirements": [
+        "FR-004",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E02"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMPORARY"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [
+          1
+        ],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E02",
+        "awardedRestoredService": true,
+        "permanentRepair": false,
+        "assistanceChangesClassification": false,
+        "retainedHintLevels": [
+          1
+        ]
+      },
+      "independentReasoning": "Changing assistance alone preserves the technical classification and keeps every used hint recorded; asking for method, worked step or solution cannot produce a punitive ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E02-HINT-2",
+      "kind": "classification",
+      "requirements": [
+        "FR-004",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E02"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMPORARY"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [
+          1,
+          2
+        ],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E02",
+        "awardedRestoredService": true,
+        "permanentRepair": false,
+        "assistanceChangesClassification": false,
+        "retainedHintLevels": [
+          1,
+          2
+        ]
+      },
+      "independentReasoning": "Changing assistance alone preserves the technical classification and keeps every used hint recorded; asking for method, worked step or solution cannot produce a punitive ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E02-HINT-3",
+      "kind": "classification",
+      "requirements": [
+        "FR-004",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E02"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMPORARY"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [
+          1,
+          2,
+          3
+        ],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E02",
+        "awardedRestoredService": true,
+        "permanentRepair": false,
+        "assistanceChangesClassification": false,
+        "retainedHintLevels": [
+          1,
+          2,
+          3
+        ]
+      },
+      "independentReasoning": "Changing assistance alone preserves the technical classification and keeps every used hint recorded; asking for method, worked step or solution cannot produce a punitive ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E03-HINT-1",
+      "kind": "classification",
+      "requirements": [
+        "FR-004",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E03"
+      ],
+      "repairCaseIds": [
+        "RR-O12-SHUTDOWN"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "shutdown",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": false,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "endpoint": null,
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": "Required original conductor remains severed.",
+          "deliberate": true,
+          "recoveryPlan": "Keep the unsafe path isolated; replace the damaged section and repeat physical and endpoint tests."
+        },
+        "hintLevelsUsed": [
+          1
+        ],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E03",
+        "awardedRestoredService": false,
+        "permanentRepair": false,
+        "assistanceChangesClassification": false,
+        "retainedHintLevels": [
+          1
+        ]
+      },
+      "independentReasoning": "Changing assistance alone preserves the technical classification and keeps every used hint recorded; asking for method, worked step or solution cannot produce a punitive ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E03-HINT-2",
+      "kind": "classification",
+      "requirements": [
+        "FR-004",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E03"
+      ],
+      "repairCaseIds": [
+        "RR-O12-SHUTDOWN"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "shutdown",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": false,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "endpoint": null,
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": "Required original conductor remains severed.",
+          "deliberate": true,
+          "recoveryPlan": "Keep the unsafe path isolated; replace the damaged section and repeat physical and endpoint tests."
+        },
+        "hintLevelsUsed": [
+          1,
+          2
+        ],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E03",
+        "awardedRestoredService": false,
+        "permanentRepair": false,
+        "assistanceChangesClassification": false,
+        "retainedHintLevels": [
+          1,
+          2
+        ]
+      },
+      "independentReasoning": "Changing assistance alone preserves the technical classification and keeps every used hint recorded; asking for method, worked step or solution cannot produce a punitive ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E03-HINT-3",
+      "kind": "classification",
+      "requirements": [
+        "FR-004",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E03"
+      ],
+      "repairCaseIds": [
+        "RR-O12-SHUTDOWN"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "shutdown",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": false,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "endpoint": null,
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": "Required original conductor remains severed.",
+          "deliberate": true,
+          "recoveryPlan": "Keep the unsafe path isolated; replace the damaged section and repeat physical and endpoint tests."
+        },
+        "hintLevelsUsed": [
+          1,
+          2,
+          3
+        ],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E03",
+        "awardedRestoredService": false,
+        "permanentRepair": false,
+        "assistanceChangesClassification": false,
+        "retainedHintLevels": [
+          1,
+          2,
+          3
+        ]
+      },
+      "independentReasoning": "Changing assistance alone preserves the technical classification and keeps every used hint recorded; asking for method, worked step or solution cannot produce a punitive ending.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-PERMANENT-DEFECT-REMAINS",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E01"
+      ],
+      "repairCaseIds": [
+        "RR-O12-PERMANENT"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "defect-not-removed"
+      },
+      "independentReasoning": "The altered premise is independently necessary under the stated permanent contract; all other supplied conditions remain available. Neither a chosen label nor arrival substitutes for that missing evidence.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMP-AS-PERMANENT",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E02"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMP-AS-PERMANENT"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "temporary-is-not-permanent",
+        "eligibleOutcome": "E02"
+      },
+      "independentReasoning": "The altered premise is independently necessary under the stated temporary contract; all other supplied conditions remain available. Neither a chosen label nor arrival substitutes for that missing evidence.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMP-NO-DEPENDENCY",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E02"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMPORARY"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": null,
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "temporary-dependency-not-named"
+      },
+      "independentReasoning": "The altered premise is independently necessary under the stated temporary contract; all other supplied conditions remain available. Neither a chosen label nor arrival substitutes for that missing evidence.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMP-NO-LIMITATION",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E02"
+      ],
+      "repairCaseIds": [
+        "RR-O12-MISSING-FOLLOWUP"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": null,
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "temporary-limitation-missing"
+      },
+      "independentReasoning": "The altered premise is independently necessary under the stated temporary contract; all other supplied conditions remain available. Neither a chosen label nor arrival substitutes for that missing evidence.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMP-NO-FOLLOWUP",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E02"
+      ],
+      "repairCaseIds": [
+        "RR-O12-MISSING-FOLLOWUP"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "temporary-followup-missing"
+      },
+      "independentReasoning": "The altered premise is independently necessary under the stated temporary contract; all other supplied conditions remain available. Neither a chosen label nor arrival substitutes for that missing evidence.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-SHUTDOWN-NO-FAULT",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E03"
+      ],
+      "repairCaseIds": [
+        "RR-O12-SHUTDOWN"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "shutdown",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": false,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "endpoint": null,
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": true,
+          "recoveryPlan": "Keep the unsafe path isolated; replace the damaged section and repeat physical and endpoint tests."
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "unresolved-defect-not-named"
+      },
+      "independentReasoning": "The altered premise is independently necessary under the stated shutdown contract; all other supplied conditions remain available. Neither a chosen label nor arrival substitutes for that missing evidence.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-SHUTDOWN-NOT-DELIBERATE",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E03"
+      ],
+      "repairCaseIds": [
+        "RR-O12-UNINTENTIONAL-OUTAGE"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "shutdown",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": false,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "endpoint": null,
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": "Required original conductor remains severed.",
+          "deliberate": false,
+          "recoveryPlan": "Keep the unsafe path isolated; replace the damaged section and repeat physical and endpoint tests."
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "shutdown-not-deliberate"
+      },
+      "independentReasoning": "The altered premise is independently necessary under the stated shutdown contract; all other supplied conditions remain available. Neither a chosen label nor arrival substitutes for that missing evidence.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-SHUTDOWN-NO-RECOVERY",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E03"
+      ],
+      "repairCaseIds": [
+        "RR-O12-SHUTDOWN"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "shutdown",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": false,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "endpoint": null,
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": "Required original conductor remains severed.",
+          "deliberate": true,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "shutdown-recovery-plan-missing"
+      },
+      "independentReasoning": "The altered premise is independently necessary under the stated shutdown contract; all other supplied conditions remain available. Neither a chosen label nor arrival substitutes for that missing evidence.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-SHUTDOWN-AS-RESTORED",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E03",
+        "C-END-WRONG"
+      ],
+      "repairCaseIds": [
+        "RR-O12-SHUTDOWN"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": false,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "endpoint": null,
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": "Required original conductor remains severed.",
+          "deliberate": true,
+          "recoveryPlan": "Keep the unsafe path isolated; replace the damaged section and repeat physical and endpoint tests."
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "unresolved-isolation-is-not-restoration"
+      },
+      "independentReasoning": "The altered premise is independently necessary under the stated shutdown contract; all other supplied conditions remain available. Neither a chosen label nor arrival substitutes for that missing evidence.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-NO-INTERVENTION",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E01"
+      ],
+      "repairCaseIds": [
+        "RR-O11-COPPER"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": false,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "intervention-not-complete"
+      },
+      "independentReasoning": "The altered premise is independently necessary under the stated permanent contract; all other supplied conditions remain available. Neither a chosen label nor arrival substitutes for that missing evidence.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-PERMANENT-PHYSICAL-FAIL",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-END-WRONG"
+      ],
+      "repairCaseIds": [
+        "RR-O12-PERMANENT"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": false,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "physical-validation-failed"
+      },
+      "independentReasoning": "Both restoration classes need the same complete passing current evidence. The supplied failed or absent observation cannot be replaced by link-up, balcony arrival, old completion or the desired ending label.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-PERMANENT-PHYSICAL-MISSING",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T13",
+        "C-E01"
+      ],
+      "repairCaseIds": [
+        "RR-O12-PERMANENT"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": null,
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "physical-validation-missing"
+      },
+      "independentReasoning": "Both restoration classes need the same complete passing current evidence. The supplied failed or absent observation cannot be replaced by link-up, balcony arrival, old completion or the desired ending label.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-PERMANENT-ENDPOINT-FAIL",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-END-WRONG"
+      ],
+      "repairCaseIds": [
+        "RR-O12-FAILED-ENDPOINT"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "endpoint-service-failed"
+      },
+      "independentReasoning": "Both restoration classes need the same complete passing current evidence. The supplied failed or absent observation cannot be replaced by link-up, balcony arrival, old completion or the desired ending label.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-PERMANENT-ENDPOINT-MISSING",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-ENDPOINT"
+      ],
+      "repairCaseIds": [
+        "RR-O12-PERMANENT"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": null,
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "endpoint-validation-missing"
+      },
+      "independentReasoning": "Both restoration classes need the same complete passing current evidence. The supplied failed or absent observation cannot be replaced by link-up, balcony arrival, old completion or the desired ending label.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-PERMANENT-ARRIVAL-LINK-ONLY",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-ENDPOINT"
+      ],
+      "repairCaseIds": [
+        "RR-O12-ARRIVAL-ONLY"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": null,
+        "endpoint": null,
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        },
+        "linkUp": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "final-proof-missing"
+      },
+      "independentReasoning": "Both restoration classes need the same complete passing current evidence. The supplied failed or absent observation cannot be replaced by link-up, balcony arrival, old completion or the desired ending label.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-PERMANENT-PHYSICAL-STALE-REVISION",
+      "kind": "classification",
+      "requirements": [
+        "FR-003",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "repairCaseIds": [
+        "RR-FRESH-REVISION"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 7,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "stale-evidence",
+        "observationRemainsVisible": true
+      },
+      "independentReasoning": "Only this freshness dimension changes; every other value and passing result remains equal. The old physical observation stays visible but cannot establish the current attempt and configuration.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-PERMANENT-PHYSICAL-STALE-ATTEMPT",
+      "kind": "classification",
+      "requirements": [
+        "FR-003",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "repairCaseIds": [
+        "RR-FRESH-ATTEMPT"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-a",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "stale-evidence",
+        "observationRemainsVisible": true
+      },
+      "independentReasoning": "Only this freshness dimension changes; every other value and passing result remains equal. The old physical observation stays visible but cannot establish the current attempt and configuration.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-PERMANENT-PHYSICAL-STALE-FLAG",
+      "kind": "classification",
+      "requirements": [
+        "FR-003",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "repairCaseIds": [
+        "RR-FRESH-FLAG"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": true,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "stale-evidence",
+        "observationRemainsVisible": true
+      },
+      "independentReasoning": "Only this freshness dimension changes; every other value and passing result remains equal. The old physical observation stays visible but cannot establish the current attempt and configuration.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-PERMANENT-ENDPOINT-STALE-REVISION",
+      "kind": "classification",
+      "requirements": [
+        "FR-003",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "repairCaseIds": [
+        "RR-FRESH-REVISION"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 7,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "stale-evidence",
+        "observationRemainsVisible": true
+      },
+      "independentReasoning": "Only this freshness dimension changes; every other value and passing result remains equal. The old endpoint observation stays visible but cannot establish the current attempt and configuration.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-PERMANENT-ENDPOINT-STALE-ATTEMPT",
+      "kind": "classification",
+      "requirements": [
+        "FR-003",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "repairCaseIds": [
+        "RR-FRESH-ATTEMPT"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-a",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "stale-evidence",
+        "observationRemainsVisible": true
+      },
+      "independentReasoning": "Only this freshness dimension changes; every other value and passing result remains equal. The old endpoint observation stays visible but cannot establish the current attempt and configuration.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-PERMANENT-ENDPOINT-STALE-FLAG",
+      "kind": "classification",
+      "requirements": [
+        "FR-003",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "repairCaseIds": [
+        "RR-FRESH-FLAG"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": true,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "stale-evidence",
+        "observationRemainsVisible": true
+      },
+      "independentReasoning": "Only this freshness dimension changes; every other value and passing result remains equal. The old endpoint observation stays visible but cannot establish the current attempt and configuration.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMPORARY-PHYSICAL-FAIL",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-END-WRONG"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMPORARY"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": false,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "physical-validation-failed"
+      },
+      "independentReasoning": "Both restoration classes need the same complete passing current evidence. The supplied failed or absent observation cannot be replaced by link-up, balcony arrival, old completion or the desired ending label.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMPORARY-PHYSICAL-MISSING",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T13",
+        "C-E01"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMPORARY"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": null,
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "physical-validation-missing"
+      },
+      "independentReasoning": "Both restoration classes need the same complete passing current evidence. The supplied failed or absent observation cannot be replaced by link-up, balcony arrival, old completion or the desired ending label.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMPORARY-ENDPOINT-FAIL",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-END-WRONG"
+      ],
+      "repairCaseIds": [
+        "RR-O12-FAILED-ENDPOINT"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "endpoint-service-failed"
+      },
+      "independentReasoning": "Both restoration classes need the same complete passing current evidence. The supplied failed or absent observation cannot be replaced by link-up, balcony arrival, old completion or the desired ending label.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMPORARY-ENDPOINT-MISSING",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-ENDPOINT"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMPORARY"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": null,
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "endpoint-validation-missing"
+      },
+      "independentReasoning": "Both restoration classes need the same complete passing current evidence. The supplied failed or absent observation cannot be replaced by link-up, balcony arrival, old completion or the desired ending label.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMPORARY-ARRIVAL-LINK-ONLY",
+      "kind": "classification",
+      "requirements": [
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-ENDPOINT"
+      ],
+      "repairCaseIds": [
+        "RR-O12-ARRIVAL-ONLY"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": null,
+        "endpoint": null,
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        },
+        "linkUp": true
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "final-proof-missing"
+      },
+      "independentReasoning": "Both restoration classes need the same complete passing current evidence. The supplied failed or absent observation cannot be replaced by link-up, balcony arrival, old completion or the desired ending label.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMPORARY-PHYSICAL-STALE-REVISION",
+      "kind": "classification",
+      "requirements": [
+        "FR-003",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "repairCaseIds": [
+        "RR-FRESH-REVISION"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 7,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "stale-evidence",
+        "observationRemainsVisible": true
+      },
+      "independentReasoning": "Only this freshness dimension changes; every other value and passing result remains equal. The old physical observation stays visible but cannot establish the current attempt and configuration.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMPORARY-PHYSICAL-STALE-ATTEMPT",
+      "kind": "classification",
+      "requirements": [
+        "FR-003",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "repairCaseIds": [
+        "RR-FRESH-ATTEMPT"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-a",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "stale-evidence",
+        "observationRemainsVisible": true
+      },
+      "independentReasoning": "Only this freshness dimension changes; every other value and passing result remains equal. The old physical observation stays visible but cannot establish the current attempt and configuration.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMPORARY-PHYSICAL-STALE-FLAG",
+      "kind": "classification",
+      "requirements": [
+        "FR-003",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "repairCaseIds": [
+        "RR-FRESH-FLAG"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": true,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "stale-evidence",
+        "observationRemainsVisible": true
+      },
+      "independentReasoning": "Only this freshness dimension changes; every other value and passing result remains equal. The old physical observation stays visible but cannot establish the current attempt and configuration.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMPORARY-ENDPOINT-STALE-REVISION",
+      "kind": "classification",
+      "requirements": [
+        "FR-003",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "repairCaseIds": [
+        "RR-FRESH-REVISION"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 7,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "stale-evidence",
+        "observationRemainsVisible": true
+      },
+      "independentReasoning": "Only this freshness dimension changes; every other value and passing result remains equal. The old endpoint observation stays visible but cannot establish the current attempt and configuration.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMPORARY-ENDPOINT-STALE-ATTEMPT",
+      "kind": "classification",
+      "requirements": [
+        "FR-003",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "repairCaseIds": [
+        "RR-FRESH-ATTEMPT"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-a",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "stale-evidence",
+        "observationRemainsVisible": true
+      },
+      "independentReasoning": "Only this freshness dimension changes; every other value and passing result remains equal. The old endpoint observation stays visible but cannot establish the current attempt and configuration.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-TEMPORARY-ENDPOINT-STALE-FLAG",
+      "kind": "classification",
+      "requirements": [
+        "FR-003",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T13",
+        "C-FRESH",
+        "B-STALE-FLAG"
+      ],
+      "repairCaseIds": [
+        "RR-FRESH-FLAG"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": true,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "incorrect",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "stale-evidence",
+        "observationRemainsVisible": true
+      },
+      "independentReasoning": "Only this freshness dimension changes; every other value and passing result remains equal. The old endpoint observation stays visible but cannot establish the current attempt and configuration.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-CONTENT-MISSING-UNIT",
+      "kind": "classification",
+      "requirements": [
+        "FR-005",
+        "AC03"
+      ],
+      "sourceCaseIds": [
+        "T14"
+      ],
+      "repairCaseIds": [
+        "RR-MALFORMED-PRECEDENCE"
+      ],
+      "inputs": {
+        "route": "fiber",
+        "selection": null,
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O05",
+          "O06",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": {
+          "sourceCaseId": "T14",
+          "field": "optical.loss",
+          "value": {
+            "value": 8
+          }
+        },
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "content-error",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "malformed-authored-challenge",
+        "attemptPenalty": 0,
+        "itemConsumption": 0
+      },
+      "independentReasoning": "The authored challenge violates a frozen T14 model contract. Diagnose the authoring error before absent learner input; do not award progress, consume items or count a failed learner attempt.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-CONTENT-NEGATIVE-LOSS",
+      "kind": "classification",
+      "requirements": [
+        "FR-005",
+        "AC03"
+      ],
+      "sourceCaseIds": [
+        "T14"
+      ],
+      "repairCaseIds": [
+        "RR-MALFORMED-PRECEDENCE"
+      ],
+      "inputs": {
+        "route": "fiber",
+        "selection": null,
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O05",
+          "O06",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": {
+          "sourceCaseId": "T14",
+          "field": "optical.loss",
+          "value": {
+            "value": -1,
+            "unit": "dB"
+          }
+        },
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "content-error",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "malformed-authored-challenge",
+        "attemptPenalty": 0,
+        "itemConsumption": 0
+      },
+      "independentReasoning": "The authored challenge violates a frozen T14 model contract. Diagnose the authoring error before absent learner input; do not award progress, consume items or count a failed learner attempt.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-CONTENT-UNKNOWN-PROFILE",
+      "kind": "classification",
+      "requirements": [
+        "FR-005",
+        "AC03"
+      ],
+      "sourceCaseIds": [
+        "T14"
+      ],
+      "repairCaseIds": [
+        "RR-MALFORMED-PRECEDENCE"
+      ],
+      "inputs": {
+        "route": "fiber",
+        "selection": null,
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O05",
+          "O06",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": {
+          "sourceCaseId": "T14",
+          "field": "profileId",
+          "value": "unreviewed-profile"
+        },
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "content-error",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "malformed-authored-challenge",
+        "attemptPenalty": 0,
+        "itemConsumption": 0
+      },
+      "independentReasoning": "The authored challenge violates a frozen T14 model contract. Diagnose the authoring error before absent learner input; do not award progress, consume items or count a failed learner attempt.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-MISSING-ACTION",
+      "kind": "classification",
+      "requirements": [
+        "FR-005",
+        "AC03"
+      ],
+      "sourceCaseIds": [
+        "I-STATE02"
+      ],
+      "repairCaseIds": [
+        "RR-MISSING-ACTION"
+      ],
+      "inputs": {
+        "route": "copper",
+        "selection": null,
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "copper",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [],
+        "personalization": {
+          "allies": [],
+          "sideQuests": [],
+          "maintenance": []
+        }
+      },
+      "expected": {
+        "status": "invalid-input",
+        "outcome": null,
+        "awardedRestoredService": false,
+        "progressAwards": 0,
+        "reason": "required-action-missing",
+        "attemptPenalty": 0,
+        "itemConsumption": 0
+      },
+      "independentReasoning": "With valid authored inputs there is no classification action to grade. This differs from a wrong engineering claim or malformed source.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E01-PERSONALIZED",
+      "kind": "epilogue",
+      "requirements": [
+        "FR-004",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E01",
+        "T16"
+      ],
+      "repairCaseIds": [
+        "RR-O12-PERMANENT"
+      ],
+      "inputs": {
+        "route": "fiber",
+        "selection": "permanent",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O05",
+          "O06",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": true,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [
+          1,
+          2,
+          3
+        ],
+        "personalization": {
+          "allies": [
+            "equivalent-inspection-helper"
+          ],
+          "sideQuests": [
+            "optional-help-completed"
+          ],
+          "maintenance": [
+            "inspection-recorded"
+          ]
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E01",
+        "awardedRestoredService": true,
+        "permanentRepair": true,
+        "assistanceChangesClassification": false,
+        "preservePersonalization": {
+          "allies": [
+            "equivalent-inspection-helper"
+          ],
+          "sideQuests": [
+            "optional-help-completed"
+          ],
+          "maintenance": [
+            "inspection-recorded"
+          ]
+        },
+        "noAssistanceShaming": true
+      },
+      "independentReasoning": "The route, helped characters, optional work and maintenance can change epilogue prose while the same technical evidence fixes its outcome. Used hints remain recorded without shaming.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086",
+          "T087"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E02-PERSONALIZED",
+      "kind": "epilogue",
+      "requirements": [
+        "FR-004",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E02",
+        "T16"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMPORARY"
+      ],
+      "inputs": {
+        "route": "fiber",
+        "selection": "temporary",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O05",
+          "O06",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": true,
+        "physical": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "endpoint": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "pass"
+        },
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": "borrowed compatible path",
+          "limitation": "The borrowed path must be returned after this repair window.",
+          "followup": "Replace the damaged original path, then remeasure and retest service."
+        },
+        "isolation": {
+          "unresolvedDefect": null,
+          "deliberate": false,
+          "recoveryPlan": null
+        },
+        "hintLevelsUsed": [
+          1,
+          2,
+          3
+        ],
+        "personalization": {
+          "allies": [
+            "equivalent-inspection-helper"
+          ],
+          "sideQuests": [
+            "optional-help-completed"
+          ],
+          "maintenance": [
+            "inspection-recorded"
+          ]
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E02",
+        "awardedRestoredService": true,
+        "permanentRepair": false,
+        "assistanceChangesClassification": false,
+        "preservePersonalization": {
+          "allies": [
+            "equivalent-inspection-helper"
+          ],
+          "sideQuests": [
+            "optional-help-completed"
+          ],
+          "maintenance": [
+            "inspection-recorded"
+          ]
+        },
+        "noAssistanceShaming": true
+      },
+      "independentReasoning": "The route, helped characters, optional work and maintenance can change epilogue prose while the same technical evidence fixes its outcome. Used hints remain recorded without shaming.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086",
+          "T087"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E03-PERSONALIZED",
+      "kind": "epilogue",
+      "requirements": [
+        "FR-004",
+        "FR-009",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E03",
+        "T16"
+      ],
+      "repairCaseIds": [
+        "RR-O12-SHUTDOWN"
+      ],
+      "inputs": {
+        "route": "fiber",
+        "selection": "shutdown",
+        "completedObjectives": [
+          "O01",
+          "O02",
+          "O05",
+          "O06",
+          "O09",
+          "O10",
+          "O11"
+        ],
+        "otherBranchesCompleted": false,
+        "optionalRewards": [],
+        "futureRealmAvailable": false,
+        "current": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-b"
+        },
+        "authoringIssue": null,
+        "interventionCompleted": true,
+        "atBalcony": true,
+        "allScopedPhysicalChecks": false,
+        "physical": {
+          "route": "fiber",
+          "configurationRevision": 8,
+          "attemptId": "attempt-b",
+          "explicitlyStale": false,
+          "result": "fail"
+        },
+        "endpoint": null,
+        "defectRemoved": false,
+        "temporary": {
+          "dependency": null,
+          "limitation": null,
+          "followup": null
+        },
+        "isolation": {
+          "unresolvedDefect": "Original connector remains contaminated and unsafe to use.",
+          "deliberate": true,
+          "recoveryPlan": "Keep the unsafe path isolated; replace the damaged section and repeat physical and endpoint tests."
+        },
+        "hintLevelsUsed": [
+          1,
+          2,
+          3
+        ],
+        "personalization": {
+          "allies": [
+            "equivalent-inspection-helper"
+          ],
+          "sideQuests": [
+            "optional-help-completed"
+          ],
+          "maintenance": [
+            "inspection-recorded"
+          ]
+        }
+      },
+      "expected": {
+        "status": "correct",
+        "outcome": "E03",
+        "awardedRestoredService": false,
+        "permanentRepair": false,
+        "assistanceChangesClassification": false,
+        "preservePersonalization": {
+          "allies": [
+            "equivalent-inspection-helper"
+          ],
+          "sideQuests": [
+            "optional-help-completed"
+          ],
+          "maintenance": [
+            "inspection-recorded"
+          ]
+        },
+        "noAssistanceShaming": true
+      },
+      "independentReasoning": "The route, helped characters, optional work and maintenance can change epilogue prose while the same technical evidence fixes its outcome. Used hints remain recorded without shaming.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086",
+          "T087"
+        ]
+      }
+    },
+    {
+      "id": "OUT-FAILURE-RETRY",
+      "kind": "recovery",
+      "requirements": [
+        "FR-010",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-RETRY"
+      ],
+      "repairCaseIds": [
+        "RR-RETRY"
+      ],
+      "inputs": {
+        "activity": "terminal-failure",
+        "action": "retry",
+        "guest": true,
+        "preparation": {
+          "configurationRevision": 4,
+          "attemptId": "attempt-a",
+          "inventory": [
+            "tool",
+            "replacement"
+          ],
+          "party": [
+            "helper-a"
+          ],
+          "completedObjectives": [
+            "O11-preparation"
+          ],
+          "effectFlags": [
+            "preparation-only"
+          ]
+        },
+        "attemptEnd": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-a",
+          "inventory": [
+            "tool"
+          ],
+          "party": [
+            "helper-b"
+          ],
+          "completedObjectives": [
+            "O11-preparation",
+            "attempt-reward"
+          ],
+          "effectFlags": [
+            "preparation-only",
+            "item-consumed"
+          ],
+          "newFacts": [
+            "fault-observed"
+          ],
+          "personalNotes": "Check the connector before reconnecting.",
+          "hypotheses": [
+            "damaged-path"
+          ],
+          "mapDiscoveries": [
+            "balcony"
+          ],
+          "hintLevels": [
+            1,
+            2,
+            3
+          ],
+          "measurements": [
+            {
+              "id": "attempt-reading",
+              "configurationRevision": 8,
+              "attemptId": "attempt-a",
+              "explicitlyStale": false,
+              "result": "pass"
+            }
+          ]
+        },
+        "confirmedSlot": {
+          "revision": 12,
+          "identity": "last-recoverable-adventure"
+        }
+      },
+      "expected": {
+        "worldSource": "preparation",
+        "inventory": [
+          "tool",
+          "replacement"
+        ],
+        "party": [
+          "helper-a"
+        ],
+        "completedObjectives": [
+          "O11-preparation"
+        ],
+        "effectFlags": [
+          "preparation-only"
+        ],
+        "retainedFacts": [
+          "fault-observed"
+        ],
+        "personalNotes": "Check the connector before reconnecting.",
+        "retainedHypotheses": [
+          "damaged-path"
+        ],
+        "retainedMapDiscoveries": [
+          "balcony"
+        ],
+        "retainedHintLevels": [
+          1,
+          2,
+          3
+        ],
+        "measurementsVisibleAndStale": [
+          "attempt-reading"
+        ],
+        "newAttemptIdRequired": true,
+        "revisionMustExceed": 8,
+        "implicitSaveWrites": 0,
+        "newPersistentSlots": 0,
+        "confirmedSlotUnchanged": true,
+        "temporarySessionRecovery": true
+      },
+      "independentReasoning": "World, consumption, party and completion effects rewind together to preparation; learned facts, notes, hypotheses, map and assistance remain. A new attempt and revision beyond the latest attempt prevent old proof revival. E03 history explains an event, never restores shutdown as a saveable world.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T083",
+          "T084",
+          "T088"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E03-CONTINUE",
+      "kind": "recovery",
+      "requirements": [
+        "FR-010",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-RETRY"
+      ],
+      "repairCaseIds": [
+        "RR-E03-CONTINUE"
+      ],
+      "inputs": {
+        "activity": "shutdown",
+        "action": "continue",
+        "guest": true,
+        "preparation": {
+          "configurationRevision": 4,
+          "attemptId": "attempt-a",
+          "inventory": [
+            "tool",
+            "replacement"
+          ],
+          "party": [
+            "helper-a"
+          ],
+          "completedObjectives": [
+            "O11-preparation"
+          ],
+          "effectFlags": [
+            "preparation-only"
+          ]
+        },
+        "attemptEnd": {
+          "configurationRevision": 8,
+          "attemptId": "attempt-a",
+          "inventory": [
+            "tool"
+          ],
+          "party": [
+            "helper-b"
+          ],
+          "completedObjectives": [
+            "O11-preparation",
+            "attempt-reward"
+          ],
+          "effectFlags": [
+            "preparation-only",
+            "item-consumed"
+          ],
+          "newFacts": [
+            "fault-observed"
+          ],
+          "personalNotes": "Check the connector before reconnecting.",
+          "hypotheses": [
+            "damaged-path"
+          ],
+          "mapDiscoveries": [
+            "balcony"
+          ],
+          "hintLevels": [
+            1,
+            2,
+            3
+          ],
+          "measurements": [
+            {
+              "id": "attempt-reading",
+              "configurationRevision": 8,
+              "attemptId": "attempt-a",
+              "explicitlyStale": false,
+              "result": "pass"
+            }
+          ]
+        },
+        "confirmedSlot": {
+          "revision": 12,
+          "identity": "last-recoverable-adventure"
+        }
+      },
+      "expected": {
+        "worldSource": "preparation",
+        "inventory": [
+          "tool",
+          "replacement"
+        ],
+        "party": [
+          "helper-a"
+        ],
+        "completedObjectives": [
+          "O11-preparation"
+        ],
+        "effectFlags": [
+          "preparation-only"
+        ],
+        "retainedFacts": [
+          "fault-observed"
+        ],
+        "personalNotes": "Check the connector before reconnecting.",
+        "retainedHypotheses": [
+          "damaged-path"
+        ],
+        "retainedMapDiscoveries": [
+          "balcony"
+        ],
+        "retainedHintLevels": [
+          1,
+          2,
+          3
+        ],
+        "measurementsVisibleAndStale": [
+          "attempt-reading"
+        ],
+        "newAttemptIdRequired": true,
+        "revisionMustExceed": 8,
+        "implicitSaveWrites": 0,
+        "newPersistentSlots": 0,
+        "confirmedSlotUnchanged": true,
+        "temporarySessionRecovery": true,
+        "retainE03History": true,
+        "shutdownWorldRetained": false
+      },
+      "independentReasoning": "World, consumption, party and completion effects rewind together to preparation; learned facts, notes, hypotheses, map and assistance remain. A new attempt and revision beyond the latest attempt prevent old proof revival. E03 history explains an event, never restores shutdown as a saveable world.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T083",
+          "T084",
+          "T088"
+        ]
+      }
+    },
+    {
+      "id": "OUT-PRECOMMIT-RETURN",
+      "kind": "recovery",
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-INTERRUPT"
+      ],
+      "repairCaseIds": [
+        "RR-O11-PRECOMMIT-RETURN"
+      ],
+      "inputs": {
+        "activity": "precommit",
+        "warningAcknowledged": false,
+        "action": "return-to-preparation",
+        "inventory": [
+          "tool",
+          "replacement"
+        ],
+        "tentativeConsumption": [
+          "replacement"
+        ]
+      },
+      "expected": {
+        "safePreparationReachable": true,
+        "inventory": [
+          "tool",
+          "replacement"
+        ],
+        "partialRewards": 0,
+        "partialConsumption": 0,
+        "implicitSaveWrites": 0
+      },
+      "independentReasoning": "A consequential decision has not been committed. Return remains available with no half-applied consumption, reward or automatic write.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T084",
+          "T085"
+        ]
+      }
+    },
+    {
+      "id": "OUT-FAILED-GUESS",
+      "kind": "failure-presentation",
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "T03"
+      ],
+      "repairCaseIds": [
+        "RR-O04-REPEATER"
+      ],
+      "inputs": {
+        "choice": "powered-repeater-over-unchanged-open",
+        "sourcePhysicalCase": "T03",
+        "fatal": false
+      },
+      "expected": {
+        "awardedRestoredService": false,
+        "specificObservation": "The required path remains open; adding a repeater did not remove the break.",
+        "returnToDiagnosisAvailable": true,
+        "implicitSaveWrites": 0
+      },
+      "independentReasoning": "A technically wrong guess yields a specific inspectable physical observation and a path back to diagnosis; it cannot be celebrated as a correct repair.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T085",
+          "T087",
+          "T088"
+        ]
+      }
+    },
+    {
+      "id": "OUT-FATAL-GUEST",
+      "kind": "failure-presentation",
+      "requirements": [
+        "FR-010",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-RETRY"
+      ],
+      "repairCaseIds": [
+        "RR-RETRY"
+      ],
+      "inputs": {
+        "guest": true,
+        "activity": "terminal-failure",
+        "cause": "Committed to an explicitly warned unsafe path.",
+        "hasConfirmedAccountSave": false
+      },
+      "expected": {
+        "shortSkippableScene": true,
+        "causeExplained": true,
+        "retryFromEncounterPreparation": true,
+        "retryLabelSaysTemporary": true,
+        "restoreSaveAvailable": false,
+        "guestRestoreRequiresSignIn": true,
+        "implicitSaveWrites": 0,
+        "confirmedSlotUnchanged": true
+      },
+      "independentReasoning": "Dramatic failure explains its cause and recovery. In-memory Retry is available to guests; Restore Save requires an authenticated account with a confirmed slot and remains a different operation.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T085",
+          "T087",
+          "T088"
+        ]
+      }
+    },
+    {
+      "id": "OUT-FATAL-ACCOUNT",
+      "kind": "failure-presentation",
+      "requirements": [
+        "FR-010",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-RETRY"
+      ],
+      "repairCaseIds": [
+        "RR-RETRY"
+      ],
+      "inputs": {
+        "guest": false,
+        "activity": "terminal-failure",
+        "cause": "Committed to an explicitly warned unsafe path.",
+        "hasConfirmedAccountSave": true
+      },
+      "expected": {
+        "shortSkippableScene": true,
+        "causeExplained": true,
+        "retryFromEncounterPreparation": true,
+        "retryLabelSaysTemporary": true,
+        "restoreSaveAvailable": true,
+        "guestRestoreRequiresSignIn": false,
+        "implicitSaveWrites": 0,
+        "confirmedSlotUnchanged": true
+      },
+      "independentReasoning": "Dramatic failure explains its cause and recovery. In-memory Retry is available to guests; Restore Save requires an authenticated account with a confirmed slot and remains a different operation.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T085",
+          "T087",
+          "T088"
+        ]
+      }
+    },
+    {
+      "id": "OUT-RESTORE-SAVE",
+      "kind": "recovery",
+      "requirements": [
+        "FR-010",
+        "FR-012",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-RETRY"
+      ],
+      "repairCaseIds": [
+        "RR-RETRY"
+      ],
+      "inputs": {
+        "action": "restore-save",
+        "authenticated": true,
+        "unsavedProgress": true,
+        "confirmedChoice": true,
+        "currentJournal": "new-attempt-learning",
+        "storedJournal": "confirmed-snapshot-learning",
+        "storedWorld": "confirmed-snapshot-world"
+      },
+      "expected": {
+        "warningBeforeDiscard": true,
+        "worldSource": "confirmed-snapshot-world",
+        "journalSource": "confirmed-snapshot-learning",
+        "mergeNewAttemptLearning": false,
+        "readDoesNotRewriteSlot": true,
+        "newPersistentSlots": 0
+      },
+      "independentReasoning": "Restore Save replaces the current world and journal with the confirmed snapshot after the unsaved-progress warning; the retry retention rule does not merge unsaved learning into it.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T083",
+          "T088"
+        ]
+      }
+    },
+    {
+      "id": "OUT-RESTORE-CANCEL",
+      "kind": "recovery",
+      "requirements": [
+        "FR-010",
+        "FR-012",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-RETRY"
+      ],
+      "repairCaseIds": [
+        "RR-RETRY"
+      ],
+      "inputs": {
+        "action": "restore-save",
+        "authenticated": true,
+        "unsavedProgress": true,
+        "confirmedChoice": false
+      },
+      "expected": {
+        "currentWorldUnchanged": true,
+        "currentJournalUnchanged": true,
+        "confirmedSlotUnchanged": true,
+        "implicitSaveWrites": 0
+      },
+      "independentReasoning": "Canceling the warning leaves the in-memory adventure and confirmed slot intact; viewing recovery choices is not consent to discard.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T088"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E01-SAFE-CONTINUE",
+      "kind": "save-boundary",
+      "requirements": [
+        "FR-010",
+        "FR-013",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E01"
+      ],
+      "repairCaseIds": [
+        "RR-O12-PERMANENT"
+      ],
+      "inputs": {
+        "outcome": "E01",
+        "validated": true,
+        "feedbackDismissed": true,
+        "authoredSafeContinue": true,
+        "pendingTransition": false,
+        "saveRequested": false,
+        "autosaveEnabled": false
+      },
+      "expected": {
+        "snapshotEligible": true,
+        "implicitSaveWrites": 0,
+        "continueTarget": "authored-safe-location",
+        "retainOutcomeHistory": true
+      },
+      "independentReasoning": "A validated success is saveable only with an authored safe Continue position and no pending transition. Eligibility does not itself issue a write; no concrete location ID is invented by this oracle.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E01-NO-SAFE-CONTINUE",
+      "kind": "save-boundary",
+      "requirements": [
+        "FR-010",
+        "FR-013",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E01"
+      ],
+      "repairCaseIds": [
+        "RR-O12-PERMANENT"
+      ],
+      "inputs": {
+        "outcome": "E01",
+        "validated": true,
+        "feedbackDismissed": true,
+        "authoredSafeContinue": false,
+        "pendingTransition": false,
+        "saveRequested": false,
+        "autosaveEnabled": false
+      },
+      "expected": {
+        "snapshotEligible": false,
+        "implicitSaveWrites": 0,
+        "continueTarget": null,
+        "retainOutcomeHistory": true
+      },
+      "independentReasoning": "A validated success is saveable only with an authored safe Continue position and no pending transition. Eligibility does not itself issue a write; no concrete location ID is invented by this oracle.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E02-SAFE-CONTINUE",
+      "kind": "save-boundary",
+      "requirements": [
+        "FR-010",
+        "FR-013",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E02"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMPORARY"
+      ],
+      "inputs": {
+        "outcome": "E02",
+        "validated": true,
+        "feedbackDismissed": true,
+        "authoredSafeContinue": true,
+        "pendingTransition": false,
+        "saveRequested": false,
+        "autosaveEnabled": false
+      },
+      "expected": {
+        "snapshotEligible": true,
+        "implicitSaveWrites": 0,
+        "continueTarget": "authored-safe-location",
+        "retainOutcomeHistory": true
+      },
+      "independentReasoning": "A validated success is saveable only with an authored safe Continue position and no pending transition. Eligibility does not itself issue a write; no concrete location ID is invented by this oracle.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E02-NO-SAFE-CONTINUE",
+      "kind": "save-boundary",
+      "requirements": [
+        "FR-010",
+        "FR-013",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E02"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMPORARY"
+      ],
+      "inputs": {
+        "outcome": "E02",
+        "validated": true,
+        "feedbackDismissed": true,
+        "authoredSafeContinue": false,
+        "pendingTransition": false,
+        "saveRequested": false,
+        "autosaveEnabled": false
+      },
+      "expected": {
+        "snapshotEligible": false,
+        "implicitSaveWrites": 0,
+        "continueTarget": null,
+        "retainOutcomeHistory": true
+      },
+      "independentReasoning": "A validated success is saveable only with an authored safe Continue position and no pending transition. Eligibility does not itself issue a write; no concrete location ID is invented by this oracle.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-SAVE-BLOCK-TERMINAL-FAILURE",
+      "kind": "save-boundary",
+      "requirements": [
+        "FR-010",
+        "FR-013",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-INTERRUPT"
+      ],
+      "repairCaseIds": [
+        "RR-INTERRUPTION"
+      ],
+      "inputs": {
+        "activity": "terminal-failure",
+        "manualSaveRequested": true,
+        "autosaveEnabled": true,
+        "autosaveEventQueued": true,
+        "confirmedSlotRevision": 12
+      },
+      "expected": {
+        "snapshotEligible": false,
+        "newSaveWrites": 0,
+        "confirmedSlotRevision": 12,
+        "restrictionExplained": true
+      },
+      "independentReasoning": "The unsafe or incomplete activity cannot become a new save even with opt-in or a queued event. Preserve the last acknowledged recoverable slot and explain the temporary restriction; do not cancel a write already committed.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086",
+          "T088",
+          "T089"
+        ]
+      }
+    },
+    {
+      "id": "OUT-SAVE-BLOCK-SHUTDOWN",
+      "kind": "save-boundary",
+      "requirements": [
+        "FR-010",
+        "FR-013",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-INTERRUPT"
+      ],
+      "repairCaseIds": [
+        "RR-INTERRUPTION"
+      ],
+      "inputs": {
+        "activity": "shutdown",
+        "manualSaveRequested": true,
+        "autosaveEnabled": true,
+        "autosaveEventQueued": true,
+        "confirmedSlotRevision": 12
+      },
+      "expected": {
+        "snapshotEligible": false,
+        "newSaveWrites": 0,
+        "confirmedSlotRevision": 12,
+        "restrictionExplained": true
+      },
+      "independentReasoning": "The unsafe or incomplete activity cannot become a new save even with opt-in or a queued event. Preserve the last acknowledged recoverable slot and explain the temporary restriction; do not cancel a write already committed.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086",
+          "T088",
+          "T089"
+        ]
+      }
+    },
+    {
+      "id": "OUT-SAVE-BLOCK-UNRESOLVED-TRANSITION",
+      "kind": "save-boundary",
+      "requirements": [
+        "FR-010",
+        "FR-013",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-INTERRUPT"
+      ],
+      "repairCaseIds": [
+        "RR-INTERRUPTION"
+      ],
+      "inputs": {
+        "activity": "unresolved-transition",
+        "manualSaveRequested": true,
+        "autosaveEnabled": true,
+        "autosaveEventQueued": true,
+        "confirmedSlotRevision": 12
+      },
+      "expected": {
+        "snapshotEligible": false,
+        "newSaveWrites": 0,
+        "confirmedSlotRevision": 12,
+        "restrictionExplained": true
+      },
+      "independentReasoning": "The unsafe or incomplete activity cannot become a new save even with opt-in or a queued event. Preserve the last acknowledged recoverable slot and explain the temporary restriction; do not cancel a write already committed.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086",
+          "T088",
+          "T089"
+        ]
+      }
+    },
+    {
+      "id": "OUT-SAVE-BLOCK-ACTIVE-ENCOUNTER",
+      "kind": "save-boundary",
+      "requirements": [
+        "FR-010",
+        "FR-013",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-INTERRUPT"
+      ],
+      "repairCaseIds": [
+        "RR-INTERRUPTION"
+      ],
+      "inputs": {
+        "activity": "active-encounter",
+        "manualSaveRequested": true,
+        "autosaveEnabled": true,
+        "autosaveEventQueued": true,
+        "confirmedSlotRevision": 12
+      },
+      "expected": {
+        "snapshotEligible": false,
+        "newSaveWrites": 0,
+        "confirmedSlotRevision": 12,
+        "restrictionExplained": true
+      },
+      "independentReasoning": "The unsafe or incomplete activity cannot become a new save even with opt-in or a queued event. Preserve the last acknowledged recoverable slot and explain the temporary restriction; do not cancel a write already committed.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086",
+          "T088",
+          "T089"
+        ]
+      }
+    },
+    {
+      "id": "OUT-SAVE-BLOCK-DIALOGUE-TRANSACTION",
+      "kind": "save-boundary",
+      "requirements": [
+        "FR-010",
+        "FR-013",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-INTERRUPT"
+      ],
+      "repairCaseIds": [
+        "RR-INTERRUPTION"
+      ],
+      "inputs": {
+        "activity": "dialogue-transaction",
+        "manualSaveRequested": true,
+        "autosaveEnabled": true,
+        "autosaveEventQueued": true,
+        "confirmedSlotRevision": 12
+      },
+      "expected": {
+        "snapshotEligible": false,
+        "newSaveWrites": 0,
+        "confirmedSlotRevision": 12,
+        "restrictionExplained": true
+      },
+      "independentReasoning": "The unsafe or incomplete activity cannot become a new save even with opt-in or a queued event. Preserve the last acknowledged recoverable slot and explain the temporary restriction; do not cancel a write already committed.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086",
+          "T088",
+          "T089"
+        ]
+      }
+    },
+    {
+      "id": "OUT-SAVE-BLOCK-CUTSCENE",
+      "kind": "save-boundary",
+      "requirements": [
+        "FR-010",
+        "FR-013",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-INTERRUPT"
+      ],
+      "repairCaseIds": [
+        "RR-INTERRUPTION"
+      ],
+      "inputs": {
+        "activity": "cutscene",
+        "manualSaveRequested": true,
+        "autosaveEnabled": true,
+        "autosaveEventQueued": true,
+        "confirmedSlotRevision": 12
+      },
+      "expected": {
+        "snapshotEligible": false,
+        "newSaveWrites": 0,
+        "confirmedSlotRevision": 12,
+        "restrictionExplained": true
+      },
+      "independentReasoning": "The unsafe or incomplete activity cannot become a new save even with opt-in or a queued event. Preserve the last acknowledged recoverable slot and explain the temporary restriction; do not cancel a write already committed.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086",
+          "T088",
+          "T089"
+        ]
+      }
+    },
+    {
+      "id": "OUT-SAVE-BLOCK-WRITE-IN-PROGRESS",
+      "kind": "save-boundary",
+      "requirements": [
+        "FR-010",
+        "FR-013",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-INTERRUPT"
+      ],
+      "repairCaseIds": [
+        "RR-INTERRUPTION"
+      ],
+      "inputs": {
+        "activity": "write-in-progress",
+        "manualSaveRequested": true,
+        "autosaveEnabled": true,
+        "autosaveEventQueued": true,
+        "confirmedSlotRevision": 12
+      },
+      "expected": {
+        "snapshotEligible": false,
+        "newSaveWrites": 0,
+        "confirmedSlotRevision": 12,
+        "restrictionExplained": true
+      },
+      "independentReasoning": "The unsafe or incomplete activity cannot become a new save even with opt-in or a queued event. Preserve the last acknowledged recoverable slot and explain the temporary restriction; do not cancel a write already committed.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086",
+          "T088",
+          "T089"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E03-AFTER-CONTINUE-SAVE",
+      "kind": "save-boundary",
+      "requirements": [
+        "FR-010",
+        "FR-012",
+        "SAVE06",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E03",
+        "B-RETRY"
+      ],
+      "repairCaseIds": [
+        "RR-E03-CONTINUE"
+      ],
+      "inputs": {
+        "lastOutcome": "E03",
+        "currentActivity": "stable-preparation-after-continue",
+        "shutdownWorldRetained": false,
+        "oldMeasurementsStale": true,
+        "authoredSafePosition": true,
+        "manualSaveRequested": true,
+        "authenticated": true,
+        "sameAdventureConfirmedSlot": true,
+        "pendingTransition": false
+      },
+      "expected": {
+        "snapshotEligible": true,
+        "persistE03History": true,
+        "persistRetainedLearning": true,
+        "persistShutdownWorld": false,
+        "usesSameLogicalSlot": true,
+        "newPersistentSlots": 0
+      },
+      "independentReasoning": "An E03 event may be recorded in a later safe snapshot after Continue. Its history does not make the shutdown world itself saveable; ordinary conditional one-slot save rules still apply.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T084",
+          "T086",
+          "T088"
+        ]
+      }
+    },
+    {
+      "id": "OUT-EVENT-REPLAY",
+      "kind": "atomicity",
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-REPLAY"
+      ],
+      "repairCaseIds": [
+        "RR-REPLAY"
+      ],
+      "inputs": {
+        "eventId": "same-outcome-event",
+        "attemptId": "attempt-b",
+        "acceptedOnce": true,
+        "deliveredAgain": true
+      },
+      "expected": {
+        "additionalOutcomeEvents": 0,
+        "additionalProgressAwards": 0,
+        "additionalItemConsumption": 0,
+        "implicitSaveWrites": 0
+      },
+      "independentReasoning": "Replaying an already accepted outcome cannot duplicate history, rewards or item effects, or issue another implicit save.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-INTERRUPTED-ACCEPTANCE",
+      "kind": "atomicity",
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "B-INTERRUPT"
+      ],
+      "repairCaseIds": [
+        "RR-INTERRUPTION"
+      ],
+      "inputs": {
+        "transitionInterruptedBeforeAtomicAcceptance": true
+      },
+      "expected": {
+        "status": "invalid-input",
+        "outcome": null,
+        "partialRewards": 0,
+        "partialConsumption": 0,
+        "partialOutcomeEvents": 0,
+        "attemptPenalty": 0,
+        "implicitSaveWrites": 0
+      },
+      "independentReasoning": "No completed accepted action exists when a transition is interrupted. Retain the previous state without a partial ending or learner penalty.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T084",
+          "T086"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E01-CONTINUE",
+      "kind": "recovery",
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E01"
+      ],
+      "repairCaseIds": [
+        "RR-O12-PERMANENT"
+      ],
+      "inputs": {
+        "action": "continue",
+        "outcome": "E01",
+        "validated": true,
+        "authoredSafeContinue": true,
+        "unsavedProgress": true
+      },
+      "expected": {
+        "continueTarget": "authored-safe-location",
+        "preserveSuccessfulWorld": true,
+        "preserveOutcomeHistory": true,
+        "sideRoutesAccessible": true,
+        "rewindPreparation": false,
+        "implicitSaveWrites": 0,
+        "newPersistentSlots": 0
+      },
+      "independentReasoning": "Successful Continue returns to the authored safe location with the successful world and history intact, and leaves side routes available. E03 alone uses the special preparation rewind; Continue itself is not a save.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086",
+          "T088"
+        ]
+      }
+    },
+    {
+      "id": "OUT-E02-CONTINUE",
+      "kind": "recovery",
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "AC07"
+      ],
+      "sourceCaseIds": [
+        "C-E02"
+      ],
+      "repairCaseIds": [
+        "RR-O12-TEMPORARY"
+      ],
+      "inputs": {
+        "action": "continue",
+        "outcome": "E02",
+        "validated": true,
+        "authoredSafeContinue": true,
+        "unsavedProgress": true
+      },
+      "expected": {
+        "continueTarget": "authored-safe-location",
+        "preserveSuccessfulWorld": true,
+        "preserveOutcomeHistory": true,
+        "sideRoutesAccessible": true,
+        "rewindPreparation": false,
+        "implicitSaveWrites": 0,
+        "newPersistentSlots": 0
+      },
+      "independentReasoning": "Successful Continue returns to the authored safe location with the successful world and history intact, and leaves side routes available. E03 alone uses the special preparation rewind; Continue itself is not a save.",
+      "execution": {
+        "status": "todo",
+        "tasks": [
+          "T086",
+          "T088"
+        ]
+      }
+    }
+  ]
+}

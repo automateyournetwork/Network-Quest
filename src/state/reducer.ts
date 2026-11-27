@@ -12,6 +12,8 @@ import { prepareNotebookChange } from './notebook';
 import type { NotebookOperation } from './notebook';
 import { prepareObjectiveChange } from './objectives';
 import type { ObjectiveOperation, ObjectiveScenarioResolver } from './objectives';
+import { prepareRepairPlanChange } from './repair-plan';
+import type { RepairPlanOperation, RepairScenarioResolver } from './repair-plan';
 
 /** Authored effects only. Evaluators select them; the reducer never scores physics. */
 export type StateEffect = S.effect & IdentifiedEffect;
@@ -44,6 +46,7 @@ interface EffectRequest {
   readonly destination?: Destination;
 }
 export type ReducerInput =
+  | { readonly kind: 'repair-plan'; readonly operation: RepairPlanOperation }
   | { readonly kind: 'objective'; readonly operation: ObjectiveOperation }
   | { readonly kind: 'notebook'; readonly operation: NotebookOperation }
   | (EffectRequest & { readonly kind: 'apply' })
@@ -88,6 +91,7 @@ export interface ReducerOptions {
   readonly registry: ContentRegistry;
   readonly bindings: readonly EffectBinding[];
   readonly objectiveScenario?: ObjectiveScenarioResolver;
+  readonly repairScenario?: RepairScenarioResolver;
   /**
    * Trusted pure navigation adapter, using actual unlocked/reversible paths in
    * the supplied candidate world. Default proves only a zero-step path. T028
@@ -418,16 +422,19 @@ export function createReducer(options: ReducerOptions): (state: ReducerState, co
       return accept(state, command.actionId, { ...result.value, activity: pending.request.destination ? result.value.activity : pending.previousActivity }, true);
     }
     if (pending) return reject('transition-pending');
-    if (input.kind === 'notebook' || input.kind === 'objective') {
+    if (input.kind === 'notebook' || input.kind === 'objective' || input.kind === 'repair-plan') {
       if (!safeKinds.has(state.runtime.activity.kind)) return reject('invalid-state');
       const notebook = input.kind === 'notebook' ? prepareNotebookChange(registry, game, input.operation)
-        : prepareObjectiveChange(registry, options.objectiveScenario, game, input.operation);
+        : input.kind === 'objective' ? prepareObjectiveChange(registry, options.objectiveScenario, game, input.operation)
+          : prepareRepairPlanChange(registry, options.repairScenario, game, input.operation);
       if (!notebook.ok) return reject(notebook.reason);
       const prepared = prepare(state, { evaluation: notebook.evaluation });
       if (!prepared.ok) return reject(prepared.reason);
       const final = notebook.finalize(prepared.value.game);
       if (!final.ok) return reject(final.reason);
-      return accept(state, command.actionId, { ...prepared.value, game: final.game, changed: canonical(final.game) !== canonical(game) });
+      return accept(state, command.actionId, { ...prepared.value, game: final.game,
+        activity: input.kind === 'repair-plan' && 'activity' in final ? (final.activity as ActivityState | undefined) ?? prepared.value.activity : prepared.value.activity,
+        changed: canonical(final.game) !== canonical(game) });
     }
     if (input.kind === 'rewind-preparation') {
       const checkpoint = state.runtime.checkpoint;

@@ -1,0 +1,53 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/ui/repair-plan.test.ts tests/state/repair-plan.test.ts tests/state/equipment-scenarios.test.ts tests/content/repair-plan-rooms.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/ui/repair-plan.test.ts (9 tests | 1 failed) 721ms
+   ❯ T077 captured repair controller (9)
+     ✓ uses captured intent, observes an explicit review, then executes exactly once 126ms
+     ✓ does not create any measurement merely by opening/projecting either panel 121ms
+     × shows actual endpoint failure without turning a handled action into success feedback 122ms
+     ✓ retains a captured review ID and rejects it after a configuration change 114ms
+     ✓ canceled, invalidated and disposed controller captures cannot execute 116ms
+     ✓ final compare-and-set loss prevents both execution and its notebook record 121ms
+     ✓ does not accept injected verdict fields or a malformed warning 0ms
+     ✓ does not accept injected verdict fields or a malformed warning 0ms
+     ✓ does not accept injected verdict fields or a malformed warning 0ms
+ ✓ tests/state/repair-plan.test.ts (36 tests) 4227ms
+ ✓ tests/state/equipment-scenarios.test.ts (22 tests) 2698ms
+ ✓ tests/content/repair-plan-rooms.test.ts (5 tests) 202ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ui/repair-plan.test.ts > T077 captured repair controller > shows actual endpoint failure without turning a handled action into success feedback
+AssertionError: expected { status: 'handled', …(2) } to match object { status: 'handled', …(1) }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "message": StringContaining "fresh link",
++   "message": "Read the classification criteria before recording the result.",
+    "status": "handled",
+  }
+
+ ❯ tests/ui/repair-plan.test.ts:32:105
+     30|   it('shows actual endpoint failure without turning a handled action i…
+     31|     const f = fixture(); f.prepare(); f.execute(); f.move('R12');
+     32|     expect(f.send({ kind: 'classify-repair', selection: 'permanent', l…
+       |                                                                                                         ^
+     33|     expect(f.game().world.completedObjectiveIds).not.toContain(q('O12'…
+     34|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 71 passed (72)
+   Start at  19:45:29
+   Duration  9.62s (tests 86%, import 13%)
+

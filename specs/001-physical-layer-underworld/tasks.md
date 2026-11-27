@@ -321,6 +321,36 @@ test and inspect the existing harness during that work. Dependent implementation
 and acceptance remain ordered: T074–T076 join before T077 execution, then T077
 before T078's application integration and complete-route checkpoint. Preparation
 does not mark either task complete or permit broader room/media production.
+T078's optional notebook-presentation and temporary-layout adapters may also be
+prepared against the already accepted controller/schema/renderer inputs. Their
+default introduction behavior must remain unchanged; application selection,
+finale-specific mappings and complete-route acceptance still await T077.
+
+T082 may prepare independent outcome/failure expectations from the accepted
+source register, physical/route oracles, specification and save contract while
+the first route is built. This is a test-oracle activity, like T068: no outcome
+implementation, full-story acceptance or altered expectation derived from code.
+The T079–T081 join still precedes dependent outcome execution, and unavailable
+runtime checks stay explicitly pending until their implementation exists.
+The same independent-fixture assessment permits T083 rollback/retry expectations
+from the accepted state, save and retained-learning contracts. These tasks can be
+accepted as oracle authoring when reviewed; their TODO runtime cases are separate
+obligations for T084–T089 and cannot pass those tasks or a gate.
+The same preparation-only rule permits T092's independent ability/conventional-
+tool and optional-activity oracle fixtures on the accepted specification, source
+models, schemas and allocation plan while T078 completes the first application
+route. This does not author more rooms, implement companions/activities or waive
+W05/full-world/outcome joins. Every scored rule must already have an independent
+source/correct/incorrect/boundary record; unavailable later runtime cases remain
+explicitly pending. T093–T104 implementation keeps its listed prerequisites.
+T084 may prepare independent implementation tests and an isolated checkpoint/
+rollback module against accepted T083/state/save contracts while the first-route
+application join runs. It owns no application, room, reducer, action-bus or save-
+policy integration before T079–T081. Full task acceptance and recovery integration
+remain behind that join; fixture preparation is not a substitute for executing
+real transitions, and no expected oracle may be weakened to fit the module.
+
+
 
 ## Required verification and production rules
 
@@ -421,7 +451,7 @@ does not mark either task complete or permit broader room/media production.
 - [X] T074 [US2] Implement objective prerequisite/alternative evaluation, fresh-evidence validation and nonpunitive hint tracking in `src/state/objectives.ts` and `src/ui/diagnostics.ts`; T13/T14/T16 must reject stale/content errors and accept every technically valid solution.
 - [X] T075 [US2] Author Copper Warrens/Echo Cavern interactions and O03/O04 in `content/spec001/rooms/R03.json` and `content/spec001/rooms/R04.json`; use shared controllers, meaningful before/after evidence and recoverable conventional tools.
 - [X] T076 [US2] Author Shell Market/Clockworks and O09/O10 in `content/spec001/rooms/R09.json` and `content/spec001/rooms/R10.json`; distinguish form factor, PHY, medium, supplied power and signal timing, reusing the independently checked toy decoder.
-- [ ] T077 [US2] Author branch-plan execution and fresh validation balcony interactions for O11/O12 in `content/spec001/rooms/R11.json`, `content/spec001/rooms/R12.json` and `src/state/repair-plan.ts`; reaching R12 alone must not award restored service.
+- [X] T077 [US2] Author branch-plan execution and fresh validation balcony interactions for O11/O12 in `content/spec001/rooms/R11.json`, `content/spec001/rooms/R12.json` and `src/state/repair-plan.ts`; reaching R12 alone must not award restored service.
 - [ ] T078 [US2] Complete and verify a copper route from R01 through a valid R12 repair using temporary geometry for unfinished art in `tests/e2e/first-repair-route.spec.ts`; record the W05 complete-route checkpoint in `docs/evidence/spec001/first-route.md` before broadening room production.
 
 ### Remaining independent repair routes
@@ -539,8 +569,8 @@ does not mark either task complete or permit broader room/media production.
 
 **Ready after**: T079–T081.
 
-- [ ] T082 [US6] Author independent E01/E02/E03 and failure expectations in `tests/fixtures/outcomes.json` and `tests/state/outcomes.test.ts`; distinguish permanent repair, valid temporary limitation and unresolved isolation, with no hint-based punishment.
-- [ ] T083 [US6] Author preparation/consumption/reward/learning/freshness/Restore Save transition fixtures in `tests/fixtures/retry-transitions.json` and `tests/state/retry.test.ts`, including repeated retries and measurements whose old revision would otherwise look current.
+- [X] T082 [US6] Author independent E01/E02/E03 and failure expectations in `tests/fixtures/outcomes.json` and `tests/state/outcomes.test.ts`; distinguish permanent repair, valid temporary limitation and unresolved isolation, with no hint-based punishment.
+- [X] T083 [US6] Author preparation/consumption/reward/learning/freshness/Restore Save transition fixtures in `tests/fixtures/retry-transitions.json` and `tests/state/retry.test.ts`, including repeated retries and measurements whose old revision would otherwise look current.
 - [ ] T084 [US6] Implement temporary encounter checkpoints and rollback in `src/state/encounter.ts`; restore world/inventory/party/effect flags together, retain clues/notes/hint history, allocate a fresh attempt generation and mark prior measurements stale without a second durable slot.
 - [ ] T085 [US6] Implement paused preparation, deliberate commitment warnings and safe return controls in `src/ui/encounter.ts`; narrated danger cannot require reflex timing and conventional tools remain valid without a recruited ally.
 - [ ] T086 [US6] Implement evidence-driven E01/E02/E03 classification and safe Continue locations in `src/state/outcomes.ts`; failure/E03 cannot produce a saveable world, and temporary/unresolved outcomes retain their precise caveats.

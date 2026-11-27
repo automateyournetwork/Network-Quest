@@ -1,0 +1,21 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/ui/repair-plan.test.ts tests/state/repair-plan.test.ts tests/state/equipment-scenarios.test.ts tests/content/repair-plan-rooms.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/state/repair-plan.test.ts (52 tests) 7108ms
+   ✓ T077 executed intervention and fresh final proof (52)
+     ✓ rejects structurally valid but unreviewed action-effect content 403ms
+     ✓ rejects structurally valid but unreviewed weakened-prerequisite content 409ms
+     ✓ rejects structurally valid but unreviewed alternate-condition content 407ms
+ ✓ tests/state/equipment-scenarios.test.ts (22 tests) 2777ms
+ ✓ tests/ui/repair-plan.test.ts (9 tests) 732ms
+ ✓ tests/content/repair-plan-rooms.test.ts (5 tests) 200ms
+
+ Test Files  4 passed (4)
+      Tests  88 passed (88)
+   Start at  19:50:43
+   Duration  12.66s (tests 87%, import 12%)
+

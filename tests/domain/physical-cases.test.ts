@@ -2,12 +2,12 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import type { EvaluationStatus } from '../../src/domain/types';
-import { copperCaseIds } from './copper-case-ids';
+import { evaluatedPhysicalCaseIds } from './physical-case-coverage';
 
 /**
  * T014 verifies a transcription of independently reviewed evidence, not gameplay.
  * No evaluator, reducer, score calculation or expected-value generator is imported
- * here. copper.test.ts executes the cases explicitly activated by copperCaseIds.
+ * here. physical-case-coverage.ts identifies the implemented evaluator suites.
  * Future domain suites must exercise actual application code against these cases;
  * the explicit TODOs below cannot be counted as passed domain acceptance checks.
  *
@@ -289,7 +289,7 @@ describe('Remaining application evaluator/reducer execution — pending implemen
   // Replace each TODO with real domain execution, or move it to the relevant
   // implemented domain suite with an explicit case-ID assertion. Never replace
   // these with a second fixture-equality assertion or an expected-result stub.
-  for (const entry of cases.filter(entry => !(copperCaseIds as readonly string[]).includes(entry.id))) {
+  for (const entry of cases.filter(entry => !evaluatedPhysicalCaseIds.includes(entry.id))) {
     it.todo(`${entry.id} (${entry.ruleId}): exercise real domain behavior against the reviewed expectation`);
   }
 });

@@ -1,0 +1,433 @@
+{
+  "kind": "collection",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "records": [
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-repair-plan",
+      "entryNodeId": "spec001:DIALOGUE-repair-plan-menu",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-repair-plan-menu",
+          "speakerId": "narrator",
+          "text": "Choose a supplied plan. Review current checks, read the warning and explicitly acknowledge it before execution. The intervention changes the path; it never performs the final measurements. Before commitment you may return to preparation with your tools. A temporary deployment and deliberate isolation each need their own written record.",
+          "condition": {
+            "kind": "objective-complete",
+            "objectiveId": "spec001:O02"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-repair-plan-copper-section",
+              "text": "Propose Copper replacement: 85 m + 10 m = 95 m; all required conductors intact.",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-plan-copper-section",
+                  "flagId": "spec001:FLAG-repair-selected",
+                  "value": "copper-section"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-plan-copper-alternate",
+              "text": "Propose Copper alternate: 90 m + 10 m = 100 m, the inclusive maximum; all required conductors intact.",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-plan-copper-alternate",
+                  "flagId": "spec001:FLAG-repair-selected",
+                  "value": "copper-alternate"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-plan-fiber-A",
+              "text": "Propose Inspected compatible passive fiber A: 8 dB loss; receive −11 dBm and 3 dB reserve.",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-plan-fiber-A",
+                  "flagId": "spec001:FLAG-repair-selected",
+                  "value": "fiber-A"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-plan-fiber-B",
+              "text": "Propose Inspected compatible passive fiber B: 9 dB loss; receive −12 dBm and the inclusive 2 dB reserve.",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-plan-fiber-B",
+                  "flagId": "spec001:FLAG-repair-selected",
+                  "value": "fiber-B"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-plan-radio-A",
+              "text": "Propose Aligned compatible radio A: −65 dBm signal and −90 dBm noise; 25 dB SNR.",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-plan-radio-A",
+                  "flagId": "spec001:FLAG-repair-selected",
+                  "value": "radio-A"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-plan-radio-B",
+              "text": "Propose Aligned compatible radio B: −65 dBm signal and −85 dBm noise; inclusive 20 dB SNR.",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-plan-radio-B",
+                  "flagId": "spec001:FLAG-repair-selected",
+                  "value": "radio-B"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-plan-shutdown",
+              "text": "Propose Deliberately isolate the named severed conduit; record the unresolved fault and recovery plan.",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-plan-shutdown",
+                  "flagId": "spec001:FLAG-repair-selected",
+                  "value": "shutdown"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-duration-permanent",
+              "text": "Plan to remove the damaged installation and install the reviewed permanent protected route",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-duration-permanent",
+                  "flagId": "spec001:FLAG-repair-duration",
+                  "value": "permanent"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-duration-temporary",
+              "text": "Plan to leave the damaged installation isolated and install the borrowed temporary bypass",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-duration-temporary",
+                  "flagId": "spec001:FLAG-repair-duration",
+                  "value": "temporary"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-read-plan",
+              "text": "Read the plan and current-check requirements",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-repair-read-plan",
+                  "factId": "spec001:FACT-O11-plan"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-record-maintenance",
+              "text": "Record the temporary dependency, limitation and follow-up",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-repair-record-maintenance",
+                  "factId": "spec001:FACT-repair-maintenance"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-record-isolation",
+              "text": "Record the unresolved severed conduit and recovery plan",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-repair-record-isolation",
+                  "factId": "spec001:FACT-repair-isolation"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-read-classification",
+              "text": "Read permanent, temporary and unresolved classifications",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-repair-read-classification",
+                  "factId": "spec001:FACT-O12-classification"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-execute-copper-section",
+              "text": "Apply the reviewed intervention after its warning is acknowledged",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-execute-copper-section",
+                  "flagId": "spec001:FLAG-repair-executed",
+                  "value": "copper-section"
+                },
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-repair-execute-record-copper-section",
+                  "factId": "spec001:FACT-O11-execution"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-execute-copper-alternate",
+              "text": "Apply the reviewed intervention after its warning is acknowledged",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-execute-copper-alternate",
+                  "flagId": "spec001:FLAG-repair-executed",
+                  "value": "copper-alternate"
+                },
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-repair-execute-record-copper-alternate",
+                  "factId": "spec001:FACT-O11-execution"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-execute-fiber-A",
+              "text": "Apply the reviewed intervention after its warning is acknowledged",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-execute-fiber-A",
+                  "flagId": "spec001:FLAG-repair-executed",
+                  "value": "fiber-A"
+                },
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-repair-execute-record-fiber-A",
+                  "factId": "spec001:FACT-O11-execution"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-execute-fiber-B",
+              "text": "Apply the reviewed intervention after its warning is acknowledged",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-execute-fiber-B",
+                  "flagId": "spec001:FLAG-repair-executed",
+                  "value": "fiber-B"
+                },
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-repair-execute-record-fiber-B",
+                  "factId": "spec001:FACT-O11-execution"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-execute-radio-A",
+              "text": "Apply the reviewed intervention after its warning is acknowledged",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-execute-radio-A",
+                  "flagId": "spec001:FLAG-repair-executed",
+                  "value": "radio-A"
+                },
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-repair-execute-record-radio-A",
+                  "factId": "spec001:FACT-O11-execution"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-execute-radio-B",
+              "text": "Apply the reviewed intervention after its warning is acknowledged",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-execute-radio-B",
+                  "flagId": "spec001:FLAG-repair-executed",
+                  "value": "radio-B"
+                },
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-repair-execute-record-radio-B",
+                  "factId": "spec001:FACT-O11-execution"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-execute-shutdown",
+              "text": "Apply the reviewed intervention after its warning is acknowledged",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-execute-shutdown",
+                  "flagId": "spec001:FLAG-repair-executed",
+                  "value": "shutdown"
+                },
+                {
+                  "kind": "record-fact",
+                  "effectId": "spec001:EFFECT-repair-execute-record-shutdown",
+                  "factId": "spec001:FACT-O11-execution"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-classify-permanent",
+              "text": "Record verified permanent service classification",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-classify-permanent",
+                  "flagId": "spec001:FLAG-repair-classification",
+                  "value": "permanent"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-classify-temporary",
+              "text": "Record verified temporary service classification",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-classify-temporary",
+                  "flagId": "spec001:FLAG-repair-classification",
+                  "value": "temporary"
+                }
+              ]
+            },
+            {
+              "id": "spec001:ACTION-repair-classify-shutdown",
+              "text": "Record verified shutdown service classification",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": [
+                {
+                  "kind": "set-flag",
+                  "effectId": "spec001:EFFECT-repair-classify-shutdown",
+                  "flagId": "spec001:FLAG-repair-classification",
+                  "value": "shutdown"
+                }
+              ]
+            }
+          ],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    }
+  ]
+}

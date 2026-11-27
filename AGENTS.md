@@ -12,15 +12,15 @@ Document changes do not automatically initiate implementation, publication or an
 
 ## Active Technologies
 
-- TypeScript 7.0.2, Node.js 26.13.1/npm11.20.0, local PHP8.4.28; actual client lock/build verified in T008. Composer lock/platform and isolated production install verified T009; remote CLI PHP8.4.28/SQLite3.54.1 verified; web PHP/private storage/locking/TLS/cron synthetic checks verified; retention remains open. + Vite 8.3.8, Three.js/@types 0.187.0, Vitest 5.1.2, Playwright 1.65.1, axe-core/Playwright 4.14.1, Ajv 8 with ajv-formats (Draft 2020-12); PHP google/apiclient ^2.20, league/oauth2-client ^2.10, opis/json-schema ^2.6; development PHPUnit ^12.5. Client installation/build tested; PHP dependencies installed/validated; inert API router and isolated harness implemented; real auth/save remain pending. (001-physical-layer-underworld)
+- TypeScript 7.0.2, Node.js 26.13.1/npm11.20.0, local PHP8.4.28; actual client lock/build verified in T008. Composer lock/platform and isolated production install verified T009; remote CLI PHP8.4.28/SQLite3.54.1 verified; web PHP/private storage/locking/TLS/cron synthetic checks verified; retention remains open. + Vite 8.3.8, Three.js/@types 0.187.0, Vitest 5.1.2, Playwright 1.65.1, axe-core/Playwright 4.14.1, Ajv 8 with ajv-formats (Draft 2020-12); PHP google/apiclient ^2.20, league/oauth2-client ^2.10, opis/json-schema ^2.6; development PHPUnit ^12.5. Client installation/build tested; PHP dependencies installed/validated. Dedicated auth/save/settings/deletion services have isolated local verification; actual provider and production acceptance remain pending. (001-physical-layer-underworld)
 
 ## Project Structure
 
 ```text
 src/               # Client foundation
-content/spec001/   # Planned authored data
-assets-src/        # Planned editable media
-public/assets/     # Planned exports
+content/spec001/   # Authored episode data and explicit unfinished reservations
+assets-src/        # Editable native/generated sources; full episode production pending
+public/assets/     # Verified representative exports; no implied full media acceptance
 server/            # PHP route boundary and test harness
 tools/             # Content/build/test tooling
 tests/             # Verification suites
@@ -35,8 +35,10 @@ Use pinned runtime paths from `docs/evidence/spec001/runtime.md`; PHP test/brows
 commands need `NQ_PHP_BIN=/opt/homebrew/opt/php@8.4/bin/php` on the verified Mac.
 README documents explicit TLS inputs and the shared API's honest unavailable 503
 responses. Vitest discovers `tests/**/*.test.ts`; new Playwright specs must be
-assigned explicitly or discovery fails. T024 executes 15 reviewed copper/content-error
-cases; 68 evaluator cases remain pending. T030 owns acceptance of T022's nine
+assigned explicitly or discovery fails. The accepted copper/optics/radio/power/
+capability suites execute 41 reviewed physical cases; 42 T014 entries still need
+reconciliation/integration. See `physical-case-execution-review.md`; scoped
+predicates do not accept composite routes. T030 owns acceptance of T022's nine
 independent guest browser cases; consult HANDOFF/state for current results.
 `npm run assets:verify` now audits inventory; `-- --mode release` also enforces
 media minima and distribution. It checks evidence consistency, not human review.
@@ -51,7 +53,7 @@ prepared SQL, typed units and explicit state transitions.
 
 ## Recent Changes
 
-- 001-physical-layer-underworld: Added TypeScript 7.0.2, Node.js 26.13.1/npm11.20.0, local PHP8.4.28; actual client lock/build verified in T008. Composer lock/platform and isolated production install verified T009; remote CLI PHP8.4.28/SQLite3.54.1 verified; web PHP/private storage/locking/TLS/cron synthetic checks verified; retention remains open. + Vite 8.3.8, Three.js/@types 0.187.0, Vitest 5.1.2, Playwright 1.65.1, axe-core/Playwright 4.14.1, Ajv 8 with ajv-formats (Draft 2020-12); PHP google/apiclient ^2.20, league/oauth2-client ^2.10, opis/json-schema ^2.6; development PHPUnit ^12.5. Client installation/build tested; PHP dependencies installed/validated; inert API router and isolated harness implemented; real auth/save remain pending.
+- 001-physical-layer-underworld: Added TypeScript 7.0.2, Node.js 26.13.1/npm11.20.0, local PHP8.4.28; actual client lock/build verified in T008. Composer lock/platform and isolated production install verified T009; remote CLI PHP8.4.28/SQLite3.54.1 verified; web PHP/private storage/locking/TLS/cron synthetic checks verified; retention remains open. + Vite 8.3.8, Three.js/@types 0.187.0, Vitest 5.1.2, Playwright 1.65.1, axe-core/Playwright 4.14.1, Ajv 8 with ajv-formats (Draft 2020-12); PHP google/apiclient ^2.20, league/oauth2-client ^2.10, opis/json-schema ^2.6; development PHPUnit ^12.5. Client installation/build tested; PHP dependencies installed/validated. Dedicated auth/save/settings/deletion services have isolated local verification; actual provider and production acceptance remain pending.
 
 <!-- MANUAL ADDITIONS START -->
 - Implementation was initiated on 2026-11-25. Follow `docs/implementation/HANDOFF.md` and `state.json` for the one-task-per-fresh-agent loop run (200-loop cap); preserve each loop note and check only verified task completions.

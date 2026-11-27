@@ -822,3 +822,57 @@ test-only99m quantity brand; historical087hash retained with explicit follow-up.
 See first-route-foundation-review.md.90loops/71accepted. Root freezes shared
 files briefly for reviewed publication, then089 owns narrowrepair-plan reducer/
 actionbusjoin.090 prepares first-route browser expectations only untilT077joins.
+
+Reviewed60-file checkpoint9a85c8555f40606c963914b4d5c90831dcdd7721 pushed and
+remote-verified.918293bytes; private literal/key scan, exact staged bytes and
+whitespace pass. Active089/090files and livepreviewlogs excluded.089 now owns
+narrow repair-plan reducer/actionbus integration;090 owns its preparatory
+Playwright discovery registration. Fresh091/T082 independently authors outcome
+oracles only; laterroute/outcome runtime joins remain required.91loops/71accepted.
+No production deployment or new rollback record.
+
+Root reconciled26 obsolete T014 pending entries with alreadyexecuted accepted
+optics/radio/power/capability tests. New physical-case-coverage data identifies
+41sourcecase executionlocations;42T014 and52compositeT068 remain pending. Actual
+focused455PASS/42TODO (165fixturechecks+290evaluatortests),6suites/492ms. No
+oracle/runtime change or invented pass; nextstablebatch owns finaltypecheck.
+
+T082 accepted as independent oracle authoring after rootreview and seveninput/
+source/fixture hashchecks:81semanticcases,129fixtureauditPASS,81actualruntime
+TODO, scopedstrictTypeScriptPASS. No ending/save/episode acceptance inferred.
+Its defect-remains case exposed a real missing O12 premise in089; worker is adding
+explicit deployment facts and tests while preserving oracle expectations.
+91loops/72accepted. T083 can prepare independent rollback vectors next.
+
+Fresh092/T083 now prepares exhaustive retry/rollback/Restore oracle vectors on
+accepted state/save/learning contracts; no runtime or sharedsource edits.
+92loops/72accepted.090 helper review passes source inspection; isolated foreign
+room regression was corrected in final26PASS run. T078 still awaits089 for appjoin.
+
+
+T077 accepted after root source review and all30 artifact/five protected-input
+seal verification. Actual worker88PASS, scopedTS and isolatedFirefox12PASS;
+root full-project typecheckPASS, pre-final401PASS/20suites and finalaffected88PASS/
+4suites. Physical pattern comparison now requires passing current path/equipment;
+E01/E02 premises use actual defect/dependency facts and immediate shutdown is
+unsaveable. No full ending/retry lifecycle or application acceptance inferred.
+92loops/73accepted.090 has GO for complete first-route application/content/save-
+policy integration and actual W05 browser checkpoint.092 finishes independent
+retry vectors. Protected owner previews, external gates and source seals retained.
+
+Fresh093/T092 prepares independent companion/conventional-tool and optional-
+activity oracles against existing reviewed source models/specification. Narrow
+preparation-only scheduling is explicit in tasks.md; no broad room production,
+new scored rule, runtime handler or downstream gate is implied.93loops/73accepted.
+
+T083 accepted as independent oracle authoring after root reviewed all45 vectors,
+full audit and four-file final hashes.88fixturePASS/45actualruntimeTODO and scoped
+strictTS pass. All-field atomic rollback, repeated consumption/reward cycles,
+retained current-E03 learning, readout/attempt freshness, complete Restore and
+old durable-save acknowledgement semantics remain distinct. No encounter/recovery
+runtime or gate completion inferred.93loops/74accepted.
+
+Fresh094/T084 prepares isolated checkpoint/rollback tests and module against the
+accepted T083/state/save contracts. It cannot edit application/room/reducer/bus/
+save-policy files; actual full-world join and task acceptance wait for T079–T081.
+This limited scheduling clarification is recorded in tasks.md.94loops/74accepted.

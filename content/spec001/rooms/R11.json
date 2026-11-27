@@ -1,0 +1,352 @@
+{
+  "kind": "room",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:R11",
+  "presentationMode": "hybrid",
+  "description": "The Backhoe rests behind a barrier, trying to look less responsible than the severed conduit. A broad safe platform holds the route proposals, a review lectern and the restoration control. Every consequence is written before you commit.",
+  "walkRegions": [
+    {
+      "id": "spec001:WALK-R11",
+      "label": "Safe inspection platform",
+      "vertices": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 12,
+          "y": 0
+        },
+        {
+          "x": 12,
+          "y": 7
+        },
+        {
+          "x": 0,
+          "y": 7
+        }
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "toRoomId": "spec001:R04",
+      "label": "Return toward preparation",
+      "walkRegionId": "spec001:WALK-R11"
+    },
+    {
+      "toRoomId": "spec001:R06",
+      "label": "Return toward preparation",
+      "walkRegionId": "spec001:WALK-R11"
+    },
+    {
+      "toRoomId": "spec001:R08",
+      "label": "Return toward preparation",
+      "walkRegionId": "spec001:WALK-R11"
+    },
+    {
+      "toRoomId": "spec001:R10",
+      "label": "Return toward preparation",
+      "walkRegionId": "spec001:WALK-R11"
+    },
+    {
+      "toRoomId": "spec001:R12",
+      "label": "Walk to the validation balcony",
+      "walkRegionId": "spec001:WALK-R11"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "spec001:HOTSPOT-r11-1",
+      "subjectId": "spec001:PR101",
+      "label": "Excavation trench",
+      "description": "The trench interrupts the old conduit. A work-zone barrier keeps inspection safe while you compare the selected route and the proposed intervention. There is no countdown.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the readable evidence or choose an offered control. This object cannot perform an unlisted intervention; all required actions remain available without precise pointing or sound.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-r11-2",
+      "subjectId": "spec001:PR102",
+      "label": "Severed conduit",
+      "description": "The original conduit contains a visible open. The earlier copper exercise showed 95 m + 10 m = 105 m and an open required conductor; a powered repeater cannot repair either defect.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the readable evidence or choose an offered control. This object cannot perform an unlisted intervention; all required actions remain available without precise pointing or sound.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-r11-3",
+      "subjectId": "spec001:PR103",
+      "label": "Repair bridge deck",
+      "description": "The deck holds the reviewed route choices. Copper, fiber and radio each have two supplied valid physical alternatives. A choice proposes an installation; it does not execute, measure or restore service. These are new deployment candidates at the Rift, distinct from the earlier training benches. Permanent execution removes the damaged installation and installs the reviewed protected route. Temporary execution leaves the damaged installation isolated while installing the borrowed bypass.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at the readable evidence or choose an offered control. This object cannot perform an unlisted intervention; all required actions remain available without precise pointing or sound.",
+      "evidenceIds": [],
+      "actionIds": [
+        "spec001:ACTION-repair-plan-copper-section",
+        "spec001:ACTION-repair-plan-copper-alternate",
+        "spec001:ACTION-repair-plan-fiber-A",
+        "spec001:ACTION-repair-plan-fiber-B",
+        "spec001:ACTION-repair-plan-radio-A",
+        "spec001:ACTION-repair-plan-radio-B",
+        "spec001:ACTION-repair-plan-shutdown",
+        "spec001:ACTION-O11-copper",
+        "spec001:ACTION-O11-fiber",
+        "spec001:ACTION-O11-radio",
+        "spec001:ACTION-O11-shutdown"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-r11-4",
+      "subjectId": "spec001:PR104",
+      "label": "Emergency radio tripod",
+      "description": "Aligned compatible radio A: −65 dBm signal and −90 dBm noise; 25 dB SNR. Aligned compatible radio B: −65 dBm signal and −85 dBm noise; inclusive 20 dB SNR. These are fictional measured candidates, not channel rankings or throughput promises.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the readable evidence or choose an offered control. This object cannot perform an unlisted intervention; all required actions remain available without precise pointing or sound.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-r11-5",
+      "subjectId": "spec001:PR105",
+      "label": "Fiber worktable",
+      "description": "Inspected compatible passive fiber A: 8 dB loss; receive −11 dBm and 3 dB reserve. Inspected compatible passive fiber B: 9 dB loss; receive −12 dBm and the inclusive 2 dB reserve. Inspection, compatibility and receiver maximum remain required before arithmetic.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the readable evidence or choose an offered control. This object cannot perform an unlisted intervention; all required actions remain available without precise pointing or sound.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-r11-6",
+      "subjectId": "spec001:PR106",
+      "label": "Copper bypass frame",
+      "description": "Copper replacement: 85 m + 10 m = 95 m; all required conductors intact. Copper alternate: 90 m + 10 m = 100 m, the inclusive maximum; all required conductors intact. The ordinary kit remains available; neither option needs an ally or optional reward.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the readable evidence or choose an offered control. This object cannot perform an unlisted intervention; all required actions remain available without precise pointing or sound.",
+      "evidenceIds": [],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-r11-7",
+      "subjectId": "spec001:PR107",
+      "label": "Work-zone barrier",
+      "description": "WARNING: executing changes the route and makes earlier readings stale. Deliberate isolation leaves service unresolved. Read the plan, then explicitly acknowledge this warning. Before commitment, every preparation return remains available.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at the readable evidence or choose an offered control. This object cannot perform an unlisted intervention; all required actions remain available without precise pointing or sound.",
+      "evidenceIds": [
+        "spec001:FACT-repair-isolation"
+      ],
+      "actionIds": [
+        "spec001:ACTION-repair-record-isolation"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-r11-8",
+      "subjectId": "spec001:PR108",
+      "label": "Intervention review lectern",
+      "description": "Review the chosen plan against current route, compatible equipment and timing preparation. A recorded review is tied to this exact configuration and attempt. Changing a proposal means reviewing it again.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at the readable evidence or choose an offered control. This object cannot perform an unlisted intervention; all required actions remain available without precise pointing or sound.",
+      "evidenceIds": [
+        "spec001:FACT-O11-plan"
+      ],
+      "actionIds": [
+        "spec001:ACTION-repair-read-plan"
+      ]
+    },
+    {
+      "id": "spec001:HOTSPOT-r11-9",
+      "subjectId": "spec001:PR109",
+      "label": "Restoration control post",
+      "description": "Execute only the reviewed plan after acknowledging its warning. The execution record says what actually changed. The balcony remains responsible for new link measurements and a separate endpoint test. The execution record includes whether the damaged installation was removed, whether a real temporary dependency remains, and whether an unresolved defect was deliberately isolated.",
+      "verbs": [
+        "look"
+      ],
+      "unsupportedVerbText": "Look at the readable evidence or choose an offered control. This object cannot perform an unlisted intervention; all required actions remain available without precise pointing or sound.",
+      "evidenceIds": [
+        "spec001:FACT-O11-execution"
+      ],
+      "actionIds": []
+    },
+    {
+      "id": "spec001:HOTSPOT-r11-10",
+      "subjectId": "spec001:PR110",
+      "label": "Temporary-route sign",
+      "description": "Temporary dependency: the tested bypass uses a borrowed installation in the protected work corridor. Limitation: this arrangement cannot be left as the permanent route. Follow-up: install and validate the permanent protected route before removing or returning the borrowed installation. Temporary service must pass the same fresh physical and endpoint checks.",
+      "verbs": [
+        "look",
+        "use"
+      ],
+      "unsupportedVerbText": "Look at the readable evidence or choose an offered control. This object cannot perform an unlisted intervention; all required actions remain available without precise pointing or sound.",
+      "evidenceIds": [
+        "spec001:FACT-repair-maintenance"
+      ],
+      "actionIds": [
+        "spec001:ACTION-repair-duration-permanent",
+        "spec001:ACTION-repair-duration-temporary",
+        "spec001:ACTION-repair-record-maintenance"
+      ]
+    }
+  ],
+  "characterIds": [
+    "spec001:CH25"
+  ],
+  "propInstances": [
+    {
+      "instanceId": "r11-pr101",
+      "propId": "spec001:PR101",
+      "description": "The trench interrupts the old conduit. A work-zone barrier keeps inspection safe while you compare the selected route and the proposed intervention. There is no countdown.",
+      "assetId": "spec001:DEV-PR101"
+    },
+    {
+      "instanceId": "r11-pr102",
+      "propId": "spec001:PR102",
+      "description": "The original conduit contains a visible open. The earlier copper exercise showed 95 m + 10 m = 105 m and an open required conductor; a powered repeater cannot repair either defect.",
+      "assetId": "spec001:DEV-PR102"
+    },
+    {
+      "instanceId": "r11-pr103",
+      "propId": "spec001:PR103",
+      "description": "The deck holds the reviewed route choices. Copper, fiber and radio each have two supplied valid physical alternatives. A choice proposes an installation; it does not execute, measure or restore service.",
+      "assetId": "spec001:DEV-PR103"
+    },
+    {
+      "instanceId": "r11-pr104",
+      "propId": "spec001:PR104",
+      "description": "Aligned compatible radio A: −65 dBm signal and −90 dBm noise; 25 dB SNR. Aligned compatible radio B: −65 dBm signal and −85 dBm noise; inclusive 20 dB SNR. These are fictional measured candidates, not channel rankings or throughput promises.",
+      "assetId": "spec001:DEV-PR104"
+    },
+    {
+      "instanceId": "r11-pr105",
+      "propId": "spec001:PR105",
+      "description": "Inspected compatible passive fiber A: 8 dB loss; receive −11 dBm and 3 dB reserve. Inspected compatible passive fiber B: 9 dB loss; receive −12 dBm and the inclusive 2 dB reserve. Inspection, compatibility and receiver maximum remain required before arithmetic.",
+      "assetId": "spec001:DEV-PR105"
+    },
+    {
+      "instanceId": "r11-pr106",
+      "propId": "spec001:PR106",
+      "description": "Copper replacement: 85 m + 10 m = 95 m; all required conductors intact. Copper alternate: 90 m + 10 m = 100 m, the inclusive maximum; all required conductors intact. The ordinary kit remains available; neither option needs an ally or optional reward.",
+      "assetId": "spec001:DEV-PR106"
+    },
+    {
+      "instanceId": "r11-pr107",
+      "propId": "spec001:PR107",
+      "description": "WARNING: executing changes the route and makes earlier readings stale. Deliberate isolation leaves service unresolved. Read the plan, then explicitly acknowledge this warning. Before commitment, every preparation return remains available.",
+      "assetId": "spec001:DEV-PR107"
+    },
+    {
+      "instanceId": "r11-pr108",
+      "propId": "spec001:PR108",
+      "description": "Review the chosen plan against current route, compatible equipment and timing preparation. A recorded review is tied to this exact configuration and attempt. Changing a proposal means reviewing it again.",
+      "assetId": "spec001:DEV-PR108"
+    },
+    {
+      "instanceId": "r11-pr109",
+      "propId": "spec001:PR109",
+      "description": "Execute only the reviewed plan after acknowledging its warning. The execution record says what actually changed. The balcony remains responsible for new link measurements and a separate endpoint test.",
+      "assetId": "spec001:DEV-PR109"
+    },
+    {
+      "instanceId": "r11-pr110",
+      "propId": "spec001:PR110",
+      "description": "Temporary dependency: the tested bypass uses a borrowed installation in the protected work corridor. Limitation: this arrangement cannot be left as the permanent route. Follow-up: install and validate the permanent protected route before removing or returning the borrowed installation. Temporary service must pass the same fresh physical and endpoint checks.",
+      "assetId": "spec001:DEV-PR110"
+    }
+  ],
+  "safePositions": [
+    {
+      "id": "spec001:R11.preparation",
+      "walkRegionId": "spec001:WALK-R11",
+      "point": {
+        "x": 6,
+        "y": 2
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec001:FACT-O11-plan",
+      "roomId": "spec001:R11",
+      "subjectIds": [
+        "spec001:R11"
+      ],
+      "kind": "context",
+      "text": "The Rift plan names one completed branch: Copper Warrens and Echo Cavern, Photon Gardens and Prism Vault, or Skywell and Storm Observatory. It also includes the equipment check from Shell Market and the Clockworks briefing. Review the current evidence, intervention and any temporary dependency before committing. The other branches, optional rewards and unavailable Iron City are not prerequisites.",
+      "ruleIds": [
+        "spec001:STATE01",
+        "spec001:STATE03",
+        "spec001:STATE04"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-O11-execution",
+      "roomId": "spec001:R11",
+      "subjectIds": [
+        "spec001:R11"
+      ],
+      "kind": "observation",
+      "text": "The intervention record distinguishes execution from proposal: the reviewed route action completed after its warning was acknowledged, or an unresolved defect was deliberately isolated with a recovery plan. A route-closing choice explains its consequence before commitment; safe preparation remains reachable before committing. Completing the intervention alone does not prove restored service.",
+      "ruleIds": [
+        "spec001:STATE03",
+        "spec001:STATE04"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-repair-maintenance",
+      "roomId": "spec001:R11",
+      "subjectIds": [
+        "spec001:PR110"
+      ],
+      "kind": "context",
+      "text": "Temporary dependency: the tested bypass uses a borrowed installation in the protected work corridor. Limitation: this arrangement cannot be left as the permanent route. Follow-up: install and validate the permanent protected route before removing or returning the borrowed installation. Temporary service must pass the same fresh physical and endpoint checks.",
+      "ruleIds": [
+        "spec001:STATE04"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-repair-isolation",
+      "roomId": "spec001:R11",
+      "subjectIds": [
+        "spec001:PR102",
+        "spec001:PR107"
+      ],
+      "kind": "context",
+      "text": "Named unresolved fault: the severed conduit remains disconnected. Deliberate isolation keeps that path out of service. Recovery plan: return to safe preparation, repair or replace the damaged path, then measure again and repeat the endpoint test. This is honest unresolved service, never a restoration.",
+      "ruleIds": [
+        "spec001:STATE04"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "ambience": {
+    "text": "The work platform is quiet enough for thinking. Every warning, reading and service result is available as text.",
+    "assetIds": []
+  },
+  "futureDoorIds": []
+}

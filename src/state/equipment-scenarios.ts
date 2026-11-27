@@ -40,9 +40,8 @@ const capability = (game: GameState) => {
  * No selected kit, capability, pair or role is silently filled with a right answer.
  * Profile quantities and every technical predicate remain owned by T074/domain.
  */
-export const resolveEquipmentScenario: ObjectiveScenarioResolver = (game, objectiveId): ObjectiveScenario | null => {
+export const resolveEquipmentPreparation: ObjectiveScenarioResolver = (game, objectiveId): ObjectiveScenario | null => {
   if (objectiveId !== q('O09') && objectiveId !== q('O10')) return null;
-  if (game.world.roomId !== q(objectiveId === q('O09') ? 'R09' : 'R10')) return null;
   const common = capability(game);
   if (!common) return null;
   if (objectiveId === q('O09')) {
@@ -67,6 +66,12 @@ export const resolveEquipmentScenario: ObjectiveScenarioResolver = (game, object
   if (pairs.some(pair => typeof pair !== 'string' || !pairValues.has(pair))) return null;
   return { kind: 'calibration', alternativeId: q(`ACTION-O10-${method}`),
     samples: clockworksSamples.map(sample => ({ ...sample })), decodedBits: pairs.join(''), roleClaim: role, capability: common };
+};
+
+/** Room-scoped training interaction; deployment may inspect the same carried choices. */
+export const resolveEquipmentScenario: ObjectiveScenarioResolver = (game, objectiveId) => {
+  if (game.world.roomId !== q(objectiveId === q('O09') ? 'R09' : 'R10')) return null;
+  return resolveEquipmentPreparation(game, objectiveId);
 };
 
 /**

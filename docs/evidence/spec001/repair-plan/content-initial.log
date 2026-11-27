@@ -1,0 +1,42 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/content/repair-plan-rooms.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/content/repair-plan-rooms.test.ts (5 tests | 1 failed) 200ms
+   ❯ T077 authored Rift and Threshold contract (5)
+     ✓ R11 conforms and preserves reviewed objective evidence 5ms
+     ✓ R12 conforms and preserves reviewed objective evidence 0ms
+     × joins actual schema and semantic registry without changing the runtime world 193ms
+     ✓ keeps all branch choices, safe return exits and ordinary tools 1ms
+     ✓ states fresh separate endpoint evidence, temporary limitations and unresolved isolation in text 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/content/repair-plan-rooms.test.ts > T077 authored Rift and Threshold contract > joins actual schema and semantic registry without changing the runtime world
+AssertionError: [{"code":"future-door","path":"spec001:R12","message":"Scene future boundaries differ from registry"}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/content/repair-plan-rooms.test.ts:31:54
+     29|       candidate.documents.push(...(value.kind === 'collection' ? value…
+     30|     const result = validateContent({ world: candidate, documents, sour…
+     31|     expect(result.ok, JSON.stringify(result.issues)).toBe(true);
+       |                                                      ^
+     32|   });
+     33|   it('keeps all branch choices, safe return exits and ordinary tools',…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  19:33:33
+   Duration  295ms (tests 89%, import 7%, transform 3%, worker 1%)
+

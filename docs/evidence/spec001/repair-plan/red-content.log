@@ -1,0 +1,82 @@
+
+> network-quest@0.0.0 test:domain
+> vitest run tests/content/repair-plan-rooms.test.ts --maxWorkers=1
+
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/content/repair-plan-rooms.test.ts (5 tests | 5 failed) 5ms
+   ❯ T077 authored Rift and Threshold contract (5)
+     × R11 conforms and preserves reviewed objective evidence 2ms
+     × R12 conforms and preserves reviewed objective evidence 0ms
+     × joins actual schema and semantic registry without changing the runtime world 1ms
+     × keeps all branch choices, safe return exits and ordinary tools 0ms
+     × states fresh separate endpoint evidence, temporary limitations and unresolved isolation in text 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/content/repair-plan-rooms.test.ts > T077 authored Rift and Threshold contract > R11 conforms and preserves reviewed objective evidence
+Error: Missing R11
+ ❯ room tests/content/repair-plan-rooms.test.ts:13:98
+     11| const rooms = await Promise.all(['R11', 'R12'].map(id => read<S.room>(…
+     12| const actions = await read<S.collection>('content/spec001/dialogue/rep…
+     13| const room = (id: string) => { const value = rooms.find(r => r?.id ===…
+       |                                                                                                  ^
+     14| const objective = (id: string) => objectives.records.find(r => r.kind …
+     15|
+ ❯ tests/content/repair-plan-rooms.test.ts:18:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  tests/content/repair-plan-rooms.test.ts > T077 authored Rift and Threshold contract > R12 conforms and preserves reviewed objective evidence
+Error: Missing R12
+ ❯ room tests/content/repair-plan-rooms.test.ts:13:98
+     11| const rooms = await Promise.all(['R11', 'R12'].map(id => read<S.room>(…
+     12| const actions = await read<S.collection>('content/spec001/dialogue/rep…
+     13| const room = (id: string) => { const value = rooms.find(r => r?.id ===…
+       |                                                                                                  ^
+     14| const objective = (id: string) => objectives.records.find(r => r.kind …
+     15|
+ ❯ tests/content/repair-plan-rooms.test.ts:18:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  tests/content/repair-plan-rooms.test.ts > T077 authored Rift and Threshold contract > joins actual schema and semantic registry without changing the runtime world
+Error: ENOENT: no such file or directory, open '/Users/john.capobianco/Network-Quest/content/spec001/dialogue/repair-plan-actions.json'
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  tests/content/repair-plan-rooms.test.ts > T077 authored Rift and Threshold contract > keeps all branch choices, safe return exits and ordinary tools
+Error: Missing R11
+ ❯ room tests/content/repair-plan-rooms.test.ts:13:98
+     11| const rooms = await Promise.all(['R11', 'R12'].map(id => read<S.room>(…
+     12| const actions = await read<S.collection>('content/spec001/dialogue/rep…
+     13| const room = (id: string) => { const value = rooms.find(r => r?.id ===…
+       |                                                                                                  ^
+     14| const objective = (id: string) => objectives.records.find(r => r.kind …
+     15|
+ ❯ tests/content/repair-plan-rooms.test.ts:35:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  tests/content/repair-plan-rooms.test.ts > T077 authored Rift and Threshold contract > states fresh separate endpoint evidence, temporary limitations and unresolved isolation in text
+AssertionError: expected '[null,null]' to contain 'endpoint'
+
+Expected: "endpoint"
+Received: "[null,null]"
+
+ ❯ tests/content/repair-plan-rooms.test.ts:47:146
+     45|   it('states fresh separate endpoint evidence, temporary limitations a…
+     46|     const text = JSON.stringify(rooms);
+     47|     for (const term of ['endpoint', 'temporary', 'follow-up', 'isolati…
+       |                                                                                                                                                  ^
+     48|     for (const value of rooms) {
+     49|       expect(value?.mediaBindings).toBeUndefined(); expect(value?.ambi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed (5)
+   Start at  19:32:19
+   Duration  106ms (transform 42%, import 42%, tests 12%, worker 3%)
+
