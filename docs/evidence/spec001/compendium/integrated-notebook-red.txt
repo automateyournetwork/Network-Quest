@@ -1,0 +1,145 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/ui/compendium.test.ts (31 tests | 6 failed) 5678ms
+   ✓ T095 compendium projection and navigation (7)
+     ✓ does not discover by viewing, visiting every room, writing a name, or pinning a hypothesis 1ms
+     ✓ renders the exact discovered identity and authored teaching fields without revealing remaining names 1ms
+     ✓ ignores unknown/duplicate saved IDs and counts remaining known identities correctly 0ms
+     ✓ keeps discovery distinct from recruitment and unlocked progression 0ms
+     ✓ preserves canonical notebook evidence text, source and freshness; notes cannot become evidence 0ms
+     ✓ detaches all nested view arrays from authored content and world journals 0ms
+     ✓ resolves source titles and HTTPS references only from an exact existing catalog record 1ms
+   ✓ T095 actual navigation policy projected as read-only guidance (4)
+     ✓ identifies an already-current source without movement or new measurement 0ms
+     ✓ does not expose an unvisited source or invent a path through locked exits 0ms
+     ✓ shows the two real forward walks with their authored exit labels and preserves stale evidence 0ms
+     ✓ does not offer exploration walks during an unsafe activity or from an invalid floor anchor 0ms
+   ✓ T095 portrait boundary; positive bindings remain synthetic (10)
+     ✓ leaves every planned portrait as readable text, without generating an image URL 0ms
+     ✓ resolves only an exact explicit production binding under the public game base 0ms
+     ✓ rejects a mismatched/nonlocal/nonraster binding: {"characterId":"spec001:CH04","compendiumId":"spec001:COMPENDIUM-CH03","assetId":"spec001:ASSET-PORTRAIT-CH03","exportPath":"public/assets/portraits/CH03.webp"} 0ms
+     ✓ rejects a mismatched/nonlocal/nonraster binding: {"characterId":"spec001:CH03","compendiumId":"spec001:COMPENDIUM-CH04","assetId":"spec001:ASSET-PORTRAIT-CH03","exportPath":"public/assets/portraits/CH03.webp"} 0ms
+     ✓ rejects a mismatched/nonlocal/nonraster binding: {"characterId":"spec001:CH03","compendiumId":"spec001:COMPENDIUM-CH03","assetId":"spec001:ASSET-CH03","exportPath":"public/assets/portraits/CH03.webp"} 0ms
+     ✓ rejects a mismatched/nonlocal/nonraster binding: {"characterId":"spec001:CH03","compendiumId":"spec001:COMPENDIUM-CH03","assetId":"spec001:ASSET-PORTRAIT-CH03","exportPath":"https://example.com/private.png"} 0ms
+     ✓ rejects a mismatched/nonlocal/nonraster binding: {"characterId":"spec001:CH03","compendiumId":"spec001:COMPENDIUM-CH03","assetId":"spec001:ASSET-PORTRAIT-CH03","exportPath":"public/assets/../private.png"} 0ms
+     ✓ rejects a mismatched/nonlocal/nonraster binding: {"characterId":"spec001:CH03","compendiumId":"spec001:COMPENDIUM-CH03","assetId":"spec001:ASSET-PORTRAIT-CH03","exportPath":"public/assets/portrait.svg"} 0ms
+     ✓ rejects a mismatched/nonlocal/nonraster binding: {"characterId":"spec001:CH03","compendiumId":"spec001:COMPENDIUM-CH03","assetId":"spec001:ASSET-PORTRAIT-CH03","exportPath":"public/assets/portrait.png?tracking=1"} 0ms
+     ✓ fails closed on ambiguous duplicate bindings and malformed game bases 0ms
+   ✓ T095 controller uses the existing action/store boundary (4)
+     ✓ opens through the actual panel intent with no discovery, reward or dirty generation change 578ms
+     ✓ reads only actual recorded notebook rows, retains stale measurement versions and real source text 585ms
+     ✓ rejects opening in unsafe states and rejects retained panel planners after disposal 553ms
+     ✓ replaces projections on world restore and invalidates old capture through the existing bus epoch 569ms
+   ❯ T095 notebook-owned source selection (6)
+     × opens the notebook and highlights the real visited source without walking or changing the game 555ms
+     × selects a stale reading as historical evidence without changing its text, versions or freshness 567ms
+     × rejects guessed, unobserved, unsupported and player-written evidence identities 563ms
+     × requires an open reading panel and an actually visited source 572ms
+     × failed atomic UI installation cannot leave a misleading transient highlight 571ms
+     × clears source selection and rejects retained captures across restore/new adventure epochs 559ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ui/compendium.test.ts > T095 notebook-owned source selection > opens the notebook and highlights the real visited source without walking or changing the game
+AssertionError: expected 'unavailable' to be 'handled' // Object.is equality
+
+Expected: "handled"
+Received: "unavailable"
+
+ ❯ tests/ui/compendium.test.ts:208:44
+    206|   it('opens the notebook and highlights the real visited source withou…
+    207|     const f = notebookFixture(), before = f.store.getState();
+    208|     expect(f.send(q('FACT-power')).status).toBe('handled');
+       |                                            ^
+    209|     const after = f.store.getState(), view = f.notebook.project().view;
+    210|     expect(view.open).toBe(true); expect(view.highlightedRoomId).toBe(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/ui/compendium.test.ts > T095 notebook-owned source selection > selects a stale reading as historical evidence without changing its text, versions or freshness
+AssertionError: expected 'unavailable' to be 'handled' // Object.is equality
+
+Expected: "handled"
+Received: "unavailable"
+
+ ❯ tests/ui/compendium.test.ts:216:88
+    214|   it('selects a stale reading as historical evidence without changing …
+    215|     const f = notebookFixture(), before = f.store.getState(), original…
+    216|     expect(original?.freshness).toBe('stale'); expect(f.send(f.measure…
+       |                                                                                        ^
+    217|     expect(f.notebook.project().view.evidence.find(row => row.id === f…
+    218|     expect(f.store.getState().runtime.game).toBe(before.runtime.game);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  tests/ui/compendium.test.ts > T095 notebook-owned source selection > rejects guessed, unobserved, unsupported and player-written evidence identities
+AssertionError: expected 'unavailable' to be 'rejected' // Object.is equality
+
+Expected: "rejected"
+Received: "unavailable"
+
+ ❯ tests/ui/compendium.test.ts:222:131
+    220|   it('rejects guessed, unobserved, unsupported and player-written evid…
+    221|     const f = notebookFixture(), before = f.store.getState();
+    222|     for (const id of [q('FACT-link'), q('FACT-inspection'), 'note', 'A…
+       |                                                                                                                                   ^
+    223|     expect(f.store.getState()).toBe(before); expect(f.notebook.project…
+    224|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  tests/ui/compendium.test.ts > T095 notebook-owned source selection > requires an open reading panel and an actually visited source
+AssertionError: expected 'unavailable' to be 'rejected' // Object.is equality
+
+Expected: "rejected"
+Received: "unavailable"
+
+ ❯ tests/ui/compendium.test.ts:227:46
+    225|   it('requires an open reading panel and an actually visited source', …
+    226|     for (const options of [{ closed: true }, { unvisited: true }]) { c…
+    227|       expect(f.send(q('FACT-power')).status).toBe('rejected'); expect(…
+       |                                              ^
+    228|   });
+    229|   it('failed atomic UI installation cannot leave a misleading transien…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  tests/ui/compendium.test.ts > T095 notebook-owned source selection > failed atomic UI installation cannot leave a misleading transient highlight
+AssertionError: expected 'unavailable' to be 'rejected' // Object.is equality
+
+Expected: "rejected"
+Received: "unavailable"
+
+ ❯ tests/ui/compendium.test.ts:231:44
+    229|   it('failed atomic UI installation cannot leave a misleading transien…
+    230|     const f = notebookFixture({ rejectCommit: true }), before = f.stor…
+    231|     expect(f.send(q('FACT-power')).status).toBe('rejected'); expect(f.…
+       |                                            ^
+    232|     expect(f.notebook.project().view.highlightedRoomId).toBeNull(); ex…
+    233|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  tests/ui/compendium.test.ts > T095 notebook-owned source selection > clears source selection and rejects retained captures across restore/new adventure epochs
+AssertionError: expected 'unavailable' to be 'handled' // Object.is equality
+
+Expected: "handled"
+Received: "unavailable"
+
+ ❯ tests/ui/compendium.test.ts:236:44
+    234|   it('clears source selection and rejects retained captures across res…
+    235|     const f = notebookFixture(), capture = f.notebook.project().captur…
+    236|     expect(f.send(q('FACT-power')).status).toBe('handled'); f.notebook…
+       |                                            ^
+    237|     expect(f.notebook.project().view).toHaveProperty('highlightedEvide…
+    238|     expect(f.bus.dispatch(capture({ kind: 'inspect-evidence', evidence…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 25 passed (31)
+   Start at  08:49:08
+   Duration  5.98s (tests 96%, import 3%, transform 1%)
+

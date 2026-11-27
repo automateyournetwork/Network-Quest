@@ -1,0 +1,14 @@
+/* Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0 */
+/* Keep this reading panel's controls in flow: enlarged text must never sit
+   underneath the frame's floating Game/Close controls while scrolling. */
+.nq-game .nq-compendium > .nq-panel-game,
+.nq-game .nq-compendium > .nq-sticky-close {
+  position: static;
+  float: none;
+  box-shadow: none;
+  vertical-align: top;
+}
+.nq-game .nq-compendium h3 { font-size: 1.1em; }
+.nq-game .nq-compendium h4 { font-size: 1em; }
+.nq-game .nq-compendium summary { cursor: pointer; }
+.nq-game .nq-compendium details { margin-block: .65em; }

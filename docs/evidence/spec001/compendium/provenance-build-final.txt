@@ -1,0 +1,20 @@
+
+> network-quest@0.0.0 build
+> npm run typecheck && npm run save-policy:check && vite build
+
+
+> network-quest@0.0.0 typecheck
+> tsc --noEmit
+
+src/state/optional-activities.ts(44,20): error TS2314: Generic type 'EvaluationResult' requires 2 type argument(s).
+src/state/optional-activities.ts(146,12): error TS2322: Type '{ reasonCode: string; observations: readonly (PacketFailureObservation | SymbolAnswer)[]; status: "content-error"; acceptedEffects: StateEffect[]; } | { ...; } | { ...; } | { ...; }' is not assignable to type 'EvaluationResult<unknown, StateEffect>'.
+  Type '{ reasonCode: string; observations: readonly (PacketFailureObservation | SymbolAnswer)[]; status: "content-error"; acceptedEffects: StateEffect[]; }' is not assignable to type 'EvaluationResult<unknown, StateEffect>'.
+    Types of property 'acceptedEffects' are incompatible.
+      Type 'StateEffect[]' is not assignable to type 'readonly []'.
+        Target allows only 0 element(s) but source may have more.
+src/state/optional-activities.ts(201,52): error TS2339: Property 'bits' does not exist on type '{ readonly kind: "submit"; readonly sessionId: string; readonly bits: string; } | { readonly kind: "exit" | "explanation" | "hint"; readonly sessionId: string; }'.
+  Property 'bits' does not exist on type '{ readonly kind: "exit" | "explanation" | "hint"; readonly sessionId: string; }'.
+src/state/optional-activities.ts(201,83): error TS2339: Property 'bits' does not exist on type '{ readonly kind: "submit"; readonly sessionId: string; readonly bits: string; } | { readonly kind: "exit" | "explanation" | "hint"; readonly sessionId: string; }'.
+  Property 'bits' does not exist on type '{ readonly kind: "exit" | "explanation" | "hint"; readonly sessionId: string; }'.
+src/state/optional-activities.ts(202,115): error TS2339: Property 'bits' does not exist on type '{ readonly kind: "submit"; readonly sessionId: string; readonly bits: string; } | { readonly kind: "exit" | "explanation" | "hint"; readonly sessionId: string; }'.
+  Property 'bits' does not exist on type '{ readonly kind: "exit" | "explanation" | "hint"; readonly sessionId: string; }'.

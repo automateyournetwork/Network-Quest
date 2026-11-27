@@ -1,0 +1,91 @@
+diff --git a/src/app/application.ts b/src/app/application.ts
+index 60855aa..22cc0b1 100644
+--- a/src/app/application.ts
++++ b/src/app/application.ts
+@@ -13,6 +13,7 @@ import { createAdventureFrame } from '../ui/adventure-frame';
+ import { createDialogueController, createDialoguePanel, introductionDialogueBindings } from '../ui/dialogue';
+ import { createInventoryController, createInventoryPanel, inventoryView } from '../ui/inventory';
+ import { createNotebookController, createNotebookPanel } from '../ui/notebook';
++import { createCompendiumController, createCompendiumPanel } from '../ui/compendium';
+ import { createPacketJourneyPanel } from '../ui/packet-journey';
+ import { createNavigationPlanner, createSceneObjectProjection } from '../ui/scene-objects';
+ import { createTitleController, createTitlePanel } from '../ui/title';
+@@ -47,6 +48,7 @@ import { validateEndingsContent } from '../content/endings';
+ import { createRiftHazardPlan } from '../ui/rift-hazard';
+ import { allowRiftEncounterAction, createEncounterClassificationPlan, createEncounterExecutionPlan, createRiftEncounterNavigation } from '../ui/encounter';
+ import routeNotebook from '../../content/spec001/notebook-first-route.json';
++import technicalSources from '../../content/spec001/sources.json';
+ import endingsDocument from '../../content/spec001/endings.json';
+ import introLayouts from '../../content/spec001/presentation/introduction-graybox.json';
+ import routeLayouts from '../../content/spec001/presentation/first-route-graybox.json';
+@@ -122,6 +124,8 @@ export function createIntroductionApplication(host: HTMLElement) {
+     })));
+   });
+   const notebook = createNotebookController({ registry, store, bus, presentation: routeNotebook, allowDuringEncounter: allowRiftEncounterAction });
++  const compendium = createCompendiumController({ registry, store, bus, metadata: world, navigation, notebook, sourceCatalog: technicalSources.sources,
++    gameBase: import.meta.env.BASE_URL, allowDuringEncounter: allowRiftEncounterAction });
+   const dialogue = createDialogueController({ registry, store, bus, bindings: introductionDialogueBindings, effectBindings });
+   const diagnostics = createDiagnosticsController({ registry, store, bus, resolveScenario: objectiveScenario, allowDuringEncounter: allowRiftEncounterAction });
+   const outcomes = createOutcomeController({ registry, repairScenario });
+@@ -140,7 +144,8 @@ export function createIntroductionApplication(host: HTMLElement) {
+   const verbs = createVerbController({ registry, store, bus, allowDuringEncounter: allowRiftEncounterAction,
+     bindings: [...sceneBindings, ...copperBindings, ...branchBindings, ...equipmentBindings.hotspots, ...notebook.hotspotBindings, ...dialogue.hotspotBindings, ...packet.hotspotBindings],
+     walk: (...args) => isActiveRiftEncounter(args[2]) ? encounterNavigation.plan(...args) : normalWalk(...args),
+-    sceneObjects: createSceneObjectProjection({ registry, navigation, resolveDuringEncounter: encounterNavigation.resolve }), panels: notebook.panels });
++    sceneObjects: createSceneObjectProjection({ registry, navigation, resolveDuringEncounter: encounterNavigation.resolve }), panels: (panel, action, before) => panel === 'compendium'
++      ? compendium.panels(panel, action, before) : notebook.panels(panel, action, before) });
+   const mediaHost = host.ownerDocument.createElement('div');
+   const menuHost = host.ownerDocument.createElement('div'), saveHost = host.ownerDocument.createElement('div'), settingsHost = host.ownerDocument.createElement('div'), adventureHost = host.ownerDocument.createElement('div'); host.replaceChildren(menuHost, mediaHost, saveHost, settingsHost, adventureHost);
+   adventureHost.className = 'nq-adventure-host';
+@@ -219,14 +224,14 @@ export function createIntroductionApplication(host: HTMLElement) {
+       },
+       disposeScene: () => { events.abort(); grayAdapter.dispose(); finishedAdapter.dispose(); graybox.dispose(); finished.dispose(); pool.dispose(); mediaPool.dispose(); sound.dispose(); visualControls.remove(); },
+       epilogue, recovery: recoveryPanel,
+-      notebook: createNotebookPanel(shell.panelHost, bus), dialogue: createDialoguePanel(shell.panelHost, bus), inventory: createInventoryPanel(shell.panelHost, bus),
++      notebook: createNotebookPanel(shell.panelHost, bus), compendium: createCompendiumPanel(shell.panelHost, bus), dialogue: createDialoguePanel(shell.panelHost, bus), inventory: createInventoryPanel(shell.panelHost, bus),
+       diagnostics: createDiagnosticsPanel(shell.panelHost, bus, closeActivity), repair: createRepairPlanPanel(shell.panelHost, bus, closeActivity),
+       packet: createPacketJourneyPanel(shell.panelHost, bus, { reducedMotion: () => {
+         const preference = presentation.reducedMotion;
+         return preference === 'on' || (preference === 'system' && host.ownerDocument.defaultView?.matchMedia('(prefers-reduced-motion: reduce)').matches === true);
+       } }) };
+   };
+-  const disposePanels = (retainEpilogue = false) => { panels.disposeScene(); panels.packet.dispose(); panels.inventory.dispose(); panels.dialogue.dispose(); panels.notebook.dispose(); panels.diagnostics.dispose(); panels.repair.dispose(); panels.recovery.dispose(); if (!retainEpilogue) panels.epilogue.dispose(); panels.shell.dispose(); };
++  const disposePanels = (retainEpilogue = false) => { panels.disposeScene(); panels.packet.dispose(); panels.inventory.dispose(); panels.dialogue.dispose(); panels.notebook.dispose(); panels.compendium.dispose(); panels.diagnostics.dispose(); panels.repair.dispose(); panels.recovery.dispose(); if (!retainEpilogue) panels.epilogue.dispose(); panels.shell.dispose(); };
+   let panels = createPanels();
+   let projectedGame = state.runtime.game, capture = bus.captureScope(contextFromRuntime(state.runtime)), disposed = false, focusRoom = false, installing = false;
+   const window = host.ownerDocument.defaultView!;
+@@ -243,7 +248,7 @@ export function createIntroductionApplication(host: HTMLElement) {
+     accountScope = {}; if (preferenceOperation) preferenceMessage = 'Preferences apply in this tab. Account confirmation was interrupted.'; preferenceOperation = null;
+     if (!settingsInstallation) accountSettings?.invalidateView();
+     autosave?.invalidateView(); dismissedCompletions.clear();
+-    activityPanel = null; activityRoom = null; diagnostics.invalidate(); repair.invalidate(); packet.invalidate(); dialogue.invalidate(); notebook.invalidate(); bus.invalidate();
++    activityPanel = null; activityRoom = null; diagnostics.invalidate(); repair.invalidate(); packet.invalidate(); dialogue.invalidate(); notebook.invalidate(); compendium.invalidate(); bus.invalidate();
+     recovery?.invalidate(); narrativeProjection = null; narrativeState = null;
+     const retainedEpilogue = panels.epilogue;
+     // Capture presentation before removing the old shell; moving a focused DOM
+@@ -280,7 +285,7 @@ export function createIntroductionApplication(host: HTMLElement) {
+       // intermediate renders would exhaust the bounded room preparation pool.
+       installing = true;
+       try {
+-        activityPanel = null; activityRoom = null; diagnostics.invalidate(); repair.invalidate(); packet.invalidate(); dialogue.invalidate(); notebook.invalidate(); bus.invalidate();
++        activityPanel = null; activityRoom = null; diagnostics.invalidate(); repair.invalidate(); packet.invalidate(); dialogue.invalidate(); notebook.invalidate(); compendium.invalidate(); bus.invalidate();
+         saves.retireAdventureReview();
+         narrativeProjection = null; narrativeState = null; projectedGame = null;
+         // Preserve this adventure's already-declined guest sign-in invitation.
+@@ -423,6 +428,7 @@ export function createIntroductionApplication(host: HTMLElement) {
+     frame.preparePanels();
+     panels.inventory.render(inventoryView(registry, state, [q('ITEM-inspection-kit')]), capture);
+     panels.notebook.render(notebookView.view, notebookView.capture);
++    const compendiumView = compendium.project(); panels.compendium.render(compendiumView.view, compendiumView.open, compendiumView.capture);
+     const dialogueView = dialogue.project(); panels.dialogue.render(dialogueView.view, dialogueView.capture);
+     const packetView = packet.project(); panels.packet.render(packetView.view, packetView.capture);
+     if (packetView.view.open && game?.world.roomId === q('R12')) activityPanel = null;
+@@ -477,7 +483,7 @@ export function createIntroductionApplication(host: HTMLElement) {
+     if (input.kind === 'replay-dialogue' && input.dialogueId === q('DIALOGUE-photon-intro')) panels.sound.trigger('photon');
+   }), unsubscribeAutosave = autosave?.subscribe(() => render()); render(); void saves.bootstrap();
+   return { dispose() {
+-    if (disposed) return; disposed = true; unsubscribe(); unsubscribeHazard(); diagnostics.dispose(); repair.dispose(); packet.dispose(); dialogue.dispose(); notebook.dispose(); inventory.dispose(); verbs.dispose();
++    if (disposed) return; disposed = true; unsubscribe(); unsubscribeHazard(); diagnostics.dispose(); repair.dispose(); packet.dispose(); dialogue.dispose(); notebook.dispose(); compendium.dispose(); inventory.dispose(); verbs.dispose();
+     unsubscribeAutosave?.(); recovery?.dispose(); accountSettings?.dispose(); autosavePanel?.dispose(); settingsPanel?.dispose(); autosave?.dispose(); saves.dispose(); saveDialogs.dispose(); menu.dispose(); disposePanels(); frame.dispose(); bus.dispose();
+   } };
+ }

@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**108 loops started; 88 of 170 tasks accepted.** T085–T089 are accepted
+**110 loops started; 89 of 170 tasks accepted.** T085–T089 are accepted
 for their documented local scope. T089 final12native cases PASS in2.6minutes;
 root final85client suites3065PASS/360unchangedTODO (35.33s), check/buildPASS.
 Root matched61finalpublicseal entries and inspected narrow/desktop recovery
@@ -71,6 +71,17 @@ assertionsPASS40.837s; check/buildPASS. Original failures retained. See
 character-join-review.md. 106 now owns actualparty/reducer/actions/application/
 level-policy join;107 owns disjointcompendium/notebook, app composition coordinated.
 Fresh108 independently authors SQ01 using unchanged reviewed R04/T092 toy rules.
+Latest published checkpoint `1260a6bdcd9014f62e41f9cbe3ffcf1c556612b8`:47reviewed paths/2,024,656bytes;
+exactindex/hash/private/header scansPASS,12rawlog whitespace findings preserved.
+Remoteverified. 108SQ01 canonicalprojection has34focusedPASS/strictTS androot33matchinghashes;
+fullcommon-schema/runtime/image delivery pending. Fresh109/T100 now prepares
+sharedoptionalframework before independentSQ02–04, as explicitly scheduled.
+106owns sharedpartyjoin;107actualcompendiumappcomposition is present.
+T095accepted after isolated acceptedT093+T095 check/build/45focusedPASS and
+8actualbuiltguestchecks+targetedprovenancePASS. Root76sealhashesmatched and
+visuallychecked200%reading/sourcefocus. Initial.localdevserverdenialretained;
+normalbuiltpreviewpassed withoutweakening servingpolicy. Seecompendium-join-review.md. Fresh110authors SQ02 energy-audit data
+and proposedvariant with109, no sharedwrites.
 No source count or portrait/gate acceptance is inferred. No release deployed.
 
 ## Earlier position and retained progress history — 2026-11-26

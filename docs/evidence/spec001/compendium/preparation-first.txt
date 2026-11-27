@@ -1,0 +1,31 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ docs/evidence/spec001/compendium/preparation.test.ts (20 tests | 1 failed) 7ms
+   ❯ T095 independent compendium projection expectations (not integrated) (6)
+     × renders the exact discovered identity and authored teaching fields without revealing remaining names 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/evidence/spec001/compendium/preparation.test.ts > T095 independent compendium projection expectations (not integrated) > renders the exact discovered identity and authored teaching fields without revealing remaining names
+AssertionError: expected 'Photon the Firefly' to be 'Photon' // Object.is equality
+
+Expected: "Photon"
+Received: "Photon the Firefly"
+
+ ❯ docs/evidence/spec001/compendium/preparation.test.ts:48:103
+     46|     const state = game(); state.world = { ...state.world, compendiumId…
+     47|     const before = structuredClone(state), view = project(state), entr…
+     48|     expect(view.entries).toHaveLength(1); expect(view.undiscoveredCoun…
+       |                                                                                                       ^
+     49|     expect(entry.technology).toBe(characters[2]!.compendium.technology…
+     50|     expect(entry.sources[0]).toEqual(characters[2]!.compendium.sourceC…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 19 passed (20)
+   Start at  08:37:24
+   Duration  157ms (transform 58%, import 32%, tests 8%, worker 2%)
+

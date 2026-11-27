@@ -646,9 +646,18 @@ and T094 join. Coordinate discovery ownership with T094; keep shared sources
 unchanged until their interfaces freeze. Planned portraits are references, not
 produced images or portrait-dependent AC05 acceptance.
 
+T100 may prepare and implement the common optional-activity framework using the
+accepted T092 oracle, existing reviewed evaluators and T096's reviewed SQ01
+contract before the independent T097–T099 content batches. T096's canonical
+projection and full proposed payload are sealed separately; its final common
+schema/loader/runtime binding remains pending. Coordinate reducer, action-bus,
+application and save-policy changes after T094's coherent join. Other optional
+activities stay unavailable until their actual authored variants are integrated;
+shared framework checks do not accept those activities, portraits or rewards.
+
 - [X] T093 [US7] Author all CH01–CH25 roles, limitations, realm notes, recruitment/progression and portrait/source references in `content/spec001/characters.json`; preserve nine recruits (Photon, Copperhead, Unicorn, optical Hydra, Thunderbird, Hermit, Eel, Echo Bat, Chameleon).
 - [ ] T094 [US7] Implement demonstrated recruitment, meaningful progression, max-two active allies and free preparation swaps in `src/state/party.ts` and `src/ui/party.ts`; abilities apply the same validated physical effects as conventional tools.
-- [ ] T095 [US7] Build the illustrated discovered-entry compendium and cross-room evidence navigation in `src/ui/compendium.ts`; retain source/freshness and distinguish notes/hypotheses from fact, without exposing undiscovered content as completed.
+- [X] T095 [US7] Build the illustrated discovered-entry compendium and cross-room evidence navigation in `src/ui/compendium.ts`; retain source/freshness and distinguish notes/hypotheses from fact, without exposing undiscovered content as completed.
 - [ ] T096 [P] [US7] Implement Antique Serial Post SQ01 in `content/spec001/quests/SQ01.json` using R04 evidence and existing declared signal rules; deliver the optional illustration and safe exit without a required-route dependency.
 - [ ] T097 [P] [US7] Implement Eel's Energy Audit SQ02 in `content/spec001/quests/SQ02.json`; reuse supplied delivered-power rules and award only the optional workshop decoration.
 - [ ] T098 [P] [US7] Implement Skywell Weather Diary SQ03 in `content/spec001/quests/SQ03.json`; compare time-separated observations with honest freshness and unlock optional radio depth.

@@ -1,0 +1,25 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest/.local/t095-isolated
+
+ ✓ tests/ui/first-route-notebook.test.ts (3 tests) 268ms
+ ✓ tests/ui/notebook.test.ts (10 tests) 1238ms
+ ✓ tests/ui/compendium.test.ts (32 tests) 7264ms
+   ✓ T095 controller uses the existing action/store boundary (4)
+     ✓ opens through the actual panel intent with no discovery, reward or dirty generation change 718ms
+     ✓ reads only actual recorded notebook rows, retains stale measurement versions and real source text 632ms
+     ✓ rejects opening in unsafe states and rejects retained panel planners after disposal 597ms
+     ✓ replaces projections on world restore and invalidates old capture through the existing bus epoch 598ms
+   ✓ T095 notebook-owned source selection (7)
+     ✓ opens the notebook and highlights the real visited source without walking or changing the game 602ms
+     ✓ selects a stale reading as historical evidence without changing its text, versions or freshness 609ms
+     ✓ shows exact same/earlier attempt context without exposing opaque identifiers or rewriting provenance 623ms
+     ✓ rejects guessed, unobserved, unsupported and player-written evidence identities 590ms
+     ✓ requires an open reading panel and an actually visited source 1134ms
+     ✓ failed atomic UI installation cannot leave a misleading transient highlight 588ms
+     ✓ clears source selection and rejects retained captures across restore/new adventure epochs 566ms
+
+ Test Files  3 passed (3)
+      Tests  45 passed (45)
+   Start at  09:08:24
+   Duration  8.06s (tests 85%, import 12%, transform 3%)
+

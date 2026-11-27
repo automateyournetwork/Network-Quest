@@ -89,7 +89,7 @@ export interface NotebookView {
   readonly objectives: readonly { readonly id: ObjectiveId; readonly label: string; readonly completed: boolean; readonly pinned: boolean; readonly roomId: RoomId }[];
   readonly evidence: readonly NotebookEvidenceView[]; readonly hypotheses: readonly Hypothesis[];
   readonly maps: readonly { readonly id: RoomId; readonly label: string }[];
-  readonly highlightedRoomId: RoomId | null; readonly canPinHypothesis: boolean;
+  readonly highlightedRoomId: RoomId | null; readonly highlightedEvidenceId: string | null; readonly canPinHypothesis: boolean;
   readonly roomLabels: readonly { readonly id: RoomId; readonly label: string }[];
 }
 export interface NotebookOptions { readonly bus: ActionBus; readonly registry: ContentRegistry; readonly store: GameplayStore; readonly presentation?: unknown; readonly allowDuringEncounter?: ActiveActionAdmission }
@@ -107,7 +107,41 @@ export function createNotebookController({ bus, registry, store, presentation: s
     const record = registry.record(mapping.sourceId);
     if (record && 'evidence' in record) facts.set(mapping.id, record.evidence.find(fact => fact.id === mapping.id)!);
   }
-  const pins = new Set<ObjectiveId>(); let highlightedRoomId: RoomId | null = null, draftScopeId = crypto.randomUUID();
+  const evidenceFor = (game: GameState | null): NotebookEvidenceView[] => {
+    const evidence: NotebookEvidenceView[] = [];
+    if (game) for (const id of game.notebook.factIds) {
+      const fact = facts.get(id), mapping = presentation.facts.find(mapping => mapping.id === id);
+      if (!fact || !mapping) continue;
+      const list = mapping.list?.requiresFactIds.every(id => game.notebook.factIds.includes(id)) ? mapping.list : undefined;
+      evidence.push({ id, heading: mapping.heading, sourceRoomId: fact.roomId as RoomId, sourceRoom: roomName(fact.roomId),
+        kind: mapping.kind, text: fact.text, freshness: 'observation', ...(list ? { list } : {}) });
+    }
+    if (game) for (const measurement of game.notebook.measurements) {
+      const group = presentation.measurementGroups?.find(g => g.ruleId === measurement.ruleId && measurement.subjectIds.includes(g.subjectId));
+      if (group) {
+        const conclusion = group.conclusions.find(c => c.code === measurement.conclusionCode);
+        const source = registry.record(group.subjectId);
+        if (!conclusion || !rooms.some(room => room.id === measurement.roomId) || source?.kind !== 'objective'
+          || !source.evidence.some(e => e.roomId === measurement.roomId && e.ruleIds.includes(measurement.ruleId))) continue;
+        const readings = measurement.readings.map(r => `${r.name}: ${r.value} ${r.unit}`).join('; ');
+        evidence.push({ id: measurement.id, heading: group.heading, sourceRoomId: measurement.roomId, sourceRoom: roomName(measurement.roomId), kind: 'Measurement',
+          text: `${readings ? `Observed result: ${readings}.` : 'No numeric result was produced for this reading.'} ${conclusion.explanation} ${group.scope}`,
+          freshness: isMeasurementCurrent(measurement, game.world) ? 'current' : 'stale' });
+        continue;
+      }
+      // Supported actual observations retain original provenance; unsupported
+      // restored records are not recast as this introductory length test.
+      if (measurement.ruleId !== presentation.measurement.ruleId || !measurement.subjectIds.includes(presentation.measurement.profileId as QualifiedId)
+        || measurement.roomId !== introductoryMeasurementRoom
+        || !['length-within-profile', 'length-exceeded'].includes(measurement.conclusionCode)) continue;
+      const readings = measurement.readings.map(r => `${r.name}: ${r.value} ${r.unit}`).join('; ');
+      evidence.push({ id: measurement.id, heading: presentation.measurement.heading, sourceRoomId: measurement.roomId, sourceRoom: roomName(measurement.roomId), kind: 'Measurement',
+        text: `Observed result: ${readings}. ${measurement.conclusionCode === 'length-within-profile' ? 'Length is within the declared profile.' : measurement.conclusionCode === 'length-exceeded' ? 'Length exceeds the declared profile.' : measurement.conclusionCode} Fictional PROFILE-COPPER-100; length only. End-to-end service is not proven. Configuration ${measurement.configurationRevision}; ${measurement.attemptId === game.world.attemptId ? 'this attempt' : 'an earlier attempt'}.`,
+        freshness: isMeasurementCurrent(measurement, game.world) ? 'current' : 'stale' });
+    }
+    return evidence;
+  };
+  const pins = new Set<ObjectiveId>(); let highlightedRoomId: RoomId | null = null, highlightedEvidenceId: string | null = null, draftScopeId = crypto.randomUUID();
   let projection: { game: GameState | null; capture: ActionCapture } | null = null;
   const registrations: (() => void)[] = [];
   let disposed = false;
@@ -150,6 +184,18 @@ export function createNotebookController({ bus, registry, store, presentation: s
   const handler = (action: CapturedAction): ActionPlan => {
     const before = store.getState(), input = action.input;
     if (!actionAvailable(before, input, allowDuringEncounter)) return unavailable('unavailable-state', 'Use the notebook after the current activity finishes.');
+    if (input.kind === 'inspect-evidence') {
+      if (!['notebook', 'compendium'].includes(before.runtime.ui?.panel ?? '')) return rejected('reading-panel-closed', 'Open the notebook or compendium first.');
+      const evidence = evidenceFor(before.runtime.game).find(entry => entry.id === input.evidenceId);
+      if (!evidence || !before.runtime.game!.notebook.mapRoomIds.includes(evidence.sourceRoomId)
+        || !rooms.some(room => room.id === evidence.sourceRoomId)) return rejected('evidence-unavailable', 'That recorded evidence has no visited source to highlight.');
+      const plan = uiPlan(store, before, { panel: 'notebook' }, `Notebook source selected: ${evidence.heading}. Your location and readings are unchanged.`);
+      return plan.status !== 'ready' ? plan : { status: 'ready', commit: () => {
+        const result = plan.commit();
+        if (result.status === 'handled') { highlightedRoomId = evidence.sourceRoomId; highlightedEvidenceId = evidence.id; }
+        return result;
+      } };
+    }
     if (!panelReady(before)) return rejected('notebook-closed', 'Open the notebook first.');
     if (input.kind === 'edit-personal-notes') return reductionPlan(store, action, before, { kind: 'notebook', operation: { kind: 'notes', text: input.text } }, 'Notes updated in this adventure.');
     if (input.kind === 'pin-hypothesis') return reductionPlan(store, action, before, { kind: 'notebook', operation: { kind: 'pin-hypothesis', id: crypto.randomUUID() as HypothesisId, text: input.text } }, 'Hypothesis pinned as player speculation.');
@@ -166,53 +212,23 @@ export function createNotebookController({ bus, registry, store, presentation: s
     }
     return rejected('invalid-input', 'Choose a notebook action.');
   };
-  try { for (const kind of ['edit-personal-notes', 'pin-hypothesis', 'pin-objective', 'highlight-map-room'] as const) registrations.push(bus.register(kind, handler)); }
+  try { for (const kind of ['edit-personal-notes', 'pin-hypothesis', 'pin-objective', 'highlight-map-room', 'inspect-evidence'] as const) registrations.push(bus.register(kind, handler)); }
   catch (error) { registrations.forEach(off => off()); throw error; }
   return {
     panels, hotspotBindings: [...hotspotBindings, boardBinding],
     project(): { readonly view: NotebookView; readonly capture: ActionCapture } {
       const state = store.getState(), game = state.runtime.game, context = contextFromRuntime(state.runtime);
       if (!projection || projection.game !== game) projection = { game, capture: bus.captureScope(context) };
-      const evidence: NotebookEvidenceView[] = [];
-      if (game) for (const id of game.notebook.factIds) {
-        const fact = facts.get(id), mapping = presentation.facts.find(mapping => mapping.id === id);
-        if (!fact || !mapping) continue;
-        const list = mapping.list?.requiresFactIds.every(id => game.notebook.factIds.includes(id)) ? mapping.list : undefined;
-        evidence.push({ id, heading: mapping.heading, sourceRoomId: fact.roomId as RoomId, sourceRoom: roomName(fact.roomId),
-          kind: mapping.kind, text: fact.text, freshness: 'observation', ...(list ? { list } : {}) });
-      }
-      if (game) for (const measurement of game.notebook.measurements) {
-        const group = presentation.measurementGroups?.find(g => g.ruleId === measurement.ruleId && measurement.subjectIds.includes(g.subjectId));
-        if (group) {
-          const conclusion = group.conclusions.find(c => c.code === measurement.conclusionCode);
-          const source = registry.record(group.subjectId);
-          if (!conclusion || !rooms.some(room => room.id === measurement.roomId) || source?.kind !== 'objective'
-            || !source.evidence.some(e => e.roomId === measurement.roomId && e.ruleIds.includes(measurement.ruleId))) continue;
-          const readings = measurement.readings.map(r => `${r.name}: ${r.value} ${r.unit}`).join('; ');
-          evidence.push({ id: measurement.id, heading: group.heading, sourceRoomId: measurement.roomId, sourceRoom: roomName(measurement.roomId), kind: 'Measurement',
-            text: `${readings ? `Observed result: ${readings}.` : 'No numeric result was produced for this reading.'} ${conclusion.explanation} ${group.scope}`,
-            freshness: isMeasurementCurrent(measurement, game.world) ? 'current' : 'stale' });
-          continue;
-        }
-        // Supported actual observations retain original provenance; unsupported
-        // restored records are not recast as this introductory length test.
-        if (measurement.ruleId !== presentation.measurement.ruleId || !measurement.subjectIds.includes(presentation.measurement.profileId as QualifiedId)
-          || measurement.roomId !== introductoryMeasurementRoom
-          || !['length-within-profile', 'length-exceeded'].includes(measurement.conclusionCode)) continue;
-        const readings = measurement.readings.map(r => `${r.name}: ${r.value} ${r.unit}`).join('; ');
-        evidence.push({ id: measurement.id, heading: presentation.measurement.heading, sourceRoomId: measurement.roomId, sourceRoom: roomName(measurement.roomId), kind: 'Measurement',
-          text: `Observed result: ${readings}. ${measurement.conclusionCode === 'length-within-profile' ? 'Length is within the declared profile.' : measurement.conclusionCode === 'length-exceeded' ? 'Length exceeds the declared profile.' : measurement.conclusionCode} Fictional PROFILE-COPPER-100; length only. End-to-end service is not proven. Configuration ${measurement.configurationRevision}; attempt ${measurement.attemptId}.`,
-          freshness: isMeasurementCurrent(measurement, game.world) ? 'current' : 'stale' });
-      }
+      const evidence = evidenceFor(game);
       const canPinHypothesis = !!game && panelReady(state) && game.world.roomId === q('R02') && !!entry && !!pinChoice
         && conditionSatisfied(entry.condition, game.world) && conditionSatisfied(pinChoice.condition, game.world)
         && ['FACT-endpoints', 'FACT-endpoint-a', 'FACT-endpoint-b', 'FACT-path'].every(id => game.notebook.factIds.includes(q<'fact'>(id)));
       return { capture: projection.capture, view: structuredClone({ context, draftScopeId, open: state.runtime.ui?.panel === 'notebook', personalNotes: game?.notebook.personalNotes ?? '',
         objectives: objectives.map(o => ({ ...o, completed: game?.world.completedObjectiveIds.includes(o.id) ?? false, pinned: pins.has(o.id) })),
-        evidence, hypotheses: game?.notebook.hypotheses ?? [], maps: rooms.filter(room => game?.notebook.mapRoomIds.includes(room.id)), highlightedRoomId, canPinHypothesis, roomLabels: rooms }) };
+        evidence, hypotheses: game?.notebook.hypotheses ?? [], maps: rooms.filter(room => game?.notebook.mapRoomIds.includes(room.id)), highlightedRoomId, highlightedEvidenceId: evidence.some(entry => entry.id === highlightedEvidenceId) ? highlightedEvidenceId : null, canPinHypothesis, roomLabels: rooms }) };
     },
     /** Pair with bus.invalidate on Restore Save, new adventure, logout or title. */
-    invalidate() { projection = null; pins.clear(); highlightedRoomId = null; draftScopeId = crypto.randomUUID(); },
+    invalidate() { projection = null; pins.clear(); highlightedRoomId = null; highlightedEvidenceId = null; draftScopeId = crypto.randomUUID(); },
     dispose() { if (disposed) return; disposed = true; registrations.forEach(off => off()); projection = null; pins.clear(); },
   };
 }
@@ -303,14 +319,16 @@ export function createNotebookPanel(host: HTMLElement, bus: Pick<ActionDispatche
     const model = structuredClone(view), wasOpen = !element.hidden, focus = doc.activeElement;
     const roomName = (id: string) => model.roomLabels.find(room => room.id === id)?.label ?? id;
     const newScope = current?.capture !== capture, newDraft = current?.view.draftScopeId !== model.draftScopeId;
+    const referenceChanged = current?.view.highlightedEvidenceId !== model.highlightedEvidenceId;
     if (newScope) for (const entry of rows.values()) entry.signature = '';
     current = { view: model, capture };
     reconcile(objectiveList, model.objectives.map(o => row(`objective:${o.id}`, o, li => {
       li.append(paragraph(`${o.label} — ${o.completed ? 'Completed' : 'In progress'}${o.pinned ? ' — Pinned' : ''}`),
         paragraph(`Source: ${roomName(o.roomId)}`), button(`${o.pinned ? 'Unpin' : 'Pin'} objective: ${o.label}`, { kind: 'pin-objective', objectiveId: o.id }, capture));
     })));
-    reconcile(evidenceList, model.evidence.map(e => row(`evidence:${e.id}`, e, li => {
-      const title = doc.createElement('h4'); title.textContent = e.heading;
+    reconcile(evidenceList, model.evidence.map(e => row(`evidence:${e.id}`, [e, model.highlightedEvidenceId], li => {
+      const title = doc.createElement('h4'); title.textContent = e.heading; title.tabIndex = -1;
+      if (model.highlightedEvidenceId === e.id) li.append(paragraph('Selected source reference.'));
       li.append(title, paragraph(`${e.kind}. Source: ${e.sourceRoom}`), paragraph(e.text), paragraph(`Freshness: ${e.freshness}`));
       if (e.list) { const list = doc.createElement(e.list.ordered ? 'ol' : 'ul'); list.setAttribute('aria-label', e.list.label); for (const text of e.list.items) { const item = doc.createElement('li'); item.textContent = text; list.append(item); } li.append(list); }
       if (model.maps.some(room => room.id === e.sourceRoomId)) li.append(button(`Highlight source: ${e.heading}`, { kind: 'highlight-map-room', roomId: e.sourceRoomId }, capture));
@@ -329,5 +347,15 @@ export function createNotebookPanel(host: HTMLElement, bus: Pick<ActionDispatche
     if (model.open && !wasOpen) { returnFocus = focus instanceof HTMLElement ? focus : null; heading.focus(); }
     else if (!model.open && wasOpen && focus instanceof Node && element.contains(focus)) { if (returnFocus?.isConnected) returnFocus.focus(); }
     else if (model.open && focus instanceof HTMLElement && !focus.isConnected) heading.focus();
+    if (model.open && model.highlightedEvidenceId && (!wasOpen || referenceChanged)) {
+      // The frame releases the previous panel's inert boundary after render.
+      // Bind the deferred focus to this exact selection and adventure scope.
+      queueMicrotask(() => {
+        if (disposed || current?.capture !== capture || !current.view.open || current.view.draftScopeId !== model.draftScopeId
+          || current.view.highlightedEvidenceId !== model.highlightedEvidenceId || !element.isConnected || element.closest('[hidden], [inert]')) return;
+        const target = rows.get(`evidence:${model.highlightedEvidenceId}`)?.element.querySelector<HTMLElement>('h4');
+        target?.focus(); target?.scrollIntoView({ block: 'center' });
+      });
+    }
   }, dispose() { if (disposed) return; disposed = true; abort.abort(); rows.clear(); current = null; element.remove(); } };
 }

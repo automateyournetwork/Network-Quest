@@ -1,0 +1,116 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ docs/evidence/spec001/compendium/notebook-navigation.test.ts (6 tests | 6 failed) 3423ms
+   ❯ T095 notebook-owned source selection (6)
+     × opens the notebook and highlights the real visited source without walking or changing the game 620ms
+     × selects a stale reading as historical evidence without changing its text, versions or freshness 565ms
+     × rejects guessed, unobserved, unsupported and player-written evidence identities 574ms
+     × requires an open reading panel and an actually visited source 562ms
+     × failed atomic UI installation cannot leave a misleading transient highlight 554ms
+     × clears source selection and rejects retained captures across restore/new adventure epochs 547ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  docs/evidence/spec001/compendium/notebook-navigation.test.ts > T095 notebook-owned source selection > opens the notebook and highlights the real visited source without walking or changing the game
+AssertionError: expected 'unavailable' to be 'handled' // Object.is equality
+
+Expected: "handled"
+Received: "unavailable"
+
+ ❯ docs/evidence/spec001/compendium/notebook-navigation.test.ts:26:44
+     24|   it('opens the notebook and highlights the real visited source withou…
+     25|     const f = fixture(), before = f.store.getState();
+     26|     expect(f.send(q('FACT-power')).status).toBe('handled');
+       |                                            ^
+     27|     const after = f.store.getState(), view = f.notebook.project().view;
+     28|     expect(view.open).toBe(true); expect(view.highlightedRoomId).toBe(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  docs/evidence/spec001/compendium/notebook-navigation.test.ts > T095 notebook-owned source selection > selects a stale reading as historical evidence without changing its text, versions or freshness
+AssertionError: expected 'unavailable' to be 'handled' // Object.is equality
+
+Expected: "handled"
+Received: "unavailable"
+
+ ❯ docs/evidence/spec001/compendium/notebook-navigation.test.ts:34:88
+     32|   it('selects a stale reading as historical evidence without changing …
+     33|     const f = fixture(), before = f.store.getState(), original = f.not…
+     34|     expect(original?.freshness).toBe('stale'); expect(f.send(f.measure…
+       |                                                                                        ^
+     35|     expect(f.notebook.project().view.evidence.find(row => row.id === f…
+     36|     expect(f.store.getState().runtime.game).toBe(before.runtime.game);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  docs/evidence/spec001/compendium/notebook-navigation.test.ts > T095 notebook-owned source selection > rejects guessed, unobserved, unsupported and player-written evidence identities
+AssertionError: expected 'unavailable' to be 'rejected' // Object.is equality
+
+Expected: "rejected"
+Received: "unavailable"
+
+ ❯ docs/evidence/spec001/compendium/notebook-navigation.test.ts:40:131
+     38|   it('rejects guessed, unobserved, unsupported and player-written evid…
+     39|     const f = fixture(), before = f.store.getState();
+     40|     for (const id of [q('FACT-link'), q('FACT-inspection'), 'note', 'A…
+       |                                                                                                                                   ^
+     41|     expect(f.store.getState()).toBe(before); expect(f.notebook.project…
+     42|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  docs/evidence/spec001/compendium/notebook-navigation.test.ts > T095 notebook-owned source selection > requires an open reading panel and an actually visited source
+AssertionError: expected 'unavailable' to be 'rejected' // Object.is equality
+
+Expected: "rejected"
+Received: "unavailable"
+
+ ❯ docs/evidence/spec001/compendium/notebook-navigation.test.ts:45:46
+     43|   it('requires an open reading panel and an actually visited source', …
+     44|     for (const options of [{ closed: true }, { unvisited: true }]) { c…
+     45|       expect(f.send(q('FACT-power')).status).toBe('rejected'); expect(…
+       |                                              ^
+     46|   });
+     47|   it('failed atomic UI installation cannot leave a misleading transien…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  docs/evidence/spec001/compendium/notebook-navigation.test.ts > T095 notebook-owned source selection > failed atomic UI installation cannot leave a misleading transient highlight
+AssertionError: expected 'unavailable' to be 'rejected' // Object.is equality
+
+Expected: "rejected"
+Received: "unavailable"
+
+ ❯ docs/evidence/spec001/compendium/notebook-navigation.test.ts:49:44
+     47|   it('failed atomic UI installation cannot leave a misleading transien…
+     48|     const f = fixture({ rejectCommit: true }), before = f.store.getSta…
+     49|     expect(f.send(q('FACT-power')).status).toBe('rejected'); expect(f.…
+       |                                            ^
+     50|     expect(f.notebook.project().view.highlightedRoomId).toBeNull(); ex…
+     51|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  docs/evidence/spec001/compendium/notebook-navigation.test.ts > T095 notebook-owned source selection > clears source selection and rejects retained captures across restore/new adventure epochs
+AssertionError: expected 'unavailable' to be 'handled' // Object.is equality
+
+Expected: "handled"
+Received: "unavailable"
+
+ ❯ docs/evidence/spec001/compendium/notebook-navigation.test.ts:54:44
+     52|   it('clears source selection and rejects retained captures across res…
+     53|     const f = fixture(), capture = f.notebook.project().capture;
+     54|     expect(f.send(q('FACT-power')).status).toBe('handled'); f.notebook…
+       |                                            ^
+     55|     expect(f.notebook.project().view).toHaveProperty('highlightedEvide…
+     56|     expect(f.bus.dispatch(capture({ kind: 'inspect-evidence', evidence…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed (6)
+   Start at  08:48:21
+   Duration  4.19s (tests 88%, transform 6%, import 6%)
+
