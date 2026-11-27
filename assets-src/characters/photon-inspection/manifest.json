@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "assets": [
+    {
+      "assetId": "spec001:ASSET-CH03",
+      "semanticIdentity": "spec001:CH03",
+      "kind": "character-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/characters/photon-inspection/CH03.blend",
+            "sha256": "9fe137c82b9348a41724977953890b4891649e91afdfba6f2ec8391e2b23a8f6",
+            "bytes": 266604,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/photon-inspection/source-reopen.json"
+        },
+        {
+          "file": {
+            "path": "assets-src/characters/CH03.blend",
+            "sha256": "70e1897cf9e18b245804745bf7a25bbeb900a8113762bd4113229bd239df50c3",
+            "bytes": 259251,
+            "format": "blend"
+          },
+          "role": "reference",
+          "application": "Blender",
+          "version": "5.2.1 LTS"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/CH03-inspection.glb",
+            "sha256": "9a5978e18a4c5237a748f76d1e9cf446517b51c425b489e6078ea38f3e634cc1",
+            "bytes": 364092,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "9fe137c82b9348a41724977953890b4891649e91afdfba6f2ec8391e2b23a8f6"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Y-up GLB with selected geometry and 24 fps NLA actions",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/photon-inspection/browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "CH03-inspection-20261127",
+          "settingsPath": "assets-src/characters/photon-inspection/build.py",
+          "promptOrScriptPath": "assets-src/characters/photon-inspection/build.py",
+          "referenceHashes": [
+            "70e1897cf9e18b245804745bf7a25bbeb900a8113762bd4113229bd239df50c3"
+          ],
+          "outputHashes": [
+            "9fe137c82b9348a41724977953890b4891649e91afdfba6f2ec8391e2b23a8f6"
+          ],
+          "notes": "Added the authored optical inspection gesture to the original project model. A separate Blender process reopened it and exported four NLA clips."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "pending",
+        "creators": [
+          "John Capobianco (project owner)",
+          "OpenAI Codex (assisted original modeling code)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [
+          "assets-src/rooms/T063-NOTICE.md"
+        ],
+        "aiDisclosure": "Codex assisted with local Blender animation of the original T063 character. Its sculpt and materials are retained. Attribution and the CC BY 4.0 license are documented with the original source."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "Codex coordinator",
+          "date": "2026-11-27",
+          "hashes": [
+            "70e1897cf9e18b245804745bf7a25bbeb900a8113762bd4113229bd239df50c3",
+            "9fe137c82b9348a41724977953890b4891649e91afdfba6f2ec8391e2b23a8f6",
+            "9a5978e18a4c5237a748f76d1e9cf446517b51c425b489e6078ea38f3e634cc1"
+          ],
+          "environment": "Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0, Firefox 159.0; isolated local HTTPS",
+          "evidencePath": "docs/evidence/spec001/assets/photon-inspection/source-reopen.json",
+          "findings": "Separate Blender sessions reopened the new source for export and for the five rendered pose samples."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "Codex coordinator",
+          "date": "2026-11-27",
+          "hashes": [
+            "70e1897cf9e18b245804745bf7a25bbeb900a8113762bd4113229bd239df50c3",
+            "9fe137c82b9348a41724977953890b4891649e91afdfba6f2ec8391e2b23a8f6",
+            "9a5978e18a4c5237a748f76d1e9cf446517b51c425b489e6078ea38f3e634cc1"
+          ],
+          "environment": "Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0, Firefox 159.0; isolated local HTTPS",
+          "evidencePath": "docs/evidence/spec001/assets/photon-inspection/structure.json",
+          "findings": "All 29 meshes, 9 materials and the previous three clips passed comparison of the retained data. The derivative contains five varying ability tracks."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "Codex coordinator",
+          "date": "2026-11-27",
+          "hashes": [
+            "70e1897cf9e18b245804745bf7a25bbeb900a8113762bd4113229bd239df50c3",
+            "9fe137c82b9348a41724977953890b4891649e91afdfba6f2ec8391e2b23a8f6",
+            "9a5978e18a4c5237a748f76d1e9cf446517b51c425b489e6078ea38f3e634cc1"
+          ],
+          "environment": "Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0, Firefox 159.0; isolated local HTTPS",
+          "evidencePath": "docs/evidence/spec001/assets/photon-inspection/visual.json",
+          "findings": "Both views show the antennae dipping forward and the near wing tipping above the luminous abdomen at contact."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "Codex coordinator",
+          "date": "2026-11-27",
+          "hashes": [
+            "70e1897cf9e18b245804745bf7a25bbeb900a8113762bd4113229bd239df50c3",
+            "9fe137c82b9348a41724977953890b4891649e91afdfba6f2ec8391e2b23a8f6",
+            "9a5978e18a4c5237a748f76d1e9cf446517b51c425b489e6078ea38f3e634cc1"
+          ],
+          "environment": "Blender 5.2.1 LTS (9e2066aef7ef), Node 26.13.1, Three.js 0.187.0, Firefox 159.0; isolated local HTTPS",
+          "evidencePath": "docs/evidence/spec001/assets/photon-inspection/browser-comparison.json",
+          "findings": "Firefox rendered the derivative at 640 by 360. All 29 mesh matrices matched the native render graph at each of five frames within 0.000000204."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/characters/photon-inspection/CH03.blend",
+        "objectIds": [
+          "CH03_luminous_abdomen",
+          "CH03_abdomen_band",
+          "CH03_abdomen_band.001",
+          "CH03_abdomen_band.002",
+          "CH03_thorax",
+          "CH03_dark_face",
+          "CH03_eye",
+          "CH03_pupil",
+          "CH03_antenna",
+          "CH03_antenna_tip",
+          "CH03_eye.001",
+          "CH03_pupil.001",
+          "CH03_antenna.001",
+          "CH03_antenna_tip.001",
+          "CH03_smile",
+          "CH03_wing_membrane_L",
+          "CH03_wing_leading_vein_L",
+          "CH03_wing_vein_L",
+          "CH03_wing_vein_L.001",
+          "CH03_leg_L0",
+          "CH03_leg_L1",
+          "CH03_leg_L2",
+          "CH03_wing_membrane_R",
+          "CH03_wing_leading_vein_R",
+          "CH03_wing_vein_R",
+          "CH03_wing_vein_R.001",
+          "CH03_leg_R0",
+          "CH03_leg_R1",
+          "CH03_leg_R2"
+        ],
+        "units": "metres",
+        "axes": "Z-up/-Y to Y-up/+Z (x,z,-y)",
+        "pivot": "character base/root at ground zero; Photon visual hover child 1.15m",
+        "collisionProxy": "COLLISION_CH03 in native source only; excluded from visual GLB; logical navigation remains authoritative",
+        "animationClips": [
+          "idle",
+          "fly",
+          "reaction",
+          "ability"
+        ],
+        "triangles": 10508,
+        "textureBytes": 0
+      }
+    }
+  ]
+}
