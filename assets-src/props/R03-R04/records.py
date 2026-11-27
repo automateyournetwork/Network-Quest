@@ -15,21 +15,15 @@ def file_info(p):return {'path':path(p),'format':p.suffix[1:],'sha256':sha(p),'b
 def files(paths):return {path(p):sha(p) for p in paths}
 reviewer='/root/loop128_t111';date='2026-11-27'
 env='Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; strict local HTTPS, Firefox 159.0, Node 26.13.1, Three.js 0.187.0.'
-settings=here/'production-settings.json'
-sources=['SPEC.md','assets-src/art-direction.md','assets-src/production-allocation.json','assets-src/rooms/scene-layouts.json',
-         'content/spec001/rooms/R03.json','content/spec001/rooms/R04.json','docs/evidence/spec001/assets/t063-prop-exports-browser.png',
-         'docs/evidence/spec001/layouts-t106/diagram-contact-sheet.png','docs/evidence/spec001/assets/t107/CH04-poses.png',
-         'docs/evidence/spec001/character-production/T109/cast.jpg']
-save(settings,{'task':'T111','loop':128,'units':'Metres. +Z up, -Y forward. GLB Y-up, +Z forward. Ground origin centres each prop footprint on its support plane.',
-               'modelingInputs':files(here/x for x in ['workshop.py','copper.py','echo.py','build.py']),
-               'inspectionInputs':files([here/x for x in ['reopen.py','browser.mjs','sheets.py','verify_glb.py','mounts.py']]+[root/'assets-src/characters/batch-a/inspect.html']),
-               'designAndStyleReferences':files(root/x for x in sources),'incorporatedExternalMedia':[],
-               'modeling':'Purpose-built editable mesh pieces, beveled cast edges, profiled shafts, traced tubing and original geometric engraved capitals. Solid mesh transforms are baked; object origins stay editable.',
-               'calibration':'Each model is proportionally fit inside its frozen candidate envelope. The native inspection studio then fits the actual geometry to a square orthographic view.',
-               'nativeStudio':'540 x 540, fixed orthographic, transparent background, Standard sRGB, no look, exposure -0.55, Cycles CPU 12 denoised samples, two render threads.',
-               'export':'Selected single identity root with joined static mesh, glTF binary Y-up, embedded Principled materials, no external files, camera, lights or animation. The editable native preserves component names and independent pieces.',
-               'browserStudio':'Same orthographic projection; Three.js sRGB output with NoToneMapping, hemisphere, warm key, cool fill and rim. Materials and silhouettes compared independently of lighting. No application integration.',
-               'reviewer':reviewer,'ownerReview':'Pending review in finished rooms.'})
+# The other eighteen native files still carry their original production revision.
+baseline_settings=here/'production-settings.json'
+metre_settings=here/'production-settings-metres.json'
+settings_revision=load(baseline_settings)
+settings_revision['modelingInputs']=files(here/x for x in ['workshop.py','copper.py','echo.py','build.py'])
+settings_revision['supersedesCommit']='a1c766ce57f98fa7865ad4b8dd934780cf02efe1'
+settings_revision['revisedAssets']=['PR024','PR030']
+settings_revision['engraving']='The stock and route-length plates retain an original lowercase m with two shoulders, shorter than the neighboring digits.'
+save(metre_settings,settings_revision)
 allocation=next(b for b in load(root/'assets-src/production-allocation.json')['batches'] if b['task']=='T111')
 assert path(here/'manifest.json')==allocation['plannedFragmentPath']
 layout=load(root/'assets-src/rooms/scene-layouts.json')
@@ -46,7 +40,10 @@ for aid in allocation['assetIds']:
     assert metrics[id]['silhouetteIoU']>.97 and browser['errors']==[] and browser['strictTLS']
     placement=placements[id]
     script=here/('copper.py' if n<31 else 'echo.py')
-    event={'method':'modeled','tool':'Blender','version':report['blender'],'modelRevision':report['build'],'eventId':f'T111-{id}-20261127',
+    revised=id in {'PR024','PR030'}
+    settings=metre_settings if revised else baseline_settings
+    event_suffix='-metres' if revised else ''
+    event={'method':'modeled','tool':'Blender','version':report['blender'],'modelRevision':report['build'],'eventId':f'T111-{id}-20261127{event_suffix}',
            'settingsPath':path(settings),'promptOrScriptPath':path(script),'referenceHashes':[],'outputHashes':[hashes[0]],
            'notes':'Original geometry and geometric lettering authored for this roster entry. Project visual guides informed modeling without imported image pixels. The settings bind the consulted guides and shared construction script.'}
     checks=[]

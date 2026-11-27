@@ -1,0 +1,126 @@
+<!doctype html>
+<!-- Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0 -->
+<html lang="en"><meta charset="utf-8"><title>Backhoe Rift and Iron Threshold prop inspection</title>
+<style>body{margin:0;background:#243641}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"/three/build/three.module.js","three/addons/":"/three/examples/jsm/"}}</script>
+<script type="module">
+import * as T from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+const renderer=new T.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
+renderer.setSize(448,448);
+renderer.outputColorSpace=T.SRGBColorSpace;
+renderer.toneMapping=T.NoToneMapping;
+document.body.appendChild(renderer.domElement);
+const scene=new T.Scene();
+scene.add(new T.HemisphereLight(0xfff1d8,0x68809b,1.1));
+for(const [position,color,intensity] of [
+    [[-2.4,4,3],0xffedd4,2.7],[[2,2,1.7],0xc8e2ff,1.1],[[1,3.2,-2],0xffdfb0,2.2]
+]){
+    const lamp=new T.DirectionalLight(color,intensity);
+    lamp.position.set(...position);
+    scene.add(lamp);
+}
+const loader=new GLTFLoader();
+const xyz=([x,y,z])=>[x,z,-y];
+window.loadModel=async (id,native)=>{
+    const {scene:model}=await loader.loadAsync('/model/'+id+'.glb');
+    scene.add(model);
+    const h=native.span/2;
+    const camera=new T.OrthographicCamera(-h,h,h,-h,.01,100);
+    camera.position.set(...xyz(native.camera));
+    camera.lookAt(...xyz(native.focus));
+    renderer.render(scene,camera);
+    const box=new T.Box3(),v=new T.Vector3(),materials=new Set();
+    let geometryTriangles=0;
+    model.traverse(object=>{
+        if(!object.isMesh)return;
+        const pos=object.geometry.attributes.position;
+        for(let i=0;i<pos.count;i++)box.expandByPoint(v.fromBufferAttribute(pos,i).applyMatrix4(object.matrixWorld));
+        materials.add(object.material.name);
+        geometryTriangles+=(object.geometry.index?.count??pos.count)/3;
+    });
+    const result={bounds:[box.min.toArray(),box.max.toArray()],geometryTriangles,
+        renderedTriangles:renderer.info.render.triangles,draws:renderer.info.render.calls,
+        materials:[...materials].sort(),colorSpace:renderer.outputColorSpace,toneMapping:renderer.toneMapping,
+        revision:T.REVISION,png:renderer.domElement.toDataURL().split(',')[1]};
+    scene.remove(model);
+    model.traverse(obj=>{if(obj.isMesh){obj.geometry.dispose();obj.material.dispose();}});
+    return result;
+};
+window.stageRoom=async room=>{
+    const [width,height]=room.camera.basePlatePixels;
+    renderer.setSize(width,height);
+    const aspect=width/height;
+    const v=Math.max(room.camera.minimumHeightSpan,room.camera.span/aspect);
+    const camera=new T.OrthographicCamera(-v*aspect/2,v*aspect/2,v/2,-v/2,room.camera.near,room.camera.far);
+    camera.position.set(...room.camera.position);
+    camera.lookAt(...room.camera.target);
+    const placements=room.propPlacements.slice(0,10);
+    const models=await Promise.all(placements.map(p=>loader.loadAsync('/model/'+p.semanticId.slice(-5)+'.glb')));
+    for(const [i,{scene:model}] of models.entries()){
+        model.position.set(...placements[i].position);
+        scene.add(model);
+    }
+    renderer.render(scene,camera);
+    const rectangles=models.map(({scene:model},i)=>{
+        const aabb=new T.Box2(),vec=new T.Vector3();
+        model.traverse(o=>{
+            if(!o.isMesh)return;
+            const pos=o.geometry.attributes.position;
+            for(let j=0;j<pos.count;j++){
+                vec.fromBufferAttribute(pos,j).applyMatrix4(o.matrixWorld).project(camera);
+                aabb.expandByPoint(new T.Vector2((vec.x+1)*width/2,(1-vec.y)*height/2));
+            }
+        });
+        return {id:placements[i].semanticId,box:[...aabb.min.toArray(),...aabb.max.toArray()]};
+    });
+    const png=renderer.domElement.toDataURL().split(',')[1];
+    const triangles=renderer.info.render.triangles,draws=renderer.info.render.calls;
+    const residents=await Promise.all(room.characterPlacements.map(p=>loader.loadAsync('/model/'+p.characterId.split(':')[1]+'.glb')));
+    for(const [index,{scene:model}] of residents.entries()){
+        model.position.set(...room.characterPlacements[index].position);
+        scene.add(model);
+    }
+    renderer.render(scene,camera);
+    const residentPng=renderer.domElement.toDataURL().split(',')[1];
+    // Count depth-tested pixels at exact plate resolution without multisample edge blending.
+    const target=new T.WebGLRenderTarget(width,height,{samples:0});
+    const allModels=[...models,...residents];
+    const originals=[];
+    const idMaterials=allModels.map(({scene:model},index)=>{
+        const idMaterial=new T.MeshBasicMaterial({color:new T.Color((index+1)/255,0,0),toneMapped:false});
+        model.traverse(o=>{
+            if(o.isMesh){originals.push([o,o.material]);o.material=idMaterial;}
+        });
+        return idMaterial;
+    });
+    const buffer=new Uint8Array(width*height*4);
+    function countPixels(){
+        renderer.render(scene,camera);
+        renderer.readRenderTargetPixels(target,0,0,width,height,buffer);
+        const counts=Array(allModels.length+1).fill(0);
+        for(let i=0;i<buffer.length;i+=4)counts[buffer[i]]++;
+        return counts;
+    }
+    renderer.setRenderTarget(target);
+    const withResidents=countPixels();
+    for(const {scene:model} of residents)model.visible=false;
+    const propsOnly=countPixels();
+    const pixels=models.map(({scene:model},i)=>{
+        for(const candidate of models)candidate.scene.visible=candidate.scene===model;
+        const solo=countPixels()[i+1];
+        if(!(solo>0 && withResidents[i+1]<=propsOnly[i+1] && propsOnly[i+1]<=solo))throw Error('invalid pixel count '+placements[i].semanticId);
+        return {id:placements[i].semanticId,soloPixels:solo,propsOnlyVisiblePixels:propsOnly[i+1],
+            withResidentsVisiblePixels:withResidents[i+1],withResidentsVisibleFraction:withResidents[i+1]/solo};
+    });
+    renderer.setRenderTarget(null);
+    for(const [object,material] of originals)object.material=material;
+    for(const material of idMaterials)material.dispose();
+    target.dispose();
+    for(const {scene:model} of allModels){
+        scene.remove(model);
+        model.traverse(o=>{if(o.isMesh){o.geometry.dispose();o.material.dispose();}});
+    }
+    return {rectangles,triangles,draws,png,residentPng,pixels};
+};
+</script></html>

@@ -1,0 +1,144 @@
+<!doctype html>
+<!-- Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0 -->
+<html lang="en"><meta charset="utf-8"><title>Skywell and Storm Observatory prop inspection</title>
+<style>body{margin:0;background:#243641}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"/three/build/three.module.js","three/addons/":"/three/examples/jsm/"}}</script>
+<script type="module">
+import * as T from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+const renderer=new T.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
+renderer.setSize(448,448);
+renderer.outputColorSpace=T.SRGBColorSpace;
+renderer.toneMapping=T.NoToneMapping;
+document.body.appendChild(renderer.domElement);
+const scene=new T.Scene();
+scene.add(new T.HemisphereLight(0xfff1d8,0x68809b,1.1));
+for(const [position,color,intensity] of [
+    [[-2.4,4,3],0xffedd4,2.7],[[2,2,1.7],0xc8e2ff,1.1],[[1,3.2,-2],0xffdfb0,2.2]
+]){
+    const lamp=new T.DirectionalLight(color,intensity);
+    lamp.position.set(...position);
+    scene.add(lamp);
+}
+const loader=new GLTFLoader();
+const xyz=([x,y,z])=>[x,z,-y];
+window.loadModel=async (id,native)=>{
+    const {scene:model}=await loader.loadAsync('/model/'+id+'.glb');
+    scene.add(model);
+    const h=native.span/2;
+    const camera=new T.OrthographicCamera(-h,h,h,-h,.01,100);
+    camera.position.set(...xyz(native.camera));
+    camera.lookAt(...xyz(native.focus));
+    renderer.render(scene,camera);
+    const box=new T.Box3(),v=new T.Vector3(),materials=new Set();
+    let geometryTriangles=0;
+    model.traverse(object=>{
+        if(!object.isMesh)return;
+        const pos=object.geometry.attributes.position;
+        for(let i=0;i<pos.count;i++)box.expandByPoint(v.fromBufferAttribute(pos,i).applyMatrix4(object.matrixWorld));
+        materials.add(object.material.name);
+        geometryTriangles+=(object.geometry.index?.count??pos.count)/3;
+    });
+    const result={bounds:[box.min.toArray(),box.max.toArray()],geometryTriangles,
+        renderedTriangles:renderer.info.render.triangles,draws:renderer.info.render.calls,
+        materials:[...materials].sort(),colorSpace:renderer.outputColorSpace,toneMapping:renderer.toneMapping,
+        revision:T.REVISION,png:renderer.domElement.toDataURL().split(',')[1]};
+    scene.remove(model);
+    model.traverse(obj=>{if(obj.isMesh){obj.geometry.dispose();obj.material.dispose();}});
+    return result;
+};
+window.stageRoom=async room=>{
+    const [width,height]=room.camera.basePlatePixels;
+    renderer.setSize(width,height);
+    const aspect=width/height;
+    const v=Math.max(room.camera.minimumHeightSpan,room.camera.span/aspect);
+    const camera=new T.OrthographicCamera(-v*aspect/2,v*aspect/2,v/2,-v/2,room.camera.near,room.camera.far);
+    camera.position.set(...room.camera.position);
+    camera.lookAt(...room.camera.target);
+    const placements=room.propPlacements.slice(0,10);
+    const models=await Promise.all(placements.map(p=>loader.loadAsync('/model/'+p.semanticId.slice(-5)+'.glb')));
+    for(const [i,{scene:model}] of models.entries()){
+        model.position.set(...placements[i].position);
+        scene.add(model);
+    }
+    renderer.render(scene,camera);
+    const rectangles=models.map(({scene:model},i)=>{
+        const aabb=new T.Box2(),vec=new T.Vector3();
+        model.traverse(o=>{
+            if(!o.isMesh)return;
+            const pos=o.geometry.attributes.position;
+            for(let j=0;j<pos.count;j++){
+                vec.fromBufferAttribute(pos,j).applyMatrix4(o.matrixWorld).project(camera);
+                aabb.expandByPoint(new T.Vector2((vec.x+1)*width/2,(1-vec.y)*height/2));
+            }
+        });
+        return {id:placements[i].semanticId,box:[...aabb.min.toArray(),...aabb.max.toArray()]};
+    });
+    const png=renderer.domElement.toDataURL().split(',')[1];
+    const triangles=renderer.info.render.triangles,draws=renderer.info.render.calls;
+    // The current models are opaque. A material-ID pass measures fixture-to-fixture
+    // overlap from this exact camera. Ignore antialiased silhouette edges.
+    const palette=[[238,48,44],[20,203,83],[38,74,229],[226,184,24],[188,44,218],
+        [25,193,210],[227,113,59],[117,218,42],[111,67,206],[232,103,150]];
+    const diagnosticMaterials=[];
+    for(const [i,{scene:model}] of models.entries()){
+        model.traverse(o=>{
+            if(!o.isMesh)return;
+            const [r,g,b]=palette[i];
+            const material=new T.MeshBasicMaterial({color:r*65536+g*256+b,side:o.material.side,toneMapped:false});
+            diagnosticMaterials.push(material);
+            o.userData.inspectOriginalMaterial=o.material;
+            o.material=material;
+        });
+    }
+    const pixels=new Uint8Array(width*height*4);
+    const gl=renderer.getContext();
+    function readPixels(){
+        renderer.render(scene,camera);
+        gl.readPixels(0,0,width,height,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
+    }
+    function count(i,anchor,joinedPixels){
+        const rgb=palette[i];
+        let total=0,nearest=Infinity;
+        for(let j=0;j<width*height;j++){
+            const k=4*j;
+            if(pixels[k+3]<250 || rgb.some((v,l)=>Math.abs(v-pixels[k+l])>3))continue;
+            if(joinedPixels && (joinedPixels[k+3]<250 || rgb.some((v,l)=>Math.abs(v-joinedPixels[k+l])>3)))continue;
+            total++;
+            const x=j%width+.5,y=height-.5-Math.floor(j/width);
+            nearest=Math.min(nearest,(x-anchor[0])**2+(y-anchor[1])**2);
+        }
+        return {total,nearest:Math.sqrt(nearest)};
+    }
+    readPixels();
+    const joinedPixels=pixels.slice();
+    const idMap=renderer.domElement.toDataURL().split(',')[1];
+    const coverage=models.map((_,i)=>{
+        const hotspot=room.hotspots.find(h=>h.subjectId===placements[i].semanticId);
+        const anchor=hotspot.uvAt16by9.map((n,j)=>n*(j?height:width));
+        const measured=count(i,anchor);
+        return {id:placements[i].semanticId,hotspot:hotspot.id,anchor,visiblePixels:measured.total,
+            nearestVisibleInteriorPixel:measured.nearest,idColor:palette[i]};
+    });
+    for(const [i,entry] of coverage.entries()){
+        models.forEach(({scene:model},j)=>model.visible=i===j);
+        readPixels();
+        const measured=count(i,entry.anchor);
+        const visible=count(i,entry.anchor,joinedPixels);
+        entry.visiblePixels=visible.total;
+        entry.nearestVisibleInteriorPixel=visible.nearest;
+        entry.soloPixels=measured.total;
+        entry.visibleFraction=entry.visiblePixels/entry.soloPixels;
+        entry.fullyInFrame=rectangles[i].box.every((coord,k)=>coord>0 && coord<(k%2?height:width));
+    }
+    for(const {scene:model} of models){
+        model.traverse(o=>{if(o.isMesh)o.material=o.userData.inspectOriginalMaterial;});
+    }
+    diagnosticMaterials.forEach(m=>m.dispose());
+    for(const {scene:model} of models){
+        scene.remove(model);
+        model.traverse(o=>{if(o.isMesh){o.geometry.dispose();o.material.dispose();}});
+    }
+    return {rectangles,coverage,triangles,draws,png,idMap};
+};
+</script></html>

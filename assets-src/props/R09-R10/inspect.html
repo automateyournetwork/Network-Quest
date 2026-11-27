@@ -1,0 +1,112 @@
+<!doctype html>
+<!-- Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0 -->
+<html lang="en"><meta charset="utf-8"><title>Shell Market and Clockworks prop inspection</title>
+<style>body{margin:0;background:#243641}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"/three/build/three.module.js","three/addons/":"/three/examples/jsm/"}}</script>
+<script type="module">
+import * as T from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+const renderer=new T.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
+renderer.setSize(448,448);
+renderer.outputColorSpace=T.SRGBColorSpace;
+renderer.toneMapping=T.NoToneMapping;
+document.body.appendChild(renderer.domElement);
+const scene=new T.Scene();
+scene.add(new T.HemisphereLight(0xfff1d8,0x68809b,1.1));
+for(const [position,color,intensity] of [
+    [[-2.4,4,3],0xffedd4,2.7],[[2,2,1.7],0xc8e2ff,1.1],[[1,3.2,-2],0xffdfb0,2.2]
+]){
+    const lamp=new T.DirectionalLight(color,intensity);
+    lamp.position.set(...position);
+    scene.add(lamp);
+}
+const loader=new GLTFLoader();
+const xyz=([x,y,z])=>[x,z,-y];
+window.loadModel=async (id,native)=>{
+    const {scene:model}=await loader.loadAsync('/model/'+id+'.glb');
+    scene.add(model);
+    const h=native.span/2;
+    const camera=new T.OrthographicCamera(-h,h,h,-h,.01,100);
+    camera.position.set(...xyz(native.camera));
+    camera.lookAt(...xyz(native.focus));
+    renderer.render(scene,camera);
+    const box=new T.Box3(),v=new T.Vector3(),materials=new Set();
+    let geometryTriangles=0;
+    model.traverse(object=>{
+        if(!object.isMesh)return;
+        const pos=object.geometry.attributes.position;
+        for(let i=0;i<pos.count;i++)box.expandByPoint(v.fromBufferAttribute(pos,i).applyMatrix4(object.matrixWorld));
+        materials.add(object.material.name);
+        geometryTriangles+=(object.geometry.index?.count??pos.count)/3;
+    });
+    const result={bounds:[box.min.toArray(),box.max.toArray()],geometryTriangles,
+        renderedTriangles:renderer.info.render.triangles,draws:renderer.info.render.calls,
+        materials:[...materials].sort(),colorSpace:renderer.outputColorSpace,toneMapping:renderer.toneMapping,
+        revision:T.REVISION,png:renderer.domElement.toDataURL().split(',')[1]};
+    scene.remove(model);
+    model.traverse(obj=>{if(obj.isMesh){obj.geometry.dispose();obj.material.dispose();}});
+    return result;
+};
+window.stageRoom=async (room,withResidents)=>{
+    const [width,height]=room.camera.basePlatePixels;
+    renderer.setSize(width,height);
+    const aspect=width/height, v=Math.max(room.camera.minimumHeightSpan,room.camera.span/aspect);
+    const camera=new T.OrthographicCamera(-v*aspect/2,v*aspect/2,v/2,-v/2,room.camera.near,room.camera.far);
+    camera.position.set(...room.camera.position);
+    camera.lookAt(...room.camera.target);
+    const placements=room.propPlacements.slice(0,10).map(p=>({id:p.semanticId,position:p.position}));
+    if(withResidents)for(const c of room.characterPlacements)placements.push({id:c.characterId,position:c.position});
+    const models=await Promise.all(placements.map(async place=>{
+        const {scene:model}=await loader.loadAsync('/model/'+place.id.split(':')[1]+'.glb');
+        model.position.set(...place.position);
+        scene.add(model);
+        return model;
+    }));
+    renderer.render(scene,camera);
+    const triangles=renderer.info.render.triangles,draws=renderer.info.render.calls;
+    const png=renderer.domElement.toDataURL().split(',')[1];
+    // A single-color offscreen depth pass measures actual spatial coverage. For
+    // the count, omit clear glazing below 50% opacity, retain its opaque frame.
+    const target=new T.WebGLRenderTarget(width,height,{samples:0,depthBuffer:true});
+    const pixels=new Uint8Array(width*height*4);
+    const colors=models.map((_,i)=>[32+i*10,64+(i%3)*70,32+(i%5)*32]);
+    const originals=new Set(), mapped=new Set();
+    models.forEach((model,i)=>model.traverse(o=>{
+        if(!o.isMesh)return;
+        const original=o.material;
+        originals.add(original);
+        const rgb=colors[i].map(b=>b/255);
+        const mat=new T.MeshBasicMaterial({color:new T.Color(...rgb),side:original.side,toneMapped:false});
+        mat.visible=original.opacity>=.5;
+        mapped.add(mat);o.material=mat;
+    }));
+    function countCoverage(){
+        renderer.render(scene,camera);
+        renderer.readRenderTargetPixels(target,0,0,width,height,pixels);
+        const key=(r,g,b)=>(r<<16)|(g<<8)|b;
+        const index=new Map(colors.map(([r,g,b],i)=>[key(r,g,b),i]));
+        const counts=new Uint32Array(models.length);
+        for(let n=0;n<pixels.length;n+=4){
+            const i=index.get(key(pixels[n],pixels[n+1],pixels[n+2]));
+            if(i!==undefined)counts[i]++;
+        }
+        return counts;
+    }
+    renderer.setRenderTarget(target);
+    const all=countCoverage();
+    const coverage=[];
+    for(let i=0;i<10;i++){
+        models.forEach((model,j)=>model.visible=i===j);
+        const alone=countCoverage()[i];
+        if(!alone||all[i]>alone)throw new Error('Invalid depth-pass coverage for '+placements[i].id);
+        coverage.push({id:placements[i].id,alonePixels:alone,visiblePixels:all[i],visibleFraction:all[i]/alone});
+    }
+    renderer.setRenderTarget(null);
+    target.dispose();
+    for(const model of models){
+        scene.remove(model);model.traverse(o=>{if(o.isMesh)o.geometry.dispose();});
+    }
+    for(const material of [...originals,...mapped])material.dispose();
+    return {placements,coverage,triangles,draws,png};
+};
+</script></html>

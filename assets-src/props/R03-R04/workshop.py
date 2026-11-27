@@ -136,13 +136,25 @@ GLYPHS = {
 'Q':['02ec0','ae'],'R':['c015876','7e'],'S':['2068ec'],'T':['02','1d'],'U':['0ce2'],
 'V':['0d2'],'W':['0c7e2'],'X':['0e','2c'],'Y':['072','7d'],'Z':['02ce'],
 '0':['02ec0'],'1':['31d','ce'],'2':['0286ce'],'3':['02ec','68'],'4':['068','2e'],
-'5':['2068ec'],'6':['20ce86'],'7':['02d'],'8':['02ec0','68'],'9':['ec0286'],
+'5':['2068ec'],'6':['20ce86'],'7':['02d'],'8':['02ec0','68'],'9':['2068','2ec'],
 '/':['c2'],'-':['68'],'<':['27e'],'>':['07c'],'.':['de']}
 def lettering(name,words,center,height,mat='iron'):
     x,y,z=center; width=height*.54; step=height*.76; start=x-(len(words)-1)*step/2
     paths=[]
-    for i,char in enumerate(words.upper()):
-        for stroke in GLYPHS.get(char,[]):
+    # These two dimension plates carry metres. The original stock descriptions
+    # are uppercase, while the SI unit retains its lowercase glyph.
+    if name in {'Replacement stock tab engraving', 'Passive path lengths engraving'}:
+        words=words.removesuffix(' M')+' m' if words.endswith(' M') else words
+    for i,char in enumerate(words):
+        if char=='m':
+            # Two low, rounded shoulders on the capital baseline. The centre
+            # descender distinguishes the lowercase unit even at inventory size.
+            cx=start+i*step
+            arches=[[(-.33,-.50),(-.33,.14),(-.20,.18),(-.06,.15),(0,.07),(0,-.50)],
+                    [(0,.07),(.10,.17),(.22,.18),(.32,.11),(.32,-.50)]]
+            paths.extend([[(cx+dx*height,y,z+dz*height) for dx,dz in stroke] for stroke in arches])
+            continue
+        for stroke in GLYPHS.get(char.upper(),[]):
             pts=[]
             for vertex in stroke:
                 a=int(vertex,16);pts.append((start+i*step+(a%3-1)*width/2,y,z+(.5-a//3/4)*height))

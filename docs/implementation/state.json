@@ -2,8 +2,8 @@
   "feature": "001-physical-layer-underworld",
   "authorizedAt": "2026-11-25",
   "loopCap": 200,
-  "loopsStarted": 132,
-  "activeTask": "Active assignments: 130/T113, 131/T114, 132/T115.",
+  "loopsStarted": 136,
+  "activeTask": "Active assignments: 134/T117, 135/T118, 136/T119.",
   "status": "running",
   "completedTasks": [
     "T001",
@@ -110,7 +110,11 @@
     "T109",
     "T110",
     "T112",
-    "T111"
+    "T111",
+    "T113",
+    "T114",
+    "T115",
+    "T116"
   ],
   "blockedTasks": [
     {
@@ -127,27 +131,27 @@
       "note": "docs/implementation/loops/004-T004.md"
     }
   ],
-  "lastLoopNote": "docs/implementation/loops/128-T111.md",
+  "lastLoopNote": "docs/implementation/loops/133-T116.md",
   "activeLoops": [
     {
-      "loop": 130,
-      "task": "T113",
-      "agent": "/root/loop130_t113",
-      "scope": "Skywell and Storm Observatory prop production, PR061\u2013080.",
+      "loop": 134,
+      "task": "T117",
+      "agent": "/root/loop134_t117",
+      "scope": "Registered room background, midground and foreground art for R01\u2013R04.",
       "status": "Assigned for production and verification."
     },
     {
-      "loop": 131,
-      "task": "T114",
-      "agent": "/root/loop131_t114",
-      "scope": "Shell Market and Clockworks props PR081\u2013100.",
+      "loop": 135,
+      "task": "T118",
+      "agent": "/root/loop135_t118",
+      "scope": "Registered room art for Photon Gardens, Prism Vault, Skywell and Storm Observatory, R05\u2013R08.",
       "status": "Assigned for production and verification."
     },
     {
-      "loop": 132,
-      "task": "T115",
-      "agent": "/root/loop132_t115",
-      "scope": "Rift and Iron Threshold props PR101\u2013120.",
+      "loop": 136,
+      "task": "T119",
+      "agent": "/root/loop136_t119",
+      "scope": "Registered artwork for Shell Market, Clockworks, the Rift and Iron Threshold.",
       "status": "Assigned for production and verification."
     }
   ],
@@ -171,8 +175,8 @@
   },
   "publication": {
     "branch": "001-physical-layer-underworld",
-    "lastPushedCommit": "a5eb8910def87329bb1095b7be70f9845b242226",
-    "scope": "Reviewed and pushed 432 exact staged paths for T107\u2013T109, their native/exported assets, evidence, loop notes, and the asset-license path fix. Remote branch verified. No deployment.",
+    "lastPushedCommit": "a1c766ce57f98fa7865ad4b8dd934780cf02efe1",
+    "scope": "Verified remote prop checkpoint. 767 reviewed paths cover 60 identities for R01\u2013R06, including the ten retained Arrival Lift props. No deployment.",
     "releaseDeployed": false
   },
   "pendingReviews": [
@@ -353,5 +357,16 @@
     "status": "exported",
     "report": "docs/evidence/spec001/character-production/resumed-wave/review.md",
     "openRoomIntegration": "R03/R07 facings, R11 Electric Eel obscuring part of the ground preparation marker, final occlusion and cross-batch party layouts."
+  },
+  "propLabelCorrection": {
+    "task": "T111",
+    "loop": 128,
+    "assets": [
+      "PR024",
+      "PR030"
+    ],
+    "finding": "Two native labels use uppercase M for metre. Correct the artwork to lowercase m or spell out METRES, rerender affected sources and GLBs, and preserve the original acceptance evidence at a1c766c.",
+    "status": "Root verified both native/Firefox replacements and current inventory, and inspected the rendered 85 m and 95/100 m signs.",
+    "evidence": "docs/evidence/spec001/prop-production/T111/metre-correction.json"
   }
 }

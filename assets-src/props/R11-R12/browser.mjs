@@ -1,0 +1,89 @@
+// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+// Native headless Firefox with an ephemeral trusted TLS endpoint. Run from the repository root.
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {mkdir, mkdtemp, readFile, rm, writeFile} from 'node:fs/promises';
+import {createServer} from 'node:https';
+import {join} from 'node:path';
+import {tmpdir} from 'node:os';
+import {firefox} from 'playwright';
+
+const reports='docs/evidence/spec001/prop-production/T115';
+const scratch=await mkdtemp(join(tmpdir(),'nq-t115-'));
+const profile=join(scratch,'profile');
+const run=(bin,args)=>execFileSync(bin,args,{cwd:scratch,stdio:'ignore',timeout:20000});
+const runtimeBounds=([[x,y,z],[X,Y,Z]])=>[[x,z,-Y],[X,Z,-y]];
+const maxError=(a,b)=>Math.max(...a.flat().map((v,i)=>Math.abs(v-b.flat()[i])));
+let server,context;
+try {
+    await mkdir(profile,{mode:0o700});
+    await writeFile(join(scratch,'san'),'basicConstraints=critical,CA:FALSE\nkeyUsage=critical,digitalSignature,keyEncipherment\nextendedKeyUsage=serverAuth\nsubjectAltName=IP:127.0.0.1\n');
+    run('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-days','1','-subj','/CN=T115 asset CA','-addext','basicConstraints=critical,CA:TRUE','-addext','keyUsage=critical,keyCertSign,cRLSign','-keyout','ca.key','-out','ca.pem']);
+    run('openssl',['req','-newkey','rsa:2048','-nodes','-subj','/CN=127.0.0.1','-keyout','leaf.key','-out','leaf.csr']);
+    run('openssl',['x509','-req','-in','leaf.csr','-CA','ca.pem','-CAkey','ca.key','-CAcreateserial','-days','1','-extfile','san','-out','leaf.pem']);
+    run('certutil',['-N','-d','sql:'+profile,'--empty-password']);
+    run('certutil',['-A','-d','sql:'+profile,'-n','T115 local asset CA','-t','C,,','-i','ca.pem']);
+    server=createServer({key:await readFile(join(scratch,'leaf.key')),cert:await readFile(join(scratch,'leaf.pem'))},async(req,res)=>{
+        const p=new URL(req.url,'https://127.0.0.1').pathname;
+        const filename=p==='/'?'assets-src/props/R11-R12/inspect.html':
+            /^\/model\/(?:PR1(?:0[1-9]|1[0-9]|20)|CH(?:01|02|03|12|25))\.glb$/.test(p)?'public/assets/models/'+p.slice(7):
+            /^\/three\/(build|examples\/jsm)\/[\w/.-]+\.js$/.test(p)?'node_modules'+p:null;
+        if (!filename || p.includes('..')) {res.writeHead(404).end();return;}
+        try {res.setHeader('Content-Type',p==='/'?'text/html':p.endsWith('.js')?'text/javascript':'model/gltf-binary'); res.end(await readFile(filename));}
+        catch {res.writeHead(404).end();}
+    });
+    await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+    context=await firefox.launchPersistentContext(profile,{headless:true,ignoreHTTPSErrors:false,viewport:{width:448,height:448},deviceScaleFactor:1});
+    const page=await context.newPage(), errors=[];
+    page.on('pageerror',error=>errors.push(error.message));
+    page.on('console',message=>{if(message.type()==='error')errors.push(message.text());});
+    await page.goto('https://127.0.0.1:'+server.address().port);
+    await page.waitForFunction(()=>typeof window.loadModel==='function');
+    for (const id of process.argv.slice(2)) {
+        assert.match(id,/^PR1(?:0[1-9]|1[0-9]|20)$/);
+        const native=JSON.parse(await readFile(join(reports,id+'-native.json'),'utf8'));
+        const stats=await page.evaluate(([id,native])=>window.loadModel(id,native),[id,native]);
+        const png=Buffer.from(stats.png,'base64');
+        delete stats.png;
+        const boundError=maxError(stats.bounds,runtimeBounds(native.nativeBounds));
+        assert.ok(Number.isFinite(boundError) && boundError<1e-5,id+' bounds');
+        assert.deepEqual(stats.materials,native.materials,id+' materials');
+        assert.equal(stats.geometryTriangles,Object.values(native.editableMeshes).reduce((a,b)=>a+b,0),id+' geometry');
+        assert.equal(stats.revision,'187');
+        stats.maxBoundsErrorMetres=boundError;
+        stats.browser=context.browser().version();
+        stats.strictTLS=true;
+        stats.exportSha256=native.exportSha256;
+        stats.capturedAt=new Date().toISOString();
+        await writeFile(join(reports,id+'-browser.png'),png);
+        await writeFile(join(reports,id+'-browser.json'),JSON.stringify(stats,null,2)+'\n');
+        console.log(id,stats.geometryTriangles,'triangles',stats.draws,'draws',boundError,'m');
+    }
+    if(process.argv.length===22){
+        const {rooms}=JSON.parse(await readFile('assets-src/rooms/scene-layouts.json','utf8'));
+        for(const room of rooms.slice(10,12)){
+            const id=room.roomId.slice(-3);
+            const result=await page.evaluate(r=>window.stageRoom(r),room);
+            await writeFile(join(reports,id+'-frozen.png'),Buffer.from(result.png,'base64'));
+            delete result.png;
+            await writeFile(join(reports,id+'-residents.png'),Buffer.from(result.residentPng,'base64'));
+            delete result.residentPng;
+            result.residentInputs=await Promise.all(room.characterPlacements.map(async placement=>{
+                const asset=placement.characterId.split(':')[1];
+                const path='public/assets/models/'+asset+'.glb';
+                const sha256=createHash('sha256').update(await readFile(path)).digest('hex');
+                return {asset,path,sha256,position:placement.position};
+            }));
+            result.visibilityScope='Static default-pose residents and apprentice at saved arrival. Unmultisampled depth-tested pixel counts from each isolated fixture, with adjacent props, and with residents. Optional parties, room architecture and final behaviors are separate.';
+            result.camera=room.camera;
+            result.scope='Ten T115 fixtures at frozen positions, unit scale, identity orientation. Isolated staging only.';
+            await writeFile(join(reports,id+'-frozen.json'),JSON.stringify(result,null,2)+'\n');
+        }
+    }
+    assert.deepEqual(errors,[]);
+} finally {
+    await context?.close();
+    if(server) await new Promise(resolve=>server.close(resolve));
+    await rm(scratch,{recursive:true,force:true});
+}

@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**132 loops started; 105/170 tasks accepted; no deployment.** The remote feature
+**136 loops started; 109/170 tasks accepted; no deployment.** The remote feature
 branch reached `a5eb8910def87329bb1095b7be70f9845b242226` for the three
 character batches. It includes the Photon checkpoint `284394d` and the T106
 layout freeze `d7dc4a1`. The preceding checkpoint `e6362f6b27ef3daa0166468d2e56733fa08c9aa6`
@@ -73,9 +73,21 @@ Loop 129/T112: Verified twenty optical props, including the profile-specific rec
 
 Loop 128/T111: Verified twenty copper and serial diagnostic props in source and browser views, including the corrected patch panel and maintenance lettering. T136 owns their final mounts. [Verification](loops/128-T111.md).
 
+The R01–R06 prop checkpoint reached GitHub at `a1c766c`. Its [coordinator review](../evidence/spec001/prop-production/join-t110-t112/review.md) covers the exact rosters, fifty new models, and ten retained R01 props.
+
+Loop 130/T113: Verified twenty radio and observatory props, including the antenna elements and separate signal, noise and SNR markings. T138 owns final room placement. [Verification](loops/130-T113.md).
+
+Loop 131/T114: Verified twenty Market and Clockworks props. T139 owns the observed cage, counter and timing wheel occlusion with characters present. [Verification](loops/131-T114.md).
+
+Loop 132/T115: Verified twenty Rift and Threshold props and the corrected metre plaques. Staging with residents identifies occluded portions for T140. [Verification](loops/132-T115.md).
+
+Loop 133/T116: Verified thirty shared tools and fixtures and their trial mounts. Eight small props need accessible close inspection when integrated. [Verification](loops/133-T116.md).
+
 <!-- current production assignments -->
-Active assignments: 130/T113, 131/T114, 132/T115.
+Active assignments: 134/T117, 135/T118, 136/T119.
 <!-- end current production assignments -->
+
+Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).
 
 For prop production read
 `assets-src/rooms/scene-layouts.json`, `assets-src/production-allocation.json`,

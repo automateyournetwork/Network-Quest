@@ -1,0 +1,27 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PR106",
+  "hashes": [
+    "a129d46ca799afdd5980e93dcc2c10aff4afb76dc72aebf9dc0be66d08ce53d6",
+    "4d022e64c196f9a6d15195cb9fc3dafcf7aa25de3be1e8b1b90c052c755d243f"
+  ],
+  "status": "passed",
+  "actor": "tool",
+  "reviewer": "/root/loop132_t115",
+  "date": "2026-11-27",
+  "environment": "macOS 26.6.2 arm64 Mac16,7, Blender 5.2.1 LTS 9e2066aef7ef, Three r187 / Firefox 159.0 via strict temporary local TLS.",
+  "details": {
+    "observedPaths": [
+      "assets-src/props/R11-R12/PR106.blend",
+      "public/assets/models/PR106.glb"
+    ],
+    "scope": "T115 exported fixture. Static default-pose residents are staged separately. Final room binding, party occlusion, owner review, release budget and quota acceptance follow in later tasks.",
+    "findings": "Fresh Blender process opened the saved model and rendered 35 editable mesh parts. Document/root remained intact during in-memory export.",
+    "methods": [
+      "native-source-reopen"
+    ],
+    "nativeReport": "docs/evidence/spec001/prop-production/T115/PR106-native.json",
+    "nativeRender": "docs/evidence/spec001/prop-production/T115/PR106-native.png"
+  },
+  "check": "source-reopen"
+}
