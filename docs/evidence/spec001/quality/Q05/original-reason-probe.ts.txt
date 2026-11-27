@@ -1,0 +1,66 @@
+// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import { readFileSync } from 'node:fs';
+import { describe, expect, it } from 'vitest';
+import type { ContentRegistry } from '../../src/content/registry';
+import type { ActionId, OutcomeEventId } from '../../src/domain/types';
+import { captureOutcomeContext, createOutcomeController, outcomeCaveats } from '../../src/state/outcomes';
+import type { OutcomeCommand, OutcomePreparation } from '../../src/state/outcomes';
+import type { RepairScenarioResolver } from '../../src/state/repair-plan';
+import { SaveValidator } from '../../src/services/save-validator';
+import { captureSafeSnapshot } from '../../src/state/snapshot';
+import { fixture, q, registry, uuid } from './outcome-fixture';
+
+// Read literal independent expectations. No result below supplies scenario data
+// or computes an expected verdict from the implementation under test.
+const oracle = JSON.parse(readFileSync(new URL('../fixtures/outcomes.json', import.meta.url), 'utf8')) as {
+  cases: { id: string; expected: Record<string, unknown> }[];
+};
+const expected = (id: string) => {
+  const row = oracle.cases.find(c => c.id === id); if (!row) throw new Error(`Missing oracle ${id}`); return row.expected;
+};
+const eventId = uuid(90) as unknown as OutcomeEventId;
+const command = (selection: 'permanent' | 'temporary' | 'shutdown' = 'permanent'): OutcomeCommand => ({
+  actionId: 'classify-outcome' as ActionId, eventId,
+  operation: { kind: 'classify', selection, linkId: selection === 'shutdown' ? null : uuid(2), endpointId: selection === 'shutdown' ? null : uuid(3) },
+});
+function ready(route: 'copper' | 'fiber' | 'radio' = 'copper', selection: 'permanent' | 'temporary' | 'shutdown' = 'permanent',
+  replace?: (base: RepairScenarioResolver) => RepairScenarioResolver, acquireProof = true) {
+  const f = fixture(route, replace);
+  f.prepare(selection === 'shutdown' ? 'shutdown' : `${route}-${route === 'copper' ? 'section' : 'A'}`, selection === 'shutdown' ? null : selection);
+  if (selection === 'temporary') f.choose('record-maintenance');
+  if (selection === 'shutdown') f.choose('record-isolation');
+  expect(f.send({ kind: 'apply', evaluation: { status: 'correct', reasonCode: 'enter-authored-preparation', observations: [], acceptedEffects: [] },
+    destination: { roomId: q<'room'>('R11'), safePositionId: q<'safe-position'>('R11.preparation'), activity: 'safe-preparation' } }).status).not.toBe('rejected');
+  expect(f.execute().evaluation?.status).toBe('correct');
+  expect(f.state().runtime.activity?.kind).toBe('active-encounter');
+  expect(f.state().runtime.checkpoint).not.toBeNull();
+  if (selection === 'shutdown' || !acquireProof) { f.move('R12'); f.choose('read-classification'); } else f.prove();
+  return f;
+}
+function harness(f: ReturnType<typeof fixture>, content: ContentRegistry = registry) {
+  const controller = createOutcomeController({ registry: content, repairScenario: f.resolver });
+  const store = { getState: f.state, compareAndSet: (before: ReturnType<typeof f.state>, next: ReturnType<typeof f.state>) => {
+    if (f.state() !== before) return false; f.replace(next); return true;
+  } };
+  const prepare = (input = command()) => controller.prepareClassification(f.state(), captureOutcomeContext(f.state())!, input);
+  const commit = (p: OutcomePreparation) => { if (!p.ok) throw new Error(JSON.stringify(p)); return controller.commit(store, p.change); };
+  return { controller, store, prepare, commit };
+}
+
+
+describe('unchanged T082 missing-observation explanations', () => {
+  for (const selection of ['permanent', 'temporary'] as const) {
+    for (const proof of ['physical', 'endpoint'] as const) {
+      const row = `OUT-${selection.toUpperCase()}-${proof.toUpperCase()}-MISSING`;
+      it(row, () => {
+        const f = ready('copper', selection), h = harness(f), cmd = command(selection);
+        const original = f.state();
+        const absent = uuid(proof === 'physical' ? 2 : 3);
+        f.replace({ ...original, runtime: { ...original.runtime, game: { ...f.game(), notebook: { ...f.game().notebook,
+          measurements: f.game().notebook.measurements.filter(m => m.id !== absent) } } } });
+        const result = h.prepare({ ...cmd, operation: { ...cmd.operation, [proof === 'physical' ? 'linkId' : 'endpointId']: null } });
+        expect(result).toMatchObject({ ok: false, feedback: { reasonCode: expected(row)['reason'] } });
+      });
+    }
+  }
+});

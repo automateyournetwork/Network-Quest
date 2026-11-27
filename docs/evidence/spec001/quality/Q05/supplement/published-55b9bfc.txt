@@ -1,0 +1,67 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest/.local/Q05-audit
+
+ ✓ tests/content/endings.test.ts (48 tests) 14ms
+ ✓ tests/domain/copper-repair.test.ts (47 tests) 9ms
+ ✓ tests/ui/recovery.test.ts (23 tests) 98ms
+ ✓ tests/ui/encounter-integration.test.ts (18 tests) 110ms
+ ✓ tests/state/encounter.test.ts (61 tests) 604ms
+ ✓ tests/state/outcome-classification.test.ts (83 tests) 581ms
+ ✓ tests/ui/recovery-save.test.ts (32 tests) 768ms
+ ✓ tests/state/copper-scenario.test.ts (16 tests) 3217ms
+   ✓ T075 actual copper room scenario adapter (16)
+     ✓ rejects unreviewed-path in authored action data without binding it 434ms
+     ✓ rejects direct-completion in authored action data without binding it 521ms
+     ✓ rejects manufactured-reading in authored action data without binding it 427ms
+ ✓ tests/ui/account-settings.test.ts (42 tests) 19961ms
+   ✓ T052 account settings operation ownership (14)
+     ✓ discloses actual identity, one-slot data and unverified backup policy without invented expiry 643ms
+     ✓ canceling the logout warning changes no runtime, API generation, outstanding work or requests 541ms
+     ✓ confirmed logout stops competing work and clears only after current 204, without save/delete 520ms
+     ✓ lost logout stays unconfirmed and preserves adventure; an explicit current guest GET can confirm revocation 487ms
+     ✓ ignores stale logout completion after a later account/view 482ms
+     ✓ opens delete-purpose auth only on confirmation; a hint only reads session and requires a second explicit deletion choice 494ms
+     ✓ does not claim a session observation proves fresh authentication; server rejection preserves adventure 483ms
+     ✓ uses one private canonical random 256-bit receipt on deletion/status and never auto-repeats DELETE/auth 469ms
+     ✓ keeps status 404 unconfirmed, never uses guest state as deletion proof 464ms
+     ✓ keeps status 503 unconfirmed, never uses guest state as deletion proof 472ms
+     ✓ bounds status backoff and obeys Retry-After including explicit checks 469ms
+     ✓ re-arms an early deletion-status timer without checking before its backoff 476ms
+     ✓ drops receipt polling and stale completion after disposal or an explicit later view 470ms
+     ✓ rechecks ownership after synchronous rendering callbacks before sending a confirmed action 459ms
+   ✓ T052 reentrant, credential and bounded recovery edges (20)
+     ✓ rejects confirm-logout when stopping competitors synchronously invalidates the settings view 459ms
+     ✓ rejects confirm-delete when stopping competitors synchronously invalidates the settings view 460ms
+     ✓ rejects logout success invalidated in the API/controller microtask gap 462ms
+     ✓ rejects deletion success invalidated in the API/controller microtask gap 463ms
+     ✓ requires still-current explicit logout confirmation and never treats equal provider labels as account continuity 461ms
+     ✓ keeps a later signed-in session and in-memory adventure when checking lost logout 469ms
+     ✓ reserves a deletion popup synchronously and permits only explicit blocked-tab fallback 461ms
+     ✓ never turns a guest deletion-reauth observation into deletion success or a fresh auth loop 465ms
+     ✓ rejects an observed different provider and preserves the original adventure 461ms
+     ✓ does not adopt an observed reauth session after the application rejects or invalidates its lifecycle CAS 486ms
+     ✓ accepts the exact observed session when the authorized adoption rotates the API lifecycle generation 469ms
+     ✓ rejects an unrelated API-only rotation after the adoption callback captured its owned generation 466ms
+     ✓ does not send DELETE after a reentrant cancellation during its pending projection 480ms
+     ✓ does not clear after a completed receipt invalidated between the API result and UI continuation 468ms
+     ✓ stops after exactly six pending status reads without repeating deletion or signin 463ms
+     ✓ honors a Retry-After longer than its checking window by stopping, never polling early 468ms
+     ✓ stops an expired pending receipt and treats unknown response data as unconfirmed 470ms
+     ✓ forgets volatile receipt and stops pending status on close without reporting rollback 465ms
+     ✓ disposal during a pending logout keeps memory and cannot render or clear later 463ms
+     ✓ refuses deletion when secure entropy is unavailable and never substitutes weak randomness 472ms
+   ✓ T052 status subscriber timing (8)
+     ✓ notifies the panel when an explicit logout check becomes available again without issuing a request 470ms
+     ✓ does not notify an old logout recovery view after close 458ms
+     ✓ does not notify an old logout recovery view after invalidate 456ms
+     ✓ does not notify an old logout recovery view after dispose 462ms
+     ✓ does not notify an old logout recovery view after api-generation 461ms
+     ✓ limits logout checks to six and does not re-enable or schedule another notification after exhaustion 462ms
+     ✓ does not overflow a long Retry-After timer or re-enable the logout control early 463ms
+     ✓ enforces backoff before notifying a subscriber that tries an immediate status check 468ms
+
+ Test Files  9 passed (9)
+      Tests  370 passed (370)
+   Start at  11:49:22
+   Duration  20.17s (tests 84%, import 14%, transform 2%)
+

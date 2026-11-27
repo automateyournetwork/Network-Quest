@@ -1,0 +1,119 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest/.local/Q05-audit
+
+ ❯ tests/state/q05-reason-probe.test.ts (4 tests | 4 failed) 43ms
+   ❯ unchanged T082 missing-observation explanations (4)
+     × OUT-PERMANENT-PHYSICAL-MISSING 20ms
+     × OUT-PERMANENT-ENDPOINT-MISSING 8ms
+     × OUT-TEMPORARY-PHYSICAL-MISSING 8ms
+     × OUT-TEMPORARY-ENDPOINT-MISSING 7ms
+ ❯ tests/ui/encounter-integration.test.ts (18 tests | 1 failed) 105ms
+   ❯ T085 actual action-bus/controller/reducer encounter join (18)
+     ✓ copper commits once with the precommit checkpoint and no observable safe committed state 16ms
+     ✓ fiber commits once with the precommit checkpoint and no observable safe committed state 6ms
+     ✓ radio commits once with the precommit checkpoint and no observable safe committed state 5ms
+     ✓ notes, prior/current hints, objective pins and evidence-map controls stay available without completing O12 or changing the checkpoint 12ms
+     ✓ the real controller rejects other exits, plan edits, unsupported verbs and generic objective rewards after commitment 4ms
+     ✓ canceled captured execution and failed real CAS leave the entire preparation state intact 4ms
+     ✓ actual R11→R12 navigation and fresh link/endpoint proofs never expose a safe committed state 6ms
+     ✓ active controller admission fails closed on deny without altering generic playable behavior 3ms
+     ✓ active controller admission fails closed on throw without altering generic playable behavior 3ms
+     ✓ active controller admission fails closed on truthy without altering generic playable behavior 4ms
+     ✓ active reducer admission fails closed on deny after real UI admission 4ms
+     ✓ active reducer admission fails closed on throw after real UI admission 4ms
+     ✓ active reducer admission fails closed on truthy after real UI admission 4ms
+     ✓ permanent outcome Continue then ordinary walk remains saveable and preserves history 7ms
+     ✓ temporary outcome Continue then ordinary walk remains saveable and preserves history 7ms
+     × a link-only classification identifies the missing separate endpoint proof and preserves current memory 8ms
+     ✓ temporary-as-permanent classification explains the remaining temporary dependency 5ms
+     ✓ malformed authored scenario is explained as content error with no learner penalty and sampled once 4ms
+ ✓ tests/state/outcome-classification.test.ts (67 tests) 506ms
+ ✓ tests/state/repair-plan.test.ts (52 tests) 7529ms
+   ✓ T077 executed intervention and fresh final proof (52)
+     ✓ rejects structurally valid but unreviewed action-effect content 469ms
+     ✓ rejects structurally valid but unreviewed weakened-prerequisite content 434ms
+     ✓ rejects structurally valid but unreviewed alternate-condition content 435ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/q05-reason-probe.test.ts > unchanged T082 missing-observation explanations > OUT-PERMANENT-PHYSICAL-MISSING
+ FAIL  tests/state/q05-reason-probe.test.ts > unchanged T082 missing-observation explanations > OUT-TEMPORARY-PHYSICAL-MISSING
+AssertionError: expected { Object (ok, reason, ...) } to match object { ok: false, …(1) }
+(6 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "feedback": {
+-     "reasonCode": "physical-validation-missing",
++     "reasonCode": "final-proof-missing",
+    },
+    "ok": false,
+  }
+
+ ❯ tests/state/q05-reason-probe.test.ts:62:24
+     60|           measurements: f.game().notebook.measurements.filter(m => m.i…
+     61|         const result = h.prepare({ ...cmd, operation: { ...cmd.operati…
+     62|         expect(result).toMatchObject({ ok: false, feedback: { reasonCo…
+       |                        ^
+     63|       });
+     64|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/state/q05-reason-probe.test.ts > unchanged T082 missing-observation explanations > OUT-PERMANENT-ENDPOINT-MISSING
+ FAIL  tests/state/q05-reason-probe.test.ts > unchanged T082 missing-observation explanations > OUT-TEMPORARY-ENDPOINT-MISSING
+AssertionError: expected { Object (ok, reason, ...) } to match object { ok: false, …(1) }
+(6 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "feedback": {
+-     "reasonCode": "endpoint-validation-missing",
++     "reasonCode": "final-proof-missing",
+    },
+    "ok": false,
+  }
+
+ ❯ tests/state/q05-reason-probe.test.ts:62:24
+     60|           measurements: f.game().notebook.measurements.filter(m => m.i…
+     61|         const result = h.prepare({ ...cmd, operation: { ...cmd.operati…
+     62|         expect(result).toMatchObject({ ok: false, feedback: { reasonCo…
+       |                        ^
+     63|       });
+     64|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/ui/encounter-integration.test.ts > T085 actual action-bus/controller/reducer encounter join > a link-only classification identifies the missing separate endpoint proof and preserves current memory
+AssertionError: expected { status: 'rejected', …(2) } to match object { status: 'rejected', …(1) }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "message": StringContaining "separate endpoint test",
++   "message": "Run the separate endpoint service test at the balcony before classifying restored service.",
+    "status": "rejected",
+  }
+
+ ❯ tests/ui/encounter-integration.test.ts:192:20
+    190|     const before = f.store.getState(), view = f.repair.project().view;
+    191|     const result = f.send({ kind: 'classify-repair', selection: 'perma…
+    192|     expect(result).toMatchObject({ status: 'rejected', message: expect…
+       |                    ^
+    193|     expect(f.store.getState()).toBe(before); f.dispose();
+    194|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  2 failed | 2 passed (4)
+      Tests  5 failed | 136 passed (141)
+   Start at  11:35:14
+   Duration  8.41s (tests 68%, import 22%, transform 10%)
+

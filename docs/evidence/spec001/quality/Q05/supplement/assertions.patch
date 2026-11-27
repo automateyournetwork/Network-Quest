@@ -1,0 +1,596 @@
+--- a/tests/state/outcome-classification.test.ts
++++ b/tests/state/outcome-classification.test.ts
+@@ -8,6 +8,8 @@
+ import type { RepairScenarioResolver } from '../../src/state/repair-plan';
+ import { SaveValidator } from '../../src/services/save-validator';
+ import { captureSafeSnapshot } from '../../src/state/snapshot';
++import { projectEpilogue, validateEndingsContent } from '../../src/content/endings';
++import endings from '../../content/spec001/endings.json';
+ import { fixture, q, registry, uuid } from './outcome-fixture';
+ 
+ // Read literal independent expectations. No result below supplies scenario data
+@@ -55,7 +57,17 @@
+       expect(result.ok).toBe(true); if (!result.ok) throw new Error(JSON.stringify(result));
+       expect(result.feedback.status).toBe(expected(`OUT-${code}-${route.toUpperCase()}`)['status']);
+       expect(result.feedback.outcome).toBe(expected(`OUT-${code}-${route.toUpperCase()}`)['outcome']);
+-      expect(result.feedback.restoredService).toBe(expected(`OUT-${code}-${route.toUpperCase()}`)['awardedRestoredService']);
++      const row = expected(`OUT-${code}-${route.toUpperCase()}`);
++      expect(result.feedback.restoredService).toBe(row['awardedRestoredService']);
++      if (code !== 'E03') expect(result.feedback.observations).toContainEqual(expect.objectContaining({
++        kind: 'service-classification', permanentRepair: row['permanentRepair'], assistanceDowngradesEnding: row['assistanceChangesClassification'],
++      }));
++      else expect(result.feedback.observations).toContainEqual(expect.objectContaining({ classification: 'E03', restoredService: false }));
++      const clauseLabels: Record<string, string> = { dependency: 'Temporary dependency:', limitation: 'Limitation:', followup: 'Follow-up:',
++        unresolvedDefect: 'Named unresolved fault:', recoveryPlan: 'Recovery plan:' };
++      const caveats = result.feedback.caveats.map(caveat => caveat.text).join(' ');
++      for (const clause of row['requiredCaveats'] as string[]) expect(caveats).toContain(clauseLabels[clause]);
++      if (!(row['requiredCaveats'] as string[]).length) expect(result.feedback.caveats).toEqual([]);
+       expect(f.state()).toBe(before); // preparation cannot partly award O12/history
+       expect(h.commit(result).ok).toBe(true);
+       expect(f.game().outcomeHistory).toEqual([{ id: eventId, outcome: code, attemptId: before.runtime.game!.world.attemptId,
+@@ -80,6 +92,12 @@
+       const assistance = f.game().assistance;
+       expect(assistance.map(hint => hint.level)).toEqual(expected(`OUT-${code}-HINT-${count}`)['retainedHintLevels']);
+       const h = harness(f), p = h.prepare(command(selection)); expect(p.ok && p.feedback.outcome).toBe(expected(`OUT-${code}-HINT-${count}`)['outcome']);
++      const row = expected(`OUT-${code}-HINT-${count}`);
++      if (!p.ok) throw new Error(p.reason);
++      expect(p.feedback).toMatchObject({ status: row['status'], restoredService: row['awardedRestoredService'] });
++      if (code !== 'E03') expect(p.feedback.observations).toContainEqual(expect.objectContaining({
++        permanentRepair: row['permanentRepair'], assistanceDowngradesEnding: row['assistanceChangesClassification'],
++      }));
+       h.commit(p); expect(f.game().assistance).toEqual(assistance);
+     }
+   });
+@@ -132,7 +150,10 @@
+       const f = ready('copper', selection, base => (g, p) => { const s = base(g, p); if (!s || g.world.roomId !== q('R12')) return s;
+         return fault === 'endpoint' ? { ...s, endpointResponse: 'service-unavailable' } : fault === 'pattern' ? { ...s, receivedBits: '0100111001010000' }
+           : { ...s, path: { kind: 'copper-path', compatible: true, lengths: [{ value: 85, unit: 'm' }, { value: 10, unit: 'm' }], requiredConductors: [true, true, false, true] } }; });
+-      const h = harness(f); const before = f.state(); expect(h.prepare(command(selection))).toMatchObject({ ok: false, feedback: { status: 'incorrect', outcome: null, restoredService: false } });
++      const h = harness(f); const before = f.state();
++      const codes = { endpoint: 'endpoint-service-unresolved', pattern: 'known-pattern-differs', conductor: 'required-path-open' };
++      expect(h.prepare(command(selection))).toMatchObject({ ok: false, feedback: { status: 'incorrect', outcome: null,
++        restoredService: false, reasonCode: codes[fault] } });
+       expect(f.game().world.completedObjectiveIds).not.toContain(q('O12'));
+       expect(f.state()).toBe(before);
+     }
+@@ -146,8 +167,16 @@
+   });
+   it('cannot classify shutdown from an accidental outage or missing execution', () => {
+     const f = ready(), h = harness(f); expect(h.prepare(command('shutdown'))).toMatchObject({ ok: false, feedback: { outcome: null } });
+-    const missing = fixture(); missing.move('R12'); const hm = harness(missing);
+-    expect(hm.prepare()).toMatchObject({ ok: false }); expect(missing.game().outcomeHistory).toEqual([]);
++    const missing = fixture(), before = missing.state();
++    expect(missing.move('R12').status).toBe('unavailable');
++    expect(harness(missing).prepare()).toMatchObject({ ok: false, reason: 'invalid-state' });
++    expect(missing.state()).toBe(before); expect(missing.game().outcomeHistory).toEqual([]);
++  });
++  it('cannot claim restored service for an executed deliberate isolation', () => {
++    const f = ready('copper', 'shutdown'), h = harness(f), before = f.state();
++    expect(h.prepare(command('permanent'))).toMatchObject({ ok: false, feedback: { status: 'incorrect',
++      restoredService: false, outcome: null, reasonCode: 'service-deliberately-isolated' } });
++    expect(f.state()).toBe(before);
+   });
+   it.each(['dependency', 'maintenance'] as const)('requires actual temporary %s at classification', absent => {
+     const f = ready('copper', 'temporary', absent === 'dependency' ? base => (g, p) => {
+@@ -156,7 +185,7 @@
+     if (absent === 'maintenance') { const s = f.state(); f.replace({ ...s, runtime: { ...s.runtime, game: { ...f.game(),
+       notebook: { ...f.game().notebook, factIds: f.game().notebook.factIds.filter(id => id !== q('FACT-repair-maintenance')) } } } }); }
+     const h = harness(f), before = f.state();
+-    expect(h.prepare(command('temporary'))).toMatchObject({ ok: false, feedback: { outcome: null, reasonCode: 'temporary-followup-missing' } });
++    expect(h.prepare(command('temporary'))).toMatchObject({ ok: false, feedback: { status: 'incorrect', outcome: null, restoredService: false, reasonCode: 'temporary-followup-missing' } });
+     expect(f.state()).toBe(before);
+   });
+   it.each(['fault', 'deliberate', 'record'] as const)('requires a named unresolved fault, deliberate isolation and recovery record: %s', absent => {
+@@ -166,7 +195,10 @@
+     });
+     if (absent === 'record') { const s = f.state(); f.replace({ ...s, runtime: { ...s.runtime, game: { ...f.game(),
+       notebook: { ...f.game().notebook, factIds: f.game().notebook.factIds.filter(id => id !== q('FACT-repair-isolation')) } } } }); }
+-    const h = harness(f); expect(h.prepare(command('shutdown'))).toMatchObject({ ok: false, feedback: { outcome: null, reasonCode: 'shutdown-not-deliberate' } });
++    const h = harness(f), before = f.state();
++    expect(h.prepare(command('shutdown'))).toMatchObject({ ok: false, feedback: { status: 'incorrect', outcome: null,
++      restoredService: false, reasonCode: 'shutdown-not-deliberate' } });
++    expect(f.state()).toBe(before);
+   });
+   it.each(['readings', 'conclusion', 'subjects', 'room'] as const)('requires exact canonical %s provenance instead of a passing-looking record', field => {
+     const f = ready(), s = f.state(); f.replace({ ...s, runtime: { ...s.runtime, game: { ...f.game(), notebook: { ...f.game().notebook,
+@@ -225,6 +257,13 @@
+     expect(f.game().notebook).toEqual(after.runtime.game!.notebook); expect(f.game().world.inventory).toEqual(after.runtime.game!.world.inventory);
+     expect(f.state().runtime.persistence.pendingRequest).toBe(after.runtime.persistence.pendingRequest);
+     expect(expected(`OUT-${code}-CONTINUE`)['rewindPreparation']).toBe(false);
++    const event = f.game().outcomeHistory;
++    for (const room of ['R11', 'R10', 'R02', 'R05', 'R02', 'R07']) {
++      expect(f.move(room).status).toBe('handled');
++      expect(f.game().world.roomId).toBe(q(room));
++      expect(f.game().outcomeHistory).toEqual(event);
++      expect(f.game().world.completedObjectiveIds).toContain(q('O12'));
++    }
+   });
+   it('never dismisses E03 into a safe shutdown world', () => {
+     const f = ready('copper', 'shutdown'), h = harness(f); h.commit(h.prepare(command('shutdown'))); const before = f.state();
+@@ -396,3 +435,59 @@
+     expect(f.state()).toBe(before);
+   });
+ });
++
++describe('personalized classification and accepted narrative on the fiber branch', () => {
++  const loaded = validateEndingsContent(endings);
++  if (!loaded.ok) throw new Error(loaded.issues.join(', '));
++  const content = loaded.value;
++  it.each([['permanent', 'E01'], ['temporary', 'E02'], ['shutdown', 'E03']] as const)(
++    '%s preserves party, completed quest and maintenance history independently of three hint levels', (selection, outcome) => {
++      const f = ready('fiber', selection), current = f.state(), game = f.game();
++      // Seed the three previously earned facts. Acquisition is tested by the independent companion/quest suites.
++      const ally = q<'character'>('CH03'), quest = q<'quest'>('SQ01'), fact = q<'fact'>('FACT-repair-maintenance');
++      const room = registry.record(q('R11'));
++      if (room?.kind !== 'room') throw new Error('Missing Rift evidence');
++      const record = room.evidence.find(r => String(r.id) === String(fact));
++      expect(record?.text).toBe('Temporary dependency: the tested bypass uses a borrowed installation in the protected work corridor. Limitation: this arrangement cannot be left as the permanent route. Follow-up: install and validate the permanent protected route before removing or returning the borrowed installation. Temporary service must pass the same fresh physical and endpoint checks.');
++      expect(outcomeCaveats(registry)?.E02).toEqual([{ id: fact, text: record!.text }]);
++      f.replace({ ...current, runtime: { ...current.runtime, game: { ...game,
++        world: { ...game.world, activeAllyIds: [ally], recruits: [{ characterId: ally, level: 1, abilityIds: [], progressFlags: [] }], completedQuestIds: [quest] },
++        notebook: { ...game.notebook, factIds: [...new Set([...game.notebook.factIds, fact])] } } } });
++      for (let n = 0; n < 3; n++) expect(f.send({ kind: 'objective', operation: { kind: 'hint', objectiveId: q('O12') } }).status).toBe('applied');
++      const h = harness(f), result = h.prepare(command(selection)), before = f.game();
++      if (!result.ok) throw new Error(result.reason);
++      const row = expected(`OUT-${outcome}-PERSONALIZED`);
++      expect(result.feedback).toMatchObject({ status: row['status'], outcome: row['outcome'], restoredService: row['awardedRestoredService'] });
++      if (outcome !== 'E03') expect(result.feedback.observations).toContainEqual(expect.objectContaining({ permanentRepair: row['permanentRepair'] }));
++      h.commit(result);
++      const after = f.game(), event = after.outcomeHistory.at(-1)!;
++      expect(after.world.recruits).toEqual(before.world.recruits);
++      expect(after.world.completedQuestIds).toEqual(before.world.completedQuestIds);
++      expect(after.notebook.factIds).toContain(fact);
++      expect(after.assistance.map(h => h.level)).toEqual([1, 2, 3]);
++      const narrative = projectEpilogue(content, after, event);
++      expect(narrative?.paragraphs).toEqual(expect.arrayContaining([
++        content.recruits.find(r => r.id === String(ally))!.active, content.sideQuests.find(sq => sq.id === quest)!.text, content.maintenance.recorded,
++      ]));
++      expect(projectEpilogue(content, { ...after, assistance: [] }, event)).toEqual(narrative);
++    });
++});
++
++describe('closed authored records distinguish lesson content errors from learner actions', () => {
++  it.each([
++    ['temporary', 'FACT-repair-maintenance', 'Limitation: this arrangement cannot be left as the permanent route.'],
++    ['temporary', 'FACT-repair-maintenance', 'Follow-up: install and validate the permanent protected route before removing or returning the borrowed installation.'],
++    ['shutdown', 'FACT-repair-isolation', 'Recovery plan: return to safe preparation, repair or replace the damaged path, then measure again and repeat the endpoint test.'],
++  ] as const)('%s rejects an authored record missing %s clause %s before grading', (selection, factId, clause) => {
++    const f = ready('copper', selection), before = f.state();
++    const source = registry.record(q('R11'));
++    if (source?.kind !== 'room') throw new Error('Rift room missing');
++    const fact = source.evidence.find(record => record.id === q(factId));
++    expect(fact?.text).toContain(clause);
++    const content: ContentRegistry = { ...registry, record: id => id !== source.id ? registry.record(id) : {
++      ...source, evidence: source.evidence.map(record => record !== fact ? record : { ...record, text: record.text.replace(clause, '') }),
++    } };
++    expect(harness(f, content).prepare(command(selection))).toMatchObject({ ok: false, reason: 'content-error' });
++    expect(f.state()).toBe(before); expect(f.game().outcomeHistory).toEqual([]);
++  });
++});
+--- a/tests/state/encounter.test.ts
++++ b/tests/state/encounter.test.ts
+@@ -161,6 +161,9 @@
+     const mutable = retried.runtime.game!.world as unknown as { inventory: { quantity: number }[]; flags: Record<string, boolean> };
+     mutable.inventory[1]!.quantity = 1; mutable.flags[q('repair-applied')] = true;
+     expect(retried.runtime.checkpoint!.world).toEqual(world('preparation'));
++    const expectedVersion = c('RETRY-CHECKPOINT-DETACHED').expected['checkpointVersion'] as { attemptId: string; configurationRevision: number };
++    expect(retried.runtime.checkpoint!.world.attemptId).toBe(attempt(expectedVersion.attemptId));
++    expect(retried.runtime.checkpoint!.world.configurationRevision).toBe(expectedVersion.configurationRevision);
+   });
+ 
+   it('RETRY-ALL-READINGS-STALE: preserves each reading, provenance, text and all learning', () => {
+@@ -242,6 +245,9 @@
+     const before = state(), vector = c('RETRY-LAST-LEGAL-REVISION');
+     const after = rollback({ ...before, control: { ...before.control, highestRevision: Number(vector.inputs['highestPriorRevision']) } });
+     expect(after.runtime.game!.world.configurationRevision).toBe(vector.expected['configurationRevision']);
++    expect(body(after.runtime.game!.world)).toEqual(body(world(String(vector.expected['worldRef']))));
++    expect(retained(after.runtime.game!)).toEqual(journal(String(vector.expected['journalRef'])));
++    expect(after.runtime.game!.world.attemptId).toBe(attempt(String(vector.expected['attemptId'])));
+     unchangedReject({ ...after, runtime: { ...after.runtime, activity: { kind: 'terminal-failure' } } }, 'generation-exhausted', 'attempt-c');
+   });
+ 
+@@ -251,6 +257,10 @@
+     expect(after.runtime.persistence.knownSlot).toBe(before.runtime.persistence.knownSlot);
+     expect(Object.keys(after.runtime.game!)).not.toContain('checkpoint');
+     expect(Object.keys(after.runtime.game!)).not.toContain('control');
++    const expected = c('RETRY-GUEST-IN-MEMORY').expected;
++    expect(body(after.runtime.game!.world)).toEqual(body(world(String(expected['worldRef']))));
++    expect(retained(after.runtime.game!)).toEqual(journal(String(expected['journalRef'])));
++    expect(after.runtime.activity?.kind).toBe(expected['activity']);
+   });
+ 
+   it('RETRY-THREE-CYCLES-NO-FREE-ITEMS runs actual debit/reward/receipt reductions between three rollbacks', () => {
+@@ -448,7 +458,11 @@
+     const withReceipt = vector.inputs['alreadyRecordedActionId'] ? { ...after, control: { ...after.control, actionIds: [...after.control.actionIds, capturedAction] } } : after;
+     const result = createReducer({ registry, bindings: [] })(withReceipt, { actionId: capturedAction, adventureId: before.runtime.game!.adventureId,
+       expectedVersion: { attemptId: attempt(version.attemptId), configurationRevision: revision(version.configurationRevision) },
+-      input: { kind: 'notebook', operation: { kind: 'notes', text: 'Old callback must not replace retained notes.' } } });
++      input: id === 'RETRY-DELAYED-MEASUREMENT'
++        ? { kind: 'repair-plan', operation: { kind: 'measure-link', id: uid(String(vector.inputs['measurementId'])) as never } }
++        : { kind: 'notebook', operation: { kind: 'notes', text: 'Old callback must not replace retained notes.' } } });
++    expect(retained(result.state.runtime.game!)).toEqual(journal(String(vector.expected['journalRef'])));
++    if (vector.expected['worldRef']) expect(body(result.state.runtime.game!.world)).toEqual(body(world(String(vector.expected['worldRef']))));
+     expect(result).toMatchObject({ status: 'rejected', reason: 'stale-version' }); expect(result.state).toBe(withReceipt);
+   });
+ 
+@@ -459,3 +473,53 @@
+     expect(game.notebook.measurements.every(m => m.stale)).toBe(true); expect(retained(game)).toEqual(journal('retained-stale'));
+   });
+ });
++
++describe('T082 literal preparation and learning at the rollback interface', () => {
++  type InputWorld = { inventory: string[]; party: string[]; completedObjectives: string[]; effectFlags: string[] };
++  type AttemptEnd = InputWorld & { newFacts: string[]; personalNotes: string; hypotheses: string[]; mapDiscoveries: string[];
++    hintLevels: (1|2|3)[]; measurements: { id: string; configurationRevision: number; attemptId: string; explicitlyStale: boolean; result: 'pass'|'fail' }[] };
++  const file = JSON.parse(readFileSync(new URL('../fixtures/outcomes.json', import.meta.url), 'utf8')) as {
++    cases: { id: string; inputs: { preparation: InputWorld; attemptEnd: AttemptEnd }; expected: Record<string, unknown> }[];
++  };
++  const seedWorld = (base: WorldState, input: InputWorld): WorldState => ({ ...base,
++    inventory: input.inventory.map(label => ({ itemId: q(label), quantity: 1 })),
++    activeAllyIds: [q(input.party[0]!)], recruits: input.party.map(label => ({ characterId: q(label), level: 1, abilityIds: [], progressFlags: [] })),
++    completedObjectiveIds: input.completedObjectives.map(label => q(label)), flags: Object.fromEntries(input.effectFlags.map(label => [q(label), true])),
++  });
++  it.each(['OUT-FAILURE-RETRY', 'OUT-E03-CONTINUE'])('%s restores literal world roles and preserves attempt-end learning', id => {
++    const row = file.cases.find(c => c.id === id)!, end = row.inputs.attemptEnd;
++    const base = state(id === 'OUT-FAILURE-RETRY' ? 'failed' : 'shutdown'), before = base.runtime.game!;
++    const preparation = seedWorld(base.runtime.checkpoint!.world, row.inputs.preparation);
++    const changedWorld = seedWorld(before.world, end);
++    const game: GameState = { ...before, world: changedWorld, notebook: {
++      factIds: end.newFacts.map(label => q(label)), personalNotes: end.personalNotes, mapRoomIds: end.mapDiscoveries.map(label => q(label)),
++      hypotheses: end.hypotheses.map(text => ({ ...before.notebook.hypotheses[0]!, text })),
++      measurements: end.measurements.map(m => ({ ...before.notebook.measurements[0]!, id: uid(m.id) as never,
++        attemptId: attempt(m.attemptId), configurationRevision: revision(m.configurationRevision), stale: m.explicitlyStale,
++        conclusionCode: m.result, readings: [{ name: 'continuity', value: (m.result === 'pass' ? 1 : 0) as import('../../src/domain/types').Quantity<'count'>, unit: 'count' }] })),
++    }, assistance: end.hintLevels.map((level, index) => ({ ...before.assistance[index]!, level })) };
++    const input = { ...base, runtime: { ...base.runtime, game, checkpoint: { ...base.runtime.checkpoint!, world: preparation } } };
++    const after = rollback(input), actual = after.runtime.game!, labels = (key: string) => (row.expected[key] as string[]).map(label => q(label));
++    expect(actual.world.inventory.map(item => item.itemId)).toEqual(labels('inventory'));
++    expect(actual.world.activeAllyIds).toEqual(labels('party'));
++    expect(actual.world.completedObjectiveIds).toEqual(labels('completedObjectives'));
++    expect(Object.keys(actual.world.flags)).toEqual(labels('effectFlags'));
++    expect(actual.notebook.factIds).toEqual(labels('retainedFacts'));
++    expect(actual.notebook.personalNotes).toBe(row.expected['personalNotes']);
++    expect(actual.notebook.mapRoomIds).toEqual(labels('retainedMapDiscoveries'));
++    expect(actual.notebook.hypotheses.map(h => h.text)).toEqual(row.expected['retainedHypotheses']);
++    expect(actual.assistance.map(h => h.level)).toEqual(row.expected['retainedHintLevels']);
++    expect(actual.notebook.measurements.map(m => m.id)).toEqual((row.expected['measurementsVisibleAndStale'] as string[]).map(uid));
++    expect(actual.notebook.measurements).toEqual(game.notebook.measurements.map(m => ({ ...m, stale: true })));
++    expect(actual.world.configurationRevision).toBeGreaterThan(Number(row.expected['revisionMustExceed']));
++    expect(actual.world.attemptId).not.toBe(game.world.attemptId);
++    expect(after.runtime.activity?.kind).toBe('safe-preparation');
++    expect(after.runtime.auth.status).toBe('guest');
++    expect(after.runtime.persistence.knownSlot).toBe(base.runtime.persistence.knownSlot);
++    if (id === 'OUT-E03-CONTINUE') {
++      expect(actual.outcomeHistory).toEqual(game.outcomeHistory);
++      expect(actual.outcomeHistory.at(-1)?.outcome).toBe('E03');
++      expect(actual.world).not.toEqual(changedWorld);
++    }
++  });
++});
+--- a/tests/ui/recovery-save.test.ts
++++ b/tests/ui/recovery-save.test.ts
+@@ -32,13 +32,15 @@
+ 
+ /** Actual client services and production policy; only remote transport/account
+  * responses are controlled. Seeded training prerequisites are not full play. */
+-async function setup({ guest = false, enabled = false, initialRevision = 4 } = {}) {
++async function setup({ guest = false, enabled = false, initialRevision = 4, otherSavedAdventure = false } = {}) {
+   const f = fixture(), policy = introductionSavePolicy(registry, world), validator = new SaveValidator([policy]);
+   const reader = new SaveReader({ currentContentVersion: policy.contentVersion, readPolicies: [policy], migrations: [] });
+   const initial = startIntroduction(createIntroductionRuntime(), registry), checked = validator.validateRuntime(initial);
+   if (!checked.ok) throw new Error(checked.code);
+   let saved: SaveSnapshotV1 = { ...checked.candidate, adventureId: f.game().adventureId,
+     notebook: { ...checked.candidate.notebook, personalNotes: 'Only the confirmed saved notes' } };
++  if (otherSavedAdventure) saved = { ...saved, adventureId: uuid(803) as unknown as typeof saved.adventureId,
++    world: { ...saved.world, attemptId: uuid(802) as unknown as typeof saved.world.attemptId, configurationRevision: 2 as typeof saved.world.configurationRevision } };
+   let slot = summary(saved, initialRevision);
+   const authenticated = (): Session => ({ state: 'authenticated', csrfToken: 's'.repeat(43), provider: 'github', displayName: 'Isolated player',
+     expiresAt: '2099-01-01T00:00:00Z', preferences: { revision: 1, etag: '"prefs-1"', values: { ...initial.ui!.presentation, autosaveEnabled: enabled } }, saveSummary: slot });
+@@ -98,7 +100,7 @@
+     expect(recovery.request(recovery.capture(kind === 'failure' ? 'retry' : 'continue')!).ok).toBe(true);
+     expect(recovery.confirm(recovery.project()!).ok).toBe(true);
+   };
+-  return { ...f, api, account, coordinator, autosave, recovery, dialogs, writes, requests, port, restored, terminal, retry, acknowledge,
++  return { ...f, api, account, coordinator, validator, autosave, recovery, dialogs, writes, requests, port, restored, terminal, retry, acknowledge,
+     authenticated, get saved() { return saved; }, get slot() { return slot; }, setSession(next: Session) { session = next; },
+     setWrite(next: typeof write) { write = next; }, setRead(next: typeof read) { read = next; }, dispose() { recovery.dispose(); autosave.dispose(); dialogs.dispose(); f.bus.dispose(); } };
+ }
+@@ -214,7 +216,7 @@
+       h.terminal('failure');
+       h.retry('failure');
+       expect(h.state().runtime.activity?.kind).toBe('safe-preparation');
+-      const before = h.game(), checkpoint = h.state().runtime.checkpoint, slot = h.slot;
++      const before = h.game(), checkpoint = h.state().runtime.checkpoint, slot = h.slot, auth = h.state().runtime.auth;
+       expect(before.assistance.length).toBeGreaterThan(0);
+       expect(before.outcomeHistory.at(-1)?.outcome).toBe('E03');
+       expect(before.notebook.personalNotes).toBe('New clue during this attempt');
+@@ -227,6 +229,7 @@
+       expect(h.dialogs.project().panel).not.toBe('confirm-load');
+       expect(h.game()).toBe(before);
+       expect(h.state().runtime.checkpoint).toBe(checkpoint);
++      expect(h.state().runtime.auth).toBe(auth);
+       expect(h.restored).not.toHaveBeenCalled();
+       expect(h.writes).toHaveLength(0);
+       expect(h.slot).toBe(slot);
+@@ -269,3 +272,270 @@
+     expect(h.state().runtime.auth.status).toBe('authenticated'); expect(h.restored).not.toHaveBeenCalled(); expect(h.writes).toHaveLength(0); h.dispose();
+   });
+ });
++
++describe('T082 safe save restrictions with a confirmed revision-12 slot', () => {
++  it.each(['terminal-failure', 'shutdown', 'room-transition', 'active-encounter', 'dialogue-transaction', 'cutscene'] as const)(
++    '%s rejects manual save and cancels the outstanding automatic arrival', async activity => {
++      vi.useFakeTimers();
++      const h = await setup({ enabled: true, initialRevision: 12 });
++      try {
++        expect(h.move('R10').status).toBe('handled'); h.autosave.observe();
++        expect(h.move('R11').status).toBe('handled'); h.autosave.observe();
++        expect(h.autosave.state.queued).toBe(true);
++        const slot = h.slot, saved = h.saved;
++        if (activity === 'terminal-failure' || activity === 'shutdown') {
++          h.terminal(activity === 'shutdown' ? 'shutdown' : 'failure');
++        } else if (activity === 'room-transition' || activity === 'dialogue-transaction') {
++          const started = h.send({ kind: 'begin', activity, evaluation: { status: 'correct',
++            reasonCode: 'begin-transaction', observations: [], acceptedEffects: [] } });
++          expect(started.status).not.toBe('rejected');
++          expect(h.state().control.pending).not.toBeNull();
++        } else {
++          h.prepare();
++          h.send({ kind: 'apply', evaluation: { status: 'correct', reasonCode: 'reviewed-preparation', observations: [], acceptedEffects: [] },
++            destination: { roomId: q('R11'), safePositionId: q('R11.preparation'), activity: 'safe-preparation' } });
++          expect(h.execute().result.status).toBe('handled');
++          if (activity === 'cutscene') {
++            h.prove();
++            const controller = createOutcomeController({ registry, repairScenario: h.resolver });
++            const result = controller.prepareClassification(h.state(), captureOutcomeContext(h.state())!, { actionId: 'cutscene-save' as ActionId,
++              eventId: uuid(96) as unknown as OutcomeEventId, operation: { kind: 'classify', selection: 'permanent', linkId: uuid(2), endpointId: uuid(3) } });
++            if (!result.ok) throw new Error(result.reason);
++            expect(controller.commit(h.store, result.change).ok).toBe(true);
++          }
++        }
++        expect(h.state().runtime.activity?.kind).toBe(activity);
++        h.autosave.observe();
++        const game = h.game();
++        await h.dialogs.save();
++        expect(h.dialogs.project().message).toContain('Finish the current activity before saving');
++        await vi.advanceTimersByTimeAsync(1000);
++        expect(h.autosave.state.queued).toBe(false);
++        expect(h.writes).toHaveLength(0);
++        expect(h.slot).toBe(slot);
++        expect(h.slot.revision).toBe(12);
++        expect(h.saved).toBe(saved);
++        expect(h.game()).toBe(game);
++      } finally { h.dispose(); }
++    });
++  it('an earlier in-flight PUT excludes a second manual or queued automatic write', async () => {
++    vi.useFakeTimers();
++    const h = await setup({ enabled: true, initialRevision: 12 }), held = deferred<Response>();
++    try {
++      expect(h.move('R10').status).toBe('handled'); h.autosave.observe();
++      expect(h.move('R11').status).toBe('handled'); h.autosave.observe();
++      expect(h.autosave.state.queued).toBe(true);
++      const saved = h.saved;
++      h.setWrite(() => held.promise);
++      const validate = vi.spyOn(h.validator, 'validateRuntime');
++      const earlier = h.coordinator.save('manual');
++      expect(h.writes).toHaveLength(1); expect(validate).toHaveBeenCalledTimes(1);
++      await h.dialogs.save();
++      expect(h.dialogs.project().message).toContain('previous save outcome');
++      await vi.advanceTimersByTimeAsync(1000);
++      expect(h.writes).toHaveLength(1);
++      expect(h.slot.revision).toBe(12);
++      expect(h.saved).toBe(saved); expect(validate).toHaveBeenCalledTimes(1);
++      held.resolve(h.acknowledge(h.writes[0]!));
++      expect((await earlier).ok).toBe(true);
++      expect(h.writes).toHaveLength(1);
++    } finally { h.dispose(); }
++  });
++});
++
++describe('T083 Restore after retaining an entire changed journal', () => {
++  it('cancel keeps the retried journal; confirm discards each unsaved collection and never writes the slot', async () => {
++    const h = await setup({ initialRevision: 12, otherSavedAdventure: true });
++    try {
++      h.terminal('shutdown'); h.retry('shutdown');
++      const current = h.state(), game = h.game();
++      h.replace({ ...current, runtime: { ...current.runtime, game: { ...game, notebook: { ...game.notebook,
++        hypotheses: [{ id: uuid(801) as never, text: 'Compare the recovered connector.', subjectIds: [q('R02'), q('PR012')], status: 'open' }] } } } });
++      h.terminal('failure'); h.retry('failure');
++      const kept = h.game(), checkpoint = h.state().runtime.checkpoint, saved = h.saved, auth = h.state().runtime.auth;
++      expect(kept.adventureId).not.toBe(saved.adventureId);
++      expect(kept.world.attemptId).not.toBe(saved.world.attemptId);
++      expect(saved.world.configurationRevision).toBe(2);
++      for (const field of ['factIds', 'mapRoomIds', 'personalNotes', 'hypotheses', 'measurements'] as const) {
++        expect(kept.notebook[field].length).toBeGreaterThan(0);
++        expect(kept.notebook[field]).not.toEqual(saved.notebook[field]);
++      }
++      expect(kept.assistance.length).toBeGreaterThan(0);
++      expect(kept.outcomeHistory.length).toBeGreaterThan(0);
++      expect(kept.assistance).not.toEqual(saved.assistance);
++      expect(kept.outcomeHistory).not.toEqual(saved.outcomeHistory);
++      await h.dialogs.continue();
++      expect(h.dialogs.project().panel).toBe('confirm-load');
++      h.dialogs.cancel();
++      expect(h.game()).toBe(kept);
++      expect(h.state().runtime.auth).toBe(auth);
++      expect(h.state().runtime.checkpoint).toBe(checkpoint);
++      await h.dialogs.continue(); await h.dialogs.act('confirm-load');
++      expect(h.game().world).toEqual(saved.world);
++      expect(h.game().notebook).toEqual(saved.notebook);
++      expect(h.game().assistance).toEqual(saved.assistance);
++      expect(h.game().outcomeHistory).toEqual(saved.outcomeHistory);
++      expect(h.game().adventureId).toBe(saved.adventureId);
++      expect(h.state().runtime.checkpoint).toBeNull();
++      expect(h.saved).toBe(saved); expect(h.slot.revision).toBe(12); expect(h.writes).toHaveLength(0);
++    } finally { h.dispose(); }
++  });
++});
++
++describe('T083 ordinary save boundaries following encounter recovery', () => {
++  it.each(['manual', 'automatic', 'disabled'] as const)('%s after E03 Continue preserves one-slot consent and retained learning', async mode => {
++    vi.useFakeTimers();
++    const h = await setup({ enabled: mode === 'automatic', initialRevision: 12 });
++    try {
++      const old = h.saved;
++      h.terminal('shutdown');
++      const ended = h.state();
++      h.replace({ ...ended, control: { ...ended.control, highestRevision: 15 } });
++      // Bind semantic attempt-b to a known unique ID; the real controller still checks it against all provenance.
++      const nextAttempt = '00000000-0000-4000-8000-000000001602';
++      const allocation = vi.spyOn(crypto, 'randomUUID')
++        .mockReturnValueOnce('00000000-0000-4000-8000-000000001601').mockReturnValueOnce(nextAttempt);
++      try { h.retry('shutdown'); } finally { allocation.mockRestore(); }
++      const retried = h.game();
++      expect(retried.world.attemptId).toBe(nextAttempt);
++      expect(retried.world.configurationRevision).toBe(16);
++      expect(retried.outcomeHistory.at(-1)?.outcome).toBe('E03');
++      expect(retried.notebook.personalNotes).toBe('New clue during this attempt');
++      expect(retried.notebook.measurements.length).toBeGreaterThan(0);
++      expect(retried.notebook.measurements.every(m => m.stale)).toBe(true);
++      expect(h.writes).toHaveLength(0);
++      if (mode === 'manual') {
++        expect((await h.coordinator.save('manual')).ok).toBe(true);
++      } else {
++        expect(h.move('R10').status).toBe('handled'); h.autosave.observe();
++        expect(h.move('R11').status).toBe('handled'); h.autosave.observe();
++        await vi.advanceTimersByTimeAsync(1000);
++      }
++      if (mode === 'disabled') {
++        expect(h.saved).toBe(old); expect(h.slot.revision).toBe(12);
++        expect(h.writes).toHaveLength(0); expect(h.dialogs.project().status).toBe('Unsaved changes');
++        return;
++      }
++      expect(h.writes).toHaveLength(1);
++      expect(new Headers(h.writes[0]!.headers).get('If-Match')).toBe('"save-12"');
++      expect(h.slot.revision).toBe(13);
++      expect(h.saved.safeState).toBe('safe-preparation');
++      expect(h.saved.world).toEqual(h.game().world);
++      expect(h.saved.world.attemptId).toBe(retried.world.attemptId);
++      expect(h.saved.notebook).toEqual(h.game().notebook);
++      expect(h.saved.assistance).toEqual(retried.assistance);
++      expect(h.saved.outcomeHistory).toEqual(retried.outcomeHistory);
++      expect(h.saved).not.toHaveProperty('checkpoint');
++    } finally { h.dispose(); }
++  });
++  it('Restore with equal adventure, attempt and revision invalidates an old captured gameplay action', async () => {
++    const h = await setup({ initialRevision: 12 });
++    try {
++      h.terminal('failure'); h.retry('failure');
++      expect((await h.coordinator.save('manual')).ok).toBe(true);
++      const frozen = h.saved;
++      h.send({ kind: 'notebook', operation: { kind: 'notes', text: 'Unsaved in the original runtime' } });
++      expect(h.game().adventureId).toBe(frozen.adventureId);
++      expect(h.game().world.attemptId).toBe(frozen.world.attemptId);
++      expect(h.game().world.configurationRevision).toBe(frozen.world.configurationRevision);
++      const old = h.bus.capture({ kind: 'interact', verb: 'walk', targetId: q('R10'), itemId: null });
++      await h.dialogs.continue(); await h.dialogs.act('confirm-load');
++      const loaded = h.game();
++      expect(loaded.world).toEqual(frozen.world);
++      expect(loaded.notebook).toEqual(frozen.notebook);
++      expect(h.bus.dispatch(old).status).toBe('rejected');
++      expect(h.game()).toBe(loaded); expect(h.saved).toBe(frozen);
++      expect(h.writes).toHaveLength(1);
++    } finally { h.dispose(); }
++  });
++});
++
++it('an independently acquired preparation measurement after Continue leaves retained readings stale and awards no outcome', async () => {
++  const h = await setup({ guest: true });
++  try {
++    h.terminal('shutdown'); h.retry('shutdown');
++    const old = h.game().notebook.measurements, events = h.game().outcomeHistory;
++    expect(old.length).toBeGreaterThan(0);
++    expect(old.every(m => m.stale)).toBe(true);
++    h.choose('plan-copper-section'); h.choose('duration-permanent'); h.choose('read-plan');
++    const version = h.game().world;
++    expect(h.review(102).evaluation?.status).toBe('correct');
++    const readings = h.game().notebook.measurements;
++    expect(readings.filter(m => old.some(p => p.id === m.id))).toEqual(old);
++    expect(readings.find(m => m.id === uuid(102))).toMatchObject({ stale: false, attemptId: version.attemptId,
++      configurationRevision: version.configurationRevision });
++    expect(h.game().outcomeHistory).toEqual(events);
++    expect(h.writes).toHaveLength(0);
++  } finally { h.dispose(); }
++});
++
++it('the exact earlier committed revision 12 cannot acknowledge Retry generation 21 when the slot is already 13', async () => {
++  const h = await setup({ initialRevision: 11 });
++  try {
++    const state = h.state(), persistence = state.runtime.persistence;
++    h.replace({ ...state, runtime: { ...state.runtime, persistence: { ...persistence,
++      dirtyGeneration: 19 as typeof persistence.dirtyGeneration } } });
++    h.setWrite(async () => { throw new Error('controlled lost receipt'); });
++    expect((await h.coordinator.save('manual')).ok).toBe(false);
++    const earlier = h.writes[0]!;
++    h.send({ kind: 'notebook', operation: { kind: 'notes', text: 'Learning after the earlier capture' } });
++    h.terminal('failure'); h.retry('failure');
++    const current = h.game(), slot = summary(h.saved, 13);
++    expect(h.state().runtime.persistence.dirtyGeneration).toBe(21);
++    expect(current.notebook.personalNotes).toBe('Learning after the earlier capture');
++    h.setWrite(async init => response({ requestId: new Headers(init.headers).get('Idempotency-Key'),
++      committedRevision: 12, committedAt: stamp, replayed: true, currentSummary: slot }, slot.etag));
++    expect(await h.coordinator.retryPending()).toMatchObject({ ok: true, current: false });
++    expect(h.writes[1]!.body).toBe(earlier.body);
++    expect(new Headers(h.writes[1]!.headers).get('Idempotency-Key')).toBe(new Headers(earlier.headers).get('Idempotency-Key'));
++    expect(h.state().runtime.persistence).toMatchObject({ dirtyGeneration: 21, lastAcknowledgedGeneration: 19,
++      status: 'conflict', pendingRequest: null, knownSlot: { revision: 13 } });
++    expect(h.game()).toBe(current);
++    expect(await h.coordinator.save('automatic')).toMatchObject({ ok: false, reason: 'reconciliation-required' });
++    expect(h.writes).toHaveLength(2);
++  } finally { h.dispose(); }
++});
++
++it('a pending Restore after Retry exposes only the live world and retained journal until explicit discard', async () => {
++  const h = await setup({ initialRevision: 12 }), held = deferred<Response>();
++  try {
++    h.send({ kind: 'notebook', operation: { kind: 'notes', text: 'Keep during the delayed read' } });
++    h.terminal('failure'); h.retry('failure');
++    const game = h.game(), slot = h.slot, saved = h.saved, checkpoint = h.state().runtime.checkpoint;
++    h.setRead(() => held.promise);
++    const read = h.dialogs.continue();
++    expect(h.coordinator.state.kind).toBe('reading');
++    expect(h.game()).toBe(game); expect(h.state().runtime.checkpoint).toBe(checkpoint);
++    expect(h.slot).toBe(slot); expect(h.slot.revision).toBe(12);
++    expect(h.dialogs.project().panel).not.toBe('confirm-load'); expect(h.restored).not.toHaveBeenCalled();
++    held.resolve(response({ summary: slot, snapshot: saved }, slot.etag)); await read;
++    expect(h.dialogs.project().panel).toBe('confirm-load'); expect(h.game()).toBe(game);
++    h.dialogs.cancel(); expect(h.game()).toBe(game); expect(h.saved).toBe(saved); expect(h.writes).toHaveLength(0);
++  } finally { h.dispose(); }
++});
++
++it.each(['failure', 'shutdown'] as const)('rejected and canceled %s recovery dispatches cannot write the confirmed slot', async kind => {
++  vi.useFakeTimers();
++  const h = await setup({ enabled: true, initialRevision: 12 });
++  try {
++    h.move('R10'); h.autosave.observe(); h.move('R11'); h.autosave.observe();
++    expect(h.autosave.state.queued).toBe(true);
++    h.terminal(kind);
++    const slot = h.slot, stored = h.saved, intent = kind === 'failure' ? 'retry' : 'continue';
++    const captured = h.recovery.capture(intent)!;
++    h.replace({ ...h.state() });
++    expect(h.recovery.request(captured).ok).toBe(false);
++    const before = h.state();
++    expect(h.recovery.request(h.recovery.capture(intent)!).ok).toBe(true);
++    const confirmation = h.recovery.project()!;
++    expect(h.recovery.cancel(confirmation).ok).toBe(true);
++    expect(h.recovery.confirm(confirmation).ok).toBe(false);
++    expect(h.state()).toBe(before);
++    await vi.advanceTimersByTimeAsync(1000);
++    expect(h.writes).toHaveLength(0); expect(h.slot).toBe(slot); expect(h.saved).toBe(stored);
++    h.retry(kind); await vi.advanceTimersByTimeAsync(1000);
++    expect(h.writes).toHaveLength(0);
++    expect((await h.coordinator.save('manual')).ok).toBe(true);
++    expect(h.writes).toHaveLength(1); expect(h.slot.revision).toBe(13);
++  } finally { h.dispose(); }
++});
+--- a/tests/ui/encounter-integration.test.ts
++++ b/tests/ui/encounter-integration.test.ts
+@@ -126,6 +126,8 @@
+   });
+   it('canceled captured execution and failed real CAS leave the entire preparation state intact', () => {
+     const f = fixture(); f.prepare(); const before = f.store.getState(), view = f.repair.project();
++    expect(before.runtime.game!.world.inventory).toEqual([{ itemId: q('ITEM-inspection-kit'), quantity: 1 }]);
++    expect(before.runtime.activity?.kind).toBe('safe-preparation');
+     const action = view.capture({ kind: 'execute-repair-plan', reviewId: view.view.reviewId!, warningAcknowledged: true });
+     f.bus.cancel(action); expect(f.bus.dispatch(action).reason).toBe('canceled'); expect(f.store.getState()).toBe(before);
+     f.denyCas(); expect(f.execute().status).toBe('rejected'); expect(f.store.getState()).toBe(before); f.dispose();

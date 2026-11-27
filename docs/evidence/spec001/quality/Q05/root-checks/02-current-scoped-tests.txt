@@ -1,0 +1,129 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ✓ tests/content/endings.test.ts (48 tests) 14ms
+ ✓ tests/domain/copper-repair.test.ts (47 tests) 10ms
+ ✓ tests/ui/recovery.test.ts (23 tests) 89ms
+ ✓ tests/ui/encounter-integration.test.ts (18 tests) 124ms
+ ✓ tests/state/encounter.test.ts (61 tests) 635ms
+ ✓ tests/state/outcome-classification.test.ts (83 tests) 600ms
+ ✓ tests/ui/recovery-save.test.ts (32 tests) 749ms
+ ✓ tests/state/copper-scenario.test.ts (16 tests) 3421ms
+   ✓ T075 actual copper room scenario adapter (16)
+     ✓ rejects unreviewed-path in authored action data without binding it 435ms
+     ✓ rejects direct-completion in authored action data without binding it 668ms
+     ✓ rejects manufactured-reading in authored action data without binding it 457ms
+ ✓ tests/state/repair-plan.test.ts (52 tests) 8122ms
+   ✓ T077 executed intervention and fresh final proof (52)
+     ✓ rejects structurally valid but unreviewed action-effect content 449ms
+     ✓ rejects structurally valid but unreviewed weakened-prerequisite content 449ms
+     ✓ rejects structurally valid but unreviewed alternate-condition content 452ms
+ ✓ tests/ui/account-settings.test.ts (42 tests) 21048ms
+   ✓ T052 account settings operation ownership (14)
+     ✓ discloses actual identity, one-slot data and unverified backup policy without invented expiry 804ms
+     ✓ canceling the logout warning changes no runtime, API generation, outstanding work or requests 558ms
+     ✓ confirmed logout stops competing work and clears only after current 204, without save/delete 514ms
+     ✓ lost logout stays unconfirmed and preserves adventure; an explicit current guest GET can confirm revocation 513ms
+     ✓ ignores stale logout completion after a later account/view 526ms
+     ✓ opens delete-purpose auth only on confirmation; a hint only reads session and requires a second explicit deletion choice 589ms
+     ✓ does not claim a session observation proves fresh authentication; server rejection preserves adventure 511ms
+     ✓ uses one private canonical random 256-bit receipt on deletion/status and never auto-repeats DELETE/auth 512ms
+     ✓ keeps status 404 unconfirmed, never uses guest state as deletion proof 501ms
+     ✓ keeps status 503 unconfirmed, never uses guest state as deletion proof 508ms
+     ✓ bounds status backoff and obeys Retry-After including explicit checks 510ms
+     ✓ re-arms an early deletion-status timer without checking before its backoff 498ms
+     ✓ drops receipt polling and stale completion after disposal or an explicit later view 495ms
+     ✓ rechecks ownership after synchronous rendering callbacks before sending a confirmed action 493ms
+   ✓ T052 reentrant, credential and bounded recovery edges (20)
+     ✓ rejects confirm-logout when stopping competitors synchronously invalidates the settings view 489ms
+     ✓ rejects confirm-delete when stopping competitors synchronously invalidates the settings view 486ms
+     ✓ rejects logout success invalidated in the API/controller microtask gap 485ms
+     ✓ rejects deletion success invalidated in the API/controller microtask gap 480ms
+     ✓ requires still-current explicit logout confirmation and never treats equal provider labels as account continuity 492ms
+     ✓ keeps a later signed-in session and in-memory adventure when checking lost logout 479ms
+     ✓ reserves a deletion popup synchronously and permits only explicit blocked-tab fallback 475ms
+     ✓ never turns a guest deletion-reauth observation into deletion success or a fresh auth loop 477ms
+     ✓ rejects an observed different provider and preserves the original adventure 475ms
+     ✓ does not adopt an observed reauth session after the application rejects or invalidates its lifecycle CAS 479ms
+     ✓ accepts the exact observed session when the authorized adoption rotates the API lifecycle generation 479ms
+     ✓ rejects an unrelated API-only rotation after the adoption callback captured its owned generation 490ms
+     ✓ does not send DELETE after a reentrant cancellation during its pending projection 482ms
+     ✓ does not clear after a completed receipt invalidated between the API result and UI continuation 485ms
+     ✓ stops after exactly six pending status reads without repeating deletion or signin 493ms
+     ✓ honors a Retry-After longer than its checking window by stopping, never polling early 478ms
+     ✓ stops an expired pending receipt and treats unknown response data as unconfirmed 479ms
+     ✓ forgets volatile receipt and stops pending status on close without reporting rollback 491ms
+     ✓ disposal during a pending logout keeps memory and cannot render or clear later 479ms
+     ✓ refuses deletion when secure entropy is unavailable and never substitutes weak randomness 486ms
+   ✓ T052 status subscriber timing (8)
+     ✓ notifies the panel when an explicit logout check becomes available again without issuing a request 475ms
+     ✓ does not notify an old logout recovery view after close 482ms
+     ✓ does not notify an old logout recovery view after invalidate 485ms
+     ✓ does not notify an old logout recovery view after dispose 484ms
+     ✓ does not notify an old logout recovery view after api-generation 486ms
+     ✓ limits logout checks to six and does not re-enable or schedule another notification after exhaustion 479ms
+     ✓ does not overflow a long Retry-After timer or re-enable the logout control early 479ms
+     ✓ enforces backoff before notifying a subscriber that tries an immediate status check 483ms
+ ✓ tests/state/autosave.test.ts (54 tests) 29315ms
+   ✓ T051 safe-boundary debounce using the actual coordinator/API/reducer (39)
+     ✓ defaults off and explains the shared account slot without writing on room/objective changes 777ms
+     ✓ waits the real debounce bound, then captures current bytes once without incrementing dirty twice 547ms
+     ✓ debounces repeated real arrivals and ignores no-op renders and notes-only dirtiness 521ms
+     ✓ never adopts/replaces an unread or different slot automatically: {"empty":true} 513ms
+     ✓ never adopts/replaces an unread or different slot automatically: {"otherAdventure":true} 536ms
+     ✓ never adopts/replaces an unread or different slot automatically: {"unread":true} 611ms
+     ✓ manual first adoption permits only a later eligible automatic write 516ms
+     ✓ cancels queued saves on dialogue-transaction, never resurrects them just by becoming stable 523ms
+     ✓ cancels queued saves on pending-effect, never resurrects them just by becoming stable 520ms
+     ✓ cancels queued saves on room-transition, never resurrects them just by becoming stable 529ms
+     ✓ cancels queued saves on cutscene, never resurrects them just by becoming stable 509ms
+     ✓ cancels queued saves on active-encounter, never resurrects them just by becoming stable 515ms
+     ✓ cancels queued saves on terminal-failure, never resurrects them just by becoming stable 501ms
+     ✓ cancels queued saves on shutdown, never resurrects them just by becoming stable 502ms
+     ✓ blocks a pending reducer transition even if its activity is incorrectly projected safe 495ms
+     ✓ does not treat feedback rendering or a bare dismissal as completion; requires the actual dismissal hook 538ms
+     ✓ does not save an unchanged acknowledged preparation, and delegates its authored anchor to current policy 483ms
+     ✓ includes earlier unsaved notes on a later real preparation entry without another game change 490ms
+     ✓ does not mistake a terminal-failure recovery for an eligible preparation entry 488ms
+     ✓ does not mistake a shutdown recovery for an eligible preparation entry 498ms
+     ✓ does not mistake a changed-attempt recovery for an eligible preparation entry 478ms
+     ✓ rechecks current authored policy for preparation and Continue anchors 963ms
+     ✓ does not invent opt-in from server preference when a new run is locally held off 482ms
+     ✓ rejects a collapsed E03 transition even if an adapter labels the final room safe 472ms
+     ✓ does not autosave the terminal-failure rewind; a later independent arrival can save retained information 487ms
+     ✓ does not autosave the shutdown rewind; a later independent arrival can save retained information 481ms
+     ✓ E01 needs a declared safe Continue, without manufacturing ending content 500ms
+     ✓ E02 needs a declared safe Continue, without manufacturing ending content 497ms
+     ✓ refuses current E03 even if a caller forges safe-continue and a completed objective 510ms
+     ✓ invalidates same-adventure/counter queued callbacks on new-run 483ms
+     ✓ invalidates same-adventure/counter queued callbacks on restore 491ms
+     ✓ invalidates same-adventure/counter queued callbacks on account 479ms
+     ✓ invalidates same-adventure/counter queued callbacks on logout 483ms
+     ✓ invalidates same-adventure/counter queued callbacks on dispose 478ms
+     ✓ rechecks safety at delivery even when no observer ran for the last change 512ms
+     ✓ cannot carry an old completion through reentrant invalidation while canceling a queue 478ms
+     ✓ manual saves cancel redundant queued saves and pending writes never gain an automatic follow-up 486ms
+     ✓ unknown outcomes retain exact pending bytes and never automatically retry or issue a fresh write 510ms
+     ✓ respects coordinator Keep Playing, conflict and unsupported-slot blocking 1464ms
+   ✓ T051 conditional account preference choice and stale response guards (15)
+     ✓ uses a reviewed ETag, refreshes the API session before enable, and preserves known slot/acknowledgement 466ms
+     ✓ immediately suppresses queued writes on opt-out even when its network result is unknown 503ms
+     ✓ does not claim an already sent save was undone by opt-out 468ms
+     ✓ never lets an older enable acknowledgement re-enable a later opt-out 480ms
+     ✓ ignores late preference responses after invalidate 461ms
+     ✓ ignores late preference responses after api-generation 465ms
+     ✓ ignores late preference responses after account 479ms
+     ✓ ignores late preference responses after dispose 459ms
+     ✓ rejects cloned reviews and stale reviewed ETags without writing preferences 459ms
+     ✓ a current owned opt-out with a stale ETag still stops this tab immediately 485ms
+     ✓ a reentrant later preference choice makes the earlier success result stale too 466ms
+     ✓ stays paused when PATCH succeeded but reconciliation failed or reveals a different choice 921ms
+     ✓ does not enable from an older GET revision or a changed session despite matching labels 924ms
+     ✓ allows an explicit read-only preference refresh after a conflict, without implicitly enabling local opt-out 463ms
+     ✓ guards reentrant subscribers before network and dispose remains terminal 468ms
+
+ Test Files  11 passed (11)
+      Tests  476 passed (476)
+   Start at  12:04:39
+   Duration  29.62s (tests 91%, import 8%, transform 2%)
+

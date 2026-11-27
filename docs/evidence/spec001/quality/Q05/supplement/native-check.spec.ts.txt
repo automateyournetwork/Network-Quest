@@ -1,0 +1,80 @@
+// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import { closeFrame, openFrame } from './support/adventure-controls';
+import { test, expect, dialog, notesBefore, notesAfter, warningLabel, type OutcomeJourney } from './support/outcome-journey';
+import outcomeOracle from '../fixtures/outcomes.json' with { type: 'json' };
+import retryOracle from '../fixtures/retry-transitions.json' with { type: 'json' };
+import type { WorldState } from '../../src/state/types';
+
+// These independently authored semantic cases remain untouched. The explicit
+// assertions below bind public UI/actual stored payloads, never evaluator output.
+function contracts(...ids: string[]) {
+  const cases = [...outcomeOracle.cases, ...retryOracle.cases];
+  for (const id of ids) expect(cases.some(item => item.id === id)).toBe(true);
+}
+const worldWithoutVersion = (world: WorldState) => {
+  const { attemptId: _attempt, configurationRevision: _revision, ...rest } = world; return rest;
+};
+async function saveBlocked(j: OutcomeJourney) {
+  const before = j.writes.length;
+  await j.click('Save'); await expect(j.page.getByText('Finish the current activity before saving.', { exact: true })).toBeVisible();
+  expect(j.writes).toHaveLength(before); await closeFrame(j.page);
+}
+async function retry(j: OutcomeJourney, shutdown = false) {
+  const title = shutdown ? 'Continue from Encounter Preparation?' : 'Retry from Encounter Preparation?';
+  if (shutdown) await dialog(j.page, 'The Honest Shutdown').getByRole('button', { name: 'Continue', exact: true }).press('Enter');
+  else await j.click('Retry from Encounter Preparation');
+  const confirmation = dialog(j.page, title);
+  await expect(confirmation).toContainText('Items and completion flags rewind together.');
+  await expect(confirmation).toContainText('This is temporary session recovery.');
+  await expect(confirmation).toContainText('It sends no save request');
+  await expect(confirmation).toContainText('without merging them');
+  return confirmation;
+}
+async function returned(j: OutcomeJourney) {
+  await j.room('The Backhoe Rift'); await j.click('Scene');
+  await expect(j.page.locator('.nq-shell-status')).toHaveText('Returned to Encounter Preparation. Retained clues and notes are unsaved; earlier measurements are stale.');
+  await closeFrame(j.page);
+}
+
+test.describe('Q05 real revision-12 slot lifecycle', () => {
+  test.setTimeout(210_000);
+  test('SAVE13 after Retry: cancelled logout keeps notes and checkpoint; confirmed logout clears without autosave', async ({ outcome: j }, info) => {
+    contracts('RETRY-LOGOUT-CANCEL', 'RETRY-LOGOUT-CONFIRMED');
+    await j.prepare('copper'); let anchor = await j.save(true);
+    for (let revision = 2; revision <= 12; revision++) { await j.notes(`Saved checkpoint ${revision}`); anchor = await j.save(); expect(anchor.revision).toBe(revision); }
+    expect(anchor.revision).toBe(12); await j.autosave(); await j.notes(notesAfter); await j.hazard();
+    const confirmation = await retry(j); await confirmation.getByRole('button', { name: 'Confirm Retry from Encounter Preparation', exact: true }).click();
+    await returned(j); await j.click('Settings'); await j.click('Log out');
+    await expect(dialog(j.page, 'Settings')).toContainText('Unsaved progress and notes'); await j.click('Cancel'); await j.click('Close settings');
+    await j.expectNotes(notesAfter); expect(j.writes).toHaveLength(12); expect(await j.local.inspectSlot()).toEqual(anchor);
+    // A second real hazard/Retry after cancel proves the retained checkpoint is
+    // still usable; it does not spend or duplicate an authored item/reward.
+    await j.hazard(); const second = await retry(j);
+    await second.getByRole('button', { name: 'Confirm Retry from Encounter Preparation', exact: true }).click(); await returned(j);
+    await j.click('Settings'); await j.click('Log out'); await j.click('Confirm logout');
+    await expect(dialog(j.page, 'Settings')).toContainText('Logout confirmed'); await j.click('Close settings');
+    await expect(j.page.getByRole('heading', { name: 'Network Quest', exact: true })).toBeVisible();
+    await expect(j.page.getByRole('textbox', { name: 'Personal notes', includeHidden: true })).toHaveValue('');
+    expect(await j.page.evaluate(text => document.body.textContent?.includes(text), notesAfter)).toBe(false);
+    expect(j.writes).toHaveLength(12); expect(await j.local.inspectSlot()).toEqual(anchor);
+    await j.page.screenshot({ path: info.outputPath('retry-logout-cleared.png'), fullPage: true });
+  });
+  test('guest fatal Retry stays temporary; sign-in choice has no load/write and declined invitation stays declined', async ({ outcome: j }, info) => {
+    contracts('OUT-FATAL-GUEST', 'RETRY-GUEST-IN-MEMORY', 'RESTORE-GUEST-REQUIRES-SIGNIN');
+    await j.prepare('copper', false, true);
+    await openFrame(j.page, 'Sound and reading'); await j.page.getByRole('slider', { name: 'Text size', exact: true }).fill('2'); await closeFrame(j.page);
+    await j.page.setViewportSize({ width: 390, height: 844 }); await j.hazard(); const failure = dialog(j.page, 'A Shortcut Too Short');
+    await expect(failure.getByRole('button', { name: 'Restore Save', exact: true })).toHaveCount(0);
+    await failure.getByRole('button', { name: 'Sign in to Restore Save', exact: true }).press('Enter');
+    await expect(dialog(j.page, 'Sign in to save')).toBeVisible();
+    await expect(j.page.getByRole('button', { name: 'Google', exact: true })).toBeVisible(); await expect(j.page.getByRole('button', { name: 'GitHub', exact: true })).toBeVisible();
+    await j.click('Cancel sign-in'); await expect(failure).toBeVisible(); expect(j.writes).toEqual([]); expect(await j.local.inspectSlot()).toBeNull();
+    const confirmation = await retry(j);
+    await expect(confirmation).toBeVisible(); await confirmation.getByRole('button', { name: 'Confirm Retry from Encounter Preparation', exact: true }).focus();
+    await j.page.screenshot({ path: info.outputPath('guest-retry-390-200.png'), fullPage: true });
+    expect(await j.page.evaluate(() => document.documentElement.scrollHeight <= innerHeight + 1 && document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+    await confirmation.getByRole('button', { name: 'Confirm Retry from Encounter Preparation', exact: true }).press('Enter');
+    await returned(j); await j.expectNotes(notesBefore); await j.walk('The Clockworks');
+    await expect(dialog(j.page, 'Sign in to save')).toBeHidden(); expect(j.writes).toEqual([]); expect(await j.local.inspectSlot()).toBeNull();
+  });
+});

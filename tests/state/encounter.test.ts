@@ -161,6 +161,9 @@ describe('T084 isolated checkpoint and actual reducer rollback against accepted 
     const mutable = retried.runtime.game!.world as unknown as { inventory: { quantity: number }[]; flags: Record<string, boolean> };
     mutable.inventory[1]!.quantity = 1; mutable.flags[q('repair-applied')] = true;
     expect(retried.runtime.checkpoint!.world).toEqual(world('preparation'));
+    const expectedVersion = c('RETRY-CHECKPOINT-DETACHED').expected['checkpointVersion'] as { attemptId: string; configurationRevision: number };
+    expect(retried.runtime.checkpoint!.world.attemptId).toBe(attempt(expectedVersion.attemptId));
+    expect(retried.runtime.checkpoint!.world.configurationRevision).toBe(expectedVersion.configurationRevision);
   });
 
   it('RETRY-ALL-READINGS-STALE: preserves each reading, provenance, text and all learning', () => {
@@ -242,6 +245,9 @@ describe('T084 isolated checkpoint and actual reducer rollback against accepted 
     const before = state(), vector = c('RETRY-LAST-LEGAL-REVISION');
     const after = rollback({ ...before, control: { ...before.control, highestRevision: Number(vector.inputs['highestPriorRevision']) } });
     expect(after.runtime.game!.world.configurationRevision).toBe(vector.expected['configurationRevision']);
+    expect(body(after.runtime.game!.world)).toEqual(body(world(String(vector.expected['worldRef']))));
+    expect(retained(after.runtime.game!)).toEqual(journal(String(vector.expected['journalRef'])));
+    expect(after.runtime.game!.world.attemptId).toBe(attempt(String(vector.expected['attemptId'])));
     unchangedReject({ ...after, runtime: { ...after.runtime, activity: { kind: 'terminal-failure' } } }, 'generation-exhausted', 'attempt-c');
   });
 
@@ -251,6 +257,10 @@ describe('T084 isolated checkpoint and actual reducer rollback against accepted 
     expect(after.runtime.persistence.knownSlot).toBe(before.runtime.persistence.knownSlot);
     expect(Object.keys(after.runtime.game!)).not.toContain('checkpoint');
     expect(Object.keys(after.runtime.game!)).not.toContain('control');
+    const expected = c('RETRY-GUEST-IN-MEMORY').expected;
+    expect(body(after.runtime.game!.world)).toEqual(body(world(String(expected['worldRef']))));
+    expect(retained(after.runtime.game!)).toEqual(journal(String(expected['journalRef'])));
+    expect(after.runtime.activity?.kind).toBe(expected['activity']);
   });
 
   it('RETRY-THREE-CYCLES-NO-FREE-ITEMS runs actual debit/reward/receipt reductions between three rollbacks', () => {
@@ -448,7 +458,11 @@ describe('T084 preparation boundaries and captured installation', () => {
     const withReceipt = vector.inputs['alreadyRecordedActionId'] ? { ...after, control: { ...after.control, actionIds: [...after.control.actionIds, capturedAction] } } : after;
     const result = createReducer({ registry, bindings: [] })(withReceipt, { actionId: capturedAction, adventureId: before.runtime.game!.adventureId,
       expectedVersion: { attemptId: attempt(version.attemptId), configurationRevision: revision(version.configurationRevision) },
-      input: { kind: 'notebook', operation: { kind: 'notes', text: 'Old callback must not replace retained notes.' } } });
+      input: id === 'RETRY-DELAYED-MEASUREMENT'
+        ? { kind: 'repair-plan', operation: { kind: 'measure-link', id: uid(String(vector.inputs['measurementId'])) as never } }
+        : { kind: 'notebook', operation: { kind: 'notes', text: 'Old callback must not replace retained notes.' } } });
+    expect(retained(result.state.runtime.game!)).toEqual(journal(String(vector.expected['journalRef'])));
+    if (vector.expected['worldRef']) expect(body(result.state.runtime.game!.world)).toEqual(body(world(String(vector.expected['worldRef']))));
     expect(result).toMatchObject({ status: 'rejected', reason: 'stale-version' }); expect(result.state).toBe(withReceipt);
   });
 
@@ -457,5 +471,55 @@ describe('T084 preparation boundaries and captured installation', () => {
     const measurement = { ...game.notebook.measurements[0]!, attemptId: attempt(raw.attemptId), configurationRevision: revision(raw.configurationRevision), stale: raw.stale };
     expect(isMeasurementCurrent(measurement, game.world)).toBe(vector.expected['usableNewMeasurement'] ?? vector.expected['usable']);
     expect(game.notebook.measurements.every(m => m.stale)).toBe(true); expect(retained(game)).toEqual(journal('retained-stale'));
+  });
+});
+
+describe('T082 literal preparation and learning at the rollback interface', () => {
+  type InputWorld = { inventory: string[]; party: string[]; completedObjectives: string[]; effectFlags: string[] };
+  type AttemptEnd = InputWorld & { newFacts: string[]; personalNotes: string; hypotheses: string[]; mapDiscoveries: string[];
+    hintLevels: (1|2|3)[]; measurements: { id: string; configurationRevision: number; attemptId: string; explicitlyStale: boolean; result: 'pass'|'fail' }[] };
+  const file = JSON.parse(readFileSync(new URL('../fixtures/outcomes.json', import.meta.url), 'utf8')) as {
+    cases: { id: string; inputs: { preparation: InputWorld; attemptEnd: AttemptEnd }; expected: Record<string, unknown> }[];
+  };
+  const seedWorld = (base: WorldState, input: InputWorld): WorldState => ({ ...base,
+    inventory: input.inventory.map(label => ({ itemId: q(label), quantity: 1 })),
+    activeAllyIds: [q(input.party[0]!)], recruits: input.party.map(label => ({ characterId: q(label), level: 1, abilityIds: [], progressFlags: [] })),
+    completedObjectiveIds: input.completedObjectives.map(label => q(label)), flags: Object.fromEntries(input.effectFlags.map(label => [q(label), true])),
+  });
+  it.each(['OUT-FAILURE-RETRY', 'OUT-E03-CONTINUE'])('%s restores literal world roles and preserves attempt-end learning', id => {
+    const row = file.cases.find(c => c.id === id)!, end = row.inputs.attemptEnd;
+    const base = state(id === 'OUT-FAILURE-RETRY' ? 'failed' : 'shutdown'), before = base.runtime.game!;
+    const preparation = seedWorld(base.runtime.checkpoint!.world, row.inputs.preparation);
+    const changedWorld = seedWorld(before.world, end);
+    const game: GameState = { ...before, world: changedWorld, notebook: {
+      factIds: end.newFacts.map(label => q(label)), personalNotes: end.personalNotes, mapRoomIds: end.mapDiscoveries.map(label => q(label)),
+      hypotheses: end.hypotheses.map(text => ({ ...before.notebook.hypotheses[0]!, text })),
+      measurements: end.measurements.map(m => ({ ...before.notebook.measurements[0]!, id: uid(m.id) as never,
+        attemptId: attempt(m.attemptId), configurationRevision: revision(m.configurationRevision), stale: m.explicitlyStale,
+        conclusionCode: m.result, readings: [{ name: 'continuity', value: (m.result === 'pass' ? 1 : 0) as import('../../src/domain/types').Quantity<'count'>, unit: 'count' }] })),
+    }, assistance: end.hintLevels.map((level, index) => ({ ...before.assistance[index]!, level })) };
+    const input = { ...base, runtime: { ...base.runtime, game, checkpoint: { ...base.runtime.checkpoint!, world: preparation } } };
+    const after = rollback(input), actual = after.runtime.game!, labels = (key: string) => (row.expected[key] as string[]).map(label => q(label));
+    expect(actual.world.inventory.map(item => item.itemId)).toEqual(labels('inventory'));
+    expect(actual.world.activeAllyIds).toEqual(labels('party'));
+    expect(actual.world.completedObjectiveIds).toEqual(labels('completedObjectives'));
+    expect(Object.keys(actual.world.flags)).toEqual(labels('effectFlags'));
+    expect(actual.notebook.factIds).toEqual(labels('retainedFacts'));
+    expect(actual.notebook.personalNotes).toBe(row.expected['personalNotes']);
+    expect(actual.notebook.mapRoomIds).toEqual(labels('retainedMapDiscoveries'));
+    expect(actual.notebook.hypotheses.map(h => h.text)).toEqual(row.expected['retainedHypotheses']);
+    expect(actual.assistance.map(h => h.level)).toEqual(row.expected['retainedHintLevels']);
+    expect(actual.notebook.measurements.map(m => m.id)).toEqual((row.expected['measurementsVisibleAndStale'] as string[]).map(uid));
+    expect(actual.notebook.measurements).toEqual(game.notebook.measurements.map(m => ({ ...m, stale: true })));
+    expect(actual.world.configurationRevision).toBeGreaterThan(Number(row.expected['revisionMustExceed']));
+    expect(actual.world.attemptId).not.toBe(game.world.attemptId);
+    expect(after.runtime.activity?.kind).toBe('safe-preparation');
+    expect(after.runtime.auth.status).toBe('guest');
+    expect(after.runtime.persistence.knownSlot).toBe(base.runtime.persistence.knownSlot);
+    if (id === 'OUT-E03-CONTINUE') {
+      expect(actual.outcomeHistory).toEqual(game.outcomeHistory);
+      expect(actual.outcomeHistory.at(-1)?.outcome).toBe('E03');
+      expect(actual.world).not.toEqual(changedWorld);
+    }
   });
 });

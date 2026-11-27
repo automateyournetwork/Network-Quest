@@ -84,7 +84,7 @@ export function createEncounterClassificationPlan(options: { readonly controller
   const capture = captureOutcomeContext(before); if (!capture) return rejected('no-adventure', 'Start an adventure first.');
   const prepared = controller.prepareClassification(before, capture, { actionId: action.actionId, eventId: crypto.randomUUID() as OutcomeEventId,
     operation: { kind: 'classify', selection: input.selection, linkId: input.linkId, endpointId: input.endpointId } });
-  if (!prepared.ok) return rejected(prepared.reason, repairFeedback(prepared.feedback?.reasonCode ?? prepared.reason, prepared.feedback?.status ?? prepared.reason));
+  if (!prepared.ok) return rejected(prepared.reason, repairFeedback(prepared.feedback?.diagnosticCode ?? prepared.feedback?.reasonCode ?? prepared.reason, prepared.feedback?.status ?? prepared.reason));
   return { status: 'ready', commit() {
     const accepted = controller.commit(store, prepared.change);
     return accepted.ok ? { status: 'handled', reason: accepted.feedback.reasonCode, message }

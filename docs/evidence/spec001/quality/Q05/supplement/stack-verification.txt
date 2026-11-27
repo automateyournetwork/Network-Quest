@@ -1,0 +1,71 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest/.local/Q05-audit
+
+ ✓ tests/content/endings.test.ts (48 tests) 14ms
+ ✓ tests/ui/recovery.test.ts (23 tests) 96ms
+ ✓ tests/state/encounter.test.ts (61 tests) 595ms
+ ✓ tests/state/outcome-classification.test.ts (83 tests) 585ms
+ ✓ tests/ui/recovery-save.test.ts (32 tests) 744ms
+ ✓ tests/state/autosave.test.ts (54 tests) 28414ms
+   ✓ T051 safe-boundary debounce using the actual coordinator/API/reducer (39)
+     ✓ defaults off and explains the shared account slot without writing on room/objective changes 629ms
+     ✓ waits the real debounce bound, then captures current bytes once without incrementing dirty twice 534ms
+     ✓ debounces repeated real arrivals and ignores no-op renders and notes-only dirtiness 549ms
+     ✓ never adopts/replaces an unread or different slot automatically: {"empty":true} 479ms
+     ✓ never adopts/replaces an unread or different slot automatically: {"otherAdventure":true} 459ms
+     ✓ never adopts/replaces an unread or different slot automatically: {"unread":true} 478ms
+     ✓ manual first adoption permits only a later eligible automatic write 474ms
+     ✓ cancels queued saves on dialogue-transaction, never resurrects them just by becoming stable 494ms
+     ✓ cancels queued saves on pending-effect, never resurrects them just by becoming stable 466ms
+     ✓ cancels queued saves on room-transition, never resurrects them just by becoming stable 489ms
+     ✓ cancels queued saves on cutscene, never resurrects them just by becoming stable 473ms
+     ✓ cancels queued saves on active-encounter, never resurrects them just by becoming stable 480ms
+     ✓ cancels queued saves on terminal-failure, never resurrects them just by becoming stable 473ms
+     ✓ cancels queued saves on shutdown, never resurrects them just by becoming stable 472ms
+     ✓ blocks a pending reducer transition even if its activity is incorrectly projected safe 473ms
+     ✓ does not treat feedback rendering or a bare dismissal as completion; requires the actual dismissal hook 476ms
+     ✓ does not save an unchanged acknowledged preparation, and delegates its authored anchor to current policy 470ms
+     ✓ includes earlier unsaved notes on a later real preparation entry without another game change 485ms
+     ✓ does not mistake a terminal-failure recovery for an eligible preparation entry 484ms
+     ✓ does not mistake a shutdown recovery for an eligible preparation entry 495ms
+     ✓ does not mistake a changed-attempt recovery for an eligible preparation entry 497ms
+     ✓ rechecks current authored policy for preparation and Continue anchors 944ms
+     ✓ does not invent opt-in from server preference when a new run is locally held off 486ms
+     ✓ rejects a collapsed E03 transition even if an adapter labels the final room safe 464ms
+     ✓ does not autosave the terminal-failure rewind; a later independent arrival can save retained information 477ms
+     ✓ does not autosave the shutdown rewind; a later independent arrival can save retained information 466ms
+     ✓ E01 needs a declared safe Continue, without manufacturing ending content 488ms
+     ✓ E02 needs a declared safe Continue, without manufacturing ending content 468ms
+     ✓ refuses current E03 even if a caller forges safe-continue and a completed objective 466ms
+     ✓ invalidates same-adventure/counter queued callbacks on new-run 470ms
+     ✓ invalidates same-adventure/counter queued callbacks on restore 473ms
+     ✓ invalidates same-adventure/counter queued callbacks on account 470ms
+     ✓ invalidates same-adventure/counter queued callbacks on logout 470ms
+     ✓ invalidates same-adventure/counter queued callbacks on dispose 465ms
+     ✓ rechecks safety at delivery even when no observer ran for the last change 470ms
+     ✓ cannot carry an old completion through reentrant invalidation while canceling a queue 468ms
+     ✓ manual saves cancel redundant queued saves and pending writes never gain an automatic follow-up 473ms
+     ✓ unknown outcomes retain exact pending bytes and never automatically retry or issue a fresh write 492ms
+     ✓ respects coordinator Keep Playing, conflict and unsupported-slot blocking 1436ms
+   ✓ T051 conditional account preference choice and stale response guards (15)
+     ✓ uses a reviewed ETag, refreshes the API session before enable, and preserves known slot/acknowledgement 465ms
+     ✓ immediately suppresses queued writes on opt-out even when its network result is unknown 511ms
+     ✓ does not claim an already sent save was undone by opt-out 482ms
+     ✓ never lets an older enable acknowledgement re-enable a later opt-out 503ms
+     ✓ ignores late preference responses after invalidate 468ms
+     ✓ ignores late preference responses after api-generation 471ms
+     ✓ ignores late preference responses after account 476ms
+     ✓ ignores late preference responses after dispose 464ms
+     ✓ rejects cloned reviews and stale reviewed ETags without writing preferences 464ms
+     ✓ a current owned opt-out with a stale ETag still stops this tab immediately 479ms
+     ✓ a reentrant later preference choice makes the earlier success result stale too 467ms
+     ✓ stays paused when PATCH succeeded but reconciliation failed or reveals a different choice 935ms
+     ✓ does not enable from an older GET revision or a changed session despite matching labels 958ms
+     ✓ allows an explicit read-only preference refresh after a conflict, without implicitly enabling local opt-out 487ms
+     ✓ guards reentrant subscribers before network and dispose remains terminal 506ms
+
+ Test Files  6 passed (6)
+      Tests  301 passed (301)
+   Start at  11:47:33
+   Duration  28.63s (tests 90%, import 8%, transform 2%)
+

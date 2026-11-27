@@ -1,0 +1,63 @@
+--- a/tests/state/outcome-classification.test.ts
++++ b/tests/state/outcome-classification.test.ts
+@@ -185,7 +185,10 @@
+     if (absent === 'maintenance') { const s = f.state(); f.replace({ ...s, runtime: { ...s.runtime, game: { ...f.game(),
+       notebook: { ...f.game().notebook, factIds: f.game().notebook.factIds.filter(id => id !== q('FACT-repair-maintenance')) } } } }); }
+     const h = harness(f), before = f.state();
+-    expect(h.prepare(command('temporary'))).toMatchObject({ ok: false, feedback: { status: 'incorrect', outcome: null, restoredService: false, reasonCode: 'temporary-followup-missing' } });
++    const rejected = h.prepare(command('temporary'));
++    expect(rejected).toMatchObject({ ok: false, feedback: { status: 'incorrect', outcome: null, restoredService: false, reasonCode: 'temporary-followup-missing' } });
++    if (rejected.ok) throw new Error('Accepted incomplete temporary claim');
++    expect(rejected.feedback?.diagnosticCode).toBe(absent === 'dependency' ? 'temporary-dependency-absent' : undefined);
+     expect(f.state()).toBe(before);
+   });
+   it.each(['fault', 'deliberate', 'record'] as const)('requires a named unresolved fault, deliberate isolation and recovery record: %s', absent => {
+@@ -196,8 +199,11 @@
+     if (absent === 'record') { const s = f.state(); f.replace({ ...s, runtime: { ...s.runtime, game: { ...f.game(),
+       notebook: { ...f.game().notebook, factIds: f.game().notebook.factIds.filter(id => id !== q('FACT-repair-isolation')) } } } }); }
+     const h = harness(f), before = f.state();
+-    expect(h.prepare(command('shutdown'))).toMatchObject({ ok: false, feedback: { status: 'incorrect', outcome: null,
++    const rejected = h.prepare(command('shutdown'));
++    expect(rejected).toMatchObject({ ok: false, feedback: { status: 'incorrect', outcome: null,
+       restoredService: false, reasonCode: 'shutdown-not-deliberate' } });
++    if (rejected.ok) throw new Error('Accepted incomplete shutdown claim');
++    expect(rejected.feedback?.diagnosticCode).toBe(absent === 'fault' ? 'unresolved-defect-not-identified' : undefined);
+     expect(f.state()).toBe(before);
+   });
+   it.each(['readings', 'conclusion', 'subjects', 'room'] as const)('requires exact canonical %s provenance instead of a passing-looking record', field => {
+--- a/src/state/repair-plan.ts
++++ b/src/state/repair-plan.ts
+@@ -324,14 +324,20 @@
+   }
+   if (!has('FACT-O12-classification')) return fail('classification-context-missing');
+   if (operation.selection === 'shutdown') {
+-    if (plan.id !== 'shutdown' || !has('FACT-repair-isolation') || !scenario.deployment.unresolvedDefectIdentified || !scenario.deployment.deliberateIsolation) return fail('shutdown-not-deliberate');
++    if (plan.id !== 'shutdown' || !has('FACT-repair-isolation') || !scenario.deployment.deliberateIsolation) return fail('shutdown-not-deliberate');
++    if (!scenario.deployment.unresolvedDefectIdentified) return unchanged({ ...decision('incorrect', 'shutdown-not-deliberate'),
++      diagnosticCode: 'unresolved-defect-not-identified' });
+     return unchanged(decision('correct', 'unresolved-isolation-recorded', [...objectiveEffects(registry, 'O12', 'shutdown'), ...effects('classify-shutdown')],
+       [{ kind: 'service-classification', classification: 'E03', restoredService: false }]), { kind: 'shutdown' });
+   }
+   if (plan.id === 'shutdown') return fail('service-deliberately-isolated');
+   if (operation.selection === 'permanent' && (duration === 'temporary' || scenario.deployment.temporaryDependency)) return fail('temporary-is-not-permanent');
+   if (operation.selection === 'permanent' && !scenario.deployment.defectRemoved) return fail('defect-not-removed');
+-  if (operation.selection === 'temporary' && (duration !== 'temporary' || !scenario.deployment.temporaryDependency || !has('FACT-repair-maintenance'))) return fail('temporary-followup-missing');
++  if (operation.selection === 'temporary') {
++    if (duration !== 'temporary' || !has('FACT-repair-maintenance')) return fail('temporary-followup-missing');
++    if (!scenario.deployment.temporaryDependency) return unchanged({ ...decision('incorrect', 'temporary-followup-missing'),
++      diagnosticCode: 'temporary-dependency-absent' });
++  }
+   const proofs = ([['link', checked, operation.linkId], ['endpoint', endpoint, operation.endpointId]] as const)
+     .map(([kind, proof, id]) => ({
+       id, proof,
+--- a/src/ui/repair-feedback.ts
++++ b/src/ui/repair-feedback.ts
+@@ -14,6 +14,8 @@
+   'prerequisite-unmet': 'Complete the selected branch, equipment check and Clockworks preparation before reviewing this intervention.',
+   'plan-record-missing': 'Read and keep the plan requirements before execution.',
+   'warning-not-acknowledged': 'Read the warning and explicitly acknowledge it before executing the reviewed intervention.',
++  'temporary-dependency-absent': 'The current installation has no temporary dependency to support that claim. Review which path you put into service.',
++  'unresolved-defect-not-identified': 'The current record does not identify an unresolved defect. Inspect the fault before recording deliberate isolation.',
+   'temporary-followup-missing': 'Temporary restoration needs a real temporary dependency and a recorded limitation and follow-up.',
+   'temporary-is-not-permanent': 'A temporary dependency remains. Passing service checks cannot make it a permanent repair.',
+   'defect-not-removed': 'The defect has not been removed. A passing alternate path alone cannot establish permanent repair.',

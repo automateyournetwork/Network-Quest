@@ -1,0 +1,70 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest/.local/Q05-audit
+
+ ❯ tests/state/q05-reason-probe.test.ts (4 tests | 4 failed) 33ms
+   ❯ unchanged T082 missing-observation explanations (4)
+     × OUT-PERMANENT-PHYSICAL-MISSING 16ms
+     × OUT-PERMANENT-ENDPOINT-MISSING 6ms
+     × OUT-TEMPORARY-PHYSICAL-MISSING 5ms
+     × OUT-TEMPORARY-ENDPOINT-MISSING 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/q05-reason-probe.test.ts > unchanged T082 missing-observation explanations > OUT-PERMANENT-PHYSICAL-MISSING
+ FAIL  tests/state/q05-reason-probe.test.ts > unchanged T082 missing-observation explanations > OUT-TEMPORARY-PHYSICAL-MISSING
+AssertionError: expected { Object (ok, reason, ...) } to match object { ok: false, …(1) }
+(6 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "feedback": {
+-     "reasonCode": "physical-validation-missing",
++     "reasonCode": "final-proof-missing",
+    },
+    "ok": false,
+  }
+
+ ❯ tests/state/q05-reason-probe.test.ts:62:24
+     60|           measurements: f.game().notebook.measurements.filter(m => m.i…
+     61|         const result = h.prepare({ ...cmd, operation: { ...cmd.operati…
+     62|         expect(result).toMatchObject({ ok: false, feedback: { reasonCo…
+       |                        ^
+     63|       });
+     64|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/state/q05-reason-probe.test.ts > unchanged T082 missing-observation explanations > OUT-PERMANENT-ENDPOINT-MISSING
+ FAIL  tests/state/q05-reason-probe.test.ts > unchanged T082 missing-observation explanations > OUT-TEMPORARY-ENDPOINT-MISSING
+AssertionError: expected { Object (ok, reason, ...) } to match object { ok: false, …(1) }
+(6 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "feedback": {
+-     "reasonCode": "endpoint-validation-missing",
++     "reasonCode": "final-proof-missing",
+    },
+    "ok": false,
+  }
+
+ ❯ tests/state/q05-reason-probe.test.ts:62:24
+     60|           measurements: f.game().notebook.measurements.filter(m => m.i…
+     61|         const result = h.prepare({ ...cmd, operation: { ...cmd.operati…
+     62|         expect(result).toMatchObject({ ok: false, feedback: { reasonCo…
+       |                        ^
+     63|       });
+     64|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  11:36:08
+   Duration  706ms (import 89%, transform 5%, tests 5%)
+

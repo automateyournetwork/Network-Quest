@@ -1,0 +1,182 @@
+--- a/tests/state/outcome-classification.test.ts
++++ b/tests/state/outcome-classification.test.ts
+@@ -24,7 +24,7 @@
+   operation: { kind: 'classify', selection, linkId: selection === 'shutdown' ? null : uuid(2), endpointId: selection === 'shutdown' ? null : uuid(3) },
+ });
+ function ready(route: 'copper' | 'fiber' | 'radio' = 'copper', selection: 'permanent' | 'temporary' | 'shutdown' = 'permanent',
+-  replace?: (base: RepairScenarioResolver) => RepairScenarioResolver) {
++  replace?: (base: RepairScenarioResolver) => RepairScenarioResolver, acquireProof = true) {
+   const f = fixture(route, replace);
+   f.prepare(selection === 'shutdown' ? 'shutdown' : `${route}-${route === 'copper' ? 'section' : 'A'}`, selection === 'shutdown' ? null : selection);
+   if (selection === 'temporary') f.choose('record-maintenance');
+@@ -34,7 +34,7 @@
+   expect(f.execute().evaluation?.status).toBe('correct');
+   expect(f.state().runtime.activity?.kind).toBe('active-encounter');
+   expect(f.state().runtime.checkpoint).not.toBeNull();
+-  if (selection === 'shutdown') { f.move('R12'); f.choose('read-classification'); } else f.prove();
++  if (selection === 'shutdown' || !acquireProof) { f.move('R12'); f.choose('read-classification'); } else f.prove();
+   return f;
+ }
+ function harness(f: ReturnType<typeof fixture>, content: ContentRegistry = registry) {
+@@ -95,6 +95,19 @@
+     const f = ready('copper', 'temporary'), h = harness(f); expect(h.prepare()).toMatchObject({ ok: false, feedback: { outcome: null, reasonCode: 'temporary-is-not-permanent' } });
+     expect(f.game().outcomeHistory).toEqual([]); expect(h.prepare(command('temporary')).ok).toBe(true);
+   });
++  it.each(['permanent', 'temporary'] as const)('arrival after a working %s repair still requires both final observations', selection => {
++    const f = ready('copper', selection, undefined, false), h = harness(f), before = f.state();
++    const row = expected(`OUT-${selection.toUpperCase()}-ARRIVAL-LINK-ONLY`);
++    expect(f.game().world.roomId).toBe(q('R12'));
++    expect(f.game().world.completedObjectiveIds).toContain(q('O11'));
++    expect(f.game().notebook.measurements.some(m => m.roomId === q('R12'))).toBe(false);
++    const cmd = command(selection);
++    expect(h.prepare({ ...cmd, operation: { ...cmd.operation, linkId: null, endpointId: null } })).toMatchObject({
++      ok: false, feedback: { status: row['status'], outcome: row['outcome'], restoredService: row['awardedRestoredService'], reasonCode: row['reason'] },
++    });
++    expect(f.state()).toBe(before);
++    expect(f.game().world.completedObjectiveIds).not.toContain(q('O12'));
++  });
+   it.each(['physical', 'endpoint'] as const)('requires the separate fresh %s proof', missing => {
+     for (const selection of ['permanent', 'temporary'] as const) {
+       const f = ready('copper', selection), h = harness(f), cmd = command(selection);
+@@ -114,12 +127,15 @@
+       expect(f.state()).toBe(before);
+     }
+   });
+-  it.each(['endpoint', 'pattern', 'conductor'] as const)('rechecks actual failed %s observations', fault => {
+-    const f = ready('copper', 'permanent', base => (g, p) => { const s = base(g, p); if (!s || g.world.roomId !== q('R12')) return s;
+-      return fault === 'endpoint' ? { ...s, endpointResponse: 'service-unavailable' } : fault === 'pattern' ? { ...s, receivedBits: '0100111001010000' }
+-        : { ...s, path: { kind: 'copper-path', compatible: true, lengths: [{ value: 85, unit: 'm' }, { value: 10, unit: 'm' }], requiredConductors: [true, true, false, true] } }; });
+-    const h = harness(f); expect(h.prepare()).toMatchObject({ ok: false, feedback: { status: 'incorrect', outcome: null, restoredService: false } });
+-    expect(f.game().world.completedObjectiveIds).not.toContain(q('O12'));
++  it.each(['permanent', 'temporary'] as const)('rejects failed observations for %s without awarding progress', selection => {
++    for (const fault of ['endpoint', 'pattern', 'conductor'] as const) {
++      const f = ready('copper', selection, base => (g, p) => { const s = base(g, p); if (!s || g.world.roomId !== q('R12')) return s;
++        return fault === 'endpoint' ? { ...s, endpointResponse: 'service-unavailable' } : fault === 'pattern' ? { ...s, receivedBits: '0100111001010000' }
++          : { ...s, path: { kind: 'copper-path', compatible: true, lengths: [{ value: 85, unit: 'm' }, { value: 10, unit: 'm' }], requiredConductors: [true, true, false, true] } }; });
++      const h = harness(f); const before = f.state(); expect(h.prepare(command(selection))).toMatchObject({ ok: false, feedback: { status: 'incorrect', outcome: null, restoredService: false } });
++      expect(f.game().world.completedObjectiveIds).not.toContain(q('O12'));
++      expect(f.state()).toBe(before);
++    }
+   });
+   it('keeps classification proof as historical evidence after the outcome advances the world revision', () => {
+     const f = ready(), h = harness(f), readings = structuredClone(f.game().notebook.measurements);
+@@ -223,9 +239,16 @@
+   it.each(['missing', 'wrong-room', 'wrong-state'] as const)('withholds safe Continue when the anchor is %s', fault => {
+     const content: ContentRegistry = { ...registry, safePosition: id => id !== q('R12.entry') ? registry.safePosition(id) : fault === 'missing' ? undefined
+       : { ...registry.safePosition(id)!, ...(fault === 'wrong-room' ? { roomId: q('R11') } : { eligibleStates: ['stable-exploration'] }) } };
+-    const f = ready(), h = harness(f, content); h.commit(h.prepare());
+-    expect(h.controller.prepareDismissal(f.state(), captureOutcomeContext(f.state())!)).toMatchObject({ ok: false, reason: 'unsafe-destination' });
+-    expect(f.state().runtime.activity?.kind).toBe('cutscene'); expect(f.game().world.continueOutcome).toBeNull();
++    for (const selection of ['permanent', 'temporary'] as const) {
++      const f = ready('copper', selection), h = harness(f, content);
++      h.commit(h.prepare(command(selection)));
++      const before = f.state();
++      expect(f.game().outcomeHistory).toHaveLength(1);
++      expect(h.controller.prepareDismissal(before, captureOutcomeContext(before)!)).toMatchObject({ ok: false, reason: 'unsafe-destination' });
++      expect(f.state()).toBe(before);
++      expect(f.state().runtime.activity?.kind).toBe('cutscene');
++      expect(f.game().world.continueOutcome).toBeNull();
++    }
+   });
+   it('rejects pending transitions, exhausted generation and full event histories before effects', () => {
+     for (const fault of ['pending', 'dirty', 'history'] as const) {
+--- a/tests/ui/recovery-save.test.ts
++++ b/tests/ui/recovery-save.test.ts
+@@ -32,14 +32,14 @@
+ 
+ /** Actual client services and production policy; only remote transport/account
+  * responses are controlled. Seeded training prerequisites are not full play. */
+-async function setup({ guest = false, enabled = false } = {}) {
++async function setup({ guest = false, enabled = false, initialRevision = 4 } = {}) {
+   const f = fixture(), policy = introductionSavePolicy(registry, world), validator = new SaveValidator([policy]);
+   const reader = new SaveReader({ currentContentVersion: policy.contentVersion, readPolicies: [policy], migrations: [] });
+   const initial = startIntroduction(createIntroductionRuntime(), registry), checked = validator.validateRuntime(initial);
+   if (!checked.ok) throw new Error(checked.code);
+   let saved: SaveSnapshotV1 = { ...checked.candidate, adventureId: f.game().adventureId,
+     notebook: { ...checked.candidate.notebook, personalNotes: 'Only the confirmed saved notes' } };
+-  let slot = summary(saved, 4);
++  let slot = summary(saved, initialRevision);
+   const authenticated = (): Session => ({ state: 'authenticated', csrfToken: 's'.repeat(43), provider: 'github', displayName: 'Isolated player',
+     expiresAt: '2099-01-01T00:00:00Z', preferences: { revision: 1, etag: '"prefs-1"', values: { ...initial.ui!.presentation, autosaveEnabled: enabled } }, saveSummary: slot });
+   let session: Session = guest ? { state: 'guest', csrfToken: 'g'.repeat(43) } : authenticated();
+@@ -158,6 +158,80 @@
+     expect(h.game().outcomeHistory).toEqual(saved.outcomeHistory); expect(h.state().runtime.checkpoint).toBeNull();
+     expect(h.writes).toHaveLength(0); expect(h.saved).toBe(saved); expect(h.recovery.capture('retry')).toBeNull(); h.dispose();
+   });
++  it('a replayed older receipt after E03 Continue requires reconciliation and leaves current learning unsaved', async () => {
++    const h = await setup();
++    try {
++      h.setWrite(async () => { throw new Error('controlled lost response'); });
++      expect((await h.coordinator.save('manual')).ok).toBe(false);
++      const prior = h.writes[0]!, generation = h.state().runtime.persistence.dirtyGeneration;
++      h.terminal('shutdown');
++      h.retry('shutdown');
++      const game = h.game(), dirty = h.state().runtime.persistence.dirtyGeneration;
++      expect(game.outcomeHistory.at(-1)?.outcome).toBe('E03');
++      expect(game.notebook.personalNotes).toBe('New clue during this attempt');
++      expect(dirty).toBeGreaterThan(generation);
++      const newer = summary(h.saved, h.slot.revision + 2);
++      h.setWrite(async init => response({
++        requestId: new Headers(init.headers).get('Idempotency-Key'), committedRevision: newer.revision - 1,
++        committedAt: stamp, replayed: true, currentSummary: newer,
++      }, newer.etag));
++      expect(await h.coordinator.retryPending()).toMatchObject({ ok: true, current: false });
++      expect(h.writes[1]!.body).toBe(prior.body);
++      expect(new Headers(h.writes[1]!.headers).get('Idempotency-Key')).toBe(new Headers(prior.headers).get('Idempotency-Key'));
++      expect(h.state().runtime.persistence).toMatchObject({ status: 'conflict', dirtyGeneration: dirty,
++        lastAcknowledgedGeneration: generation, knownSlot: newer, pendingRequest: null });
++      expect(h.game()).toBe(game);
++      expect(await h.coordinator.save('automatic')).toMatchObject({ ok: false, reason: 'reconciliation-required' });
++      expect(h.writes).toHaveLength(2);
++    } finally { h.dispose(); }
++  });
++  it('a rejected conditional save after Retry keeps retained learning in memory', async () => {
++    const h = await setup({ initialRevision: 12 });
++    try {
++      h.send({ kind: 'notebook', operation: { kind: 'notes', text: 'Learned before failure' } });
++      h.terminal('failure');
++      h.retry('failure');
++      const game = h.game(), previous = h.saved, newer = summary(previous, h.slot.revision + 1);
++      expect(game.notebook.personalNotes).toBe('Learned before failure');
++      expect(newer.revision).toBe(13);
++      h.setWrite(async init => new Response(JSON.stringify({ code: 'save-conflict', message: 'Current slot changed',
++        requestId: new Headers(init.headers).get('Idempotency-Key'), currentSummary: newer }), { status: 412,
++        headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } }));
++      expect((await h.coordinator.save('manual')).ok).toBe(false);
++      expect(h.coordinator.state).toMatchObject({ kind: 'conflict', currentSummary: newer });
++      expect(h.game()).toBe(game);
++      expect(h.saved).toBe(previous);
++      expect(await h.coordinator.save('automatic')).toMatchObject({ ok: false, reason: 'reconciliation-required' });
++      expect(h.writes).toHaveLength(1);
++      expect(new Headers(h.writes[0]!.headers).get('If-Match')).toBe('"save-12"');
++    } finally { h.dispose(); }
++  });
++  it.each(['network', 'invalid'] as const)('failed %s Restore preserves shutdown learning and the confirmed save', async fault => {
++    const h = await setup({ initialRevision: 12 });
++    try {
++      h.terminal('shutdown');
++      h.retry('shutdown');
++      h.terminal('failure');
++      h.retry('failure');
++      expect(h.state().runtime.activity?.kind).toBe('safe-preparation');
++      const before = h.game(), checkpoint = h.state().runtime.checkpoint, slot = h.slot;
++      expect(before.assistance.length).toBeGreaterThan(0);
++      expect(before.outcomeHistory.at(-1)?.outcome).toBe('E03');
++      expect(before.notebook.personalNotes).toBe('New clue during this attempt');
++      h.setRead(async () => {
++        if (fault === 'network') throw new Error('controlled network loss');
++        return response({ summary: slot, snapshot: { ...h.saved, notebook: null } }, slot.etag);
++      });
++      await h.dialogs.continue();
++      expect(h.dialogs.project().message).toMatch(/could not|not ready/i);
++      expect(h.dialogs.project().panel).not.toBe('confirm-load');
++      expect(h.game()).toBe(before);
++      expect(h.state().runtime.checkpoint).toBe(checkpoint);
++      expect(h.restored).not.toHaveBeenCalled();
++      expect(h.writes).toHaveLength(0);
++      expect(h.slot).toBe(slot);
++    } finally { h.dispose(); }
++  });
+   it('guest Restore opens provider choice with no HTTP; actual synthetic sign-in alone neither loads nor saves', async () => {
+     const h = await setup({ guest: true }); h.terminal('failure'); const current = h.game(), count = h.requests.length;
+     expect(h.recovery.request(h.recovery.capture('sign-in-to-restore')!).ok).toBe(true);

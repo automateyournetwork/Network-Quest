@@ -8,6 +8,8 @@ import type { OutcomeCommand, OutcomePreparation } from '../../src/state/outcome
 import type { RepairScenarioResolver } from '../../src/state/repair-plan';
 import { SaveValidator } from '../../src/services/save-validator';
 import { captureSafeSnapshot } from '../../src/state/snapshot';
+import { projectEpilogue, validateEndingsContent } from '../../src/content/endings';
+import endings from '../../content/spec001/endings.json';
 import { fixture, q, registry, uuid } from './outcome-fixture';
 
 // Read literal independent expectations. No result below supplies scenario data
@@ -24,7 +26,7 @@ const command = (selection: 'permanent' | 'temporary' | 'shutdown' = 'permanent'
   operation: { kind: 'classify', selection, linkId: selection === 'shutdown' ? null : uuid(2), endpointId: selection === 'shutdown' ? null : uuid(3) },
 });
 function ready(route: 'copper' | 'fiber' | 'radio' = 'copper', selection: 'permanent' | 'temporary' | 'shutdown' = 'permanent',
-  replace?: (base: RepairScenarioResolver) => RepairScenarioResolver) {
+  replace?: (base: RepairScenarioResolver) => RepairScenarioResolver, acquireProof = true) {
   const f = fixture(route, replace);
   f.prepare(selection === 'shutdown' ? 'shutdown' : `${route}-${route === 'copper' ? 'section' : 'A'}`, selection === 'shutdown' ? null : selection);
   if (selection === 'temporary') f.choose('record-maintenance');
@@ -34,7 +36,7 @@ function ready(route: 'copper' | 'fiber' | 'radio' = 'copper', selection: 'perma
   expect(f.execute().evaluation?.status).toBe('correct');
   expect(f.state().runtime.activity?.kind).toBe('active-encounter');
   expect(f.state().runtime.checkpoint).not.toBeNull();
-  if (selection === 'shutdown') { f.move('R12'); f.choose('read-classification'); } else f.prove();
+  if (selection === 'shutdown' || !acquireProof) { f.move('R12'); f.choose('read-classification'); } else f.prove();
   return f;
 }
 function harness(f: ReturnType<typeof fixture>, content: ContentRegistry = registry) {
@@ -55,7 +57,17 @@ describe('T086 active outcome classification — actual repair predicates and re
       expect(result.ok).toBe(true); if (!result.ok) throw new Error(JSON.stringify(result));
       expect(result.feedback.status).toBe(expected(`OUT-${code}-${route.toUpperCase()}`)['status']);
       expect(result.feedback.outcome).toBe(expected(`OUT-${code}-${route.toUpperCase()}`)['outcome']);
-      expect(result.feedback.restoredService).toBe(expected(`OUT-${code}-${route.toUpperCase()}`)['awardedRestoredService']);
+      const row = expected(`OUT-${code}-${route.toUpperCase()}`);
+      expect(result.feedback.restoredService).toBe(row['awardedRestoredService']);
+      if (code !== 'E03') expect(result.feedback.observations).toContainEqual(expect.objectContaining({
+        kind: 'service-classification', permanentRepair: row['permanentRepair'], assistanceDowngradesEnding: row['assistanceChangesClassification'],
+      }));
+      else expect(result.feedback.observations).toContainEqual(expect.objectContaining({ classification: 'E03', restoredService: false }));
+      const clauseLabels: Record<string, string> = { dependency: 'Temporary dependency:', limitation: 'Limitation:', followup: 'Follow-up:',
+        unresolvedDefect: 'Named unresolved fault:', recoveryPlan: 'Recovery plan:' };
+      const caveats = result.feedback.caveats.map(caveat => caveat.text).join(' ');
+      for (const clause of row['requiredCaveats'] as string[]) expect(caveats).toContain(clauseLabels[clause]);
+      if (!(row['requiredCaveats'] as string[]).length) expect(result.feedback.caveats).toEqual([]);
       expect(f.state()).toBe(before); // preparation cannot partly award O12/history
       expect(h.commit(result).ok).toBe(true);
       expect(f.game().outcomeHistory).toEqual([{ id: eventId, outcome: code, attemptId: before.runtime.game!.world.attemptId,
@@ -80,6 +92,12 @@ describe('T086 active outcome classification — actual repair predicates and re
       const assistance = f.game().assistance;
       expect(assistance.map(hint => hint.level)).toEqual(expected(`OUT-${code}-HINT-${count}`)['retainedHintLevels']);
       const h = harness(f), p = h.prepare(command(selection)); expect(p.ok && p.feedback.outcome).toBe(expected(`OUT-${code}-HINT-${count}`)['outcome']);
+      const row = expected(`OUT-${code}-HINT-${count}`);
+      if (!p.ok) throw new Error(p.reason);
+      expect(p.feedback).toMatchObject({ status: row['status'], restoredService: row['awardedRestoredService'] });
+      if (code !== 'E03') expect(p.feedback.observations).toContainEqual(expect.objectContaining({
+        permanentRepair: row['permanentRepair'], assistanceDowngradesEnding: row['assistanceChangesClassification'],
+      }));
       h.commit(p); expect(f.game().assistance).toEqual(assistance);
     }
   });
@@ -94,6 +112,19 @@ describe('T086 active outcome classification — actual repair predicates and re
   it('does not silently downgrade an incorrect permanent claim to temporary success', () => {
     const f = ready('copper', 'temporary'), h = harness(f); expect(h.prepare()).toMatchObject({ ok: false, feedback: { outcome: null, reasonCode: 'temporary-is-not-permanent' } });
     expect(f.game().outcomeHistory).toEqual([]); expect(h.prepare(command('temporary')).ok).toBe(true);
+  });
+  it.each(['permanent', 'temporary'] as const)('arrival after a working %s repair still requires both final observations', selection => {
+    const f = ready('copper', selection, undefined, false), h = harness(f), before = f.state();
+    const row = expected(`OUT-${selection.toUpperCase()}-ARRIVAL-LINK-ONLY`);
+    expect(f.game().world.roomId).toBe(q('R12'));
+    expect(f.game().world.completedObjectiveIds).toContain(q('O11'));
+    expect(f.game().notebook.measurements.some(m => m.roomId === q('R12'))).toBe(false);
+    const cmd = command(selection);
+    expect(h.prepare({ ...cmd, operation: { ...cmd.operation, linkId: null, endpointId: null } })).toMatchObject({
+      ok: false, feedback: { status: row['status'], outcome: row['outcome'], restoredService: row['awardedRestoredService'], reasonCode: row['reason'] },
+    });
+    expect(f.state()).toBe(before);
+    expect(f.game().world.completedObjectiveIds).not.toContain(q('O12'));
   });
   it.each(['physical', 'endpoint'] as const)('requires the separate fresh %s proof', missing => {
     for (const selection of ['permanent', 'temporary'] as const) {
@@ -114,12 +145,18 @@ describe('T086 active outcome classification — actual repair predicates and re
       expect(f.state()).toBe(before);
     }
   });
-  it.each(['endpoint', 'pattern', 'conductor'] as const)('rechecks actual failed %s observations', fault => {
-    const f = ready('copper', 'permanent', base => (g, p) => { const s = base(g, p); if (!s || g.world.roomId !== q('R12')) return s;
-      return fault === 'endpoint' ? { ...s, endpointResponse: 'service-unavailable' } : fault === 'pattern' ? { ...s, receivedBits: '0100111001010000' }
-        : { ...s, path: { kind: 'copper-path', compatible: true, lengths: [{ value: 85, unit: 'm' }, { value: 10, unit: 'm' }], requiredConductors: [true, true, false, true] } }; });
-    const h = harness(f); expect(h.prepare()).toMatchObject({ ok: false, feedback: { status: 'incorrect', outcome: null, restoredService: false } });
-    expect(f.game().world.completedObjectiveIds).not.toContain(q('O12'));
+  it.each(['permanent', 'temporary'] as const)('rejects failed observations for %s without awarding progress', selection => {
+    for (const fault of ['endpoint', 'pattern', 'conductor'] as const) {
+      const f = ready('copper', selection, base => (g, p) => { const s = base(g, p); if (!s || g.world.roomId !== q('R12')) return s;
+        return fault === 'endpoint' ? { ...s, endpointResponse: 'service-unavailable' } : fault === 'pattern' ? { ...s, receivedBits: '0100111001010000' }
+          : { ...s, path: { kind: 'copper-path', compatible: true, lengths: [{ value: 85, unit: 'm' }, { value: 10, unit: 'm' }], requiredConductors: [true, true, false, true] } }; });
+      const h = harness(f); const before = f.state();
+      const codes = { endpoint: 'endpoint-service-unresolved', pattern: 'known-pattern-differs', conductor: 'required-path-open' };
+      expect(h.prepare(command(selection))).toMatchObject({ ok: false, feedback: { status: 'incorrect', outcome: null,
+        restoredService: false, reasonCode: codes[fault] } });
+      expect(f.game().world.completedObjectiveIds).not.toContain(q('O12'));
+      expect(f.state()).toBe(before);
+    }
   });
   it('keeps classification proof as historical evidence after the outcome advances the world revision', () => {
     const f = ready(), h = harness(f), readings = structuredClone(f.game().notebook.measurements);
@@ -130,8 +167,16 @@ describe('T086 active outcome classification — actual repair predicates and re
   });
   it('cannot classify shutdown from an accidental outage or missing execution', () => {
     const f = ready(), h = harness(f); expect(h.prepare(command('shutdown'))).toMatchObject({ ok: false, feedback: { outcome: null } });
-    const missing = fixture(); missing.move('R12'); const hm = harness(missing);
-    expect(hm.prepare()).toMatchObject({ ok: false }); expect(missing.game().outcomeHistory).toEqual([]);
+    const missing = fixture(), before = missing.state();
+    expect(missing.move('R12').status).toBe('unavailable');
+    expect(harness(missing).prepare()).toMatchObject({ ok: false, reason: 'invalid-state' });
+    expect(missing.state()).toBe(before); expect(missing.game().outcomeHistory).toEqual([]);
+  });
+  it('cannot claim restored service for an executed deliberate isolation', () => {
+    const f = ready('copper', 'shutdown'), h = harness(f), before = f.state();
+    expect(h.prepare(command('permanent'))).toMatchObject({ ok: false, feedback: { status: 'incorrect',
+      restoredService: false, outcome: null, reasonCode: 'service-deliberately-isolated' } });
+    expect(f.state()).toBe(before);
   });
   it.each(['dependency', 'maintenance'] as const)('requires actual temporary %s at classification', absent => {
     const f = ready('copper', 'temporary', absent === 'dependency' ? base => (g, p) => {
@@ -140,7 +185,10 @@ describe('T086 active outcome classification — actual repair predicates and re
     if (absent === 'maintenance') { const s = f.state(); f.replace({ ...s, runtime: { ...s.runtime, game: { ...f.game(),
       notebook: { ...f.game().notebook, factIds: f.game().notebook.factIds.filter(id => id !== q('FACT-repair-maintenance')) } } } }); }
     const h = harness(f), before = f.state();
-    expect(h.prepare(command('temporary'))).toMatchObject({ ok: false, feedback: { outcome: null, reasonCode: 'temporary-followup-missing' } });
+    const rejected = h.prepare(command('temporary'));
+    expect(rejected).toMatchObject({ ok: false, feedback: { status: 'incorrect', outcome: null, restoredService: false, reasonCode: 'temporary-followup-missing' } });
+    if (rejected.ok) throw new Error('Accepted incomplete temporary claim');
+    expect(rejected.feedback?.diagnosticCode).toBe(absent === 'dependency' ? 'temporary-dependency-absent' : undefined);
     expect(f.state()).toBe(before);
   });
   it.each(['fault', 'deliberate', 'record'] as const)('requires a named unresolved fault, deliberate isolation and recovery record: %s', absent => {
@@ -150,7 +198,13 @@ describe('T086 active outcome classification — actual repair predicates and re
     });
     if (absent === 'record') { const s = f.state(); f.replace({ ...s, runtime: { ...s.runtime, game: { ...f.game(),
       notebook: { ...f.game().notebook, factIds: f.game().notebook.factIds.filter(id => id !== q('FACT-repair-isolation')) } } } }); }
-    const h = harness(f); expect(h.prepare(command('shutdown'))).toMatchObject({ ok: false, feedback: { outcome: null, reasonCode: 'shutdown-not-deliberate' } });
+    const h = harness(f), before = f.state();
+    const rejected = h.prepare(command('shutdown'));
+    expect(rejected).toMatchObject({ ok: false, feedback: { status: 'incorrect', outcome: null,
+      restoredService: false, reasonCode: 'shutdown-not-deliberate' } });
+    if (rejected.ok) throw new Error('Accepted incomplete shutdown claim');
+    expect(rejected.feedback?.diagnosticCode).toBe(absent === 'fault' ? 'unresolved-defect-not-identified' : undefined);
+    expect(f.state()).toBe(before);
   });
   it.each(['readings', 'conclusion', 'subjects', 'room'] as const)('requires exact canonical %s provenance instead of a passing-looking record', field => {
     const f = ready(), s = f.state(); f.replace({ ...s, runtime: { ...s.runtime, game: { ...f.game(), notebook: { ...f.game().notebook,
@@ -209,6 +263,13 @@ describe('T086 opaque atomic state and authored Continue boundary', () => {
     expect(f.game().notebook).toEqual(after.runtime.game!.notebook); expect(f.game().world.inventory).toEqual(after.runtime.game!.world.inventory);
     expect(f.state().runtime.persistence.pendingRequest).toBe(after.runtime.persistence.pendingRequest);
     expect(expected(`OUT-${code}-CONTINUE`)['rewindPreparation']).toBe(false);
+    const event = f.game().outcomeHistory;
+    for (const room of ['R11', 'R10', 'R02', 'R05', 'R02', 'R07']) {
+      expect(f.move(room).status).toBe('handled');
+      expect(f.game().world.roomId).toBe(q(room));
+      expect(f.game().outcomeHistory).toEqual(event);
+      expect(f.game().world.completedObjectiveIds).toContain(q('O12'));
+    }
   });
   it('never dismisses E03 into a safe shutdown world', () => {
     const f = ready('copper', 'shutdown'), h = harness(f); h.commit(h.prepare(command('shutdown'))); const before = f.state();
@@ -223,9 +284,16 @@ describe('T086 opaque atomic state and authored Continue boundary', () => {
   it.each(['missing', 'wrong-room', 'wrong-state'] as const)('withholds safe Continue when the anchor is %s', fault => {
     const content: ContentRegistry = { ...registry, safePosition: id => id !== q('R12.entry') ? registry.safePosition(id) : fault === 'missing' ? undefined
       : { ...registry.safePosition(id)!, ...(fault === 'wrong-room' ? { roomId: q('R11') } : { eligibleStates: ['stable-exploration'] }) } };
-    const f = ready(), h = harness(f, content); h.commit(h.prepare());
-    expect(h.controller.prepareDismissal(f.state(), captureOutcomeContext(f.state())!)).toMatchObject({ ok: false, reason: 'unsafe-destination' });
-    expect(f.state().runtime.activity?.kind).toBe('cutscene'); expect(f.game().world.continueOutcome).toBeNull();
+    for (const selection of ['permanent', 'temporary'] as const) {
+      const f = ready('copper', selection), h = harness(f, content);
+      h.commit(h.prepare(command(selection)));
+      const before = f.state();
+      expect(f.game().outcomeHistory).toHaveLength(1);
+      expect(h.controller.prepareDismissal(before, captureOutcomeContext(before)!)).toMatchObject({ ok: false, reason: 'unsafe-destination' });
+      expect(f.state()).toBe(before);
+      expect(f.state().runtime.activity?.kind).toBe('cutscene');
+      expect(f.game().world.continueOutcome).toBeNull();
+    }
   });
   it('rejects pending transitions, exhausted generation and full event histories before effects', () => {
     for (const fault of ['pending', 'dirty', 'history'] as const) {
@@ -332,5 +400,100 @@ describe('T086 opaque atomic state and authored Continue boundary', () => {
     } };
     const f = ready('copper', 'temporary'), h = harness(f, content);
     expect(h.prepare(command('temporary'))).toMatchObject({ ok: false, reason: 'content-error' }); expect(f.game().outcomeHistory).toEqual([]);
+  });
+});
+
+describe('outcome feedback for an incomplete restoration claim', () => {
+  for (const selection of ['permanent', 'temporary'] as const) {
+    for (const missing of ['physical', 'endpoint'] as const) {
+      it(`${selection} names the missing ${missing} observation when the other proof is current and passing`, () => {
+        const f = ready('copper', selection), h = harness(f), cmd = command(selection);
+        const before = f.state(), absentId = uuid(missing === 'physical' ? 2 : 3);
+        f.replace({ ...before, runtime: { ...before.runtime, game: { ...f.game(), notebook: { ...f.game().notebook,
+          measurements: f.game().notebook.measurements.filter(m => m.id !== absentId) } } } });
+        const current = f.state(), row = expected(`OUT-${selection.toUpperCase()}-${missing.toUpperCase()}-MISSING`);
+        const result = h.prepare({ ...cmd, operation: { ...cmd.operation, [missing === 'physical' ? 'linkId' : 'endpointId']: null } });
+        expect(result).toMatchObject({ ok: false, feedback: { reasonCode: 'final-proof-missing', diagnosticCode: row['reason'],
+          status: row['status'], outcome: row['outcome'], restoredService: row['awardedRestoredService'] } });
+        expect(f.state()).toBe(current);
+      });
+    }
+  }
+  it.each(['stale', 'foreign', 'failed', 'both-missing', 'unknown-id'] as const)('retains accurate guidance for %s evidence', condition => {
+    const f = ready('copper', 'permanent', base => (game, plan) => {
+      const scenario = base(game, plan);
+      return scenario && condition === 'failed' ? { ...scenario, endpointResponse: 'service-unavailable' } : scenario;
+    });
+    if (condition === 'stale' || condition === 'foreign') {
+      const state = f.state();
+      f.replace({ ...state, runtime: { ...state.runtime, game: { ...f.game(), notebook: { ...f.game().notebook,
+        measurements: f.game().notebook.measurements.map(m => m.id !== uuid(3) ? m :
+          condition === 'stale' ? { ...m, stale: true } : { ...m, conclusionCode: 'foreign-deployment' }) } } } });
+    }
+    const h = harness(f), cmd = command(), before = f.state();
+    const endpointId = condition === 'both-missing' ? null : condition === 'unknown-id' ? uuid(99) : uuid(3);
+    const result = h.prepare({ ...cmd, operation: { ...cmd.operation, linkId: null, endpointId } });
+    if (result.ok || !result.feedback) throw new Error('Incomplete proof accepted or missing feedback');
+    expect(result.feedback.reasonCode).toBe('final-proof-missing');
+    const expectedGuidance = { stale: 'stale-evidence', foreign: 'measurement-provenance-mismatch',
+      failed: 'endpoint-service-unresolved', 'both-missing': 'final-proof-missing', 'unknown-id': 'final-proof-missing' };
+    expect(result.feedback.diagnosticCode ?? result.feedback.reasonCode).toBe(expectedGuidance[condition]);
+    expect(f.state()).toBe(before);
+  });
+});
+
+describe('personalized classification and accepted narrative on the fiber branch', () => {
+  const loaded = validateEndingsContent(endings);
+  if (!loaded.ok) throw new Error(loaded.issues.join(', '));
+  const content = loaded.value;
+  it.each([['permanent', 'E01'], ['temporary', 'E02'], ['shutdown', 'E03']] as const)(
+    '%s preserves party, completed quest and maintenance history independently of three hint levels', (selection, outcome) => {
+      const f = ready('fiber', selection), current = f.state(), game = f.game();
+      // Seed the three previously earned facts. Acquisition is tested by the independent companion/quest suites.
+      const ally = q<'character'>('CH03'), quest = q<'quest'>('SQ01'), fact = q<'fact'>('FACT-repair-maintenance');
+      const room = registry.record(q('R11'));
+      if (room?.kind !== 'room') throw new Error('Missing Rift evidence');
+      const record = room.evidence.find(r => String(r.id) === String(fact));
+      expect(record?.text).toBe('Temporary dependency: the tested bypass uses a borrowed installation in the protected work corridor. Limitation: this arrangement cannot be left as the permanent route. Follow-up: install and validate the permanent protected route before removing or returning the borrowed installation. Temporary service must pass the same fresh physical and endpoint checks.');
+      expect(outcomeCaveats(registry)?.E02).toEqual([{ id: fact, text: record!.text }]);
+      f.replace({ ...current, runtime: { ...current.runtime, game: { ...game,
+        world: { ...game.world, activeAllyIds: [ally], recruits: [{ characterId: ally, level: 1, abilityIds: [], progressFlags: [] }], completedQuestIds: [quest] },
+        notebook: { ...game.notebook, factIds: [...new Set([...game.notebook.factIds, fact])] } } } });
+      for (let n = 0; n < 3; n++) expect(f.send({ kind: 'objective', operation: { kind: 'hint', objectiveId: q('O12') } }).status).toBe('applied');
+      const h = harness(f), result = h.prepare(command(selection)), before = f.game();
+      if (!result.ok) throw new Error(result.reason);
+      const row = expected(`OUT-${outcome}-PERSONALIZED`);
+      expect(result.feedback).toMatchObject({ status: row['status'], outcome: row['outcome'], restoredService: row['awardedRestoredService'] });
+      if (outcome !== 'E03') expect(result.feedback.observations).toContainEqual(expect.objectContaining({ permanentRepair: row['permanentRepair'] }));
+      h.commit(result);
+      const after = f.game(), event = after.outcomeHistory.at(-1)!;
+      expect(after.world.recruits).toEqual(before.world.recruits);
+      expect(after.world.completedQuestIds).toEqual(before.world.completedQuestIds);
+      expect(after.notebook.factIds).toContain(fact);
+      expect(after.assistance.map(h => h.level)).toEqual([1, 2, 3]);
+      const narrative = projectEpilogue(content, after, event);
+      expect(narrative?.paragraphs).toEqual(expect.arrayContaining([
+        content.recruits.find(r => r.id === String(ally))!.active, content.sideQuests.find(sq => sq.id === quest)!.text, content.maintenance.recorded,
+      ]));
+      expect(projectEpilogue(content, { ...after, assistance: [] }, event)).toEqual(narrative);
+    });
+});
+
+describe('closed authored records distinguish lesson content errors from learner actions', () => {
+  it.each([
+    ['temporary', 'FACT-repair-maintenance', 'Limitation: this arrangement cannot be left as the permanent route.'],
+    ['temporary', 'FACT-repair-maintenance', 'Follow-up: install and validate the permanent protected route before removing or returning the borrowed installation.'],
+    ['shutdown', 'FACT-repair-isolation', 'Recovery plan: return to safe preparation, repair or replace the damaged path, then measure again and repeat the endpoint test.'],
+  ] as const)('%s rejects an authored record missing %s clause %s before grading', (selection, factId, clause) => {
+    const f = ready('copper', selection), before = f.state();
+    const source = registry.record(q('R11'));
+    if (source?.kind !== 'room') throw new Error('Rift room missing');
+    const fact = source.evidence.find(record => record.id === q(factId));
+    expect(fact?.text).toContain(clause);
+    const content: ContentRegistry = { ...registry, record: id => id !== source.id ? registry.record(id) : {
+      ...source, evidence: source.evidence.map(record => record !== fact ? record : { ...record, text: record.text.replace(clause, '') }),
+    } };
+    expect(harness(f, content).prepare(command(selection))).toMatchObject({ ok: false, reason: 'content-error' });
+    expect(f.state()).toBe(before); expect(f.game().outcomeHistory).toEqual([]);
   });
 });

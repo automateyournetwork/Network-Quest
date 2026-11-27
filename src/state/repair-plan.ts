@@ -44,7 +44,7 @@ export interface RepairScenario {
     readonly unresolvedDefectIdentified: boolean; readonly deliberateIsolation: boolean };
 }
 export type RepairScenarioResolver = (game: GameState, plan: RepairPlanId) => RepairScenario | null;
-export type RepairEvaluation = EvaluationResult<unknown, StateEffect>;
+export type RepairEvaluation = EvaluationResult<unknown, StateEffect> & { readonly diagnosticCode?: string };
 type Failure = { readonly ok: false; readonly reason: RejectionReason };
 export type RepairPreparation = Failure | { readonly ok: true; readonly evaluation: RepairEvaluation;
   readonly finalize: (candidate: GameState) => { readonly ok: true; readonly game: GameState; readonly activity?: ActivityState } | Failure };
@@ -324,17 +324,33 @@ export function prepareRepairPlanChange(registry: ContentRegistry, resolver: Rep
   }
   if (!has('FACT-O12-classification')) return fail('classification-context-missing');
   if (operation.selection === 'shutdown') {
-    if (plan.id !== 'shutdown' || !has('FACT-repair-isolation') || !scenario.deployment.unresolvedDefectIdentified || !scenario.deployment.deliberateIsolation) return fail('shutdown-not-deliberate');
+    if (plan.id !== 'shutdown' || !has('FACT-repair-isolation') || !scenario.deployment.deliberateIsolation) return fail('shutdown-not-deliberate');
+    if (!scenario.deployment.unresolvedDefectIdentified) return unchanged({ ...decision('incorrect', 'shutdown-not-deliberate'),
+      diagnosticCode: 'unresolved-defect-not-identified' });
     return unchanged(decision('correct', 'unresolved-isolation-recorded', [...objectiveEffects(registry, 'O12', 'shutdown'), ...effects('classify-shutdown')],
       [{ kind: 'service-classification', classification: 'E03', restoredService: false }]), { kind: 'shutdown' });
   }
   if (plan.id === 'shutdown') return fail('service-deliberately-isolated');
   if (operation.selection === 'permanent' && (duration === 'temporary' || scenario.deployment.temporaryDependency)) return fail('temporary-is-not-permanent');
   if (operation.selection === 'permanent' && !scenario.deployment.defectRemoved) return fail('defect-not-removed');
-  if (operation.selection === 'temporary' && (duration !== 'temporary' || !scenario.deployment.temporaryDependency || !has('FACT-repair-maintenance'))) return fail('temporary-followup-missing');
-  for (const [kind, proof, id] of [['link', checked, operation.linkId], ['endpoint', endpoint, operation.endpointId]] as const) {
-    const mismatch = canonicalProof(game, record(game, plan.id, duration, kind, proof, id ?? '00000000-0000-4000-8000-000000000000' as MeasurementId), id);
-    if (mismatch) return fail(mismatch);
+  if (operation.selection === 'temporary') {
+    if (duration !== 'temporary' || !has('FACT-repair-maintenance')) return fail('temporary-followup-missing');
+    if (!scenario.deployment.temporaryDependency) return unchanged({ ...decision('incorrect', 'temporary-followup-missing'),
+      diagnosticCode: 'temporary-dependency-absent' });
+  }
+  const proofs = ([['link', checked, operation.linkId], ['endpoint', endpoint, operation.endpointId]] as const)
+    .map(([kind, proof, id]) => ({
+      id, proof,
+      mismatch: canonicalProof(game, record(game, plan.id, duration, kind, proof, id ?? '00000000-0000-4000-8000-000000000000' as MeasurementId), id),
+    }));
+  const mismatch = proofs.find(entry => entry.mismatch)?.mismatch;
+  if (mismatch) {
+    if (mismatch !== 'final-proof-missing' || (operation.linkId === null) === (operation.endpointId === null)) return fail(mismatch);
+    const supplied = proofs.find(entry => entry.id !== null)!;
+    const diagnosticCode = supplied.mismatch ?? (supplied.proof.evaluation.status === 'correct'
+      ? operation.linkId === null ? 'physical-validation-missing' : 'endpoint-validation-missing'
+      : supplied.proof.evaluation.reasonCode);
+    return unchanged({ ...decision('incorrect', mismatch), diagnosticCode });
   }
   if (checked.evaluation.status !== 'correct') return unchanged(checked.evaluation);
   if (endpoint.evaluation.status !== 'correct') return unchanged(endpoint.evaluation);

@@ -1,0 +1,3 @@
+import { defineConfig } from '@playwright/test';
+export default defineConfig({testDir:'./tests/e2e',testMatch:'q05-logout.spec.ts',workers:1,retries:0,
+  outputDir:'./q05-browser-output',reporter:'list',use:{ignoreHTTPSErrors:false},timeout:210000});

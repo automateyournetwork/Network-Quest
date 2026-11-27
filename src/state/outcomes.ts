@@ -22,6 +22,7 @@ export interface OutcomeCaveat { readonly id: CaveatId; readonly text: string }
 export interface OutcomeFeedback {
   readonly status: RepairEvaluation['status'];
   readonly reasonCode: string;
+  readonly diagnosticCode?: string;
   readonly observations: readonly unknown[];
   readonly outcome: Outcome | null;
   readonly restoredService: boolean;
@@ -95,6 +96,7 @@ function validCommand(value: unknown): value is OutcomeCommand {
 }
 function feedback(evaluation: RepairEvaluation, outcome: Outcome | null, caveats: readonly OutcomeCaveat[] = []): OutcomeFeedback {
   return freeze({ status: evaluation.status, reasonCode: evaluation.reasonCode,
+    ...(evaluation.diagnosticCode ? { diagnosticCode: evaluation.diagnosticCode } : {}),
     observations: structuredClone(evaluation.observations), outcome, restoredService: outcome === 'E01' || outcome === 'E02', caveats });
 }
 

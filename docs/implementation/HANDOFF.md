@@ -26,9 +26,39 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**121 loops started;96/170 tasks accepted;no deployment.** Latest pushed commit:
-`9484507f977d930fd64db9fd0a65003836a0e66e` (MG03/T103 plus reviewed Q01/Q02
-fixes and partial T104 regressions), published and remote-verified. Root matched269worker hashes before follow-ups; currentcheck/build
+**122 loops started; 96/170 tasks accepted; no deployment.** Latest pushed commit
+`55b9bfcd7ca1f0aef0b4add6f6d86790e34e7cad`; next reviewed checkpoint is being prepared.
+All five requested Astra reviews are now root-reviewed. Q05 promoted four production
+and four test files with exact candidate hashes; current476tests/11suites, check and
+build PASS. Save-policy regeneration changes only two provenance hashes, not semantics.
+Original126 cases remain intact:90 scoped mappings/36 explicit adaptations.
+
+T104 final packet root review matched49owned files,254published inputs and120named
+assertion references. All140 original inputs/expected values are preserved;129mapped,
+6conditional timing N/A,4whole-route rows delegatedT105,1media-dependent partial.
+Root inspected actualMG03/E03 screenshots. Canonical browser files still needed current
+root/discovery/output corrections; same116 owns them. Normal discovery now succeeds
+(146tests/26files); two targeted canonical journeys are running on frozen55b9bfc with
+unique ignored report folders. Historical bytes/seals remain separately preserved.
+Q05's later bounded diagnostic change has separate476test/currentcheck/build evidence.
+
+Fresh122/T106 prepares isolated12room layouts and exact380quota identities, with
+support architecture counted separately. No freeze or bulkmedia before acceptedT105.
+Preserve authoritative walk coordinates, including12x7 R09–R12 areas whose temporary
+geometry is smaller. Keep the original playful, witty, lightly dark Networking/OSI
+adventure within the approved286frame. Owner previews63366/54594 remain protected.
+
+Next: accept T104's verified local scope, execute freshT105 independent routes, then
+reconcile T106 and produce real media. T096/T097 actual reward pictures, finished media,
+providers, human reviews and release gates remain open. Never call this a finished episode.
+
+### Historical checkpoints (preserved; not current ownership)
+
+### Earlier loop122 checkpoint — superseded by current position
+
+**122 loops started;96/170 tasks accepted;no deployment.** Latest pushed commit:
+`55b9bfcd7ca1f0aef0b4add6f6d86790e34e7cad` (Q03presentation plus report-output
+guard and additionalT104checks), published and remote-verified. Root matched269worker hashes before follow-ups; currentcheck/build
 pass. Fullclient4245PASS/1media-test timeout/360TODO, then4affectedtestsPASSserial:
 4246distinctchecks accounted across112suites. FullPHP909tests/19167assertionsPASS.
 CurrentMG03 native15groups preceded the disclosed follow-up fixes.
@@ -56,7 +86,13 @@ external gaps andG1–G7 remainpending. Preserve ownerpreviews63366/54594, rawT0
 traces/previewlogs locally, originalevidence and the playful/witty/lightlydark
 Networking/OSI Sierra adventure within the approved286frame.
 
-### Historical checkpoints (preserved; not current ownership)
+Fresh122/T106 prepares an isolated12-room layout/prop-roster candidate under the
+explicit tasks.md preparation exception. No freeze or bulkmedia before acceptedT105.
+116finalnative passed56lifecycle rows,28phase exits,7simulated-hour/visibility cases
+and3earnedall7+party recovery cases;255inputhashes unchanged. Seal/exact140review
+remains pending. Forty manual revisions/one slot/autosaveoff; no providerlogin.
+
+
 
 **116 loops started; 92 of 170 tasks accepted.** T085–T089 are accepted
 for their documented local scope. T089 final12native cases PASS in2.6minutes;

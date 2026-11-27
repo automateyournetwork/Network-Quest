@@ -126,6 +126,8 @@ describe('T085 actual action-bus/controller/reducer encounter join', () => {
   });
   it('canceled captured execution and failed real CAS leave the entire preparation state intact', () => {
     const f = fixture(); f.prepare(); const before = f.store.getState(), view = f.repair.project();
+    expect(before.runtime.game!.world.inventory).toEqual([{ itemId: q('ITEM-inspection-kit'), quantity: 1 }]);
+    expect(before.runtime.activity?.kind).toBe('safe-preparation');
     const action = view.capture({ kind: 'execute-repair-plan', reviewId: view.view.reviewId!, warningAcknowledged: true });
     f.bus.cancel(action); expect(f.bus.dispatch(action).reason).toBe('canceled'); expect(f.store.getState()).toBe(before);
     f.denyCas(); expect(f.execute().status).toBe('rejected'); expect(f.store.getState()).toBe(before); f.dispose();

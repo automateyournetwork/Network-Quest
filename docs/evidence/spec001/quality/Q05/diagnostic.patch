@@ -1,0 +1,119 @@
+--- a/src/state/repair-plan.ts
++++ b/src/state/repair-plan.ts
+@@ -44,7 +44,7 @@
+     readonly unresolvedDefectIdentified: boolean; readonly deliberateIsolation: boolean };
+ }
+ export type RepairScenarioResolver = (game: GameState, plan: RepairPlanId) => RepairScenario | null;
+-export type RepairEvaluation = EvaluationResult<unknown, StateEffect>;
++export type RepairEvaluation = EvaluationResult<unknown, StateEffect> & { readonly diagnosticCode?: string };
+ type Failure = { readonly ok: false; readonly reason: RejectionReason };
+ export type RepairPreparation = Failure | { readonly ok: true; readonly evaluation: RepairEvaluation;
+   readonly finalize: (candidate: GameState) => { readonly ok: true; readonly game: GameState; readonly activity?: ActivityState } | Failure };
+@@ -332,9 +332,19 @@
+   if (operation.selection === 'permanent' && (duration === 'temporary' || scenario.deployment.temporaryDependency)) return fail('temporary-is-not-permanent');
+   if (operation.selection === 'permanent' && !scenario.deployment.defectRemoved) return fail('defect-not-removed');
+   if (operation.selection === 'temporary' && (duration !== 'temporary' || !scenario.deployment.temporaryDependency || !has('FACT-repair-maintenance'))) return fail('temporary-followup-missing');
+-  for (const [kind, proof, id] of [['link', checked, operation.linkId], ['endpoint', endpoint, operation.endpointId]] as const) {
+-    const mismatch = canonicalProof(game, record(game, plan.id, duration, kind, proof, id ?? '00000000-0000-4000-8000-000000000000' as MeasurementId), id);
+-    if (mismatch) return fail(mismatch);
++  const proofs = ([['link', checked, operation.linkId], ['endpoint', endpoint, operation.endpointId]] as const)
++    .map(([kind, proof, id]) => ({
++      id, proof,
++      mismatch: canonicalProof(game, record(game, plan.id, duration, kind, proof, id ?? '00000000-0000-4000-8000-000000000000' as MeasurementId), id),
++    }));
++  const mismatch = proofs.find(entry => entry.mismatch)?.mismatch;
++  if (mismatch) {
++    if (mismatch !== 'final-proof-missing' || (operation.linkId === null) === (operation.endpointId === null)) return fail(mismatch);
++    const supplied = proofs.find(entry => entry.id !== null)!;
++    const diagnosticCode = supplied.mismatch ?? (supplied.proof.evaluation.status === 'correct'
++      ? operation.linkId === null ? 'physical-validation-missing' : 'endpoint-validation-missing'
++      : supplied.proof.evaluation.reasonCode);
++    return unchanged({ ...decision('incorrect', mismatch), diagnosticCode });
+   }
+   if (checked.evaluation.status !== 'correct') return unchanged(checked.evaluation);
+   if (endpoint.evaluation.status !== 'correct') return unchanged(endpoint.evaluation);
+--- a/src/state/outcomes.ts
++++ b/src/state/outcomes.ts
+@@ -22,6 +22,7 @@
+ export interface OutcomeFeedback {
+   readonly status: RepairEvaluation['status'];
+   readonly reasonCode: string;
++  readonly diagnosticCode?: string;
+   readonly observations: readonly unknown[];
+   readonly outcome: Outcome | null;
+   readonly restoredService: boolean;
+@@ -95,6 +96,7 @@
+ }
+ function feedback(evaluation: RepairEvaluation, outcome: Outcome | null, caveats: readonly OutcomeCaveat[] = []): OutcomeFeedback {
+   return freeze({ status: evaluation.status, reasonCode: evaluation.reasonCode,
++    ...(evaluation.diagnosticCode ? { diagnosticCode: evaluation.diagnosticCode } : {}),
+     observations: structuredClone(evaluation.observations), outcome, restoredService: outcome === 'E01' || outcome === 'E02', caveats });
+ }
+ 
+--- a/src/ui/encounter.ts
++++ b/src/ui/encounter.ts
+@@ -84,7 +84,7 @@
+   const capture = captureOutcomeContext(before); if (!capture) return rejected('no-adventure', 'Start an adventure first.');
+   const prepared = controller.prepareClassification(before, capture, { actionId: action.actionId, eventId: crypto.randomUUID() as OutcomeEventId,
+     operation: { kind: 'classify', selection: input.selection, linkId: input.linkId, endpointId: input.endpointId } });
+-  if (!prepared.ok) return rejected(prepared.reason, repairFeedback(prepared.feedback?.reasonCode ?? prepared.reason, prepared.feedback?.status ?? prepared.reason));
++  if (!prepared.ok) return rejected(prepared.reason, repairFeedback(prepared.feedback?.diagnosticCode ?? prepared.feedback?.reasonCode ?? prepared.reason, prepared.feedback?.status ?? prepared.reason));
+   return { status: 'ready', commit() {
+     const accepted = controller.commit(store, prepared.change);
+     return accepted.ok ? { status: 'handled', reason: accepted.feedback.reasonCode, message }
+--- a/src/ui/repair-feedback.ts
++++ b/src/ui/repair-feedback.ts
+@@ -7,6 +7,8 @@
+   'unresolved-isolation-recorded': 'The defect remains deliberately isolated. Service is unresolved, and this shutdown cannot replace your recoverable save.',
+   'repair-already-complete': 'This intervention or validation has already been recorded.',
+   'final-proof-missing': 'Record a fresh link measurement and the separate endpoint test before classifying restored service.',
++  'physical-validation-missing': 'Take a fresh physical link measurement at the balcony before classifying restored service.',
++  'endpoint-validation-missing': 'Run the separate endpoint test at the balcony to check service before classifying restoration.',
+   'stale-evidence': 'That record is stale. Keep it for comparison and repeat the current check.',
+   'measurement-provenance-mismatch': 'That record does not match the current selected deployment. Repeat the current check.',
+   'prerequisite-unmet': 'Complete the selected branch, equipment check and Clockworks preparation before reviewing this intervention.',
+--- a/tests/state/outcome-classification.test.ts
++++ b/tests/state/outcome-classification.test.ts
+@@ -357,3 +357,42 @@
+     expect(h.prepare(command('temporary'))).toMatchObject({ ok: false, reason: 'content-error' }); expect(f.game().outcomeHistory).toEqual([]);
+   });
+ });
++
++describe('outcome feedback for an incomplete restoration claim', () => {
++  for (const selection of ['permanent', 'temporary'] as const) {
++    for (const missing of ['physical', 'endpoint'] as const) {
++      it(`${selection} names the missing ${missing} observation when the other proof is current and passing`, () => {
++        const f = ready('copper', selection), h = harness(f), cmd = command(selection);
++        const before = f.state(), absentId = uuid(missing === 'physical' ? 2 : 3);
++        f.replace({ ...before, runtime: { ...before.runtime, game: { ...f.game(), notebook: { ...f.game().notebook,
++          measurements: f.game().notebook.measurements.filter(m => m.id !== absentId) } } } });
++        const current = f.state(), row = expected(`OUT-${selection.toUpperCase()}-${missing.toUpperCase()}-MISSING`);
++        const result = h.prepare({ ...cmd, operation: { ...cmd.operation, [missing === 'physical' ? 'linkId' : 'endpointId']: null } });
++        expect(result).toMatchObject({ ok: false, feedback: { reasonCode: 'final-proof-missing', diagnosticCode: row['reason'],
++          status: row['status'], outcome: row['outcome'], restoredService: row['awardedRestoredService'] } });
++        expect(f.state()).toBe(current);
++      });
++    }
++  }
++  it.each(['stale', 'foreign', 'failed', 'both-missing', 'unknown-id'] as const)('retains accurate guidance for %s evidence', condition => {
++    const f = ready('copper', 'permanent', base => (game, plan) => {
++      const scenario = base(game, plan);
++      return scenario && condition === 'failed' ? { ...scenario, endpointResponse: 'service-unavailable' } : scenario;
++    });
++    if (condition === 'stale' || condition === 'foreign') {
++      const state = f.state();
++      f.replace({ ...state, runtime: { ...state.runtime, game: { ...f.game(), notebook: { ...f.game().notebook,
++        measurements: f.game().notebook.measurements.map(m => m.id !== uuid(3) ? m :
++          condition === 'stale' ? { ...m, stale: true } : { ...m, conclusionCode: 'foreign-deployment' }) } } } });
++    }
++    const h = harness(f), cmd = command(), before = f.state();
++    const endpointId = condition === 'both-missing' ? null : condition === 'unknown-id' ? uuid(99) : uuid(3);
++    const result = h.prepare({ ...cmd, operation: { ...cmd.operation, linkId: null, endpointId } });
++    if (result.ok || !result.feedback) throw new Error('Incomplete proof accepted or missing feedback');
++    expect(result.feedback.reasonCode).toBe('final-proof-missing');
++    const expectedGuidance = { stale: 'stale-evidence', foreign: 'measurement-provenance-mismatch',
++      failed: 'endpoint-service-unresolved', 'both-missing': 'final-proof-missing', 'unknown-id': 'final-proof-missing' };
++    expect(result.feedback.diagnosticCode ?? result.feedback.reasonCode).toBe(expectedGuidance[condition]);
++    expect(f.state()).toBe(before);
++  });
++});

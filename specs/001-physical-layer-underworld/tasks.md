@@ -734,6 +734,12 @@ T066/T067/G3 or authorize full gameplay/media scaling before the required review
 
 **Ready after**: T105.
 
+T106 may prepare an isolated layout candidate and reconcile the fixed room/prop
+roster while final T104, quality reviews and T105 verification finish. This uses
+the owner's authorization to continue independent work. Do not freeze layouts,
+alter accepted room bindings, start bulk media or accept T106 before T105 has
+settled the playable routes. Reconcile the candidate with that accepted build.
+
 - [ ] T106 [US8] Freeze all twelve camera/walk/hotspot/occlusion layouts and at least fifty named interactive/evidence prop placements in `assets-src/rooms/scene-layouts.json`; reconcile per-asset production fragments against the exact source roster and approved G3 art/audio direction before parallel batches.
 - [ ] T107 [P] [US8] Complete CH02 and CH04–CH09 (seven distinct models) with real reopened Blender sources, required idle/reaction/ability clips and GLB exports; record sources/rights/review/use in `assets-src/characters/batch-a.json`, preserving the already produced CH01/CH03 identities.
 - [ ] T108 [P] [US8] Produce CH10–CH17 (eight distinct models) with real Blender sources, usable exports and required clips, recording source-reopen/render comparison and rights in `assets-src/characters/batch-b.json`; maintain each technical silhouette/role.
