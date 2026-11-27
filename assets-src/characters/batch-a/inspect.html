@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Batch A GLB inspection</title>
+<style>body{margin:0;background:#25323d}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"/three/build/three.module.js","three/addons/":"/three/examples/jsm/"}}</script>
+<body><script type="module">
+import * as T from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+const renderer=new T.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
+renderer.setSize(540,540);
+renderer.outputColorSpace=T.SRGBColorSpace;
+renderer.toneMapping=T.NoToneMapping;
+document.body.append(renderer.domElement);
+const world=new T.Scene();
+const camera=new T.OrthographicCamera(-1,1,1,-1,.01,100);
+const fill=new T.HemisphereLight(0xf4f7ff,0x918779,1.4);
+world.add(fill);
+for(const [position,color,power] of [[[-2,4,3],0xffdebc,2.7],[[3,2,2],0xc5e4ff,1.5],[[1,3,-3],0xbdf5ec,2.8]]){
+    const lamp=new T.DirectionalLight(color,power);
+    lamp.position.set(...position);world.add(lamp);
+}
+let model,mixer;
+window.openModel=async (id,studio)=>{
+    if(model){world.remove(model.scene);mixer.stopAllAction();}
+    model=await new GLTFLoader().loadAsync('/models/'+id+'.glb');
+    mixer=new T.AnimationMixer(model.scene);
+    world.add(model.scene);
+    const span=studio.span;
+    Object.assign(camera,{left:-span/2,right:span/2,top:span/2,bottom:-span/2});
+    camera.position.set(...studio.runtimePosition);camera.lookAt(...studio.runtimeTarget);camera.updateProjectionMatrix();
+    const clips=model.animations.map(clip=>({name:clip.name,duration:clip.duration,channels:clip.tracks.length,
+        varyingChannels:clip.tracks.filter(track=>track.values.some((v,i)=>i>=track.getValueSize() && Math.abs(v-track.values[i%track.getValueSize()])>1e-5)).length}));
+    let triangles=0,draws=0;
+    const materials=new Map();
+    model.scene.traverse(obj=>{
+        if(!obj.isMesh)return;
+        triangles+=(obj.geometry.index?.count ?? obj.geometry.attributes.position.count)/3;draws++;
+        const mat=obj.material;materials.set(mat.name,{linearBaseColor:mat.color.toArray(),metallic:mat.metalness,roughness:mat.roughness});
+    });
+    return {clips,triangles,draws,materials:Object.fromEntries(materials)};
+};
+window.sweptBounds=(name,frames)=>{
+    mixer.stopAllAction();
+    const clip=T.AnimationClip.findByName(model.animations,name);
+    const action=mixer.clipAction(clip);
+    action.reset().setLoop(T.LoopOnce,1);action.clampWhenFinished=true;action.play();
+    const envelope=new T.Box3();
+    for(let i=0;i<=frames;i++){
+        mixer.setTime(clip.duration*i/frames);
+        model.scene.updateMatrixWorld(true);
+        envelope.union(new T.Box3().setFromObject(model.scene,true));
+    }
+    return {min:envelope.min.toArray(),max:envelope.max.toArray(),sampledFrames:frames+1};
+};
+window.pose=(name,fraction,nodes,saveImage)=>{
+    mixer.stopAllAction();
+    if(name){
+        const clip=T.AnimationClip.findByName(model.animations,name);
+        const action=mixer.clipAction(clip);
+        action.reset().setLoop(T.LoopOnce,1);action.clampWhenFinished=true;action.play();mixer.setTime(clip.duration*fraction);
+    }
+    model.scene.updateMatrixWorld(true);
+    const matrices=Object.fromEntries(nodes.map(id=>[id,model.scene.getObjectByName(id).matrixWorld.toArray()]));
+    renderer.render(world,camera);
+    return {matrices,png:saveImage ? renderer.domElement.toDataURL('image/png').split(',')[1] : null};
+};
+window.ready=true;
+</script></body></html>

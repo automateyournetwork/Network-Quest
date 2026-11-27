@@ -1,0 +1,110 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH13",
+  "hashes": [
+    "91b684b7f675b996a3c8611e05661040fbbcffa5efecd91d652057b7f79a3078",
+    "f3f2ce2add8288989714f80b42fe71ca4196c5bd23dbd38c79adb4a85bfa3d1a"
+  ],
+  "actor": "agent",
+  "reviewer": "/root/loop125_t108",
+  "date": "2026-11-27",
+  "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+  "status": "passed",
+  "details": {
+    "observedPaths": [
+      "assets-src/characters/CH13.blend",
+      "public/assets/models/CH13.glb"
+    ],
+    "scope": "Character source/export evidence only. Frozen camera inspection uses isolated GLB assets. Runtime placement, portrait, owner art review and accepted media quota remain open.",
+    "findings": "The domed scutes, spectacles, post cap, satchel and postal flag read together. The postal keeper extends its neck and pivots the flag on reaction. The green cap and shell are visible against the dark ground in both renderers.",
+    "methods": [
+      "image-inspection"
+    ],
+    "tool": "functions.view_image, Blender Cycles and native Firefox captures",
+    "sheet": "docs/evidence/spec001/assets/T108/CH13-source-browser.jpg",
+    "metrics": {
+      "rest": {
+        "alphaIntersectionOverUnion": 0.996365,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          23.04,
+          24.74,
+          23.87
+        ],
+        "sourceBoundsPx": [
+          110,
+          117,
+          365,
+          347
+        ],
+        "browserBoundsPx": [
+          110,
+          117,
+          365,
+          347
+        ]
+      },
+      "idle": {
+        "alphaIntersectionOverUnion": 0.996699,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          23.78,
+          25.34,
+          24.3
+        ],
+        "sourceBoundsPx": [
+          110,
+          117,
+          365,
+          347
+        ],
+        "browserBoundsPx": [
+          110,
+          117,
+          365,
+          347
+        ]
+      },
+      "reaction": {
+        "alphaIntersectionOverUnion": 0.996734,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          22.73,
+          24.55,
+          23.55
+        ],
+        "sourceBoundsPx": [
+          104,
+          119,
+          365,
+          347
+        ],
+        "browserBoundsPx": [
+          104,
+          119,
+          365,
+          347
+        ]
+      }
+    },
+    "lighting": "Blender Standard, linear PBR base colors, neutral-world fill and three area lamps. Firefox sRGB output, NoToneMapping, a hemisphere and three directional lamps. Highlights and shadows differ; see the paired images.",
+    "cameraUse": [
+      {
+        "room": "spec001:R04",
+        "placement": {
+          "id": "spec001:CH13",
+          "world": [
+            7.4,
+            0,
+            3.3
+          ],
+          "pixels": [
+            774.7505934920254,
+            365.7533700557876,
+            877.5215552203405,
+            472.16772800137755
+          ]
+        },
+        "image": "docs/evidence/spec001/assets/T108/R04-frozen-staging.png"
+      }
+    ]
+  },
+  "check": "visual"
+}

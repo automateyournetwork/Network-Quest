@@ -1,0 +1,55 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH09",
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop124_t107",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; Node 26.13.1; Three.js 0.187.0; native headless Firefox with isolated trusted TLS.",
+  "hashes": [
+    "fb6007a10fb8c373cfc880a65e99570261270864ce2c78921184104e3dc28232",
+    "adc281a08810b44e6b9b87616beb01f853feeef5d7d2b32d71f29649181f2b45"
+  ],
+  "details": {
+    "findings": "Both pincers remain visible in the elevated front view. Four walking-leg pairs fan out from the segmented body and the curved lamp-tipped tail rocks without translating the floor pivot.",
+    "methods": [
+      "image-inspection"
+    ],
+    "observedPaths": [
+      "assets-src/characters/CH09.blend",
+      "public/assets/models/CH09.glb"
+    ],
+    "tool": "Blender 5.2.1, Firefox 159.0, Three.js 0.187.0 and agent visual inspection",
+    "comparedPoseSheet": "docs/evidence/spec001/assets/t107/CH09-poses.png",
+    "silhouettes": {
+      "rest": {
+        "silhouetteIoU": 0.9938561450230102,
+        "pixels": [
+          540,
+          540
+        ],
+        "alphaThreshold": 127,
+        "bothInsideFrame": true
+      },
+      "idle": {
+        "silhouetteIoU": 0.9936915225404026,
+        "pixels": [
+          540,
+          540
+        ],
+        "alphaThreshold": 127,
+        "bothInsideFrame": true
+      },
+      "reaction": {
+        "silhouetteIoU": 0.9939695918414864,
+        "pixels": [
+          540,
+          540
+        ],
+        "alphaThreshold": 127,
+        "bothInsideFrame": true
+      }
+    }
+  },
+  "check": "visual"
+}

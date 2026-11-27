@@ -1,0 +1,80 @@
+{
+  "assetId": "spec001:ASSET-CH22",
+  "status": "passed",
+  "reviewer": "Codex loop126/T109",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64, macOS 26.6.2; Blender 5.2.1 LTS build 9e2066aef7ef; Firefox 159.0; Three.js 0.187.0; Playwright 1.65.1.",
+  "type": "review",
+  "check": "structure",
+  "actor": "tool",
+  "hashes": [
+    "c4dd1af953608275989743cdd26d7b7291c7222651976381cacd3df102103f44",
+    "83550edacfc805f2322e9ed48541792d1adf1aa6b255051e999aab2e534f3399",
+    "56b85fbb06a84887bbaa23ec6ac926ff994ac053fe3815eceeb63e64c82eff21",
+    "81ae7d3ed8749e98caeb3bf4405014d1044ca4b66d30abae7f92ab67ca20ec6d",
+    "359cdee68b7dddc74560ac469b063f6246ebac045a784489df6932812bf686ec"
+  ],
+  "details": {
+    "findings": "Blender reimport and Firefox both rendered 12612 triangles. The GLB has 4 rigid meshes and 18 material primitives with an embedded buffer.",
+    "tool": "Blender glTF importer, binary accessor and Three.js checks",
+    "methods": [
+      "native-glb-reimport",
+      "binary-accessor-inspection"
+    ],
+    "observedPaths": [
+      "assets-src/characters/CH22.blend",
+      "public/assets/models/CH22.glb",
+      "docs/evidence/spec001/assets/t063-CH01-source.png",
+      "docs/evidence/spec001/assets/t063-CH03-source.png",
+      "docs/evidence/spec001/presentation/t067/frame-revision/safari-2026-11-26T23-48-50-781Z/1440x900-pair0-warm.png",
+      "docs/evidence/spec001/character-production/T109/CH22/sheet.jpg"
+    ],
+    "importPath": "docs/evidence/spec001/character-production/T109/CH22/import.json",
+    "importSha256": "0721c00b87b31a6c248c0a6c8d3a1ec7d3b6afc7b5c7b02ef7fc98be7862f25b",
+    "motion": [
+      {
+        "clip": "reaction",
+        "varyingChannels": 2,
+        "totalChannels": 2,
+        "targets": [
+          "CH22_tilting casque",
+          "CH22_independent turret -1"
+        ],
+        "durationSeconds": 1,
+        "endpointComponentDifference": 0,
+        "maxJointComponentDifference": 2.3225713885466348e-07,
+        "maxBoundsDifferenceMetres": 1.1080434680899032e-07,
+        "maxIntegerFrameJointComponentDifference": 2.3225713885466348e-07
+      },
+      {
+        "clip": "ability",
+        "varyingChannels": 3,
+        "totalChannels": 3,
+        "targets": [
+          "CH22_tilting casque",
+          "CH22_independent turret 1",
+          "CH22_independent turret -1"
+        ],
+        "durationSeconds": 2,
+        "endpointComponentDifference": 0,
+        "maxJointComponentDifference": 1.5298445210643052e-07,
+        "maxBoundsDifferenceMetres": 1.0242824510786619e-07,
+        "maxIntegerFrameJointComponentDifference": 1.5298445210643052e-07
+      },
+      {
+        "clip": "idle",
+        "varyingChannels": 2,
+        "totalChannels": 2,
+        "targets": [
+          "CH22_independent turret 1",
+          "CH22_independent turret -1"
+        ],
+        "durationSeconds": 4,
+        "endpointComponentDifference": 0,
+        "maxJointComponentDifference": 8.419410668647487e-08,
+        "maxBoundsDifferenceMetres": 6.578416167357659e-08,
+        "maxIntegerFrameJointComponentDifference": 8.419410668647487e-08
+      }
+    ]
+  }
+}

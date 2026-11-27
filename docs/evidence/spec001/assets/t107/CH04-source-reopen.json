@@ -1,0 +1,27 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH04",
+  "status": "passed",
+  "actor": "tool",
+  "reviewer": "/root/loop124_t107",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; Node 26.13.1; Three.js 0.187.0; native headless Firefox with isolated trusted TLS.",
+  "hashes": [
+    "b338e446f487c3ad07691b16197ea5a0a9873facf71387a1dab3497b73253e35",
+    "9fad4cb57422b455bf289350bb1fdaa75a7c07d78891bf0b635d00956757c33c"
+  ],
+  "details": {
+    "findings": "Fresh native Blender process reopened the saved file, rendered rest and active NLA tracks, and exported the selected model hierarchy. Native render graph and hashes were read from this revision.",
+    "methods": [
+      "native-source-reopen"
+    ],
+    "observedPaths": [
+      "assets-src/characters/CH04.blend",
+      "public/assets/models/CH04.glb"
+    ],
+    "tool": "Blender 5.2.1, Firefox 159.0, Three.js 0.187.0 and agent visual inspection",
+    "report": "docs/evidence/spec001/character-production/T107/CH04-native.json",
+    "reopenedSourceCapture": "docs/evidence/spec001/assets/t107/CH04-source.png"
+  },
+  "check": "source-reopen"
+}

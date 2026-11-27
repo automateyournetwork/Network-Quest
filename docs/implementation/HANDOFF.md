@@ -26,7 +26,7 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**126 loops started; 99/170 tasks accepted; no deployment.** The remote feature
+**126 loops started; 102/170 tasks accepted; no deployment.** The reviewed Photon derivative and restart record reached remote commit `284394db5061c3a0b43ae267886697523ffe0b9d`. The remote feature
 branch reached `d7dc4a1f4458d9ff581eb987b12101e92ad2ff28` for the T106 layout
 freeze. The preceding checkpoint `e6362f6b27ef3daa0166468d2e56733fa08c9aa6`
 (accepted T105 and isolated T106 preparation) was
@@ -58,22 +58,20 @@ workspace exhausted its credits. On the owner's request a new coordinator
 resumed all three assignments in the shared checkout. All three replacement
 workers were observed running by 20:41 UTC. They retain the original loop IDs.
 
-Loops 124/T107, 125/T108 and 126/T109 produce disjoint real Blender character batches:
-CH02/04–09 (7), CH10–17 (8), CH18–25 (8; pairedCH24counts1). Read canonical
-assets-src/rooms/scene-layouts.json and production-allocation.json plus the art
-contract. Early Titan/copper/fiber and representative designs need root visual
-review before scaling. Preserve existingCH01/03, allsource/rights/nativeproof;
-global manifest consolidation remainsT132. Private commonbrief:
-.local/character-worker-brief.md; broader mediahandoff:.local/media-coordinator-handoff.md.
-Keep originalmodel/source/evidencefiles unchanged; production/export isnot quota
-acceptance or actualin-gameintegration. Owner previews63366/54594 remain protected.
+Loops 124/T107, 125/T108 and 126/T109 are accepted. The three batches
+produced 23 distinct native characters and 54 animated clips. See the
+[joined review](../evidence/spec001/character-production/resumed-wave/review.md)
+for the Blender and browser results, full inventory comparison, and open room
+placement findings. The retained [Photon inspection gesture](../evidence/spec001/character-production/photon-inspection/review.md)
+also passed native/browser comparison. Final placement and media quota acceptance
+follow in the finished rooms. Preserve owner previews 63366 and 54594.
 
-Coordinator viewed the Titan, Copperhead, Unicorn, Hermit Crab and Echo Bat
-representatives and returned specific pose, contour and lighting feedback.
-The retained Photon has a [versioned connector-inspection clip](../evidence/spec001/character-production/photon-inspection/review.md).
-Native/exported poses match for all 29 meshes at five sampled times. The existing
-game binding uses the T063 Photon until the finished-room join.
-
+The next fresh assignments are T110, T111 and T112. Read
+`assets-src/rooms/scene-layouts.json`, `assets-src/production-allocation.json`,
+the art contract and the exact prop roster. The new coordinator task is named
+**Network Quest · Spec001 implementation loops**. The private prop-worker brief
+is `.local/resumed-prop-worker-brief.md`. T110 reuses the ten shipped R01 prop
+identities. Put raw technical JSON outside the typed asset evidence directory.
 
 T096/T097 actual reward pictures, portraits/finishedmedia, providers, humanreviews
 and release gates remain open. Continue the original playful, witty, lightly dark

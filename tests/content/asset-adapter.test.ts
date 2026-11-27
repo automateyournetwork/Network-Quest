@@ -165,6 +165,13 @@ describe('additional asset semantic boundaries', () => {
 });
 
 describe('bounded rooted asset filesystem adapter', () => {
+  it('reads the published creative license at its exact repository path', async () => {
+    const reader = await AssetFileReader.create(project);
+    const license = await readFile(resolve(project, 'LICENSE-ASSETS'));
+    expect(Buffer.from(await reader.read('LICENSE-ASSETS'))).toEqual(license);
+    expect(publicAssetPath('LICENSE-ASSETS.old')).toBe(false);
+    expect(publicAssetPath('LICENSE-ASSETS/archive')).toBe(false);
+  });
   it.each(['../private/source.blend', '/tmp/source.blend', 'assets-src/../private/file', 'assets-src/.env', 'assets-src/.local/source', 'assets-src/private/file', 'assets-src/operator-input/file', 'assets-src/test-synthetic/file', 'assets-src/feasibility/smoke.blend', 'public/assets/player.sqlite', 'assets-src/a\\b', 'assets-src//raw.wav', 'https://example.invalid/a', 'assets-src/%2e%2e/secret', 'server/data/secret'])('rejects forbidden path %s before reading', async path => {
     expect(publicAssetPath(path)).toBe(false); const reader = await AssetFileReader.create(await sandbox());
     await expect(reader.read(path)).rejects.toMatchObject({ code: 'PATH_DENIED' });

@@ -1,0 +1,41 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH10",
+  "hashes": [
+    "9a349bf88d55e5f8b4cb47e15e3ca007049d459a5b5921ecb9b756193ef171a2",
+    "7de5a7a4a1c8c2e0d26ce99e011eb0ae34f4f58062ee82a5ef17ada1c2ad42c2"
+  ],
+  "actor": "tool",
+  "reviewer": "/root/loop125_t108",
+  "date": "2026-11-27",
+  "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+  "status": "passed",
+  "details": {
+    "observedPaths": [
+      "assets-src/characters/CH10.blend",
+      "public/assets/models/CH10.glb"
+    ],
+    "scope": "Character source/export evidence only. Frozen camera inspection uses isolated GLB assets. Runtime placement, portrait, owner art review and accepted media quota remain open.",
+    "findings": "Fresh Blender opened the native source, rendered rest and every clip midpoint, sampled the evaluated RENDER graph at five frames per clip, then reopened the source again for the rest-pose GLB export.",
+    "methods": [
+      "native-source-reopen"
+    ],
+    "tool": "Blender background CLI",
+    "report": "docs/evidence/spec001/character-production/T108/CH10-native.json",
+    "sourceBoundsMetres": [
+      [
+        -1.311366081237793,
+        -0.5901391506195068,
+        0.0
+      ],
+      [
+        1.311366081237793,
+        0.8483728170394897,
+        1.9000000953674316
+      ]
+    ],
+    "shapes": 67,
+    "reopenScript": "assets-src/characters/T108/reopen.py"
+  },
+  "check": "source-reopen"
+}

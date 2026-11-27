@@ -1,0 +1,55 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH08",
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop124_t107",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; Node 26.13.1; Three.js 0.187.0; native headless Firefox with isolated trusted TLS.",
+  "hashes": [
+    "89264932f7646f699660e864ffe812be4c99405141d459a9d035736b472cebb1",
+    "9bb289b88014fbd89330e5e3df8c29fce7c9730ed3fed894cd9ed411cde2a5f7"
+  ],
+  "details": {
+    "findings": "A squat seated dragon displays a cream receipt, framed by scalloped membrane wings. The near arm turns the receipt and the second forearm rests on the belly. The curled tail and two horns stay distinct.",
+    "methods": [
+      "image-inspection"
+    ],
+    "observedPaths": [
+      "assets-src/characters/CH08.blend",
+      "public/assets/models/CH08.glb"
+    ],
+    "tool": "Blender 5.2.1, Firefox 159.0, Three.js 0.187.0 and agent visual inspection",
+    "comparedPoseSheet": "docs/evidence/spec001/assets/t107/CH08-poses.png",
+    "silhouettes": {
+      "rest": {
+        "silhouetteIoU": 0.9969410298532827,
+        "pixels": [
+          540,
+          540
+        ],
+        "alphaThreshold": 127,
+        "bothInsideFrame": true
+      },
+      "idle": {
+        "silhouetteIoU": 0.9968360267306082,
+        "pixels": [
+          540,
+          540
+        ],
+        "alphaThreshold": 127,
+        "bothInsideFrame": true
+      },
+      "reaction": {
+        "silhouetteIoU": 0.9967413209084283,
+        "pixels": [
+          540,
+          540
+        ],
+        "alphaThreshold": 127,
+        "bothInsideFrame": true
+      }
+    }
+  },
+  "check": "visual"
+}

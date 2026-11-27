@@ -1,0 +1,148 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH16",
+  "hashes": [
+    "04a359d326acebf4be89aee717eb2e93852acda729bd1b84b5a7ce74926789e1",
+    "ea7894723dca60148e1381e0a7908dcc562be8bc807c1de43c737986d8194c61"
+  ],
+  "actor": "agent",
+  "reviewer": "/root/loop125_t108",
+  "date": "2026-11-27",
+  "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+  "status": "passed",
+  "details": {
+    "observedPaths": [
+      "assets-src/characters/CH16.blend",
+      "public/assets/models/CH16.glb"
+    ],
+    "scope": "Character source/export evidence only. Frozen camera inspection uses isolated GLB assets. Runtime placement, portrait, owner art review and accepted media quota remain open.",
+    "findings": "The cooling fins, gold extraction bail and catalog tag make a module housing carried by a six-legged crab. Stalks and pincers tilt on reaction. The ability turns the shell and lifts the larger pincer toward the tag. The bail and pincer remain visible in R06/R09; the small tag markings are clearest in close-up.",
+    "methods": [
+      "image-inspection"
+    ],
+    "tool": "functions.view_image, Blender Cycles and native Firefox captures",
+    "sheet": "docs/evidence/spec001/assets/T108/CH16-source-browser.jpg",
+    "metrics": {
+      "rest": {
+        "alphaIntersectionOverUnion": 0.996732,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          27.47,
+          25.43,
+          26.26
+        ],
+        "sourceBoundsPx": [
+          38,
+          114,
+          383,
+          364
+        ],
+        "browserBoundsPx": [
+          38,
+          114,
+          383,
+          364
+        ]
+      },
+      "idle": {
+        "alphaIntersectionOverUnion": 0.996843,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          27.45,
+          25.48,
+          26.33
+        ],
+        "sourceBoundsPx": [
+          39,
+          114,
+          383,
+          364
+        ],
+        "browserBoundsPx": [
+          39,
+          114,
+          383,
+          364
+        ]
+      },
+      "reaction": {
+        "alphaIntersectionOverUnion": 0.99713,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          26.39,
+          24.51,
+          25.44
+        ],
+        "sourceBoundsPx": [
+          38,
+          116,
+          383,
+          364
+        ],
+        "browserBoundsPx": [
+          38,
+          116,
+          383,
+          364
+        ]
+      },
+      "ability": {
+        "alphaIntersectionOverUnion": 0.996592,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          26.72,
+          25.28,
+          26.4
+        ],
+        "sourceBoundsPx": [
+          38,
+          97,
+          383,
+          364
+        ],
+        "browserBoundsPx": [
+          38,
+          97,
+          383,
+          364
+        ]
+      }
+    },
+    "lighting": "Blender Standard, linear PBR base colors, neutral-world fill and three area lamps. Firefox sRGB output, NoToneMapping, a hemisphere and three directional lamps. Highlights and shadows differ; see the paired images.",
+    "cameraUse": [
+      {
+        "room": "spec001:R06",
+        "placement": {
+          "id": "spec001:CH16",
+          "world": [
+            5,
+            0,
+            4.8
+          ],
+          "pixels": [
+            558.2869080897775,
+            423.53417617305644,
+            662.8356004074953,
+            503.09959882012964
+          ]
+        },
+        "image": "docs/evidence/spec001/assets/T108/R06-frozen-staging.png"
+      },
+      {
+        "room": "spec001:R09",
+        "placement": {
+          "id": "spec001:CH16",
+          "world": [
+            3.5,
+            0,
+            2.2
+          ],
+          "pixels": [
+            472.1901294187661,
+            271.3327860068819,
+            567.5698466372522,
+            350.6133341625091
+          ]
+        },
+        "image": "docs/evidence/spec001/assets/T108/R09-frozen-staging.png"
+      }
+    ]
+  },
+  "check": "visual"
+}

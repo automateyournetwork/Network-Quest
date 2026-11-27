@@ -1,0 +1,110 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH14",
+  "hashes": [
+    "47b734d030a17b0476160169649438f3ac3b2283f0882742f0c795ebb7ae345b",
+    "ca2fa2a96dc504460c56e09dedca0a1045949104c630d069d5483338a0f09fb1"
+  ],
+  "actor": "agent",
+  "reviewer": "/root/loop125_t108",
+  "date": "2026-11-27",
+  "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+  "status": "passed",
+  "details": {
+    "observedPaths": [
+      "assets-src/characters/CH14.blend",
+      "public/assets/models/CH14.glb"
+    ],
+    "scope": "Character source/export evidence only. Frozen camera inspection uses isolated GLB assets. Runtime placement, portrait, owner art review and accepted media quota remain open.",
+    "findings": "Digging claws, snout whiskers and the twisted telephone pair distinguish the upright mole. The raised paw and lifted snout read on reaction. The modeled feet connect to short legs. Both wire colors survive the browser lighting.",
+    "methods": [
+      "image-inspection"
+    ],
+    "tool": "functions.view_image, Blender Cycles and native Firefox captures",
+    "sheet": "docs/evidence/spec001/assets/T108/CH14-source-browser.jpg",
+    "metrics": {
+      "rest": {
+        "alphaIntersectionOverUnion": 0.997221,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          23.11,
+          22.22,
+          23.92
+        ],
+        "sourceBoundsPx": [
+          58,
+          52,
+          352,
+          394
+        ],
+        "browserBoundsPx": [
+          58,
+          52,
+          352,
+          395
+        ]
+      },
+      "idle": {
+        "alphaIntersectionOverUnion": 0.997313,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          23.6,
+          22.57,
+          24.27
+        ],
+        "sourceBoundsPx": [
+          59,
+          56,
+          352,
+          394
+        ],
+        "browserBoundsPx": [
+          59,
+          56,
+          352,
+          395
+        ]
+      },
+      "reaction": {
+        "alphaIntersectionOverUnion": 0.99753,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          22.07,
+          21.46,
+          23.07
+        ],
+        "sourceBoundsPx": [
+          58,
+          41,
+          347,
+          394
+        ],
+        "browserBoundsPx": [
+          58,
+          41,
+          347,
+          395
+        ]
+      }
+    },
+    "lighting": "Blender Standard, linear PBR base colors, neutral-world fill and three area lamps. Firefox sRGB output, NoToneMapping, a hemisphere and three directional lamps. Highlights and shadows differ; see the paired images.",
+    "cameraUse": [
+      {
+        "room": "spec001:R09",
+        "placement": {
+          "id": "spec001:CH14",
+          "world": [
+            2.65,
+            0,
+            3.9
+          ],
+          "pixels": [
+            376.80406645970066,
+            306.4269740447534,
+            448.5809337089398,
+            387.68643356005003
+          ]
+        },
+        "image": "docs/evidence/spec001/assets/T108/R09-frozen-staging.png"
+      }
+    ]
+  },
+  "check": "visual"
+}

@@ -1,0 +1,26 @@
+{
+  "task": "T107",
+  "loop": 124,
+  "game": "Network Quest, Spec001",
+  "method": "Original editable parametric meshes in native Blender; separate rigid joints with named NLA tracks.",
+  "modelInputs": {
+    "build.py": "8f8d4e1bee7f87a910f163d89f2569e63b7a80df9e0df2dcff5e19691b9e9070",
+    "model.py": "1f17d26c0dec089e19b47b667f5ae9133cfe2a5a11684d71dc43b8403ab1fa04",
+    "workshop.py": "ae1c4d6b18877bf9529c2c55b6c93219542b3ec86d6c6ce3ab6e4329b4a3a698",
+    "optics.py": "12a97df75d5e793710413df3a6bbae8b25383c435802c3276fcb6c088526f05e",
+    "skywell.py": "abb6a062e1870abd2975295adac812da58531af29534750388afcb6f6b4722d7",
+    "clockworks.py": "7be2bb4ae0c1449063051a5bd1ce2ef336cb16aa6a49bcb021c7949a70d57e18"
+  },
+  "units": "One scene metre per Blender unit, native Z-up to GLB Y-up, floor root at zero. Height and optical horizontal fit baked into the source hierarchy.",
+  "clips": "24 fps. Each joint has only its authored location or Euler channels. Track names bind related joint actions into one exported idle, reaction or ability.",
+  "export": "Binary GLB, selected character hierarchy; no camera, lights, textures or external references. Merge only rigid surfaces belonging to the same movable joint in memory after the native renders.",
+  "nativeStudio": "Orthographic, Standard sRGB, no look, exposure -0.50, transparent background, Cycles six samples with denoise, three CPU threads. Each native inspection records camera projection.",
+  "browserStudio": "Native Firefox, pinned Three.js GLTFLoader and WebGLRenderer, sRGB output, NoToneMapping, hemisphere plus warm key, cool fill and pearl rim. The two lighting models differ; linear PBR parity and projected silhouettes are checked directly.",
+  "styleReferences": [
+    "assets-src/art-direction.md",
+    "docs/evidence/spec001/assets/t063-CH01-source.png",
+    "docs/evidence/spec001/assets/t063-CH03-source.png",
+    "docs/evidence/spec001/presentation/t067/frame-revision/firefox-2026-11-26T22-13-57-156Z/1280x720-pair0-warm-room.png"
+  ],
+  "externalMediaInputs": []
+}

@@ -1,0 +1,65 @@
+{
+  "assetId": "spec001:ASSET-CH21",
+  "status": "passed",
+  "reviewer": "Codex loop126/T109",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64, macOS 26.6.2; Blender 5.2.1 LTS build 9e2066aef7ef; Firefox 159.0; Three.js 0.187.0; Playwright 1.65.1.",
+  "type": "review",
+  "check": "structure",
+  "actor": "tool",
+  "hashes": [
+    "33e8592944c809d4c75b387900e978baaab82d5cbb1489bfe01345514089ee9e",
+    "6fc090c1ab288d266c5f4fc5ece3c24579d4b56d8505ecc902ab68edae2626f4",
+    "56b85fbb06a84887bbaa23ec6ac926ff994ac053fe3815eceeb63e64c82eff21",
+    "81ae7d3ed8749e98caeb3bf4405014d1044ca4b66d30abae7f92ab67ca20ec6d",
+    "359cdee68b7dddc74560ac469b063f6246ebac045a784489df6932812bf686ec"
+  ],
+  "details": {
+    "findings": "Blender reimport and Firefox both rendered 8672 triangles. The GLB has 8 rigid meshes and 22 material primitives with an embedded buffer.",
+    "tool": "Blender glTF importer, binary accessor and Three.js checks",
+    "methods": [
+      "native-glb-reimport",
+      "binary-accessor-inspection"
+    ],
+    "observedPaths": [
+      "assets-src/characters/CH21.blend",
+      "public/assets/models/CH21.glb",
+      "docs/evidence/spec001/assets/t063-CH01-source.png",
+      "docs/evidence/spec001/assets/t063-CH03-source.png",
+      "docs/evidence/spec001/presentation/t067/frame-revision/safari-2026-11-26T23-48-50-781Z/1440x900-pair0-warm.png",
+      "docs/evidence/spec001/character-production/T109/CH21/sheet.jpg"
+    ],
+    "importPath": "docs/evidence/spec001/character-production/T109/CH21/import.json",
+    "importSha256": "4ebc46d8da3cfc2981f429b2ea787cf306efdd9cc4e3489572033141ec45669e",
+    "motion": [
+      {
+        "clip": "idle",
+        "varyingChannels": 2,
+        "totalChannels": 2,
+        "targets": [
+          "CH21_kind dial head",
+          "CH21_pendulum pivot"
+        ],
+        "durationSeconds": 4,
+        "endpointComponentDifference": 0,
+        "maxJointComponentDifference": 8.38869629316008e-08,
+        "maxBoundsDifferenceMetres": 6.112379136169466e-08,
+        "maxIntegerFrameJointComponentDifference": 8.38869629316008e-08
+      },
+      {
+        "clip": "reaction",
+        "varyingChannels": 2,
+        "totalChannels": 2,
+        "targets": [
+          "CH21_kind dial head",
+          "CH21_sleeve bearing 1"
+        ],
+        "durationSeconds": 1.25,
+        "endpointComponentDifference": 0,
+        "maxJointComponentDifference": 0.0018718399341676184,
+        "maxBoundsDifferenceMetres": 0.0003392122508985018,
+        "maxIntegerFrameJointComponentDifference": 2.0391262722796455e-07
+      }
+    ]
+  }
+}

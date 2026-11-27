@@ -3,7 +3,7 @@
   "authorizedAt": "2026-11-25",
   "loopCap": 200,
   "loopsStarted": 126,
-  "activeTask": "124/T107,125/T108,126/T109 produce three disjoint real Blender character batches after acceptedT105/T106",
+  "activeTask": "T107\u2013T109 accepted. Prop batches T110\u2013T112 are ready for fresh workers.",
   "status": "running",
   "completedTasks": [
     "T001",
@@ -104,7 +104,10 @@
     "T103",
     "T104",
     "T105",
-    "T106"
+    "T106",
+    "T108",
+    "T107",
+    "T109"
   ],
   "blockedTasks": [
     {
@@ -121,30 +124,8 @@
       "note": "docs/implementation/loops/004-T004.md"
     }
   ],
-  "lastLoopNote": "docs/implementation/loops/122-T106-freeze.md",
-  "activeLoops": [
-    {
-      "loop": 124,
-      "task": "T107",
-      "agent": "/root/loop124_t107",
-      "scope": "RealBlender character batchA CH02/CH04\u201309, seven distinct models; retainCH01/03.",
-      "status": "Resumed with a replacement worker on 2026-11-27 after the credit interruption. Early Titan, copper and fiber renders await coordinator review."
-    },
-    {
-      "loop": 125,
-      "task": "T108",
-      "agent": "/root/loop125_t108",
-      "scope": "RealBlender character batchB CH10\u201317, eight distinct models.",
-      "status": "Resumed with a replacement worker on 2026-11-27 after the credit interruption. First representative render awaits coordinator review."
-    },
-    {
-      "loop": 126,
-      "task": "T109",
-      "agent": "/root/loop126_t109",
-      "scope": "RealBlender character batchC CH18\u201325, eight distinct identities includingonepairedCH24.",
-      "status": "Resumed with a replacement worker on 2026-11-27 after the credit interruption. First representative render awaits coordinator review."
-    }
-  ],
+  "lastLoopNote": "docs/implementation/loops/126-T109.md",
+  "activeLoops": [],
   "gates": {
     "G0": "blocked",
     "G1-G7": "pending"
@@ -155,7 +136,7 @@
     "T011",
     "T007 final reassessment"
   ],
-  "nextAction": "Review earlycharacter keyframes, finish/reopen/export/inspect three realcharacterbatches, publish reviewedsource checkpoints; continueprops/images/audio thenfinishedroomintegration. Preserve actualhuman/provider/release acceptance.",
+  "nextAction": "Begin the frozen T110\u2013T112 prop batches in fresh loops. Reuse the ten R01 prop identities and their existing sources, review native and browser renders, and continue through the remaining Spec001 task schedule.",
   "executionDirection": "docs/implementation/execution-direction.md",
   "publicationAuthorization": {
     "date": "2026-11-25",
@@ -165,8 +146,8 @@
   },
   "publication": {
     "branch": "001-physical-layer-underworld",
-    "lastPushedCommit": "d7dc4a1f4458d9ff581eb987b12101e92ad2ff28",
-    "scope": "T106 canonical layout freeze and production allocations. Coordinator verified the remote feature branch at this commit when resuming the character batches.",
+    "lastPushedCommit": "284394db5061c3a0b43ae267886697523ffe0b9d",
+    "scope": "Retained CH03 connector-inspection source/export and verified native/browser comparison, plus resumption of the three interrupted assignments. Remote feature branch verified.",
     "releaseDeployed": false
   },
   "pendingReviews": [
@@ -250,7 +231,12 @@
       "kind": "workspace-credits",
       "observedAt": "2026-11-27T17:46:20.491Z",
       "exactWorkerError": "Your workspace is out of credits. Ask your workspace owner to refill in order to continue.",
-      "affectedAgents": ["/root", "/root/loop124_t107", "/root/loop125_t108", "/root/loop126_t109"],
+      "affectedAgents": [
+        "/root",
+        "/root/loop124_t107",
+        "/root/loop125_t108",
+        "/root/loop126_t109"
+      ],
       "preservation": "Local session logs record the coordinator and three worker turns ending between 17:46:20 and 17:46:47 UTC. T106 was already on the remote branch. The three batch assignments had no completion notes.",
       "supersededBy": "On the owner's request the new coordinator reissued the same assignments to three fresh workers in the shared checkout. All three reported running by 20:41 UTC. The loop counter remains 126."
     }
@@ -329,5 +315,18 @@
       }
     ],
     "limits": "No automatic broad rewrite or dependency upgrade based solely on model change. Preserve accepted behavior, source/evidence history, owner reviews and all release gates."
+  },
+  "characterProductionCheckpoint": {
+    "date": "2026-11-27",
+    "acceptedTasks": [
+      "T107",
+      "T108",
+      "T109"
+    ],
+    "newCharacters": 23,
+    "clips": 54,
+    "status": "exported",
+    "report": "docs/evidence/spec001/character-production/resumed-wave/review.md",
+    "openRoomIntegration": "R03/R07 facings, R11 Electric Eel obscuring part of the ground preparation marker, final occlusion and cross-batch party layouts."
   }
 }

@@ -1,0 +1,116 @@
+<!doctype html>
+<!-- Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0 -->
+<html lang="en">
+<meta charset="utf-8">
+<title>Spec001 batch B character inspection</title>
+<style>body { margin: 0; background: #243641 } canvas { display: block }</style>
+<script type="importmap">
+{"imports":{"three":"/three/build/three.module.js","three/addons/":"/three/examples/jsm/"}}
+</script>
+<script type="module">
+import * as T from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+const renderer = new T.WebGLRenderer({antialias:true, alpha:true, preserveDrawingBuffer:true});
+renderer.setSize(448,448);
+renderer.outputColorSpace=T.SRGBColorSpace;
+renderer.toneMapping=T.NoToneMapping;
+document.body.appendChild(renderer.domElement);
+const scene=new T.Scene();
+const camera=new T.OrthographicCamera(-1,1,1,-1,.01,200);
+scene.add(new T.HemisphereLight(0xfff1d8,0x68809b,1.1));
+for (const [position,color,power] of [
+    [[2,4,3],0xffedd4,2.7], [[-3,1.8,2],0xc8e2ff,1.1], [[1,3,-3],0xffdfb0,2.2]]) {
+    const lamp=new T.DirectionalLight(color,power);
+    lamp.position.set(...position);
+    scene.add(lamp);
+}
+const loader=new GLTFLoader(), vertex=new T.Vector3();
+let model, mixer;
+function xyz([x,y,z]) { return [x,z,-y]; }
+function draw() {
+    scene.updateMatrixWorld(true);
+    renderer.render(scene,camera);
+}
+function envelope() {
+    const box=new T.Box3();
+    model.scene.traverse(obj=>{
+        if (!obj.isMesh) return;
+        const attr=obj.geometry.attributes.position;
+        for (let i=0;i<attr.count;i++)
+            box.expandByPoint(vertex.fromBufferAttribute(attr,i).applyMatrix4(obj.matrixWorld));
+    });
+    return [box.min.toArray(),box.max.toArray()];
+}
+function meshMatrices() {
+    const matrices=[];
+    model.scene.traverse(obj=>{if(obj.isMesh) matrices.push(obj.matrixWorld.toArray());});
+    return matrices;
+}
+window.loadModel=async (id,native)=>{
+    if (model) {
+        mixer.stopAllAction();
+        scene.remove(model.scene);
+        model.scene.traverse(obj=>{
+            if (obj.isMesh) {obj.geometry.dispose(); obj.material.dispose();}
+        });
+    }
+    model=await loader.loadAsync('/model/'+id+'.glb');
+    scene.add(model.scene);
+    mixer=new T.AnimationMixer(model.scene);
+    camera.position.set(...xyz(native.camera)); camera.lookAt(...xyz(native.focus));
+    camera.left=-native.span/2; camera.right=native.span/2;
+    camera.top=native.span/2; camera.bottom=-native.span/2; camera.updateProjectionMatrix();
+    draw();
+    return {
+        bounds:envelope(), triangles:renderer.info.render.triangles, draws:renderer.info.render.calls,
+        clips:model.animations.map(clip=>({
+            name:clip.name,duration:clip.duration,tracks:clip.tracks.length,
+            varying:clip.tracks.filter(track=>{
+                const n=track.getValueSize();
+                return track.values.some((v,i)=>i>=n && Math.abs(v-track.values[i%n])>1e-6);
+            }).map(track=>track.name),
+        })),
+        renderer:{revision:T.REVISION,colorSpace:renderer.outputColorSpace,toneMapping:renderer.toneMapping},
+    };
+};
+window.sampleClip=(clipName,seconds)=>{
+    mixer.stopAllAction();
+    const action=mixer.clipAction(T.AnimationClip.findByName(model.animations,clipName));
+    action.setLoop(T.LoopOnce,1); action.clampWhenFinished=true;
+    action.reset().play(); mixer.setTime(seconds); draw();
+    return {bounds:envelope(),matrices:meshMatrices()};
+};
+window.roomSample=async(room,placements)=>{
+    if (model) {mixer.stopAllAction(); scene.remove(model.scene); model=null;}
+    const objects=await Promise.all(placements.map(p=>loader.loadAsync('/model/'+p.characterId.slice(-4)+'.glb')));
+    const [w,h]=room.camera.basePlatePixels;
+    renderer.setSize(w,h);
+    const span=Math.max(room.camera.minimumHeightSpan,room.camera.span/(w/h));
+    camera.left=-span*w/h/2; camera.right=-camera.left; camera.top=span/2; camera.bottom=-span/2;
+    camera.position.set(...room.camera.position);camera.lookAt(...room.camera.target);camera.updateProjectionMatrix();
+    for(const [i,asset] of objects.entries()){
+        asset.scene.position.set(...placements[i].position); scene.add(asset.scene);
+    }
+    draw();
+    const result=objects.map((asset,i)=>{
+        const rect=new T.Box2();
+        asset.scene.traverse(o=>{
+            if(!o.isMesh)return;
+            const attr=o.geometry.attributes.position;
+            for(let i=0;i<attr.count;i++){
+                vertex.fromBufferAttribute(attr,i).applyMatrix4(o.matrixWorld).project(camera);
+                rect.expandByPoint(new T.Vector2((vertex.x+1)*w/2,(1-vertex.y)*h/2));
+            }
+        });
+        return {id:placements[i].characterId, world:placements[i].position, pixels:[...rect.min.toArray(),...rect.max.toArray()]};
+    });
+    const png=window.capture();
+    for(const asset of objects){
+        scene.remove(asset.scene);
+        asset.scene.traverse(o=>{if(o.isMesh){o.geometry.dispose();o.material.dispose();}});
+    }
+    return {png,result};
+};
+window.capture=()=>renderer.domElement.toDataURL('image/png').split(',')[1];
+</script>
+</html>

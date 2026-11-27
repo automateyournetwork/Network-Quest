@@ -1,0 +1,7 @@
+# Network Quest character models CH10–CH17
+
+Copyright 2026 John Capobianco. The editable Blender models, material designs, animations, GLB exports and character renders are offered under CC BY 4.0 to the extent the project controls those rights. Attribute the work to “John Capobianco, Network Quest” and identify any modifications. The construction and verification scripts use Apache-2.0. See the [asset license](../../../LICENSE-ASSETS), [code license](../../../LICENSE) and [project notice](../../../NOTICE).
+
+OpenAI Codex authored the geometry, material assignments, joint pivots and keyframes through original local Blender Python scripts using the project's authored character descriptions, art direction, frozen layout and Apprentice/Photon visual references. Every shape in these models is constructed from numeric mesh profiles or Blender primitives. There are no imported textures, downloaded meshes or generated-image inputs. Blender, Three.js, Playwright and Firefox provided production and inspection tools. This batch contains no third-party character likenesses, logos or externally commissioned content.
+
+Game use and release acceptance are separate project reviews. The exported assets keep the single character identities in SPEC.md. The assembled chest, shell, survey instrument, postal equipment, wire pair, coax sample, module housing and library tag are costume or body features within those identities.

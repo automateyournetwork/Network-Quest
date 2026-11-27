@@ -19,7 +19,8 @@ export function publicAssetPath(path: string): boolean {
   if (!path || path.length > 512 || !/^[A-Za-z0-9_./ -]+$/.test(path)) return false;
   const parts = path.split('/');
   if (parts.some(p => !p || p.startsWith('.') || /^(?:private|operator|credentials?|secrets?|sessions?|backups?|players?|test-synthetic|feasibility)(?:$|[-_.])/i.test(p) || /\.(?:sqlite\d?|db|pem|key|env|log|bak)(?:$|[.-])/i.test(p))) return false;
-  return /^(?:assets-src\/|public\/assets\/|docs\/evidence\/spec001\/|content\/spec001\/|LICENSES\/|LICENSE(?:\.[A-Za-z0-9-]+)?$|NOTICE(?:\.[A-Za-z0-9-]+)?$)/.test(path);
+  return path === 'LICENSE-ASSETS'
+    || /^(?:assets-src\/|public\/assets\/|docs\/evidence\/spec001\/|content\/spec001\/|LICENSES\/|LICENSE(?:\.[A-Za-z0-9-]+)?$|NOTICE(?:\.[A-Za-z0-9-]+)?$)/.test(path);
 }
 
 /** Rooted, nonexecuting reader. Preflight and descriptor checks precede reads;

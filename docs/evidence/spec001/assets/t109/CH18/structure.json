@@ -1,0 +1,65 @@
+{
+  "assetId": "spec001:ASSET-CH18",
+  "status": "passed",
+  "reviewer": "Codex loop126/T109",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64, macOS 26.6.2; Blender 5.2.1 LTS build 9e2066aef7ef; Firefox 159.0; Three.js 0.187.0; Playwright 1.65.1.",
+  "type": "review",
+  "check": "structure",
+  "actor": "tool",
+  "hashes": [
+    "c4430858c593b42a11b6a680582f188b486316aca87188da27a1500ea8682e9a",
+    "6d5833d68e900c3bad7dd1dbc4b1cf0896ecd1d71d812dd5b2169bda32237d99",
+    "56b85fbb06a84887bbaa23ec6ac926ff994ac053fe3815eceeb63e64c82eff21",
+    "81ae7d3ed8749e98caeb3bf4405014d1044ca4b66d30abae7f92ab67ca20ec6d",
+    "359cdee68b7dddc74560ac469b063f6246ebac045a784489df6932812bf686ec"
+  ],
+  "details": {
+    "findings": "Blender reimport and Firefox both rendered 10524 triangles. The GLB has 3 rigid meshes and 20 material primitives with an embedded buffer.",
+    "tool": "Blender glTF importer, binary accessor and Three.js checks",
+    "methods": [
+      "native-glb-reimport",
+      "binary-accessor-inspection"
+    ],
+    "observedPaths": [
+      "assets-src/characters/CH18.blend",
+      "public/assets/models/CH18.glb",
+      "docs/evidence/spec001/assets/t063-CH01-source.png",
+      "docs/evidence/spec001/assets/t063-CH03-source.png",
+      "docs/evidence/spec001/presentation/t067/frame-revision/safari-2026-11-26T23-48-50-781Z/1440x900-pair0-warm.png",
+      "docs/evidence/spec001/character-production/T109/CH18/sheet.jpg"
+    ],
+    "importPath": "docs/evidence/spec001/character-production/T109/CH18/import.json",
+    "importSha256": "ba31720fa788323167aa429d3945dcc6a63b9d917b84204dac9766294be672d1",
+    "motion": [
+      {
+        "clip": "idle",
+        "varyingChannels": 2,
+        "totalChannels": 2,
+        "targets": [
+          "CH18_prism keeper head",
+          "CH18_vault key ribbons"
+        ],
+        "durationSeconds": 4,
+        "endpointComponentDifference": 0,
+        "maxJointComponentDifference": 1.3875645454852759e-07,
+        "maxBoundsDifferenceMetres": 1.1310673153630546e-07,
+        "maxIntegerFrameJointComponentDifference": 1.3875645454852759e-07
+      },
+      {
+        "clip": "reaction",
+        "varyingChannels": 2,
+        "totalChannels": 2,
+        "targets": [
+          "CH18_prism keeper head",
+          "CH18_vault key ribbons"
+        ],
+        "durationSeconds": 1.25,
+        "endpointComponentDifference": 0,
+        "maxJointComponentDifference": 0.0020571699233292995,
+        "maxBoundsDifferenceMetres": 0.00014045527930584,
+        "maxIntegerFrameJointComponentDifference": 1.8197225815086426e-07
+      }
+    ]
+  }
+}

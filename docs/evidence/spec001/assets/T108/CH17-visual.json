@@ -1,0 +1,110 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH17",
+  "hashes": [
+    "4efa03abaa0ade54c90efd773d0074ef5be1152c7eabd9dab219241289893e60",
+    "6f7ddd21c44754d5eaf783ca0571c6960f14c275e94873321f08610a000f28d1"
+  ],
+  "actor": "agent",
+  "reviewer": "/root/loop125_t108",
+  "date": "2026-11-27",
+  "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+  "status": "passed",
+  "details": {
+    "observedPaths": [
+      "assets-src/characters/CH17.blend",
+      "public/assets/models/CH17.glb"
+    ],
+    "scope": "Character source/export evidence only. Frozen camera inspection uses isolated GLB assets. Runtime placement, portrait, owner art review and accepted media quota remain open.",
+    "findings": "The lion, curled-horn ram and crested serpent consult a single pack and tag. Their separate neck motions spread the silhouette on reaction and reveal the four grooves in the housing. Three heads and four grooves visually distinguish the metaphor from a lane-count assertion.",
+    "methods": [
+      "image-inspection"
+    ],
+    "tool": "functions.view_image, Blender Cycles and native Firefox captures",
+    "sheet": "docs/evidence/spec001/assets/T108/CH17-source-browser.jpg",
+    "metrics": {
+      "rest": {
+        "alphaIntersectionOverUnion": 0.99522,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          21.34,
+          21.85,
+          23.08
+        ],
+        "sourceBoundsPx": [
+          64,
+          85,
+          351,
+          423
+        ],
+        "browserBoundsPx": [
+          64,
+          85,
+          352,
+          423
+        ]
+      },
+      "idle": {
+        "alphaIntersectionOverUnion": 0.995369,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          21.54,
+          22.04,
+          23.38
+        ],
+        "sourceBoundsPx": [
+          70,
+          89,
+          351,
+          423
+        ],
+        "browserBoundsPx": [
+          70,
+          89,
+          352,
+          423
+        ]
+      },
+      "reaction": {
+        "alphaIntersectionOverUnion": 0.995986,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          23.34,
+          23.52,
+          24.64
+        ],
+        "sourceBoundsPx": [
+          55,
+          92,
+          361,
+          423
+        ],
+        "browserBoundsPx": [
+          55,
+          92,
+          362,
+          423
+        ]
+      }
+    },
+    "lighting": "Blender Standard, linear PBR base colors, neutral-world fill and three area lamps. Firefox sRGB output, NoToneMapping, a hemisphere and three directional lamps. Highlights and shadows differ; see the paired images.",
+    "cameraUse": [
+      {
+        "room": "spec001:R09",
+        "placement": {
+          "id": "spec001:CH17",
+          "world": [
+            7.3,
+            0,
+            2.4
+          ],
+          "pixels": [
+            701.8312664505328,
+            308.7634462047981,
+            799.5322336313069,
+            418.10129684312693
+          ]
+        },
+        "image": "docs/evidence/spec001/assets/T108/R09-frozen-staging.png"
+      }
+    ]
+  },
+  "check": "visual"
+}

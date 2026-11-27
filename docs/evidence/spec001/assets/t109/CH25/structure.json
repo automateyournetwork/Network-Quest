@@ -1,0 +1,66 @@
+{
+  "assetId": "spec001:ASSET-CH25",
+  "status": "passed",
+  "reviewer": "Codex loop126/T109",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64, macOS 26.6.2; Blender 5.2.1 LTS build 9e2066aef7ef; Firefox 159.0; Three.js 0.187.0; Playwright 1.65.1.",
+  "type": "review",
+  "check": "structure",
+  "actor": "tool",
+  "hashes": [
+    "30d6d013c452267e9b19e6556deacfc74d26d1e6f86ff1a62ceb2c5ed113b597",
+    "00e8d702e7cce0883b5c5a1c45e5f1d17d8b23d08c8d56160dc46633a94d4523",
+    "56b85fbb06a84887bbaa23ec6ac926ff994ac053fe3815eceeb63e64c82eff21",
+    "81ae7d3ed8749e98caeb3bf4405014d1044ca4b66d30abae7f92ab67ca20ec6d",
+    "359cdee68b7dddc74560ac469b063f6246ebac045a784489df6932812bf686ec"
+  ],
+  "details": {
+    "findings": "Blender reimport and Firefox both rendered 25310 triangles. The GLB has 8 rigid meshes and 36 material primitives with an embedded buffer.",
+    "tool": "Blender glTF importer, binary accessor and Three.js checks",
+    "methods": [
+      "native-glb-reimport",
+      "binary-accessor-inspection"
+    ],
+    "observedPaths": [
+      "assets-src/characters/CH25.blend",
+      "public/assets/models/CH25.glb",
+      "docs/evidence/spec001/assets/t063-CH01-source.png",
+      "docs/evidence/spec001/assets/t063-CH03-source.png",
+      "docs/evidence/spec001/presentation/t067/frame-revision/safari-2026-11-26T23-48-50-781Z/1440x900-pair0-warm.png",
+      "docs/evidence/spec001/character-production/T109/CH25/sheet.jpg"
+    ],
+    "importPath": "docs/evidence/spec001/character-production/T109/CH25/import.json",
+    "importSha256": "508432866a11342cce03c1c7e9da0cdd8e2f5068e17b4254eed2cea4b5405e6d",
+    "motion": [
+      {
+        "clip": "idle",
+        "varyingChannels": 2,
+        "totalChannels": 2,
+        "targets": [
+          "CH25_slewing house",
+          "CH25_expressive bucket pivot"
+        ],
+        "durationSeconds": 4,
+        "endpointComponentDifference": 0,
+        "maxJointComponentDifference": 2.1919372183987207e-07,
+        "maxBoundsDifferenceMetres": 2.814490343006071e-07,
+        "maxIntegerFrameJointComponentDifference": 2.1919372183987207e-07
+      },
+      {
+        "clip": "reaction",
+        "varyingChannels": 3,
+        "totalChannels": 3,
+        "targets": [
+          "CH25_boom pivot",
+          "CH25_dipper pivot",
+          "CH25_expressive bucket pivot"
+        ],
+        "durationSeconds": 1.5,
+        "endpointComponentDifference": 0,
+        "maxJointComponentDifference": 2.3751480027200955e-07,
+        "maxBoundsDifferenceMetres": 2.3418181260836946e-07,
+        "maxIntegerFrameJointComponentDifference": 2.3751480027200955e-07
+      }
+    ]
+  }
+}

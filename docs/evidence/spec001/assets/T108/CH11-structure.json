@@ -1,0 +1,34 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH11",
+  "hashes": [
+    "a19bfcae15407482a64420910ed543b2b54ac658f86a11223bb2b60e1f8590d1",
+    "4df80809b68ab9b6f119789d2cb1986d8ba268e4e0df9d52a0526b68dfe8fed6"
+  ],
+  "actor": "tool",
+  "reviewer": "/root/loop125_t108",
+  "date": "2026-11-27",
+  "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+  "status": "passed",
+  "details": {
+    "observedPaths": [
+      "assets-src/characters/CH11.blend",
+      "public/assets/models/CH11.glb"
+    ],
+    "scope": "Character source/export evidence only. Frozen camera inspection uses isolated GLB assets. Runtime placement, portrait, owner art review and accepted media quota remain open.",
+    "findings": "Fresh Blender imported the final self-contained GLB. Its 9460 triangles agree with Firefox; material names agree with the native file. The runtime uses 6 rigid mesh groups and 21 draws.",
+    "tool": "Blender glTF importer and GLB container inspection",
+    "methods": [
+      "native-glb-reimport",
+      "embedded-buffer-validation"
+    ],
+    "report": "docs/evidence/spec001/character-production/T108/CH11-import.json",
+    "materialCount": 12,
+    "textureBytes": 0,
+    "clips": [
+      "idle",
+      "reaction"
+    ]
+  },
+  "check": "structure"
+}

@@ -1,0 +1,37 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH12",
+  "hashes": [
+    "ce48d4b85f95f6e7478df8364f07b7b41b80f3e1798c93df79bd07cc0a84b5bb",
+    "ba3f5c8ac721a1fb46ec753029414e395a0aabb43e2bc901919f6bceb0993d3d"
+  ],
+  "actor": "agent",
+  "reviewer": "/root/loop125_t108",
+  "date": "2026-11-27",
+  "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+  "status": "passed",
+  "details": {
+    "observedPaths": [
+      "assets-src/characters/CH12.blend",
+      "public/assets/models/CH12.glb"
+    ],
+    "scope": "Character source/export evidence only. Frozen camera inspection uses isolated GLB assets. Runtime placement, portrait, owner art review and accepted media quota remain open.",
+    "findings": "Inspected the paired native/browser rest and 2 clip midpoint captures. Every clip moved visible geometry in headless Firefox. Across five times per clip, maximum vertex-envelope component discrepancy was 1.17e-07 metres.",
+    "methods": [
+      "browser-inspection",
+      "image-inspection"
+    ],
+    "tool": "Firefox 159.0 with Three r187 GLTFLoader and AnimationMixer",
+    "report": "docs/evidence/spec001/character-production/T108/CH12-browser.json",
+    "observedImages": [
+      "docs/evidence/spec001/assets/T108/CH12-source-rest.png",
+      "docs/evidence/spec001/assets/T108/CH12-source-idle.png",
+      "docs/evidence/spec001/assets/T108/CH12-source-reaction.png",
+      "docs/evidence/spec001/assets/T108/CH12-browser-rest.png",
+      "docs/evidence/spec001/assets/T108/CH12-browser-idle.png",
+      "docs/evidence/spec001/assets/T108/CH12-browser-reaction.png"
+    ],
+    "colorAndSilhouetteReport": "docs/evidence/spec001/character-production/T108/image-comparison.json"
+  },
+  "check": "browser-comparison"
+}

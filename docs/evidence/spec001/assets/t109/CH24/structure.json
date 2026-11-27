@@ -1,0 +1,65 @@
+{
+  "assetId": "spec001:ASSET-CH24",
+  "status": "passed",
+  "reviewer": "Codex loop126/T109",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64, macOS 26.6.2; Blender 5.2.1 LTS build 9e2066aef7ef; Firefox 159.0; Three.js 0.187.0; Playwright 1.65.1.",
+  "type": "review",
+  "check": "structure",
+  "actor": "tool",
+  "hashes": [
+    "325f40b210961b187ef8e0fe3b83cca7216dca041805df9b3d388e53718e8609",
+    "717294818661f8d63d8ca826ef438a603766bfcf3c59c5e127d2049333ac2f9c",
+    "56b85fbb06a84887bbaa23ec6ac926ff994ac053fe3815eceeb63e64c82eff21",
+    "81ae7d3ed8749e98caeb3bf4405014d1044ca4b66d30abae7f92ab67ca20ec6d",
+    "359cdee68b7dddc74560ac469b063f6246ebac045a784489df6932812bf686ec"
+  ],
+  "details": {
+    "findings": "Blender reimport and Firefox both rendered 12140 triangles. The GLB has 3 rigid meshes and 18 material primitives with an embedded buffer.",
+    "tool": "Blender glTF importer, binary accessor and Three.js checks",
+    "methods": [
+      "native-glb-reimport",
+      "binary-accessor-inspection"
+    ],
+    "observedPaths": [
+      "assets-src/characters/CH24.blend",
+      "public/assets/models/CH24.glb",
+      "docs/evidence/spec001/assets/t063-CH01-source.png",
+      "docs/evidence/spec001/assets/t063-CH03-source.png",
+      "docs/evidence/spec001/presentation/t067/frame-revision/safari-2026-11-26T23-48-50-781Z/1440x900-pair0-warm.png",
+      "docs/evidence/spec001/character-production/T109/CH24/sheet.jpg"
+    ],
+    "importPath": "docs/evidence/spec001/character-production/T109/CH24/import.json",
+    "importSha256": "96620d51e9772d2a8f6574b185ac64be5ea4311126372787afb76669e1c87848",
+    "motion": [
+      {
+        "clip": "idle",
+        "varyingChannels": 2,
+        "totalChannels": 2,
+        "targets": [
+          "CH24_interjecting twin 1",
+          "CH24_interjecting twin -1"
+        ],
+        "durationSeconds": 4,
+        "endpointComponentDifference": 0,
+        "maxJointComponentDifference": 4.176218015849997e-08,
+        "maxBoundsDifferenceMetres": 3.771704659705222e-08,
+        "maxIntegerFrameJointComponentDifference": 4.176218015849997e-08
+      },
+      {
+        "clip": "reaction",
+        "varyingChannels": 2,
+        "totalChannels": 2,
+        "targets": [
+          "CH24_interjecting twin 1",
+          "CH24_interjecting twin -1"
+        ],
+        "durationSeconds": 1.25,
+        "endpointComponentDifference": 0,
+        "maxJointComponentDifference": 0.003157001888904054,
+        "maxBoundsDifferenceMetres": 0.00011969445102066878,
+        "maxIntegerFrameJointComponentDifference": 9.244074306025141e-08
+      }
+    ]
+  }
+}

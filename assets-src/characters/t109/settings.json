@@ -1,0 +1,14 @@
+{
+  "task": "T109",
+  "freeze": "d7dc4a1",
+  "characterIds": ["CH18", "CH19", "CH20", "CH21", "CH22", "CH23", "CH24", "CH25"],
+  "application": "Blender 5.2.1 LTS",
+  "build": "9e2066aef7ef",
+  "geometry": "Original named mesh components, smooth swept variable-radius bodies, rounded cast panels, hand-positioned anatomy and per-character articulated local joints. One editable .blend per semantic character.",
+  "units": "Metres. Blender Z-up, local -Y front, stationary ground-centred asset root. glTF Y-up and +Z front. Each character uses one fixed physical scale.",
+  "sourceLighting": "Cycles 12 samples, denoising, Standard view, neutral sky, warm key and cool fill/rim. Square 480 px inspection renders. Native view directions use the actual stored source cameras.",
+  "animation": "24 fps. Named NLA tracks per articulated object. Idle loops and reaction one-shots for all eight. CH19/20/22 have two-second ability clips with frame 24 contact. Clip output carries presentation only.",
+  "export": "Apply bevels/normals to the in-memory reopened scene and join static components per rigid parent while preserving separate native source pieces. Selected hierarchy only, GLB with embedded PBR factors, Y up, exported extras, no texture coordinates or tangents needed, no textures, no cameras/lights. Baked and optimized NLA_TRACKS at 24 fps.",
+  "review": "Independent Blender reimport; Firefox 159 through Playwright and Three.js, sRGB/no tone mapping, isolated loopback TLS. The viewer compares world joint matrices and exact transformed vertex bounds at 0/25/50/75/100 percent of each clip.",
+  "placement": "Frozen resident and party coordinates come from assets-src/rooms/scene-layouts.json. Exported assets have zero runtime usage entries pending room integration."
+}

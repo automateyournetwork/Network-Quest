@@ -1,0 +1,110 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH15",
+  "hashes": [
+    "283cee2c1c0d7047f1ad0acb2dbe468510299c7fd6c91d8a6a260cbd50336fed",
+    "af801ffc1d6ad3e209b2f51a73a9e4136e18b38739b015e42a4b5e19c375e5ca"
+  ],
+  "actor": "agent",
+  "reviewer": "/root/loop125_t108",
+  "date": "2026-11-27",
+  "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+  "status": "passed",
+  "details": {
+    "observedPaths": [
+      "assets-src/characters/CH15.blend",
+      "public/assets/models/CH15.glb"
+    ],
+    "scope": "Character source/export evidence only. Frozen camera inspection uses isolated GLB assets. Runtime placement, portrait, owner art review and accepted media quota remain open.",
+    "findings": "A tapering ivory face with longitudinal dark stripes identifies the quadruped. Its jacket, braid, dielectric and center conductor resolve on the near-side coax sample. The reaction raises the specimen toward the face.",
+    "methods": [
+      "image-inspection"
+    ],
+    "tool": "functions.view_image, Blender Cycles and native Firefox captures",
+    "sheet": "docs/evidence/spec001/assets/T108/CH15-source-browser.jpg",
+    "metrics": {
+      "rest": {
+        "alphaIntersectionOverUnion": 0.997691,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          21.55,
+          24.4,
+          25.47
+        ],
+        "sourceBoundsPx": [
+          111,
+          88,
+          338,
+          390
+        ],
+        "browserBoundsPx": [
+          111,
+          88,
+          339,
+          390
+        ]
+      },
+      "idle": {
+        "alphaIntersectionOverUnion": 0.997752,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          22.59,
+          25.09,
+          25.99
+        ],
+        "sourceBoundsPx": [
+          111,
+          85,
+          338,
+          390
+        ],
+        "browserBoundsPx": [
+          111,
+          85,
+          339,
+          390
+        ]
+      },
+      "reaction": {
+        "alphaIntersectionOverUnion": 0.997254,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          21.62,
+          24.62,
+          25.6
+        ],
+        "sourceBoundsPx": [
+          111,
+          98,
+          338,
+          390
+        ],
+        "browserBoundsPx": [
+          111,
+          98,
+          339,
+          390
+        ]
+      }
+    },
+    "lighting": "Blender Standard, linear PBR base colors, neutral-world fill and three area lamps. Firefox sRGB output, NoToneMapping, a hemisphere and three directional lamps. Highlights and shadows differ; see the paired images.",
+    "cameraUse": [
+      {
+        "room": "spec001:R09",
+        "placement": {
+          "id": "spec001:CH15",
+          "world": [
+            1.5,
+            0,
+            3.6
+          ],
+          "pixels": [
+            325.7973688212935,
+            282.22491748880554,
+            389.0918073289562,
+            365.3865192686451
+          ]
+        },
+        "image": "docs/evidence/spec001/assets/T108/R09-frozen-staging.png"
+      }
+    ]
+  },
+  "check": "visual"
+}

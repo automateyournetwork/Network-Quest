@@ -1,0 +1,27 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH05",
+  "status": "passed",
+  "actor": "tool",
+  "reviewer": "/root/loop124_t107",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; Node 26.13.1; Three.js 0.187.0; native headless Firefox with isolated trusted TLS.",
+  "hashes": [
+    "1789263397f3708cf187470f5b1591981c050bf437c328eb04c95f7c24aa3777",
+    "f5601c055bc91d9b93e2e96403f56286d41f967810662c71eb53403a7297bafa"
+  ],
+  "details": {
+    "findings": "GLB reimported into a clean scene. Source and export triangle counts agree. Embedded binary and all moving samplers, loop seams, numeric ranges and stationary floor root passed.",
+    "methods": [
+      "native-glb-reimport",
+      "binary-inspection"
+    ],
+    "observedPaths": [
+      "assets-src/characters/CH05.blend",
+      "public/assets/models/CH05.glb"
+    ],
+    "tool": "Blender 5.2.1, Firefox 159.0, Three.js 0.187.0 and agent visual inspection",
+    "report": "docs/evidence/spec001/character-production/T107/CH05-import.json"
+  },
+  "check": "structure"
+}

@@ -1,0 +1,30 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH02",
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop124_t107",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; Node 26.13.1; Three.js 0.187.0; native headless Firefox with isolated trusted TLS.",
+  "hashes": [
+    "394317ed406d1bbcf81adb7d64146511579566f3173fb564f439d79d38564462",
+    "e79ec40569a37988464d484a702037ef6ad41de4a1044fc8dce955acb958e953"
+  ],
+  "details": {
+    "findings": "Compared actual native Firefox renders against reopened Blender panels at rest and the authored clip samples. Materials match in scene-linear space, silhouette masks align, and joint matrices agree at five fractions of every clip.",
+    "methods": [
+      "browser-inspection",
+      "image-inspection"
+    ],
+    "observedPaths": [
+      "assets-src/characters/CH02.blend",
+      "public/assets/models/CH02.glb"
+    ],
+    "tool": "Blender 5.2.1, Firefox 159.0, Three.js 0.187.0 and agent visual inspection",
+    "capture": "docs/evidence/spec001/assets/t107/CH02-browser.png",
+    "poseSheet": "docs/evidence/spec001/assets/t107/CH02-poses.png",
+    "report": "docs/evidence/spec001/character-production/T107/CH02-browser.json",
+    "purpose": "Isolated inspection; no finished-room usage assertion."
+  },
+  "check": "browser-comparison"
+}

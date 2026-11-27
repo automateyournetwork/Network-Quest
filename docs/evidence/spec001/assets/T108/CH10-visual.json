@@ -1,0 +1,110 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH10",
+  "hashes": [
+    "9a349bf88d55e5f8b4cb47e15e3ca007049d459a5b5921ecb9b756193ef171a2",
+    "7de5a7a4a1c8c2e0d26ce99e011eb0ae34f4f58062ee82a5ef17ada1c2ad42c2"
+  ],
+  "actor": "agent",
+  "reviewer": "/root/loop125_t108",
+  "date": "2026-11-27",
+  "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+  "status": "passed",
+  "details": {
+    "observedPaths": [
+      "assets-src/characters/CH10.blend",
+      "public/assets/models/CH10.glb"
+    ],
+    "scope": "Character source/export evidence only. Frozen camera inspection uses isolated GLB assets. Runtime placement, portrait, owner art review and accepted media quota remain open.",
+    "findings": "Separated copper and honey wing vanes frame the crested surveyor and its sight dial. The reaction raises both wings and redirects the beak, while the idle shifts the tail and gaze. The two R08 birds have distinct profiles.",
+    "methods": [
+      "image-inspection"
+    ],
+    "tool": "functions.view_image, Blender Cycles and native Firefox captures",
+    "sheet": "docs/evidence/spec001/assets/T108/CH10-source-browser.jpg",
+    "metrics": {
+      "rest": {
+        "alphaIntersectionOverUnion": 0.990022,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          24.05,
+          22.21,
+          20.37
+        ],
+        "sourceBoundsPx": [
+          68,
+          109,
+          372,
+          356
+        ],
+        "browserBoundsPx": [
+          68,
+          109,
+          372,
+          356
+        ]
+      },
+      "idle": {
+        "alphaIntersectionOverUnion": 0.989214,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          23.78,
+          22.22,
+          20.51
+        ],
+        "sourceBoundsPx": [
+          71,
+          109,
+          369,
+          356
+        ],
+        "browserBoundsPx": [
+          71,
+          109,
+          369,
+          356
+        ]
+      },
+      "reaction": {
+        "alphaIntersectionOverUnion": 0.991108,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          25.33,
+          22.77,
+          20.45
+        ],
+        "sourceBoundsPx": [
+          109,
+          84,
+          345,
+          356
+        ],
+        "browserBoundsPx": [
+          109,
+          84,
+          345,
+          356
+        ]
+      }
+    },
+    "lighting": "Blender Standard, linear PBR base colors, neutral-world fill and three area lamps. Firefox sRGB output, NoToneMapping, a hemisphere and three directional lamps. Highlights and shadows differ; see the paired images.",
+    "cameraUse": [
+      {
+        "room": "spec001:R08",
+        "placement": {
+          "id": "spec001:CH10",
+          "world": [
+            6.1,
+            0,
+            1.4
+          ],
+          "pixels": [
+            652.5792465770871,
+            248.13316302560605,
+            846.2963356209616,
+            386.74990054947006
+          ]
+        },
+        "image": "docs/evidence/spec001/assets/T108/R08-frozen-staging.png"
+      }
+    ]
+  },
+  "check": "visual"
+}

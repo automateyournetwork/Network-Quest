@@ -1,0 +1,66 @@
+{
+  "assetId": "spec001:ASSET-CH23",
+  "status": "passed",
+  "reviewer": "Codex loop126/T109",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64, macOS 26.6.2; Blender 5.2.1 LTS build 9e2066aef7ef; Firefox 159.0; Three.js 0.187.0; Playwright 1.65.1.",
+  "type": "review",
+  "check": "structure",
+  "actor": "tool",
+  "hashes": [
+    "ea260c4177a20aa4129a60c15b7d4886f81fd79f916f12b4393bc2f1d9c65e32",
+    "1f59081d7c388086ea225a0b0ef2db77a42d3c8a1d5f774a1491b6b94ba43364",
+    "56b85fbb06a84887bbaa23ec6ac926ff994ac053fe3815eceeb63e64c82eff21",
+    "81ae7d3ed8749e98caeb3bf4405014d1044ca4b66d30abae7f92ab67ca20ec6d",
+    "359cdee68b7dddc74560ac469b063f6246ebac045a784489df6932812bf686ec"
+  ],
+  "details": {
+    "findings": "Blender reimport and Firefox both rendered 11136 triangles. The GLB has 5 rigid meshes and 18 material primitives with an embedded buffer.",
+    "tool": "Blender glTF importer, binary accessor and Three.js checks",
+    "methods": [
+      "native-glb-reimport",
+      "binary-accessor-inspection"
+    ],
+    "observedPaths": [
+      "assets-src/characters/CH23.blend",
+      "public/assets/models/CH23.glb",
+      "docs/evidence/spec001/assets/t063-CH01-source.png",
+      "docs/evidence/spec001/assets/t063-CH03-source.png",
+      "docs/evidence/spec001/presentation/t067/frame-revision/safari-2026-11-26T23-48-50-781Z/1440x900-pair0-warm.png",
+      "docs/evidence/spec001/character-production/T109/CH23/sheet.jpg"
+    ],
+    "importPath": "docs/evidence/spec001/character-production/T109/CH23/import.json",
+    "importSha256": "c13d79d3d8b253c04b76508b38dcd93d8ec5ffdd705d146a49ce112c99ea8e78",
+    "motion": [
+      {
+        "clip": "idle",
+        "varyingChannels": 2,
+        "totalChannels": 2,
+        "targets": [
+          "CH23_eddying mane",
+          "CH23_shrugging forelimb 1"
+        ],
+        "durationSeconds": 4,
+        "endpointComponentDifference": 0,
+        "maxJointComponentDifference": 9.649658738730693e-08,
+        "maxBoundsDifferenceMetres": 7.589574069211125e-08,
+        "maxIntegerFrameJointComponentDifference": 9.649658738730693e-08
+      },
+      {
+        "clip": "reaction",
+        "varyingChannels": 3,
+        "totalChannels": 3,
+        "targets": [
+          "CH23_indignant face",
+          "CH23_shrugging forelimb 1",
+          "CH23_shrugging forelimb -1"
+        ],
+        "durationSeconds": 1.25,
+        "endpointComponentDifference": 0,
+        "maxJointComponentDifference": 0.005834726296982007,
+        "maxBoundsDifferenceMetres": 8.837737930833534e-05,
+        "maxIntegerFrameJointComponentDifference": 9.649658738730693e-08
+      }
+    ]
+  }
+}

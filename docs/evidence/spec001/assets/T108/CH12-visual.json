@@ -1,0 +1,128 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH12",
+  "hashes": [
+    "ce48d4b85f95f6e7478df8364f07b7b41b80f3e1798c93df79bd07cc0a84b5bb",
+    "ba3f5c8ac721a1fb46ec753029414e395a0aabb43e2bc901919f6bceb0993d3d"
+  ],
+  "actor": "agent",
+  "reviewer": "/root/loop125_t108",
+  "date": "2026-11-27",
+  "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+  "status": "passed",
+  "details": {
+    "observedPaths": [
+      "assets-src/characters/CH12.blend",
+      "public/assets/models/CH12.glb"
+    ],
+    "scope": "Character source/export evidence only. Frozen camera inspection uses isolated GLB assets. Runtime placement, portrait, owner art review and accepted media quota remain open.",
+    "findings": "The heavy iron cabinet stands on piston knees with a softly squared expressive face. The middle drawer travels forward on reaction while the head and arm incline. Its three drawer pulls and paper index tabs stay legible in the inspection views.",
+    "methods": [
+      "image-inspection"
+    ],
+    "tool": "functions.view_image, Blender Cycles and native Firefox captures",
+    "sheet": "docs/evidence/spec001/assets/T108/CH12-source-browser.jpg",
+    "metrics": {
+      "rest": {
+        "alphaIntersectionOverUnion": 0.996959,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          19.85,
+          21.71,
+          24.32
+        ],
+        "sourceBoundsPx": [
+          102,
+          50,
+          355,
+          401
+        ],
+        "browserBoundsPx": [
+          102,
+          49,
+          355,
+          402
+        ]
+      },
+      "idle": {
+        "alphaIntersectionOverUnion": 0.996818,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          19.86,
+          21.74,
+          24.32
+        ],
+        "sourceBoundsPx": [
+          102,
+          48,
+          357,
+          401
+        ],
+        "browserBoundsPx": [
+          102,
+          48,
+          357,
+          402
+        ]
+      },
+      "reaction": {
+        "alphaIntersectionOverUnion": 0.997175,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          20.52,
+          21.41,
+          23.51
+        ],
+        "sourceBoundsPx": [
+          102,
+          51,
+          336,
+          401
+        ],
+        "browserBoundsPx": [
+          102,
+          51,
+          336,
+          402
+        ]
+      }
+    },
+    "lighting": "Blender Standard, linear PBR base colors, neutral-world fill and three area lamps. Firefox sRGB output, NoToneMapping, a hemisphere and three directional lamps. Highlights and shadows differ; see the paired images.",
+    "cameraUse": [
+      {
+        "room": "spec001:R02",
+        "placement": {
+          "id": "spec001:CH12",
+          "world": [
+            8.8,
+            0,
+            3.45
+          ],
+          "pixels": [
+            835.5803299115698,
+            379.76688962603805,
+            944.6902382150246,
+            521.6574853671789
+          ]
+        },
+        "image": "docs/evidence/spec001/assets/T108/R02-frozen-staging.png"
+      },
+      {
+        "room": "spec001:R12",
+        "placement": {
+          "id": "spec001:CH12",
+          "world": [
+            10,
+            0,
+            3.6
+          ],
+          "pixels": [
+            848.0218193951409,
+            344.25381860935676,
+            949.1249492291831,
+            475.03755222334377
+          ]
+        },
+        "image": "docs/evidence/spec001/assets/T108/R12-frozen-staging.png"
+      }
+    ]
+  },
+  "check": "visual"
+}

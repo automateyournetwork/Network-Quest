@@ -1,0 +1,64 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH04",
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "/root/loop124_t107",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64; Blender 5.2.1 LTS 9e2066aef7ef; Node 26.13.1; Three.js 0.187.0; native headless Firefox with isolated trusted TLS.",
+  "hashes": [
+    "b338e446f487c3ad07691b16197ea5a0a9873facf71387a1dab3497b73253e35",
+    "9fad4cb57422b455bf289350bb1fdaa75a7c07d78891bf0b635d00956757c33c"
+  ],
+  "details": {
+    "findings": "The tapered banded coil and paired contact probes read against the dark background. The ability lowers the head and swings the two distinct probe tips outside the jaw contour.",
+    "methods": [
+      "image-inspection"
+    ],
+    "observedPaths": [
+      "assets-src/characters/CH04.blend",
+      "public/assets/models/CH04.glb"
+    ],
+    "tool": "Blender 5.2.1, Firefox 159.0, Three.js 0.187.0 and agent visual inspection",
+    "comparedPoseSheet": "docs/evidence/spec001/assets/t107/CH04-poses.png",
+    "silhouettes": {
+      "rest": {
+        "silhouetteIoU": 0.9971974440689909,
+        "pixels": [
+          540,
+          540
+        ],
+        "alphaThreshold": 127,
+        "bothInsideFrame": true
+      },
+      "idle": {
+        "silhouetteIoU": 0.9970974053048526,
+        "pixels": [
+          540,
+          540
+        ],
+        "alphaThreshold": 127,
+        "bothInsideFrame": true
+      },
+      "reaction": {
+        "silhouetteIoU": 0.9970057049200995,
+        "pixels": [
+          540,
+          540
+        ],
+        "alphaThreshold": 127,
+        "bothInsideFrame": true
+      },
+      "ability": {
+        "silhouetteIoU": 0.9970138911802554,
+        "pixels": [
+          540,
+          540
+        ],
+        "alphaThreshold": 127,
+        "bothInsideFrame": true
+      }
+    }
+  },
+  "check": "visual"
+}

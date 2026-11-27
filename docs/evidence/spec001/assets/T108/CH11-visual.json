@@ -1,0 +1,110 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-CH11",
+  "hashes": [
+    "a19bfcae15407482a64420910ed543b2b54ac658f86a11223bb2b60e1f8590d1",
+    "4df80809b68ab9b6f119789d2cb1986d8ba268e4e0df9d52a0526b68dfe8fed6"
+  ],
+  "actor": "agent",
+  "reviewer": "/root/loop125_t108",
+  "date": "2026-11-27",
+  "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+  "status": "passed",
+  "details": {
+    "observedPaths": [
+      "assets-src/characters/CH11.blend",
+      "public/assets/models/CH11.glb"
+    ],
+    "scope": "Character source/export evidence only. Frozen camera inspection uses isolated GLB assets. Runtime placement, portrait, owner art review and accepted media quota remain open.",
+    "findings": "The eagle folds slate quills against its travel folio. Its hooked bill sits below a brass celestial sight. The reaction lifts the head into the sight and opens the nearer wing. The browser retains the cream ruff against the dark mantle.",
+    "methods": [
+      "image-inspection"
+    ],
+    "tool": "functions.view_image, Blender Cycles and native Firefox captures",
+    "sheet": "docs/evidence/spec001/assets/T108/CH11-source-browser.jpg",
+    "metrics": {
+      "rest": {
+        "alphaIntersectionOverUnion": 0.995014,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          18.88,
+          20.95,
+          22.19
+        ],
+        "sourceBoundsPx": [
+          140,
+          62,
+          312,
+          403
+        ],
+        "browserBoundsPx": [
+          140,
+          62,
+          312,
+          403
+        ]
+      },
+      "idle": {
+        "alphaIntersectionOverUnion": 0.994371,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          19.2,
+          21.18,
+          22.36
+        ],
+        "sourceBoundsPx": [
+          140,
+          62,
+          310,
+          403
+        ],
+        "browserBoundsPx": [
+          140,
+          62,
+          310,
+          403
+        ]
+      },
+      "reaction": {
+        "alphaIntersectionOverUnion": 0.993725,
+        "meanAbsoluteRgbDeltaInsideOverlap": [
+          20.03,
+          22.45,
+          24.06
+        ],
+        "sourceBoundsPx": [
+          129,
+          60,
+          335,
+          403
+        ],
+        "browserBoundsPx": [
+          128,
+          60,
+          335,
+          403
+        ]
+      }
+    },
+    "lighting": "Blender Standard, linear PBR base colors, neutral-world fill and three area lamps. Firefox sRGB output, NoToneMapping, a hemisphere and three directional lamps. Highlights and shadows differ; see the paired images.",
+    "cameraUse": [
+      {
+        "room": "spec001:R08",
+        "placement": {
+          "id": "spec001:CH11",
+          "world": [
+            3.1,
+            0,
+            0.55
+          ],
+          "pixels": [
+            505.86394905092345,
+            201.13899116035702,
+            576.1426233187499,
+            333.557282517188
+          ]
+        },
+        "image": "docs/evidence/spec001/assets/T108/R08-frozen-staging.png"
+      }
+    ]
+  },
+  "check": "visual"
+}

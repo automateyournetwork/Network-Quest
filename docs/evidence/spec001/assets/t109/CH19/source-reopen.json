@@ -1,0 +1,46 @@
+{
+  "assetId": "spec001:ASSET-CH19",
+  "status": "passed",
+  "reviewer": "Codex loop126/T109",
+  "date": "2026-11-27",
+  "environment": "Mac16,7 arm64, macOS 26.6.2; Blender 5.2.1 LTS build 9e2066aef7ef; Firefox 159.0; Three.js 0.187.0; Playwright 1.65.1.",
+  "type": "review",
+  "check": "source-reopen",
+  "actor": "tool",
+  "hashes": [
+    "8046ea92759362999bc57dca1e621c7e2b08e1f895b8cb254a586e30d2fa4483",
+    "86b7aff1dd47620d54b1fc8c3a44f0370a98fa0e06019c84f70db3ee33d83e5a",
+    "56b85fbb06a84887bbaa23ec6ac926ff994ac053fe3815eceeb63e64c82eff21",
+    "81ae7d3ed8749e98caeb3bf4405014d1044ca4b66d30abae7f92ab67ca20ec6d",
+    "359cdee68b7dddc74560ac469b063f6246ebac045a784489df6932812bf686ec"
+  ],
+  "details": {
+    "findings": "Fresh Blender process reopened, evaluated and rendered all 34 named mesh pieces. Native clip poses are sampled from the actual Cycles render dependency graph.",
+    "tool": "Blender 5.2.1 LTS",
+    "methods": [
+      "native-source-reopen"
+    ],
+    "observedPaths": [
+      "assets-src/characters/CH19.blend",
+      "public/assets/models/CH19.glb",
+      "docs/evidence/spec001/assets/t063-CH01-source.png",
+      "docs/evidence/spec001/assets/t063-CH03-source.png",
+      "docs/evidence/spec001/presentation/t067/frame-revision/safari-2026-11-26T23-48-50-781Z/1440x900-pair0-warm.png",
+      "docs/evidence/spec001/character-production/T109/CH19/sheet.jpg"
+    ],
+    "inspectionPath": "docs/evidence/spec001/character-production/T109/CH19/native.json",
+    "inspectionSha256": "84a712d96033175efbafe9dd216fa5ca4a044e963b4029de2f651634420ac5f6",
+    "restBoundsBlender": [
+      [
+        -0.9369834065437317,
+        -0.43993088603019714,
+        -3.725290298461914e-09
+      ],
+      [
+        0.9369833469390869,
+        0.43993091583251953,
+        1.0999999046325684
+      ]
+    ]
+  }
+}

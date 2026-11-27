@@ -1,0 +1,1772 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "assets": [
+    {
+      "assetId": "spec001:ASSET-CH10",
+      "semanticIdentity": "spec001:CH10",
+      "kind": "character-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/characters/CH10.blend",
+            "sha256": "9a349bf88d55e5f8b4cb47e15e3ca007049d459a5b5921ecb9b756193ef171a2",
+            "bytes": 164873,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T108/CH10-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/CH10.glb",
+            "sha256": "7de5a7a4a1c8c2e0d26ce99e011eb0ae34f4f58062ee82a5ef17ada1c2ad42c2",
+            "bytes": 171516,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "9a349bf88d55e5f8b4cb47e15e3ca007049d459a5b5921ecb9b756193ef171a2"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected rigid meshes, Y up, PBR, NLA tracks sampled at 24 fps, no stage/camera/light/proxy",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T108/CH10-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T108-CH10-20261127-native",
+          "settingsPath": "assets-src/characters/T108/build.py",
+          "promptOrScriptPath": "assets-src/characters/T108/aviary.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "9a349bf88d55e5f8b4cb47e15e3ca007049d459a5b5921ecb9b756193ef171a2"
+          ],
+          "notes": "Original procedural character constructed in Blender from the Spec001 roster. Metric scene and keyed NLA tracks. Each edited form remains a separate native mesh; GLB consolidation happens in memory on reopen."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco (Network Quest project)",
+          "OpenAI Codex (original modeling assistance)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "LICENSE-ASSETS",
+          "assets-src/characters/T108/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original procedural meshes, PBR materials and keyframes authored by Codex in local Blender. No downloaded content, imported textures, generated-image inputs or stock character rigs. Creative files carry CC BY 4.0 to the extent the project controls the rights; scripts carry Apache-2.0."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "9a349bf88d55e5f8b4cb47e15e3ca007049d459a5b5921ecb9b756193ef171a2",
+            "7de5a7a4a1c8c2e0d26ce99e011eb0ae34f4f58062ee82a5ef17ada1c2ad42c2"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH10-source-reopen.json",
+          "findings": "Fresh Blender opened the native source, rendered rest and every clip midpoint, sampled the evaluated RENDER graph at five frames per clip, then reopened the source again for the rest-pose GLB export."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "9a349bf88d55e5f8b4cb47e15e3ca007049d459a5b5921ecb9b756193ef171a2",
+            "7de5a7a4a1c8c2e0d26ce99e011eb0ae34f4f58062ee82a5ef17ada1c2ad42c2"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH10-structure.json",
+          "findings": "Fresh Blender imported the final self-contained GLB. Its 7232 triangles agree with Firefox; material names agree with the native file. The runtime uses 6 rigid mesh groups and 23 draws."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "9a349bf88d55e5f8b4cb47e15e3ca007049d459a5b5921ecb9b756193ef171a2",
+            "7de5a7a4a1c8c2e0d26ce99e011eb0ae34f4f58062ee82a5ef17ada1c2ad42c2"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH10-visual.json",
+          "findings": "Separated copper and honey wing vanes frame the crested surveyor and its sight dial. The reaction raises both wings and redirects the beak, while the idle shifts the tail and gaze. The two R08 birds have distinct profiles."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "9a349bf88d55e5f8b4cb47e15e3ca007049d459a5b5921ecb9b756193ef171a2",
+            "7de5a7a4a1c8c2e0d26ce99e011eb0ae34f4f58062ee82a5ef17ada1c2ad42c2"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH10-browser-comparison.json",
+          "findings": "Inspected the paired native/browser rest and 2 clip midpoint captures. Every clip moved visible geometry in headless Firefox. Across five times per clip, maximum vertex-envelope component discrepancy was 3.19e-07 metres."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "9a349bf88d55e5f8b4cb47e15e3ca007049d459a5b5921ecb9b756193ef171a2",
+            "7de5a7a4a1c8c2e0d26ce99e011eb0ae34f4f58062ee82a5ef17ada1c2ad42c2"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH10-rights.json",
+          "findings": "Inspected the original construction scripts, imported materials, project notice and CC BY 4.0 license. The controls and attribution for project-owned creative elements are documented; scripts are Apache-2.0. This review covers these exact source and GLB files."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/characters/CH10.blend",
+        "objectIds": [
+          "CH10.ground",
+          "CH10.base",
+          "CH10.thorax",
+          "CH10.surveyor",
+          "CH10.tapered flight breast",
+          "CH10.arching orange neck",
+          "CH10.phoenix face",
+          "CH10.eye",
+          "CH10.pupil",
+          "CH10.glint",
+          "CH10.eye.001",
+          "CH10.pupil.001",
+          "CH10.glint.001",
+          "CH10.needle beak",
+          "CH10.flame crown",
+          "CH10.flame crown.001",
+          "CH10.flame crown.002",
+          "CH10.hock",
+          "CH10.talon",
+          "CH10.talon.001",
+          "CH10.talon.002",
+          "CH10.rear talon",
+          "CH10.wing-1",
+          "CH10.swept leading edge",
+          "CH10.primary signal vane",
+          "CH10.vane spine",
+          "CH10.primary signal vane.001",
+          "CH10.vane spine.001",
+          "CH10.primary signal vane.002",
+          "CH10.vane spine.002",
+          "CH10.primary signal vane.003",
+          "CH10.vane spine.003",
+          "CH10.primary signal vane.004",
+          "CH10.vane spine.004",
+          "CH10.primary signal vane.005",
+          "CH10.vane spine.005",
+          "CH10.mantle flame",
+          "CH10.mantle flame.001",
+          "CH10.mantle flame.002",
+          "CH10.breast gorget",
+          "CH10.breast gorget.001",
+          "CH10.hock.001",
+          "CH10.talon.003",
+          "CH10.talon.004",
+          "CH10.talon.005",
+          "CH10.rear talon.001",
+          "CH10.wing1",
+          "CH10.swept leading edge.001",
+          "CH10.primary signal vane.006",
+          "CH10.vane spine.006",
+          "CH10.primary signal vane.007",
+          "CH10.vane spine.007",
+          "CH10.primary signal vane.008",
+          "CH10.vane spine.008",
+          "CH10.primary signal vane.009",
+          "CH10.vane spine.009",
+          "CH10.primary signal vane.010",
+          "CH10.vane spine.010",
+          "CH10.primary signal vane.011",
+          "CH10.vane spine.011",
+          "CH10.mantle flame.003",
+          "CH10.mantle flame.004",
+          "CH10.mantle flame.005",
+          "CH10.breast gorget.002",
+          "CH10.breast gorget.003",
+          "CH10.split train",
+          "CH10.streaming pennant",
+          "CH10.streaming pennant.001",
+          "CH10.streaming pennant.002",
+          "CH10.streaming pennant.003",
+          "CH10.streaming pennant.004",
+          "CH10.azimuth brooch",
+          "CH10.brass sighting rim",
+          "CH10.bearing pointer"
+        ],
+        "units": "metres",
+        "axes": "Blender Z up, GLB Y up",
+        "pivot": "Floor origin. Blender forward -Y; glTF forward +Z.",
+        "collisionProxy": "CH10.collision-envelope (authoring-only bounds; navigation owned by room)",
+        "animationClips": [
+          "idle",
+          "reaction"
+        ],
+        "triangles": 7232,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH11",
+      "semanticIdentity": "spec001:CH11",
+      "kind": "character-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/characters/CH11.blend",
+            "sha256": "a19bfcae15407482a64420910ed543b2b54ac658f86a11223bb2b60e1f8590d1",
+            "bytes": 171258,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T108/CH11-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/CH11.glb",
+            "sha256": "4df80809b68ab9b6f119789d2cb1986d8ba268e4e0df9d52a0526b68dfe8fed6",
+            "bytes": 269952,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "a19bfcae15407482a64420910ed543b2b54ac658f86a11223bb2b60e1f8590d1"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected rigid meshes, Y up, PBR, NLA tracks sampled at 24 fps, no stage/camera/light/proxy",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T108/CH11-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T108-CH11-20261127-native",
+          "settingsPath": "assets-src/characters/T108/build.py",
+          "promptOrScriptPath": "assets-src/characters/T108/aviary.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "a19bfcae15407482a64420910ed543b2b54ac658f86a11223bb2b60e1f8590d1"
+          ],
+          "notes": "Original procedural character constructed in Blender from the Spec001 roster. Metric scene and keyed NLA tracks. Each edited form remains a separate native mesh; GLB consolidation happens in memory on reopen."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco (Network Quest project)",
+          "OpenAI Codex (original modeling assistance)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "LICENSE-ASSETS",
+          "assets-src/characters/T108/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original procedural meshes, PBR materials and keyframes authored by Codex in local Blender. No downloaded content, imported textures, generated-image inputs or stock character rigs. Creative files carry CC BY 4.0 to the extent the project controls the rights; scripts carry Apache-2.0."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "a19bfcae15407482a64420910ed543b2b54ac658f86a11223bb2b60e1f8590d1",
+            "4df80809b68ab9b6f119789d2cb1986d8ba268e4e0df9d52a0526b68dfe8fed6"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH11-source-reopen.json",
+          "findings": "Fresh Blender opened the native source, rendered rest and every clip midpoint, sampled the evaluated RENDER graph at five frames per clip, then reopened the source again for the rest-pose GLB export."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "a19bfcae15407482a64420910ed543b2b54ac658f86a11223bb2b60e1f8590d1",
+            "4df80809b68ab9b6f119789d2cb1986d8ba268e4e0df9d52a0526b68dfe8fed6"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH11-structure.json",
+          "findings": "Fresh Blender imported the final self-contained GLB. Its 9460 triangles agree with Firefox; material names agree with the native file. The runtime uses 6 rigid mesh groups and 21 draws."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "a19bfcae15407482a64420910ed543b2b54ac658f86a11223bb2b60e1f8590d1",
+            "4df80809b68ab9b6f119789d2cb1986d8ba268e4e0df9d52a0526b68dfe8fed6"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH11-visual.json",
+          "findings": "The eagle folds slate quills against its travel folio. Its hooked bill sits below a brass celestial sight. The reaction lifts the head into the sight and opens the nearer wing. The browser retains the cream ruff against the dark mantle."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "a19bfcae15407482a64420910ed543b2b54ac658f86a11223bb2b60e1f8590d1",
+            "4df80809b68ab9b6f119789d2cb1986d8ba268e4e0df9d52a0526b68dfe8fed6"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH11-browser-comparison.json",
+          "findings": "Inspected the paired native/browser rest and 2 clip midpoint captures. Every clip moved visible geometry in headless Firefox. Across five times per clip, maximum vertex-envelope component discrepancy was 4.97e-07 metres."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "a19bfcae15407482a64420910ed543b2b54ac658f86a11223bb2b60e1f8590d1",
+            "4df80809b68ab9b6f119789d2cb1986d8ba268e4e0df9d52a0526b68dfe8fed6"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH11-rights.json",
+          "findings": "Inspected the original construction scripts, imported materials, project notice and CC BY 4.0 license. The controls and attribution for project-owned creative elements are documented; scripts are Apache-2.0. This review covers these exact source and GLB files."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/characters/CH11.blend",
+        "objectIds": [
+          "CH11.ground",
+          "CH11.base",
+          "CH11.mantle",
+          "CH11.astronomer",
+          "CH11.greatcoat body",
+          "CH11.astronomer ruff",
+          "CH11.bald crown",
+          "CH11.ruff quill",
+          "CH11.ruff quill.001",
+          "CH11.ruff quill.002",
+          "CH11.ruff quill.003",
+          "CH11.ruff quill.004",
+          "CH11.ruff quill.005",
+          "CH11.eye",
+          "CH11.pupil",
+          "CH11.glint",
+          "CH11.eye.001",
+          "CH11.pupil.001",
+          "CH11.glint.001",
+          "CH11.eagle brow",
+          "CH11.eagle brow.001",
+          "CH11.hooked maxilla",
+          "CH11.lower bill",
+          "CH11.hock",
+          "CH11.talon",
+          "CH11.talon.001",
+          "CH11.talon.002",
+          "CH11.rear talon",
+          "CH11.cloak-1",
+          "CH11.folded wing shoulder",
+          "CH11.night blue folded flight quill",
+          "CH11.night blue folded flight quill.001",
+          "CH11.night blue folded flight quill.002",
+          "CH11.night blue folded flight quill.003",
+          "CH11.night blue folded flight quill.004",
+          "CH11.constellation stud",
+          "CH11.constellation stud.001",
+          "CH11.constellation stud.002",
+          "CH11.hock.001",
+          "CH11.talon.003",
+          "CH11.talon.004",
+          "CH11.talon.005",
+          "CH11.rear talon.001",
+          "CH11.cloak1",
+          "CH11.folded wing shoulder.001",
+          "CH11.night blue folded flight quill.005",
+          "CH11.night blue folded flight quill.006",
+          "CH11.night blue folded flight quill.007",
+          "CH11.night blue folded flight quill.008",
+          "CH11.night blue folded flight quill.009",
+          "CH11.constellation stud.003",
+          "CH11.constellation stud.004",
+          "CH11.constellation stud.005",
+          "CH11.star folio",
+          "CH11.folded survey chart",
+          "CH11.chart page block",
+          "CH11.map case strap",
+          "CH11.map case strap.001",
+          "CH11.celestial sight hoop",
+          "CH11.celestial sight hoop.001",
+          "CH11.pole star",
+          "CH11.tail quill",
+          "CH11.tail quill.001",
+          "CH11.tail quill.002"
+        ],
+        "units": "metres",
+        "axes": "Blender Z up, GLB Y up",
+        "pivot": "Floor origin. Blender forward -Y; glTF forward +Z.",
+        "collisionProxy": "CH11.collision-envelope (authoring-only bounds; navigation owned by room)",
+        "animationClips": [
+          "idle",
+          "reaction"
+        ],
+        "triangles": 9460,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH12",
+      "semanticIdentity": "spec001:CH12",
+      "kind": "character-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/characters/CH12.blend",
+            "sha256": "ce48d4b85f95f6e7478df8364f07b7b41b80f3e1798c93df79bd07cc0a84b5bb",
+            "bytes": 167415,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T108/CH12-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/CH12.glb",
+            "sha256": "ba3f5c8ac721a1fb46ec753029414e395a0aabb43e2bc901919f6bceb0993d3d",
+            "bytes": 478396,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "ce48d4b85f95f6e7478df8364f07b7b41b80f3e1798c93df79bd07cc0a84b5bb"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected rigid meshes, Y up, PBR, NLA tracks sampled at 24 fps, no stage/camera/light/proxy",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T108/CH12-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T108-CH12-20261127-native",
+          "settingsPath": "assets-src/characters/T108/build.py",
+          "promptOrScriptPath": "assets-src/characters/T108/workshop.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "ce48d4b85f95f6e7478df8364f07b7b41b80f3e1798c93df79bd07cc0a84b5bb"
+          ],
+          "notes": "Original procedural character constructed in Blender from the Spec001 roster. Metric scene and keyed NLA tracks. Each edited form remains a separate native mesh; GLB consolidation happens in memory on reopen."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco (Network Quest project)",
+          "OpenAI Codex (original modeling assistance)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "LICENSE-ASSETS",
+          "assets-src/characters/T108/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original procedural meshes, PBR materials and keyframes authored by Codex in local Blender. No downloaded content, imported textures, generated-image inputs or stock character rigs. Creative files carry CC BY 4.0 to the extent the project controls the rights; scripts carry Apache-2.0."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "ce48d4b85f95f6e7478df8364f07b7b41b80f3e1798c93df79bd07cc0a84b5bb",
+            "ba3f5c8ac721a1fb46ec753029414e395a0aabb43e2bc901919f6bceb0993d3d"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH12-source-reopen.json",
+          "findings": "Fresh Blender opened the native source, rendered rest and every clip midpoint, sampled the evaluated RENDER graph at five frames per clip, then reopened the source again for the rest-pose GLB export."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "ce48d4b85f95f6e7478df8364f07b7b41b80f3e1798c93df79bd07cc0a84b5bb",
+            "ba3f5c8ac721a1fb46ec753029414e395a0aabb43e2bc901919f6bceb0993d3d"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH12-structure.json",
+          "findings": "Fresh Blender imported the final self-contained GLB. Its 10032 triangles agree with Firefox; material names agree with the native file. The runtime uses 8 rigid mesh groups and 33 draws."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "ce48d4b85f95f6e7478df8364f07b7b41b80f3e1798c93df79bd07cc0a84b5bb",
+            "ba3f5c8ac721a1fb46ec753029414e395a0aabb43e2bc901919f6bceb0993d3d"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH12-visual.json",
+          "findings": "The heavy iron cabinet stands on piston knees with a softly squared expressive face. The middle drawer travels forward on reaction while the head and arm incline. Its three drawer pulls and paper index tabs stay legible in the inspection views."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "ce48d4b85f95f6e7478df8364f07b7b41b80f3e1798c93df79bd07cc0a84b5bb",
+            "ba3f5c8ac721a1fb46ec753029414e395a0aabb43e2bc901919f6bceb0993d3d"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH12-browser-comparison.json",
+          "findings": "Inspected the paired native/browser rest and 2 clip midpoint captures. Every clip moved visible geometry in headless Firefox. Across five times per clip, maximum vertex-envelope component discrepancy was 1.17e-07 metres."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "ce48d4b85f95f6e7478df8364f07b7b41b80f3e1798c93df79bd07cc0a84b5bb",
+            "ba3f5c8ac721a1fb46ec753029414e395a0aabb43e2bc901919f6bceb0993d3d"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH12-rights.json",
+          "findings": "Inspected the original construction scripts, imported materials, project notice and CC BY 4.0 license. The controls and attribution for project-owned creative elements are documented; scripts are Apache-2.0. This review covers these exact source and GLB files."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/characters/CH12.blend",
+        "objectIds": [
+          "CH12.ground",
+          "CH12.base",
+          "CH12.cabinet",
+          "CH12.inspector",
+          "CH12.broad forge boot",
+          "CH12.toe plate",
+          "CH12.piston shin",
+          "CH12.knee casting",
+          "CH12.knee rivet",
+          "CH12.thigh link",
+          "CH12.broad forge boot.001",
+          "CH12.toe plate.001",
+          "CH12.piston shin.001",
+          "CH12.knee casting.001",
+          "CH12.knee rivet.001",
+          "CH12.thigh link.001",
+          "CH12.pelvic brace",
+          "CH12.main drawer chest",
+          "CH12.cabinet face frame",
+          "CH12.drawer0",
+          "CH12.drawer box",
+          "CH12.index slip",
+          "CH12.arched drawer pull",
+          "CH12.drawer1",
+          "CH12.drawer box.001",
+          "CH12.index slip.001",
+          "CH12.arched drawer pull.001",
+          "CH12.drawer2",
+          "CH12.drawer box.002",
+          "CH12.index slip.002",
+          "CH12.arched drawer pull.002",
+          "CH12.neck gasket",
+          "CH12.forged head",
+          "CH12.faceplate",
+          "CH12.eye",
+          "CH12.pupil",
+          "CH12.glint",
+          "CH12.eye.001",
+          "CH12.pupil.001",
+          "CH12.glint.001",
+          "CH12.sympathetic brow",
+          "CH12.shoulder-1",
+          "CH12.pauldron",
+          "CH12.upper arm",
+          "CH12.elbow bearing",
+          "CH12.cast forearm",
+          "CH12.palm",
+          "CH12.three curved digits",
+          "CH12.three curved digits.001",
+          "CH12.three curved digits.002",
+          "CH12.case rivet",
+          "CH12.case rivet.001",
+          "CH12.sympathetic brow.001",
+          "CH12.shoulder1",
+          "CH12.pauldron.001",
+          "CH12.upper arm.001",
+          "CH12.elbow bearing.001",
+          "CH12.cast forearm.001",
+          "CH12.palm.001",
+          "CH12.three curved digits.003",
+          "CH12.three curved digits.004",
+          "CH12.three curved digits.005",
+          "CH12.case rivet.002",
+          "CH12.case rivet.003",
+          "CH12.shallow smile"
+        ],
+        "units": "metres",
+        "axes": "Blender Z up, GLB Y up",
+        "pivot": "Floor origin. Blender forward -Y; glTF forward +Z.",
+        "collisionProxy": "CH12.collision-envelope (authoring-only bounds; navigation owned by room)",
+        "animationClips": [
+          "idle",
+          "reaction"
+        ],
+        "triangles": 10032,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH13",
+      "semanticIdentity": "spec001:CH13",
+      "kind": "character-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/characters/CH13.blend",
+            "sha256": "91b684b7f675b996a3c8611e05661040fbbcffa5efecd91d652057b7f79a3078",
+            "bytes": 163684,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T108/CH13-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/CH13.glb",
+            "sha256": "f3f2ce2add8288989714f80b42fe71ca4196c5bd23dbd38c79adb4a85bfa3d1a",
+            "bytes": 396692,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "91b684b7f675b996a3c8611e05661040fbbcffa5efecd91d652057b7f79a3078"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected rigid meshes, Y up, PBR, NLA tracks sampled at 24 fps, no stage/camera/light/proxy",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T108/CH13-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T108-CH13-20261127-native",
+          "settingsPath": "assets-src/characters/T108/build.py",
+          "promptOrScriptPath": "assets-src/characters/T108/workshop.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "91b684b7f675b996a3c8611e05661040fbbcffa5efecd91d652057b7f79a3078"
+          ],
+          "notes": "Original procedural character constructed in Blender from the Spec001 roster. Metric scene and keyed NLA tracks. Each edited form remains a separate native mesh; GLB consolidation happens in memory on reopen."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco (Network Quest project)",
+          "OpenAI Codex (original modeling assistance)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "LICENSE-ASSETS",
+          "assets-src/characters/T108/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original procedural meshes, PBR materials and keyframes authored by Codex in local Blender. No downloaded content, imported textures, generated-image inputs or stock character rigs. Creative files carry CC BY 4.0 to the extent the project controls the rights; scripts carry Apache-2.0."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "91b684b7f675b996a3c8611e05661040fbbcffa5efecd91d652057b7f79a3078",
+            "f3f2ce2add8288989714f80b42fe71ca4196c5bd23dbd38c79adb4a85bfa3d1a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH13-source-reopen.json",
+          "findings": "Fresh Blender opened the native source, rendered rest and every clip midpoint, sampled the evaluated RENDER graph at five frames per clip, then reopened the source again for the rest-pose GLB export."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "91b684b7f675b996a3c8611e05661040fbbcffa5efecd91d652057b7f79a3078",
+            "f3f2ce2add8288989714f80b42fe71ca4196c5bd23dbd38c79adb4a85bfa3d1a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH13-structure.json",
+          "findings": "Fresh Blender imported the final self-contained GLB. Its 13784 triangles agree with Firefox; material names agree with the native file. The runtime uses 4 rigid mesh groups and 20 draws."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "91b684b7f675b996a3c8611e05661040fbbcffa5efecd91d652057b7f79a3078",
+            "f3f2ce2add8288989714f80b42fe71ca4196c5bd23dbd38c79adb4a85bfa3d1a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH13-visual.json",
+          "findings": "The domed scutes, spectacles, post cap, satchel and postal flag read together. The postal keeper extends its neck and pivots the flag on reaction. The green cap and shell are visible against the dark ground in both renderers."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "91b684b7f675b996a3c8611e05661040fbbcffa5efecd91d652057b7f79a3078",
+            "f3f2ce2add8288989714f80b42fe71ca4196c5bd23dbd38c79adb4a85bfa3d1a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH13-browser-comparison.json",
+          "findings": "Inspected the paired native/browser rest and 2 clip midpoint captures. Every clip moved visible geometry in headless Firefox. Across five times per clip, maximum vertex-envelope component discrepancy was 1.89e-07 metres."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "91b684b7f675b996a3c8611e05661040fbbcffa5efecd91d652057b7f79a3078",
+            "f3f2ce2add8288989714f80b42fe71ca4196c5bd23dbd38c79adb4a85bfa3d1a"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH13-rights.json",
+          "findings": "Inspected the original construction scripts, imported materials, project notice and CC BY 4.0 license. The controls and attribution for project-owned creative elements are documented; scripts are Apache-2.0. This review covers these exact source and GLB files."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/characters/CH13.blend",
+        "objectIds": [
+          "CH13.ground",
+          "CH13.base",
+          "CH13.plastron",
+          "CH13.postmaster",
+          "CH13.postal flag",
+          "CH13.wide plastron",
+          "CH13.domed shell",
+          "CH13.shell scute",
+          "CH13.shell scute.001",
+          "CH13.shell scute.002",
+          "CH13.shell scute.003",
+          "CH13.shell scute.004",
+          "CH13.shell scute.005",
+          "CH13.shell scute.006",
+          "CH13.shell scute.007",
+          "CH13.shell scute.008",
+          "CH13.crown scute",
+          "CH13.crown scute.001",
+          "CH13.crown scute.002",
+          "CH13.crown scute.003",
+          "CH13.crown scute.004",
+          "CH13.central rosette",
+          "CH13.rolled shell rim",
+          "CH13.column foot",
+          "CH13.blunt nail",
+          "CH13.blunt nail.001",
+          "CH13.blunt nail.002",
+          "CH13.column foot.001",
+          "CH13.blunt nail.003",
+          "CH13.blunt nail.004",
+          "CH13.blunt nail.005",
+          "CH13.column foot.002",
+          "CH13.blunt nail.006",
+          "CH13.blunt nail.007",
+          "CH13.blunt nail.008",
+          "CH13.column foot.003",
+          "CH13.blunt nail.009",
+          "CH13.blunt nail.010",
+          "CH13.blunt nail.011",
+          "CH13.telescoping neck",
+          "CH13.postmaster face",
+          "CH13.lower jaw",
+          "CH13.eye",
+          "CH13.pupil",
+          "CH13.glint",
+          "CH13.eye.001",
+          "CH13.pupil.001",
+          "CH13.glint.001",
+          "CH13.spectacle rim",
+          "CH13.spectacle rim.001",
+          "CH13.spectacle bridge",
+          "CH13.station cap",
+          "CH13.cap peak",
+          "CH13.cap brass button",
+          "CH13.dispatch satchel",
+          "CH13.envelope showing",
+          "CH13.mailbag flap stitching",
+          "CH13.semaphore mast",
+          "CH13.post pennant"
+        ],
+        "units": "metres",
+        "axes": "Blender Z up, GLB Y up",
+        "pivot": "Floor origin. Blender forward -Y; glTF forward +Z.",
+        "collisionProxy": "CH13.collision-envelope (authoring-only bounds; navigation owned by room)",
+        "animationClips": [
+          "idle",
+          "reaction"
+        ],
+        "triangles": 13784,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH14",
+      "semanticIdentity": "spec001:CH14",
+      "kind": "character-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/characters/CH14.blend",
+            "sha256": "47b734d030a17b0476160169649438f3ac3b2283f0882742f0c795ebb7ae345b",
+            "bytes": 155488,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T108/CH14-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/CH14.glb",
+            "sha256": "ca2fa2a96dc504460c56e09dedca0a1045949104c630d069d5483338a0f09fb1",
+            "bytes": 255416,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "47b734d030a17b0476160169649438f3ac3b2283f0882742f0c795ebb7ae345b"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected rigid meshes, Y up, PBR, NLA tracks sampled at 24 fps, no stage/camera/light/proxy",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T108/CH14-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T108-CH14-20261127-native",
+          "settingsPath": "assets-src/characters/T108/build.py",
+          "promptOrScriptPath": "assets-src/characters/T108/market.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "47b734d030a17b0476160169649438f3ac3b2283f0882742f0c795ebb7ae345b"
+          ],
+          "notes": "Original procedural character constructed in Blender from the Spec001 roster. Metric scene and keyed NLA tracks. Each edited form remains a separate native mesh; GLB consolidation happens in memory on reopen."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco (Network Quest project)",
+          "OpenAI Codex (original modeling assistance)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "LICENSE-ASSETS",
+          "assets-src/characters/T108/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original procedural meshes, PBR materials and keyframes authored by Codex in local Blender. No downloaded content, imported textures, generated-image inputs or stock character rigs. Creative files carry CC BY 4.0 to the extent the project controls the rights; scripts carry Apache-2.0."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "47b734d030a17b0476160169649438f3ac3b2283f0882742f0c795ebb7ae345b",
+            "ca2fa2a96dc504460c56e09dedca0a1045949104c630d069d5483338a0f09fb1"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH14-source-reopen.json",
+          "findings": "Fresh Blender opened the native source, rendered rest and every clip midpoint, sampled the evaluated RENDER graph at five frames per clip, then reopened the source again for the rest-pose GLB export."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "47b734d030a17b0476160169649438f3ac3b2283f0882742f0c795ebb7ae345b",
+            "ca2fa2a96dc504460c56e09dedca0a1045949104c630d069d5483338a0f09fb1"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH14-structure.json",
+          "findings": "Fresh Blender imported the final self-contained GLB. Its 9180 triangles agree with Firefox; material names agree with the native file. The runtime uses 5 rigid mesh groups and 20 draws."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "47b734d030a17b0476160169649438f3ac3b2283f0882742f0c795ebb7ae345b",
+            "ca2fa2a96dc504460c56e09dedca0a1045949104c630d069d5483338a0f09fb1"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH14-visual.json",
+          "findings": "Digging claws, snout whiskers and the twisted telephone pair distinguish the upright mole. The raised paw and lifted snout read on reaction. The modeled feet connect to short legs. Both wire colors survive the browser lighting."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "47b734d030a17b0476160169649438f3ac3b2283f0882742f0c795ebb7ae345b",
+            "ca2fa2a96dc504460c56e09dedca0a1045949104c630d069d5483338a0f09fb1"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH14-browser-comparison.json",
+          "findings": "Inspected the paired native/browser rest and 2 clip midpoint captures. Every clip moved visible geometry in headless Firefox. Across five times per clip, maximum vertex-envelope component discrepancy was 1.37e-07 metres."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "47b734d030a17b0476160169649438f3ac3b2283f0882742f0c795ebb7ae345b",
+            "ca2fa2a96dc504460c56e09dedca0a1045949104c630d069d5483338a0f09fb1"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH14-rights.json",
+          "findings": "Inspected the original construction scripts, imported materials, project notice and CC BY 4.0 license. The controls and attribution for project-owned creative elements are documented; scripts are Apache-2.0. This review covers these exact source and GLB files."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/characters/CH14.blend",
+        "objectIds": [
+          "CH14.ground",
+          "CH14.base",
+          "CH14.digger",
+          "CH14.listener",
+          "CH14.soft pear coat",
+          "CH14.velvet face",
+          "CH14.long snout",
+          "CH14.wet shovel nose",
+          "CH14.eye",
+          "CH14.pupil",
+          "CH14.glint",
+          "CH14.eye.001",
+          "CH14.pupil.001",
+          "CH14.glint.001",
+          "CH14.burrow ear",
+          "CH14.whisker",
+          "CH14.whisker.001",
+          "CH14.spade-1",
+          "CH14.sleeved burrowing arm",
+          "CH14.spade palm",
+          "CH14.ivory digging nail",
+          "CH14.ivory digging nail.001",
+          "CH14.ivory digging nail.002",
+          "CH14.ivory digging nail.003",
+          "CH14.short boot",
+          "CH14.broad foot",
+          "CH14.toe",
+          "CH14.toe.001",
+          "CH14.toe.002",
+          "CH14.burrow ear.001",
+          "CH14.whisker.002",
+          "CH14.whisker.003",
+          "CH14.spade1",
+          "CH14.sleeved burrowing arm.001",
+          "CH14.spade palm.001",
+          "CH14.ivory digging nail.004",
+          "CH14.ivory digging nail.005",
+          "CH14.ivory digging nail.006",
+          "CH14.ivory digging nail.007",
+          "CH14.short boot.001",
+          "CH14.broad foot.001",
+          "CH14.toe.003",
+          "CH14.toe.004",
+          "CH14.toe.005",
+          "CH14.two insulated conductors",
+          "CH14.two insulated conductors.001",
+          "CH14.receiver spine",
+          "CH14.receiver cap",
+          "CH14.earcap trim",
+          "CH14.receiver cap.001",
+          "CH14.earcap trim.001",
+          "CH14.loop service pouch"
+        ],
+        "units": "metres",
+        "axes": "Blender Z up, GLB Y up",
+        "pivot": "Floor origin. Blender forward -Y; glTF forward +Z.",
+        "collisionProxy": "CH14.collision-envelope (authoring-only bounds; navigation owned by room)",
+        "animationClips": [
+          "idle",
+          "reaction"
+        ],
+        "triangles": 9180,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH15",
+      "semanticIdentity": "spec001:CH15",
+      "kind": "character-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/characters/CH15.blend",
+            "sha256": "283cee2c1c0d7047f1ad0acb2dbe468510299c7fd6c91d8a6a260cbd50336fed",
+            "bytes": 148443,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T108/CH15-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/CH15.glb",
+            "sha256": "af801ffc1d6ad3e209b2f51a73a9e4136e18b38739b015e42a4b5e19c375e5ca",
+            "bytes": 265028,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "283cee2c1c0d7047f1ad0acb2dbe468510299c7fd6c91d8a6a260cbd50336fed"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected rigid meshes, Y up, PBR, NLA tracks sampled at 24 fps, no stage/camera/light/proxy",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T108/CH15-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T108-CH15-20261127-native",
+          "settingsPath": "assets-src/characters/T108/build.py",
+          "promptOrScriptPath": "assets-src/characters/T108/market.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "283cee2c1c0d7047f1ad0acb2dbe468510299c7fd6c91d8a6a260cbd50336fed"
+          ],
+          "notes": "Original procedural character constructed in Blender from the Spec001 roster. Metric scene and keyed NLA tracks. Each edited form remains a separate native mesh; GLB consolidation happens in memory on reopen."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco (Network Quest project)",
+          "OpenAI Codex (original modeling assistance)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "LICENSE-ASSETS",
+          "assets-src/characters/T108/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original procedural meshes, PBR materials and keyframes authored by Codex in local Blender. No downloaded content, imported textures, generated-image inputs or stock character rigs. Creative files carry CC BY 4.0 to the extent the project controls the rights; scripts carry Apache-2.0."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "283cee2c1c0d7047f1ad0acb2dbe468510299c7fd6c91d8a6a260cbd50336fed",
+            "af801ffc1d6ad3e209b2f51a73a9e4136e18b38739b015e42a4b5e19c375e5ca"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH15-source-reopen.json",
+          "findings": "Fresh Blender opened the native source, rendered rest and every clip midpoint, sampled the evaluated RENDER graph at five frames per clip, then reopened the source again for the rest-pose GLB export."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "283cee2c1c0d7047f1ad0acb2dbe468510299c7fd6c91d8a6a260cbd50336fed",
+            "af801ffc1d6ad3e209b2f51a73a9e4136e18b38739b015e42a4b5e19c375e5ca"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH15-structure.json",
+          "findings": "Fresh Blender imported the final self-contained GLB. Its 9584 triangles agree with Firefox; material names agree with the native file. The runtime uses 4 rigid mesh groups and 14 draws."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "283cee2c1c0d7047f1ad0acb2dbe468510299c7fd6c91d8a6a260cbd50336fed",
+            "af801ffc1d6ad3e209b2f51a73a9e4136e18b38739b015e42a4b5e19c375e5ca"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH15-visual.json",
+          "findings": "A tapering ivory face with longitudinal dark stripes identifies the quadruped. Its jacket, braid, dielectric and center conductor resolve on the near-side coax sample. The reaction raises the specimen toward the face."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "283cee2c1c0d7047f1ad0acb2dbe468510299c7fd6c91d8a6a260cbd50336fed",
+            "af801ffc1d6ad3e209b2f51a73a9e4136e18b38739b015e42a4b5e19c375e5ca"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH15-browser-comparison.json",
+          "findings": "Inspected the paired native/browser rest and 2 clip midpoint captures. Every clip moved visible geometry in headless Firefox. Across five times per clip, maximum vertex-envelope component discrepancy was 1.1e-07 metres."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "283cee2c1c0d7047f1ad0acb2dbe468510299c7fd6c91d8a6a260cbd50336fed",
+            "af801ffc1d6ad3e209b2f51a73a9e4136e18b38739b015e42a4b5e19c375e5ca"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH15-rights.json",
+          "findings": "Inspected the original construction scripts, imported materials, project notice and CC BY 4.0 license. The controls and attribution for project-owned creative elements are documented; scripts are Apache-2.0. This review covers these exact source and GLB files."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/characters/CH15.blend",
+        "objectIds": [
+          "CH15.ground",
+          "CH15.base",
+          "CH15.coax keeper",
+          "CH15.mask",
+          "CH15.stocky coat",
+          "CH15.pale bib",
+          "CH15.plantigrade leg",
+          "CH15.black foot",
+          "CH15.short nail",
+          "CH15.short nail.001",
+          "CH15.short nail.002",
+          "CH15.plantigrade leg.001",
+          "CH15.black foot.001",
+          "CH15.short nail.003",
+          "CH15.short nail.004",
+          "CH15.short nail.005",
+          "CH15.plantigrade leg.002",
+          "CH15.black foot.002",
+          "CH15.short nail.006",
+          "CH15.short nail.007",
+          "CH15.short nail.008",
+          "CH15.plantigrade leg.003",
+          "CH15.black foot.003",
+          "CH15.short nail.009",
+          "CH15.short nail.010",
+          "CH15.short nail.011",
+          "CH15.broad ivory blaze",
+          "CH15.dark longitudinal badger mask",
+          "CH15.rounded ear",
+          "CH15.ear rim",
+          "CH15.alert eye",
+          "CH15.iris",
+          "CH15.eye glint",
+          "CH15.dark longitudinal badger mask.001",
+          "CH15.rounded ear.001",
+          "CH15.ear rim.001",
+          "CH15.alert eye.001",
+          "CH15.iris.001",
+          "CH15.eye glint.001",
+          "CH15.button nose",
+          "CH15.brush tail",
+          "CH15.sample yoke",
+          "CH15.leather sling",
+          "CH15.sling side",
+          "CH15.sample outer jacket",
+          "CH15.sample braid",
+          "CH15.sample dielectric",
+          "CH15.central conductor"
+        ],
+        "units": "metres",
+        "axes": "Blender Z up, GLB Y up",
+        "pivot": "Floor origin. Blender forward -Y; glTF forward +Z.",
+        "collisionProxy": "CH15.collision-envelope (authoring-only bounds; navigation owned by room)",
+        "animationClips": [
+          "idle",
+          "reaction"
+        ],
+        "triangles": 9584,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH16",
+      "semanticIdentity": "spec001:CH16",
+      "kind": "character-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/characters/CH16.blend",
+            "sha256": "04a359d326acebf4be89aee717eb2e93852acda729bd1b84b5a7ce74926789e1",
+            "bytes": 161722,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T108/CH16-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/CH16.glb",
+            "sha256": "ea7894723dca60148e1381e0a7908dcc562be8bc807c1de43c737986d8194c61",
+            "bytes": 418616,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "04a359d326acebf4be89aee717eb2e93852acda729bd1b84b5a7ce74926789e1"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected rigid meshes, Y up, PBR, NLA tracks sampled at 24 fps, no stage/camera/light/proxy",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T108/CH16-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T108-CH16-20261127-native",
+          "settingsPath": "assets-src/characters/T108/build.py",
+          "promptOrScriptPath": "assets-src/characters/T108/sculpt.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "04a359d326acebf4be89aee717eb2e93852acda729bd1b84b5a7ce74926789e1"
+          ],
+          "notes": "Original procedural character constructed in Blender from the Spec001 roster. Metric scene and keyed NLA tracks. Each edited form remains a separate native mesh; GLB consolidation happens in memory on reopen."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco (Network Quest project)",
+          "OpenAI Codex (original modeling assistance)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "LICENSE-ASSETS",
+          "assets-src/characters/T108/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original procedural meshes, PBR materials and keyframes authored by Codex in local Blender. No downloaded content, imported textures, generated-image inputs or stock character rigs. Creative files carry CC BY 4.0 to the extent the project controls the rights; scripts carry Apache-2.0."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "04a359d326acebf4be89aee717eb2e93852acda729bd1b84b5a7ce74926789e1",
+            "ea7894723dca60148e1381e0a7908dcc562be8bc807c1de43c737986d8194c61"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH16-source-reopen.json",
+          "findings": "Fresh Blender opened the native source, rendered rest and every clip midpoint, sampled the evaluated RENDER graph at five frames per clip, then reopened the source again for the rest-pose GLB export."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "04a359d326acebf4be89aee717eb2e93852acda729bd1b84b5a7ce74926789e1",
+            "ea7894723dca60148e1381e0a7908dcc562be8bc807c1de43c737986d8194c61"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH16-structure.json",
+          "findings": "Fresh Blender imported the final self-contained GLB. Its 9464 triangles agree with Firefox; material names agree with the native file. The runtime uses 5 rigid mesh groups and 19 draws."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "04a359d326acebf4be89aee717eb2e93852acda729bd1b84b5a7ce74926789e1",
+            "ea7894723dca60148e1381e0a7908dcc562be8bc807c1de43c737986d8194c61"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH16-visual.json",
+          "findings": "The cooling fins, gold extraction bail and catalog tag make a module housing carried by a six-legged crab. Stalks and pincers tilt on reaction. The ability turns the shell and lifts the larger pincer toward the tag. The bail and pincer remain visible in R06/R09; the small tag markings are clearest in close-up."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "04a359d326acebf4be89aee717eb2e93852acda729bd1b84b5a7ce74926789e1",
+            "ea7894723dca60148e1381e0a7908dcc562be8bc807c1de43c737986d8194c61"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH16-browser-comparison.json",
+          "findings": "Inspected the paired native/browser rest and 3 clip midpoint captures. Every clip moved visible geometry in headless Firefox. Across five times per clip, maximum vertex-envelope component discrepancy was 1.57e-07 metres."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "04a359d326acebf4be89aee717eb2e93852acda729bd1b84b5a7ce74926789e1",
+            "ea7894723dca60148e1381e0a7908dcc562be8bc807c1de43c737986d8194c61"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH16-rights.json",
+          "findings": "Inspected the original construction scripts, imported materials, project notice and CC BY 4.0 license. The controls and attribution for project-owned creative elements are documented; scripts are Apache-2.0. This review covers these exact source and GLB files."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/characters/CH16.blend",
+        "objectIds": [
+          "CH16.ground",
+          "CH16.base",
+          "CH16.shell",
+          "CH16.eyestalks",
+          "CH16.carapace",
+          "CH16.pluggable cast housing",
+          "CH16.black insulator",
+          "CH16.contact tongue",
+          "CH16.contact finger",
+          "CH16.contact finger.001",
+          "CH16.contact finger.002",
+          "CH16.contact finger.003",
+          "CH16.contact finger.004",
+          "CH16.contact finger.005",
+          "CH16.contact finger.006",
+          "CH16.raised cooling fin",
+          "CH16.raised cooling fin.001",
+          "CH16.raised cooling fin.002",
+          "CH16.raised cooling fin.003",
+          "CH16.raised cooling fin.004",
+          "CH16.folded extraction bail",
+          "CH16.jointed walking leg",
+          "CH16.leg knuckle",
+          "CH16.jointed walking leg.001",
+          "CH16.leg knuckle.001",
+          "CH16.jointed walking leg.002",
+          "CH16.leg knuckle.002",
+          "CH16.eye stalk",
+          "CH16.eye socket",
+          "CH16.eye",
+          "CH16.pupil",
+          "CH16.spark",
+          "CH16.arm-1",
+          "CH16.forearm",
+          "CH16.pincer palm",
+          "CH16.curved pincer",
+          "CH16.curved pincer.001",
+          "CH16.folded extraction bail.001",
+          "CH16.jointed walking leg.003",
+          "CH16.leg knuckle.003",
+          "CH16.jointed walking leg.004",
+          "CH16.leg knuckle.004",
+          "CH16.jointed walking leg.005",
+          "CH16.leg knuckle.005",
+          "CH16.eye stalk.001",
+          "CH16.eye socket.001",
+          "CH16.eye.001",
+          "CH16.pupil.001",
+          "CH16.spark.001",
+          "CH16.arm1",
+          "CH16.forearm.001",
+          "CH16.pincer palm.001",
+          "CH16.curved pincer.002",
+          "CH16.curved pincer.003",
+          "CH16.smile",
+          "CH16.tag hinge",
+          "CH16.catalog tag",
+          "CH16.catalog rules",
+          "CH16.catalog rules.001"
+        ],
+        "units": "metres",
+        "axes": "Blender Z up, GLB Y up",
+        "pivot": "Floor origin. Blender forward -Y; glTF forward +Z.",
+        "collisionProxy": "CH16.collision-envelope (authoring-only bounds; navigation owned by room)",
+        "animationClips": [
+          "idle",
+          "reaction",
+          "ability"
+        ],
+        "triangles": 9464,
+        "textureBytes": 0
+      }
+    },
+    {
+      "assetId": "spec001:ASSET-CH17",
+      "semanticIdentity": "spec001:CH17",
+      "kind": "character-model",
+      "status": "exported",
+      "countsTowardQuota": false,
+      "interactiveOrEvidence": false,
+      "variantOf": null,
+      "derivedFrom": [],
+      "sources": [
+        {
+          "file": {
+            "path": "assets-src/characters/CH17.blend",
+            "sha256": "4efa03abaa0ade54c90efd773d0074ef5be1152c7eabd9dab219241289893e60",
+            "bytes": 179684,
+            "format": "blend"
+          },
+          "role": "native",
+          "application": "Blender",
+          "version": "5.2.1 LTS",
+          "reopenEvidencePath": "docs/evidence/spec001/assets/T108/CH17-source-reopen.json"
+        }
+      ],
+      "exports": [
+        {
+          "file": {
+            "path": "public/assets/models/CH17.glb",
+            "sha256": "6f7ddd21c44754d5eaf783ca0571c6960f14c275e94873321f08610a000f28d1",
+            "bytes": 449652,
+            "format": "glb"
+          },
+          "mimeType": "model/gltf-binary",
+          "sourceHashes": [
+            "4efa03abaa0ade54c90efd773d0074ef5be1152c7eabd9dab219241289893e60"
+          ],
+          "tool": "Blender glTF exporter",
+          "preset": "Selected rigid meshes, Y up, PBR, NLA tracks sampled at 24 fps, no stage/camera/light/proxy",
+          "integrationEvidencePath": "docs/evidence/spec001/assets/T108/CH17-browser-comparison.json"
+        }
+      ],
+      "production": [
+        {
+          "method": "modeled",
+          "tool": "Blender",
+          "version": "5.2.1 LTS",
+          "modelRevision": "9e2066aef7ef",
+          "eventId": "T108-CH17-20261127-native",
+          "settingsPath": "assets-src/characters/T108/build.py",
+          "promptOrScriptPath": "assets-src/characters/T108/market.py",
+          "referenceHashes": [],
+          "outputHashes": [
+            "4efa03abaa0ade54c90efd773d0074ef5be1152c7eabd9dab219241289893e60"
+          ],
+          "notes": "Original procedural character constructed in Blender from the Spec001 roster. Metric scene and keyed NLA tracks. Each edited form remains a separate native mesh; GLB consolidation happens in memory on reopen."
+        }
+      ],
+      "rights": {
+        "reviewStatus": "accepted",
+        "creators": [
+          "John Capobianco (Network Quest project)",
+          "OpenAI Codex (original modeling assistance)"
+        ],
+        "licenseIds": [
+          "CC-BY-4.0"
+        ],
+        "noticePaths": [
+          "NOTICE",
+          "LICENSE-ASSETS",
+          "assets-src/characters/T108/NOTICE.md"
+        ],
+        "sourceUrls": [],
+        "termsSnapshotPaths": [],
+        "inputPermissionPaths": [],
+        "aiDisclosure": "Original procedural meshes, PBR materials and keyframes authored by Codex in local Blender. No downloaded content, imported textures, generated-image inputs or stock character rigs. Creative files carry CC BY 4.0 to the extent the project controls the rights; scripts carry Apache-2.0."
+      },
+      "usedBy": [],
+      "verification": [
+        {
+          "check": "source-reopen",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "4efa03abaa0ade54c90efd773d0074ef5be1152c7eabd9dab219241289893e60",
+            "6f7ddd21c44754d5eaf783ca0571c6960f14c275e94873321f08610a000f28d1"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH17-source-reopen.json",
+          "findings": "Fresh Blender opened the native source, rendered rest and every clip midpoint, sampled the evaluated RENDER graph at five frames per clip, then reopened the source again for the rest-pose GLB export."
+        },
+        {
+          "check": "structure",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "4efa03abaa0ade54c90efd773d0074ef5be1152c7eabd9dab219241289893e60",
+            "6f7ddd21c44754d5eaf783ca0571c6960f14c275e94873321f08610a000f28d1"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH17-structure.json",
+          "findings": "Fresh Blender imported the final self-contained GLB. Its 14760 triangles agree with Firefox; material names agree with the native file. The runtime uses 5 rigid mesh groups and 27 draws."
+        },
+        {
+          "check": "visual",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "4efa03abaa0ade54c90efd773d0074ef5be1152c7eabd9dab219241289893e60",
+            "6f7ddd21c44754d5eaf783ca0571c6960f14c275e94873321f08610a000f28d1"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH17-visual.json",
+          "findings": "The lion, curled-horn ram and crested serpent consult a single pack and tag. Their separate neck motions spread the silhouette on reaction and reveal the four grooves in the housing. Three heads and four grooves visually distinguish the metaphor from a lane-count assertion."
+        },
+        {
+          "check": "browser-comparison",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "4efa03abaa0ade54c90efd773d0074ef5be1152c7eabd9dab219241289893e60",
+            "6f7ddd21c44754d5eaf783ca0571c6960f14c275e94873321f08610a000f28d1"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH17-browser-comparison.json",
+          "findings": "Inspected the paired native/browser rest and 2 clip midpoint captures. Every clip moved visible geometry in headless Firefox. Across five times per clip, maximum vertex-envelope component discrepancy was 2.7e-07 metres."
+        },
+        {
+          "check": "rights",
+          "status": "passed",
+          "reviewer": "/root/loop125_t108",
+          "date": "2026-11-27",
+          "hashes": [
+            "4efa03abaa0ade54c90efd773d0074ef5be1152c7eabd9dab219241289893e60",
+            "6f7ddd21c44754d5eaf783ca0571c6960f14c275e94873321f08610a000f28d1"
+          ],
+          "environment": "macOS 26.6.2 arm64 Mac16,7. Blender 5.2.1 LTS 9e2066aef7ef. Three r187 and Firefox 159.0 headless WebGL via strict local TLS.",
+          "evidencePath": "docs/evidence/spec001/assets/T108/CH17-rights.json",
+          "findings": "Inspected the original construction scripts, imported materials, project notice and CC BY 4.0 license. The controls and attribution for project-owned creative elements are documented; scripts are Apache-2.0. This review covers these exact source and GLB files."
+        }
+      ],
+      "model": {
+        "blendSourcePath": "assets-src/characters/CH17.blend",
+        "objectIds": [
+          "CH17.ground",
+          "CH17.base",
+          "CH17.module chassis",
+          "CH17.lion haunch",
+          "CH17.QSFP pack",
+          "CH17.separate engraved guide",
+          "CH17.separate engraved guide.001",
+          "CH17.separate engraved guide.002",
+          "CH17.separate engraved guide.003",
+          "CH17.pack release bail",
+          "CH17.lion leg",
+          "CH17.padded paw",
+          "CH17.lion leg.001",
+          "CH17.padded paw.001",
+          "CH17.pack release bail.001",
+          "CH17.lion leg.002",
+          "CH17.padded paw.002",
+          "CH17.lion leg.003",
+          "CH17.padded paw.003",
+          "CH17.forked tail",
+          "CH17.lion",
+          "CH17.lion neck",
+          "CH17.scalloped copper mane",
+          "CH17.scalloped copper mane.001",
+          "CH17.scalloped copper mane.002",
+          "CH17.scalloped copper mane.003",
+          "CH17.scalloped copper mane.004",
+          "CH17.scalloped copper mane.005",
+          "CH17.scalloped copper mane.006",
+          "CH17.scalloped copper mane.007",
+          "CH17.scalloped copper mane.008",
+          "CH17.lion face",
+          "CH17.eye",
+          "CH17.pupil",
+          "CH17.glint",
+          "CH17.eye.001",
+          "CH17.pupil.001",
+          "CH17.glint.001",
+          "CH17.lion muzzle",
+          "CH17.lion muzzle.001",
+          "CH17.lion nose",
+          "CH17.serpent",
+          "CH17.s curved serpent neck",
+          "CH17.serpent head",
+          "CH17.eye.002",
+          "CH17.pupil.002",
+          "CH17.glint.002",
+          "CH17.eye.003",
+          "CH17.pupil.003",
+          "CH17.glint.003",
+          "CH17.serpent grin",
+          "CH17.serpent crest",
+          "CH17.serpent crest.001",
+          "CH17.serpent crest.002",
+          "CH17.ram",
+          "CH17.ram neck",
+          "CH17.ram face",
+          "CH17.eye.004",
+          "CH17.pupil.004",
+          "CH17.glint.004",
+          "CH17.eye.005",
+          "CH17.pupil.005",
+          "CH17.glint.005",
+          "CH17.ram muzzle",
+          "CH17.ram nostril",
+          "CH17.ram ear",
+          "CH17.ram nostril.001",
+          "CH17.ram ear.001",
+          "CH17.curled horn",
+          "CH17.curled horn.001",
+          "CH17.inventory ledger cord",
+          "CH17.ledger card"
+        ],
+        "units": "metres",
+        "axes": "Blender Z up, GLB Y up",
+        "pivot": "Floor origin. Blender forward -Y; glTF forward +Z.",
+        "collisionProxy": "CH17.collision-envelope (authoring-only bounds; navigation owned by room)",
+        "animationClips": [
+          "idle",
+          "reaction"
+        ],
+        "triangles": 14760,
+        "textureBytes": 0
+      }
+    }
+  ]
+}
