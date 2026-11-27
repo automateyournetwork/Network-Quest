@@ -14,7 +14,7 @@ Authority: [constitution](../../../.specify/memory/constitution.md#development-w
 | G1 | W02 / T035 | T001–T011, T012–T021, T022–T030, T031–T034; G0 | PENDING | Codex `/root/loop043_t035`, 2026-11-26: actual guest/packet text investigation reviewed; independent browser exact-limit gap closed. Visual graybox remains a local unmet exit criterion; G0 also remains blocked. [Review](../../implementation/loops/043-T035.md), [US1](US1.md#t035-independent-review--2026-11-26). T035 remains incomplete. |
 | G2 | W03 / T058 | T036–T057 after G1 | PENDING | Not executed; reviewer not assigned; no runtime evidence |
 | G3 | W04 / T067 | T059 measurement harness, T060–T066 after G2 | PENDING | 2026-11-26: historical R01 candidate has real sources/media and 12 passing Firefox budget samples. Actual Safari timing remains unverified; owner requests a contained game-screen correction before final acceptance. [Representative review](representative-room.md). No aggregate gate passed. |
-| G4 | W05/W06 / T105 | T068–T104 after G3, including first route, outcomes, R12 and optional activities | PENDING | Not executed; reviewer not assigned; no runtime evidence |
+| G4 | W05/W06 / T105 | T068–T104 after G3, including first route, outcomes, R12 and optional activities | PENDING (upstream aggregate gates) | Local T105 gameplay accepted: three independent native routes,734focused checks,98original-case dispositions; US2/US6/US3/US7 evidence. Finished media/human/provider scope remains separate. |
 | G5 | W07 / T141 | T106–T140 after G4 | PENDING | Not executed; visual/listening review pending; no accepted inventory |
 | G6 | W08 / T163 | T142–T158 then T159–T162; G0–G5 | PENDING | Not executed; beginner/technical/owner reviews pending |
 | G7 | W09 / T170 | T164–T169 after G6; owner initiation required for T169 live publication | PENDING | Not executed; packaging/recovery/staging/publication evidence pending |
@@ -325,3 +325,19 @@ no remaining local guest/initialpacket defect identified. [Reassessment](guest-c
 checks final077/078/native and later copper evidence without rerunning unchanged
 browsers. Aggregate G1 remains PENDING because G0 is not accepted. No finalepisode
 or provider acceptance is inferred.
+
+### Local complete-gameplay checkpoint accepted — 2026-11-27
+
+Root accepted T105 after three independent no-recruit copper/fiber/radio journeys
+and exact original-case reconciliation. See [US2](US2.md) and
+[coordinator review](routes-t105/root-review.md).45packet files/429current inputs/
+704original field groups match.734focused tests, overlapping30affected tests and
+check/build pass. Four T092 whole-route deferrals are now resolved; original sealed
+ledgers/fixtures/TODOs remain intact, with73explicit adaptations among98newmappedrows.
+
+The actual-input readiness assessment permits T106 layout freeze and subsequent
+media source batches under the existing tasks.md independent-work rule. T067's
+accepted representative source/native/listening/owner frame evidence remains the
+reference. This is scoped production readiness, not aggregate G4/G5 or release PASS.
+G0–G3 external dependencies remain open; full media, literal precommit animation,
+provider/human/owner episode evidence and final acceptance remain required.

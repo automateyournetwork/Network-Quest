@@ -1,0 +1,169 @@
+[WebServer] (node:36334) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:36336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent copper route reaches validated R12 and restores its one PHP save (19.2s)
+(node:36472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent fiber route reaches validated R12 and restores its one PHP save (24.2s)
+(node:36651) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent radio route reaches validated R12 and restores its one PHP save (23.4s)
+
+
+  1) [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent copper route reaches validated R12 and restores its one PHP save 
+
+    TimeoutError: locator.click: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for getByRole('dialog', { name: 'Diagnostics', exact: true }).locator('ol[aria-label="Recorded measurements"] > li').last().getByRole('button', { name: 'Submit this reading', exact: true })
+        - locator resolved to <button disabled type="button">Submit this reading</button>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is not enabled
+        - retrying click action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and stable
+          - element is not enabled
+        - retrying click action
+          - waiting 100ms
+        19 × waiting for element to be visible, enabled and stable
+           - element is not enabled
+         - retrying click action
+           - waiting 500ms
+
+
+      185 |   const readings = () => diagnostic().locator('ol[aria-label="Recorded measurements"] > li');
+      186 |   const submit = async (complete: boolean) => {
+    > 187 |     await readings().last().getByRole('button', { name: 'Submit this reading', exact: true }).click();
+          |                                                                                               ^
+      188 |     if (complete) await expect(diagnostic()).toContainText('Objective complete.');
+      189 |     else await expect(diagnostic()).not.toContainText('Objective complete.');
+      190 |   };
+        at Object.submit (/private/tmp/network-quest-t105-8b66902-loop123/tests/e2e/repair-routes.spec.ts:187:95)
+        at /private/tmp/network-quest-t105-8b66902-loop123/tests/e2e/repair-routes.spec.ts:55:18
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .local/test-results/playwright-zdIWL2/repair-routes-T105-indepen-4bdfa-d-restores-its-one-PHP-save-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .local/test-results/playwright-zdIWL2/repair-routes-T105-indepen-4bdfa-d-restores-its-one-PHP-save-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .local/test-results/playwright-zdIWL2/repair-routes-T105-indepen-4bdfa-d-restores-its-one-PHP-save-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    .local/test-results/playwright-zdIWL2/repair-routes-T105-indepen-4bdfa-d-restores-its-one-PHP-save-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace .local/test-results/playwright-zdIWL2/repair-routes-T105-indepen-4bdfa-d-restores-its-one-PHP-save-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent fiber route reaches validated R12 and restores its one PHP save 
+
+    TimeoutError: locator.click: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for getByRole('dialog', { name: 'Diagnostics', exact: true }).locator('ol[aria-label="Recorded measurements"] > li').last().getByRole('button', { name: 'Submit this reading', exact: true })
+        - locator resolved to <button disabled type="button">Submit this reading</button>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is not enabled
+        - retrying click action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and stable
+          - element is not enabled
+        - retrying click action
+          - waiting 100ms
+        19 × waiting for element to be visible, enabled and stable
+           - element is not enabled
+         - retrying click action
+           - waiting 500ms
+
+
+      185 |   const readings = () => diagnostic().locator('ol[aria-label="Recorded measurements"] > li');
+      186 |   const submit = async (complete: boolean) => {
+    > 187 |     await readings().last().getByRole('button', { name: 'Submit this reading', exact: true }).click();
+          |                                                                                               ^
+      188 |     if (complete) await expect(diagnostic()).toContainText('Objective complete.');
+      189 |     else await expect(diagnostic()).not.toContainText('Objective complete.');
+      190 |   };
+        at submit (/private/tmp/network-quest-t105-8b66902-loop123/tests/e2e/repair-routes.spec.ts:187:95)
+        at Object.measure (/private/tmp/network-quest-t105-8b66902-loop123/tests/e2e/repair-routes.spec.ts:199:112)
+        at /private/tmp/network-quest-t105-8b66902-loop123/tests/e2e/repair-routes.spec.ts:106:7
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .local/test-results/playwright-GYCVJ0/repair-routes-T105-indepen-92097-d-restores-its-one-PHP-save-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .local/test-results/playwright-GYCVJ0/repair-routes-T105-indepen-92097-d-restores-its-one-PHP-save-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .local/test-results/playwright-GYCVJ0/repair-routes-T105-indepen-92097-d-restores-its-one-PHP-save-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    .local/test-results/playwright-GYCVJ0/repair-routes-T105-indepen-92097-d-restores-its-one-PHP-save-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace .local/test-results/playwright-GYCVJ0/repair-routes-T105-indepen-92097-d-restores-its-one-PHP-save-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent radio route reaches validated R12 and restores its one PHP save 
+
+    TimeoutError: locator.click: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for getByRole('dialog', { name: 'Diagnostics', exact: true }).locator('ol[aria-label="Recorded measurements"] > li').last().getByRole('button', { name: 'Submit this reading', exact: true })
+        - locator resolved to <button disabled type="button">Submit this reading</button>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is not enabled
+        - retrying click action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and stable
+          - element is not enabled
+        - retrying click action
+          - waiting 100ms
+        19 × waiting for element to be visible, enabled and stable
+           - element is not enabled
+         - retrying click action
+           - waiting 500ms
+
+
+      185 |   const readings = () => diagnostic().locator('ol[aria-label="Recorded measurements"] > li');
+      186 |   const submit = async (complete: boolean) => {
+    > 187 |     await readings().last().getByRole('button', { name: 'Submit this reading', exact: true }).click();
+          |                                                                                               ^
+      188 |     if (complete) await expect(diagnostic()).toContainText('Objective complete.');
+      189 |     else await expect(diagnostic()).not.toContainText('Objective complete.');
+      190 |   };
+        at submit (/private/tmp/network-quest-t105-8b66902-loop123/tests/e2e/repair-routes.spec.ts:187:95)
+        at Object.measure (/private/tmp/network-quest-t105-8b66902-loop123/tests/e2e/repair-routes.spec.ts:199:112)
+        at /private/tmp/network-quest-t105-8b66902-loop123/tests/e2e/repair-routes.spec.ts:106:7
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .local/test-results/playwright-6thL2K/repair-routes-T105-indepen-e0b2a-d-restores-its-one-PHP-save-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .local/test-results/playwright-6thL2K/repair-routes-T105-indepen-e0b2a-d-restores-its-one-PHP-save-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .local/test-results/playwright-6thL2K/repair-routes-T105-indepen-e0b2a-d-restores-its-one-PHP-save-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    .local/test-results/playwright-6thL2K/repair-routes-T105-indepen-e0b2a-d-restores-its-one-PHP-save-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace .local/test-results/playwright-6thL2K/repair-routes-T105-indepen-e0b2a-d-restores-its-one-PHP-save-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent copper route reaches validated R12 and restores its one PHP save 
+    [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent fiber route reaches validated R12 and restores its one PHP save 
+    [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent radio route reaches validated R12 and restores its one PHP save 

@@ -1,0 +1,1386 @@
+# Network Quest implementation handoff
+
+The owner initiated implementation on 2026-11-25 and authorized continuous work
+through Spec001 acceptance, reviewed GitHub publication and accepted arcade
+release. Use one task per fresh worker, durable notes and the existing 200-loop
+cap. **Do not restart, reset the counter or discard dirty work.**
+
+## Resume procedure
+
+1. Read AGENTS.md, the constitution, SPEC.md/PLAN.md and the implementation skill.
+   Prerequisite/checklist setup already passed (requirements16/16, remediation
+   complete); repeat only when its inputs change.
+2. Read [state.json](state.json), the current feature documents/task schedule and
+   relevant recent loop notes. State is authoritative for counters and ownership.
+   Use one fresh worker (`fork_turns: none`) per task iteration. Coordinator review
+   is not another loop. Independent tasks may overlap only on verified inputs and
+   disjoint files; explicit local scheduling exceptions are in tasks.md.
+3. Keep genuine failures and partial attempts. Check a task only after verified
+   completion. Source preparation and task counts never pass an aggregate gate.
+4. Continue independent work while external capabilities remain unresolved. The
+   blanket stop from loop014 was superseded by the owner's direction; see
+   [execution-direction.md](execution-direction.md). Do not repeat unchanged
+   external probes or ask for already-confirmed credentials/registration details.
+5. Root owns tracking, staging, review, commits and pushes. Optional automatic Git
+   hooks remain disabled. Workers do not change counters, publish or spawn workers.
+
+## Current position — 2026-11-27
+
+**123 loops started; 97/170 tasks accepted; no deployment.** Latest pushed commit
+`8b66902618564462ac9cb15ba677ea66fc12980b` (accepted T104 canonical checkpoint),
+pushed/remoteverified:71reviewedpaths/5095138bytes, exactstage/blob/private/authored
+whitespacePASS and5rawfindingspreserved. T104 is accepted for local gameplay. Both normal-config native
+journeys passed3.1min;32canonical files/255published inputs/4test overlays matched.
+Final all-seven packet49owned/254published/120assertion refs matched. Exact140
+original inputs stay unchanged:129mapped/6timingN/A/4T105rows/1media-animationpartial.
+Historical canonical files are archived exactly; current tests use unique ignored
+reports and actual current source/build. See US7.md and companion root review.
+
+All five Astra reviews are root-reviewed/promoted where applicable. Q05 current
+476tests/11suites/check/buildPASS; generated policy semantics unchanged. Earlier
+broadclient4246distinct accounted andfullPHP909/19167 remain scoped historical
+checks, not reruns after every bounded UI/diagnostic delta.
+
+Fresh123/T105 runs independent copper/fiber/radio routes and original42physical/
+52route reconciliation plus four no-recruit T092 rows.122/T106 prepares isolated
+layouts with150exact prop identities,109currentinteractive subjects,136hotspots/
+28exits and380quota identities. No freeze/bulkmedia before acceptedT105. Preserve
+saved positions and12x7R09–R12walk regions; correct smaller grayboxgeometry during
+finished-room integration. Owner previews63366/54594 remain protected.
+
+T096/T097 actual reward pictures, portraits/finishedmedia, providers, humanreviews
+and release gates remain open. Continue the original playful, witty, lightly dark
+Networking/OSI Sierra adventure within the approved286frame. Never claim scaffold
+completion or turn scoped test counts into human/episode acceptance.
+
+### Earlier loop122 acceptance checkpoint — historical
+
+**122 loops started; 96/170 tasks accepted; no deployment.** Latest pushed commit
+`fa2740cd3ac8ad22dd86feeef87c6802aa0fc4a8`;70reviewedpaths/987502bytes, exactstage/blob/private/authoredwhitespace checksPASS and46rawlog/patch findings preserved. Push remoteverified.
+All five requested Astra reviews are now root-reviewed. Q05 promoted four production
+and four test files with exact candidate hashes; current476tests/11suites, check and
+build PASS. Save-policy regeneration changes only two provenance hashes, not semantics.
+Original126 cases remain intact:90 scoped mappings/36 explicit adaptations.
+
+T104 final packet root review matched49owned files,254published inputs and120named
+assertion references. All140 original inputs/expected values are preserved;129mapped,
+6conditional timing N/A,4whole-route rows delegatedT105,1media-dependent partial.
+Root inspected actualMG03/E03 screenshots. Canonical browser files still needed current
+root/discovery/output corrections; same116 owns them. Normal discovery now succeeds
+(146tests/26files); two targeted canonical journeys are running on frozen55b9bfc with
+unique ignored report folders. Historical bytes/seals remain separately preserved.
+Q05's later bounded diagnostic change has separate476test/currentcheck/build evidence.
+
+Fresh122/T106 prepares isolated12room layouts and exact380quota identities, with
+support architecture counted separately. No freeze or bulkmedia before acceptedT105.
+Preserve authoritative walk coordinates, including12x7 R09–R12 areas whose temporary
+geometry is smaller. Keep the original playful, witty, lightly dark Networking/OSI
+adventure within the approved286frame. Owner previews63366/54594 remain protected.
+
+Next: accept T104's verified local scope, execute freshT105 independent routes, then
+reconcile T106 and produce real media. T096/T097 actual reward pictures, finished media,
+providers, human reviews and release gates remain open. Never call this a finished episode.
+
+### Historical checkpoints (preserved; not current ownership)
+
+### Earlier loop122 checkpoint — superseded by current position
+
+**122 loops started;96/170 tasks accepted;no deployment.** Latest pushed commit:
+`55b9bfcd7ca1f0aef0b4add6f6d86790e34e7cad` (Q03presentation plus report-output
+guard and additionalT104checks), published and remote-verified. Root matched269worker hashes before follow-ups; currentcheck/build
+pass. Fullclient4245PASS/1media-test timeout/360TODO, then4affectedtestsPASSserial:
+4246distinctchecks accounted across112suites. FullPHP909tests/19167assertionsPASS.
+CurrentMG03 native15groups preceded the disclosed follow-up fixes.
+
+Q01 normalized reused attempt UUID identity in generic recovery; Q02 binds game
+save reads to the tab's reviewed session and offers explicit Check Session on a
+cookie mismatch. Both have genuine RED/isolated/current passing evidence. Q04
+found no technical correction;37sourcehashes match and256focusedchecks pass.
+Q03 initial and progressive-radio presentation changes are promoted:303joined
+checks/check/build pass. Normal MG03 regression now uses opt-in report output;
+64checks pass without overwriting prior evidence. One original worker receipt
+was overwritten by the old harness and is unrecoverable; see its explicit
+receipt-preservation-incident.md. Later root receipts remain separately preserved. Same121/Q05 reconciles exact81outcome+45retry originalcases.
+
+Same116/T104 has145newly discovered current checks passing, plus reviewed older
+native/gap packets. Exact final all-seven native/recovery and140case reconciliation
+remain open; four no-recruit whole-route rows explicitly belong to T105. Six
+optional timing-only cases need final capability inspection. Literal precommit
+ability animation remains assigned to finalmedia/T147. Do not claim140allpass.
+
+All five requested Astra review loops have started (117–121), with no counter
+reset or extra Spec001 taskboxes. T096/T097 still need actual picture rewards.
+Finishedmedia, actualproviders and requiredhumanreviews remainahead; G0 has named
+external gaps andG1–G7 remainpending. Preserve ownerpreviews63366/54594, rawT089
+traces/previewlogs locally, originalevidence and the playful/witty/lightlydark
+Networking/OSI Sierra adventure within the approved286frame.
+
+Fresh122/T106 prepares an isolated12-room layout/prop-roster candidate under the
+explicit tasks.md preparation exception. No freeze or bulkmedia before acceptedT105.
+116finalnative passed56lifecycle rows,28phase exits,7simulated-hour/visibility cases
+and3earnedall7+party recovery cases;255inputhashes unchanged. Seal/exact140review
+remains pending. Forty manual revisions/one slot/autosaveoff; no providerlogin.
+
+
+
+**116 loops started; 92 of 170 tasks accepted.** T085–T089 are accepted
+for their documented local scope. T089 final12native cases PASS in2.6minutes;
+root final85client suites3065PASS/360unchangedTODO (35.33s), check/buildPASS.
+Root matched61finalpublicseal entries and inspected narrow/desktop recovery
+screenshots. Genuine earlier failures remain: shutdown required a duration,
+Retry caused three competing scene preparations, the read-race helper lacked
+its local CA, and four Rift exits had indistinguishable labels. Corrections and
+two openly corrected test assumptions are in the joined review. Actual future
+nonempty party/quest recovery bindings remain assigned to T104/T105; no gate or
+finished-media acceptance is inferred.
+
+Loop103/T090 has49new candidate tests plus224prior packet regressions passing;
+its ordered shared-source join is complete and88seals match. Rootglobalcheck
+passed;86suites3112PASS/360TODO plus a missing authored dependency in one
+notebook test loader. The single dependency path was added and its3tests passed,
+accounting for3115distinct passing tests in87suites. Original failedrun retained.
+Loop104/T091 now runs19nativecases on frozen integrated sources and has an
+identified independent agent technical review. Fresh106/T094 prepares party
+contracts/tests outside shared build; actual composition waitsacceptedT093. Human technical/owner/beginner
+reviews remain separate. Preserve owner previews63366/54594. All raw T089 traces
+and contexts stay local; only sanitized logs and selected screenshots publish.
+T091 native10actualPASS; nine isolatedcases initiallyfailedbeforeassertions because
+public test-module imports correctly404, then9PASS withNode-preparedisolateddata.
+Three scrolledmedia viewsPASS. Root inspected copper/fiber and removed duplicate
+packet/shellstatus text only in adventure-frame.ts; buildPASS. Four affectedviews
+PASS48.591s; root matched127source+43artifact hashes and inspected corrected
+390/200%initial/result captures. T090/T091accepted fordocumentedlocalscope;
+nohuman/provider/media/gate approval inferred. See packet-join-review.md. Fresh105/T093 drafts25characters and a
+bounded schemaextension;106 preparespartytests. Historicalvaliddemonstration may
+support explicit learning/invitation atauthoredcharacterroom, never currentrepair
+proof; avoid impossible fresh-after-walk recruitment gates. OriginalT092schemahash
+must continue checking preservedbaseline; otheroraclehashes remaincurrent. G0 blocked; aggregate G1–G7 acceptance pending. Latest pushed
+checkpoint `b31a37970638d9bced6d54fae5d86e80e93b3615`:110reviewed paths,
+6,065,026bytes; exactindex/hash/private/header scansPASS. Raw runner whitespace
+is preserved (3trailing/20blankEOF findings); authored source whitespacePASS.
+105hasGO actualcharacter/schema/registry/loader/generatedartifact join;106holds
+partysharedsource untilaccepted105. Fresh107 prepares containedcompendiumviews
+without claimingplannedportraitsproduced; discoveryownership coordinateswith106.
+T093 accepted after root source/prose review and36 matching seal entries.
+Root client3139PASS/2PHP-path setupfailures/360TODO; affected3testsPASS with
+correct PHP, accounting for3141distinctPASS in88suites. FullPHP908tests/19138
+assertionsPASS40.837s; check/buildPASS. Original failures retained. See
+character-join-review.md. 106 now owns actualparty/reducer/actions/application/
+level-policy join;107 owns disjointcompendium/notebook, app composition coordinated.
+Fresh108 independently authors SQ01 using unchanged reviewed R04/T092 toy rules.
+Latest published checkpoint `1260a6bdcd9014f62e41f9cbe3ffcf1c556612b8`:47reviewed paths/2,024,656bytes;
+exactindex/hash/private/header scansPASS,12rawlog whitespace findings preserved.
+Remoteverified. 108SQ01 canonicalprojection has34focusedPASS/strictTS androot33matchinghashes;
+fullcommon-schema/runtime/image delivery pending. Fresh109/T100 now prepares
+sharedoptionalframework before independentSQ02–04, as explicitly scheduled.
+106owns sharedpartyjoin;107actualcompendiumappcomposition is present.
+T095accepted after isolated acceptedT093+T095 check/build/45focusedPASS and
+8actualbuiltguestchecks+targetedprovenancePASS. Root76sealhashesmatched and
+visuallychecked200%reading/sourcefocus. Initial.localdevserverdenialretained;
+normalbuiltpreviewpassed withoutweakening servingpolicy. Seecompendium-join-review.md. Fresh110authors SQ02 energy-audit data
+and proposedvariant with109, no sharedwrites.
+Latest published checkpoint `16ee49ed01e759058ea52dcf8e73155a359ec63d`:98reviewedpaths/2,410,128bytes.
+Exactindex/blob/private/headerchecksPASS,17rawrunner/patchwhitespace findings
+preserved; partyappworkingdiff untouched. Remoteverified.
+No source count or portrait/gate acceptance is inferred. No release deployed.
+
+T094 frozen:117sealed entries matched; root copied accepted16ee49e plus exactparty
+sources/evidence to .local/t094-isolated. Root acceptance tests/publication use
+that copy; ongoing shared edits stay intact.109has fullcoherent schema/registry/
+controller/app/save-policy window for SQ01/SQ02. SQ02canonicalprojection is
+unloaded;58focusedPASS+strictTS, rootapproved actualpowerdiagnosis union.
+Fresh111/T098 and112/T099 independently authorSQ03/SQ04 outsideglobaldiscovery.
+Same108/110 finalruntimejoins remainpending; noauthoring-only acceptance.
+
+T094accepted after rootreview+117matchingseals. Isolatedfullclient3723PASS/1FAIL/
+360TODO exposed missingR11Backhoe temporaryplacement. Rootaddedonlythatplacement;
+13affectedchecksPASS, accountingfor3724distinctclientpasses. FullPHP908tests/
+19138assertionsPASS42.931s;check/buildPASS. First.localnativefixturedenied before
+appassertions; normalproductionpreview then3actualguestRift/discoverychecksPASS,
+zeroobservedpageerrors/APIrequests. Rootinspectedtemporaryscene and200%party.
+Originalfailures retained; nofinishedmedia/provider/gateacceptance. See
+party-join-review.md. Rootwillpublishfrozencopywithoutstaging109workingedits.
+
+Published and remoteverified `989d0e4aaf147654fc1928f503eb6b949b176729`:132reviewedpaths,
+2,258,249bytes;exactindex/hash/private/header/authoredwhitespacePASS.32rawrunner
+/patchwhitespacefindings retained. OngoingT100workingedits preservedunstaged;
+indexempty.112loops/90accepted. Threeworkers109/111/112remainactive.
+
+SQ03reviewed:60focusedPASS/strictTS;43rootmatchingsealentries. Originalover-
+restrictionto3fixtureexamplescorrected:actual19.99dBrecordsremaineligible;
+noinventedmeasurementprovenance/currentproof/weathercause. Unloadedcanonical
+projectionsealed;111awaitssame-loopcommonjoin. Fresh113/T101 preparesdisjoint
+MG01content/tests underexplicitpreparationexception;109ownssharedruntime.
+
+SQ04candidate51focusedPASS/strictTS;root23ownedsealsmatch,132dependencies
+matchedatactualrunwith3later109drifts explicit. Legacyprojectionfailedschema;
+fullnotebookvariant usesboundedempty-scoredruleexception, onlyS04/S10context.
+NoSQ04canonicalfile yet. Exactepiloguequest+factjoin identified.112pendinglater
+same-taskjoin. Same108resumedfinalSQ01 tests(no counterincrement);109owns
+sharedsource/nativebrowser and113MG01independentauthoring.
+
+Root full client regression after normal-discovery optional wrappers: 99 suites,
+3755 PASS / 360 existing TODO, 40.19s. Source/schema/policy review is complete;
+root screenshot inspection found the number input retained default browser font
+at 200% text. Same109 owns its bounded UI correction and native rerun. Same108
+SQ01 final45 checks/strictTS and84 sealed inputs ready for root review. Same110
+now verifies SQ02 common join. MG01 candidate/projection56 focusedPASS/strictTS,
+91 seals; actual runtime still pending. Fresh114/T102 independently authors MG02.
+Counters are114/90; no media, provider, aggregate gate or deployment acceptance.
+
+T100 final113 source/artifact hashes match root review. Final10 native groupsPASS;
+input now inherits32px text with69.6px height atboth widths; root inspected final
+image. Original screenshots/seal retained. Fresh115/T103 prepares independent
+MG03 while root reviews coherent publication and110 finishes SQ02.115/90.
+
+T100 accepted after root source review,113 matching final hashes and corrected
+native input inspection. Root3755PASS/360TODO; final10nativegroupsPASS; fullPHP
+908/19138PASS; check/buildPASS. See optional/common-join-review.md. SQ01 runtime
+45PASS/strictTS reviewed; SQ01/SQ02 task checkboxes stay open for their actual
+illustrated rewards. Verified gameplay permits independent content/localtests;
+no reward quantity, aggregate gate or deployment acceptance.115/91.
+
+SQ02 same110 join approved:9 scenario checksPASS,8 actual JS/PHP policycases,
+strictTS;root57 final hashes match and native27 source14matches. Runtime is
+ready; T097 remains open for its actual cosmetic reward. Root publishes the
+coherent optional checkpoint next, then111 owns SQ03 common integration.
+
+Published and remote-verified `9a93bf7815cda8b7055a8177bd61d5c468dc8f52`:163
+reviewed paths/3,394,683 bytes. Exact staged hashes, private scan and authored
+whitespace pass;33 raw runner findings retained. No deployment. Same111 now
+owns SQ03 shared/runtime/native window;114MG02 and115MG03 remain disjoint.
+115 loops/91 accepted.
+
+MG02 reviewed canonical projection is authored but unloaded. Same114 final
+72 focused checks/strictTS passed against frozen9a93bf7; current111 source drift
+is preserved, not treated as a candidate failure. Same112 resumes disjoint
+maintenance module/tests while111 retains shared files/browser. No new loop.
+MG03 review caught full-world replay-baseline adoption: its Retry must restore
+entry radio configuration while preserving only the exact earned completion.
+115 records that distinction before actual integration.
+
+MG03 independent stage76focusedPASS plus1test-only affectedrerun/strictTS
+on frozen9a93bf7; unloadedprojection and explicitcompletion-onlyreplay policy
+ready. Same113 resumes actualMG01 integration in its OWN isolatedcheckout;
+main-tree shared files remain111 then112. Root caught malformed-enum coercion
+and rawUUID/IDs in SQ03 playerdisplay;111 correctedboth,171relevantchecksPASS,
+initial9nativePASS retained and finalnative rerun pending. No newloop.
+
+Same112 disjoint module59PASS/strictTS and preparedjoinplan ready; main-tree
+window follows111 freeze. Fresh116/T104 begins independent companion native
+matrix against accepted9a93bf7; optionalmatrix/currentfinalregression stillwait
+actualjoins. Explicitpreparationorder recorded in tasks.md; noearlyT104acceptance.
+116loops/91accepted. Browserreservation remains111 untilrelease.
+
+T098 accepted after root source/test review and203matchingseal entries. Root
+fullclient3796PASS/360TODO (102suites39.98s); finalfocused41PASS including7
+JS/PHPcases; check/buildPASS; final9nativegroupsPASS, rootviewed1280/390at200%.
+Strict-enum and readableprovenance corrections verified; originalrunsretained.
+The specified deeperradioexplanation isdelivered; illustration16 remainsglobal
+mediaobligation withzeroquotaacceptance. See optional/SQ03/root-review.md.
+113isolatedMG01 114focusedPASS, native underway;116frozenpartyactualmatrix
+independentheadlesscontext; no performanceclaim.112sharedjoin followspublication.
+116loops/92accepted.
+
+Published and remoteverified `979c4929d772875d953a9401bf4ff675697140e6`:87
+reviewedpaths/3,893,551bytes; exactindex/private/authoredwhitespacePASS,11raw
+runnerfindingspreserved. Same112hasGOexclusiveSQ04sharedjoin.113isolatedMG01
+and116frozencompanions use separateheadlessprofiles/ephemeralservers; no
+performance/OSforeground claim.116loops/92accepted;no deployment.
+
+## Earlier position and retained progress history — 2026-11-26
+
+**74 loops started; 59 of170 tasks accepted. G0 BLOCKED; G1–G7 not passed.**
+Current active ownership is in state.json: loop071/T066 integrates the actual R01
+media; loop072/T061 nonquota architecture auditing is accepted. T063–T065 sources and
+auditions are accepted. Root owns the shared manifest, tracking and publication.
+
+- Loop046/T035 local correction reviewed: real Three.js R01/R02 graybox, shared
+  captured actions, recovery and resource disposal. Six new browser cases PASS,
+  previous guest9/packet5 PASS; full client943 PASS/68 TODO. Root reviewed code,
+  all30 seals and actual lift/workshop/200%-text screenshots. G1-LOCAL-01 is closed
+  locally; native hidden-tab evidence remains unverified, no finished media or
+  aggregate T035/G1 acceptance. Historical loop043 finding is preserved.
+- T038 accepted in loop044:28 focused tests/225 assertions; root reviewed all
+  source/tests and20 seals. Actual HTTP/auth route composition remains T041.
+- T039 accepted in loop047: Google real-SDK RSA verification and shared one-use
+  transactions/bounded transport;57 focused tests/650 assertions PASS. Root read
+  all six source/test files and matched27 seals. Synthetic HTTP/keys only;
+  actual provider behavior and route composition remain pending. Delete reauth
+  confirms a new same-account provider roundtrip, not fresh password entry.
+- T042 accepted in loop045:188 focused JS checks and150 PHP tests/1199 assertions
+  PASS,362 differential candidates match; root reviewed source and21 seals. Root
+  joined full check PASS and pre-T039 PHP253 tests/1856 assertions PASS. Results
+  stay provisional for T043; actual HTTP/client saving is not implemented yet.
+- T043 accepted in loop048:47 focused tests/284assertions, six-interface-suite
+  join243/1861 PASS. Root reviewed source/tests and23 seals. Root all12stablePHP
+  suite join357/2790 PASS at migration1; newT040/T041 tests excluded. Exact-byte
+  receipts/current-summary/conditional writes verified locally; actual HTTP,
+  deletion-ledger barrier and full simultaneous races still join later.
+- T040 accepted in loop049:50 GitHub synthetic cases/1628assertions, joined
+  providers107/2278 PASS with actual GenericProvider/S256 and fixed empty scopes.
+  Root reviewed source/tests and27 seals; current Database default migration2
+  was still T041-review-pending, not accepted by that provider result.
+- T041 accepted in loop050 after all59 seals matched and source/test review;
+  actual private configured factory joins auth/save/preferences/account services.
+  Root full current PHP suite706tests/8356assertions PASS (19.524s/30MiB). No real
+  providers or public accounts; native host remaining limits are recorded.
+- Loop051/T045: durable external deletion intents/receipt hashes/account deletion
+  and actual AccountAccess barrier; joins T041 purpose-proof forward migration.
+- Loop052/T044: save/preferences HTTP handlers on accepted repository/validators,
+  joining actual T045 barrier; shared Router/config remain T041-owned.
+- T045 accepted after full coordinator review and assertion-catch correction;
+  actual four-suite rerun83tests/472assertions PASS. T044 accepted after full
+  handler/generator/test review and all24 seals matched. Scoped74routecases/1811
+  assertions and four process races PASS; root check/build with stale-policy
+  enforcement PASS. Production transport/provider/recovery acceptance stays open.
+- T046 accepted in loop053 after full source/test review and final shared-entry
+  join;100 scopedtests/1332assertions including71nativeTLS assertions, plus root
+  fullPHP706/8356PASS. Receipt status does not reconcile/delete; logout preserves
+  slots. Actual browser/provider/response-loss journeys remain later.
+- T047 accepted in loop054 after root source/test review and all14 seals matched;
+  100 focused tests PASS. Exact snapshot lexical bytes, frozen request retries,
+  generation guards, preferences HTTP ETag and bounded manual popup recovery are
+  implemented. Mock ports do not certify native provider/browser behavior.
+- T048 accepted in loop055 after root source/test review and all24 seals matched;
+  275 focused checks PASS. Pure safe captures and explicit supported read/migration
+  dispatch preserve unknown original bytes and reject unsafe transitions.
+- Root joined client1095 PASS/68 physical TODO; check/build PASS on final T047/T048
+  files. Existing large JS-chunk advisory remains. Neither module is composed into
+  the actual save/account UI yet.
+- T053 accepted in loop056 after root read all three suites and all52 seals
+  matched. Scoped131tests/6749assertions PASS. Root fullPHP837/15105PASS
+  (22.561s/32MiB), trustedHTTPSbrowser1PASS and dev:verify12groupsPASS. Actual
+  oversized parsed-request admission exposed empty413; root corrected bounded
+  Problem JSON in both local proxies, and retained413/403 regression tests pass.
+  This is actual local TLS plus synthetic SDK evidence; real providers remainopen.
+- T049 accepted in loop057:52focused/180joined tests PASS; root reviewed all
+  source/tests and23seals. Exact-byte retries, owned view/review consent and newer
+  slot reconciliation preserve dirty memory. Final rootclient1147PASS/68TODO and
+  check/buildPASS. Actual UI/browser integration follows in loop060.
+- T054 accepted in loop058:36tests/2433assertions; repository/routejoin159/4471
+  PASS. Root reviewed full process harness/cases and all38 seals. Actual separate
+  processes/PDO/sessions prove receipt-first races, expiry, contention and rollback.
+- T055 accepted in loop059:26tests/1225assertions PASS, eight real SIGKILL workers
+  and two nativeTLS restored-database cases. Root reviewed full suite and34 seals;
+  found final proof freshness could use pre-transaction time. Root moved that
+  clock read after final session recheck;299→300accepts,300→301denies.
+- Root current fullPHP **899tests/18763assertions PASS**,31.394s/34MiB, joining
+  both independent suites and the timing correction. Synthetic provider replies
+  and isolated backups do not establish actual provider/host/retention acceptance.
+- T050 accepted in loop060: root full source/test review, all20 seals matched,
+ final216focused/check/build and8nativeHTTPS cases PASS. Real empty-slot consent,
+ restore, replacement/412/frozenretry/newerdata preservation, strictbrowserOrigin
+ and full-pageaxe scans verified. Finaldesktop/390px200% screenshots inspected.
+ T052 now owns sharedapplication/title/nativefixture for its integration.
+- T051 accepted in loop061: root reviewed all source/tests and corrected seals;
+ 236 joined checks PASS. Earlier unsaved notes join the next actual safe-preparation
+ entry; no first adoption, unsafe/E03 or implicit retry writes. Native UI follows.
+- Loop062/T052: disjoint accountsettings/logout/deletion controller+panel; T050
+  retains sharedapplication ownership until coordinated integrationhandoff.
+- Loop063/T059: isolated browser/save measurement tools; coordinate shared
+ instrumentation and browser reservation. Development baselines do not pass G3.
+- Root native transport correction uses strict-origin so browser mutations carry
+ exact Origin with origin-only Referer; focused API RED3→GREEN81. Guarded local
+ forgetSession prevents completed receipts retaining cached credentials.
+- Hosting recheck at18:13–18:18UTC restored normal arcade/SSH/SFTP evidence,
+ independently confirmed all seven old probe locations absent, and completed14
+ remaining HTTP/2 singleton observations. New helper removed, SFTP/HTTPS404
+ verified; historical failures preserved in hosting-header-admission.md.
+- Loop064/T060: independent asset-manifest negative fixtures before implementation;
+ no asset count or review acceptance inferred.
+- T052 accepted after full controller/application/test review and15sealed artifacts;
+ 41focused and15native casesPASS. Actual canceled/confirmed logout, direct/lost
+ deletion, opt-in autosave and narrow settings verified. Production policy unverified.
+- T060 accepted:122independent vectors;125schema/fixturePASS,123semanticTODO
+ awaiting T061. Full client1402PASS/191TODO (68physical+123asset),39suitesPASS.
+- Root fixed bounded empty204stream handling and disappearing SQLite journal
+ metadata checks. FullPHP908tests/19138assertionsPASS; actual20-way260request
+ baseline has0errors,savep95134.020ms locally. No host or causal proof claim.
+- T056 accepted after source/fixture/evidence review and57 matching seals: build
+ and37 native Firefox casesPASS, including22 new prepared save/logout/deletion
+ cases. Actual browser close/reopen, account isolation and422/422/413 admission
+ checked. Root inspected conflict rendering; an early deletion-status wakeup
+ now rearms correctly, with independent RED then128 focusedPASS. Real providers,
+ full encounters, historical supported migrations and Safari remain separate.
+- T061 accepted after full validator/adapter/test review and12 matching seals:
+ 290focusedPASS;380 honest planned allocations, inventoryPASS/allcounts0 and
+ releaseFAIL as expected. Root joined1568clientPASS/68physicalTODO across40suites,
+ checkPASS. The frozen T060 expected JSON is unchanged; two fixture observation
+ paths were corrected under a new independent invariant.
+- T062 accepted after planning/script review and13 matching seals:205nonmodel
+ allocations,60 exact hashed lines and all four speakers. No produced/accepted
+ media or G3 waiver. Next: bounded R01 model/image benchmark and audio auditions.
+- T059 accepted after full tool/test/report review and21seals; measured results
+ are local development evidence only, with all failed samples retained.
+ Preserve owner/gate reviews and actual provider requirements.
+
+Accepted implementation now includes domain/state/content foundations, accessible
+controls and presentation lifecycle adapters; actual guest title, R01/R02
+investigation, O01/O02, dialogue skip/replay, inventory, five notebook sections,
+fresh/stale readings and the initial packet activity. **Finished media count0.**
+The unconfigured service entry remains unavailable. Private configured entry
+composition and prepared browser saves are locally accepted; actual provider login
+and the independent full SAVE01–13 browser matrix remain unaccepted. No production account service is deployed.
+
+Latest published checkpoint: `6d24e250cd87715cea84364556947e491bc55212` on
+`001-physical-layer-underworld`, independently verified at origin. All 14 staged
+paths matched reviewed hashes; four private OAuth values and private-key markers
+were absent. Includes T059 measurement tools and the journal observation fix.
+Prior `3b932ec` contains T052 account UI/native tests and T060 independent asset
+oracle; `48ab7df` contains T050, `8962bcf` autosave/API/hosting evidence,
+`f3b12e9` T049, `0e41ad7` concurrency/recovery and `a83eee5` client/security.
+These are source checkpoints. No release is deployed.
+
+Recent evidence:
+
+| Work | Accepted result and handoff |
+| --- | --- |
+| T030 guest acceptance | Loop041: all9 actual guest browser journeys;4 joined state cases;53 focused checks/check PASS. Root matched36 seals. |
+| T034 actual packet introduction | Loop040:28 adapter cases,286 dependencies and5 actual browser cases PASS; root inspected desktop/mobile and fixed keyboard-scrollable tables. |
+| Joined guest/packet checkpoint | 819 client PASS/68 physical TODO before T030's4 new cases;110 PHP tests/1180 assertions before T037. Browser58/59 initially; actual200%-text textarea overflow fixed, all3 affected cases PASS. Final build PASS. See joined-guest-packet-checkpoint.md. |
+| T037 private database | Loop042:17 focused tests/144 assertions;127 total PHP tests/1324 assertions PASS. Root reviewed code/tests and matched13 seals. Short atomic migrations, real overlapping connections and private rollback-journal storage; no auth/save service claim. |
+| T038 sessions/security | Loop044:28 tests/225 assertions PASS; root joined with corrected database tests:46/378 PASS. See storage-uuid-parity.md for the uppercase external-UUID CHECK correction and unreleased checksum limitation. |
+
+Older verified work and every failed/blocked attempt remain in `loops/`, task
+checkboxes and [the preserved cumulative handoff](HANDOFF-history-through-loop045.md).
+Do not reread all historical reports each loop; use the relevant interface notes.
+
+## Interfaces and contracts to preserve
+
+- Canonical authored effects and reducer receipts own progress. UI and renderers
+  dispatch immutable intent through the shared captured action bus. Never recapture
+  stale views against newer state. Store compareAndSet swaps state only; controller
+  subscribers finish before the final application render observer.
+- T027 inspection prepares canonical effects, evaluates the resulting actual
+  candidate world/version, and commits that exact observation atomically. Never
+  relabel a measurement from an older world as current. O01 means valid inspection,
+  not successful repair. Packet viewing cannot repair/award progress.
+- Invalidate packet/dialogue/notebook and bus captures on new run, restore or
+  account changes. Dialogue and packet activities own matching unsafe locks.
+  Captured old callbacks must not release a new activity/account's lock.
+- Canceled logout changes nothing. Confirmed logout clears memory/title without
+  implicit saving. Retry/E03 Continue rewinds preparation/inventory but retains
+  clues, notes and hint history, advances attempt generation and stales readings.
+- T036/loop031's independent151 service expectations,13 SAVE cases and11 overlap
+  schedules remain behavioral-pending where no actual service exists. Preserve
+  fixtures and their independent expected answers.
+- Save authentication/bounds precede account-scoped receipt lookup. Resolve a
+  retained receipt before current semantic policy/stale revisions; recheck both
+  authorization and receipt inside the final transaction before returning any
+  provisional error. A revision8 acknowledgement may coexist with current slot9.
+- T037 APIs: explicit private canonical path/all document roots to Database::open;
+  connection() is trusted internal PDO; immediate(callback) owns short transactions;
+  migrate() is explicit, never automatic on GET/open. See loop042 for schema and
+  service obligations, generated metadata-only acknowledgement_json and limits.
+- Deletion receipts are operation-specific256-bit tokens. Read-only status requires
+  exact Origin and the narrow receipt; guest session status never proves deletion.
+  Unknown/expired remains unconfirmed; a late status cannot clear a later account.
+  Recovery ledger/receipt hashes stay outside database rollback sets.
+
+## Toolchain and verification
+
+Use command-scoped PATH `.runtime/node-v26.13.1-darwin-arm64/bin`, PHP
+`/opt/homebrew/opt/php@8.4/bin/php` and Composer `.runtime/composer-2.11.3.phar`.
+Actual scripts are in package.json. Planned asset/package/deploy commands must be
+implemented before use. No dependency installation is needed for current tasks.
+
+Playwright1.65.1/Firefox159 works with disposable NSS trust and
+`ignoreHTTPSErrors:false`. Root serializes native browser runs using preview4173;
+ask root to reserve it. CUA failed with `CUA_REPL_ENABLED_SURFACES is required`;
+do not retry that unavailable surface. Preserve installed browser versions.
+Recursive Firefox role/name queries for nested notebook regions/lists crashed;
+asserted native label.control and section aria-labelledby associations retain the
+same semantic expectations. Do not filter pageerrors or weaken requirements.
+
+`dev-content-boundary.md` records actual authoredJSON and same-origin development
+WebSocket fixes,12 transport groups PASS and strict private-path/Host/Origin/token
+denials. Production preview remains dist-only. Whole-episode performance, actual
+Safari and manual assistive/beginner review remain later evidence.
+
+Coordinate full PHP/JS suites while another worker's new tests are intentionally
+RED. Run meaningful scoped tests first; root joins final checks when sources are
+stable. Do not repeatedly broaden testing after a pass without a new concern.
+
+## External capabilities still pending
+
+**Hosting:** loops016/019 supersede historical noshell attempts. Actual agent/key
+SSH with pinned verification and web/CLI PHP8.4.28/PDO SQLite3.54.1 passed. Private
+permissions, two-process locking/rollback/interruption, consistent snapshot,
+outbound provider TLS and actual cron passed. All temporary helpers/data/cron
+were removed; cleanup and original crontab/modes independently verified. See
+host-probes.md. Dated disk/inode quota cache is recorded; actual longest provider/
+manual-copy backup retention and fresh adjusted package limits remain open.
+Historical header attempts in hosting-header-admission.md include5 uploaded
+helpers removed with SFTPabsence/parent-metadata checks, a challenge page and2SSH
+timeouts. The 2026-11-26 18:13–18:18UTC recheck supersedes that connectivity block:
+normal arcade200, strict pinned SSH/SFTP, all7 old probes absent, and14 remaining
+HTTP/2 singleton observations completed. Its sixth helper was removed and absence
+verified. NativeH1 admission constraints and unverifiedHTTP/3 remain recorded;
+the old failures are retained. Backup coverage/retention and package limits remain
+the outstanding hosting inputs, not SSH activation.
+The existing pending owner question asks only the Backups plan/oldest displayed
+date under GoDaddy My Products → Web Hosting → Manage → Backups. No credentials,
+SSH activation, restoration or purchase is needed. Do not resend that question.
+
+**Providers:** dedicated production Google/GitHub registrations, exact callbacks
+and private pair readiness are confirmed. Callback paths are the game api/v1
+`auth/google/callback` and `auth/github/callback` under the production target below.
+No real login/token exchange has passed. Existing pending question covers only
+Google Web/External/basic-identity Data Access and GitHub wildcard/device-flow/
+token-expiry controls. Separate development/test registrations are due before real
+provider testing, not this credential-free local implementation. Do not confuse
+GitHub CLI authentication with OAuth app administration.
+
+**Media:** T005 accepted after T063/T065 supplied stronger genuine Blender/native
+Audacity4 roundtrips and owner-approved Kokoro/ACE/effect auditions on both Mac
+speakers and earbuds. Historical smoke files/attempts stay unchanged; no listening
+to the older two smoke clips is claimed. No further unchanged audition question is
+needed. Full room, library and release reviews remain pending.
+
+## Publication and release
+
+Historical joined-server checkpoint (superseded by the current publication above):
+`ae97fb3cc27cb53e2ab10e6649c62288ef9b433b` (joined T041/T044/T045/T046 account,
+save, recovery, private configuration and native entry;41 accepted tasks).
+All58 staged paths were explicitly inspected/hash-matched;4 private OAuth values
+and private-key markers scanned clear. Root full PHP706tests/8356assertions PASS.
+Prior `85c4a03fd5200f734f6ac5885807059680f834d2` contains T040 GitHub;
+`11129bdaae56cffa398fd92736518537d14e37a0` contains graybox/Google/single-slot
+repository. Active client/snapshot/independent security work stays uncommitted.
+**No release deployed.**
+
+Owner authorization covers scoped reviewed pushes to automateyournetwork/Network-Quest
+and finished accepted release deployment at
+https://automateyournetwork.com/arcade/play/network-quest/ with its arcade listing.
+Git push and host activation are separate operations. Never call a scaffold or
+text-only increment the completed episode. Preserve required owner reviews.
+
+Read ignored `.local/operator-records/README.md` for existing private website and
+operator resource pointers. Production OAuth is external private data: parse it,
+never source/print it or load it into local tests/browser bundles. Use existing
+SSH agent/key and strict pinned host verification. Inspect historical release
+scripts before adapting; never execute an old manifest. Future deployment needs
+scoped checksums, affected-file/consistent-DB backups, private game DB/secrets,
+staging/migrations, tested rollback and actual live providers/save/isolation/game/
+assets/navigation checks. Preserve other games, analytics, ownership, certificates
+and unrelated Apache/content. Remove probes and record private rollback location.
+No external messages or later episodes are authorized by this work.
+
+Latest reviewed source checkpoint: `e524ce4623defde19cac9e53658a37a55c2190b3`,
+pushed and independently matched to the feature branch remote.29 explicit paths
+passed staged-byte hashes, private-value/key-marker scanning and whitespace
+checks. Includes accepted T056/T061/T062 and root corrections; no deployment.
+README/quickstart command availability is reconciled after T061 acceptance.
+
+Production audition review requested for frozen packet `t065-listening-20261126-a`
+at `assets-src/audio/auditions/review.html`:12clips/88.885seconds,33 source/web/script/
+HTML seals independently matched and36 links resolved. Exact seal file and hash
+are in state.pendingReviews. No response or listening is inferred; native Audacity
+work and model/image production continue. Do not repeat the pending question.
+
+Owner answered the frozen production audition review: “it all sounds good to me
+yes” (2026-11-26). Record acceptance of all12 candidates, not a release/G3 decision.
+Only headphone/speaker equipment/method details were omitted; a focused follow-up
+is pending. Do not ask for audition approval again or invent playback equipment.
+Native project verification continues.
+
+Owner completed the equipment/method record: “built in mac speakers”, followed
+by “headphones were good too earbuds”. Both listening methods now have actual
+user-reported positive feedback for the unchanged frozen12clip packet. Record
+built-in Macspeakers andearbuds (brand/model unspecified). Listening review is
+complete; do not ask again. Native source checks and G3 room review remain separate.
+
+T064 accepted after full source/production/review-script inspection, all68 artifact
+seals matched, all3 originals independently matched to actual tool cache artifacts,
+and root candidate CLI auditPASS/zeroquotas. Root inspected composition1280 plus
+midground-light/foreground-dark mattes and background original; 8native captures
+report0pageerrors and≤0.000219CSSpx numeric anchor error (not painted accuracy).
+Models/nativeaudio sources remain active; canonical media acceptance and G3pending.
+
+Loop071/T066 begins actual R01 presentation/media integration on stable asset
+interfaces under the explicit task scheduling exception. T063/T065 source audits
+continue; T064 is accepted. Root owns canonicalmanifest/tracking/publication;071
+owns shared application/presentation/content integration until handoff. Final
+acceptance still depends on both source tasks and laterT067actualroomownerreview.
+
+T063 accepted after full source/tool review,153original seals matched and root
+visual comparison. Architecture+10 actual local prop exports prevent duplicated
+geometry;12exported candidates/0acceptedquotas. Root tightened comparison-tool
+clip/mesh/pose assertions and reran14GLB/12posepair checksPASS, candidateauditPASS.
+Finalsource/mediaunchanged; correctedtoolhashrecorded inloop068. Loop071owns
+actualR01integration;070nativeaudiohandoff stillfinishing.
+
+Loop072/T061 follow-up supplies required nonquota `room-model` architecture
+source/evidence support forT066 (the original380 quotaallocations remain). It
+must add independent boundarycases beforeimplementation, preserving frozenoracle
+and allminima. OriginalT061acceptance remains historical; T066 finaljoin depends
+on this additive contract. Loop070/T065 is readyforrootreview; no acceptanceyet.
+
+T065 accepted by root: all207 seals matched; actual native4 SQLite integrity/hash
+verified, source/provenance/rights/scripts inspected and independent48-file decode/
+12-track sample comparisons rerunPASS. Frozen33-file listening packet unchanged,
+owner approval covers Macspeakers andearbuds. Canonicalmanifest now27exported/
+353planned/0accepted among380 allocations. T005 feasibility accepted using this
+stronger actual production-tool/listening evidence, preserving the oldsmoke and
+all limitations. G0 stillblocked by T003/T004; G3 ownerroomreview remains pending.
+
+Loop072 additiveT061 architecture audit accepted: ten sealsmatched,315focused
+checks andcanonicalinventoryPASS.381entries retain all380orderedquotaallocations
+plus1nonquota room-model;28exported/353planned/0quotaaccepted. Root changedonly
+temporalallocation assertions toallow additionalnonquota architecture, keeping
+frozenT060oracle andallminima unchanged. Loop071remainsactive;59tasksaccepted.
+
+Loop073/T067 starts bounded benchmark preparation onacceptedT059/T063–T065:
+record profile, inspectactualSafari capability andprepare sourcechecks.071retains
+browser/build ownership; nofinalbenchmark onchangingapp andnoG3decision before
+T066rootreview/actualownerroomreview. This advances independentwork only.
+
+Reviewed media source checkpoint published: `40e35ac7348c5efa08abaa6c54040bb11ccbae88`. All452explicit
+staged paths matched reviewedbytes; privateOAuthvalues/keymarkers scan clear.
+315assetchecks and381entryinventoryPASS; noacceptedquota orG3claim. Four exact
+thirdpartyterms snapshots preserveupstreamwhitespace; allauthoredchanges pass
+whitespacecheck. Actualremotehead verified. T066integration remainsuncommitted;
+loop073benchmarkpreparation continues. No deployment.
+
+## T066 root join review — 2026-11-26, before layout correction
+
+Root read renderer/resource/audio/preference/adapter/content changes and meaningful
+native tests. Review findings fixed: preference etags alone are not account
+identity; real412 needs explicit read/review before retry; repeated lighting LUT
+initialization must not allocate again. Native11room/media and25guest/save/logout
+cases pass. Full default axe checks pass in a separate owned Firefox process,
+with zero violations/incomplete items; runner-only native SIGSEGV remains recorded,
+internal cause unproven. No rule exclusions or text-only substitution.
+
+Root `npm run check` PASS. Full client1599PASS/68physicalTODO across42suites18.54s;
+first attempt omitted the documented NQ_PHP_BIN, producing two tool-selection
+failures (1597passed). That failed run is retained as
+`.local/T066-root-client-missing-php.log`; rerun uses pinned PHP8.4.28. Full API
+908tests/19138assertions PASS35.737s/34MiB. Final logs are
+`.local/T066-root-{check,client,php}.log`.
+
+Root inspected actual1440room, full desktop and390px captures. Artwork is cohesive
+and controls readable, but the scene begins around y900 under excessive header/
+settings space. Loop073 independently noted it. Loop071 is making a bounded
+presentation correction so scene/verbs are visible on desktop entry, preserving
+semantic content, keyboard order and200% readability. It owns the browser/build
+slot for focused layout/a11y retests;073 holds final freeze/measurements until root
+reviews the correction. This is coordinator review within existing loops, not a
+new loop or accepted T066/G3.59tasks/73loops remain.
+
+Loop074/T068 starts independent physical-route fixture preparation on unchanged
+reviewed T006/T014/source/model contracts. It owns only fixture/tests/review note;
+no evaluator, gameplay, media or shared tracking edits. Task schedule records the
+bounded independent-work exception. Final room performance stays CPU-exclusive;
+T069 onward implementation retains representative G3 review prerequisites.
+
+## Frozen R01 runtime handoff to loop073 — 2026-11-26
+
+Root accepted the bounded layout correction after viewing both actual entry
+captures: stage y300.6,88.5% visible at1280×720 and100% at1440×900, all four verbs
+visible, scrollY0. Final room/media/a11y12/12 and title3/3 pass; root's additional
+shared-shell native10/10 PASS11.1s and final `npm run check` PASS. The prior full
+client1599PASS/68TODO and PHP908/19138PASS are retained; layout-only changes did
+not alter server/domain policy. Root matched all110 final source/export/evidence
+seals against the T066 packet and reviewed all production changes.
+
+Canonical manifest now records21 integrated,7 exported and353 planned assets;
+all quota counts remain zero. Only status/usedBy changed from the reviewed source
+candidates. Root verified21 usage/export hashes and canonical inventory PASS.
+Loop073 has exclusive timing/browser ownership for the frozen runtime;074 may
+write independent fixtures but defers CPU tests. T066's final task acceptance
+still awaits the required owner room review; this handoff is verified implementation,
+not G3 or release approval.59tasks/74loops remain.
+
+Forward media-audit note: T065 exported candidates use descriptive lossless-format
+strings and an aggregate voice-run record. Before later accepted-quota promotion,
+normalize file-format metadata to the existing validator's canonical wav/aiff/flac
+values (keep subtype in provenance), and supply exact per-line voice records from
+the preserved actual runs. Do not weaken the validator or change approved audio
+bytes. These are currently nonquota candidates, not false accepted inventory.
+
+## R01 implementation checkpoint published — 2026-11-26
+
+Commit `7660735f3b5889a95783042d09f21e81b2a2ae7d` was pushed and independently
+matched to the feature branch remote. All95 explicit staged paths matched the
+reviewed byte manifest; private OAuth values/key markers scanned clear. Six
+exact command-output files preserve original whitespace; authored changes pass.
+T066 source/export/evidence110 seals still match. No owner room acceptance, G3
+or deployment is inferred. T067 Firefox12 samples pass; native Safari loads
+assets but foreground control is unresolved. T068 can run its scoped tests now
+that the timing slot is released.59 accepted tasks/74 loops remain.
+
+## T068 independent oracle accepted — 2026-11-26
+
+Root reviewed all52 added input/expected cases, source rationale, exact arithmetic
+and final test assertions; all4 final artifact hashes match. Focused verification
+reports316PASS/120TODO across3suites (98 new fixture checks/52 new application
+TODO,165 original fixture checks/68 evaluator TODO,53 copper tests), typecheckPASS.
+Original83 cases, source data and protected assertions remain unchanged. This
+accepts independent fixture preparation only. Actual evaluators/routes and human
+technical review remain pending.60 tasks accepted/74 loops;073 remains active.
+
+T068 fixture checkpoint `6b7c5282f2043167e1bcd0bee201f1f72c0c41e3` pushed; all7
+explicit staged paths matched hashes/private-value checks/whitespace, remote
+verified. No deployment.
+
+Owner R01 review is now requested at
+http://127.0.0.1:54594/arcade/play/network-quest/?t067=review . This live guest-only
+loopback preview serves the unchanged frozen dist without injected measurement
+code; HTML hashc162936668773b59bf6e1dee19085ffb070ff4cf1a2e6cff78e0f0f60c9087d4.
+Process session77659 and owned Safariwindow7338 are kept open by073. Owner was
+asked to bring Safari forward, review NewAdventure/power/link/Photon/sound, then
+leave Safari open for actual checks. Preserve that pending question; do not
+navigate the review page away until the owner finishes. Existing audio audition
+approval remains complete. No room approval or nativeSafari FPS is inferred.
+
+Loop075 starts a bounded T065 metadata follow-up while actual room review is
+pending. The existing validator requires canonical lossless format names and
+per-line voice records; candidates currently use descriptive formats and one
+aggregate run record. Produce additive truthful candidate metadata from actual
+run/script hashes. Preserve all sealed original sources, audio, packet approvals
+and runtime files; no human review or quota acceptance is created. Root joins
+canonical metadata only after review. This does not recount T065 or scale media.
+
+Loop076 is a separate T061 audit-correctness follow-up. Accepted voice validation
+currently takes the first per-asset TTS production record, ignoring the declared
+production event association.075 revealed that preserved older evidence can
+shadow corrected truthful metadata. Fresh independent cases must precede a
+bounded fix; unreferenced or contradictory proof must not certify a voice. This
+is evidence validation, not new audio production or accepted media.075 owns
+additive metadata;076 owns validator/tests; root joins after both reviews.
+
+## Workspace-credit interruption — 2026-11-26T21:12:03.609902+00:00
+
+All three active workers returned the exact error: “Your workspace is out of credits. Ask your workspace owner to refill in order to continue.”
+No retry was attempted against the unchanged credit limit.60tasks remain accepted,
+76loops started. Latest pushed/remote-verified source is
+`6b7c5282f2043167e1bcd0bee201f1f72c0c41e3`; no game release is deployed.
+
+Resume the existing073/075/076 workers after workspace credits are restored,
+without resetting or incrementing their reserved loop numbers. Owner's latest
+“continue what loop are we on” is continuation/status steering, not room approval.
+The concrete room question remains pending; preview54594 returnedHTTP200 at this
+handoff. Keep its server alive; do not navigate away while the owner reviews.
+
+-073: all12Firefox raw samples independently rechecked by root,6distinct origins,
+  2.099–2.126s cold readiness,119.75–120.25actual renderFPS, no unexpected HTTP/server
+  errors. NativeSafari failed foreground control; no valid Safari timing or native
+  visibility claim. Root matched122of123original freeze records; only the updated
+  Safari helper differs, with historical/current helper hashes required in report.
+  Partial tools/evidence/report remain uncommitted and need final review.
+-075:24newmetadata/projection/audit/production files exist under its two owned
+  directories. No final report/worker note was produced before interruption. Root
+  has not accepted or merged them. Inspect actual existing output before resuming.
+-076: worker proposed declared-event-only voice proof and fail-closed contradictory
+  duplicate event handling. No new test, validator edit or final report exists;
+  no RED/GREEN result is claimed. Begin independent cases in the reserved loop.
+
+Root also moved the exact T065 coordinator acceptance appendix from loop070 to
+`docs/evidence/spec001/audio-coordinator-review.md`, restoring loop070's original
+sealed bytes. All207original audio artifact seals now match. Native/audio/approved
+33-filepacket bytes are unchanged; this documentation correction is uncommitted.
+All dirtywork is preserved; no broad staging or partial-worker publication.
+
+## Owner resumes workers and requests contained game screen — 2026-11-26
+
+Owner reports credit reset and explicitly instructs all3workers to resume.
+073/075/076 were followed up at their existing numbers; counter remains76.
+Historical credit failure is preserved, now superseded for continuation.
+
+Actual owner room feedback: “review looks good but there is a LOT OF TEXT BUTTONS
+below the main playable window this is no really great this needs to be EXACTLY
+Like Sierra Quest games imagine the window as an old 286 Monitor those games had
+no additional menus and such right”. Record positive visual feedback, with a
+required substantial presentation correction; not final R01/G3 acceptance.
+
+Implementation direction: one contained adventure frame dominated by the scene.
+Put compact verbs/inventory inside the frame; show descriptions, evidence, notebook,
+dialogue, save/account/options as contextual in-frame panels/overlays on demand.
+Remove the document-style stack of object/action/menu blocks below the playable
+window. Preserve all accessible keyboard/text actions, readable200% text and
+responsive390/768 layouts through usable in-frame panels, plus existing media,
+diagnostic state and save guarantees. No imitation Sierra assets or originalgame
+code. Freeze previousT066/T067candidate evidence before changes; rerun meaningful
+layout/access/input/save integration checks and obtain revised owner review.
+073owns priorbenchmarkreport only; root coordinates isolated correction ownership.
+
+Loop075 metadata is ready for rootreview with27sealedfiles and unchanged207/33
+source/approval seals; no canonicalmerge yet. Its slot goes to fresh077/T066
+contained-game-frame correction. SPEC/PLAN andfeaturepresentation now record
+the explicitowner direction.077owns runtime/UI andrelatedtests/evidence;073
+finishes oldcandidatebench packet only;076ownsassetvalidator. Rootownsmanifest,
+sharedtracking/publication and integrationreview.60acceptedtasks/77loops.
+
+## Audio provenance and validator join accepted — 2026-11-26
+
+Root reviewed the exact 60 metadata changes, eight voice projections and original
+source links from loop 075; all 27 follow-up seals match. Independent checks
+confirmed 36 RIFF/WAVE headers, eight exact script/raw/source hash bindings, and
+unchanged statuses, usage records and quota flags. Root reviewed loop 076's full
+validator change, 47-case independent oracle and report; all four final hashes
+match. The actual RED run had 25 failures; final GREEN passed 362 checks across
+four asset suites. Typecheck passed. Frozen oracle and schema are unchanged.
+
+Root joined 12 corrected canonical entries and ran the actual inventory CLI:
+PASS, no issues and all accepted quota counts zero. The inventory still has
+381 entries: 21 integrated, seven exported and 353 planned. No audio/source bytes,
+human approval or runtime changed. Historical production records remain; current
+voice evidence binds every declared TTS event and rejects contradictory duplicates.
+
+Both follow-ups are accepted without counting T065/T061 twice: 60 tasks accepted
+across 77 loops. Loop 073 preserves the earlier candidate evidence; loop 077 owns
+the requested interface correction. No release is deployed.
+
+Reviewed provenance checkpoint `ff570631221e7e2b0b053de08cdc6605caaed882` pushed
+and matched to the feature branch remote. All 40 explicit paths passed staged
+hashes, private-value/key scans and whitespace. Includes the owner interface
+refinement in SPEC/PLAN; loop 077 runtime changes remain separate. No deployment.
+
+Loop 073 historical candidate checkpoint is reviewed for preservation: all 95
+stable artifact seals match (partial seal f64def79aa56259cf5cd824d83ea90d4ff512d6d756fd25b8a8686b73bb38445).
+Root inspected reports/tools, independently checked 12 raw Firefox samples and
+six origin logs, and viewed the failed native Safari capture. Its visible browser
+chrome/flat page cannot prove game rendering. The growing preview request log
+is excluded. T067 remains pending; resume the same worker after loop 077's reviewed
+freeze. Current game-screen correction has sole runtime/build/browser ownership.
+
+Historical representative-room checkpoint `38473264667d76c2e7ffa3c4e1b4d6dcdf2b67cb`
+is pushed and remote-verified.99 explicit paths passed byte hashes, private-value/
+key scans and whitespace. Three sealed Blender source-reopen logs were inspected
+and force-added individually; generic runtime/operator log ignores stay intact.
+No current UI work was staged. T067 remains pending and no release is deployed.
+
+Root inspected loop077's first actual desktop/Scene/Notebook screenshots under
+`.local/t077/`: the scene fills about85% of1440×900 and the page does not scroll.
+Requested refinements: numbered pins and You label off during ordinary visual
+play, discoverable hotspot assistance and descriptive hover feedback; sticky Close
+and Escape/focus restoration in every in-frame panel. Complete named-object/text
+actions and current pointer captures must remain.077 owns these corrections and
+focused real-browser/accessibility/persistence verification before final review.
+
+## Three-worker continuation — 2026-11-26
+
+Owner explicitly requested all three worker slots after credit reset.077 continues
+the contained adventure frame with exclusive runtime/build/browser ownership.
+Same073 resumes additive benchmark preparation without altering its historical
+95-file seal or old owner preview. Fresh078 performs an independent frame input,
+modal/focus and account/save lifecycle review in disjoint evidence; findings go
+to077/root, with real browser work coordinated after the revised source freezes.
+78 loops started,60 tasks accepted. No resets, duplicated acceptance or deployment.
+
+Root/078 source review found and077 is correcting modal feedback/save-status
+placement, New/Restore leaving Game open, and Scene-return focus/attachment cleanup.
+Root inspected run4 desktop and390px/200%-text images; they substantiate the new
+contained layout and the stale-Game finding, not final acceptance.077 retains
+browser/build ownership for relevant joined journeys.073's additive revision
+helpers are ready; root reviewed the server delta/probe/freeze/Firefox/Safari
+runners and requested accessible Close-name correction, now present. Six syntax
+checks and all95 historical seals pass; no revised benchmark result is claimed.
+078 will independently exercise the stable frame before073 times it.
+
+### Current contained-frame verification — 2026-11-26
+
+078 independently ran five direct native scenarios successfully for save failure
+explanations, Inventory feedback, exact Scene/Dialogue focus, New/Restore/cancel,
+and logout preservation. Its narrow in-runner axe case crashed twice in Firefox;
+these are retained, with no invented application cause. A standalone full-default
+axe run then exposed a real serious scrollable-region-focusable failure and
+325.6×152.6px header/feedback overlap. Root inspected the native image/geometry.
+077 corrected panel feedback into normal scroll flow and keyboard access to long
+stage feedback/captions; affected390/768/in-game200%-text run10 passed, including
+full-default axe and first/last-line checks by internal scrolling. Actual browser
+zoom, human assistive review and Safari remain separate, unverified scopes.
+
+077 joined run11 completed57/65 PASS. Eight failures are retained for corrections;
+one real integration defect is an obsolete Return control after packet phase
+changes because frame reparenting bypassed its owner's keyed reconciliation.
+077 is fixing original-container restoration before passive controller rendering,
+then reapplying frame placement; root highlighted onView/sync ordering.078 prepared
+a direct phase/Replay/Return uniqueness/focus continuation plus the narrow/fullaxe
+recheck. Do not freeze, markT066/T067 accepted or infer a clean joined run yet.
+Runtime/build/browser ownership remains077;078 is waiting for targeted review,
+073 waits for root's stable reviewed freeze.78loops/60accepted, no deployment.
+
+077 run12 passes all9 affected cases, including the added obsolete-packet-control
+regression. Original controls are returned to owner containers afterpanels.show
+and before the passive rendering batch; final frame composition preserves current
+handlers/captures.078 final direct rerun4 passes5/5; isolatedrun6 passes Scene/stage
+full-default axe (0violations), actualTab/ArrowDown scrolling, text→visual recovery,
+packetall5phases/replay/reopen/exactoneReturn and stale detached input rejection.
+Run5's immediate-scroll assertion failed before native scrolling settled; a bounded
+observation passed on unchanged runtime. All prior failures remain. Root matched
+all7 reviewed runtime hashes.077 now owns finalcheck/build/units/66joinedcases;
+078 seals its final report. Revised benchmark and owner acceptance remain pending.
+
+### Revised candidate ready for owner review and measurement — 2026-11-26
+
+077 finaljoinedrun13 passes66/66 (5.4min), focusedunits287/287 (17files), check
+and productionbuild. Root matched20source+4buildinput+33distrecords in
+`presentation/t077/final-source-build.json` (seal9f5d21c956b312a12884ea48eeb61a374cdeee50e2628f58987c385cfa8e3af7).
+078's65artifactseal b020134b36cfd2ba976ec802c1b50fe8baa2be66772cf2c48a32b0685b103ed9
+allmatch. Root inspected corrected narrow/desktopcaptures and actualpacket/scroll
+observations. Originalaxe contrast-incomplete results remain; supplemental
+source-color calculations/agentvisualinspection are recorded separately in
+`presentation/frame-contrast-review.md`, not human or whole-access acceptance.
+
+New immutablepreview http://127.0.0.1:63366/arcade/play/network-quest/?t067=review
+is live (processsession80711); all33servedbuildfiles match, no injectedprobe.
+Root requested the required corrected-screen review with the actuallink and asked
+owner to openSafari/leaveitfrontmost. Noanswer/approval/foreground inferred.
+Old54594/7338 retained.073 now owns exclusivebrowser/measurement work: additive
+freeze, calibratedFirefox cold/warm, boundedactualSafari usable-surface evidence.
+Noheavytests/build/Gitcompression during timedmeasurements. No gate/task is newly
+accepted, and no release deployed.78loops/60accepted preserved.
+
+### Revised performance audit and native capability — 2026-11-26
+
+Same073 completed12 revised Firefox159 samples on six distinct cold/warm origins:
+three pairs at each1280×720 and1440×900. Root independently checked raw render
+counts, visibility, byte budgets, source hashes and response logs. Cold readiness
+is2.108–2.155s; warm0.661–0.694s; actual render cadence113.75–120.25FPS across
+recorded phases. Both calibrated aggregate response schedulers measured about
+19.99Mb/s; this is local response pacing, not WAN or production performance.
+All131 frozen files and21 export/build bindings match. Root inspected the actual
+1280px full-frame and1280/1440px room captures: contained controls, no webpage
+controls below the frame, original room/media and readable in-scene caption.
+
+No page or scene-asset errors were recorded. Each pair retains two intentional
+guest session503 responses and one favicon404. Three pairs include four aborted
+narrator range requests followed by one completion; the other19 asset URLs each
+load once. Completed warm asset timing entries have zero transfer, but omitted
+in-flight narrator requests prevent a claim of complete audio cache reuse.
+All12 inherited context-loss text-substring predicates are false; this is not
+semantic fallback acceptance. The separate final077 joined test actually loses
+WebGL context, performs keyboard Link indication, retains Power/Link observations,
+and retries visual rendering successfully. Original raw observations remain.
+
+Native Safari27.2 again failed the bounded foreground preflight: DOM hidden,
+visibilityState hidden, hasFocus false and application not frontmost after one
+ordinary activation. Window/tab native visible flags alone do not pass it. No
+required viewport or timing sample started and no usable image was claimed. Only
+task window7732 was closed; owner7338 and preview origins remain untouched. Do
+not retry unchanged capability or enable browser settings. The existing owner
+request asks to open63366 in Safari and leave it frontmost while reviewing.
+
+077 and078 are complete for their implementation/independent-review scopes;
+073 retains native/owner follow-up. No new task or G3 acceptance, no loop reset,
+and no deployment. Required review remains pending for the corrected screen;
+unchanged original audio approval remains valid. Root prepares a scoped combined
+GitHub checkpoint after the additive073 report/seal is reviewed.
+
+### Reviewed contained-screen checkpoint published — 2026-11-26
+
+Commit `bcb8ecfcfc7b146f73eda12d131c532185ff152a` is pushed and remote-verified on
+`001-physical-layer-underworld`.180 explicit staged paths matched reviewed hashes
+and passed private-value/key scans. Authored whitespace is clean; five sealed raw
+command-output files intentionally retain their original whitespace. Both growing
+preview logs remain untracked. Same073 additive67-file seal is
+`39c943768c9a7aa3c8e4e318fd2989a4f74353b6233ba3181c92c3baa60a4aa1`.
+Final report corrects its UA description to Macintosh compatibility UA; actual
+host OS comes from the recorded native probe. All historical seals are unchanged.
+
+All three workers finished this batch. Required nativeSafari and revised owner
+review remain pending; same073 can resume after actual foreground input changes.
+New63366 preview remains HTTP200 with exact decoded reviewed HTML hash; no deployment,
+rollback record or episode-completion claim.78loops/60accepted are unchanged.
+This publication-pointer update remains in the working tree for the next checkpoint.
+
+## Owner approved corrected screen; overnight continuation — 2026-11-26
+
+Owner: “yeaht thats MUCH Better can you drive spec001 to completion”; subsequently
+“I am going to bed try to loop to 100% please no brakes I will be back in the am”.
+Recorded exact scoped approval in presentation/owner-frame-approval-2026-11-26.md.
+T066 accepted from final source/media/test/independent-review join and this approval;
+61tasks accepted. No final episode or nativeSafari result inferred.
+
+Same073 inspects actual native foreground/control capability without repeating
+unchanged timing failures. Fresh079 ownsT069 authored profiles/objectives; fresh080
+owns read-onlyT003 existing operator/host metadata follow-up.80loops started. Root
+records the scoped independent evaluator scheduling clarification in tasks/execution
+direction. Canonical source/controller changes and publication remain coordinated.
+Keep owner-approved preview and all historical seals unchanged. Do not wake owner
+with routine repeated questions; continue work with ready actual prerequisites.
+
+NativeSafari standardNSRunningApplication activation succeeded after the bounded
+read-only diagnosis. Root inspected the actual painted old-title screenshot;
+freshprocess metadata confirmsSafari foreground.073 now has exclusive timing
+reservation for the frozen corrected candidate. No settings/trust changes.079
+has123PASS/52TODO before the requested visible-prose cleanup; finalchecks await
+timingrelease. Fresh081/T070 prepares source/oracle/test work only untilT069join.
+
+080 completed read-onlyhostfollowup: newer33.5-minute cPanelquota cache,100GiB and
+250k inode limits. EffectiveCPU/I/O/package limits and provider/manual retention
+remain unknown; noT003completion. Historical localarchivepath absent, current
+staticbackupdirectory present, no contents/productionwrites. Its two owned docs
+are reviewed; private0600 records stay.local.81loops/61accepted.
+
+### Authored repair content accepted — 2026-11-26
+
+T069 accepted after root review of seven profiles/twelve objectives, exact source
+parameters and original introduction preservation, player prose, evidence/effects
+and nonrestrictive alternative tests. Final targeted123PASS/52existingTODO and
+typecheck pass.81loops/62accepted.081 may execute copper RED→implementation.
+Actual Safari completed12 required samples and released timing;073 writes additive
+report. Root inspected real1280/1440 screenshots with approved contained UI.
+No aggregate gate, real provider or deployment acceptance inferred.
+
+### Native benchmark accepted and evaluator wave active — 2026-11-26
+
+T067 accepted after root native raw-data/source/seal audit and actual screenshots.
+12 native samples,1889–1985ms cold/489–524ms warm,59.91–60.47FPS; actual hidden
+render counts pause and resume.59-file seal9386240e3e4cfbf65dac13d49e57fb48ced7c083bd6dab272a6cbdadc333ce77.
+Additive acceptance/readiness record preserves HTTP/audio/service limitations and
+earlier aggregate blockers. Root noted081 copper source changed after timing;
+old published candidate matches measured hash. No stale candidate claim.
+83loops/63accepted.081copper,082optics,083radio run disjoint source/tests;084power
+next free slot. After their join T074 precedes route work. No new deployment.
+
+T070 accepted: root reviewed scoped compatibility/path/termination validation,
+exactdecimal and break/repeater behavior, originalAPI preserved;100copper tests
+and625joinedPASS/120existingTODO/typecheck. No effects granted by pure readings.
+84loops/64accepted;084power/capability replaces completed081, with082/083ongoing.
+
+Reviewed checkpoint2abc3c4d13c49a93542617cbf74f26e149ff92f4 is pushed and
+remote-verified.81explicitpaths/69.64MB, exact stagedhash/privatekey/literal/
+whitespace checks pass. Unfinished082/083/084 and two growing previewlogs excluded.
+No deployment. Publication pointer stays dirty until next scoped checkpoint.
+
+T071/T072 accepted after root source review, handoffhash checks and joined648PASS/
+120existingTODO/typecheck.084 final114focusedPASS/typecheck after root caught
+entire-world capture; only revision+attempt are now copied. Evidence handoffpending.
+085 now owns objective/diagnostics plus narrow reducer/actionbusjoin exclusively;
+no other worker edits those files.086 independently reassesses T035 local review.
+86loops/66accepted; fullwave/no aggregate gate implied.
+
+T073 final114focusedPASS/typecheck and14-file handoff reviewed/accepted.
+T035 local review/US1 opening accepted after independent086 actualevidence and
+seal review; aggregateG1 remains pendingonG0.88loops/68accepted.
+085 owns objective/controller/reducer/actionbus; fresh087/088 author disjoint
+Copper and equipment/Clockworks room documents/tests on acceptedmodels/schema.
+Their final binding joins085 in listed order; no runtime/application edits while
+that API stabilizes. T078 must still prove first fullroute.
+
+Root fixed088's actual graph-bounds failure without hiding choices or increasing
+4096cap. Structural route memoization projects only unreferenced diagnostic flags
+and inert fact/flag receipts; condition flags, inventory, dialogue, recoveries and
+once grants stay concrete.120 joined content checks PASS (including actual new
+rooms and original graph safety cases). New test union guard corrected afterward;
+final typecheck joins active batch. See route-proof-projection.md.
+
+### First-route preparation — continuation, 2026-11-26
+
+T075/T076 stable scoped32/41PASS and root source review completed. T074 core has
+190PASS; root requested same-loop panel correction for obsolete controls after
+close/rerender and semantic focus restoration.085 verifies that actual DOM in an
+isolated Firefox harness. Final joined acceptance/typecheck follows stable source.
+Fresh089/T077 prepares disjoint R11/R12 authoring and independent expectations;
+fresh090/T078 prepares browser tests/harness only. Dependent implementation stays
+ordered after predecessor acceptance.90loops/68accepted. No broadroom production,
+new gate acceptance or deployment. Owner Safari previews remain untouched.
+
+T074–T076 accepted in order after root323PASS/14suites, actual diagnostics DOM
+RED11/PASS1→12PASS, finaltypecheckPASS and postcorrection28PASS. Root fixed one
+test-only99m quantity brand; historical087hash retained with explicit follow-up.
+See first-route-foundation-review.md.90loops/71accepted. Root freezes shared
+files briefly for reviewed publication, then089 owns narrowrepair-plan reducer/
+actionbusjoin.090 prepares first-route browser expectations only untilT077joins.
+
+Reviewed60-file checkpoint9a85c8555f40606c963914b4d5c90831dcdd7721 pushed and
+remote-verified.918293bytes; private literal/key scan, exact staged bytes and
+whitespace pass. Active089/090files and livepreviewlogs excluded.089 now owns
+narrow repair-plan reducer/actionbus integration;090 owns its preparatory
+Playwright discovery registration. Fresh091/T082 independently authors outcome
+oracles only; laterroute/outcome runtime joins remain required.91loops/71accepted.
+No production deployment or new rollback record.
+
+Root reconciled26 obsolete T014 pending entries with alreadyexecuted accepted
+optics/radio/power/capability tests. New physical-case-coverage data identifies
+41sourcecase executionlocations;42T014 and52compositeT068 remain pending. Actual
+focused455PASS/42TODO (165fixturechecks+290evaluatortests),6suites/492ms. No
+oracle/runtime change or invented pass; nextstablebatch owns finaltypecheck.
+
+T082 accepted as independent oracle authoring after rootreview and seveninput/
+source/fixture hashchecks:81semanticcases,129fixtureauditPASS,81actualruntime
+TODO, scopedstrictTypeScriptPASS. No ending/save/episode acceptance inferred.
+Its defect-remains case exposed a real missing O12 premise in089; worker is adding
+explicit deployment facts and tests while preserving oracle expectations.
+91loops/72accepted. T083 can prepare independent rollback vectors next.
+
+Fresh092/T083 now prepares exhaustive retry/rollback/Restore oracle vectors on
+accepted state/save/learning contracts; no runtime or sharedsource edits.
+92loops/72accepted.090 helper review passes source inspection; isolated foreign
+room regression was corrected in final26PASS run. T078 still awaits089 for appjoin.
+
+
+T077 accepted after root source review and all30 artifact/five protected-input
+seal verification. Actual worker88PASS, scopedTS and isolatedFirefox12PASS;
+root full-project typecheckPASS, pre-final401PASS/20suites and finalaffected88PASS/
+4suites. Physical pattern comparison now requires passing current path/equipment;
+E01/E02 premises use actual defect/dependency facts and immediate shutdown is
+unsaveable. No full ending/retry lifecycle or application acceptance inferred.
+92loops/73accepted.090 has GO for complete first-route application/content/save-
+policy integration and actual W05 browser checkpoint.092 finishes independent
+retry vectors. Protected owner previews, external gates and source seals retained.
+
+Fresh093/T092 prepares independent companion/conventional-tool and optional-
+activity oracles against existing reviewed source models/specification. Narrow
+preparation-only scheduling is explicit in tasks.md; no broad room production,
+new scored rule, runtime handler or downstream gate is implied.93loops/73accepted.
+
+T083 accepted as independent oracle authoring after root reviewed all45 vectors,
+full audit and four-file final hashes.88fixturePASS/45actualruntimeTODO and scoped
+strictTS pass. All-field atomic rollback, repeated consumption/reward cycles,
+retained current-E03 learning, readout/attempt freshness, complete Restore and
+old durable-save acknowledgement semantics remain distinct. No encounter/recovery
+runtime or gate completion inferred.93loops/74accepted.
+
+Fresh094/T084 prepares isolated checkpoint/rollback tests and module against the
+accepted T083/state/save contracts. It cannot edit application/room/reducer/bus/
+save-policy files; actual full-world join and task acceptance wait for T079–T081.
+This limited scheduling clarification is recorded in tasks.md.94loops/74accepted.
+
+Reviewed46-file checkpoint552a986c78d9f70ccea6bd157d0cf1560952402d pushed and
+remote-verified.809487bytes; exact staged paths/hashes, private literal/key scan
+and authored whitespace PASS. Sealed raw Vitest logs retain original EOF blank
+lines, the sole full diff-check notices; source evidence was not rewritten.
+Active090/093/094 and growing preview logs excluded. No deployment.
+
+T078 static concern about Mb/s persistence was checked against actual evaluator:
+capabilities reading() already normalizes it to Mbps. Root focused59objective
+checks PASS (19:59:38,10.39s), including unchanged save-v1 validation for O03–O10.
+No correction was needed, no schema/profile/oracle changed; full-route Save and
+Continue remain090's actual integration test.
+
+T078 actualbrowser found current Close buttons inert after frame-header relocation.
+Root reproduced in bothproduction panels (each14PASS/1FAIL), fixed own-dialog
+containment while retaining lifetime/scopeguards, then each15PASS/0FAIL in actual
+Firefox159, zero pageerrors. Added retired-reinserted and moved-outside negatives.
+See panel-frame-join/review.md and new seal; historicalT074/T077 sources/reports
+remain historical, not rewritten.090 resumes full-route test on correctedsource.
+
+T092 accepted as independent oracle authoring after rootreview of nine exact
+recruit/tool pairs,53companion/87activity vectors,52fixturePASS/140runtimeTODO,
+scopedstrictTS and14source/artifact seals plus evidencehash. Rootcorrected an
+implicit timingrequirement: authoredtiming remainsoptional; conditionalguards
+apply only ifoffered. No handler/media/human/gate completion.94loops/75accepted.
+090 actualfirst95mguest/100mkeyboardroutes now2PASS includingexactlyonePHPsave/
+reloadContinue; finalframe/zoom checks and root affectedregressions precedeW05.
+
+Root composed-loader/save regression:395checks in15suites,392PASS/3FAIL
+(20:10:23,92.12s). All3failures were oldintro-only expectations after legitimate
+R03loading:2safeanchors versus8 and R03 usedasreservedroom. Root changedonly
+three tests to exact8authoredanchors and stillunloadedR05 negatives, preserving
+prerequisite/safety/identity/reader assertions. Focusedrerun158PASS/3suites
+(20:13:26,11.61s). No runtime policy or independentoracle was weakened.
+
+New actualframe RED in090: GameopenedfromDiagnostics overwroteDiagnostics'
+originalfocusreturntarget withthe Gameheading on resume. Rootfix detectsreturn
+toparent via previouswindow's savedreturntarget andpreservesparentopener.
+090 owns actualbothroute GREEN/focus/layout verification; historicalevidence
+retained. Rootfullcheck followschangedframe/testsource; W05stillawaitsfinaljoin.
+
+094T084 isolatedmodule reviewed and4owned/6protectedseals verified.59encounter
+checks and237joinedPASS/45TODO, scopedstrictTS pass. RootcaughtactualT077
+postcommitrecapturegap;3REDnegativecases nowpasswithrequiredpureprecommitpolicy
+(no permissivedefault), includingimmediate/finalshutdown andpermanent/temporary.
+All45vectors mapped22isolated/8partial/15deferred;originalruntimeTODOs preserved.
+Same094awaitsT079–81 forfinaltaskacceptance; do not restartoradvancecounterforits
+follow-up. Actualentry/confirmation/recovery UI remainsT085/T088/T089.
+
+T078 accepted: all95 artifact and9 protected-input seals match (seal
+cbb9eb9f327cd76679aabb9c9cb9c48f2dc2b891f11dbaca8ede133effdc1c2f).
+Actual final copper95/100m routes2PASS/30.6s; nineguest+existingframe regressions
+10PASS/1.0m; helper/policy29PASS; actualPHP6PASS59assertions; check/buildPASS.
+Root reviewed source/report and desktop/narrow screenshots, plus composed395checks
+with3obsoleteintroexpectations corrected then158PASS; isolatedpanel30PASS.
+R12 axe renderer crashes remain unresolved forT152, and temporary rooms contribute
+zero acceptedassets. No fullending/provider/media/aggregategate acceptance.
+Fresh095/096/097 bring countto97;76accepted. T081graph preparation is independent;
+its fulljoin remains ordered after bothbranchreviews.094same-taskfollowup follows.
+
+Reviewed61-file copper checkpointdbb87da62f11bd0bf335676aff5f29c643812444 pushed and remote-verified.
+2505747bytes; exact staged paths/hashes and private literal/key scanPASS. Authored
+whitespacePASS; three original sealed runner error contexts retain16 trailing
+whitespace lines, documented exception. Pending094 and new095–097 worker files
+plus growing preview logs excluded. No production deployment or rollback record.
+
+T079/T080 accepted after source/prose/controller review and final seals: fiber
+17owned/7protected/4shared match,38focusedPASS; radio21owned/7protected match,
+51focusedPASS after explicit-null RED4→GREEN guard correction. Scoped strictTS
+passes both. Root final globaltypecheckPASS after test-only narrowing fixes.
+Root/097 structural proof correction retains dependency closure and all concrete
+inventory/recovery/dialogue states; only closed diagnostic conditions projected.
+New5 regressions RED→GREEN; fullregistry65PASS; final joinedcontent145PASS/7suites
+(5.63s). No cap increase, skipped choice, oracle or physics modification.
+097 canonicaljoin GO; fresh098/099 limitedpreparation keeps threeworkers active.
+99loops/78accepted. No full fiber/radio browser ending or media acceptance yet.
+
+Root diagnosed T078's unresolved axe failure against primary upstream evidence:
+Playwright issue43967, browserroll43982. Local minimal pinnedFirefox1572 probe
+2same-contextPASS/2cross-contextCRASH; separately downloaded official1575 candidate
+4PASS, same pinneddriver1.65.1. No projectpins/cache/ownerpreview changes. See
+accessibility/firefox-reflection-diagnosis.md and sealed reports. Actual R12 audit
+and reproducible finalbrowser pin remainT152 obligations, not assumedpassed.
+
+098/099 agree real active-encounter after atomic checkpoint+execute until outcome:
+E01/E02 cutscene then authoredsafeContinue, E03shutdown staysunsafe. CurrentT077
+postexecute safe-preparation is a local milestone, not final lifecycle acceptance.
+098 owns newpure rift-encounter policy; shared reducer/controller/navigation edits
+wait081/084. T087 must author/review explicitoptional dramatic hazard with warning
+and originalfictionalcause for realterminalfailure; rejectedbadproposal remains
+ordinarydiagnosis, E03 remainsdeliberateisolation. No newphysicsrule fabricated.
+
+
+## Loop100 continuation and accepted twelve-room join
+
+T081 accepted after root review of38owned/3dependency seals, actual40graphPASS,
+2765stable-clientPASS/360TODO, globalcheck/buildPASS and2realnative fiber/radio
+PHPsave/reload journeysPASS30.1s.79of170accepted;100loopsstarted. Original095/096
+seals retained, with097 exactR06exitlabel delta recorded. Root inspected native
+fiber boundary and radio validation images. Publication of079–081 is next.
+
+Same094 canonical-world checkpoint join10PASS/rootsource review complete, final
+joinedseal pending. Same098 prepares shared-join RED tests; exact pure action
+admission and atomiccheckpoint+execution reviewed.099 isolated53PASS/381joined
+PASS126TODO, pending realactive admission,caveatpolicy, contentpreflight and
+Continue receipt survival across harmlessauth/UI updates. Fresh100/T087 authors
+personalized endings/skippable warnedfictional hazard in disjoint files; actual
+application integration waits085/086. Required human/provider/release acceptance
+remains unchanged.
+
+Root explicitFirefox1575 diagnostic actualguestcopperroute+fullpageR12axe at
+768/390px and200%textPASS15.6s,0violations each,1incompletecontrast result each
+from scrollclippedparagraph. Original1572crashes retained; no package/cachepin
+change. Seeaccessibility/r12-candidate-audit.md andapplication-audit-seal.json.
+
+T084 accepted aftersame094canonicaljoin:10newchecks and287joinedPASS/45TODO,
+strictTS,seals androotfulltest/source review.80of170accepted;counter100unchanged.
+No modulechange; actual12roomregistry,all3repairs+shutdown,realwalks,readoutstaleness
+andrealpostrollback savepolicy verified. Suppliedprereqs/fatalactivity remain
+explicit; actualactivephase/UI/recovery races belong098/099/T088–89.
+
+Reviewed115path checkpoint published andremoteverified `c986d3412145ea921cc29aaf3024990e3dcbbaf0`.
+Exactstagedhash/private scan/authoredwhitespacePASS;12rawlogEOF blanks and5raw
+browsercontext trailing spaces deliberatelypreserved. No deployment.098/099
+sharedjoin nowGO;100isolatedending/hazard authoring active. All3workersrunning.
+
+### Active outcomes accepted; recovery loop101 started
+
+T086 accepted after full source/test/policy review and all103 final artifact
+hashes plus5 protected oracle hashes match. Seal90490604920a8c77e17cf668c7ab43c2c6e68d6b01ed5a53ee122ad77ae94949.
+Actual66outcome+14policyPASS; joined548PASS/126unchangedTODO; strictTS/check/build
+PASS. RealJS/PHP8.4.28 validate all3 E01/E02 safeContinue→ordinarywalk and retained
+E03 after actualT084rollback. No fullbrowser/recovery/episode claim. Original
+failed evidence and initial seals remain historical.101starts disjoint recovery
+controller/tests; actualapp mount awaits098 hazard hooks and100 epilogue join.
+
+T085 accepted after finalsource/native review and all25 additive seal entries
+match; seal5bacf69b3a3c03a4ed641f79784930b709eabcf4eca5d68533f5f9c7203a1d18.
+Canonical18PASS, existing88PASS, hazard14PASS, finalstrictTS and20nativepanelPASS.
+Rootwholefragment/holderreview found4actualREDs; narrowcontainmentfixes pass.
+Rootviewed390px/200%warning image. Fullapplication/outcome/recovery checks remain
+100/101/102; noepisode/provider/release acceptance. Fresh102/T089 prepares
+independent actualbrowsercases while100/101complete their orderedsourcejoin.
+
+T087 accepted: rootreviewedcontent/projection/panel/applicationand actualE01/E02
+images; all93sealentriesmatch f75f07a7cb7bcdd192609d37f054d1788689ffde821d32c994d2fbe518b8f3e9.
+62focusedPASS/31nativepanelPASS/4actualroutesPASS61.48s/strictTS; finalcopy-only
+maintenancecondensation and101reviewretirementcallback notedafterbrowserrun.
+Rootglobalcheck/buildPASS; fullclient3040PASS/360TODO,84suites34.10s. Rawlogs
+under encounter-outcome-join are ignored bydefault andmustbe explicitly reviewed
+forpublication.103preparespackettests onlywhile102ownsactualbrowsermeasuredsource.
+
+### Actual recovery regressions and same-worker restart — 2026-11-27
+
+102 initialnative12cases:4PASS/8FAIL,3.2m. ThreeE03casesexposeunrelatedduration
+requirementforisolation; fourfatalRetrycasesexposevisualfallback; oneRestoreGET
+harnessCAforwardingfailure. Allgenuineinitialtraces/results retained. T088 remains
+unaccepted despitecompletedlocalcontroller/panelevidence; no release milestone.
+RootdiagnosedRetry: three synchronouscleanupnotifications launchpreparations
+beforeprevioussettle, exceedingRoomAdapter's existingmaxPending2. Rootbatches
+afterRollback UIcleanup underinstallingguard and exposesexistingAppShellannounce
+foractualRecoveryResult; nativeverificationpending.099same-taskownsno-duration
+shutdownfix;103approvedpacketvariant remainsisolated;102ownsactualrerun.
+
+Allthreeworkers hitexactworkspace-crediterror; ownerthenrequested“get all workers
+back up finish to 100%”. Same099/102/103followups issued, countersnotreset.
+103loops/83accepted remain. Rootcontinuesavailablework; creditavailability must
+be observed, notinferred fromthe restartrequest. Currentpublishedcommit unchanged.
+
+
+### Optional integration and companion evidence review — 2026-11-27
+
+Counter remains 116, with 92/170 tasks accepted. Published T098 commit is
+`979c4929d772875d953a9401bf4ff675697140e6`; no deployment. Root matched MG01
+isolated 183 hashes and companion 37 owned + 212 frozen hashes. Their root-review
+files record source and narrow-screen inspection. T101/T104 remain open.
+112 owns the current SQ04 shared join. Same 114 may integrate MG02 in a separate
+copy of reviewed isolated MG01; same 116 continues actual SQ01–03 and nonempty
+party/quest Retry, E03 and synthetic-local save/restore on frozen 979c492.
+113 waits for SQ04 freeze before reconciling MG01. No counter reset or new loop.
+Owner reaffirmed Sierra/King’s Quest direction: composed adventure rooms and
+contextual controls stay within the approved 286-monitor frame. This does not
+approve unfinished media, voices or pacing.
+
+
+### Owner-requested Astra quality wave — 2026-11-27
+
+Owner requested stronger-model review and up to five improvement loops. Root
+will run five fresh, explicitly GPT-6.2 Astra reviews after current optional
+integrations/T104 yield a coherent build, before T105 final gameplay verification
+and bulk media. Scope: architecture/recovery; save/account safety; Sierra-style
+interaction; source-backed puzzle accuracy; meaningful regression coverage.
+Existing workers finish their checkpoints first. Count each review only when
+started within the current 200-loop cap; do not reset 116 or inflate 170 Spec001
+tasks. Make evidence-backed changes, not model-change-driven broad rewrites.
+The current session's model label was not independently verified.
+
+
+T099 accepted after root review: all207finalhashesmatch, actual8nativegroupsPASS,
+278focusedPASS, check/buildPASS. Rootfull3917PASS/1oldpreparedexpectationFAIL/360TODO;
+54affectedPASS after positiveSQ04case includes realhistoryfact and quest-only
+negative retained.3918distinctclientchecksaccounted; no secondfullrun. Root
+inspected1280form/390entryat200%.93/170accepted;116loopsunchanged.
+
+
+T099 checkpoint published and remote-verified at
+`58ce1a0ce71c2c5f6ce6a52f7913cdbf5c75129a`:115reviewedpaths/3588357bytes,
+exactindex/blob/private/authoredwhitespacePASS;22rawrunnerfindingsretained.
+OneEOFblankremoved from newcontract; policyprovenance regenerated and checked.
+Worker207hashfreeze retained with additive root publicationseal. No deployment.
+Same113nowowns actualMG01sharedreconciliation;114isolatedMG02 and116mappingcontinue.
+
+
+Root reviewed116secondnativepacket:17owned+243executedhashesmatch. Actual
+SQ01–03progress, EchoL1/EelL2,11manualwritesinoneslot, Retry/E03worldrollback
+and exactwhole-snapshotRestoreSave pass. Onlyidentitysynthetic;0providerclaims.
+24operationalactivityrows are not automatic closure of allT092details. Same116
+maps exactcases/gaps before finalall7currentbuild; taskremainsopen. E03textdensity
+is noted for owner-requested Q03 Sierra interaction review, not approved as final.
+
+
+T101 accepted: root250hashesmatched, current304combinedchecks/type/check/buildPASS,
+11actualnativegroups with disclosed pre-diary-fix boundary. Review caught and
+fixed quest-only completion explanation and dropped SQ03picturetext; genuineREDs
+retained. RootconfiguredPHPtestfix passes its7differentialcandidates (oneaffected
+test;54filtered). Additivefinaltesthash recorded; no newfull-clientclaim.
+94/170accepted,116loopsunchanged. Publishthen114currentMG02;115isolatedMG03 and
+116exactT092gaptests continue. FivefreshAstrareviews queued,none started yet.
+
+
+T101 checkpoint published and remote-verified `a276934c0a3bbf91b76b7428668b9afc4b34ccdc`:123paths/3467513bytes, exactindex/hash/private/authoredwhitespacePASS;
+25rawrunner/patch findings preserved. No deployment. Same114actualMG02 joinGO;
+115isolatedMG03 and116gaptests/capability-adapterproposal continue. Counter116.
+
+
+### Owner-reaffirmed creative direction — 2026-11-27
+
+All themes, characters and puzzles remain Networking/OSI-inspired. Owner wants
+fun, lighthearted, slightly dark educational adventure in the Sierra tradition.
+Use wit, mystery, strange creatures, experiments and meaningful consequences;
+Spec001 teaches Layer1 while upper realms remain contextual. This reinforces
+the original creative direction, not acceptance of unfinished art/audio/pacing.
+Q03 must inspect actual default-size interaction and dense ending narration for
+this tone; preserve complete text access and accurate physical teaching.

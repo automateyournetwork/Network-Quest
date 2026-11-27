@@ -1,0 +1,20 @@
+
+> network-quest@0.0.0 check
+> npm run typecheck && node tools/validate-content.ts && npm run save-policy:check
+
+
+> network-quest@0.0.0 typecheck
+> tsc --noEmit
+
+tests/state/repair-route-exact.test.ts(113,15): error TS2352: Conversion of type '{ id: MeasurementId; ruleId: RuleId; subjectIds: readonly QualifiedId[]; roomId: RoomId; readings: readonly Reading[]; conclusionCode: string; configurationRevision: any; attemptId: MeasurementId; stale: any; }' to type 'Measurement' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Types of property 'attemptId' are incompatible.
+    Type 'MeasurementId' is not comparable to type 'AttemptId'.
+      Type 'MeasurementId' is not comparable to type '{ readonly [nominal]: "attempt-uuid"; }'.
+        Types of property '[nominal]' are incompatible.
+          Type '"measurement-uuid"' is not comparable to type '"attempt-uuid"'.
+tests/state/repair-route-exact.test.ts(114,21): error TS2352: Conversion of type '{ roomId: RoomId; position: SafePosition; flags: Readonly<Record<FlagId, FlagValue>>; completedObjectiveIds: readonly ObjectiveId[]; completedQuestIds: readonly QuestId[]; achievementIds: readonly AchievementId[]; ... 8 more ...; attemptId: MeasurementId; }' to type 'WorldState' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Types of property 'attemptId' are incompatible.
+    Type 'MeasurementId' is not comparable to type 'AttemptId'.
+      Type 'MeasurementId' is not comparable to type '{ readonly [nominal]: "attempt-uuid"; }'.
+        Types of property '[nominal]' are incompatible.
+          Type '"measurement-uuid"' is not comparable to type '"attempt-uuid"'.

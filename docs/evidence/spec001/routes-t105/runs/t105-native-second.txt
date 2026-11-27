@@ -1,0 +1,143 @@
+[WebServer] (node:35891) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:35892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent copper route reaches validated R12 and restores its one PHP save (7.5s)
+(node:35952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent fiber route reaches validated R12 and restores its one PHP save (7.2s)
+(node:36008) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent radio route reaches validated R12 and restores its one PHP save (7.0s)
+
+
+  1) [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent copper route reaches validated R12 and restores its one PHP save 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Synthetic T050 player (github)', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('Synthetic T050 player (github)', { exact: true }) with timeout 5000ms
+      - waiting for getByText('Synthetic T050 player (github)', { exact: true })
+
+
+      30 |       const ending = branch === 'radio' ? 'temporary' : 'permanent';
+      31 |       const branchObjectives = branch === 'copper' ? ['O03', 'O04'] : branch === 'fiber' ? ['O05', 'O06'] : ['O07', 'O08'];
+    > 32 |       await page.goto(local.url); await expect(page.getByText('Synthetic T050 player (github)', { exact: true })).toBeVisible();
+         |                                                                                                                   ^
+      33 |       await ui.click('New Adventure'); await ui.click('Start new adventure'); await ui.room('The Arrival Lift');
+      34 |       await ui.click('Look'); await ui.click('Look at power indication'); await ui.click('Look at link indication');
+      35 |       await ui.click('Talk'); await ui.click('Talk to Photon the Firefly'); await ui.click('Skip dialogue');
+        at /private/tmp/network-quest-t105-8b66902-loop123/tests/e2e/repair-routes.spec.ts:32:115
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .local/test-results/playwright-rWN81J/repair-routes-T105-indepen-4bdfa-d-restores-its-one-PHP-save-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .local/test-results/playwright-rWN81J/repair-routes-T105-indepen-4bdfa-d-restores-its-one-PHP-save-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .local/test-results/playwright-rWN81J/repair-routes-T105-indepen-4bdfa-d-restores-its-one-PHP-save-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    .local/test-results/playwright-rWN81J/repair-routes-T105-indepen-4bdfa-d-restores-its-one-PHP-save-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace .local/test-results/playwright-rWN81J/repair-routes-T105-indepen-4bdfa-d-restores-its-one-PHP-save-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent fiber route reaches validated R12 and restores its one PHP save 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Synthetic T050 player (github)', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('Synthetic T050 player (github)', { exact: true }) with timeout 5000ms
+      - waiting for getByText('Synthetic T050 player (github)', { exact: true })
+
+
+      30 |       const ending = branch === 'radio' ? 'temporary' : 'permanent';
+      31 |       const branchObjectives = branch === 'copper' ? ['O03', 'O04'] : branch === 'fiber' ? ['O05', 'O06'] : ['O07', 'O08'];
+    > 32 |       await page.goto(local.url); await expect(page.getByText('Synthetic T050 player (github)', { exact: true })).toBeVisible();
+         |                                                                                                                   ^
+      33 |       await ui.click('New Adventure'); await ui.click('Start new adventure'); await ui.room('The Arrival Lift');
+      34 |       await ui.click('Look'); await ui.click('Look at power indication'); await ui.click('Look at link indication');
+      35 |       await ui.click('Talk'); await ui.click('Talk to Photon the Firefly'); await ui.click('Skip dialogue');
+        at /private/tmp/network-quest-t105-8b66902-loop123/tests/e2e/repair-routes.spec.ts:32:115
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .local/test-results/playwright-eF9jRi/repair-routes-T105-indepen-92097-d-restores-its-one-PHP-save-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .local/test-results/playwright-eF9jRi/repair-routes-T105-indepen-92097-d-restores-its-one-PHP-save-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .local/test-results/playwright-eF9jRi/repair-routes-T105-indepen-92097-d-restores-its-one-PHP-save-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    .local/test-results/playwright-eF9jRi/repair-routes-T105-indepen-92097-d-restores-its-one-PHP-save-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace .local/test-results/playwright-eF9jRi/repair-routes-T105-indepen-92097-d-restores-its-one-PHP-save-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent radio route reaches validated R12 and restores its one PHP save 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Synthetic T050 player (github)', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('Synthetic T050 player (github)', { exact: true }) with timeout 5000ms
+      - waiting for getByText('Synthetic T050 player (github)', { exact: true })
+
+
+      30 |       const ending = branch === 'radio' ? 'temporary' : 'permanent';
+      31 |       const branchObjectives = branch === 'copper' ? ['O03', 'O04'] : branch === 'fiber' ? ['O05', 'O06'] : ['O07', 'O08'];
+    > 32 |       await page.goto(local.url); await expect(page.getByText('Synthetic T050 player (github)', { exact: true })).toBeVisible();
+         |                                                                                                                   ^
+      33 |       await ui.click('New Adventure'); await ui.click('Start new adventure'); await ui.room('The Arrival Lift');
+      34 |       await ui.click('Look'); await ui.click('Look at power indication'); await ui.click('Look at link indication');
+      35 |       await ui.click('Talk'); await ui.click('Talk to Photon the Firefly'); await ui.click('Skip dialogue');
+        at /private/tmp/network-quest-t105-8b66902-loop123/tests/e2e/repair-routes.spec.ts:32:115
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .local/test-results/playwright-o3yxla/repair-routes-T105-indepen-e0b2a-d-restores-its-one-PHP-save-firefox-local-https/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .local/test-results/playwright-o3yxla/repair-routes-T105-indepen-e0b2a-d-restores-its-one-PHP-save-firefox-local-https/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .local/test-results/playwright-o3yxla/repair-routes-T105-indepen-e0b2a-d-restores-its-one-PHP-save-firefox-local-https/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    .local/test-results/playwright-o3yxla/repair-routes-T105-indepen-e0b2a-d-restores-its-one-PHP-save-firefox-local-https/trace.zip
+    Usage:
+
+        npx playwright show-trace .local/test-results/playwright-o3yxla/repair-routes-T105-indepen-e0b2a-d-restores-its-one-PHP-save-firefox-local-https/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent copper route reaches validated R12 and restores its one PHP save 
+    [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent fiber route reaches validated R12 and restores its one PHP save 
+    [firefox-local-https] › tests/e2e/repair-routes.spec.ts:13:3 › T105 independent radio route reaches validated R12 and restores its one PHP save 

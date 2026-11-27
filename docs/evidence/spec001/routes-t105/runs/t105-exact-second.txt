@@ -1,0 +1,67 @@
+
+ RUN  v5.1.2 /private/tmp/network-quest-t105-8b66902-loop123
+
+ ❯ tests/state/repair-route-exact.test.ts (29 tests | 1 failed) 1660ms
+   ❯ T105 original physical cases: actual symbol and pattern interfaces (10)
+     ✓ T12 decodes the original ordered samples 1ms
+     ✓ B-SYMBOL decodes the original ordered samples 0ms
+     ✓ C-SYMBOL-WRONG grades the original wrong bit order 0ms
+     ✓ B-TIMING grades the original wrong bit order 0ms
+     ✓ C-ERROR-SYMBOL rejects an unsupported authored level before grading 0ms
+     × C-PACKET compares only the original highlighted laboratory pattern 3ms
+     ✓ C-PACKET-DIFF compares only the original highlighted laboratory pattern 0ms
+     ✓ B-PACKET compares only the original highlighted laboratory pattern 0ms
+     ✓ I-PHY10 keeps missing learner input effect-free 0ms
+     ✓ I-PHY11 keeps missing learner input effect-free 0ms
+   ✓ T105 original physical cases: scoped compatibility and valid-content grading (7)
+     ✓ C-COMPAT uses the actual reviewed compatibility-card adapter 0ms
+     ✓ B-COMPAT uses the actual reviewed compatibility-card adapter 0ms
+     ✓ B-INSPECTION does not let matching equipment replace inspection 0ms
+     ✓ C-VALID grades an actual 8 dB bench answer after validating author data 0ms
+     ✓ C-VALID-WRONG grades an actual 8 dB bench answer after validating author data 0ms
+     ✓ B-LOSS-ZERO evaluates the exact idealized zero-loss boundary 0ms
+     ✓ I-PHY03 retains the valid scoped authored premise and absent learner action 0ms
+   ✓ T105 exact freshness and objective admission (12)
+     ✓ T13 preserves the original independent freshness operands 141ms
+     ✓ C-FRESH preserves the original independent freshness operands 136ms
+     ✓ B-STALE-FLAG preserves the original independent freshness operands 144ms
+     ✓ RR-FRESH-REVISION preserves the original independent freshness operands 134ms
+     ✓ RR-FRESH-ATTEMPT preserves the original independent freshness operands 133ms
+     ✓ RR-FRESH-FLAG preserves the original independent freshness operands 135ms
+     ✓ RR-FRESH-CURRENT preserves the original independent freshness operands 140ms
+     ✓ RR-O11-MISSING-SHARED rejects the exact original incomplete objective set 148ms
+     ✓ RR-O11-MIXED-BRANCH rejects the exact original incomplete objective set 137ms
+     ✓ RR-O10-ROLE preserves correct bits but rejects address discovery as a physical role 132ms
+     ✓ RR-O10-MISSING-SAMPLES rejects absent authored positions without a penalty or partial effects 133ms
+     ✓ RR-O12-MISSING-FOLLOWUP rejects omitted documentation even after actual final proof 139ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/repair-route-exact.test.ts > T105 original physical cases: actual symbol and pattern interfaces > C-PACKET compares only the original highlighted laboratory pattern
+AssertionError: expected { kind: 'packet-encoding', …(21) } to match object { Object (payloadBytes, representedBits) }
+(21 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "payloadBytes": 2,
+    "representedBits": 16,
+  }
+
+ ❯ tests/state/repair-route-exact.test.ts:54:39
+     52|       const encoded = encodePacketPayload(packet, symbols);
+     53|       expect(encoded.status).toBe('correct');
+     54|       expect(encoded.observations[0]).toMatchObject({ payloadBytes: r.…
+       |                                       ^
+     55|     } else expect(result.observations[0]).toMatchObject(r.expected.obs…
+     56|     expect(result.acceptedEffects).toEqual([]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 28 passed (29)
+   Start at  12:20:01
+   Duration  2.49s (tests 68%, import 30%, transform 2%)
+

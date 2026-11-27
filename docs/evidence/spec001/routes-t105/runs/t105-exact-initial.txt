@@ -1,0 +1,157 @@
+
+ RUN  v5.1.2 /private/tmp/network-quest-t105-8b66902-loop123
+
+ ❯ tests/state/repair-route-exact.test.ts (29 tests | 6 failed) 1474ms
+   ❯ T105 original physical cases: actual symbol and pattern interfaces (10)
+     ✓ T12 decodes the original ordered samples 1ms
+     ✓ B-SYMBOL decodes the original ordered samples 0ms
+     ✓ C-SYMBOL-WRONG grades the original wrong bit order 0ms
+     ✓ B-TIMING grades the original wrong bit order 0ms
+     ✓ C-ERROR-SYMBOL rejects an unsupported authored level before grading 0ms
+     × C-PACKET compares only the original highlighted laboratory pattern 3ms
+     ✓ C-PACKET-DIFF compares only the original highlighted laboratory pattern 0ms
+     × B-PACKET compares only the original highlighted laboratory pattern 1ms
+     ✓ I-PHY10 keeps missing learner input effect-free 0ms
+     ✓ I-PHY11 keeps missing learner input effect-free 0ms
+   ❯ T105 original physical cases: scoped compatibility and valid-content grading (7)
+     × C-COMPAT uses the actual reviewed compatibility-card adapter 1ms
+     ✓ B-COMPAT uses the actual reviewed compatibility-card adapter 0ms
+     ✓ B-INSPECTION does not let matching equipment replace inspection 0ms
+     × C-VALID grades an actual 8 dB bench answer after validating author data 0ms
+     × C-VALID-WRONG grades an actual 8 dB bench answer after validating author data 0ms
+     × B-LOSS-ZERO evaluates the exact idealized zero-loss boundary 0ms
+     ✓ I-PHY03 retains the valid scoped authored premise and absent learner action 0ms
+   ✓ T105 exact freshness and objective admission (12)
+     ✓ T13 preserves the original independent freshness operands 124ms
+     ✓ C-FRESH preserves the original independent freshness operands 128ms
+     ✓ B-STALE-FLAG preserves the original independent freshness operands 127ms
+     ✓ RR-FRESH-REVISION preserves the original independent freshness operands 122ms
+     ✓ RR-FRESH-ATTEMPT preserves the original independent freshness operands 118ms
+     ✓ RR-FRESH-FLAG preserves the original independent freshness operands 121ms
+     ✓ RR-FRESH-CURRENT preserves the original independent freshness operands 122ms
+     ✓ RR-O11-MISSING-SHARED rejects the exact original incomplete objective set 128ms
+     ✓ RR-O11-MIXED-BRANCH rejects the exact original incomplete objective set 119ms
+     ✓ RR-O10-ROLE preserves correct bits but rejects address discovery as a physical role 116ms
+     ✓ RR-O10-MISSING-SAMPLES rejects absent authored positions without a penalty or partial effects 118ms
+     ✓ RR-O12-MISSING-FOLLOWUP rejects omitted documentation even after actual final proof 122ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/repair-route-exact.test.ts > T105 original physical cases: actual symbol and pattern interfaces > C-PACKET compares only the original highlighted laboratory pattern
+AssertionError: expected { kind: 'packet-comparison', …(13) } to match object { knownPatternMatches: true, …(3) }
+(12 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "knownPatternMatches": true,
+-   "payloadBytes": 2,
+-   "representedBits": 16,
+    "wholeFrameIsTwoBytes": false,
+  }
+
+ ❯ tests/state/repair-route-exact.test.ts:50:36
+     48|       action({ claim: id === 'B-PACKET' ? 'all-services-proven' : 'kno…
+     49|     expect(result.status).toBe(r.expected.status);
+     50|     expect(result.observations[0]).toMatchObject(r.expected.observatio…
+       |                                    ^
+     51|     expect(result.acceptedEffects).toEqual([]);
+     52|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/state/repair-route-exact.test.ts > T105 original physical cases: actual symbol and pattern interfaces > B-PACKET compares only the original highlighted laboratory pattern
+AssertionError: expected 'invalid-input' to be 'incorrect' // Object.is equality
+
+Expected: "incorrect"
+Received: "invalid-input"
+
+ ❯ tests/state/repair-route-exact.test.ts:49:27
+     47|     const r = row(id), result = comparePacketPattern({ profile: packet…
+     48|       action({ claim: id === 'B-PACKET' ? 'all-services-proven' : 'kno…
+     49|     expect(result.status).toBe(r.expected.status);
+       |                           ^
+     50|     expect(result.observations[0]).toMatchObject(r.expected.observatio…
+     51|     expect(result.acceptedEffects).toEqual([]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  tests/state/repair-route-exact.test.ts > T105 original physical cases: scoped compatibility and valid-content grading > C-COMPAT uses the actual reviewed compatibility-card adapter
+AssertionError: expected { version: { …(2) }, …(10) } to match object { preparationComplete: true, …(2) }
+(10 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "powerBudgetProven": false,
+-   "preparationComplete": true,
++   "preparationComplete": false,
+    "serviceProven": false,
+  }
+
+ ❯ tests/state/repair-route-exact.test.ts:66:59
+     64|     const r = row(id), result = evaluateCompatibilityCard({ sourceCase…
+     65|     expect(result.status).toBe(r.expected.status); expect(result.accep…
+     66|     if (id === 'C-COMPAT') expect(result.observations[0]).toMatchObjec…
+       |                                                           ^
+     67|     else expect(result.observations[0]).toMatchObject({ compatible: fa…
+     68|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  tests/state/repair-route-exact.test.ts > T105 original physical cases: scoped compatibility and valid-content grading > C-VALID grades an actual 8 dB bench answer after validating author data
+AssertionError: expected 'content-error' to be 'correct' // Object.is equality
+
+Expected: "correct"
+Received: "content-error"
+
+ ❯ tests/state/repair-route-exact.test.ts:77:27
+     75|     const r = row(id), result = evaluateBenchAnswer({ sourceCaseId: 'T…
+     76|       action({ receive: r.inputs['learnerClaimsReceive'] ?? { value: -…
+     77|     expect(result.status).toBe(r.expected.status);
+       |                           ^
+     78|     expect(result.observations[0]).toMatchObject({ learnerStatus: r.ex…
+     79|     expect(result.acceptedEffects).toEqual([]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  tests/state/repair-route-exact.test.ts > T105 original physical cases: scoped compatibility and valid-content grading > C-VALID-WRONG grades an actual 8 dB bench answer after validating author data
+AssertionError: expected 'content-error' to be 'incorrect' // Object.is equality
+
+Expected: "incorrect"
+Received: "content-error"
+
+ ❯ tests/state/repair-route-exact.test.ts:77:27
+     75|     const r = row(id), result = evaluateBenchAnswer({ sourceCaseId: 'T…
+     76|       action({ receive: r.inputs['learnerClaimsReceive'] ?? { value: -…
+     77|     expect(result.status).toBe(r.expected.status);
+       |                           ^
+     78|     expect(result.observations[0]).toMatchObject({ learnerStatus: r.ex…
+     79|     expect(result.acceptedEffects).toEqual([]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  tests/state/repair-route-exact.test.ts > T105 original physical cases: scoped compatibility and valid-content grading > B-LOSS-ZERO evaluates the exact idealized zero-loss boundary
+AssertionError: expected 'content-error' to be 'correct' // Object.is equality
+
+Expected: "correct"
+Received: "content-error"
+
+ ❯ tests/state/repair-route-exact.test.ts:83:27
+     81|   it('B-LOSS-ZERO evaluates the exact idealized zero-loss boundary', (…
+     82|     const r = row('B-LOSS-ZERO'), result = evaluateOptics({ kind: 'opt…
+     83|     expect(result.status).toBe(r.expected.status);
+       |                           ^
+     84|     expect(result.observations[0]).toMatchObject({ receive: r.expected…
+     85|     expect(result.acceptedEffects).toEqual([]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 23 passed (29)
+   Start at  12:19:25
+   Duration  2.52s (tests 60%, import 27%, transform 13%)
+

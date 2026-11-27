@@ -48,3 +48,7 @@ Portrait-dependent AC05, SQ01 illustration08, SQ02 decoration/illustration18, fi
 animation, human accessibility/learning/pacing review, live providers and aggregate
 gates remain pending their specified tasks. Logical time and simulated visibility
 are functional checks, not an actual-hour/background-throttling/performance claim.
+
+The four no-recruit whole-route rows above are now resolved by accepted T105.
+[Additive closure](companions-t104/t105-closure.json) links the actual independent
+route evidence without modifying the original sealed 140-row ledger.

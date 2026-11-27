@@ -473,7 +473,7 @@ through this preparation. Root owns acceptance, shared policy joins and publicat
 
 **Ready after**: T092–T104.
 
-- [ ] T105 [US2] Run each copper/fiber/radio route independently through its valid ending, wrong/equivalent actions, all T01–T16 and remaining objective cases in `tests/e2e/repair-routes.spec.ts`; record AC02/03/21, all twelve playable rooms and G4 in `docs/evidence/spec001/US2.md` and `docs/evidence/spec001/gates.md`.
+- [X] T105 [US2] Run each copper/fiber/radio route independently through its valid ending, wrong/equivalent actions, all T01–T16 and remaining objective cases in `tests/e2e/repair-routes.spec.ts`; record AC02/03/21, all twelve playable rooms and G4 in `docs/evidence/spec001/US2.md` and `docs/evidence/spec001/gates.md`.
 
 ## Phase 5: User Story 3 — Experience a message as physical signals (P1)
 

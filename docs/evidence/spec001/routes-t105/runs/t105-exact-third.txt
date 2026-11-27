@@ -1,0 +1,68 @@
+
+ RUN  v5.1.2 /private/tmp/network-quest-t105-8b66902-loop123
+
+ ❯ tests/state/repair-route-exact.test.ts (30 tests | 1 failed) 1735ms
+   ✓ T105 original physical cases: actual symbol and pattern interfaces (10)
+     ✓ T12 decodes the original ordered samples 1ms
+     ✓ B-SYMBOL decodes the original ordered samples 0ms
+     ✓ C-SYMBOL-WRONG grades the original wrong bit order 0ms
+     ✓ B-TIMING grades the original wrong bit order 0ms
+     ✓ C-ERROR-SYMBOL rejects an unsupported authored level before grading 0ms
+     ✓ C-PACKET compares only the original highlighted laboratory pattern 0ms
+     ✓ C-PACKET-DIFF compares only the original highlighted laboratory pattern 0ms
+     ✓ B-PACKET compares only the original highlighted laboratory pattern 0ms
+     ✓ I-PHY10 keeps missing learner input effect-free 0ms
+     ✓ I-PHY11 keeps missing learner input effect-free 0ms
+   ✓ T105 original physical cases: scoped compatibility and valid-content grading (7)
+     ✓ C-COMPAT uses the actual reviewed compatibility-card adapter 0ms
+     ✓ B-COMPAT uses the actual reviewed compatibility-card adapter 0ms
+     ✓ B-INSPECTION does not let matching equipment replace inspection 0ms
+     ✓ C-VALID grades an actual 8 dB bench answer after validating author data 0ms
+     ✓ C-VALID-WRONG grades an actual 8 dB bench answer after validating author data 0ms
+     ✓ B-LOSS-ZERO evaluates the exact idealized zero-loss boundary 0ms
+     ✓ I-PHY03 retains the valid scoped authored premise and absent learner action 0ms
+   ❯ T105 exact freshness and objective admission (13)
+     ✓ T13 preserves the original independent freshness operands 124ms
+     ✓ C-FRESH preserves the original independent freshness operands 133ms
+     ✓ B-STALE-FLAG preserves the original independent freshness operands 138ms
+     ✓ RR-FRESH-REVISION preserves the original independent freshness operands 120ms
+     ✓ RR-FRESH-ATTEMPT preserves the original independent freshness operands 119ms
+     ✓ RR-FRESH-FLAG preserves the original independent freshness operands 118ms
+     ✓ RR-FRESH-CURRENT preserves the original independent freshness operands 126ms
+     ✓ RR-O11-MISSING-SHARED rejects the exact original incomplete objective set 129ms
+     ✓ RR-O11-MIXED-BRANCH rejects the exact original incomplete objective set 122ms
+     ✓ RR-O10-ROLE preserves correct bits but rejects address discovery as a physical role 118ms
+     ✓ RR-O10-MISSING-SAMPLES rejects absent authored positions without a penalty or partial effects 120ms
+     ✓ RR-O12-MISSING-FOLLOWUP rejects omitted documentation even after actual final proof 124ms
+     × shared absent-action admission preserves actual state; generic I rows are adaptations, not independent physical executions 239ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/state/repair-route-exact.test.ts > T105 exact freshness and objective admission > shared absent-action admission preserves actual state; generic I rows are adaptations, not independent physical executions
+AssertionError: expected { ok: false, reason: 'content-error' } to deeply equal { ok: false, reason: 'invalid-input' }
+
+- Expected
++ Received
+
+  {
+    "ok": false,
+-   "reason": "invalid-input",
++   "reason": "content-error",
+  }
+
+ ❯ tests/state/repair-route-exact.test.ts:167:84
+    165|     // I-STATE04: the actual repair lifecycle rejects null before any …
+    166|     const r = repairFixture(), snapshot = r.state();
+    167|     expect(prepareRepairPlanChange(registry, r.resolver, r.game(), nul…
+       |                                                                                    ^
+    168|     expect(r.state()).toBe(snapshot); expect(r.game().outcomeHistory).…
+    169|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 29 passed (30)
+   Start at  12:21:26
+   Duration  2.48s (tests 72%, import 27%, transform 2%)
+

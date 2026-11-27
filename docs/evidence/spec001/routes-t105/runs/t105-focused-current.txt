@@ -1,0 +1,42 @@
+
+ RUN  v5.1.2 /private/tmp/network-quest-t105-8b66902-loop123
+
+ ✓ tests/state/encounter.test.ts (61 tests) 543ms
+ ✓ tests/state/reducer.test.ts (38 tests) 143ms
+ ✓ tests/state/outcome-classification.test.ts (83 tests) 499ms
+ ✓ tests/state/objectives.test.ts (59 tests) 9965ms
+   ✓ T074 content and observation provenance (22)
+     ✓ requires prerequisite, actual tool and observed facts independently 349ms
+   ✓ T074 persisted measurements and assistance fit the unchanged save-v1 contract 1111ms
+ ✓ tests/state/repair-plan.test.ts (52 tests) 7227ms
+   ✓ T077 executed intervention and fresh final proof (52)
+     ✓ rejects structurally valid but unreviewed action-effect content 419ms
+     ✓ rejects structurally valid but unreviewed weakened-prerequisite content 423ms
+     ✓ rejects structurally valid but unreviewed alternate-condition content 427ms
+ ✓ tests/content/equipment-rooms.test.ts (19 tests) 1073ms
+   ✓ T076 Shell Market and Clockworks authored contracts (14)
+     ✓ joins both rooms and the accepted definitions through the real registry without changing the production world 540ms
+     ✓ rejects unsafe anchor in the actual content validator 472ms
+ ✓ tests/state/repair-route-exact.test.ts (30 tests) 1745ms
+ ✓ tests/domain/copper-repair.test.ts (47 tests) 8ms
+ ✓ tests/domain/copper.test.ts (53 tests) 7ms
+ ✓ tests/domain/optics.test.ts (62 tests) 7ms
+ ✓ tests/state/tutorial.test.ts (7 tests) 14ms
+ ✓ tests/state/introduction.test.ts (4 tests) 1971ms
+   ✓ T030 joined introduction state acceptance (4)
+     ✓ satchel first: real objectives, both dialogue topics and nonempty inventory survive skip/replay and return travel 556ms
+     ✓ Photon first: real objectives, both dialogue topics and nonempty inventory survive skip/replay and return travel 476ms
+     ✓ invalidates a captured inspection across real path changes and preserves every old result until a new current measurement 473ms
+     ✓ cannot bypass a live clue conversation with inspection or travel; skipping unlocks the same real investigation 466ms
+ ✓ tests/domain/radio.test.ts (65 tests) 6ms
+ ✓ tests/domain/capabilities.test.ts (52 tests) 9ms
+ ✓ tests/domain/optics-repair.test.ts (28 tests) 4ms
+ ✓ tests/domain/power.test.ts (58 tests) 12ms
+ ✓ tests/domain/radio-repair.test.ts (12 tests) 4ms
+ ✓ tests/domain/power-capability-repair.test.ts (4 tests) 3ms
+
+ Test Files  18 passed (18)
+      Tests  734 passed (734)
+   Start at  12:22:01
+   Duration  27.45s (tests 87%, import 11%, transform 1%)
+
