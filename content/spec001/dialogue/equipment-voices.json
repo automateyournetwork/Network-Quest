@@ -1,0 +1,328 @@
+{
+  "kind": "collection",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "records": [
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-market-bench",
+      "entryNodeId": "spec001:DIALOGUE-market-bench-entry",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-market-bench-entry",
+          "speakerId": "spec001:CH16",
+          "text": "The loan trays and cage let you handle the equipment before checking it.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [
+            {
+              "id": "spec001:ACTION-market-seat-sample",
+              "text": "Seat the sample module in the display cage. The latch clicks. The host and physical profile still need checking.",
+              "condition": {
+                "kind": "always"
+              },
+              "nextNodeId": null,
+              "effects": []
+            },
+            {
+              "id": "spec001:ACTION-market-assemble-A",
+              "text": "Join the module and lead from your selected tray. Kit A serves the supplied 12 W and 11 W endpoints. Validate it at the ledger.",
+              "condition": {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-market-kit",
+                "value": "compatible-kit-A"
+              },
+              "nextNodeId": null,
+              "effects": []
+            },
+            {
+              "id": "spec001:ACTION-market-assemble-B",
+              "text": "Join the module and lead from your selected tray. Kit B serves the supplied 12 W, 11 W and 7 W endpoints. Validate it at the ledger.",
+              "condition": {
+                "kind": "flag-equals",
+                "flagId": "spec001:FLAG-market-kit",
+                "value": "compatible-kit-B"
+              },
+              "nextNodeId": null,
+              "effects": []
+            }
+          ],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-media-049",
+      "entryNodeId": "spec001:DIALOGUE-VOICE-049",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-VOICE-049",
+          "speakerId": "spec001:CH16",
+          "text": "Welcome to the Shell Market. Please compare the specifications before admiring the polish.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-media-050",
+      "entryNodeId": "spec001:DIALOGUE-VOICE-050",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-VOICE-050",
+          "speakerId": "spec001:CH16",
+          "text": "A shell that fits the cage is only a start. Check the supported physical profile, medium and required wavelength.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-media-051",
+      "entryNodeId": "spec001:DIALOGUE-VOICE-051",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-VOICE-051",
+          "speakerId": "spec001:CH16",
+          "text": "S F P names a form factor here. The particular module tells you what it actually supports.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-media-052",
+      "entryNodeId": "spec001:DIALOGUE-VOICE-052",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-VOICE-052",
+          "speakerId": "spec001:CH16",
+          "text": "The Chimera has a broader shell. Its lanes and breakout support still depend on the specified module profile.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-media-053",
+      "entryNodeId": "spec001:DIALOGUE-VOICE-053",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-VOICE-053",
+          "speakerId": "spec001:CH16",
+          "text": "Keep delivered power separate from source power. This exercise supplies a budget at the endpoints.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-media-054",
+      "entryNodeId": "spec001:DIALOGUE-VOICE-054",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-VOICE-054",
+          "speakerId": "spec001:CH16",
+          "text": "Twelve, eleven and ten watts total thirty-three. This supplied thirty-watt budget is three watts short.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-media-055",
+      "entryNodeId": "spec001:DIALOGUE-VOICE-055",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-VOICE-055",
+          "speakerId": "spec001:CH16",
+          "text": "Powered, yes. Communicating, not yet established. I have met many very well-lit broken links.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-media-059",
+      "entryNodeId": "spec001:DIALOGUE-VOICE-059",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-VOICE-059",
+          "speakerId": "spec001:CH16",
+          "text": "Select the compatible parts for your chosen route. You need a repair kit, not the entire market.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-media-060",
+      "entryNodeId": "spec001:DIALOGUE-VOICE-060",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-VOICE-060",
+          "speakerId": "spec001:CH16",
+          "text": "The ledger is less glamorous than a lightning bolt. It is also rather better at adding watts.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-media-011",
+      "entryNodeId": "spec001:DIALOGUE-VOICE-011",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-VOICE-011",
+          "speakerId": "narrator",
+          "text": "Take your time. This toy symbol exercise advances when you choose a step, not when a clock runs out.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    },
+    {
+      "kind": "dialogue",
+      "schemaVersion": 1,
+      "episodeId": "spec001",
+      "contentVersion": "1.0.0",
+      "id": "spec001:DIALOGUE-media-012",
+      "entryNodeId": "spec001:DIALOGUE-VOICE-012",
+      "nodes": [
+        {
+          "id": "spec001:DIALOGUE-VOICE-012",
+          "speakerId": "narrator",
+          "text": "Four symbols represent eight bits in this toy example. That does not tell us a useful data rate.",
+          "condition": {
+            "kind": "always"
+          },
+          "choices": [],
+          "effects": [],
+          "evidenceIds": []
+        }
+      ],
+      "evidence": [],
+      "skipPolicy": "retain-required-evidence",
+      "replayPolicy": "no-duplicate-effects"
+    }
+  ]
+}

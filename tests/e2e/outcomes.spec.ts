@@ -72,6 +72,8 @@ test.describe('T089 real outcome and recovery integration', () => {
     expect(saved.snapshot.world.route).toBe(variant.branch); expect(saved.snapshot.outcomeHistory.at(-1)?.outcome).toBe(variant.ending);
     expect(j.writes).toHaveLength(2); expect(j.writes[1]!.mode).toBe('automatic'); expect((await j.local.inspectAccount()).saves).toBe(1);
     await j.page.reload(); await j.click('Continue'); await j.room('The Iron Threshold');
+    await expect(j.page.locator('.nq-room-stage')).toHaveAttribute('data-mural-folio', variant.ending);
+    await expect(j.page.locator('.nq-media-cue[data-asset-id="spec001:ASSET-MUSIC-epilogue"]')).toHaveCount(0);
     await j.objective('Validate at R12', true); expect(await j.local.inspectSlot()).toEqual(saved); expect(j.writes).toHaveLength(2);
   });
 
@@ -161,7 +163,9 @@ test.describe('T089 real outcome and recovery integration', () => {
     expect(await j.local.inspectSlot()).toEqual(anchor); expect(j.writes).toHaveLength(1);
     await failure.getByRole('button', { name: 'Restore Save', exact: true }).click();
     await load.getByRole('button', { name: 'Discard current progress and load', exact: true }).press('Enter');
-    await j.room('The Backhoe Rift'); await j.expectNotes(notesBefore); await oldConfirm!.evaluate(element => (element as HTMLElement).click());
+    await j.room('The Backhoe Rift'); await expect(j.page.locator('[data-mural-folio]')).toHaveCount(0);
+    await expect(j.page.locator('.nq-media-cue[data-asset-id="spec001:ASSET-VOICE-013"]')).toHaveCount(0);
+    await j.expectNotes(notesBefore); await oldConfirm!.evaluate(element => (element as HTMLElement).click());
     await j.room('The Backhoe Rift'); expect(await j.local.inspectSlot()).toEqual(anchor); expect(j.writes).toHaveLength(1);
     // Re-saving unchanged restored memory lets the actual service expose the
     // whole payload; no DOM state hook or journal merge claim substitutes for it.

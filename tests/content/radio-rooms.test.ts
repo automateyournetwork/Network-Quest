@@ -10,6 +10,7 @@ const read = async <T>(path: string): Promise<T> => JSON.parse(await readFile(ne
 const profiles = await read<S.collection>('content/spec001/profiles.json');
 const objectives = await read<S.collection>('content/spec001/objectives.json');
 const actions = await read<S.collection>('content/spec001/dialogue/radio-actions.json').catch(() => null);
+const voices = await read<S.collection>('content/spec001/dialogue/radio-voices.json');
 const rooms = await Promise.all(['R07', 'R08'].map(id => read<S.room>(`content/spec001/rooms/${id}.json`).catch(() => null)));
 function room(id: string): S.room { const r = rooms.find(r => r?.id === q(id)); if (!r) throw new Error(`Missing radio room ${id}`); return r; }
 function objective(id: string): S.objective { const o = objectives.records.find(r => r.id === q(id)); if (o?.kind !== 'objective') throw new Error(id); return o; }
@@ -19,7 +20,7 @@ function projection() {
   input.world.documents = input.world.documents.filter(r => !replaced.includes(r));
   for (const { path } of replaced) delete input.documents[path];
   if (!actions) throw new Error('Missing radio actions');
-  for (const [path, value] of [['content/spec001/profiles.json', profiles], ['content/spec001/objectives.json', objectives], ['content/spec001/dialogue/radio-actions.json', actions],
+  for (const [path, value] of [['content/spec001/profiles.json', profiles], ['content/spec001/objectives.json', objectives], ['content/spec001/dialogue/radio-actions.json', actions], ['content/spec001/dialogue/radio-voices.json', voices],
     ['content/spec001/rooms/R07.json', room('R07')], ['content/spec001/rooms/R08.json', room('R08')]] as const) {
     input.documents[path] = structuredClone(routeDocument(value));
     input.world.documents.push(...(value.kind === 'collection' ? value.records : [value]).map(r => ({ kind: r.kind, id: r.id, path })));
@@ -41,12 +42,16 @@ describe('T080 radio room content contracts', () => {
       expect(exposed).toContain(a.id); expect(a.itemIds).toEqual([q('ITEM-inspection-kit')]); expect(a.abilityIds).toEqual([]); expect(a.effects).toEqual([]);
     }
   });
-  it.each(['R07', 'R08'])('%s makes every allocated prop and character inspectable, with honest temporary media', id => {
+  it.each(['R07', 'R08'])('%s makes every allocated prop and character inspectable, with registered visual media and the mounted shared prop', id => {
     const r = room(id), meta = authoredInput.world.rooms.find(r => r.id === q(id))!;
-    expect(r.characterIds).toEqual(meta.characterIds); expect(r.propInstances.map(p => p.propId)).toEqual(meta.propIds);
+    expect(r.characterIds).toEqual(meta.characterIds); expect(r.propInstances.map(p => p.propId)).toEqual([...meta.propIds, q(id === 'R07' ? 'PR137' : 'PR124')]);
     for (const subject of [...meta.characterIds, ...meta.propIds]) expect(r.hotspots.some(h => h.subjectId === subject && h.verbs.includes('look')), subject).toBe(true);
-    expect(r.safePositions.map(p => p.id)).toEqual(meta.safePositionIds); expect(r.mediaBindings).toBeUndefined(); expect(r.ambience.assetIds).toEqual([]);
-    expect(r.propInstances.every(p => p.assetId === `spec001:DEV-${p.propId.split(':')[1]}`)).toBe(true);
+    expect(r.safePositions.map(p => p.id)).toEqual(meta.safePositionIds); expect(r.ambience.assetIds).toEqual([q('ASSET-AMBIENCE-'+id)]);
+    expect(r.mediaBindings?.filter(b => b.use === 'ambience').map(b => b.assetId)).toEqual(r.ambience.assetIds);
+    for (const p of r.propInstances) {
+      expect(p.assetId).toBe(p.propId.replace(':', ':ASSET-'));
+      expect(r.mediaBindings?.some(b => b.assetId === p.assetId && b.use === 'prop-placement' && b.contentId === r.id)).toBe(true);
+    }
     expect(r.futureDoorIds).toEqual([]);
   });
   it('retains exact bidirectional branch exits and no invented market shortcut', () => {

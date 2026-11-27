@@ -1,0 +1,84 @@
+{
+  "room": "R11",
+  "actors": [
+    {
+      "actor": "CH01",
+      "rig": "articulated object hierarchy",
+      "joints": [
+        "CH01_leg_L",
+        "CH01_knee_L",
+        "CH01_leg_R",
+        "CH01_knee_R",
+        "CH01_torso",
+        "CH01_arm_L",
+        "CH01_arm_R",
+        "CH01_head"
+      ],
+      "clips": {
+        "idle": {
+          "animatedJoints": 4,
+          "frameRange": [
+            1.0,
+            97.0
+          ]
+        },
+        "reaction": {
+          "animatedJoints": 4,
+          "frameRange": [
+            1.0,
+            25.0
+          ]
+        },
+        "walk": {
+          "animatedJoints": 7,
+          "frameRange": [
+            1.0,
+            25.0
+          ]
+        }
+      }
+    },
+    {
+      "actor": "CH25",
+      "rig": "articulated object hierarchy",
+      "joints": [
+        "CH25_slewing house",
+        "CH25_boom pivot",
+        "CH25_dipper pivot",
+        "CH25_expressive bucket pivot"
+      ],
+      "clips": {
+        "idle": {
+          "animatedJoints": 2,
+          "frameRange": [
+            1.0,
+            97.0
+          ]
+        },
+        "reaction": {
+          "animatedJoints": 3,
+          "frameRange": [
+            1.0,
+            37.0
+          ]
+        }
+      }
+    }
+  ],
+  "contacts": [
+    {
+      "tool": "PR129",
+      "fixture": "PR105",
+      "vertices": 3078,
+      "contactVerticesWithin12mm": 24,
+      "closestGapMetres": 1.3e-06
+    },
+    {
+      "tool": "PR132",
+      "fixture": "PR106",
+      "vertices": 2042,
+      "contactVerticesWithin12mm": 51,
+      "closestGapMetres": 0.0004137
+    }
+  ]
+}

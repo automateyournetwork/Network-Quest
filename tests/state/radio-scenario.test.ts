@@ -17,7 +17,7 @@ const input = structuredClone(authoredInput);
 const replaced = input.world.documents.filter(r => r.kind === 'profile' || r.kind === 'objective' || ['spec001:R07', 'spec001:R08'].includes(r.id) || r.path === 'content/spec001/dialogue/radio-actions.json');
 input.world.documents = input.world.documents.filter(r => !replaced.includes(r));
 for (const { path } of replaced) delete input.documents[path];
-for (const path of ['content/spec001/profiles.json', 'content/spec001/objectives.json', 'content/spec001/dialogue/radio-actions.json', 'content/spec001/rooms/R07.json', 'content/spec001/rooms/R08.json']) {
+for (const path of ['content/spec001/profiles.json', 'content/spec001/objectives.json', 'content/spec001/dialogue/radio-actions.json', 'content/spec001/dialogue/radio-voices.json', 'content/spec001/rooms/R07.json', 'content/spec001/rooms/R08.json']) {
   const value = await read<S.collection | S.room>(path);
   input.documents[path] = routeDocument(value);
   input.world.documents.push(...(value.kind === 'collection' ? value.records : [value]).map(r => ({ kind: r.kind, id: r.id, path })));

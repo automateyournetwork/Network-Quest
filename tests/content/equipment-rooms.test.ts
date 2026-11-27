@@ -69,7 +69,9 @@ describe('T076 Shell Market and Clockworks authored contracts', () => {
     for (const room of rooms) {
       const meta = world.rooms.find(r => r.id === room.id)!;
       expect(room.characterIds).toEqual(meta.characterIds);
-      expect(room.propInstances.map(p => p.propId)).toEqual(meta.propIds);
+      expect(room.propInstances.filter(p => meta.propIds.includes(p.propId)).map(p => p.propId)).toEqual(meta.propIds);
+      const shared = room.id.endsWith('R09') ? ['PR140', 'PR141', 'PR142', 'PR145'] : ['PR138'];
+      expect(room.propInstances.filter(p => !meta.propIds.includes(p.propId)).map(p => p.propId)).toEqual(shared.map(q));
       expect(room.safePositions.map(p => p.id)).toEqual(meta.safePositionIds);
       expect(room.exits.map(e => e.toRoomId)).toEqual(world.walkEdges.flatMap(e => e.from === room.id ? [e.to] : e.to === room.id ? [e.from] : []));
       expect(room.hotspots.length).toBeGreaterThanOrEqual(12);
@@ -77,8 +79,9 @@ describe('T076 Shell Market and Clockworks authored contracts', () => {
         expect(hotspot.description.length).toBeGreaterThan(80);
         expect(hotspot.unsupportedVerbText.length).toBeGreaterThan(40);
       }
-      expect(room.mediaBindings).toBeUndefined(); // Semantic placement is not media acceptance.
-      expect(room.ambience.assetIds).toEqual([]);
+      expect(room.mediaBindings?.filter(b => b.use === 'prop-placement').map(b => b.assetId))
+        .toEqual(room.propInstances.map(p => p.assetId));
+      expect(room.ambience.assetIds).toEqual([room.id.replace(':', ':ASSET-AMBIENCE-')]);
     }
   });
   it('exposes every accepted equipment/calibration alternative and preserves its canonical evidence exactly', () => {

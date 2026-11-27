@@ -61,6 +61,8 @@ import { createRoomAdapter, type RoomSettings } from '../presentation/room-adapt
 import { createResourcePool } from '../presentation/resource-pool';
 import { createThreeRoom, type RoomResource } from '../presentation/three-room';
 import { createWorkshopDecoration } from '../presentation/workshop-decoration';
+import { createThresholdMural } from '../presentation/threshold-mural';
+import { createRadioDecoration } from '../presentation/radio-decoration';
 import { createRegisteredLayeredRooms } from '../presentation/layered-room';
 import type { RoomRenderer } from '../presentation/room-adapter';
 import { resolveRoomMedia } from '../presentation/room-media';
@@ -181,7 +183,11 @@ export function createIntroductionApplication(host: HTMLElement) {
     const graybox = createIntroductionGraybox(shell.presentationHost, { data: layouts, roomIds: layouts.rooms.map(room => room.roomId) });
     const mediaPool = createResourcePool<RoomResource>({ maxEntries: 32, maxInFlight: 4, maxPrefetch: 0, maxLeases: 32, maxBytes: 244_000_000 });
     const finished = createThreeRoom(shell.presentationHost, media, publicPaths.gameBase);
-    const layered = createRegisteredLayeredRooms(shell.presentationHost, registry, publicPaths.gameBase, { 'spec001:R02': createWorkshopDecoration });
+    const radioDecoration = createRadioDecoration(() => state.runtime.game?.world.flags);
+    const layered = createRegisteredLayeredRooms(shell.presentationHost, registry, publicPaths.gameBase, {
+      'spec001:R02': createWorkshopDecoration, 'spec001:R07': radioDecoration, 'spec001:R08': radioDecoration,
+      'spec001:R12': createThresholdMural(() => state.runtime.game),
+    });
     type SpriteRenderer = RoomRenderer<RoomResource> & Pick<typeof finished, 'react' | 'dispose'>;
     let sprite: SpriteRenderer | undefined;
     const spriteRenderer: RoomRenderer<RoomResource> = { reuseView: true, async prepare(request) {
@@ -561,6 +567,13 @@ export function createIntroductionApplication(host: HTMLElement) {
     }
     if (input.kind === 'use-ally-ability' && state.runtime.game?.world.roomId === q('R05')
       && String(input.abilityId) === 'spec001:ABILITY-CH03-optical-checklist') panels.playResidentAbility('spec001:ASSET-CH03');
+    if (input.kind === 'use-ally-ability' && state.runtime.game?.world.roomId === q('R07')
+      && String(input.abilityId) === 'spec001:ABILITY-CH07-radio-observation') panels.playResidentAbility('spec001:ASSET-CH07');
+
+    if (input.kind === 'use-ally-ability' && state.runtime.game?.world.roomId === q('R09')
+      && String(input.abilityId) === 'spec001:ABILITY-CH19-delivered-power') panels.playResidentAbility('spec001:ASSET-CH19');
+    if (input.kind === 'use-ally-ability' && state.runtime.game?.world.roomId === q('R10')
+      && String(input.abilityId) === 'spec001:ABILITY-CH22-capability-intersection') panels.playResidentAbility('spec001:ASSET-CH22');
     if (state.runtime.game?.world.roomId !== q('R01')) return;
     if (input.kind === 'interact' || input.kind === 'choose-hotspot-action') {
       if (input.verb === 'look' && input.targetId === 'spec001:HOTSPOT-power') panels.sound.trigger('control');

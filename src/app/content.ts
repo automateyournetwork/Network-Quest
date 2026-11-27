@@ -25,8 +25,11 @@ import threshold from '../../content/spec001/rooms/R12.json' with { type: 'json'
 import copperVoices from '../../content/spec001/dialogue/copper-voices.json' with { type: 'json' };
 import copperActions from '../../content/spec001/dialogue/copper-actions.json' with { type: 'json' };
 import fiberActions from '../../content/spec001/dialogue/fiber-actions.json' with { type: 'json' };
+import riftThresholdVoices from '../../content/spec001/dialogue/rift-threshold-voices.json' with { type: 'json' };
+import equipmentVoices from '../../content/spec001/dialogue/equipment-voices.json' with { type: 'json' };
 import fiberVoices from '../../content/spec001/dialogue/fiber-voices.json' with { type: 'json' };
 import radioActions from '../../content/spec001/dialogue/radio-actions.json' with { type: 'json' };
+import radioVoices from '../../content/spec001/dialogue/radio-voices.json' with { type: 'json' };
 import equipmentActions from '../../content/spec001/dialogue/equipment-actions.json' with { type: 'json' };
 import packetRepair from '../../content/spec001/dialogue/packet-r12.json' with { type: 'json' };
 import repairActions from '../../content/spec001/dialogue/repair-plan-actions.json' with { type: 'json' };
@@ -56,8 +59,11 @@ export function loadIntroductionContent() {
     'content/spec001/dialogue/copper-actions.json': copperActions,
     'content/spec001/dialogue/copper-voices.json': copperVoices,
     'content/spec001/dialogue/fiber-actions.json': fiberActions,
+    'content/spec001/dialogue/equipment-voices.json': equipmentVoices,
+    'content/spec001/dialogue/rift-threshold-voices.json': riftThresholdVoices,
     'content/spec001/dialogue/fiber-voices.json': fiberVoices,
     'content/spec001/dialogue/radio-actions.json': radioActions,
+    'content/spec001/dialogue/radio-voices.json': radioVoices,
     'content/spec001/dialogue/equipment-actions.json': equipmentActions,
     'content/spec001/dialogue/repair-plan-actions.json': repairActions,
     'content/spec001/dialogue/packet-r12.json': packetRepair,

@@ -288,6 +288,7 @@ export function createAppShell(host: HTMLElement, bus: Pick<ActionBus, 'captureS
         let entry = objectNodes.get(object.id);
         if (!entry) {
           const element = node('li');
+          element.dataset['sceneObject'] = object.id;
           const heading = node('h3');
           const description = node('p');
           const actions = node('div', 'nq-shell-object-actions');

@@ -182,61 +182,67 @@
       "instanceId": "r12-pr111",
       "propId": "spec001:PR111",
       "description": "The Iron City remains a future-content boundary. You can finish the Underworld here; entering a future realm is unnecessary and no upper-layer simulation is implied.",
-      "assetId": "spec001:DEV-PR111"
+      "assetId": "spec001:ASSET-PR111"
     },
     {
       "instanceId": "r12-pr112",
       "propId": "spec001:PR112",
       "description": "The beacon is a link indication, not a service verdict. Reaching this balcony and seeing light do not complete final validation. Use the terminal to measure again.",
-      "assetId": "spec001:DEV-PR112"
+      "assetId": "spec001:ASSET-PR112"
     },
     {
       "instanceId": "r12-pr113",
       "propId": "spec001:PR113",
       "description": "This fictional validation exercise supplies a separate endpoint service response and a received NQ test pattern. The upper-layer dependencies are known good for this scoped challenge. The endpoint result is an explicit cross-layer observation, never inferred from link-up or matching bits. The NQ highlight belongs inside an opaque upper-interface frame, not a complete two-byte frame or Ethernet FCS test. Look to follow the test message through the currently executed route. The preview leaves required measurements and classification to the apprentice.",
-      "assetId": "spec001:DEV-PR113"
+      "assetId": "spec001:ASSET-PR113"
     },
     {
       "instanceId": "r12-pr114",
       "propId": "spec001:PR114",
       "description": "Compare fresh link readings with the independent endpoint response. A failed endpoint prevents permanent or temporary restoration even when the physical path and known pattern pass.",
-      "assetId": "spec001:DEV-PR114"
+      "assetId": "spec001:ASSET-PR114"
     },
     {
       "instanceId": "r12-pr115",
       "propId": "spec001:PR115",
       "description": "Permanent repair, documented temporary service and unresolved isolation are different classifications. Hints are recorded separately and never downgrade a technically valid result.",
-      "assetId": "spec001:DEV-PR115"
+      "assetId": "spec001:ASSET-PR115"
     },
     {
       "instanceId": "r12-pr116",
       "propId": "spec001:PR116",
       "description": "Temporary dependency: the tested bypass uses a borrowed installation in the protected work corridor. Limitation: this arrangement cannot be left as the permanent route. Follow-up: install and validate the permanent protected route before removing or returning the borrowed installation. Temporary service must pass the same fresh physical and endpoint checks.",
-      "assetId": "spec001:DEV-PR116"
+      "assetId": "spec001:ASSET-PR116"
     },
     {
       "instanceId": "r12-pr117",
       "propId": "spec001:PR117",
       "description": "Repeat the selected copper, fiber or radio checks after intervention. Measurements from preparation, a changed path or another attempt remain visible as stale; no animation refreshes them.",
-      "assetId": "spec001:DEV-PR117"
+      "assetId": "spec001:ASSET-PR117"
     },
     {
       "instanceId": "r12-pr118",
       "propId": "spec001:PR118",
       "description": "The seal requires an evidenced classification. Permanent restoration removes the defect with no temporary dependency; temporary restoration also records its limitation and follow-up. Neither follows from arrival.",
-      "assetId": "spec001:DEV-PR118"
+      "assetId": "spec001:ASSET-PR118"
     },
     {
       "instanceId": "r12-pr119",
       "propId": "spec001:PR119",
       "description": "The path returns to the Rift. Before commitment the preparation paths remain available. An intentional shutdown remains unresolved; recovery must return through safe preparation, not a fabricated passing result.",
-      "assetId": "spec001:DEV-PR119"
+      "assetId": "spec001:ASSET-PR119"
     },
     {
       "instanceId": "r12-pr120",
       "propId": "spec001:PR120",
       "description": "Named unresolved fault: the severed conduit remains disconnected. Deliberate isolation keeps that path out of service. Recovery plan: return to safe preparation, repair or replace the damaged path, then measure again and repeat the endpoint test. This is honest unresolved service, never a restoration.",
-      "assetId": "spec001:DEV-PR120"
+      "assetId": "spec001:ASSET-PR120"
+    },
+    {
+      "instanceId": "r12-pr150",
+      "propId": "spec001:PR150",
+      "description": "Message test token at the work station.",
+      "assetId": "spec001:ASSET-PR150"
     }
   ],
   "safePositions": [
@@ -330,9 +336,307 @@
   ],
   "ambience": {
     "text": "The work platform is quiet enough for thinking. Every warning, reading and service result is available as text.",
-    "assetIds": []
+    "assetIds": [
+      "spec001:ASSET-AMBIENCE-R12"
+    ]
   },
   "futureDoorIds": [
     "spec001:FD-IRON-CITY"
+  ],
+  "mediaBindings": [
+    {
+      "assetId": "spec001:ASSET-ARCH-R12",
+      "contentId": "spec001:R12",
+      "use": "room-architecture",
+      "exportPath": "public/assets/models/R12-architecture.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH01",
+      "contentId": "spec001:R12",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH01.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH02",
+      "contentId": "spec001:R12",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH02.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH03",
+      "contentId": "spec001:R12",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH03.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH12",
+      "contentId": "spec001:R12",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH12.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-PR111",
+      "contentId": "spec001:R12",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR111.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR112",
+      "contentId": "spec001:R12",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR112.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR113",
+      "contentId": "spec001:R12",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR113.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR114",
+      "contentId": "spec001:R12",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR114.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR115",
+      "contentId": "spec001:R12",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR115.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR116",
+      "contentId": "spec001:R12",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR116.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR117",
+      "contentId": "spec001:R12",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR117.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR118",
+      "contentId": "spec001:R12",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR118.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR119",
+      "contentId": "spec001:R12",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR119.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR120",
+      "contentId": "spec001:R12",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR120.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR150",
+      "contentId": "spec001:R12",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/shared/PR150.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R12-background",
+      "contentId": "spec001:R12",
+      "use": "background",
+      "exportPath": "public/assets/images/R12/background.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R12-midground",
+      "contentId": "spec001:R12",
+      "use": "midground",
+      "exportPath": "public/assets/images/R12/midground.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R12-foreground",
+      "contentId": "spec001:R12",
+      "use": "foreground",
+      "exportPath": "public/assets/images/R12/foreground.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH04",
+      "contentId": "spec001:R12",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH04.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH05",
+      "contentId": "spec001:R12",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH05.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH06",
+      "contentId": "spec001:R12",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH06.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH07",
+      "contentId": "spec001:R12",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH07.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH16",
+      "contentId": "spec001:R12",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH16.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH19",
+      "contentId": "spec001:R12",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH19.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH20",
+      "contentId": "spec001:R12",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH20.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH22",
+      "contentId": "spec001:R12",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH22.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-MUSIC-epilogue",
+      "contentId": "spec001:R12",
+      "use": "music",
+      "exportPath": "public/assets/audio/music/epilogue.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R12",
+      "contentId": "spec001:R12",
+      "use": "ambience",
+      "exportPath": "public/assets/audio/ambience/r12.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-033",
+      "contentId": "spec001:R12",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/effect-033.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-015",
+      "contentId": "spec001:DIALOGUE-VOICE-015",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-015.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-016",
+      "contentId": "spec001:DIALOGUE-VOICE-016",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-016.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-017",
+      "contentId": "spec001:DIALOGUE-VOICE-017",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-017.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-018",
+      "contentId": "spec001:DIALOGUE-VOICE-018",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-018.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-031",
+      "contentId": "spec001:DIALOGUE-VOICE-031",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-031.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-032",
+      "contentId": "spec001:DIALOGUE-VOICE-032",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-032.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-033",
+      "contentId": "spec001:DIALOGUE-VOICE-033",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-033.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-034",
+      "contentId": "spec001:DIALOGUE-VOICE-034",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-034.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-045",
+      "contentId": "spec001:DIALOGUE-VOICE-045",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-045.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-046",
+      "contentId": "spec001:DIALOGUE-VOICE-046",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-046.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-047",
+      "contentId": "spec001:DIALOGUE-VOICE-047",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-047.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-048",
+      "contentId": "spec001:DIALOGUE-VOICE-048",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-048.mp3",
+      "interactiveOrEvidence": false
+    }
   ]
 }

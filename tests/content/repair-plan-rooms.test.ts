@@ -33,7 +33,9 @@ describe('T077 authored Rift and Threshold contract', () => {
   it('keeps all branch choices, safe return exits and ordinary tools', () => {
     for (const id of ['R11', 'R12']) {
       const value = room(id), metadata = world.rooms.find(r => r.id === value.id)!;
-      expect(value.characterIds).toEqual(metadata.characterIds); expect(value.propInstances.map(p => p.propId)).toEqual(metadata.propIds);
+      expect(value.characterIds).toEqual(metadata.characterIds);
+      const shared = id === 'R11' ? ['PR129','PR131','PR132','PR143'] : ['PR150'];
+      expect(value.propInstances.map(p => p.propId)).toEqual([...metadata.propIds, ...shared.map(q)]);
       expect(value.safePositions.map(p => p.id)).toEqual(metadata.safePositionIds);
       for (const alternative of objective(id.replace('R', 'O')).alternatives)
         expect(value.hotspots.some(h => h.actionIds.includes(alternative.id) && h.verbs.includes('use'))).toBe(true);
@@ -46,7 +48,10 @@ describe('T077 authored Rift and Threshold contract', () => {
     const text = JSON.stringify(rooms);
     for (const term of ['endpoint', 'temporary', 'follow-up', 'isolation', 'warning', 'measure again', 'opaque', '105 m', '100 m']) expect(text).toContain(term);
     for (const value of rooms) {
-      expect(value?.mediaBindings).toBeUndefined(); expect(value?.ambience.assetIds).toEqual([]);
+      expect(value?.ambience.assetIds).toEqual([value!.id.replace(':', ':ASSET-AMBIENCE-')]);
+      for (const prop of value!.propInstances) expect(value?.mediaBindings).toContainEqual(expect.objectContaining({
+        contentId: value!.id, assetId: prop.propId.replace(':', ':ASSET-'), use: 'prop-placement',
+      }));
       expect(value?.hotspots.every(h => h.label && h.description.length > 40 && h.unsupportedVerbText.length > 40)).toBe(true);
     }
   });

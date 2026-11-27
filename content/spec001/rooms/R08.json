@@ -243,61 +243,67 @@
       "instanceId": "r08-pr071",
       "propId": "spec001:PR071",
       "description": "Storm radar dish, a temporary inspectable placement for the radio exercise.",
-      "assetId": "spec001:DEV-PR071"
+      "assetId": "spec001:ASSET-PR071"
     },
     {
       "instanceId": "r08-pr072",
       "propId": "spec001:PR072",
       "description": "Local interference emitter and isolation switch, a temporary inspectable placement for the radio exercise.",
-      "assetId": "spec001:DEV-PR072"
+      "assetId": "spec001:ASSET-PR072"
     },
     {
       "instanceId": "r08-pr073",
       "propId": "spec001:PR073",
       "description": "Observation telescope, a temporary inspectable placement for the radio exercise.",
-      "assetId": "spec001:DEV-PR073"
+      "assetId": "spec001:ASSET-PR073"
     },
     {
       "instanceId": "r08-pr074",
       "propId": "spec001:PR074",
       "description": "Noise-floor meter and boundary exercise card, a temporary inspectable placement for the radio exercise.",
-      "assetId": "spec001:DEV-PR074"
+      "assetId": "spec001:ASSET-PR074"
     },
     {
       "instanceId": "r08-pr075",
       "propId": "spec001:PR075",
       "description": "Propagation globe, a temporary inspectable placement for the radio exercise.",
-      "assetId": "spec001:DEV-PR075"
+      "assetId": "spec001:ASSET-PR075"
     },
     {
       "instanceId": "r08-pr076",
       "propId": "spec001:PR076",
       "description": "Weather vane and diary shelf, a temporary inspectable placement for the radio exercise.",
-      "assetId": "spec001:DEV-PR076"
+      "assetId": "spec001:ASSET-PR076"
     },
     {
       "instanceId": "r08-pr077",
       "propId": "spec001:PR077",
       "description": "Satellite orbital model, a temporary inspectable placement for the radio exercise.",
-      "assetId": "spec001:DEV-PR077"
+      "assetId": "spec001:ASSET-PR077"
     },
     {
       "instanceId": "r08-pr078",
       "propId": "spec001:PR078",
       "description": "Microwave reflector, a temporary inspectable placement for the radio exercise.",
-      "assetId": "spec001:DEV-PR078"
+      "assetId": "spec001:ASSET-PR078"
     },
     {
       "instanceId": "r08-pr079",
       "propId": "spec001:PR079",
       "description": "Signal history drum, a temporary inspectable placement for the radio exercise.",
-      "assetId": "spec001:DEV-PR079"
+      "assetId": "spec001:ASSET-PR079"
     },
     {
       "instanceId": "r08-pr080",
       "propId": "spec001:PR080",
       "description": "Channel survey desk and relay test, a temporary inspectable placement for the radio exercise.",
-      "assetId": "spec001:DEV-PR080"
+      "assetId": "spec001:ASSET-PR080"
+    },
+    {
+      "instanceId": "r08-pr124",
+      "propId": "spec001:PR124",
+      "description": "Channel analyzer mounted at its survey station.",
+      "assetId": "spec001:ASSET-PR124"
     }
   ],
   "safePositions": [
@@ -379,7 +385,228 @@
   ],
   "ambience": {
     "text": "The vane rattles and the dish creaks in the description; silence does not remove any observation or required action.",
-    "assetIds": []
+    "assetIds": [
+      "spec001:ASSET-AMBIENCE-R08"
+    ]
   },
-  "futureDoorIds": []
+  "futureDoorIds": [],
+  "mediaBindings": [
+    {
+      "assetId": "spec001:ASSET-ARCH-R08",
+      "contentId": "spec001:R08",
+      "use": "room-architecture",
+      "exportPath": "public/assets/models/R08-architecture.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH01",
+      "contentId": "spec001:R08",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH01.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH10",
+      "contentId": "spec001:R08",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH10.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH11",
+      "contentId": "spec001:R08",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH11.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH23",
+      "contentId": "spec001:R08",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH23.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-PR071",
+      "contentId": "spec001:R08",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/R07-R08/PR071.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR072",
+      "contentId": "spec001:R08",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/R07-R08/PR072.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR073",
+      "contentId": "spec001:R08",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/R07-R08/PR073.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR074",
+      "contentId": "spec001:R08",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/R07-R08/PR074.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR075",
+      "contentId": "spec001:R08",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/R07-R08/PR075.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR076",
+      "contentId": "spec001:R08",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/R07-R08/PR076.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR077",
+      "contentId": "spec001:R08",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/R07-R08/PR077.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR078",
+      "contentId": "spec001:R08",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/R07-R08/PR078.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR079",
+      "contentId": "spec001:R08",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/R07-R08/PR079.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR080",
+      "contentId": "spec001:R08",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/R07-R08/PR080.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR124",
+      "contentId": "spec001:R08",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/shared/PR124.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R08-background",
+      "contentId": "spec001:R08",
+      "use": "background",
+      "exportPath": "public/assets/images/R08/background.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R08-midground",
+      "contentId": "spec001:R08",
+      "use": "midground",
+      "exportPath": "public/assets/images/R08/midground.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R08-foreground",
+      "contentId": "spec001:R08",
+      "use": "foreground",
+      "exportPath": "public/assets/images/R08/foreground.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH03",
+      "contentId": "spec001:R08",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH03.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH04",
+      "contentId": "spec001:R08",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH04.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH05",
+      "contentId": "spec001:R08",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH05.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH06",
+      "contentId": "spec001:R08",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH06.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH07",
+      "contentId": "spec001:R08",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH07.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH16",
+      "contentId": "spec001:R08",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH16.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH19",
+      "contentId": "spec001:R08",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH19.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH20",
+      "contentId": "spec001:R08",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH20.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH22",
+      "contentId": "spec001:R08",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH22.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R08",
+      "contentId": "spec001:R08",
+      "use": "ambience",
+      "exportPath": "public/assets/audio/ambience/r08.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-020",
+      "contentId": "spec001:R08",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/fx-020.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-010",
+      "contentId": "spec001:DIALOGUE-VOICE-010",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-010.mp3",
+      "interactiveOrEvidence": false
+    }
+  ]
 }

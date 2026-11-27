@@ -26,7 +26,9 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**157 loops started; 124/170 tasks accepted; no deployment.** The first six rooms passed the [combined guest, source and media check](../evidence/spec001/final-rooms/first-six-join.json). Three independent Firefox tours and 4,347 executable domain tests passed, with 360 existing TODOs.
+**160 loops started; 127/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. Fifteen conditional uses are reserved for the next G5 audit checkpoint. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+
+The first six finished rooms reached the remote at `4d9ec809330fd804badff4796de0df7e1f402e82`. [Six-room checkpoint](../evidence/spec001/final-rooms/first-six-join.json)
 
 The room-mode checkpoint reached the remote at `3646ad9c3294b2994469ad7f8bbd6c9ecdc181b8`. The [independent room-mode check](../evidence/spec001/presentation/modes-join.json) verified the Copper Warrens in Firefox and Chromium and the Echo Cavern over local HTTPS. All 4,340 executable domain tests passed.
 
@@ -155,8 +157,14 @@ Loop 153/T136: Copper Warrens and Echo Cavern have reopened native compositions.
 
 Loop 154/T137: Photon Gardens and Prism Vault passed normal guest verification, incorporating 39 registered visual exports, 21 contextual cues, all 14 eligible party placements, real context loss recovery and the conditional Rift exit. No conditional registration was left unobserved in this room pair. [Verification](loops/154-T137.md).
 
+Loop 155/T138: The Skywell and Storm Observatory passed native source review and an independent normal guest repeat. All 61 exact uses and 17 travelling companion placements were observed, with seven playable cues and zero inventory issues. [Verification](loops/155-T138.md).
+
+Loop 157/T140: Three independent ordinary guest routes exercised the Rift, the Threshold and the three earned murals. All 25 contextual recordings, 17 room/party uses, the five exits and three local synthetic-account recovery cases have passing evidence. [Verification](loops/157-T140.md).
+
+Loop 156/T139: Shell Market and Clockworks passed the combined twelve-room guest repeat. Eleven close-ups retained keyboard focus and released their canvases, and all twenty contextual cues and fifteen party placements were observed. [Verification](loops/156-T139.md).
+
 <!-- current production assignments -->
-Active assignments: 155/T138, 156/T139, 157/T140.
+Active assignments: 158/T141, 159/T142, 160/T145.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

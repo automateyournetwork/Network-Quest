@@ -6,6 +6,7 @@ import type * as S from '../../src/content/schema-types.generated';
 import type { ActionId, MeasurementId } from '../../src/domain/types';
 import type { ToySymbolProfile } from '../../src/domain/packet-journey';
 import { equipmentFlags, clockworksSamples, inspectClockworksSamples, resolveEquipmentScenario, equipmentInteractionBindings, createEquipmentScenarioResolver } from '../../src/state/equipment-scenarios';
+import { measuredMarketShortfall } from '../../src/presentation/equipment-audio-events';
 import { evaluateObjective, objectiveEffectBindings } from '../../src/state/objectives';
 import { createReducer, createReducerState } from '../../src/state/reducer';
 import type { ReducerInput, ReducerState, StateEffect } from '../../src/state/reducer';
@@ -196,6 +197,40 @@ describe('T076 actual world-choice resolver joined to T074 and the real reducer'
     (scene.samples as unknown as { value: number }[])[0]!.value = 3;
     expect(f.scenario()).toMatchObject({ samples: clockworksSamples });
     expect(current).toEqual(before);
+  });
+  it('requires the selected tray and preserves all game state when assembling or seating the sample', () => {
+    const f = fixture('O09'), bus = createActionBus({ getContext: () => contextFromRuntime(f.store.getState().runtime) });
+    const verbs = createVerbController({ bus, registry, store: f.store, bindings: bindings.hotspots });
+    const choose = (name: string, target = 'market-counter') => bus.dispatch(bus.capture({ kind: 'choose-hotspot-action',
+      targetId: q(`HOTSPOT-${target}`), choiceId: q(`ACTION-market-${name}`), verb: 'use', itemId: null }));
+    try {
+      const initial = structuredClone(f.game());
+      expect(choose('assemble-A').status).toBe('rejected');
+      expect(choose('assemble-B').status).toBe('rejected');
+      expect(choose('seat-sample','market-sfp').status).toBe('handled');
+      expect(f.game()).toEqual(initial);
+      f.select('equipment-mode-100-full');
+      for (const [index,kit] of ['A','B'].entries()) {
+        f.select('market-compatible-kit-' + kit); f.measure(index+1);
+        const prepared = structuredClone(f.game());
+        expect(choose('assemble-' + (kit === 'A' ? 'B' : 'A')).status).toBe('rejected');
+        expect(choose('assemble-' + kit).status).toBe('handled');
+        expect(choose('seat-sample','market-sfp').status).toBe('handled');
+        expect(f.game()).toEqual(prepared);
+      }
+    } finally { verbs.dispose(); bus.dispose(); }
+  });
+  it('voices the three-watt shortfall only on a new current O09 measurement of the original proposal', () => {
+    const f = fixture('O09'); f.select('equipment-mode-100-full');
+    for (const [i,kit] of ['same-shell-mismatch','per-port-failure','compatible-kit-A','compatible-kit-B','original-over-budget'].entries()) {
+      f.select('market-' + kit);
+      const before = structuredClone(f.game()); f.measure(i+1);
+      const after = f.game();
+      expect(measuredMarketShortfall(before,after)).toBe(kit === 'original-over-budget');
+      expect(measuredMarketShortfall(after,after)).toBe(false);
+      const stale = after.notebook.measurements.map(m => ({ ...m, stale: true }));
+      expect(measuredMarketShortfall(before,{ ...after, notebook: { ...after.notebook, measurements: stale } })).toBe(false);
+    }
   });
   it('joins authored choices through the shared verb bus and submits the exact measurement selected in diagnostics', () => {
     const f = fixture('O09'), bus = createActionBus({ getContext: () => contextFromRuntime(f.store.getState().runtime) });

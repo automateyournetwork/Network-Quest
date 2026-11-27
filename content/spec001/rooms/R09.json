@@ -68,13 +68,16 @@
       "label": "SFP test cage",
       "description": "The cage accepts a familiar shell shape. Its host card is a separate document. “My house fitting through your door does not mean I can run your kitchen,” says the Hermit Crab. Read the selected module, medium, PHY, host and power requirements together.",
       "verbs": [
-        "look"
+        "look",
+        "use"
       ],
-      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "unsupportedVerbText": "Look to read the host and module cards. Use this display to try the latch. The supported physical profile and delivered power still need verification.",
       "evidenceIds": [
         "spec001:FACT-market-checklist"
       ],
-      "actionIds": []
+      "actionIds": [
+        "spec001:ACTION-market-seat-sample"
+      ]
     },
     {
       "id": "spec001:HOTSPOT-market-qsfp",
@@ -167,13 +170,17 @@
       "label": "Loan counter",
       "description": "Borrow either complete kit and inspect it with the ordinary kit from your satchel. There is no fee or exhausted supply. You can return to the workshop, switch kits and test again. Help offers method, worked step and solution without a penalty. The Eel’s optional Energy Audit and the old maintenance record are separate errands.",
       "verbs": [
-        "look"
+        "look",
+        "use"
       ],
-      "unsupportedVerbText": "That will not help with this exhibit. Look at its readable labels, or choose one of its offered actions; every useful interaction has a keyboard-accessible control.",
+      "unsupportedVerbText": "Choose a tray at the display case, then use the counter to assemble its module and lead. Walk to the separate Workshop sill to leave.",
       "evidenceIds": [
         "spec001:FACT-market-loans"
       ],
-      "actionIds": []
+      "actionIds": [
+        "spec001:ACTION-market-assemble-A",
+        "spec001:ACTION-market-assemble-B"
+      ]
     },
     {
       "id": "spec001:HOTSPOT-market-coax",
@@ -356,6 +363,30 @@
       "propId": "spec001:PR090",
       "description": "The loan counter holds the route kit cards, a reminder that the inspection kit is reusable, and the return route to the workshop.",
       "assetId": "spec001:ASSET-PR090"
+    },
+    {
+      "instanceId": "r09-pr140",
+      "propId": "spec001:PR140",
+      "description": "Crystal battery at its registered station.",
+      "assetId": "spec001:ASSET-PR140"
+    },
+    {
+      "instanceId": "r09-pr141",
+      "propId": "spec001:PR141",
+      "description": "Fuse cartridge at its registered station.",
+      "assetId": "spec001:ASSET-PR141"
+    },
+    {
+      "instanceId": "r09-pr142",
+      "propId": "spec001:PR142",
+      "description": "Grounding braid at its registered station.",
+      "assetId": "spec001:ASSET-PR142"
+    },
+    {
+      "instanceId": "r09-pr145",
+      "propId": "spec001:PR145",
+      "description": "Spare connector tray at its registered station.",
+      "assetId": "spec001:ASSET-PR145"
     }
   ],
   "safePositions": [
@@ -506,7 +537,326 @@
   ],
   "ambience": {
     "text": "The stalls murmur and an insulated bell gives an occasional polite ping. The text labels carry all equipment, power and outcome information; no sound is a diagnostic result.",
-    "assetIds": []
+    "assetIds": [
+      "spec001:ASSET-AMBIENCE-R09"
+    ]
   },
-  "futureDoorIds": []
+  "futureDoorIds": [],
+  "mediaBindings": [
+    {
+      "assetId": "spec001:ASSET-ARCH-R09",
+      "contentId": "spec001:R09",
+      "use": "room-architecture",
+      "exportPath": "public/assets/models/R09-architecture.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH01",
+      "contentId": "spec001:R09",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH01.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH14",
+      "contentId": "spec001:R09",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH14.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH15",
+      "contentId": "spec001:R09",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH15.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH16",
+      "contentId": "spec001:R09",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH16.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH17",
+      "contentId": "spec001:R09",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH17.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH19",
+      "contentId": "spec001:R09",
+      "use": "character-placement",
+      "exportPath": "public/assets/models/CH19.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-PR081",
+      "contentId": "spec001:R09",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR081.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR082",
+      "contentId": "spec001:R09",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR082.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR083",
+      "contentId": "spec001:R09",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR083.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR084",
+      "contentId": "spec001:R09",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR084.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR085",
+      "contentId": "spec001:R09",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR085.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR086",
+      "contentId": "spec001:R09",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR086.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR087",
+      "contentId": "spec001:R09",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR087.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR088",
+      "contentId": "spec001:R09",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR088.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR089",
+      "contentId": "spec001:R09",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR089.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR090",
+      "contentId": "spec001:R09",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/PR090.glb",
+      "interactiveOrEvidence": true
+    },
+    {
+      "assetId": "spec001:ASSET-PR140",
+      "contentId": "spec001:R09",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/shared/PR140.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-PR141",
+      "contentId": "spec001:R09",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/shared/PR141.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-PR142",
+      "contentId": "spec001:R09",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/shared/PR142.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-PR145",
+      "contentId": "spec001:R09",
+      "use": "prop-placement",
+      "exportPath": "public/assets/models/shared/PR145.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R09-background",
+      "contentId": "spec001:R09",
+      "use": "background",
+      "exportPath": "public/assets/images/R09/background.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R09-midground",
+      "contentId": "spec001:R09",
+      "use": "midground",
+      "exportPath": "public/assets/images/R09/midground.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-LAYER-R09-foreground",
+      "contentId": "spec001:R09",
+      "use": "foreground",
+      "exportPath": "public/assets/images/R09/foreground.webp",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH03",
+      "contentId": "spec001:R09",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH03.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH04",
+      "contentId": "spec001:R09",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH04.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH05",
+      "contentId": "spec001:R09",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH05.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH06",
+      "contentId": "spec001:R09",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH06.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH07",
+      "contentId": "spec001:R09",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH07.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH20",
+      "contentId": "spec001:R09",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH20.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-CH22",
+      "contentId": "spec001:R09",
+      "use": "party-placement",
+      "exportPath": "public/assets/models/CH22.glb",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-AMBIENCE-R09",
+      "contentId": "spec001:R09",
+      "use": "ambience",
+      "exportPath": "public/assets/audio/ambience/r09.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-006",
+      "contentId": "spec001:R09",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/fx-006.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-021",
+      "contentId": "spec001:R09",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/effect-021.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-028",
+      "contentId": "spec001:R09",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/effect-028.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-EFFECT-029",
+      "contentId": "spec001:R09",
+      "use": "effect",
+      "exportPath": "public/assets/audio/effects/effect-029.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-049",
+      "contentId": "spec001:DIALOGUE-VOICE-049",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-049.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-050",
+      "contentId": "spec001:DIALOGUE-VOICE-050",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-050.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-051",
+      "contentId": "spec001:DIALOGUE-VOICE-051",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/auditions/hermit-051.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-052",
+      "contentId": "spec001:DIALOGUE-VOICE-052",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-052.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-053",
+      "contentId": "spec001:DIALOGUE-VOICE-053",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-053.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-054",
+      "contentId": "spec001:DIALOGUE-VOICE-054",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-054.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-055",
+      "contentId": "spec001:DIALOGUE-VOICE-055",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-055.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-059",
+      "contentId": "spec001:DIALOGUE-VOICE-059",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-059.mp3",
+      "interactiveOrEvidence": false
+    },
+    {
+      "assetId": "spec001:ASSET-VOICE-060",
+      "contentId": "spec001:DIALOGUE-VOICE-060",
+      "use": "voice-line",
+      "exportPath": "public/assets/audio/voices/voice-060.mp3",
+      "interactiveOrEvidence": false
+    }
+  ]
 }

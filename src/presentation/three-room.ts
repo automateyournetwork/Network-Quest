@@ -6,6 +6,7 @@ import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUnifo
 import type { mediaBinding } from '../content/schema-types.generated';
 import type { RoomRenderer, RoomView } from './room-adapter';
 import type { ResourceSpec } from './resource-pool';
+import { mountEquipmentInspections } from './equipment-closeups';
 import { createRoomWalk } from './room-walk';
 import { createRoomParty } from './room-party';
 import { createGrayboxPointer } from './introduction-graybox';
@@ -105,6 +106,7 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
         const root = clone(resource.gltf.scene); root.position.set(...model.position);
         if (model.rotation) root.rotation.set(...model.rotation);
         if (layered && model.scale !== undefined) root.scale.setScalar(model.scale);
+        root.userData['roomSubjectId'] = model.semanticId;
         scene.add(root);
         if (layered && media.bindings.get(model.assetId)?.use !== 'room-architecture' && (model.position[1] === 0 || model.supportHeight)) {
           const bounds = new THREE.Box3().setFromObject(root);
@@ -248,11 +250,14 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
       };
       const observer = new window.ResizeObserver(schedule);
       const party = composition.partyPositions?.length ? createRoomParty(scene, media, gameBase, document, request, root, schedule, contactShadow) : undefined;
+      let removeInspections: (() => void) | undefined;
       return {
-        attach() { if (!alive || request.signal.aborted) return; attached = true; reaction = react; residentAbility = playAbility; host.replaceChildren(root); party?.updateView(currentView); observer.observe(stage); draw(); },
+        attach() { if (!alive || request.signal.aborted) return; attached = true; reaction = react; residentAbility = playAbility; host.replaceChildren(root);
+          removeInspections = mountEquipmentInspections(composition.roomId, host, webgl, id => scene.children.find(c => c.userData['roomSubjectId'] === id));
+          party?.updateView(currentView); observer.observe(stage); draw(); },
         updateView(view) { pointer.cancel(); currentView = view; decoration?.updateView(view); party?.updateView(view); updateChoices(); schedule(); },
         setPaused(value) { paused = value; last = 0; root.dataset['paused'] = String(value); if (value) { pointer.cancel(); window.cancelAnimationFrame(frame); frame = 0; } else schedule(); },
-        dispose() { if (!alive) return; alive = false; if (reaction === react) { reaction = null; residentAbility = undefined; } pointer.dispose(); events.abort(); observer.disconnect(); window.cancelAnimationFrame(frame); for (const actor of actors) { actor.mixer.stopAllAction(); actor.mixer.uncacheRoot(actor.root); } party?.dispose(); decoration?.dispose(); scene.clear(); contactGeometry?.dispose(); contactMaterial?.dispose(); for (const stand of supports) { stand.geometry.dispose(); stand.material.dispose(); } webgl.renderLists.dispose(); root.remove(); if (layered) destroy(); },
+        dispose() { if (!alive) return; alive = false; if (reaction === react) { reaction = null; residentAbility = undefined; } pointer.dispose(); events.abort(); observer.disconnect(); window.cancelAnimationFrame(frame); for (const actor of actors) { actor.mixer.stopAllAction(); actor.mixer.uncacheRoot(actor.root); } removeInspections?.(); party?.dispose(); decoration?.dispose(); scene.clear(); contactGeometry?.dispose(); contactMaterial?.dispose(); for (const stand of supports) { stand.geometry.dispose(); stand.material.dispose(); } webgl.renderLists.dispose(); root.remove(); if (layered) destroy(); },
       };
     },
     dispose() { if (disposed) return; disposed = true; reaction = null; destroy(); },

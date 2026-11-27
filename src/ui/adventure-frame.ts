@@ -132,6 +132,10 @@ export function createAdventureFrame(host: HTMLElement, ports: {
       feedback.hidden = !!packetStatus && message(packetStatus) !== '' && message(packetStatus) === message(feedback);
     }
     if (active) {
+      if (active === panel && active.querySelector('[data-epilogue-result]') && !active.querySelector('.nq-ending-sound')) {
+        const listen = makeButton('Sound and reading', () => open('sound'), attachment.signal);
+        listen.className = 'nq-ending-sound'; active.querySelector('h2')?.after(listen);
+      }
       if (active === panel && !active.querySelector('.nq-panel-game')) { const button = makeButton('Game', () => open('game'), attachment.signal); button.className = 'nq-panel-game'; active.querySelector('h2')?.after(button); }
       if (!active.classList.contains('nq-frame-window')) {
         const close = [...active.querySelectorAll<HTMLButtonElement>('button')].find(b => !b.hidden && (b.getAttribute('aria-keyshortcuts') === 'Escape' || /^(Close |Cancel(?: sign-in)?$|Keep [Pp]laying [Ww]ithout [Ss]aving$|Continue as guest$)/.test(b.textContent ?? '')));

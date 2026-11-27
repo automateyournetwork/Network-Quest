@@ -1,4 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import { marketExhibitBindings } from './market-exhibits';
 import { decodeToySamples } from '../domain/packet-journey';
 import type { ToySample, ToySymbolProfile } from '../domain/packet-journey';
 import type { FlagId, QualifiedId } from '../domain/types';
@@ -151,7 +152,7 @@ export function equipmentInteractionBindings(registry: ContentRegistry): { hotsp
         sourceId: source.id as QualifiedId, verb: expected.verb, itemId: null, mode: 'effects' });
     }
   }
-  return { hotspots, effects };
+  return { hotspots: [...hotspots, ...marketExhibitBindings(registry)], effects };
 }
 
 /** Application join: malformed authored controls cannot silently enable scoring. */
