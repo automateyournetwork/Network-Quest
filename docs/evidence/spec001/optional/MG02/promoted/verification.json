@@ -1,0 +1,78 @@
+{
+  "task": "T102",
+  "loop": 114,
+  "stage": "current MG02 integration; root acceptance pending",
+  "baseCommit": "a276934c0a3bbf91b76b7428668b9afc4b34ccdc",
+  "recordedAt": "2026-11-27T16:11:17.343127+00:00",
+  "runtime": {
+    "node": "26.13.1",
+    "phpCommand": "NQ_PHP_BIN=/opt/homebrew/opt/php@8.4/bin/php",
+    "browser": "Firefox 159.0 headless",
+    "preview": "own loopback ephemeral built Vite preview; closed"
+  },
+  "checks": [
+    {
+      "log": "04-focused.log",
+      "result": "365 PASS / 1 FAIL, retained: provenance harness initially assumed loaded MG02 used old schema."
+    },
+    {
+      "log": "05-scoped-typecheck.log",
+      "result": "PASS strict promoted tests/config TypeScript."
+    },
+    {
+      "log": "11-final-focused.log",
+      "result": "366 distinct PASS in 18 files; MG02, MG01, four quests, shared framework. This is scoped, not full-client regression."
+    },
+    {
+      "log": "10-provenance-canonical-set.log",
+      "result": "24 affected PASS after bounded MG01/MG02/MG03 canonical set; no test of unloaded MG03 and no immutable schema/oracle edit."
+    },
+    {
+      "log": "12-final-check.log",
+      "result": "PASS typecheck, content (82 authored records) and generated save policy consistency."
+    },
+    {
+      "log": "07-build.log",
+      "result": "PASS production build; existing large-chunk advisory retained."
+    },
+    {
+      "log": "09-native.json",
+      "result": "12 actual built guest browser groups PASS; zero axe violations/page errors/API or mutation requests/changed source hashes."
+    },
+    {
+      "log": "13-preservation.json",
+      "result": "237 preservation checks PASS."
+    },
+    {
+      "log": "14-source-whitespace.json",
+      "result": "19 authored code paths PASS, including untracked/new files and exact EOF."
+    }
+  ],
+  "timingLimit": "Native foreground wait is 750 ms. Controller fake clock advances 3600 seconds logically. Neither proves original T092 3600-second/background details; T104 owns those gaps.",
+  "nativeState": "Real guest from New Adventure; actual O05 and O06 path B actions. No injected state, account, save, verdict or receipt. Prepared controller fixtures and synthetic common receipts are distinct.",
+  "remaining": [
+    "root current integration review and acceptance",
+    "T104 exact original long/background lifecycle details and wider recovery",
+    "provider/account transport, production, performance, media and human learning/technical reviews"
+  ],
+  "changedPaths": [
+    "content/schemas/content.schema.json",
+    "content/spec001/world.json",
+    "content/spec001/minigames/MG02.json",
+    "src/app/content.ts",
+    "src/app/application.ts",
+    "src/content/optional-activities.ts",
+    "src/content/optional-optical-bench.ts",
+    "src/content/schema-types.generated.ts",
+    "src/content/schema.generated.js",
+    "src/state/optional-activities.ts",
+    "src/state/optional-optical-bench.ts",
+    "src/ui/optional-activities.ts",
+    "src/ui/optional-activities.css",
+    "src/ui/action-bus.ts",
+    "tools/generate-save-content-policy.ts",
+    "server/content/save-policy.generated.json",
+    "tests/state/minigame-optical-bench.test.ts",
+    "tests/content/characters.test.ts"
+  ]
+}

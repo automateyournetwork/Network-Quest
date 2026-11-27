@@ -1,6 +1,7 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import type { ContentRegistry } from './registry';
 import type { OptionalActivityDefinition } from '../state/optional-activities';
+import { optionalOpticalBenchContentIssues } from './optional-optical-bench.ts';
 import reviewed from '../../content/spec001/sources.json' with { type: 'json' };
 import { maintenanceContentIssues } from './optional-maintenance.ts';
 import { optionalLoomContentIssues } from './optional-symbol-loom.ts';
@@ -17,7 +18,7 @@ export function optionalActivityContentIssues(record: unknown, registry: Content
 }
 function checkOptionalContent(record: unknown, registry: ContentRegistry): readonly string[] {
   const errors: string[] = [];
-  if (isRecord(record) && record['kind'] === 'minigame') return optionalLoomContentIssues(record as unknown as S.minigame, registry);
+  if (isRecord(record) && record['kind'] === 'minigame') return record['id'] === 'spec001:MG02' ? optionalOpticalBenchContentIssues(record, registry) : optionalLoomContentIssues(record as unknown as S.minigame, registry);
   if (isRecord(record) && record['kind'] === 'quest' && record['id'] === 'spec001:SQ04') return maintenanceContentIssues(record as unknown as S.quest, registry);
   if (isRecord(record) && record['kind'] === 'quest' && record['id'] === 'spec001:SQ03') return radioDiaryContentIssues(record as unknown as S.quest, registry);
   if (!isRecord(record) || record['kind'] !== 'quest' || !['spec001:SQ01', 'spec001:SQ02'].includes(String(record['id'])) || !isRecord(record['optionalActivity'])) return ['unsupported-optional-activity'];
@@ -28,7 +29,7 @@ function checkOptionalContent(record: unknown, registry: ContentRegistry): reado
     || activity['timingDefault'] !== 'off' || activity['returnPolicy'] !== 'captured-entry' || !Array.isArray(activity['instructions'])
     || !activity['instructions'].length || !activity['instructions'].every(text)) errors.push('optional-shape');
   const def = record as unknown as OptionalActivityDefinition, authored = def.optionalActivity;
-  if (authored.kind === 'radio-weather-diary' || authored.kind === 'notebook-combination' || authored.kind === 'toy-symbol-loom') return ['optional-variant-mismatch'];
+  if (authored.kind === 'radio-weather-diary' || authored.kind === 'notebook-combination' || authored.kind === 'toy-symbol-loom' || authored.kind === 'optical-budget-bench') return ['optional-variant-mismatch'];
   if (!isRecord(activity['practice']) || !isRecord(activity['delivery']) || !isRecord(activity['feedback']) || !isRecord(activity['reward'])
     || !isRecord(activity['controls']) || !isRecord(activity['recovery']) || !Array.isArray(activity['entryContexts'])
     || !Array.isArray(record['effects']) || !Array.isArray(record['alternatives']) || !Array.isArray(record['evidence'])
@@ -92,7 +93,7 @@ function checkOptionalContent(record: unknown, registry: ContentRegistry): reado
 export function optionalRewardAllocationMatches(definition: OptionalActivityDefinition, manifest: unknown): boolean {
   if (!isRecord(manifest) || !Array.isArray(manifest['assets'])) return false;
   const reward = definition.optionalActivity.reward;
-  if (reward.kind === 'optional-practice-only') return false;
+  if (reward.kind === 'optional-practice-only' || reward.kind === 'optional-optical-depth') return false;
   if (reward.kind === 'epilogue-maintenance-history') return definition.id === 'spec001:SQ04' && reward.factId === 'spec001:FACT-SQ04-history';
   const matches = manifest['assets'].filter(row => isRecord(row) && row['assetId'] === reward.assetId);
   const expected = definition.id === 'spec001:SQ01' ? '08' : definition.id === 'spec001:SQ02' ? '18' : definition.id === 'spec001:SQ03' ? '16' : null;

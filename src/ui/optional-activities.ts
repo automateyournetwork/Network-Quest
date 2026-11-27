@@ -5,6 +5,8 @@ import type { QualifiedId } from '../domain/types';
 import { optionalActivityDefinition, optionalActivityCompleted, isToySymbolActivity } from '../state/optional-activities';
 import type { OptionalActivityDefinition, OptionalActivitySession, OptionalMode } from '../state/optional-activities';
 import type { GameState } from '../state/types';
+import type { OpticalBenchAnswer, OpticalBudgetBench } from '../state/optional-optical-bench';
+import { conditionSatisfied } from '../state/conditions';
 import type { PowerAuditAnswer } from '../state/optional-power-audit';
 import { maintenanceCards, type MaintenanceAnswer } from '../state/optional-maintenance';
 import { renderMaintenanceForm, type MaintenanceView } from './optional-maintenance';
@@ -25,6 +27,8 @@ export type OptionalActivityIntent =
   | { readonly kind: 'submit-optional-power'; readonly sessionId: string; readonly answer: PowerAuditAnswer | { readonly assessment: null; readonly difference: null } }
   | { readonly kind: 'submit-optional-maintenance'; readonly sessionId: string; readonly answer: MaintenanceAnswer }
   | { readonly kind: 'submit-optional-diary'; readonly sessionId: string; readonly answer: RadioDiarySubmission }
+  | { readonly kind: 'submit-optional-optics'; readonly sessionId: string; readonly answer: OpticalBenchAnswer | null }
+  | { readonly kind: 'compatibility-optional'; readonly sessionId: string }
   | { readonly kind: 'hint-optional' | 'retry-optional' | 'explain-optional' | 'boundary-optional' | 'exit-optional'; readonly sessionId: string };
 export interface OptionalActivityView {
   readonly sessionId: string; readonly title: string; readonly phase: OptionalActivitySession['phase']; readonly mode: OptionalMode | null;
@@ -34,17 +38,18 @@ export interface OptionalActivityView {
   readonly controls: { readonly practice: string; readonly delivery: string; readonly submit: string; readonly retry: string; readonly exit: string };
   readonly limitations: readonly string[];
   readonly sources: readonly { readonly title: string; readonly section: string; readonly claim: string; readonly url: string | null }[];
-  readonly answerKind: 'bits' | 'power' | 'diary' | 'maintenance';
+  readonly answerKind: 'bits' | 'power' | 'diary' | 'maintenance' | 'optics';
   readonly diary?: RadioDiaryView;
   readonly maintenance?: MaintenanceView;
+  readonly opticalControls: OpticalBudgetBench['answerControls'] | null;
   readonly answerControls: { readonly assessmentLabel: string; readonly withinBudget: string; readonly overBudget: string; readonly differenceLabel: string } | null;
 }
 const answerKinds: Readonly<Record<OptionalActivityDefinition['optionalActivity']['kind'], OptionalActivityView['answerKind']>> = {
   'toy-symbol-message': 'bits', 'toy-symbol-loom': 'bits', 'delivered-power-audit': 'power',
-  'radio-weather-diary': 'diary', 'notebook-combination': 'maintenance',
+  'radio-weather-diary': 'diary', 'notebook-combination': 'maintenance', 'optical-budget-bench': 'optics',
 };
 export interface OptionalSource { readonly id: string; readonly title: string; readonly url: string }
-const optionalKinds: readonly OptionalActivityIntent['kind'][] = ['start-optional', 'choose-optional-mode', 'submit-optional', 'submit-optional-power', 'submit-optional-diary', 'submit-optional-maintenance', 'hint-optional', 'retry-optional', 'explain-optional', 'boundary-optional', 'exit-optional'];
+const optionalKinds: readonly OptionalActivityIntent['kind'][] = ['start-optional', 'choose-optional-mode', 'submit-optional', 'submit-optional-power', 'submit-optional-optics', 'compatibility-optional', 'submit-optional-diary', 'submit-optional-maintenance', 'hint-optional', 'retry-optional', 'explain-optional', 'boundary-optional', 'exit-optional'];
 export function createOptionalActivitiesController(options: { readonly registry: ContentRegistry; readonly store: GameplayStore; readonly bus: ActionBus;
   readonly activityIds: readonly QualifiedId[]; readonly sources?: readonly OptionalSource[] }) {
   const { registry, store, bus } = options;
@@ -64,6 +69,8 @@ export function createOptionalActivitiesController(options: { readonly registry:
       case 'submit-optional-power': operation = { kind: 'submit-power', sessionId: input.sessionId, answer: input.answer }; break;
       case 'submit-optional-maintenance': operation = { kind: 'submit-maintenance', sessionId: input.sessionId, answer: input.answer }; break;
       case 'submit-optional-diary': operation = { kind: 'submit-diary', sessionId: input.sessionId, answer: input.answer }; break;
+      case 'submit-optional-optics': operation = { kind: 'submit-optics', sessionId: input.sessionId, answer: input.answer }; break;
+      case 'compatibility-optional': operation = { kind: 'compatibility-cards', sessionId: input.sessionId }; break;
       case 'hint-optional': operation = { kind: 'hint', sessionId: input.sessionId }; break;
       case 'retry-optional': operation = { kind: 'retry', sessionId: input.sessionId, nextAttemptId: crypto.randomUUID() as AttemptId }; break;
       case 'explain-optional': operation = { kind: 'explanation', sessionId: input.sessionId }; break;
@@ -97,8 +104,9 @@ export function createOptionalActivitiesController(options: { readonly registry:
     const entries = (playable(state) || state.runtime.activity?.kind === 'active-optional') && game ? options.activityIds.flatMap(activityId => {
       const definition = optionalActivityDefinition(registry, activityId); if (!definition) return [];
       return definition.optionalActivity.entryContexts.filter(entry => entry.roomId === game.world.roomId && entry.safePositionId === game.world.position.safePositionId).map(entry => {
-        const room = registry.record(entry.roomId); return { activityId, hotspotId: entry.hotspotId as QualifiedId,
-          label: room?.kind === 'room' ? room.hotspots.find(h => h.id === entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity' };
+        const room = registry.record(entry.roomId), available = conditionSatisfied(definition.prerequisite, game.world, registry);
+        return { activityId, hotspotId: entry.hotspotId as QualifiedId, available, unavailableReason: available ? null : definition.id === 'spec001:MG02' ? 'Complete the Prism Vault fiber verification to unlock this optional bench.' : 'Complete the required investigation to unlock this activity.',
+          label: definition.id === 'spec001:MG02' ? 'Prism Budget Bench' : room?.kind === 'room' ? room.hotspots.find(h => h.id === entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity' };
       });
     }) : [];
     return { entries, capture: projection.capture, view: state.runtime.activity?.kind === 'active-optional' && session?.clientGeneration === state.runtime.auth.clientGeneration
@@ -112,15 +120,20 @@ export function projectOptionalActivity(registry: ContentRegistry, game: GameSta
   const definition = optionalActivityDefinition(registry, session.activityId);
   if (!definition) return { sessionId: session.sessionId, title: 'Optional activity', phase: 'feedback', mode: null,
     instructions: [], map: [], samples: [], feedback: 'This exhibit needs correction. You can leave safely.', hintText: null, completed: false, rewardText: null,
-    controls: { practice: 'Practice', delivery: 'Try the full activity', submit: 'Check answer', retry: 'Retry', exit: 'Leave activity' }, limitations: [], sources: [], answerKind: 'bits', answerControls: null };
+    controls: { practice: 'Practice', delivery: 'Try the full activity', submit: 'Check answer', retry: 'Retry', exit: 'Leave activity' }, limitations: [], sources: [], answerKind: 'bits', answerControls: null, opticalControls: null };
   const activity = definition.optionalActivity, profile = 'profileId' in activity ? registry.record(activity.profileId) : null, room = registry.record(session.entry.roomId);
-  const title = activity.kind === 'notebook-combination' ? 'Lost Maintenance Record' : room?.kind === 'room' ? room.hotspots.find(h => h.id === session.entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity';
+  const title = definition.id === 'spec001:MG02' ? 'Prism Budget Bench' : activity.kind === 'notebook-combination' ? 'Lost Maintenance Record' : room?.kind === 'room' ? room.hotspots.find(h => h.id === session.entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity';
   const completed = optionalActivityCompleted(registry, definition, game);
   const level = (value: number) => value > 0 ? `+${value}` : String(value).replace('-', '−');
-  const parameters = profile?.kind === 'profile' ? profile.parameters as { levels?: readonly { symbol: { value: number }; bits: string }[]; deliveredBudget?: { value: number; unit: string } } : null;
+  const parameters = profile?.kind === 'profile' ? profile.parameters as { levels?: readonly { symbol: { value: number }; bits: string }[]; deliveredBudget?: { value: number; unit: string }; transmit?: { value: number; unit: string }; sensitivity?: { value: number; unit: string }; maximumReceive?: { value: number; unit: string }; requiredMargin?: { value: number; unit: string } } : null;
   return { sessionId: session.sessionId, title, phase: session.phase, mode: session.mode, instructions: activity.instructions,
     map: isToySymbolActivity(activity) ? parameters?.levels?.map(row => `${level(row.symbol.value)} → ${row.bits}`) ?? [] : [],
-    samples: session.mode ? isToySymbolActivity(activity) ? activity[session.mode].samples.map(sample => `Position ${sample.position}: ${level(sample.value)} toy-level`)
+    samples: session.mode ? activity.kind === 'optical-budget-bench' ? [
+      `Transmit: ${parameters?.transmit?.value} dBm. Total passive loss: ${activity[session.mode].loss.value} dB.`,
+      `Sensitivity: ${parameters?.sensitivity?.value} dBm. Required reserve: ${parameters?.requiredMargin?.value} dB, inclusive.`,
+      `Maximum receive: ${parameters?.maximumReceive?.value} dBm, inclusive. Check overload separately.`,
+      'Profiles are supplied compatible. Totals include every modeled passive component loss. These are fictional teaching values.',
+    ] : isToySymbolActivity(activity) ? activity[session.mode].samples.map(sample => `Position ${sample.position}: ${level(sample.value)} toy-level`)
       : activity.kind === 'delivered-power-audit' ? [`Delivered allowance: ${parameters?.deliveredBudget?.value} ${parameters?.deliveredBudget?.unit} after losses.`, ...activity[session.mode].demands.map((demand, index) => `Demand card ${index + 1}: ${demand.value} ${demand.unit} delivered after losses.`), 'The supplied port and compatibility checks are satisfied. Power does not prove data connectivity.'] : [] : [],
     feedback: session.feedback, hintText: session.hintText, completed,
     rewardText: completed && game.notebook.factIds.some(id => id === activity.reward.factId)
@@ -130,6 +143,7 @@ export function projectOptionalActivity(registry: ContentRegistry, game: GameSta
     controls: activity.controls, limitations: definition.model.limitations, answerKind: answerKinds[activity.kind],
     ...(activity.kind === 'notebook-combination' ? { maintenance: { cards: maintenanceCards(activity, registry, game, session.mode ?? 'delivery') ?? [], ...activity.answerControls } } : {}),
     ...(activity.kind === 'radio-weather-diary' ? { diary: projectRadioDiary(registry, game, activity, completed && game.notebook.factIds.some(id => String(id) === activity.reward.factId)) } : {}),
+    opticalControls: activity.kind === 'optical-budget-bench' ? activity.answerControls : null,
     answerControls: activity.kind === 'delivered-power-audit' ? activity.answerControls : null,
     sources: definition.sourceClaims.map(claim => {
       const source = sources.find(s => s.id === claim.sourceId || `spec001:${s.id}` === claim.sourceId);
@@ -163,6 +177,33 @@ export function createOptionalActivityPanel<Command>(host: HTMLElement, dispatch
     if (key === 'exit') node.setAttribute('aria-keyshortcuts', 'Escape');
     node.addEventListener('click', () => { if (node.isConnected && element.contains(node)) send(scope, intent); }, { signal: scope.abort.signal }); return node;
   }
+  function opticalForm(scope: Scope, previous: Scope | null, labels: OpticalBudgetBench['answerControls']) {
+    const form = doc.createElement('form'); form.noValidate = true; form.className = 'nq-optical-answer';
+    const retain = previous?.view.sessionId === scope.view.sessionId && previous.view.mode === scope.view.mode;
+    const input = (key: string, text: string) => {
+      const label = doc.createElement('label'), node = doc.createElement('input'); node.id = `nq-optical-${key}`; node.type = 'number'; node.inputMode = 'decimal';
+      node.min = '-128'; node.max = '128'; node.step = 'any'; node.autocomplete = 'off'; label.htmlFor = node.id; label.textContent = text;
+      node.value = retain ? (previous?.controls.get(key) as HTMLInputElement | undefined)?.value ?? '' : '';
+      scope.controls.set(key, node); form.append(label, node); return node;
+    };
+    const select = (key: string, text: string, choices: readonly (readonly [string, string])[]) => {
+      const label = doc.createElement('label'), node = doc.createElement('select'); node.id = `nq-optical-${key}`; label.htmlFor = node.id; label.textContent = text;
+      for (const [value, text] of [['', 'Choose a diagnosis'], ...choices]) { const option = doc.createElement('option'); option.value = value!; option.textContent = text!; node.append(option); }
+      node.value = retain ? (previous?.controls.get(key) as HTMLSelectElement | undefined)?.value ?? '' : '';
+      scope.controls.set(key, node); form.append(label, node); return node;
+    };
+    const receive = input('receive', labels.receiveLabel), margin = input('margin', labels.marginLabel);
+    const reserve = select('reserve', labels.reserveLabel, [['met', labels.reserveMet], ['shortfall', labels.reserveShortfall]]);
+    const overload = select('overload', labels.overloadLabel, [['overloaded', labels.overloaded], ['not-overloaded', labels.notOverloaded]]);
+    const submit = doc.createElement('button'); submit.type = 'submit'; submit.textContent = scope.view.controls.submit; scope.controls.set('submit', submit); form.append(submit);
+    form.addEventListener('submit', event => { event.preventDefault();
+      const r = receive.value.trim() === '' ? null : Number(receive.value), m = margin.value.trim() === '' ? null : Number(margin.value), a = reserve.value, b = overload.value;
+      const answer: OpticalBenchAnswer | null = r !== null && m !== null && Number.isFinite(r) && Number.isFinite(m) && r >= -128 && r <= 128 && m >= -128 && m <= 128
+        && (a === 'met' || a === 'shortfall') && (b === 'overloaded' || b === 'not-overloaded')
+        ? { receive: { value: r, unit: 'dBm' }, margin: { value: m, unit: 'dB' }, reserve: a, overload: b } : null;
+      send(scope, { kind: 'submit-optional-optics', sessionId: scope.view.sessionId, answer });
+    }, { signal: scope.abort.signal }); return form;
+  }
   return { element, render(view: OptionalActivityView | null, capture: Capture) {
     if (disposed) return;
     if (!view) { retire(); return; }
@@ -195,8 +236,11 @@ export function createOptionalActivityPanel<Command>(host: HTMLElement, dispatch
       previous?.view.sessionId === view.sessionId && previous.view.mode === view.mode ? previous.controls : new Map(),
       scope.controls, view.controls.submit, scope.abort.signal, answer => send(scope, { kind: 'submit-optional-maintenance', sessionId: view.sessionId, answer })));
     if (view.mode && !view.diary && !view.maintenance) {
-      const samples = doc.createElement('ol'); samples.setAttribute('aria-label', view.answerKind === 'power' ? 'Power audit cards' : view.mode === 'practice' ? 'Practice samples' : 'Message samples');
+      const samples = doc.createElement('ol'); samples.setAttribute('aria-label', view.answerKind === 'optics' ? 'Supplied optical card' : view.answerKind === 'power' ? 'Power audit cards' : view.mode === 'practice' ? 'Practice samples' : 'Message samples');
       for (const sample of view.samples) { const item = doc.createElement('li'); item.textContent = sample; samples.append(item); } children.push(samples);
+      if (view.answerKind === 'optics' && view.opticalControls) {
+        children.push(opticalForm(scope, previous, view.opticalControls));
+      } else if (view.answerKind === 'bits' || view.answerKind === 'power') {
       const form = doc.createElement('form'), label = doc.createElement('label'), answer = doc.createElement('input'), submit = doc.createElement('button');
       answer.id = 'nq-optional-answer'; answer.type = view.answerKind === 'bits' ? 'text' : 'number'; answer.inputMode = view.answerKind === 'bits' ? 'numeric' : 'decimal'; answer.maxLength = 512; answer.autocomplete = 'off'; answer.spellcheck = false; answer.value = draft;
       if (view.answerKind === 'power') { answer.min = '0'; answer.step = 'any'; }
@@ -213,12 +257,13 @@ export function createOptionalActivityPanel<Command>(host: HTMLElement, dispatch
       submit.type = 'submit'; submit.textContent = view.controls.submit; scope.controls.set('answer', answer); scope.controls.set('submit', submit);
       form.append(label, answer, submit); form.addEventListener('submit', event => { event.preventDefault();
         if (view.answerKind === 'bits') send(scope, { kind: 'submit-optional', sessionId: view.sessionId, bits: answer.value });
-        else { const value = answer.value.trim() === '' ? null : Number(answer.value), selected = assessment.value;
+        else if (view.answerKind === 'power') { const value = answer.value.trim() === '' ? null : Number(answer.value), selected = assessment.value;
           send(scope, { kind: 'submit-optional-power', sessionId: view.sessionId, answer: value !== null && Number.isFinite(value) && value >= 0 && (selected === 'within-budget' || selected === 'over-budget')
             ? { assessment: selected, difference: { value, unit: 'W' } } : { assessment: null, difference: null } }); }
       }, { signal: scope.abort.signal }); children.push(form);
+      }
     }
-    const feedback = paragraph(view.feedback ?? (view.completed ? 'Completion recorded in your journal.' : view.answerKind === 'maintenance' ? 'Choose the supplied practice card or combine your collected records when ready.' : view.answerKind === 'diary' ? 'Read the worked card or compare your actual observations when ready.' : view.answerKind === 'power' ? 'Choose practice or audit the full plan when ready.' : 'Choose practice or the full message when ready.'));
+    const feedback = paragraph(view.feedback ?? (view.completed ? 'Completion recorded in your journal.' : view.answerKind === 'optics' ? 'Choose practice or diagnose the full card when ready.' : view.answerKind === 'maintenance' ? 'Choose the supplied practice card or combine your collected records when ready.' : view.answerKind === 'diary' ? 'Read the worked card or compare your actual observations when ready.' : view.answerKind === 'power' ? 'Choose practice or audit the full plan when ready.' : 'Choose practice or the full message when ready.'));
     feedback.setAttribute('role', 'status'); feedback.setAttribute('aria-live', 'polite'); children.push(feedback);
     if (view.hintText) children.push(paragraph(view.hintText));
     if (view.rewardText) children.push(paragraph(view.rewardText));
@@ -227,6 +272,9 @@ export function createOptionalActivityPanel<Command>(host: HTMLElement, dispatch
       button(scope, 'explain', 'Read explanation', { kind: 'explain-optional', sessionId: view.sessionId }),
       button(scope, 'retry', view.controls.retry, { kind: 'retry-optional', sessionId: view.sessionId })); children.push(controls);
     if (view.answerKind === 'power') controls.append(button(scope, 'boundary', 'See the exact-budget example', { kind: 'boundary-optional', sessionId: view.sessionId }));
+    if (view.answerKind === 'optics') controls.append(
+      button(scope, 'boundary', 'See the exact-reserve boundary', { kind: 'boundary-optional', sessionId: view.sessionId }),
+      button(scope, 'compatibility', 'Read compatibility comparisons', { kind: 'compatibility-optional', sessionId: view.sessionId }));
     const details = doc.createElement('details'), summary = doc.createElement('summary'); summary.tabIndex = 0; summary.textContent = 'Technical details and sources'; details.append(summary);
     for (const limitation of view.limitations) details.append(paragraph(limitation));
     for (const source of view.sources) {

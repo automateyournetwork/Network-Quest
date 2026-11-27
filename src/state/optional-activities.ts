@@ -3,6 +3,7 @@ import type { ContentRegistry } from '../content/registry';
 import type * as S from '../content/schema-types.generated';
 import { contentError, invalidInput, isRecord } from '../domain/evaluate';
 import { evaluateSymbolAnswer } from '../domain/packet-journey';
+import { evaluateBenchAnswer, evaluateCompatibilityCard, type OpticalBenchAnswer, type OpticalBudgetBench } from './optional-optical-bench';
 import { evaluateAuditAnswer } from './optional-power-audit';
 import type { DeliveredPowerAudit, PowerAuditAnswer } from './optional-power-audit';
 import { evaluateMaintenanceAnswer, maintenanceSubmission, type MaintenanceActivity, type MaintenanceAnswer } from './optional-maintenance';
@@ -40,7 +41,7 @@ export interface ToySymbolLoomActivity extends Omit<ToyMessageActivity, 'kind' |
   readonly reward: { readonly kind: 'optional-practice-only'; readonly factId: 'spec001:FACT-MG01-completion' };
 }
 export type OptionalActivityDefinition = (Readonly<Omit<S.quest, 'optionalActivity'>> | Readonly<Omit<S.minigame, 'optionalActivity'>>)
-  & { readonly optionalActivity: ToyMessageActivity | DeliveredPowerAudit | RadioDiaryActivity | MaintenanceActivity | ToySymbolLoomActivity };
+  & { readonly optionalActivity: ToyMessageActivity | DeliveredPowerAudit | RadioDiaryActivity | MaintenanceActivity | ToySymbolLoomActivity | OpticalBudgetBench };
 export function isToySymbolActivity(activity: OptionalActivityDefinition['optionalActivity']): activity is ToyMessageActivity | ToySymbolLoomActivity {
   return activity.kind === 'toy-symbol-message' || activity.kind === 'toy-symbol-loom';
 }
@@ -67,6 +68,8 @@ export type OptionalActivityOperation =
   | { readonly kind: 'submit-power'; readonly sessionId: string; readonly answer: PowerAuditAnswer | { readonly assessment: null; readonly difference: null } }
   | { readonly kind: 'submit-maintenance'; readonly sessionId: string; readonly answer: MaintenanceAnswer }
   | { readonly kind: 'submit-diary'; readonly sessionId: string; readonly answer: RadioDiarySubmission }
+  | { readonly kind: 'submit-optics'; readonly sessionId: string; readonly answer: OpticalBenchAnswer | null }
+  | { readonly kind: 'compatibility-cards'; readonly sessionId: string }
   | { readonly kind: 'hint' | 'explanation' | 'boundary-example' | 'exit'; readonly sessionId: string }
   | { readonly kind: 'retry'; readonly sessionId: string; readonly nextAttemptId: AttemptId };
 export type OptionalActivityPreparation = { readonly ok: false; readonly reason: 'content-error' | 'invalid-input' | 'invalid-state' | 'precondition' }
@@ -109,6 +112,8 @@ export function evaluateOptionalAnswer(registry: ContentRegistry, definition: Op
     samples: activity[mode].samples }, action as DomainAction<{ readonly bits: string }>, game.world)
     : activity.kind === 'delivered-power-audit' ? evaluateAuditAnswer({ sourceCaseId: activity[mode].sourceCaseId, demands: activity[mode].demands, budgetBoundary: activity[mode].budgetBoundary,
       demandBoundary: activity[mode].demandBoundary, otherConstraints: true }, { id: profile.id, parameters: profile.parameters }, action, game.world)
+    : activity.kind === 'optical-budget-bench' ? evaluateBenchAnswer({ sourceCaseId: activity[mode].sourceCaseId, compatible: activity[mode].compatible, loss: activity[mode].loss },
+      { id: profile.id, parameters: profile.parameters }, action, game.world)
     : activity.kind === 'notebook-combination' ? evaluateMaintenanceAnswer(activity, registry, mode, action, game)
     : activity.kind === 'radio-weather-diary' ? mode === 'delivery' ? evaluateDiaryAnswer(activity.delivery, registry, action, game) : invalidInput('diary-practice-is-read-only')
     : contentError({ code: 'optional-content', field: definition.id, message: 'Unsupported optional activity.' });
@@ -171,7 +176,7 @@ export function prepareOptionalActivityChange(registry: ContentRegistry, game: G
   const fail = (reason: 'content-error' | 'invalid-input' | 'invalid-state' | 'precondition'): OptionalActivityPreparation => ({ ok: false, reason });
   if (!isRecord(operation) || !Number.isSafeInteger(clientGeneration) || clientGeneration < 0) return fail('invalid-input');
   const fields: Record<OptionalActivityOperation['kind'], readonly string[]> = { start: ['kind', 'activityId', 'hotspotId', 'sessionId'],
-    'choose-mode': ['kind', 'sessionId', 'mode'], submit: ['kind', 'sessionId', 'bits'], 'submit-power': ['kind', 'sessionId', 'answer'], 'submit-diary': ['kind', 'sessionId', 'answer'], 'submit-maintenance': ['kind', 'sessionId', 'answer'], hint: ['kind', 'sessionId'], explanation: ['kind', 'sessionId'], 'boundary-example': ['kind', 'sessionId'], exit: ['kind', 'sessionId'], retry: ['kind', 'sessionId', 'nextAttemptId'] };
+    'choose-mode': ['kind', 'sessionId', 'mode'], submit: ['kind', 'sessionId', 'bits'], 'submit-power': ['kind', 'sessionId', 'answer'], 'submit-diary': ['kind', 'sessionId', 'answer'], 'submit-maintenance': ['kind', 'sessionId', 'answer'], 'submit-optics': ['kind', 'sessionId', 'answer'], 'compatibility-cards': ['kind', 'sessionId'], hint: ['kind', 'sessionId'], explanation: ['kind', 'sessionId'], 'boundary-example': ['kind', 'sessionId'], exit: ['kind', 'sessionId'], retry: ['kind', 'sessionId', 'nextAttemptId'] };
   if (!Object.hasOwn(fields, operation.kind) || !exact(operation, fields[operation.kind]) || !uuid.test(operation.sessionId)) return fail('invalid-input');
   if (operation.kind === 'start') {
     if (session || !safe.has(activity.kind) || !qualified.test(operation.activityId) || !qualified.test(operation.hotspotId)) return fail('invalid-state');
@@ -215,9 +220,19 @@ export function prepareOptionalActivityChange(registry: ContentRegistry, game: G
       retry: { preparation: session.preparation, nextAttemptId: operation.nextAttemptId } } as OptionalActivityPreparation;
   }
   if (operation.kind === 'boundary-example') {
-    if (definition.optionalActivity.kind !== 'delivered-power-audit') return fail('invalid-input');
+    if (definition.optionalActivity.kind !== 'delivered-power-audit' && definition.optionalActivity.kind !== 'optical-budget-bench') return fail('invalid-input');
     const nextGame = assistance(game, definition, 2);
     return nextGame ? success({ ...session, hintText: definition.optionalActivity.boundaryExample.explanation }, nextGame) : fail('invalid-state');
+  }
+  if (operation.kind === 'compatibility-cards') {
+    const exhibit = definition.optionalActivity;
+    if (exhibit.kind !== 'optical-budget-bench' || !action) return fail('invalid-input');
+    for (const card of exhibit.compatibilityCards) {
+      const result = evaluateCompatibilityCard({ sourceCaseId: card.sourceCaseId, premises: card.premises }, { ...action, input: { kind: 'inspect-card' } }, game.world);
+      if (result.status === 'content-error' || result.status === 'invalid-input') return fail(result.status);
+    }
+    const nextGame = assistance(game, definition, 2);
+    return nextGame ? success({ ...session, hintText: exhibit.compatibilityCards.map(card => card.explanation).join('\n\n') }, nextGame) : fail('invalid-state');
   }
   if (operation.kind === 'hint' || operation.kind === 'explanation') {
     const used = game.assistance.filter(h => h.objectiveId === definition.id).reduce<number>((max, hint) => Math.max(max, hint.level), 0);
@@ -228,9 +243,10 @@ export function prepareOptionalActivityChange(registry: ContentRegistry, game: G
     const nextGame = assistance(game, definition, level);
     return nextGame ? success({ ...session, hintText }, nextGame) : fail('invalid-state');
   }
-  if (!session.mode || !action || (operation.kind !== 'submit' && operation.kind !== 'submit-power' && operation.kind !== 'submit-diary' && operation.kind !== 'submit-maintenance')) return fail('invalid-input');
+  if (!session.mode || !action || (operation.kind !== 'submit' && operation.kind !== 'submit-power' && operation.kind !== 'submit-diary' && operation.kind !== 'submit-maintenance' && operation.kind !== 'submit-optics')) return fail('invalid-input');
   if (operation.kind === 'submit' && (!isToySymbolActivity(definition.optionalActivity) || typeof operation.bits !== 'string' || operation.bits.length > 512)
     || operation.kind === 'submit-power' && definition.optionalActivity.kind !== 'delivered-power-audit'
+    || operation.kind === 'submit-optics' && definition.optionalActivity.kind !== 'optical-budget-bench'
     || operation.kind === 'submit-maintenance' && (definition.optionalActivity.kind !== 'notebook-combination' || !maintenanceSubmission(operation.answer))
     || operation.kind === 'submit-diary' && (definition.optionalActivity.kind !== 'radio-weather-diary' || session.mode !== 'delivery')) return fail('invalid-input');
   const result = evaluateOptionalAnswer(registry, definition, session.mode, { ...action, input: operation.kind === 'submit' ? { bits: operation.bits } : operation.answer }, game);

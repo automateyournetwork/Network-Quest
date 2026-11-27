@@ -244,9 +244,12 @@ export function createIntroductionApplication(host: HTMLElement) {
           const button = [...optionalOpeners.querySelectorAll('button')].find(node => node.dataset['activity'] === entry.activityId)
             ?? host.ownerDocument.createElement('button');
           button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = optionalNames[entry.activityId] ?? world.optionalActivities.find(activity => activity.id === entry.activityId)?.name ?? entry.label;
-          button.setAttribute('aria-label', `Open ${button.textContent}`);
+          button.disabled = !entry.available;
+          if (entry.activityId === q('MG02') && entry.unavailableReason) { button.textContent = 'Prism Bench · complete fiber verification first'; button.title = entry.unavailableReason; }
+          else button.removeAttribute('title');
+          button.setAttribute('aria-label', entry.unavailableReason ?? `Open ${button.textContent}`);
           button.addEventListener('click', () => {
-            if (button.isConnected && optionalOpeners.contains(button) && !button.closest('[hidden], [inert]'))
+            if (!button.disabled && entry.available && button.isConnected && optionalOpeners.contains(button) && !button.closest('[hidden], [inert]'))
               bus.dispatch(projected.capture({ kind: 'start-optional', activityId: entry.activityId, hotspotId: entry.hotspotId }));
           }, { signal: optionalOpenerEvents.signal }); return button;
         });

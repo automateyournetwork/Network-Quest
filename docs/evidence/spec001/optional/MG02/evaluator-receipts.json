@@ -1,0 +1,316 @@
+{
+  "scope": "Actual optics and isolated proposal/reducer results. No actual MG02 lifecycle or browser execution.",
+  "protectedInputs": {
+    "tests/fixtures/optional-activities.json": "d29ef77428a61f8b6c92dc4fd17e99cd6b8a10a738e68171e1bad59eab9917cb",
+    "tests/fixtures/companions.json": "adce95202c355fcb4e24ef1fca657aab5b8dbf6f36675ccfdd9fcacc6c18db8f",
+    "tests/fixtures/physical-cases.json": "de255ec172b43d25fe6bcee84559f974f9ffb1f62d69d69bca16cab50a2697d1",
+    "content/spec001/sources.json": "a46ec103c9ec5e5103fd85543d2c9965b22e4204b98d40df2629303917527116",
+    "content/spec001/profiles.json": "93c0dfe3d40c74e68b2e4e025518e2efe1c3e82abb5438d233fddeb9b0834cc3",
+    "content/spec001/rooms/R06.json": "d5b7cc40d98faa155e830ddcd31f64932c92543717e95071d3335c3d6a00f907"
+  },
+  "receipts": {
+    "OPT-MG02-LOCKED-BEFORE-OBJECTIVE:condition-only": {
+      "absentO06": false,
+      "completedO06": true,
+      "activityStarted": false
+    },
+    "T04": {
+      "status": "correct",
+      "reasonCode": "optical-bench-diagnosis-correct",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "optical-bench-answer",
+          "sourceCaseId": "T04",
+          "physicalStatus": "correct",
+          "physical": {
+            "version": {
+              "configurationRevision": 3,
+              "attemptId": "mg02-attempt"
+            },
+            "ruleId": "spec001:PHY06",
+            "profileId": "spec001:PROFILE-OPTICAL",
+            "fictionalTeachingModel": true,
+            "wholeRouteProven": false,
+            "serviceProven": false,
+            "kind": "optical-power",
+            "scope": "passive optical receive range and reserve only",
+            "receive": {
+              "value": -11,
+              "unit": "dBm"
+            },
+            "maximumReceive": {
+              "value": -1,
+              "unit": "dBm"
+            },
+            "overload": false,
+            "sensitivity": {
+              "value": -14,
+              "unit": "dBm"
+            },
+            "requiredMargin": {
+              "value": 2,
+              "unit": "dB"
+            },
+            "margin": {
+              "value": 3,
+              "unit": "dB"
+            },
+            "sensitivityMet": true,
+            "reserveMet": true
+          },
+          "learnerStatus": "correct",
+          "repaired": false,
+          "wholeRouteProven": false,
+          "serviceProven": false,
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "T05": {
+      "status": "correct",
+      "reasonCode": "optical-bench-diagnosis-correct",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "optical-bench-answer",
+          "sourceCaseId": "T05",
+          "physicalStatus": "incorrect",
+          "physical": {
+            "version": {
+              "configurationRevision": 3,
+              "attemptId": "mg02-attempt"
+            },
+            "ruleId": "spec001:PHY06",
+            "profileId": "spec001:PROFILE-OPTICAL",
+            "fictionalTeachingModel": true,
+            "wholeRouteProven": false,
+            "serviceProven": false,
+            "kind": "optical-power",
+            "scope": "passive optical receive range and reserve only",
+            "receive": {
+              "value": -13,
+              "unit": "dBm"
+            },
+            "maximumReceive": {
+              "value": -1,
+              "unit": "dBm"
+            },
+            "overload": false,
+            "sensitivity": {
+              "value": -14,
+              "unit": "dBm"
+            },
+            "requiredMargin": {
+              "value": 2,
+              "unit": "dB"
+            },
+            "margin": {
+              "value": 1,
+              "unit": "dB"
+            },
+            "sensitivityMet": true,
+            "reserveMet": false
+          },
+          "learnerStatus": "correct",
+          "repaired": false,
+          "wholeRouteProven": false,
+          "serviceProven": false,
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "T15": {
+      "status": "correct",
+      "reasonCode": "optical-bench-diagnosis-correct",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "kind": "optical-bench-answer",
+          "sourceCaseId": "T15",
+          "physicalStatus": "correct",
+          "physical": {
+            "version": {
+              "configurationRevision": 3,
+              "attemptId": "mg02-attempt"
+            },
+            "ruleId": "spec001:PHY06",
+            "profileId": "spec001:PROFILE-OPTICAL",
+            "fictionalTeachingModel": true,
+            "wholeRouteProven": false,
+            "serviceProven": false,
+            "kind": "optical-power",
+            "scope": "passive optical receive range and reserve only",
+            "receive": {
+              "value": -12,
+              "unit": "dBm"
+            },
+            "maximumReceive": {
+              "value": -1,
+              "unit": "dBm"
+            },
+            "overload": false,
+            "sensitivity": {
+              "value": -14,
+              "unit": "dBm"
+            },
+            "requiredMargin": {
+              "value": 2,
+              "unit": "dB"
+            },
+            "margin": {
+              "value": 2,
+              "unit": "dB"
+            },
+            "sensitivityMet": true,
+            "reserveMet": true
+          },
+          "learnerStatus": "correct",
+          "repaired": false,
+          "wholeRouteProven": false,
+          "serviceProven": false,
+          "attemptPenalty": 0,
+          "progressAward": 0
+        }
+      ]
+    },
+    "C-COMPAT": {
+      "status": "correct",
+      "reasonCode": "required-inspection-complete",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "version": {
+            "configurationRevision": 3,
+            "attemptId": "mg02-attempt"
+          },
+          "ruleId": "spec001:PHY03",
+          "fictionalTeachingModel": true,
+          "wholeRouteProven": false,
+          "serviceProven": false,
+          "kind": "optical-inspection",
+          "scope": "preparation inspection only",
+          "preparationComplete": false,
+          "inspectionComplete": true,
+          "powerBudgetProven": false,
+          "reason": "required-inspection-complete"
+        }
+      ]
+    },
+    "T07": {
+      "status": "incorrect",
+      "reasonCode": "incompatible-profiles",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "version": {
+            "configurationRevision": 3,
+            "attemptId": "mg02-attempt"
+          },
+          "ruleId": "spec001:PHY03",
+          "fictionalTeachingModel": true,
+          "wholeRouteProven": false,
+          "serviceProven": false,
+          "kind": "optical-compatibility",
+          "scope": "profile compatibility only",
+          "compatible": false,
+          "reason": "incompatible-profiles",
+          "powerBudgetProven": false,
+          "usableLink": false,
+          "arithmeticCannotOverride": true
+        }
+      ]
+    },
+    "B-COMPAT": {
+      "status": "incorrect",
+      "reasonCode": "incompatible-profiles",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "version": {
+            "configurationRevision": 3,
+            "attemptId": "mg02-attempt"
+          },
+          "ruleId": "spec001:PHY03",
+          "fictionalTeachingModel": true,
+          "wholeRouteProven": false,
+          "serviceProven": false,
+          "kind": "optical-compatibility",
+          "scope": "profile compatibility only",
+          "compatible": false,
+          "reason": "incompatible-profiles",
+          "powerBudgetProven": false,
+          "usableLink": false,
+          "arithmeticCannotOverride": true
+        }
+      ]
+    },
+    "T06:existing-unscored-context": {
+      "status": "incorrect",
+      "reasonCode": "receiver-overload",
+      "acceptedEffects": [],
+      "observations": [
+        {
+          "version": {
+            "configurationRevision": 3,
+            "attemptId": "mg02-attempt"
+          },
+          "ruleId": "spec001:PHY06",
+          "fictionalTeachingModel": true,
+          "wholeRouteProven": false,
+          "serviceProven": false,
+          "kind": "optical-overload",
+          "scope": "observed optical overload only",
+          "receive": {
+            "value": 0,
+            "unit": "dBm"
+          },
+          "maximumReceive": {
+            "value": -1,
+            "unit": "dBm"
+          },
+          "overload": true,
+          "excess": {
+            "value": 1,
+            "unit": "dB"
+          }
+        }
+      ]
+    },
+    "isolated-whole-batch-receipt": {
+      "first": "applied",
+      "replay": "no-op",
+      "achievementIds": [
+        "spec001:ACHIEVEMENT-MG02-complete"
+      ],
+      "factIds": [
+        "spec001:FACT-MG02-completion"
+      ],
+      "pendingSave": null
+    },
+    "O06-before-MG02:A": {
+      "objectiveIds": [
+        "spec001:O01",
+        "spec001:O02",
+        "spec001:O05",
+        "spec001:O06"
+      ],
+      "achievementIds": [],
+      "benchNowEligible": true,
+      "pendingSave": null
+    },
+    "O06-before-MG02:B": {
+      "objectiveIds": [
+        "spec001:O01",
+        "spec001:O02",
+        "spec001:O05",
+        "spec001:O06"
+      ],
+      "achievementIds": [],
+      "benchNowEligible": true,
+      "pendingSave": null
+    }
+  }
+}

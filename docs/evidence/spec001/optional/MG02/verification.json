@@ -1,0 +1,84 @@
+{
+  "task": "T102",
+  "loop": 114,
+  "status": "independent-authoring-and-approved-unloaded-projection-only",
+  "archivedCommit": "9a93bf7815cda8b7055a8177bd61d5c468dc8f52",
+  "reviewDirectory": ".local/mg02-review-9a93bf7",
+  "versions": {
+    "node": "v26.13.1",
+    "typescript": "Version 7.0.2",
+    "vitest": "vitest/5.1.2 darwin-arm64 node-v26.13.1"
+  },
+  "final": {
+    "focusedTests": 72,
+    "failed": 0,
+    "durationSeconds": 8.54,
+    "strictTypecheck": "pass",
+    "dependencyHashesMatched": 78,
+    "executedOwnedSourcesMatched": 8,
+    "logs": [
+      "09-frozen-projection.log",
+      "10-frozen-typecheck.log",
+      "11-frozen-dependency-check.json"
+    ]
+  },
+  "history": [
+    {
+      "log": "01-before-authoring.log",
+      "result": "missing proposed adapter import; zero tests ran"
+    },
+    {
+      "log": "02-authoring.log",
+      "result": "51 passed / 10 registry-dependent failures; missing complete PHY03 source coverage"
+    },
+    {
+      "log": "03-typecheck.log",
+      "result": "pass"
+    },
+    {
+      "log": "04-corrected-authoring.log",
+      "result": "69 passed / 0 failed, 6.74 seconds"
+    },
+    {
+      "log": "05-corrected-typecheck.log",
+      "result": "pass"
+    },
+    {
+      "log": "06-reviewed-content.log",
+      "result": "71 passed / 0 failed, 7.69 seconds"
+    },
+    {
+      "log": "07-reviewed-typecheck.log",
+      "result": "pass"
+    },
+    {
+      "log": "08-concurrent-dependency-drift.json",
+      "result": "concurrent SQ03 shared source changes preserved; final testing moved to accepted archive"
+    }
+  ],
+  "scope": [
+    "real immutable optics cases and independent overload context",
+    "real pure proposed learner diagnosis adapter",
+    "real registry with cloned MG02 current-schema projection",
+    "real O06 eligibility condition and both independent fiber routes",
+    "real reducer whole-batch receipt/replay using explicitly trusted synthetic completion evaluations",
+    "approved canonical projection byte-equal and unloaded"
+  ],
+  "pending": [
+    "actual full candidate schema/loader/registry/controller/UI join",
+    "all eight MG02 lifecycle/native scenarios",
+    "runtime assistance and captured account/session ownership",
+    "JS/PHP policy, save/account/restore/encounter recovery",
+    "T104/T105, human learning/technical/owner review, media/providers and aggregate gates"
+  ],
+  "commands": [
+    {
+      "cwd": ".local/mg02-review-9a93bf7",
+      "command": "PATH=\"$PWD/.runtime/node-v26.13.1-darwin-arm64/bin:$PATH\" NQ_PHP_BIN=/opt/homebrew/opt/php@8.4/bin/php node node_modules/vitest/vitest.mjs run --config docs/evidence/spec001/optional/MG02/vitest.config.ts"
+    },
+    {
+      "cwd": ".local/mg02-review-9a93bf7",
+      "command": "PATH=\"$PWD/.runtime/node-v26.13.1-darwin-arm64/bin:$PATH\" NQ_PHP_BIN=/opt/homebrew/opt/php@8.4/bin/php node node_modules/typescript/bin/tsc --project docs/evidence/spec001/optional/MG02/tsconfig.json"
+    }
+  ]
+}

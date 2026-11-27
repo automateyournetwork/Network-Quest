@@ -135,12 +135,12 @@ describe('T093 bounded schema evolution preserves T092 provenance', () => {
     expect(ability.id).toMatch(/^spec001:ABILITY-/);
     expect(ability.conventionalEquivalentActionIds?.length).toBeGreaterThan(0);
   });
-  it('accepts genuine old-shaped documents and tests SQ04 and MG01 against their current schema', () => {
+  it('accepts genuine old-shaped documents and tests SQ04 and loaded canonical minigames against their current schema', () => {
     const compile=(s:any)=>{const a=new Ajv({strict:true,allErrors:true});formats(a);return a.compile(s)};
     const old=compile(originalSchema),current=compile(schema);
     for(const [path,document] of Object.entries(documents)) {
       if(path==='content/spec001/characters.json')continue;
-      if(path==='content/spec001/minigames/MG01.json') {
+      if(['content/spec001/minigames/MG01.json','content/spec001/minigames/MG02.json','content/spec001/minigames/MG03.json'].includes(path)) {
         expect(old(document),path).toBe(false);
         expect(current(document),path).toBe(true);continue;
       }

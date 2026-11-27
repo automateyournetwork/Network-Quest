@@ -1,0 +1,190 @@
+{
+  "kind": "minigame",
+  "schemaVersion": 1,
+  "episodeId": "spec001",
+  "contentVersion": "1.0.0",
+  "id": "spec001:MG02",
+  "completionAchievementId": "spec001:ACHIEVEMENT-MG02-complete",
+  "prerequisite": {
+    "kind": "objective-complete",
+    "objectiveId": "spec001:O06"
+  },
+  "evidence": [
+    {
+      "id": "spec001:FACT-MG02-instructions",
+      "roomId": "spec001:R06",
+      "subjectIds": [
+        "spec001:CH16",
+        "spec001:PR059"
+      ],
+      "kind": "context",
+      "text": "After proving the Prism Vault fiber path, the SFP Hermit Crab offers an optional bench exercise. Compare the supplied 8, 10 and 9 dB total passive-loss cards. Calculate receive power and margin, then check the required reserve and overload limit separately. Practice, explanations, help, retry and exit remain available without a timer, score, recruited ally or required tool.",
+      "ruleIds": [
+        "spec001:PHY03",
+        "spec001:PHY06"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-MG02-profile",
+      "roomId": "spec001:R06",
+      "subjectIds": [
+        "spec001:PR054",
+        "spec001:PR057",
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "kind": "context",
+      "text": "Fictional teaching profile: transmit −3 dBm, sensitivity −14 dBm, maximum receive −1 dBm, required reserve 2 dB. Bounds are inclusive. All passive-card profiles are supplied compatible, and their totals include every modeled component loss; no amplifier is present. Separately inspect the compatibility cards: media, wavelength direction, rate, connector/polarity and host support are required checks. An inspection and a favorable budget establish different facts.",
+      "ruleIds": [
+        "spec001:PHY03",
+        "spec001:PHY06"
+      ],
+      "requiresFreshMeasurement": false
+    },
+    {
+      "id": "spec001:FACT-MG02-completion",
+      "roomId": "spec001:R06",
+      "subjectIds": [
+        "spec001:CH16",
+        "spec001:PR059",
+        "spec001:PROFILE-OPTICAL"
+      ],
+      "kind": "observation",
+      "text": "You diagnosed the optional 10 dB total-loss card: receive −13 dBm, margin 1 dB, required reserve not met, no overload. The supplied plan still fails even though your diagnosis is correct. The 8 dB card has 3 dB margin; the 9 dB card meets exactly 2 dB. Compatibility and receiver maximum remain separate checks. This records optional optical depth with assistance tracked separately; it is not current repair evidence or proof of independent understanding.",
+      "ruleIds": [
+        "spec001:PHY03",
+        "spec001:PHY06"
+      ],
+      "requiresFreshMeasurement": false
+    }
+  ],
+  "alternatives": [
+    {
+      "id": "spec001:ACTION-MG02-diagnose",
+      "label": "Diagnose the high-loss card",
+      "method": "direct-action",
+      "itemIds": [],
+      "abilityIds": [],
+      "condition": {
+        "kind": "objective-complete",
+        "objectiveId": "spec001:O06"
+      },
+      "ruleIds": [
+        "spec001:PHY03",
+        "spec001:PHY06"
+      ],
+      "evidenceIds": [
+        "spec001:FACT-MG02-profile"
+      ],
+      "effects": [],
+      "explanation": "Give receive power in dBm, margin in dB, and separate reserve and overload diagnoses for the 10 dB card. A correct diagnosis records optional depth once; it does not repair that failing plan."
+    }
+  ],
+  "ruleIds": [
+    "spec001:PHY03",
+    "spec001:PHY06"
+  ],
+  "profileIds": [
+    "spec001:PROFILE-OPTICAL"
+  ],
+  "sourceClaims": [
+    {
+      "sourceId": "spec001:S06",
+      "section": "Calculate Power Budget and Power Margin for Fiber-Optic Cables → Calculate Power Budget for Fiber-Optic Cables; How to Calculate Power Margin for Fiber-Optic Cables",
+      "supportedClaim": "Budget equals minimum transmit power minus receiver sensitivity; margin subtracts link loss from that budget. Actual component losses need vendor data.",
+      "limitations": [
+        "Original Juniper URL redirects to publisher HPE documentation. Use equations only; a positive margin does not independently prove the maximum receiver bound. No sample losses or fixture thresholds imported."
+      ]
+    },
+    {
+      "sourceId": "spec001:S07",
+      "section": "Platform support; Product specifications, Table 3 SFP+ port cabling specifications and Table 4 Optical transmit and receive specifications",
+      "supportedClaim": "Module-specific media, wavelength, reach and receiver minimum/maximum power are separate specifications. Host compatibility requires support information.",
+      "limitations": [
+        "No real module is instantiated in the toy optical fixture. Do not generalize shell shape or SMF/MMF slogans; supported combinations vary by module."
+      ]
+    },
+    {
+      "sourceId": "spec001:S03",
+      "section": "Cable Specifications → Ethernet Cable Specifications → Maximum Cable Length",
+      "supportedClaim": "This hardware guide specifies a 100 m maximum Ethernet cable distance between the described router and connected equipment.",
+      "limitations": [
+        "Product-specific illustration only. The game 100 m channel and inclusive comparator remain fictional; no universal limit for all copper or all Ethernet. No certification claim.",
+        "This copper, wireless or electrical-power reference provides general background. It supplies no optical module, component loss, receiver threshold or optical diagnosis for this bench."
+      ]
+    },
+    {
+      "sourceId": "spec001:S08",
+      "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
+      "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
+      "limitations": [
+        "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile.",
+        "This copper, wireless or electrical-power reference provides general background. It supplies no optical module, component loss, receiver threshold or optical diagnosis for this bench."
+      ]
+    },
+    {
+      "sourceId": "spec001:S10",
+      "section": "Introductory PSE/PD definitions; PoE budget; PoE class, table headings for power delivered to PD versus switch-port output",
+      "supportedClaim": "PSE output and power delivered to a PD are distinct accounting boundaries. Multiple devices must fit the available aggregate budget.",
+      "limitations": [
+        "Only this distinction and aggregate-budget concept are used. No table wattages, PoE class allocation, priority behavior or detection timing are used by the fiction.",
+        "This copper, wireless or electrical-power reference provides general background. It supplies no optical module, component loss, receiver threshold or optical diagnosis for this bench."
+      ]
+    }
+  ],
+  "model": {
+    "label": "fictional-teaching-profile",
+    "scope": "Optional comparison of supplied passive-loss totals after the Prism Vault objective, using the fictional optical profile. Predict receive power and margin, then diagnose reserve and overload separately.",
+    "assumptions": [
+      "Transmit is −3 dBm, sensitivity −14 dBm, maximum receive −1 dBm and required reserve 2 dB, with inclusive bounds.",
+      "The 8, 10 and 9 dB cards already include all modeled passive component losses. Their physical profiles are supplied compatible; no actual component-specific loss or amplifier is invented.",
+      "The independent compatibility cards retain their explicit supplied premises. A passing inspection card establishes only inspection; missing product details are not inferred."
+    ],
+    "limitations": [
+      "These are fictional teaching values, not real product specifications. Actual component losses need their own vendor data. No dispersion, uncertainty, aging or temperature model is implemented.",
+      "Margin above sensitivity and overload above the maximum receive level are separate checks. All three passive cards explicitly have no overload; greater received power is not universally better.",
+      "Matching connector shape alone cannot establish compatible media, wavelength direction, rate, connector/polarity and host support. A favorable budget cannot override a failed required check.",
+      "A correct learner diagnosis of the failing 10 dB plan preserves its failed physical status. This exercise does not repair equipment, refresh measurements, complete the main objective or prove end-to-end service.",
+      "The optional depth record is not proof of independent understanding. Practice, worked feedback and full answers record assistance honestly.",
+      "The copper, wireless and electrical-power references provide general background and supply no optical values. The optical budget and module-specification references support the optical equations and module-specific compatibility context."
+    ]
+  },
+  "effects": [
+    {
+      "kind": "record-fact",
+      "effectId": "spec001:EFFECT-MG02-notebook",
+      "factId": "spec001:FACT-MG02-completion"
+    },
+    {
+      "kind": "complete-minigame",
+      "effectId": "spec001:EFFECT-MG02-complete",
+      "minigameId": "spec001:MG02"
+    }
+  ],
+  "hints": {
+    "method": {
+      "id": "spec001:HINT-MG02-method",
+      "text": "First retain the supplied compatibility premise. Subtract total passive loss from transmit power for receive power. Subtract sensitivity from receive power for margin. Compare margin with the required reserve, then compare receive power with the maximum separately."
+    },
+    "workedStep": {
+      "id": "spec001:HINT-MG02-step",
+      "text": "For the full 10 dB card, −3 dBm − 10 dB = −13 dBm. Margin uses receive minus sensitivity: −13 − (−14). Compare that result with 2 dB. Independently compare −13 dBm with the −1 dBm maximum."
+    },
+    "solution": {
+      "id": "spec001:HINT-MG02-solution",
+      "text": "Full answer: −13 dBm receive, 1 dB margin, reserve shortfall, no overload. Sensitivity is met, but the required 2 dB reserve is not. This is a correct diagnosis of a failing plan. Assisted completion earns the same optional depth record without punishment."
+    }
+  },
+  "observableOutcome": "A correct full diagnosis records optional optical depth once. The 10 dB physical plan remains failed. Practice, boundary and compatibility explanations grant no completion; leaving keeps required tools and main progress.",
+  "completionExplanation": "“An accurate diagnosis of an inaccurate budget,” says the Hermit Crab. “I approve of one of those things.” The 10 dB card gives −13 dBm receive and 1 dB margin: reserve fails, overload is absent. Your notebook records the optional diagnosis; the equipment has not changed.",
+  "requiresReflexTiming": false,
+  "requiredForMainStory": false,
+  "skippable": true,
+  "instructions": "After verifying the Prism Vault fiber path, compare the supplied loss cards at your own pace. Practice with 8 dB, diagnose 10 dB, and inspect the exact 9 dB boundary. Check compatibility, reserve and overload separately. Help, retry and exit remain available.",
+  "practiceExplanation": "At 8 dB total passive loss, −3 − 8 = −11 dBm receive; −11 − (−14) = 3 dB margin. The 2 dB reserve is met, and −11 dBm does not exceed −1 dBm. This worked example is practice and grants no completion.",
+  "retryExplanation": "Start a fresh untimed bench attempt. Retain clues, personal notes and hint history; earlier-attempt measurements remain visible as stale. Required tools stay recoverable. Retry does not repair equipment, award an unearned completion or save.",
+  "exitExplanation": "Close the bench at its captured Prism Vault entry. Required tools, main progress, party and route stay intact. Exit does not navigate, refresh a measurement or save.",
+  "timingDefault": "off",
+  "timingUnlock": "after-untimed-completion",
+  "requiredScoreForMainStory": false
+}

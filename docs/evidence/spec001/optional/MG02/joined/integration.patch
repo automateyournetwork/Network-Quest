@@ -1,0 +1,1441 @@
+diff --git a/content/schemas/content.schema.json b/content/schemas/content.schema.json
+--- a/content/schemas/content.schema.json
++++ b/content/schemas/content.schema.json
+@@ -4371,6 +4371,9 @@
+               "const": "off"
+             }
+           }
++        },
++        {
++          "$ref": "#/$defs/optionalOpticalBench"
+         }
+       ]
+     },
+@@ -4482,6 +4485,544 @@
+           "$ref": "#/$defs/optionalLoomtext"
+         }
+       }
++    },
++    "optionalOpticalBench": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "kind",
++        "speakerId",
++        "instructions",
++        "profileId",
++        "practice",
++        "delivery",
++        "boundaryExample",
++        "compatibilityCards",
++        "answerControls",
++        "feedback",
++        "controls",
++        "recovery",
++        "reward",
++        "entryContexts",
++        "returnPolicy",
++        "timingDefault"
++      ],
++      "properties": {
++        "kind": {
++          "const": "optical-budget-bench"
++        },
++        "speakerId": {
++          "const": "spec001:CH16"
++        },
++        "instructions": {
++          "type": "array",
++          "minItems": 1,
++          "maxItems": 8,
++          "uniqueItems": true,
++          "items": {
++            "type": "string",
++            "minLength": 1,
++            "maxLength": 4096,
++            "pattern": "\\S"
++          }
++        },
++        "profileId": {
++          "const": "spec001:PROFILE-OPTICAL"
++        },
++        "practice": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "sourceCaseId",
++            "compatible",
++            "loss",
++            "explanation"
++          ],
++          "properties": {
++            "sourceCaseId": {
++              "const": "T04"
++            },
++            "compatible": {
++              "const": true
++            },
++            "loss": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "value",
++                "unit"
++              ],
++              "properties": {
++                "value": {
++                  "const": 8
++                },
++                "unit": {
++                  "const": "dB"
++                }
++              }
++            },
++            "explanation": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 4096,
++              "pattern": "\\S"
++            }
++          }
++        },
++        "delivery": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "sourceCaseId",
++            "compatible",
++            "loss",
++            "actionId"
++          ],
++          "properties": {
++            "sourceCaseId": {
++              "const": "T05"
++            },
++            "compatible": {
++              "const": true
++            },
++            "loss": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "value",
++                "unit"
++              ],
++              "properties": {
++                "value": {
++                  "const": 10
++                },
++                "unit": {
++                  "const": "dB"
++                }
++              }
++            },
++            "actionId": {
++              "const": "spec001:ACTION-MG02-diagnose"
++            }
++          }
++        },
++        "boundaryExample": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "sourceCaseId",
++            "compatible",
++            "loss",
++            "explanation"
++          ],
++          "properties": {
++            "sourceCaseId": {
++              "const": "T15"
++            },
++            "compatible": {
++              "const": true
++            },
++            "loss": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "value",
++                "unit"
++              ],
++              "properties": {
++                "value": {
++                  "const": 9
++                },
++                "unit": {
++                  "const": "dB"
++                }
++              }
++            },
++            "explanation": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 4096,
++              "pattern": "\\S"
++            }
++          }
++        },
++        "compatibilityCards": {
++          "type": "array",
++          "minItems": 3,
++          "maxItems": 3,
++          "items": {
++            "oneOf": [
++              {
++                "type": "object",
++                "additionalProperties": false,
++                "required": [
++                  "sourceCaseId",
++                  "premises",
++                  "explanation"
++                ],
++                "properties": {
++                  "sourceCaseId": {
++                    "const": "C-COMPAT"
++                  },
++                  "premises": {
++                    "type": "object",
++                    "additionalProperties": false,
++                    "required": [
++                      "knownProfiles",
++                      "everyRequiredCompatibilityCheck",
++                      "requiredInspectionComplete"
++                    ],
++                    "properties": {
++                      "knownProfiles": {
++                        "const": true
++                      },
++                      "everyRequiredCompatibilityCheck": {
++                        "const": true
++                      },
++                      "requiredInspectionComplete": {
++                        "const": true
++                      }
++                    }
++                  },
++                  "explanation": {
++                    "type": "string",
++                    "minLength": 1,
++                    "maxLength": 4096,
++                    "pattern": "\\S"
++                  }
++                }
++              },
++              {
++                "type": "object",
++                "additionalProperties": false,
++                "required": [
++                  "sourceCaseId",
++                  "premises",
++                  "explanation"
++                ],
++                "properties": {
++                  "sourceCaseId": {
++                    "const": "T07"
++                  },
++                  "premises": {
++                    "type": "object",
++                    "additionalProperties": false,
++                    "required": [
++                      "knownProfiles",
++                      "compatible",
++                      "nominalOpticalBudgetSufficient"
++                    ],
++                    "properties": {
++                      "knownProfiles": {
++                        "const": true
++                      },
++                      "compatible": {
++                        "const": false
++                      },
++                      "nominalOpticalBudgetSufficient": {
++                        "const": true
++                      }
++                    }
++                  },
++                  "explanation": {
++                    "type": "string",
++                    "minLength": 1,
++                    "maxLength": 4096,
++                    "pattern": "\\S"
++                  }
++                }
++              },
++              {
++                "type": "object",
++                "additionalProperties": false,
++                "required": [
++                  "sourceCaseId",
++                  "premises",
++                  "explanation"
++                ],
++                "properties": {
++                  "sourceCaseId": {
++                    "const": "B-COMPAT"
++                  },
++                  "premises": {
++                    "type": "object",
++                    "additionalProperties": false,
++                    "required": [
++                      "knownProfiles",
++                      "sameConnectorShape",
++                      "requiredWavelengthDirectionMatches",
++                      "numericBudgetSufficient"
++                    ],
++                    "properties": {
++                      "knownProfiles": {
++                        "const": true
++                      },
++                      "sameConnectorShape": {
++                        "const": true
++                      },
++                      "requiredWavelengthDirectionMatches": {
++                        "const": false
++                      },
++                      "numericBudgetSufficient": {
++                        "const": true
++                      }
++                    }
++                  },
++                  "explanation": {
++                    "type": "string",
++                    "minLength": 1,
++                    "maxLength": 4096,
++                    "pattern": "\\S"
++                  }
++                }
++              }
++            ]
++          },
++          "uniqueItems": true
++        },
++        "answerControls": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "receiveLabel",
++            "marginLabel",
++            "reserveLabel",
++            "reserveMet",
++            "reserveShortfall",
++            "overloadLabel",
++            "overloaded",
++            "notOverloaded"
++          ],
++          "properties": {
++            "receiveLabel": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 128,
++              "pattern": "\\S"
++            },
++            "marginLabel": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 128,
++              "pattern": "\\S"
++            },
++            "reserveLabel": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 128,
++              "pattern": "\\S"
++            },
++            "reserveMet": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 128,
++              "pattern": "\\S"
++            },
++            "reserveShortfall": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 128,
++              "pattern": "\\S"
++            },
++            "overloadLabel": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 128,
++              "pattern": "\\S"
++            },
++            "overloaded": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 128,
++              "pattern": "\\S"
++            },
++            "notOverloaded": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 128,
++              "pattern": "\\S"
++            }
++          }
++        },
++        "feedback": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "practice",
++            "delivery",
++            "contentError",
++            "alreadyCompleted"
++          ],
++          "properties": {
++            "practice": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "correct",
++                "incorrect",
++                "invalidInput"
++              ],
++              "properties": {
++                "correct": {
++                  "type": "string",
++                  "minLength": 1,
++                  "maxLength": 4096,
++                  "pattern": "\\S"
++                },
++                "incorrect": {
++                  "type": "string",
++                  "minLength": 1,
++                  "maxLength": 4096,
++                  "pattern": "\\S"
++                },
++                "invalidInput": {
++                  "type": "string",
++                  "minLength": 1,
++                  "maxLength": 4096,
++                  "pattern": "\\S"
++                }
++              }
++            },
++            "delivery": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "correct",
++                "incorrect",
++                "invalidInput"
++              ],
++              "properties": {
++                "correct": {
++                  "type": "string",
++                  "minLength": 1,
++                  "maxLength": 4096,
++                  "pattern": "\\S"
++                },
++                "incorrect": {
++                  "type": "string",
++                  "minLength": 1,
++                  "maxLength": 4096,
++                  "pattern": "\\S"
++                },
++                "invalidInput": {
++                  "type": "string",
++                  "minLength": 1,
++                  "maxLength": 4096,
++                  "pattern": "\\S"
++                }
++              }
++            },
++            "contentError": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 4096,
++              "pattern": "\\S"
++            },
++            "alreadyCompleted": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 4096,
++              "pattern": "\\S"
++            }
++          }
++        },
++        "controls": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "practice",
++            "delivery",
++            "submit",
++            "retry",
++            "exit"
++          ],
++          "properties": {
++            "practice": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 128,
++              "pattern": "\\S"
++            },
++            "delivery": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 128,
++              "pattern": "\\S"
++            },
++            "submit": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 128,
++              "pattern": "\\S"
++            },
++            "retry": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 128,
++              "pattern": "\\S"
++            },
++            "exit": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 128,
++              "pattern": "\\S"
++            }
++          }
++        },
++        "recovery": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "retryExplanation",
++            "exitExplanation"
++          ],
++          "properties": {
++            "retryExplanation": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 4096,
++              "pattern": "\\S"
++            },
++            "exitExplanation": {
++              "type": "string",
++              "minLength": 1,
++              "maxLength": 4096,
++              "pattern": "\\S"
++            }
++          }
++        },
++        "reward": {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "kind",
++            "factId"
++          ],
++          "properties": {
++            "kind": {
++              "const": "optional-optical-depth"
++            },
++            "factId": {
++              "const": "spec001:FACT-MG02-completion"
++            }
++          }
++        },
++        "entryContexts": {
++          "const": [
++            {
++              "roomId": "spec001:R06",
++              "safePositionId": "spec001:R06.entry",
++              "hotspotId": "spec001:HOTSPOT-fiber-r06-pr059"
++            }
++          ]
++        },
++        "returnPolicy": {
++          "const": "captured-entry"
++        },
++        "timingDefault": {
++          "const": "off"
++        }
++      }
+     }
+   }
+ }
+diff --git a/content/spec001/world.json b/content/spec001/world.json
+--- a/content/spec001/world.json
++++ b/content/spec001/world.json
+@@ -2844,6 +2844,11 @@
+       "kind": "minigame",
+       "id": "spec001:MG01",
+       "path": "content/spec001/minigames/MG01.json"
++    },
++    {
++      "kind": "minigame",
++      "id": "spec001:MG02",
++      "path": "content/spec001/minigames/MG02.json"
+     }
+   ],
+   "constraints": {
+diff --git a/content/spec001/minigames/MG02.json b/content/spec001/minigames/MG02.json
+new file mode 100644
+--- /dev/null
++++ b/content/spec001/minigames/MG02.json
+@@ -0,0 +1,305 @@
++{
++  "kind": "minigame",
++  "schemaVersion": 1,
++  "episodeId": "spec001",
++  "contentVersion": "1.0.0",
++  "id": "spec001:MG02",
++  "completionAchievementId": "spec001:ACHIEVEMENT-MG02-complete",
++  "prerequisite": {
++    "kind": "objective-complete",
++    "objectiveId": "spec001:O06"
++  },
++  "evidence": [
++    {
++      "id": "spec001:FACT-MG02-instructions",
++      "roomId": "spec001:R06",
++      "subjectIds": [
++        "spec001:CH16",
++        "spec001:PR059"
++      ],
++      "kind": "context",
++      "text": "After proving the Prism Vault fiber path, the SFP Hermit Crab offers an optional bench exercise. Compare the supplied 8, 10 and 9 dB total passive-loss cards. Calculate receive power and margin, then check the required reserve and overload limit separately. Practice, explanations, help, retry and exit remain available without a timer, score, recruited ally or required tool.",
++      "ruleIds": [
++        "spec001:PHY03",
++        "spec001:PHY06"
++      ],
++      "requiresFreshMeasurement": false
++    },
++    {
++      "id": "spec001:FACT-MG02-profile",
++      "roomId": "spec001:R06",
++      "subjectIds": [
++        "spec001:PR054",
++        "spec001:PR057",
++        "spec001:PROFILE-OPTICAL"
++      ],
++      "kind": "context",
++      "text": "Fictional teaching profile: transmit −3 dBm, sensitivity −14 dBm, maximum receive −1 dBm, required reserve 2 dB. Bounds are inclusive. All passive-card profiles are supplied compatible, and their totals include every modeled component loss; no amplifier is present. Separately inspect the compatibility cards: media, wavelength direction, rate, connector/polarity and host support are required checks. An inspection and a favorable budget establish different facts.",
++      "ruleIds": [
++        "spec001:PHY03",
++        "spec001:PHY06"
++      ],
++      "requiresFreshMeasurement": false
++    },
++    {
++      "id": "spec001:FACT-MG02-completion",
++      "roomId": "spec001:R06",
++      "subjectIds": [
++        "spec001:CH16",
++        "spec001:PR059",
++        "spec001:PROFILE-OPTICAL"
++      ],
++      "kind": "observation",
++      "text": "You diagnosed the optional 10 dB total-loss card: receive −13 dBm, margin 1 dB, required reserve not met, no overload. The supplied plan still fails even though your diagnosis is correct. The 8 dB card has 3 dB margin; the 9 dB card meets exactly 2 dB. Compatibility and receiver maximum remain separate checks. This records optional optical depth with assistance tracked separately; it is not current repair evidence or proof of independent understanding.",
++      "ruleIds": [
++        "spec001:PHY03",
++        "spec001:PHY06"
++      ],
++      "requiresFreshMeasurement": false
++    }
++  ],
++  "alternatives": [
++    {
++      "id": "spec001:ACTION-MG02-diagnose",
++      "label": "Diagnose the high-loss card",
++      "method": "direct-action",
++      "itemIds": [],
++      "abilityIds": [],
++      "condition": {
++        "kind": "objective-complete",
++        "objectiveId": "spec001:O06"
++      },
++      "ruleIds": [
++        "spec001:PHY03",
++        "spec001:PHY06"
++      ],
++      "evidenceIds": [
++        "spec001:FACT-MG02-profile"
++      ],
++      "effects": [],
++      "explanation": "Give receive power in dBm, margin in dB, and separate reserve and overload diagnoses for the 10 dB card. A correct diagnosis records optional depth once; it does not repair that failing plan."
++    }
++  ],
++  "ruleIds": [
++    "spec001:PHY03",
++    "spec001:PHY06"
++  ],
++  "profileIds": [
++    "spec001:PROFILE-OPTICAL"
++  ],
++  "sourceClaims": [
++    {
++      "sourceId": "spec001:S06",
++      "section": "Calculate Power Budget and Power Margin for Fiber-Optic Cables → Calculate Power Budget for Fiber-Optic Cables; How to Calculate Power Margin for Fiber-Optic Cables",
++      "supportedClaim": "Budget equals minimum transmit power minus receiver sensitivity; margin subtracts link loss from that budget. Actual component losses need vendor data.",
++      "limitations": [
++        "Original Juniper URL redirects to publisher HPE documentation. Use equations only; a positive margin does not independently prove the maximum receiver bound. No sample losses or fixture thresholds imported."
++      ]
++    },
++    {
++      "sourceId": "spec001:S07",
++      "section": "Platform support; Product specifications, Table 3 SFP+ port cabling specifications and Table 4 Optical transmit and receive specifications",
++      "supportedClaim": "Module-specific media, wavelength, reach and receiver minimum/maximum power are separate specifications. Host compatibility requires support information.",
++      "limitations": [
++        "No real module is instantiated in the toy optical fixture. Do not generalize shell shape or SMF/MMF slogans; supported combinations vary by module."
++      ]
++    },
++    {
++      "sourceId": "spec001:S03",
++      "section": "Cable Specifications → Ethernet Cable Specifications → Maximum Cable Length",
++      "supportedClaim": "This hardware guide specifies a 100 m maximum Ethernet cable distance between the described router and connected equipment.",
++      "limitations": [
++        "Product-specific illustration only. The game 100 m channel and inclusive comparator remain fictional; no universal limit for all copper or all Ethernet. No certification claim.",
++        "This copper, wireless or electrical-power reference provides general background. It supplies no optical module, component loss, receiver threshold or optical diagnosis for this bench."
++      ]
++    },
++    {
++      "sourceId": "spec001:S08",
++      "section": "Check Physical and Environmental Conditions; Run Connectivity Tests from the Web User Interface; Radio Settings; Signal to Noise Ratio (SNR)",
++      "supportedClaim": "Power, cable attachment, link indication, obstructions/range and connectivity tests are distinct observations; radio settings and noise affect diagnosis.",
++      "limitations": [
++        "Product troubleshooting context, not universal SNR or throughput guarantees. Do not import configuration recommendations, channel legality, security or service success into the toy profile.",
++        "This copper, wireless or electrical-power reference provides general background. It supplies no optical module, component loss, receiver threshold or optical diagnosis for this bench."
++      ]
++    },
++    {
++      "sourceId": "spec001:S10",
++      "section": "Introductory PSE/PD definitions; PoE budget; PoE class, table headings for power delivered to PD versus switch-port output",
++      "supportedClaim": "PSE output and power delivered to a PD are distinct accounting boundaries. Multiple devices must fit the available aggregate budget.",
++      "limitations": [
++        "Only this distinction and aggregate-budget concept are used. No table wattages, PoE class allocation, priority behavior or detection timing are used by the fiction.",
++        "This copper, wireless or electrical-power reference provides general background. It supplies no optical module, component loss, receiver threshold or optical diagnosis for this bench."
++      ]
++    }
++  ],
++  "model": {
++    "label": "fictional-teaching-profile",
++    "scope": "Optional comparison of supplied passive-loss totals after the Prism Vault objective, using the fictional optical profile. Predict receive power and margin, then diagnose reserve and overload separately.",
++    "assumptions": [
++      "Transmit is −3 dBm, sensitivity −14 dBm, maximum receive −1 dBm and required reserve 2 dB, with inclusive bounds.",
++      "The 8, 10 and 9 dB cards already include all modeled passive component losses. Their physical profiles are supplied compatible; no actual component-specific loss or amplifier is invented.",
++      "The independent compatibility cards retain their explicit supplied premises. A passing inspection card establishes only inspection; missing product details are not inferred."
++    ],
++    "limitations": [
++      "These are fictional teaching values, not real product specifications. Actual component losses need their own vendor data. No dispersion, uncertainty, aging or temperature model is implemented.",
++      "Margin above sensitivity and overload above the maximum receive level are separate checks. All three passive cards explicitly have no overload; greater received power is not universally better.",
++      "Matching connector shape alone cannot establish compatible media, wavelength direction, rate, connector/polarity and host support. A favorable budget cannot override a failed required check.",
++      "A correct learner diagnosis of the failing 10 dB plan preserves its failed physical status. This exercise does not repair equipment, refresh measurements, complete the main objective or prove end-to-end service.",
++      "The optional depth record is not proof of independent understanding. Practice, worked feedback and full answers record assistance honestly.",
++      "The copper, wireless and electrical-power references provide general background and supply no optical values. The optical budget and module-specification references support the optical equations and module-specific compatibility context."
++    ]
++  },
++  "effects": [
++    {
++      "kind": "record-fact",
++      "effectId": "spec001:EFFECT-MG02-notebook",
++      "factId": "spec001:FACT-MG02-completion"
++    },
++    {
++      "kind": "complete-minigame",
++      "effectId": "spec001:EFFECT-MG02-complete",
++      "minigameId": "spec001:MG02"
++    }
++  ],
++  "hints": {
++    "method": {
++      "id": "spec001:HINT-MG02-method",
++      "text": "First retain the supplied compatibility premise. Subtract total passive loss from transmit power for receive power. Subtract sensitivity from receive power for margin. Compare margin with the required reserve, then compare receive power with the maximum separately."
++    },
++    "workedStep": {
++      "id": "spec001:HINT-MG02-step",
++      "text": "For the full 10 dB card, −3 dBm − 10 dB = −13 dBm. Margin uses receive minus sensitivity: −13 − (−14). Compare that result with 2 dB. Independently compare −13 dBm with the −1 dBm maximum."
++    },
++    "solution": {
++      "id": "spec001:HINT-MG02-solution",
++      "text": "Full answer: −13 dBm receive, 1 dB margin, reserve shortfall, no overload. Sensitivity is met, but the required 2 dB reserve is not. This is a correct diagnosis of a failing plan. Assisted completion earns the same optional depth record without punishment."
++    }
++  },
++  "observableOutcome": "A correct full diagnosis records optional optical depth once. The 10 dB physical plan remains failed. Practice, boundary and compatibility explanations grant no completion; leaving keeps required tools and main progress.",
++  "completionExplanation": "“An accurate diagnosis of an inaccurate budget,” says the Hermit Crab. “I approve of one of those things.” The 10 dB card gives −13 dBm receive and 1 dB margin: reserve fails, overload is absent. Your notebook records the optional diagnosis; the equipment has not changed.",
++  "requiresReflexTiming": false,
++  "requiredForMainStory": false,
++  "skippable": true,
++  "instructions": "After verifying the Prism Vault fiber path, compare the supplied loss cards at your own pace. Practice with 8 dB, diagnose 10 dB, and inspect the exact 9 dB boundary. Check compatibility, reserve and overload separately. Help, retry and exit remain available.",
++  "practiceExplanation": "At 8 dB total passive loss, −3 − 8 = −11 dBm receive; −11 − (−14) = 3 dB margin. The 2 dB reserve is met, and −11 dBm does not exceed −1 dBm. This worked example is practice and grants no completion.",
++  "retryExplanation": "Start a fresh untimed bench attempt. Retain clues, personal notes and hint history; earlier-attempt measurements remain visible as stale. Required tools stay recoverable. Retry does not repair equipment, award an unearned completion or save.",
++  "exitExplanation": "Close the bench at its captured Prism Vault entry. Required tools, main progress, party and route stay intact. Exit does not navigate, refresh a measurement or save.",
++  "timingDefault": "off",
++  "timingUnlock": "after-untimed-completion",
++  "requiredScoreForMainStory": false,
++  "optionalActivity": {
++    "kind": "optical-budget-bench",
++    "speakerId": "spec001:CH16",
++    "instructions": [
++      "“My shell fits many drawers,” says the Hermit Crab. “This is not a compatibility certificate.”",
++      "Read the supplied compatibility assumptions and fictional optical profile. Compare 8, 10 and 9 dB total passive loss without changing real equipment or inventing component losses.",
++      "Practice, diagnose the full card, read the boundary and compatibility explanations, ask for help or leave. There is no timer or required score."
++    ],
++    "profileId": "spec001:PROFILE-OPTICAL",
++    "practice": {
++      "sourceCaseId": "T04",
++      "compatible": true,
++      "loss": {
++        "value": 8,
++        "unit": "dB"
++      },
++      "explanation": "At 8 dB total passive loss, −3 − 8 = −11 dBm receive; −11 − (−14) = 3 dB margin. The 2 dB reserve is met, and −11 dBm does not exceed −1 dBm. This worked example is practice and grants no completion."
++    },
++    "delivery": {
++      "sourceCaseId": "T05",
++      "compatible": true,
++      "loss": {
++        "value": 10,
++        "unit": "dB"
++      },
++      "actionId": "spec001:ACTION-MG02-diagnose"
++    },
++    "boundaryExample": {
++      "sourceCaseId": "T15",
++      "compatible": true,
++      "loss": {
++        "value": 9,
++        "unit": "dB"
++      },
++      "explanation": "At 9 dB total passive loss, receive is −12 dBm and margin is exactly 2 dB. The inclusive reserve threshold passes. Receive remains below the −1 dBm maximum, so overload is false. This comparison does not award the full exercise."
++    },
++    "compatibilityCards": [
++      {
++        "sourceCaseId": "C-COMPAT",
++        "premises": {
++          "knownProfiles": true,
++          "everyRequiredCompatibilityCheck": true,
++          "requiredInspectionComplete": true
++        },
++        "explanation": "The card supplies known supported profiles, every required compatibility check passing, and required inspection complete. The required checks cover media, wavelength direction, rate, connector/polarity and host support. These are supplied aggregate premises, not independently measured product fields. The inspection predicate passes; power budget, intervention and end-to-end service are not proved."
++      },
++      {
++        "sourceCaseId": "T07",
++        "premises": {
++          "knownProfiles": true,
++          "compatible": false,
++          "nominalOpticalBudgetSufficient": true
++        },
++        "explanation": "The known profiles are explicitly incompatible even though the nominal optical budget is sufficient. That required compatibility failure stays failed. No numeric receive or margin observation is emitted, and arithmetic cannot make this a usable link. Inspection status is not supplied and is not inferred."
++      },
++      {
++        "sourceCaseId": "B-COMPAT",
++        "premises": {
++          "knownProfiles": true,
++          "sameConnectorShape": true,
++          "requiredWavelengthDirectionMatches": false,
++          "numericBudgetSufficient": true
++        },
++        "explanation": "The connector shapes match and the numeric budget is sufficient, but the required wavelength direction does not match. One explicitly failed required check is enough to reject compatibility. The other checks and inspection status are not supplied; do not invent their results or treat the connector as a full compatibility verdict."
++      }
++    ],
++    "answerControls": {
++      "receiveLabel": "Predicted receive power (dBm)",
++      "marginLabel": "Predicted margin above sensitivity (dB)",
++      "reserveLabel": "Does it meet the required 2 dB reserve?",
++      "reserveMet": "Reserve met",
++      "reserveShortfall": "Reserve shortfall",
++      "overloadLabel": "Does receive exceed the −1 dBm maximum?",
++      "overloaded": "Overloaded",
++      "notOverloaded": "Not overloaded"
++    },
++    "feedback": {
++      "practice": {
++        "correct": "At 8 dB total passive loss, −3 − 8 = −11 dBm receive; −11 − (−14) = 3 dB margin. The 2 dB reserve is met, and −11 dBm does not exceed −1 dBm. This worked example is practice and grants no completion.",
++        "incorrect": "The 8 dB practice card gives −11 dBm receive and 3 dB margin. Its reserve is met and overload is absent. Read the worked example, retry or leave; practice does not complete the full exercise.",
++        "invalidInput": "Enter finite numbers from −128 to 128, with receive in dBm and margin in dB, then choose reserve and overload diagnoses. No answer was judged and no completion was recorded."
++      },
++      "delivery": {
++        "correct": "“An accurate diagnosis of an inaccurate budget,” says the Hermit Crab. “I approve of one of those things.” The 10 dB card gives −13 dBm receive and 1 dB margin: reserve fails, overload is absent. Your notebook records the optional diagnosis; the equipment has not changed.",
++        "incorrect": "That diagnosis does not match the supplied 10 dB card. Its full answer is −13 dBm receive, 1 dB margin, reserve shortfall and no overload. The plan remains physically failed. Retry with this assisted explanation, or leave; help does not reduce the optional reward.",
++        "invalidInput": "Enter finite numbers from −128 to 128, with receive in dBm and margin in dB, then choose reserve and overload diagnoses. No answer was judged and no completion was recorded."
++      },
++      "contentError": "The bench cannot validate its supplied case. This is an authoring problem, not a learner mistake. No completion or penalty was recorded; exit remains available.",
++      "alreadyCompleted": "Your notebook already records the optional optical diagnosis. Practice or read its explanation again; the same completion is not awarded twice."
++    },
++    "controls": {
++      "practice": "Practice the 8 dB card",
++      "delivery": "Diagnose the 10 dB card",
++      "submit": "Check my diagnosis",
++      "retry": "Try the bench again",
++      "exit": "Leave the Prism Bench"
++    },
++    "recovery": {
++      "retryExplanation": "Start a fresh untimed bench attempt. Retain clues, personal notes and hint history; earlier-attempt measurements remain visible as stale. Required tools stay recoverable. Retry does not repair equipment, award an unearned completion or save.",
++      "exitExplanation": "Close the bench at its captured Prism Vault entry. Required tools, main progress, party and route stay intact. Exit does not navigate, refresh a measurement or save."
++    },
++    "reward": {
++      "kind": "optional-optical-depth",
++      "factId": "spec001:FACT-MG02-completion"
++    },
++    "entryContexts": [
++      {
++        "roomId": "spec001:R06",
++        "safePositionId": "spec001:R06.entry",
++        "hotspotId": "spec001:HOTSPOT-fiber-r06-pr059"
++      }
++    ],
++    "returnPolicy": "captured-entry",
++    "timingDefault": "off"
++  }
++}
+diff --git a/src/app/content.ts b/src/app/content.ts
+--- a/src/app/content.ts
++++ b/src/app/content.ts
+@@ -29,6 +29,7 @@
+ import packetRepair from '../../content/spec001/dialogue/packet-r12.json' with { type: 'json' };
+ import repairActions from '../../content/spec001/dialogue/repair-plan-actions.json' with { type: 'json' };
+ import characters from '../../content/spec001/characters.json' with { type: 'json' };
++import prismBench from '../../content/spec001/minigames/MG02.json' with { type: 'json' };
+ import bitLoom from '../../content/spec001/minigames/MG01.json' with { type: 'json' };
+ import serialPost from '../../content/spec001/quests/SQ01.json' with { type: 'json' };
+ import powerAudit from '../../content/spec001/quests/SQ02.json' with { type: 'json' };
+@@ -55,6 +56,7 @@
+     'content/spec001/dialogue/packet-r12.json': packetRepair,
+     'content/spec001/characters.json': characters,
+     'content/spec001/minigames/MG01.json': bitLoom,
++    'content/spec001/minigames/MG02.json': prismBench,
+     'content/spec001/quests/SQ01.json': serialPost,
+     'content/spec001/quests/SQ02.json': powerAudit,
+   };
+diff --git a/src/app/application.ts b/src/app/application.ts
+--- a/src/app/application.ts
++++ b/src/app/application.ts
+@@ -238,10 +238,13 @@
+         const buttons = projected.entries.map(entry => {
+           const button = [...optionalOpeners.querySelectorAll('button')].find(node => node.dataset['activity'] === entry.activityId)
+             ?? host.ownerDocument.createElement('button');
+-          button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = entry.activityId === q('MG01') ? 'Bit Loom' : entry.activityId === q('SQ01') ? 'Serial Post' : 'Energy audit';
+-          button.setAttribute('aria-label', `Open ${button.textContent}`);
++          button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = entry.activityId === q('MG02') ? 'Prism Budget Bench' : entry.activityId === q('MG01') ? 'Bit Loom' : entry.activityId === q('SQ01') ? 'Serial Post' : 'Energy audit';
++          button.disabled = !entry.available;
++          if (entry.unavailableReason) { button.textContent = 'Prism Bench · complete fiber verification first'; button.title = entry.unavailableReason; }
++          else button.removeAttribute('title');
++          button.setAttribute('aria-label', entry.unavailableReason ?? `Open ${button.textContent}`);
+           button.addEventListener('click', () => {
+-            if (button.isConnected && optionalOpeners.contains(button) && !button.closest('[hidden], [inert]'))
++            if (!button.disabled && entry.available && button.isConnected && optionalOpeners.contains(button) && !button.closest('[hidden], [inert]'))
+               bus.dispatch(projected.capture({ kind: 'start-optional', activityId: entry.activityId, hotspotId: entry.hotspotId }));
+           }, { signal: optionalOpenerEvents.signal }); return button;
+         });
+diff --git a/src/content/optional-activities.ts b/src/content/optional-activities.ts
+--- a/src/content/optional-activities.ts
++++ b/src/content/optional-activities.ts
+@@ -1,6 +1,7 @@
+ // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+ import type { ContentRegistry } from './registry';
+ import type { OptionalActivityDefinition } from '../state/optional-activities';
++import { optionalOpticalBenchContentIssues } from './optional-optical-bench.ts';
+ import { optionalLoomContentIssues } from './optional-symbol-loom.ts';
+ import reviewed from '../../content/spec001/sources.json' with { type: 'json' };
+ const isRecord = (value: unknown): value is Record<string, unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
+@@ -13,7 +14,7 @@
+   try { return checkOptionalContent(record, registry); } catch { return ['optional-malformed']; }
+ }
+ function checkOptionalContent(record: unknown, registry: ContentRegistry): readonly string[] {
+-  if (isRecord(record) && record['kind'] === 'minigame') return optionalLoomContentIssues(record, registry);
++  if (isRecord(record) && record['kind'] === 'minigame') return record['id'] === 'spec001:MG02' ? optionalOpticalBenchContentIssues(record, registry) : optionalLoomContentIssues(record, registry);
+   const errors: string[] = [];
+   if (!isRecord(record) || record['kind'] !== 'quest' || !['spec001:SQ01', 'spec001:SQ02'].includes(String(record['id'])) || !isRecord(record['optionalActivity'])) return ['unsupported-optional-activity'];
+   const activity = record['optionalActivity'];
+@@ -23,7 +24,7 @@
+     || activity['timingDefault'] !== 'off' || activity['returnPolicy'] !== 'captured-entry' || !Array.isArray(activity['instructions'])
+     || !activity['instructions'].length || !activity['instructions'].every(text)) errors.push('optional-shape');
+   const def = record as unknown as OptionalActivityDefinition, authored = def.optionalActivity;
+-  if (authored.kind === 'toy-symbol-loom') return ['unsupported-optional-activity'];
++  if (authored.kind === 'toy-symbol-loom' || authored.kind === 'optical-budget-bench') return ['unsupported-optional-activity'];
+   if (!isRecord(activity['practice']) || !isRecord(activity['delivery']) || !isRecord(activity['feedback']) || !isRecord(activity['reward'])
+     || !isRecord(activity['controls']) || !isRecord(activity['recovery']) || !Array.isArray(activity['entryContexts'])
+     || !Array.isArray(record['effects']) || !Array.isArray(record['alternatives']) || !Array.isArray(record['evidence'])
+@@ -87,7 +88,7 @@
+ export function optionalRewardAllocationMatches(definition: OptionalActivityDefinition, manifest: unknown): boolean {
+   if (!isRecord(manifest) || !Array.isArray(manifest['assets'])) return false;
+   const reward = definition.optionalActivity.reward;
+-  if (reward.kind === 'optional-practice-only') return false; // No media allocation is declared or required.
++  if (reward.kind === 'optional-practice-only' || reward.kind === 'optional-optical-depth') return false; // No media allocation is declared or required.
+   const matches = manifest['assets'].filter(row => isRecord(row) && row['assetId'] === reward.assetId);
+   const expected = definition.id === 'spec001:SQ01' ? '08' : definition.id === 'spec001:SQ02' ? '18' : null;
+   return expected !== null && reward.assetId === `spec001:ASSET-ILLUSTRATION-${expected}` && matches.length === 1 && isRecord(matches[0])
+diff --git a/src/content/optional-optical-bench.ts b/src/content/optional-optical-bench.ts
+new file mode 100644
+--- /dev/null
++++ b/src/content/optional-optical-bench.ts
+@@ -0,0 +1,40 @@
++// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
++import type { ContentRegistry } from './registry';
++import type * as S from './schema-types.generated';
++import validateSchema from './schema.generated.js';
++import reviewed from '../../content/spec001/sources.json' with { type: 'json' };
++const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
++/** Exact authored cards, objective prerequisite and own optional receipt. */
++export function optionalOpticalBenchContentIssues(record: unknown, registry: ContentRegistry): readonly string[] {
++  if (!validateSchema(record)) return ['optional-optical-shape'];
++  const definition = record as S.minigame, activity = definition.optionalActivity;
++  if (definition.kind !== 'minigame' || definition.id !== 'spec001:MG02' || activity?.kind !== 'optical-budget-bench'
++    || definition.completionAchievementId !== 'spec001:ACHIEVEMENT-MG02-complete') return ['unsupported-optional-activity'];
++  const errors: string[] = [], profile = registry.record(activity.profileId);
++  if (profile?.kind !== 'profile' || profile.id !== 'spec001:PROFILE-OPTICAL' || profile.reviewedProfileId !== profile.id
++    || !same(definition.profileIds, [profile.id]) || !same(definition.ruleIds, ['spec001:PHY03', 'spec001:PHY06'])
++    || !same(definition.sourceClaims.map(s => s.sourceId).sort(), ['spec001:S03', 'spec001:S06', 'spec001:S07', 'spec001:S08', 'spec001:S10'])) errors.push('optional-optical-profile');
++  for (const [mode, id] of [['practice', 'T04'], ['delivery', 'T05'], ['boundaryExample', 'T15']] as const) {
++    const part = activity[mode], ref = [...reviewed.referenceCases, ...reviewed.reviewCases].find(c => c.id === id);
++    if (!ref || !('loss' in ref.inputs) || part.sourceCaseId !== id || part.compatible !== true || !same(part.loss, ref.inputs.loss)) errors.push('optional-optical-source');
++  }
++  const ids = ['C-COMPAT', 'T07', 'B-COMPAT'];
++  if (activity.compatibilityCards.length !== 3 || !activity.compatibilityCards.every((card, i) => {
++    const ref = [...reviewed.referenceCases, ...reviewed.reviewCases].find(c => c.id === ids[i]);
++    return card.sourceCaseId === ids[i] && !!ref && same(card.premises, ref.inputs);
++  })) errors.push('optional-optical-compatibility');
++  const room = registry.record('spec001:R06'), anchor = registry.safePosition('spec001:R06.entry');
++  if (registry.record(activity.speakerId)?.kind !== 'character' || room?.kind !== 'room' || !room.characterIds.includes(activity.speakerId)
++    || !room.hotspots.some(h => h.id === 'spec001:HOTSPOT-fiber-r06-pr059' && h.verbs.includes('look'))
++    || anchor?.roomId !== room.id || !anchor.eligibleStates.includes('stable-exploration') || !definition.evidence.every(e => e.roomId === room.id)) errors.push('optional-optical-entry');
++  const condition = { kind: 'objective-complete', objectiveId: 'spec001:O06' }, alternative = definition.alternatives[0];
++  if (!same(definition.prerequisite, condition) || definition.alternatives.length !== 1 || alternative?.id !== activity.delivery.actionId
++    || !same(alternative.condition, condition) || alternative.method !== 'direct-action' || alternative.itemIds.length || alternative.abilityIds.length || alternative.effects.length) errors.push('optional-optical-prerequisite');
++  if (!same(definition.effects, [
++    { kind: 'record-fact', effectId: 'spec001:EFFECT-MG02-notebook', factId: activity.reward.factId },
++    { kind: 'complete-minigame', effectId: 'spec001:EFFECT-MG02-complete', minigameId: definition.id },
++  ]) || !definition.evidence.some(e => e.id === activity.reward.factId && e.kind === 'observation')) errors.push('optional-optical-reward');
++  if (definition.requiredForMainStory !== false || definition.requiresReflexTiming !== false || definition.requiredScoreForMainStory !== false
++    || definition.skippable !== true || definition.timingDefault !== 'off') errors.push('optional-optical-safety');
++  return errors;
++}
+diff --git a/src/state/optional-activities.ts b/src/state/optional-activities.ts
+--- a/src/state/optional-activities.ts
++++ b/src/state/optional-activities.ts
+@@ -3,6 +3,7 @@
+ import type * as S from '../content/schema-types.generated';
+ import { contentError, isRecord } from '../domain/evaluate';
+ import { evaluateSymbolAnswer } from '../domain/packet-journey';
++import { evaluateBenchAnswer, evaluateCompatibilityCard, type OpticalBenchAnswer, type OpticalBudgetBench } from './optional-optical-bench';
+ import { evaluateAuditAnswer } from './optional-power-audit';
+ import type { DeliveredPowerAudit, PowerAuditAnswer } from './optional-power-audit';
+ import type { ToySample, ToySymbolProfile } from '../domain/packet-journey';
+@@ -37,7 +38,7 @@
+   readonly reward: { readonly kind: 'optional-practice-only'; readonly factId: 'spec001:FACT-MG01-completion' };
+ }
+ export type OptionalActivityDefinition = (Readonly<Omit<S.quest, 'optionalActivity'>> | Readonly<Omit<S.minigame, 'optionalActivity'>>)
+-  & { readonly optionalActivity: ToyMessageActivity | DeliveredPowerAudit | ToySymbolLoomActivity };
++  & { readonly optionalActivity: ToyMessageActivity | DeliveredPowerAudit | ToySymbolLoomActivity | OpticalBudgetBench };
+ export type OptionalMode = 'practice' | 'delivery';
+ export interface OptionalActivitySession {
+   readonly sessionId: string;
+@@ -59,6 +60,8 @@
+   | { readonly kind: 'choose-mode'; readonly sessionId: string; readonly mode: OptionalMode }
+   | { readonly kind: 'submit'; readonly sessionId: string; readonly bits: string }
+   | { readonly kind: 'submit-power'; readonly sessionId: string; readonly answer: PowerAuditAnswer | { readonly assessment: null; readonly difference: null } }
++  | { readonly kind: 'submit-optics'; readonly sessionId: string; readonly answer: OpticalBenchAnswer | null }
++  | { readonly kind: 'compatibility-cards'; readonly sessionId: string }
+   | { readonly kind: 'hint' | 'explanation' | 'boundary-example' | 'exit'; readonly sessionId: string }
+   | { readonly kind: 'retry'; readonly sessionId: string; readonly nextAttemptId: AttemptId };
+ export type OptionalActivityPreparation = { readonly ok: false; readonly reason: 'content-error' | 'invalid-input' | 'invalid-state' | 'precondition' }
+@@ -97,11 +100,16 @@
+   if (optionalActivityContentIssues(definition, registry).length) return { evaluation: contentError({ code: 'optional-content', field: definition.id, message: 'The optional exhibit needs correction.' }),
+     feedback: text(activity?.feedback?.contentError) ? activity.feedback.contentError : 'This exhibit needs correction. You can leave safely.', assistanceLevel: null };
+   const profile = registry.record(activity.profileId) as S.profile;
+-  const part = activity[mode];
+-  const result = activity.kind !== 'delivered-power-audit' ? evaluateSymbolAnswer({ profile: { id: profile.id, parameters: profile.parameters } as ToySymbolProfile,
+-    samples: activity[mode].samples }, action as DomainAction<{ readonly bits: string }>, game.world)
+-    : evaluateAuditAnswer({ sourceCaseId: part.sourceCaseId, demands: activity[mode].demands, budgetBoundary: activity[mode].budgetBoundary,
+-      demandBoundary: activity[mode].demandBoundary, otherConstraints: true }, { id: profile.id, parameters: profile.parameters }, action, game.world);
++  const result = activity.kind === 'optical-budget-bench'
++    ? evaluateBenchAnswer({ sourceCaseId: activity[mode].sourceCaseId, compatible: activity[mode].compatible, loss: activity[mode].loss },
++      { id: profile.id, parameters: profile.parameters }, action, game.world)
++    : activity.kind === 'delivered-power-audit'
++      ? evaluateAuditAnswer({ sourceCaseId: activity[mode].sourceCaseId, demands: activity[mode].demands, budgetBoundary: activity[mode].budgetBoundary,
++        demandBoundary: activity[mode].demandBoundary, otherConstraints: true }, { id: profile.id, parameters: profile.parameters }, action, game.world)
++      : activity.kind === 'toy-symbol-message' || activity.kind === 'toy-symbol-loom'
++        ? evaluateSymbolAnswer({ profile: { id: profile.id, parameters: profile.parameters } as ToySymbolProfile,
++        samples: activity[mode].samples }, action as DomainAction<{ readonly bits: string }>, game.world)
++        : contentError({ code: 'unsupported-optional-variant', field: definition.id, message: 'This activity is not supported.' });
+   const feedback = result.status === 'content-error' ? activity.feedback.contentError : activity.feedback[mode][result.status === 'invalid-input' ? 'invalidInput' : result.status];
+   const completed = optionalActivityCompleted(registry, definition, game);
+   const alternative = definition.alternatives.find(a => a.id === activity.delivery.actionId)!;
+@@ -161,7 +169,7 @@
+   const fail = (reason: 'content-error' | 'invalid-input' | 'invalid-state' | 'precondition'): OptionalActivityPreparation => ({ ok: false, reason });
+   if (!isRecord(operation) || !Number.isSafeInteger(clientGeneration) || clientGeneration < 0) return fail('invalid-input');
+   const fields: Record<OptionalActivityOperation['kind'], readonly string[]> = { start: ['kind', 'activityId', 'hotspotId', 'sessionId'],
+-    'choose-mode': ['kind', 'sessionId', 'mode'], submit: ['kind', 'sessionId', 'bits'], 'submit-power': ['kind', 'sessionId', 'answer'], hint: ['kind', 'sessionId'], explanation: ['kind', 'sessionId'], 'boundary-example': ['kind', 'sessionId'], exit: ['kind', 'sessionId'], retry: ['kind', 'sessionId', 'nextAttemptId'] };
++    'choose-mode': ['kind', 'sessionId', 'mode'], submit: ['kind', 'sessionId', 'bits'], 'submit-power': ['kind', 'sessionId', 'answer'], 'submit-optics': ['kind', 'sessionId', 'answer'], 'compatibility-cards': ['kind', 'sessionId'], hint: ['kind', 'sessionId'], explanation: ['kind', 'sessionId'], 'boundary-example': ['kind', 'sessionId'], exit: ['kind', 'sessionId'], retry: ['kind', 'sessionId', 'nextAttemptId'] };
+   if (!Object.hasOwn(fields, operation.kind) || !exact(operation, fields[operation.kind]) || !uuid.test(operation.sessionId)) return fail('invalid-input');
+   if (operation.kind === 'start') {
+     if (session || !safe.has(activity.kind) || !qualified.test(operation.activityId) || !qualified.test(operation.hotspotId)) return fail('invalid-state');
+@@ -192,9 +200,19 @@
+       retry: { preparation: session.preparation, nextAttemptId: operation.nextAttemptId } } as OptionalActivityPreparation;
+   }
+   if (operation.kind === 'boundary-example') {
+-    if (definition.optionalActivity.kind !== 'delivered-power-audit') return fail('invalid-input');
++    if (definition.optionalActivity.kind !== 'delivered-power-audit' && definition.optionalActivity.kind !== 'optical-budget-bench') return fail('invalid-input');
+     const nextGame = assistance(game, definition, 2);
+     return nextGame ? success({ ...session, hintText: definition.optionalActivity.boundaryExample.explanation }, nextGame) : fail('invalid-state');
++  }
++  if (operation.kind === 'compatibility-cards') {
++    const exhibit = definition.optionalActivity;
++    if (exhibit.kind !== 'optical-budget-bench' || !action) return fail('invalid-input');
++    for (const card of exhibit.compatibilityCards) {
++      const result = evaluateCompatibilityCard({ sourceCaseId: card.sourceCaseId, premises: card.premises }, { ...action, input: { kind: 'inspect-card' } }, game.world);
++      if (result.status === 'content-error' || result.status === 'invalid-input') return fail(result.status);
++    }
++    const nextGame = assistance(game, definition, 2);
++    return nextGame ? success({ ...session, hintText: exhibit.compatibilityCards.map(card => card.explanation).join('\n\n') }, nextGame) : fail('invalid-state');
+   }
+   if (operation.kind === 'hint' || operation.kind === 'explanation') {
+     const used = game.assistance.filter(h => h.objectiveId === definition.id).reduce<number>((max, hint) => Math.max(max, hint.level), 0);
+@@ -205,9 +223,10 @@
+     const nextGame = assistance(game, definition, level);
+     return nextGame ? success({ ...session, hintText }, nextGame) : fail('invalid-state');
+   }
+-  if (!session.mode || !action || (operation.kind !== 'submit' && operation.kind !== 'submit-power')) return fail('invalid-input');
+-  if (operation.kind === 'submit' && (definition.optionalActivity.kind === 'delivered-power-audit' || typeof operation.bits !== 'string' || operation.bits.length > 512)
+-    || operation.kind === 'submit-power' && definition.optionalActivity.kind !== 'delivered-power-audit') return fail('invalid-input');
++  if (!session.mode || !action || (operation.kind !== 'submit' && operation.kind !== 'submit-power' && operation.kind !== 'submit-optics')) return fail('invalid-input');
++  if (operation.kind === 'submit' && ((definition.optionalActivity.kind === 'delivered-power-audit' || definition.optionalActivity.kind === 'optical-budget-bench') || typeof operation.bits !== 'string' || operation.bits.length > 512)
++    || operation.kind === 'submit-power' && definition.optionalActivity.kind !== 'delivered-power-audit'
++    || operation.kind === 'submit-optics' && definition.optionalActivity.kind !== 'optical-budget-bench') return fail('invalid-input');
+   const result = evaluateOptionalAnswer(registry, definition, session.mode, { ...action, input: operation.kind === 'submit' ? { bits: operation.bits } : operation.answer }, game);
+   const nextGame = result.assistanceLevel ? assistance(game, definition, result.assistanceLevel) : game;
+   return nextGame ? success({ ...session, phase: 'feedback', feedback: result.feedback, result: result.evaluation.status }, nextGame, result.evaluation) : fail('invalid-state');
+diff --git a/src/state/optional-optical-bench.ts b/src/state/optional-optical-bench.ts
+new file mode 100644
+--- /dev/null
++++ b/src/state/optional-optical-bench.ts
+@@ -0,0 +1,111 @@
++// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
++// Reviewed MG02 adapter: actual optical evaluator owns physical verdicts.
++import { contentError, invalidInput, isRecord } from '../domain/evaluate';
++import { evaluateOptics, type OpticalChallenge, type OpticalInput, type OpticalProfile, type OpticalQuantity } from '../domain/optics';
++import type { DomainAction, WorldVersion } from '../domain/types';
++import reviewed from '../../content/spec001/sources.json' with { type: 'json' };
++
++export interface OpticalBenchCase {
++  readonly sourceCaseId: 'T04' | 'T05' | 'T15';
++  readonly compatible: true;
++  readonly loss: OpticalQuantity<'dB'>;
++}
++/** Predictions, not an authority to choose verdict, effects, profile or context. */
++export interface OpticalBenchAnswer {
++  readonly receive: OpticalQuantity<'dBm'>;
++  readonly margin: OpticalQuantity<'dB'>;
++  readonly reserve: 'met' | 'shortfall';
++  readonly overload: 'not-overloaded' | 'overloaded';
++}
++export interface CompatibilityCard {
++  readonly sourceCaseId: 'C-COMPAT' | 'T07' | 'B-COMPAT';
++  readonly premises: Readonly<Record<string, boolean>>;
++  readonly explanation: string;
++}
++interface ModeFeedback { readonly correct: string; readonly incorrect: string; readonly invalidInput: string }
++export interface OpticalBudgetBench {
++  readonly kind: 'optical-budget-bench';
++  readonly speakerId: 'spec001:CH16';
++  readonly instructions: readonly string[];
++  readonly profileId: 'spec001:PROFILE-OPTICAL';
++  readonly practice: OpticalBenchCase & { readonly sourceCaseId: 'T04'; readonly explanation: string };
++  readonly delivery: OpticalBenchCase & { readonly sourceCaseId: 'T05'; readonly actionId: 'spec001:ACTION-MG02-diagnose' };
++  readonly boundaryExample: OpticalBenchCase & { readonly sourceCaseId: 'T15'; readonly explanation: string };
++  readonly compatibilityCards: readonly CompatibilityCard[];
++  readonly answerControls: {
++    readonly receiveLabel: string; readonly marginLabel: string; readonly reserveLabel: string;
++    readonly reserveMet: string; readonly reserveShortfall: string; readonly overloadLabel: string;
++    readonly overloaded: string; readonly notOverloaded: string;
++  };
++  readonly feedback: { readonly practice: ModeFeedback; readonly delivery: ModeFeedback; readonly contentError: string; readonly alreadyCompleted: string };
++  readonly controls: { readonly practice: string; readonly delivery: string; readonly submit: string; readonly retry: string; readonly exit: string };
++  readonly recovery: { readonly retryExplanation: string; readonly exitExplanation: string };
++  readonly reward: { readonly kind: 'optional-optical-depth'; readonly factId: 'spec001:FACT-MG02-completion' };
++  readonly entryContexts: readonly [{ readonly roomId: 'spec001:R06'; readonly safePositionId: 'spec001:R06.entry'; readonly hotspotId: 'spec001:HOTSPOT-fiber-r06-pr059' }];
++  readonly returnPolicy: 'captured-entry';
++  readonly timingDefault: 'off';
++}
++const exact = (value: Record<string, unknown>, keys: readonly string[]) => Object.keys(value).length === keys.length && Object.keys(value).every(k => keys.includes(k));
++const sourceCases = [...reviewed.referenceCases, ...reviewed.reviewCases];
++const error = (field: string) => contentError({ code: 'optical-bench-source-mismatch', field, message: 'Keep this supplied case exactly as reviewed; absent or changed authored premises are not a learner mistake.' });
++function quantityAnswer(value: unknown, unit: 'dBm' | 'dB'): boolean {
++  return isRecord(value) && exact(value, ['value', 'unit']) && value['unit'] === unit
++    && typeof value['value'] === 'number' && Number.isFinite(value['value'])
++    && value['value'] >= -128 && value['value'] <= 128;
++}
++
++/** Reuses actual optical arithmetic. A diagnosis never repairs the supplied plan. */
++export function evaluateBenchAnswer(part: unknown, profile: unknown, action: DomainAction<unknown>, world: WorldVersion) {
++  if (!isRecord(part) || !exact(part, ['sourceCaseId', 'compatible', 'loss']) || typeof part['sourceCaseId'] !== 'string' || !['T04', 'T05', 'T15'].includes(part['sourceCaseId'])) return error('case');
++  const ref = sourceCases.find(c => c.id === part['sourceCaseId']);
++  const loss = part['loss'];
++  if (!ref || !('loss' in ref.inputs) || !isRecord(loss) || !exact(loss, ['value', 'unit'])
++    || loss['value'] !== ref.inputs.loss.value || loss['unit'] !== ref.inputs.loss.unit
++    || part['compatible'] !== true || !('compatible' in ref.inputs) || ref.inputs.compatible !== true) return error('loss-or-compatibility');
++  const challenge: OpticalChallenge = { kind: 'optical-passive', profile: profile as OpticalProfile, compatible: true, loss: loss as unknown as OpticalQuantity<'dB'> };
++  // Preserve action capture. Authored validation precedes malformed/stale input.
++  const physicalAction = isRecord(action) ? { ...action, input: { kind: 'measure-optics' as const } } : action;
++  const physical = evaluateOptics(challenge, physicalAction as DomainAction<OpticalInput>, world);
++  if (physical.status === 'content-error' || physical.status === 'invalid-input') return physical;
++  const observation = physical.observations[0];
++  if (!observation || observation.kind !== 'optical-power') return error('observation');
++  const supplied = action.input;
++  if (!isRecord(supplied) || !exact(supplied, ['receive', 'margin', 'reserve', 'overload'])
++    || !quantityAnswer(supplied['receive'], 'dBm') || !quantityAnswer(supplied['margin'], 'dB')
++    || (supplied['reserve'] !== 'met' && supplied['reserve'] !== 'shortfall')
++    || (supplied['overload'] !== 'not-overloaded' && supplied['overload'] !== 'overloaded')) return invalidInput('malformed-optical-bench-answer');
++  const answer = supplied as unknown as OpticalBenchAnswer;
++  const correct = answer.receive.value === observation.receive.value && answer.margin.value === observation.margin.value
++    && answer.reserve === (observation.reserveMet ? 'met' : 'shortfall')
++    && answer.overload === (observation.overload ? 'overloaded' : 'not-overloaded');
++  return {
++    status: correct ? 'correct' as const : 'incorrect' as const,
++    reasonCode: correct ? 'optical-bench-diagnosis-correct' : 'optical-bench-diagnosis-incorrect', acceptedEffects: [],
++    observations: [{ kind: 'optical-bench-answer' as const, sourceCaseId: part['sourceCaseId'],
++      physicalStatus: physical.status, physical: observation, learnerStatus: correct ? 'correct' as const : 'incorrect' as const,
++      repaired: false as const, wholeRouteProven: false as const, serviceProven: false as const,
++      attemptPenalty: 0 as const, progressAward: 0 as const }],
++  };
++}
++
++/** Read-only compatibility cards. Do not infer unspecified physical parameters. */
++export function evaluateCompatibilityCard(card: unknown, action: DomainAction<unknown>, world: WorldVersion) {
++  if (!isRecord(card) || !exact(card, ['sourceCaseId', 'premises']) || typeof card['sourceCaseId'] !== 'string' || !['C-COMPAT', 'T07', 'B-COMPAT'].includes(card['sourceCaseId'])) return error('compatibility-card');
++  const ref = sourceCases.find(c => c.id === card['sourceCaseId']); const premises = card['premises'];
++  if (!ref || !isRecord(premises) || !exact(premises, Object.keys(ref.inputs))
++    || !Object.entries(ref.inputs).every(([key, value]) => premises[key] === value)) return error('compatibility-premises');
++  let challenge: OpticalChallenge;
++  if (card['sourceCaseId'] === 'C-COMPAT') {
++    challenge = { kind: 'optical-inspection', everyRequiredCompatibilityCheck: premises['everyRequiredCompatibilityCheck'] as boolean, requiredInspectionComplete: premises['requiredInspectionComplete'] as boolean };
++  } else {
++    // T07 explicitly fails compatibility. B-COMPAT explicitly fails its required
++    // wavelength direction; matching shell shape cannot erase that failed check.
++    challenge = { kind: 'optical-compatibility', knownProfiles: true, compatible: card['sourceCaseId'] === 'T07' ? premises['compatible'] as boolean : premises['requiredWavelengthDirectionMatches'] as boolean };
++  }
++  const kind = challenge.kind === 'optical-inspection' ? 'check-inspection' as const : 'check-compatibility' as const;
++  const physicalAction = isRecord(action) ? { ...action, input: { kind } } : action;
++  const result = evaluateOptics(challenge, physicalAction as DomainAction<OpticalInput>, world);
++  if (result.status === 'content-error' || result.status === 'invalid-input') return result;
++  if (!isRecord(action.input) || !exact(action.input, ['kind']) || action.input['kind'] !== 'inspect-card') return invalidInput('malformed-compatibility-card-input');
++  return result;
++}
+diff --git a/src/ui/optional-activities.ts b/src/ui/optional-activities.ts
+--- a/src/ui/optional-activities.ts
++++ b/src/ui/optional-activities.ts
+@@ -5,6 +5,8 @@
+ import { optionalActivityDefinition, optionalActivityCompleted } from '../state/optional-activities';
+ import type { OptionalActivitySession, OptionalMode } from '../state/optional-activities';
+ import type { GameState } from '../state/types';
++import type { OpticalBenchAnswer, OpticalBudgetBench } from '../state/optional-optical-bench';
++import { conditionSatisfied } from '../state/conditions';
+ import type { PowerAuditAnswer } from '../state/optional-power-audit';
+ import type { ActionId, AttemptId } from '../domain/types';
+ import type { OptionalActivityOperation } from '../state/optional-activities';
+@@ -19,6 +21,8 @@
+   | { readonly kind: 'choose-optional-mode'; readonly sessionId: string; readonly mode: OptionalMode }
+   | { readonly kind: 'submit-optional'; readonly sessionId: string; readonly bits: string }
+   | { readonly kind: 'submit-optional-power'; readonly sessionId: string; readonly answer: PowerAuditAnswer | { readonly assessment: null; readonly difference: null } }
++  | { readonly kind: 'submit-optional-optics'; readonly sessionId: string; readonly answer: OpticalBenchAnswer | null }
++  | { readonly kind: 'compatibility-optional'; readonly sessionId: string }
+   | { readonly kind: 'hint-optional' | 'retry-optional' | 'explain-optional' | 'boundary-optional' | 'exit-optional'; readonly sessionId: string };
+ export interface OptionalActivityView {
+   readonly sessionId: string; readonly title: string; readonly phase: OptionalActivitySession['phase']; readonly mode: OptionalMode | null;
+@@ -28,11 +32,12 @@
+   readonly controls: { readonly practice: string; readonly delivery: string; readonly submit: string; readonly retry: string; readonly exit: string };
+   readonly limitations: readonly string[];
+   readonly sources: readonly { readonly title: string; readonly section: string; readonly claim: string; readonly url: string | null }[];
+-  readonly answerKind: 'bits' | 'power';
++  readonly answerKind: 'bits' | 'power' | 'optics';
++  readonly opticalControls: OpticalBudgetBench['answerControls'] | null;
+   readonly answerControls: { readonly assessmentLabel: string; readonly withinBudget: string; readonly overBudget: string; readonly differenceLabel: string } | null;
+ }
+ export interface OptionalSource { readonly id: string; readonly title: string; readonly url: string }
+-const optionalKinds: readonly OptionalActivityIntent['kind'][] = ['start-optional', 'choose-optional-mode', 'submit-optional', 'submit-optional-power', 'hint-optional', 'retry-optional', 'explain-optional', 'boundary-optional', 'exit-optional'];
++const optionalKinds: readonly OptionalActivityIntent['kind'][] = ['start-optional', 'choose-optional-mode', 'submit-optional', 'submit-optional-power', 'submit-optional-optics', 'compatibility-optional', 'hint-optional', 'retry-optional', 'explain-optional', 'boundary-optional', 'exit-optional'];
+ export function createOptionalActivitiesController(options: { readonly registry: ContentRegistry; readonly store: GameplayStore; readonly bus: ActionBus;
+   readonly activityIds: readonly QualifiedId[]; readonly sources?: readonly OptionalSource[] }) {
+   const { registry, store, bus } = options;
+@@ -50,6 +55,8 @@
+       case 'choose-optional-mode': operation = { kind: 'choose-mode', sessionId: input.sessionId, mode: input.mode }; break;
+       case 'submit-optional': operation = { kind: 'submit', sessionId: input.sessionId, bits: input.bits }; break;
+       case 'submit-optional-power': operation = { kind: 'submit-power', sessionId: input.sessionId, answer: input.answer }; break;
++      case 'submit-optional-optics': operation = { kind: 'submit-optics', sessionId: input.sessionId, answer: input.answer }; break;
++      case 'compatibility-optional': operation = { kind: 'compatibility-cards', sessionId: input.sessionId }; break;
+       case 'hint-optional': operation = { kind: 'hint', sessionId: input.sessionId }; break;
+       case 'retry-optional': operation = { kind: 'retry', sessionId: input.sessionId, nextAttemptId: crypto.randomUUID() as AttemptId }; break;
+       case 'explain-optional': operation = { kind: 'explanation', sessionId: input.sessionId }; break;
+@@ -83,8 +90,9 @@
+     const entries = (playable(state) || state.runtime.activity?.kind === 'active-optional') && game ? options.activityIds.flatMap(activityId => {
+       const definition = optionalActivityDefinition(registry, activityId); if (!definition) return [];
+       return definition.optionalActivity.entryContexts.filter(entry => entry.roomId === game.world.roomId && entry.safePositionId === game.world.position.safePositionId).map(entry => {
+-        const room = registry.record(entry.roomId); return { activityId, hotspotId: entry.hotspotId as QualifiedId,
+-          label: room?.kind === 'room' ? room.hotspots.find(h => h.id === entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity' };
++        const room = registry.record(entry.roomId), available = conditionSatisfied(definition.prerequisite, game.world, registry);
++        return { activityId, hotspotId: entry.hotspotId as QualifiedId, available, unavailableReason: available ? null : definition.id === 'spec001:MG02' ? 'Complete the Prism Vault fiber verification to unlock this optional bench.' : 'Complete the required investigation to unlock this activity.',
++          label: definition.id === 'spec001:MG02' ? 'Prism Budget Bench' : room?.kind === 'room' ? room.hotspots.find(h => h.id === entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity' };
+       });
+     }) : [];
+     return { entries, capture: projection.capture, view: state.runtime.activity?.kind === 'active-optional' && session?.clientGeneration === state.runtime.auth.clientGeneration
+@@ -98,19 +106,25 @@
+   const definition = optionalActivityDefinition(registry, session.activityId);
+   if (!definition) return { sessionId: session.sessionId, title: 'Optional activity', phase: 'feedback', mode: null,
+     instructions: [], map: [], samples: [], feedback: 'This exhibit needs correction. You can leave safely.', hintText: null, completed: false, rewardText: null,
+-    controls: { practice: 'Practice', delivery: 'Try the full activity', submit: 'Check answer', retry: 'Retry', exit: 'Leave activity' }, limitations: [], sources: [], answerKind: 'bits', answerControls: null };
++    controls: { practice: 'Practice', delivery: 'Try the full activity', submit: 'Check answer', retry: 'Retry', exit: 'Leave activity' }, limitations: [], sources: [], answerKind: 'bits', answerControls: null, opticalControls: null };
+   const activity = definition.optionalActivity, profile = registry.record(activity.profileId), room = registry.record(session.entry.roomId);
+-  const title = room?.kind === 'room' ? room.hotspots.find(h => h.id === session.entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity';
++  const title = definition.id === 'spec001:MG02' ? 'Prism Budget Bench' : room?.kind === 'room' ? room.hotspots.find(h => h.id === session.entry.hotspotId)?.label ?? 'Optional activity' : 'Optional activity';
+   const completed = optionalActivityCompleted(registry, definition, game);
+   const level = (value: number) => value > 0 ? `+${value}` : String(value).replace('-', '−');
+-  const parameters = profile?.kind === 'profile' ? profile.parameters as { levels?: readonly { symbol: { value: number }; bits: string }[]; deliveredBudget?: { value: number; unit: string } } : null;
++  const parameters = profile?.kind === 'profile' ? profile.parameters as { levels?: readonly { symbol: { value: number }; bits: string }[]; deliveredBudget?: { value: number; unit: string }; transmit?: { value: number; unit: string }; sensitivity?: { value: number; unit: string }; maximumReceive?: { value: number; unit: string }; requiredMargin?: { value: number; unit: string } } : null;
+   return { sessionId: session.sessionId, title, phase: session.phase, mode: session.mode, instructions: activity.instructions,
+-    map: activity.kind !== 'delivered-power-audit' ? parameters?.levels?.map(row => `${level(row.symbol.value)} → ${row.bits}`) ?? [] : [],
+-    samples: session.mode ? activity.kind !== 'delivered-power-audit' ? activity[session.mode].samples.map(sample => `Position ${sample.position}: ${level(sample.value)} toy-level`)
+-      : [`Delivered allowance: ${parameters?.deliveredBudget?.value} ${parameters?.deliveredBudget?.unit} after losses.`, ...activity[session.mode].demands.map((demand, index) => `Demand card ${index + 1}: ${demand.value} ${demand.unit} delivered after losses.`), 'The supplied port and compatibility checks are satisfied. Power does not prove data connectivity.'] : [],
++    map: activity.kind === 'toy-symbol-message' || activity.kind === 'toy-symbol-loom' ? parameters?.levels?.map(row => `${level(row.symbol.value)} → ${row.bits}`) ?? [] : [],
++    samples: session.mode ? activity.kind === 'optical-budget-bench' ? [
++      `Transmit: ${parameters?.transmit?.value} dBm. Total passive loss: ${activity[session.mode].loss.value} dB.`,
++      `Sensitivity: ${parameters?.sensitivity?.value} dBm. Required reserve: ${parameters?.requiredMargin?.value} dB, inclusive.`,
++      `Maximum receive: ${parameters?.maximumReceive?.value} dBm, inclusive. Check overload separately.`,
++      'Profiles are supplied compatible. Totals include every modeled passive component loss. These are fictional teaching values.',
++    ] : activity.kind === 'toy-symbol-message' || activity.kind === 'toy-symbol-loom' ? activity[session.mode].samples.map(sample => `Position ${sample.position}: ${level(sample.value)} toy-level`)
++      : activity.kind === 'delivered-power-audit' ? [`Delivered allowance: ${parameters?.deliveredBudget?.value} ${parameters?.deliveredBudget?.unit} after losses.`, ...activity[session.mode].demands.map((demand, index) => `Demand card ${index + 1}: ${demand.value} ${demand.unit} delivered after losses.`), 'The supplied port and compatibility checks are satisfied. Power does not prove data connectivity.'] : [] : [],
+     feedback: session.feedback, hintText: session.hintText, completed,
+-    rewardText: activity.reward.kind !== 'optional-practice-only' && completed && game.notebook.factIds.some(id => id === activity.reward.factId) ? `${activity.reward.alternativeText} ${activity.reward.unavailableText}` : null,
+-    controls: activity.controls, limitations: definition.model.limitations, answerKind: activity.kind !== 'delivered-power-audit' ? 'bits' : 'power',
++    rewardText: (activity.reward.kind === 'journal-illustration' || activity.reward.kind === 'workshop-decoration') && completed && game.notebook.factIds.some(id => id === activity.reward.factId) ? `${activity.reward.alternativeText} ${activity.reward.unavailableText}` : null,
++    controls: activity.controls, limitations: definition.model.limitations, answerKind: activity.kind === 'optical-budget-bench' ? 'optics' : activity.kind === 'delivered-power-audit' ? 'power' : 'bits',
++    opticalControls: activity.kind === 'optical-budget-bench' ? activity.answerControls : null,
+     answerControls: activity.kind === 'delivered-power-audit' ? activity.answerControls : null,
+     sources: definition.sourceClaims.map(claim => {
+       const source = sources.find(s => s.id === claim.sourceId || `spec001:${s.id}` === claim.sourceId);
+@@ -144,6 +158,33 @@
+     if (key === 'exit') node.setAttribute('aria-keyshortcuts', 'Escape');
+     node.addEventListener('click', () => { if (node.isConnected && element.contains(node)) send(scope, intent); }, { signal: scope.abort.signal }); return node;
+   }
++  function opticalForm(scope: Scope, previous: Scope | null, labels: OpticalBudgetBench['answerControls']) {
++    const form = doc.createElement('form'); form.noValidate = true; form.className = 'nq-optical-answer';
++    const retain = previous?.view.sessionId === scope.view.sessionId && previous.view.mode === scope.view.mode;
++    const input = (key: string, text: string) => {
++      const label = doc.createElement('label'), node = doc.createElement('input'); node.id = `nq-optical-${key}`; node.type = 'number'; node.inputMode = 'decimal';
++      node.min = '-128'; node.max = '128'; node.step = 'any'; node.autocomplete = 'off'; label.htmlFor = node.id; label.textContent = text;
++      node.value = retain ? (previous?.controls.get(key) as HTMLInputElement | undefined)?.value ?? '' : '';
++      scope.controls.set(key, node); form.append(label, node); return node;
++    };
++    const select = (key: string, text: string, choices: readonly (readonly [string, string])[]) => {
++      const label = doc.createElement('label'), node = doc.createElement('select'); node.id = `nq-optical-${key}`; label.htmlFor = node.id; label.textContent = text;
++      for (const [value, text] of [['', 'Choose a diagnosis'], ...choices]) { const option = doc.createElement('option'); option.value = value!; option.textContent = text!; node.append(option); }
++      node.value = retain ? (previous?.controls.get(key) as HTMLSelectElement | undefined)?.value ?? '' : '';
++      scope.controls.set(key, node); form.append(label, node); return node;
++    };
++    const receive = input('receive', labels.receiveLabel), margin = input('margin', labels.marginLabel);
++    const reserve = select('reserve', labels.reserveLabel, [['met', labels.reserveMet], ['shortfall', labels.reserveShortfall]]);
++    const overload = select('overload', labels.overloadLabel, [['overloaded', labels.overloaded], ['not-overloaded', labels.notOverloaded]]);
++    const submit = doc.createElement('button'); submit.type = 'submit'; submit.textContent = scope.view.controls.submit; scope.controls.set('submit', submit); form.append(submit);
++    form.addEventListener('submit', event => { event.preventDefault();
++      const r = receive.value.trim() === '' ? null : Number(receive.value), m = margin.value.trim() === '' ? null : Number(margin.value), a = reserve.value, b = overload.value;
++      const answer: OpticalBenchAnswer | null = r !== null && m !== null && Number.isFinite(r) && Number.isFinite(m) && r >= -128 && r <= 128 && m >= -128 && m <= 128
++        && (a === 'met' || a === 'shortfall') && (b === 'overloaded' || b === 'not-overloaded')
++        ? { receive: { value: r, unit: 'dBm' }, margin: { value: m, unit: 'dB' }, reserve: a, overload: b } : null;
++      send(scope, { kind: 'submit-optional-optics', sessionId: scope.view.sessionId, answer });
++    }, { signal: scope.abort.signal }); return form;
++  }
+   return { element, render(view: OptionalActivityView | null, capture: Capture) {
+     if (disposed) return;
+     if (!view) { retire(); return; }
+@@ -161,8 +202,11 @@
+       button(scope, 'delivery', view.controls.delivery, { kind: 'choose-optional-mode', sessionId: view.sessionId, mode: 'delivery' })); children.push(actions);
+     if (view.map.length) children.push(paragraph(`Toy map: ${view.map.join('; ')}. These are labels, not measured volts.`));
+     if (view.mode) {
+-      const samples = doc.createElement('ol'); samples.setAttribute('aria-label', view.answerKind === 'power' ? 'Power audit cards' : view.mode === 'practice' ? 'Practice samples' : 'Message samples');
++      const samples = doc.createElement('ol'); samples.setAttribute('aria-label', view.answerKind === 'optics' ? 'Supplied optical card' : view.answerKind === 'power' ? 'Power audit cards' : view.mode === 'practice' ? 'Practice samples' : 'Message samples');
+       for (const sample of view.samples) { const item = doc.createElement('li'); item.textContent = sample; samples.append(item); } children.push(samples);
++      if (view.answerKind === 'optics' && view.opticalControls) {
++        children.push(opticalForm(scope, previous, view.opticalControls));
++      } else {
+       const form = doc.createElement('form'), label = doc.createElement('label'), answer = doc.createElement('input'), submit = doc.createElement('button');
+       answer.id = 'nq-optional-answer'; answer.type = view.answerKind === 'bits' ? 'text' : 'number'; answer.inputMode = view.answerKind === 'bits' ? 'numeric' : 'decimal'; answer.maxLength = 512; answer.autocomplete = 'off'; answer.spellcheck = false; answer.value = draft;
+       if (view.answerKind === 'power') { answer.min = '0'; answer.step = 'any'; }
+@@ -183,8 +227,9 @@
+           send(scope, { kind: 'submit-optional-power', sessionId: view.sessionId, answer: value !== null && Number.isFinite(value) && value >= 0 && (selected === 'within-budget' || selected === 'over-budget')
+             ? { assessment: selected, difference: { value, unit: 'W' } } : { assessment: null, difference: null } }); }
+       }, { signal: scope.abort.signal }); children.push(form);
+-    }
+-    const feedback = paragraph(view.feedback ?? (view.completed ? 'Completion recorded in your journal.' : view.answerKind === 'power' ? 'Choose practice or audit the full plan when ready.' : 'Choose practice or the full message when ready.'));
++      }
++    }
++    const feedback = paragraph(view.feedback ?? (view.completed ? 'Completion recorded in your journal.' : view.answerKind === 'optics' ? 'Choose practice or diagnose the full card when ready.' : view.answerKind === 'power' ? 'Choose practice or audit the full plan when ready.' : 'Choose practice or the full message when ready.'));
+     feedback.setAttribute('role', 'status'); feedback.setAttribute('aria-live', 'polite'); children.push(feedback);
+     if (view.hintText) children.push(paragraph(view.hintText));
+     if (view.rewardText) children.push(paragraph(view.rewardText));
+@@ -193,6 +238,9 @@
+       button(scope, 'explain', 'Read explanation', { kind: 'explain-optional', sessionId: view.sessionId }),
+       button(scope, 'retry', view.controls.retry, { kind: 'retry-optional', sessionId: view.sessionId })); children.push(controls);
+     if (view.answerKind === 'power') controls.append(button(scope, 'boundary', 'See the exact-budget example', { kind: 'boundary-optional', sessionId: view.sessionId }));
++    if (view.answerKind === 'optics') controls.append(
++      button(scope, 'boundary', 'See the exact-reserve boundary', { kind: 'boundary-optional', sessionId: view.sessionId }),
++      button(scope, 'compatibility', 'Read compatibility comparisons', { kind: 'compatibility-optional', sessionId: view.sessionId }));
+     const details = doc.createElement('details'), summary = doc.createElement('summary'); summary.tabIndex = 0; summary.textContent = 'Technical details and sources'; details.append(summary);
+     for (const limitation of view.limitations) details.append(paragraph(limitation));
+     for (const source of view.sources) {
+diff --git a/src/ui/optional-activities.css b/src/ui/optional-activities.css
+--- a/src/ui/optional-activities.css
++++ b/src/ui/optional-activities.css
+@@ -9,3 +9,5 @@
+ .nq-optional form { display: flex; flex-wrap: wrap; align-items: center; gap: .5em; }
+ .nq-optional input { font: inherit; padding: .3em .45em; min-height: 45px; }
+ .nq-optional select { max-width: 100%; }
++.nq-optional .nq-optical-answer { display: grid; grid-template-columns: minmax(0, 1fr); }
++.nq-optical-answer input, .nq-optical-answer select { font: inherit; box-sizing: border-box; min-width: 0; max-width: 100%; padding: .3em .45em; min-height: 45px; }
+diff --git a/src/ui/action-bus.ts b/src/ui/action-bus.ts
+--- a/src/ui/action-bus.ts
++++ b/src/ui/action-bus.ts
+@@ -96,9 +96,9 @@
+ const panels = new Set<string>(['inventory', 'notebook', 'compendium', 'party', 'settings', 'save']);
+ const fields: Record<SemanticAction['kind'], readonly string[]> = {
+   'start-optional': ['kind', 'activityId', 'hotspotId'], 'choose-optional-mode': ['kind', 'sessionId', 'mode'],
+-  'submit-optional': ['kind', 'sessionId', 'bits'], 'submit-optional-power': ['kind', 'sessionId', 'answer'],
++  'submit-optional': ['kind', 'sessionId', 'bits'], 'submit-optional-power': ['kind', 'sessionId', 'answer'], 'submit-optional-optics': ['kind', 'sessionId', 'answer'],
+   'hint-optional': ['kind', 'sessionId'], 'retry-optional': ['kind', 'sessionId'], 'explain-optional': ['kind', 'sessionId'],
+-  'boundary-optional': ['kind', 'sessionId'], 'exit-optional': ['kind', 'sessionId'],
++  'boundary-optional': ['kind', 'sessionId'], 'compatibility-optional': ['kind', 'sessionId'], 'exit-optional': ['kind', 'sessionId'],
+   'invite-ally': ['kind', 'characterId'], 'begin-ally-practice': ['kind', 'characterId'], 'review-ally-practice': ['kind', 'characterId'],
+   'set-active-allies': ['kind', 'characterIds'], 'use-ally-ability': ['kind', 'characterId', 'abilityId', 'actionId'],
+   'commit-rift-hazard': ['kind', 'hazardId', 'warningAcknowledged'],
+@@ -141,7 +141,19 @@
+         || difference['unit'] !== 'W' || typeof difference['value'] !== 'number' || !Number.isFinite(difference['value']) || difference['value'] < 0) throw new TypeError('Invalid power audit answer.');
+       return Object.freeze({ ...input, answer: Object.freeze({ assessment, difference: Object.freeze({ value: difference['value'], unit: 'W' as const }) }) });
+     }
+-    case 'hint-optional': case 'retry-optional': case 'explain-optional': case 'boundary-optional': case 'exit-optional':
++    case 'submit-optional-optics': {
++      if (!dialogueSession(input.sessionId)) throw new TypeError('Invalid optical session.');
++      const answer: unknown = input.answer;
++      if (answer === null) return Object.freeze({ ...input, answer: null });
++      const object = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v);
++      if (!object(answer) || Object.keys(answer).length !== 4 || !['receive', 'margin', 'reserve', 'overload'].every(key => Object.hasOwn(answer, key))) throw new TypeError('Invalid optical diagnosis.');
++      const quantity = (v: unknown, unit: string) => object(v) && Object.keys(v).length === 2 && v['unit'] === unit && typeof v['value'] === 'number' && Number.isFinite(v['value']) && v['value'] >= -128 && v['value'] <= 128;
++      if (!quantity(answer['receive'], 'dBm') || !quantity(answer['margin'], 'dB') || (answer['reserve'] !== 'met' && answer['reserve'] !== 'shortfall')
++        || (answer['overload'] !== 'overloaded' && answer['overload'] !== 'not-overloaded')) throw new TypeError('Invalid optical prediction.');
++      const safe = input.answer!;
++      return Object.freeze({ ...input, answer: Object.freeze({ receive: Object.freeze({ ...safe.receive }), margin: Object.freeze({ ...safe.margin }), reserve: safe.reserve, overload: safe.overload }) });
++    }
++    case 'hint-optional': case 'retry-optional': case 'explain-optional': case 'boundary-optional': case 'compatibility-optional': case 'exit-optional':
+       if (!dialogueSession(input.sessionId)) throw new TypeError('Invalid optional activity session.'); break;
+     case 'invite-ally': case 'begin-ally-practice': case 'review-ally-practice':
+       if (!qualifiedIdentity(input.characterId)) throw new TypeError('Invalid ally identity.'); break;
+diff --git a/tools/generate-save-content-policy.ts b/tools/generate-save-content-policy.ts
+--- a/tools/generate-save-content-policy.ts
++++ b/tools/generate-save-content-policy.ts
+@@ -21,7 +21,7 @@
+     const paths = [...new Set(['content/spec001/world.json', 'content/spec001/sources.json',
+       ...world.documents.map(document => document.path), 'content/schemas/content.schema.json',
+       'src/app/content.ts', 'src/app/save-policy.ts', 'src/content/registry.ts', 'src/services/save-validator.ts',
+-      'src/state/notebook.ts', 'src/content/optional-activities.ts', 'src/content/optional-symbol-loom.ts', 'src/state/optional-activities.ts', 'src/state/optional-power-audit.ts', 'src/state/conditions.ts', 'src/state/party.ts', 'src/state/objective-history.ts', 'src/domain/copper.ts', 'docs/evidence/spec001/rule-source-review.md',
++      'src/state/notebook.ts', 'src/content/optional-activities.ts', 'src/content/optional-symbol-loom.ts', 'src/content/optional-optical-bench.ts', 'src/state/optional-optical-bench.ts', 'src/state/optional-activities.ts', 'src/state/optional-power-audit.ts', 'src/state/conditions.ts', 'src/state/party.ts', 'src/state/objective-history.ts', 'src/domain/copper.ts', 'docs/evidence/spec001/rule-source-review.md',
+       'src/state/objectives.ts', 'src/state/copper-scenario.ts', 'src/state/fiber-scenario.ts', 'src/state/radio-scenario.ts', 'src/state/equipment-scenarios.ts', 'src/state/repair-plan.ts', 'src/state/outcomes.ts',
+       'src/domain/optics.ts', 'src/domain/radio.ts', 'src/domain/power.ts', 'src/domain/capabilities.ts', 'src/domain/packet-journey.ts',
+       'tools/generate-save-content-policy.ts'])].sort();
+diff --git a/tests/state/minigame-optical-bench.test.ts b/tests/state/minigame-optical-bench.test.ts
+new file mode 100644
+--- /dev/null
++++ b/tests/state/minigame-optical-bench.test.ts
+@@ -0,0 +1,3 @@
++// Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
++// Actual MG02 controller/registry/receipt/policy coverage through normal discovery.
++import '../../docs/evidence/spec001/optional/MG02/joined/runtime.test';

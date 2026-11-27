@@ -26,27 +26,27 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**116 loops started; 94/170 tasks accepted; no deployment.** Latest pushed commit:
-`58ce1a0ce71c2c5f6ce6a52f7913cdbf5c75129a` (Lost Maintenance Record SQ04/T099).
+**116 loops started; 95/170 tasks accepted; no deployment.** Latest pushed commit:
+`a276934c0a3bbf91b76b7428668b9afc4b34ccdc` (Clockworks Bit Loom MG01/T101).
+T102/MG02 is accepted and ready for scoped publication: all268 hashes match,
+366 focused checks and12 actual built browser groups pass; strict check/build
+pass. Its native pause is750ms foreground only, not background/hour evidence.
 
-- T099/SQ04 is accepted: 207 hashes match; eight actual browser groups pass.
-  Root accounts for 3,918 client checks after the documented 54-check rerun.
-  Its reviewed checkpoint is published and remote-verified.
-- Same 113/T101 owns current-tree MG01 reconciliation after the SQ04 checkpoint.
-  Its isolated implementation was reviewed with 183 matching hashes.
-- Same 114/T102 integrates MG02 in its own copy of that frozen MG01 framework.
-- Same 116/T104 has a reviewed companion baseline: 53 native grouped checks,
-  all 25 entries, nine level-2 recruits and 18 nonempty tool comparisons. It now
-  tests available SQ01–03 and earned nonempty party/quest recovery on frozen
-  `979c492`, with synthetic local identity only for save/restore.
+Same115 finishes isolated actual MG03; current-source join follows root's MG02
+publication and MG03 review. Same116 closes exact original T092 cases on frozen
+58ce1a0:27 actual ally/tool vectors,12 capability guards,40 lifecycle and36 party
+checks pass. Four earned side-quest forms also survive a simulated logical hour
+and document visibility events, with real renderer pause/resume and successful
+manual save afterward. This is not a real background-hour/performance test.
+Final all-seven/current recovery and case reconciliation remain open.
 
-T096/T097 remain open for their actual picture rewards; MG03 still needs its
-runtime join. T104/T105, finished media, actual providers and required human
-reviews remain ahead. G0 has named external evidence gaps; G1–G7 remain pending.
-Owner previews on ports 63366/54594 remain protected. Keep untracked T089 raw
-traces and growing preview logs local. See state.json for live ownership and the
-latest appended notes for review details. The original Sierra-inspired direction
-and contained 286-monitor frame remain mandatory.
+Five owner-requested fresh GPT-6.2 Astra reviews follow this coherent optional/
+T104 build and precede T105. None has started; preserve counter116 and the playful,
+witty, lightly dark networking/OSI tone. T096/T097 remain open for actual picture
+rewards. Finished media, actual providers and required human reviews remain ahead.
+G0 has named external gaps; G1–G7 remain pending. Protect owner previews63366/54594;
+keep rawT089 traces and preview logs local. The original Sierra-style adventure
+and contained286frame remain mandatory.
 
 ### Historical checkpoints (preserved; not current ownership)
 
@@ -1295,3 +1295,19 @@ retained. RootconfiguredPHPtestfix passes its7differentialcandidates (oneaffecte
 test;54filtered). Additivefinaltesthash recorded; no newfull-clientclaim.
 94/170accepted,116loopsunchanged. Publishthen114currentMG02;115isolatedMG03 and
 116exactT092gaptests continue. FivefreshAstrareviews queued,none started yet.
+
+
+T101 checkpoint published and remote-verified `a276934c0a3bbf91b76b7428668b9afc4b34ccdc`:123paths/3467513bytes, exactindex/hash/private/authoredwhitespacePASS;
+25rawrunner/patch findings preserved. No deployment. Same114actualMG02 joinGO;
+115isolatedMG03 and116gaptests/capability-adapterproposal continue. Counter116.
+
+
+### Owner-reaffirmed creative direction — 2026-11-27
+
+All themes, characters and puzzles remain Networking/OSI-inspired. Owner wants
+fun, lighthearted, slightly dark educational adventure in the Sierra tradition.
+Use wit, mystery, strange creatures, experiments and meaningful consequences;
+Spec001 teaches Layer1 while upper realms remain contextual. This reinforces
+the original creative direction, not acceptance of unfinished art/audio/pacing.
+Q03 must inspect actual default-size interaction and dense ending narration for
+this tone; preserve complete text access and accurate physical teaching.

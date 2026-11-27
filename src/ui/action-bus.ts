@@ -98,8 +98,9 @@ const panels = new Set<string>(['inventory', 'notebook', 'compendium', 'party', 
 const fields: Record<SemanticAction['kind'], readonly string[]> = {
   'start-optional': ['kind', 'activityId', 'hotspotId'], 'choose-optional-mode': ['kind', 'sessionId', 'mode'],
   'submit-optional': ['kind', 'sessionId', 'bits'], 'submit-optional-power': ['kind', 'sessionId', 'answer'], 'submit-optional-diary': ['kind', 'sessionId', 'answer'], 'submit-optional-maintenance': ['kind', 'sessionId', 'answer'],
+  'submit-optional-optics': ['kind', 'sessionId', 'answer'],
   'hint-optional': ['kind', 'sessionId'], 'retry-optional': ['kind', 'sessionId'], 'explain-optional': ['kind', 'sessionId'],
-  'boundary-optional': ['kind', 'sessionId'], 'exit-optional': ['kind', 'sessionId'],
+  'boundary-optional': ['kind', 'sessionId'], 'compatibility-optional': ['kind', 'sessionId'], 'exit-optional': ['kind', 'sessionId'],
   'invite-ally': ['kind', 'characterId'], 'begin-ally-practice': ['kind', 'characterId'], 'review-ally-practice': ['kind', 'characterId'],
   'set-active-allies': ['kind', 'characterIds'], 'use-ally-ability': ['kind', 'characterId', 'abilityId', 'actionId'],
   'commit-rift-hazard': ['kind', 'hazardId', 'warningAcknowledged'],
@@ -157,7 +158,19 @@ export function copySemanticAction(input: SemanticAction): SemanticAction {
         || difference['unit'] !== 'W' || typeof difference['value'] !== 'number' || !Number.isFinite(difference['value']) || difference['value'] < 0) throw new TypeError('Invalid power audit answer.');
       return Object.freeze({ ...input, answer: Object.freeze({ assessment, difference: Object.freeze({ value: difference['value'], unit: 'W' as const }) }) });
     }
-    case 'hint-optional': case 'retry-optional': case 'explain-optional': case 'boundary-optional': case 'exit-optional':
+    case 'submit-optional-optics': {
+      if (!dialogueSession(input.sessionId)) throw new TypeError('Invalid optical session.');
+      const answer: unknown = input.answer;
+      if (answer === null) return Object.freeze({ ...input, answer: null });
+      const object = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v);
+      if (!object(answer) || Object.keys(answer).length !== 4 || !['receive', 'margin', 'reserve', 'overload'].every(key => Object.hasOwn(answer, key))) throw new TypeError('Invalid optical diagnosis.');
+      const quantity = (v: unknown, unit: string) => object(v) && Object.keys(v).length === 2 && v['unit'] === unit && typeof v['value'] === 'number' && Number.isFinite(v['value']) && v['value'] >= -128 && v['value'] <= 128;
+      if (!quantity(answer['receive'], 'dBm') || !quantity(answer['margin'], 'dB') || (answer['reserve'] !== 'met' && answer['reserve'] !== 'shortfall')
+        || (answer['overload'] !== 'overloaded' && answer['overload'] !== 'not-overloaded')) throw new TypeError('Invalid optical prediction.');
+      const safe = input.answer!;
+      return Object.freeze({ ...input, answer: Object.freeze({ receive: Object.freeze({ ...safe.receive }), margin: Object.freeze({ ...safe.margin }), reserve: safe.reserve, overload: safe.overload }) });
+    }
+    case 'hint-optional': case 'retry-optional': case 'explain-optional': case 'boundary-optional': case 'compatibility-optional': case 'exit-optional':
       if (!dialogueSession(input.sessionId)) throw new TypeError('Invalid optional activity session.'); break;
     case 'invite-ally': case 'begin-ally-practice': case 'review-ally-practice':
       if (!qualifiedIdentity(input.characterId)) throw new TypeError('Invalid ally identity.'); break;

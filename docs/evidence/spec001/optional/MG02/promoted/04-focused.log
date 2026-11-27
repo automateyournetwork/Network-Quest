@@ -1,0 +1,34 @@
+
+ RUN  v5.1.2 /Users/john.capobianco/Network-Quest
+
+ ❯ tests/content/characters.test.ts (24 tests | 1 failed) 10449ms
+   ❯ T093 bounded schema evolution preserves T092 provenance (2)
+     × accepts genuine old-shaped documents and tests SQ04 and MG01 against their current schema 164ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/content/characters.test.ts > T093 bounded schema evolution preserves T092 provenance > accepts genuine old-shaped documents and tests SQ04 and MG01 against their current schema
+AssertionError: content/spec001/minigames/MG02.json: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/content/characters.test.ts:156:35
+    154|       const optional = /^content\/spec001\/quests\/(SQ0[123])\.json$/.…
+    155|       const oldShaped = optional ? json(`docs/evidence/spec001/optiona…
+    156|       expect(old(oldShaped),path).toBe(true);expect(current(document),…
+       |                                   ^
+    157|     }
+    158|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 17 passed (18)
+      Tests  1 failed | 365 passed (366)
+   Start at  11:07:08
+   Duration  11.32s (tests 62%, import 24%, transform 13%)
+

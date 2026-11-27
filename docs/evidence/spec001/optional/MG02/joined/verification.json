@@ -1,0 +1,79 @@
+{
+  "recordedAt": "2026-11-27T15:50:32.418778+00:00",
+  "task": "T102",
+  "loop": 114,
+  "baseCommit": "9a93bf7815cda8b7055a8177bd61d5c468dc8f52",
+  "baseOverlay": "reviewed isolated MG01, seal a4722652330062179cf23765543d6492a666f040fe8f2098a33b3956638c7a5d",
+  "sourceRoot": "/Users/john.capobianco/Network-Quest/.local/mg02-join-mg01-9a93bf7",
+  "scope": "Actual isolated MG02 integration only; current-source reconciliation and T102 acceptance remain pending.",
+  "checks": [
+    {
+      "kind": "focused-production-controller-regressions",
+      "passed": 176,
+      "mg02Cases": 62,
+      "mg01Cases": 52,
+      "existingFrameworkCases": 62,
+      "durationSeconds": 4.36,
+      "log": "16-explicit-variants-tests.log"
+    },
+    {
+      "kind": "final-typecheck-content-policy",
+      "exitCode": 0,
+      "log": "17-explicit-variants-check.log"
+    },
+    {
+      "kind": "final-production-build",
+      "exitCode": 0,
+      "log": "18-explicit-variants-build.log"
+    },
+    {
+      "kind": "actual-built-guest-firefox",
+      "groupsPassed": 12,
+      "browserVersion": "159.0",
+      "receipt": "19-native-final.json",
+      "axeViolations": 0,
+      "pageErrors": 0,
+      "apiOrMutationRequests": 0,
+      "changedSources": [],
+      "lifecycleCoverage": "Eight lifecycle categories, not all exact T092 scenario conditions.",
+      "nativeUntimedPauseMilliseconds": 750,
+      "backgroundTabExecuted": false,
+      "logicalControllerClockAdvanceSeconds": 3600
+    },
+    {
+      "kind": "actual-JavaScript-PHP-policy-parity",
+      "candidates": 7,
+      "coveredBy": "runtime.test.ts / 16-explicit-variants-tests.log",
+      "scope": "Local earned safe snapshot validation; no provider/remote transport claim."
+    },
+    {
+      "kind": "authored-new-source-whitespace-and-EOF",
+      "files": 18,
+      "findings": 0,
+      "receipt": "20-source-whitespace.json"
+    }
+  ],
+  "retainedFailures": [
+    "01-before-integration.log: 59 pre-integration failures before actual MG02 registration",
+    "03-runtime-types.log: five type diagnostics, corrected branded test IDs and no-media reward narrowing"
+  ],
+  "retainedEarlierPasses": [
+    "05-runtime-initial.log: 173 focused passes",
+    "10-runtime-final.log: 176 focused passes before explicit dispatch refinement",
+    "12-native-initial.json: 12 actual built-preview groups before explicit dispatch refinement; screenshots preserved under12- names"
+  ],
+  "pending": [
+    "Exact T092 UNTIMED 3600-second/background-tab scenario remains T104/116; native750ms foreground pause and logical fake timer are narrower evidence.",
+    "Root review and serialized current-source reconciliation after SQ04 and MG01",
+    "Preserve profile-less maintenance/SQ03/SQ04 variants, names, epilogue guards; regenerate merged schema/types/policy",
+    "Actual merged affected tests and native rerun; T104/T105 broader matrices",
+    "Providers/save transport, human technical/learning/owner reviews, finished media, aggregate gates"
+  ],
+  "wholeClientRegressionRun": false,
+  "sharedCurrentTreeWrites": false,
+  "originalMG02PacketChanged": false,
+  "sealedMG01SourceChanged": false,
+  "taskAccepted": false,
+  "gitIndexChanged": false,
+  "deployment": false
+}
