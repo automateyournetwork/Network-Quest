@@ -1,0 +1,82 @@
+{
+  "license": "CC-BY-4.0",
+  "date": "2026-11-28",
+  "baseline": "ae8472469b5f7d98e939ccb5471b03893630993a",
+  "revisedProductionSHA256": "354fd20c49a2bceff3b0da7f2b864de9b68e9e6d46a203e87897c1d596a4e831",
+  "sourceSHA256": "5c1012667f617807cd480f6fba10d4cca5cac71ef7f02d4d3557fd76b0945d17",
+  "caseSHA256": "82c5de1f8a9357b08489fc33fb4fdc70b45ffbf811b00a37449464611d0e8132",
+  "baselineFailure": "Touching the pair cutaway in the overlapping subject list left the compatibility-card description in Chromium. Rebuilding that list on pointerdown removed the pressed node before click.",
+  "coverage": [
+    "Canceled press with late click and window blur with late click both preserve the subject list and old status.",
+    "Native mouse drag within the choice does not activate it or dismiss the picker.",
+    "A fresh touch explains the transparent cutaway. Unsupported Talk explains the limitation and grants no evidence.",
+    "Keyboard Look still works in text mode. Both viewports retain every source anchor, toolbar bounds and visual subject.",
+    "Real WebGL context loss, late and failed room media, visibility pause/resume, and low detail retain equivalent semantic actions."
+  ],
+  "runs": {
+    "startUTC": "2026-11-28T13:31:48.142Z",
+    "milliseconds": 80889,
+    "exit": 0,
+    "rawReportSha256": "a32f69774386028211399ced68139bcf92fae391772fe7d53398395f37741d0b",
+    "projects": {
+      "chromium-static": {
+        "passed": 1
+      },
+      "firefox-static": {
+        "passed": 1
+      }
+    },
+    "cases": [
+      {
+        "project": "chromium-static",
+        "file": "layered-room.spec.ts",
+        "case": "T133 guest enters the camera-registered Copper Warrens and retains its controls in each detail mode",
+        "result": "passed",
+        "milliseconds": 69567
+      },
+      {
+        "project": "firefox-static",
+        "file": "layered-room.spec.ts",
+        "case": "T133 guest enters the camera-registered Copper Warrens and retains its controls in each detail mode",
+        "result": "passed",
+        "milliseconds": 7725
+      }
+    ]
+  },
+  "browsers": {
+    "159.0": {
+      "nativeReceiptSHA256": "9c3c246b737d0fe81cb6053079ac32e3297d6b67a33173d7aa5a55f87f8f1210",
+      "views": [
+        {
+          "width": 1280,
+          "height": 800,
+          "anchorErrorCSSPixels": 0.01719820135650204
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "anchorErrorCSSPixels": 0.06177734312340679
+        }
+      ],
+      "matchedVisualBindings": 22,
+      "errors": []
+    },
+    "159.0.8154.6": {
+      "nativeReceiptSHA256": "944794491987a5cb1a984b80c24070872229de20325ab72a01d0236929581b8c",
+      "views": [
+        {
+          "width": 1280,
+          "height": 800,
+          "anchorErrorCSSPixels": 0.017443417096367583
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "anchorErrorCSSPixels": 0.0641725664205482
+        }
+      ],
+      "matchedVisualBindings": 22,
+      "errors": []
+    }
+  }
+}

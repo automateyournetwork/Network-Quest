@@ -1,6 +1,8 @@
 # Spec001 technical review · reviewer packet
 
-**Independent human findings pending.** This packet covers the playable candidate `ae8472469b5f7d98e939ccb5471b03893630993a`, its fictional physical profiles and its on-screen teaching. T160 supplies technical-review evidence for AC03 and AC18. AC11 has its own real-provider tests. Reviewers can do this entire exercise as a guest. [Candidate](https://github.com/automateyournetwork/Network-Quest/tree/ae8472469b5f7d98e939ccb5471b03893630993a) · [Acceptance criteria](../../../SPEC.md#release-acceptance-matrix) · [Human review plan](../../../PLAN.md)
+**Independent human findings pending.** Use playable candidate `ff3f3eb50045c883803ab9196bcd456c17b96f2b` to review the fictional physical profiles and on-screen teaching. T160 supplies technical-review evidence for AC03 and AC18. AC11 has its own real-provider tests. Reviewers can do this entire exercise as a guest. [Candidate](https://github.com/automateyournetwork/Network-Quest/tree/ff3f3eb50045c883803ab9196bcd456c17b96f2b) · [Acceptance criteria](../../../SPEC.md#release-acceptance-matrix) · [Human review plan](../../../PLAN.md)
+
+The observations later in this packet were recorded on the earlier candidate. The current version identifies the measured configuration and distinguishes it from a proposed remedy. Record the revision you actually inspected. [Corrections and verified distribution](refinements.md)
 
 ## Open the game
 
@@ -9,7 +11,7 @@ Use the public checkout instructions with Node 26.13.1 and npm 11.20.0. For a fr
 ```sh
 git init Network-Quest-technical-review
 cd Network-Quest-technical-review
-git fetch --depth=1 https://github.com/automateyournetwork/Network-Quest.git ae8472469b5f7d98e939ccb5471b03893630993a
+git fetch --depth=1 https://github.com/automateyournetwork/Network-Quest.git ff3f3eb50045c883803ab9196bcd456c17b96f2b
 git checkout --detach FETCH_HEAD
 npm ci
 npm run build

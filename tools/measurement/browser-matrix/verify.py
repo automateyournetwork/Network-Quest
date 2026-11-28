@@ -34,7 +34,7 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def verify_cell(record, group, seal):
+def verify_cell(record, group, seal, evidence=EVIDENCE):
     row = record['sample']
     name = f'{group} {row["size"]}'
     check(sha((json.dumps(row, ensure_ascii=False, indent=2) + '\n').encode()) == record['sourceRecordSHA256'], name + ' source receipt')
@@ -66,36 +66,43 @@ def verify_cell(record, group, seal):
         check(sha((HERE / file).read_bytes()) == digest, name + ' harness ' + file)
     if row['capture']:
         capture = row['capture']
-        check(sha((EVIDENCE / 'release-captures' / capture['file']).read_bytes()) == capture['sha256'], name + ' capture')
+        check(sha((evidence / 'release-captures' / capture['file']).read_bytes()) == capture['sha256'], name + ' capture')
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--dist', type=Path, help='Compare every distribution file against the tested release candidate')
+    parser.add_argument('--candidate', choices=['credits', 'refinements'], default='credits',
+                        help='Select the original credits candidate or the corrected touch and diagnostics candidate')
     args = parser.parse_args()
-    manifest = json.loads((EVIDENCE / 'credits-candidate.json').read_text())
-    outputs = manifest['outputs']
+    evidence = EVIDENCE if args.candidate == 'credits' else EVIDENCE / 'refinements'
+    manifest_name = 'credits-candidate.json' if args.candidate == 'credits' else 'candidate.json'
+    manifest = json.loads((evidence / manifest_name).read_text())
+    public = manifest['publicSource']
+    revisions = {'credits': 'ae8472469b5f7d98e939ccb5471b03893630993a',
+                 'refinements': 'ff3f3eb50045c883803ab9196bcd456c17b96f2b'}
+    check(public['commit'] == revisions[args.candidate], 'published candidate commit')
+    published_ledger = (HERE.parents[2] / public['productionLedger']).read_bytes()
+    check(sha(published_ledger) == public['productionLedgerSHA256'], 'published ledger digest')
+    outputs = json.loads(published_ledger)['distribution']
+    if 'outputs' in manifest:
+        check(manifest['outputs'] == outputs, 'published and tested output files')
     ordered = sorted(outputs.items(), key=lambda pair: PurePosixPath(pair[0]).parts)
     seal = sha(json.dumps(ordered, separators=(',', ':')).encode())
     check(len(ordered) == 442 and seal == manifest['sha256'], 'candidate ledger')
-    public = manifest['publicSource']
-    check(public['commit'] == 'ae8472469b5f7d98e939ccb5471b03893630993a', 'published candidate commit')
-    published_ledger = (HERE.parents[2] / public['productionLedger']).read_bytes()
-    check(sha(published_ledger) == public['productionLedgerSHA256'], 'published ledger digest')
-    check(json.loads(published_ledger)['distribution'] == outputs, 'published and tested output files')
     if args.dist:
         actual = {p.relative_to(args.dist).as_posix(): sha(p.read_bytes()) for p in args.dist.rglob('*') if p.is_file()}
         check(actual == outputs, 'Release distribution differs from the tested 442 files.')
         check(all((args.dist / path).stat().st_size == count for path, count in NOTICES.items()), 'Credits resource lengths')
-    summary = json.loads((EVIDENCE / 'release-summary.json').read_text())
+    summary = json.loads((evidence / 'release-summary.json').read_text())
     check(summary['seal'] == seal and summary['verified'] == summary['planned'] == 32, 'release summary')
     summary_cells = {(r['group'], r['viewport']): r for r in summary['cells']}
     check(len(summary_cells) == len(summary['cells']) == 32, 'release summary contains duplicate or missing cells')
     for group in VERSIONS:
-        records = json.loads((EVIDENCE / 'release-records' / (group + '.json')).read_text())
+        records = json.loads((evidence / 'release-records' / (group + '.json')).read_text())
         check(len(records) == 4 and {r['sample']['size'] for r in records} == SIZES, group + ' incomplete or duplicate viewports')
         for record in records:
-            verify_cell(record, group, seal)
+            verify_cell(record, group, seal, evidence)
             row = record['sample']
             reported = summary_cells[(group, row['size'])]
             check(reported['utc'] == [row['started'], row['finished']] and reported['input'] == row['input']
