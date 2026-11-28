@@ -12,6 +12,7 @@ import type { GameplayStore } from './controller-store';
 import { actionAvailable, guardedPlan, rejected, reductionPlan, uiPlan, unavailable } from './controller-store';
 import type { ActiveActionAdmission } from './controller-store';
 import { heldItems } from './inventory';
+import { arrivalWalkHint } from './scene-objects';
 
 export interface ResolvedInteraction {
   readonly room: Readonly<S.room>; readonly hotspot: Readonly<S.hotspot>; readonly choice: Readonly<S.dialogueChoice>;
@@ -109,7 +110,12 @@ export function createVerbController({ bus, registry, store, bindings, walk, pan
       if (action.input.kind !== 'select-verb') return rejected('invalid-input', 'Choose Walk, Look, Talk or Use.');
       const before = store.getState();
       if (!actionAvailable(before, action.input, allowDuringEncounter)) return unavailable('unavailable-state', 'Choose a verb after the current activity finishes.');
-      return uiPlan(store, before, { selectedVerb: action.input.verb }, `${title(action.input.verb)} selected.`);
+      const verb = action.input.verb;
+      const room = roomOf(before);
+      let message = `${title(verb)} selected.`;
+      if (verb === 'walk') message = arrivalWalkHint(room) ?? message;
+      else if (room && !room.hotspots.some(hotspot => hotspot.verbs.includes(verb))) message += ` No ${verb === 'talk' ? 'character here offers dialogue' : 'target here uses this verb'}.`;
+      return uiPlan(store, before, { selectedVerb: verb }, message);
     });
     register('interact', interact); register('choose-hotspot-action', interact);
     register('open-panel', action => {
@@ -147,7 +153,12 @@ export function createVerbController({ bus, registry, store, bindings, walk, pan
             id: `hotspot-choice:${hotspot.id}:${choice.id}`, label: choice.text,
             action: { kind: 'choose-hotspot-action', targetId: hotspot.id as QualifiedId, verb: ui.selectedVerb, itemId, choiceId: choice.id as QualifiedId },
           });
-          return { id: hotspot.id, label: hotspot.label, description: hotspot.description, actions };
+          const verb = ui.selectedVerb;
+          const connected = options.length > 0 || verb === 'look' || (verb === 'talk' && encounterCharacter(registry, state.runtime.game!, hotspot.id, verb));
+          const verbTarget = hotspot.verbs.includes(verb)
+            ? actionAvailable(state, actions[0]!.action, allowDuringEncounter) && connected ? 'available' as const : 'unavailable' as const
+            : undefined;
+          return { id: hotspot.id, label: hotspot.label, description: hotspot.description, actions, verbTarget };
         });
       if (sceneObjects) return sceneObjects(state, hotspots);
       return [

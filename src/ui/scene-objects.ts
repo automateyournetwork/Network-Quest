@@ -1,5 +1,6 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import type { ContentRegistry } from '../content/registry';
+import type { room as Room } from '../content/schema-types.generated';
 import type { QualifiedId } from '../domain/types';
 import type { Navigation, NavigationResolution } from '../state/navigation';
 import type { ReducerState } from '../state/reducer';
@@ -8,6 +9,11 @@ import type { SceneObjectView, SemanticControl } from './app-shell';
 import type { GameplayStore } from './controller-store';
 import { guardedPlan, playable, rejected, reductionPlan, unavailable } from './controller-store';
 import type { WalkPlanner } from './verbs';
+
+export function arrivalWalkHint(room: Readonly<Room> | null) {
+  const exit = room?.id === 'spec001:R01' && room.exits.find(candidate => candidate.toRoomId === 'spec001:R02');
+  return exit ? `Click or tap the Workshop marker, or Tab to Scene and choose “${exit.label}” with Enter.` : null;
+}
 
 /** One T025 Walk port. The action bus owns capture, cancellation and replay. */
 export function createNavigationPlanner({ navigation, store }: { readonly navigation: Navigation; readonly store: GameplayStore }): WalkPlanner {
@@ -21,8 +27,10 @@ export function createNavigationPlanner({ navigation, store }: { readonly naviga
     if (!found.ok) return unavailable(found.reason, found.message);
     // Arrival is one synchronous reducer commit. Any animation follows the
     // committed world; a missing renderer cannot hold the adventure halfway.
+    const hint = found.kind === 'position' && found.destination.safePositionId === game.world.position.safePositionId && arrivalWalkHint(room);
+    const message = hint ? `You are already on the lift landing. ${hint}` : found.message;
     return guardedPlan(store, before, reductionPlan(store, action, before, { kind: 'apply', destination: found.destination,
-      evaluation: { status: 'correct', reasonCode: 'authored-navigation', observations: [], acceptedEffects: [] } }, found.message));
+      evaluation: { status: 'correct', reasonCode: 'authored-navigation', observations: [], acceptedEffects: [] } }, message));
   };
 }
 
@@ -36,26 +44,28 @@ export function createSceneObjectProjection({ registry, navigation, resolveDurin
     if (!game || !ui || room?.kind !== 'room') return [];
     if (hotspots.length !== room.hotspots.length || new Set(hotspots.map(h => h.id)).size !== hotspots.length
       || hotspots.some(h => !room.hotspots.some(actual => actual.id === h.id))) throw new TypeError('Scene projection must include every actual current-room hotspot exactly once.');
-    const action = (id: string, label: string, targetId: string): SemanticControl => {
+    const destination = (id: string, label: string, targetId: string): Pick<SceneObjectView, 'actions' | 'verbTarget'> => {
       let result: NavigationResolution | null = null;
       if (playable(state)) result = navigation.resolve(game.world, targetId as QualifiedId, state.runtime.activity!.kind as SafeState);
       else if (state.runtime.activity?.kind === 'active-encounter') {
         try { result = resolveDuringEncounter?.(state, targetId as QualifiedId) ?? null; } catch { /* Presentation fails closed. */ }
       }
       const unavailableReason = result?.ok ? undefined : result?.message ?? 'Movement is unavailable during this activity.';
-      return { id, label, action: { kind: 'interact', targetId: targetId as QualifiedId, verb: ui.selectedVerb, itemId: null },
+      const control: SemanticControl = { id, label, action: { kind: 'interact', targetId: targetId as QualifiedId, verb: ui.selectedVerb, itemId: null },
         ...(unavailableReason === undefined ? {} : { unavailableReason }) };
+      const current = result?.ok && result.kind === 'position' && result.destination.safePositionId === game.world.position.safePositionId;
+      return { actions: [control], verbTarget: ui.selectedVerb !== 'walk' ? undefined : unavailableReason ? 'unavailable' : current ? 'current' : 'available' };
     };
     return [
       ...room.hotspots.map(hotspot => ({ ...hotspots.find(h => h.id === hotspot.id)!, label: hotspot.label, description: hotspot.description })),
       ...room.exits.map(exit => ({ id: `exit:${room.id}:${exit.toRoomId}`, label: exit.label, description: 'Choose Walk to travel through this exit.',
-        actions: [action(`walk:${room.id}:${exit.toRoomId}`, exit.label, exit.toRoomId)] })),
+        ...destination(`walk:${room.id}:${exit.toRoomId}`, exit.label, exit.toRoomId) })),
       ...room.walkRegions.map(region => ({ id: region.id, label: region.label, description: 'Choose Walk to move to the safe position on this clear floor.',
-        actions: [action(`walk-region:${region.id}`, region.label, region.id)] })),
+        ...destination(`walk-region:${region.id}`, region.label, region.id) })),
       ...room.safePositions.map(position => {
         const anchor = registry.safePosition(position.id), label = anchor?.label ?? 'Safe floor position';
         return { id: position.id, label, description: 'A safe place to stand on the clear floor. Choose Walk to move here.',
-          actions: [action(`walk-position:${position.id}`, label, position.id)] };
+          ...destination(`walk-position:${position.id}`, label, position.id) };
       }),
     ];
   };

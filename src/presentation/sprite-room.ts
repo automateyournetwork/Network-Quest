@@ -7,6 +7,7 @@ import { createRoomResource, modelResidency } from './three-room';
 import { decodeRoomImage } from './recovery';
 import { createGrayboxPointer } from './introduction-graybox';
 import { createRoomWalk } from './room-walk';
+import { fitVerbLabels, selectedSceneVerb, updateVerbMarkers } from './verb-markers';
 import { createSpriteStageModels } from './sprite-stage-models';
 import type { Triple } from './room-media';
 import './sprite-room.css';
@@ -112,13 +113,16 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
       root.dataset['assetIds'] = [archBinding.assetId, ...entries.map(e => e.assetId)].join(' ');
       root.dataset['layerDecodedBytes'] = String(entries.reduce((sum,e) => sum+e.width*e.height*4,0));
       let view = request.view, selected: string | undefined;
+      const pinNodes = new Map<string, HTMLElement>();
       for (const [index, anchor] of stageData.anchors.entries()) {
         const pin = el('span','nq-graybox-pin'); pin.textContent = String(index+1);
         pin.dataset['grayboxObject'] = anchor.objectId;
         pin.title = view.objects.find(o => o.id === anchor.objectId)!.label;
         pin.style.left = 100*anchor.point[0]!/canvas.width+'%'; pin.style.top = 100*anchor.point[1]!/canvas.height+'%';
-        pins.append(pin);
+        pins.append(pin); pinNodes.set(anchor.objectId, pin);
       }
+      updateVerbMarkers(pinNodes, view.objects);
+      const labelObserver = new win.ResizeObserver(() => fitVerbLabels(pins));
       function updateChoices() {
         const object = view.objects.find(o => o.id === selected);
         choices.replaceChildren();
@@ -238,14 +242,19 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
       function disposeSession() {
         if (!alive) return;
         alive = false; if (active?.dispose === disposeSession) active = null;
-        events.abort(); pointer.dispose(); cancelDraw(); models.dispose(); root.remove();
+        events.abort(); labelObserver.disconnect(); pointer.dispose(); cancelDraw(); models.dispose(); root.remove();
       }
       return {
         attach() {
           if (!alive || request.signal.aborted) return;
           active = {react,dispose: disposeSession}; attached = true; host.replaceChildren(root); models.party.updateView(view); draw();
+          labelObserver.observe(stage);
         },
-        updateView(next) { pointer.cancel(); view = next; models.party.updateView(view); updateChoices(); },
+        updateView(next) {
+          pointer.cancel();
+          if (selectedSceneVerb(view) !== selectedSceneVerb(next)) selected = undefined;
+          view = next; updateVerbMarkers(pinNodes, next.objects); models.party.updateView(view); updateChoices();
+        },
         setPaused(value) {
           paused = value; last = null; root.dataset['paused'] = String(paused);
           if (paused) { pointer.cancel(); cancelDraw(); root.dataset['animatedActors'] = '0'; }

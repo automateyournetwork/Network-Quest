@@ -10,6 +10,7 @@ import { mountEquipmentInspections } from './equipment-closeups';
 import { createRoomWalk } from './room-walk';
 import { createRoomParty } from './room-party';
 import { createGrayboxPointer } from './introduction-graybox';
+import { fitVerbLabels, selectedSceneVerb, updateVerbMarkers } from './verb-markers';
 import { publicMediaUrl, roomFraming, type RoomMedia } from './room-media';
 import { decodeRoomImage, startMediaDeadline } from './recovery';
 
@@ -189,12 +190,13 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
         const object = currentView.objects.find(o => o.id === anchor.objectId); if (!object) throw new Error('Authored scene anchor has no semantic control');
         const pin = node('span', 'nq-graybox-pin'); pin.textContent = String(index + 1); pin.title = object.label; pin.dataset['grayboxObject'] = anchor.objectId; pins.append(pin); pinNodes.set(anchor.objectId, pin);
       }
+      updateVerbMarkers(pinNodes, currentView.objects);
       root.append(stage, choices);
       if (host.dataset['contained'] !== 'true') root.append(instructions, choiceTitle, feedback);
       updateChoices();
       const find = (event: PointerEvent) => {
         const element = event.target instanceof window.Element ? event.target as Element : null;
-        if (layered && event.pointerType === 'touch' && element && stage.contains(element)) {
+        if (layered && event.pointerType === 'touch' && element && stage.contains(element) && !element.closest('.nq-verb-label')) {
           const candidates = currentView.objects.filter(object => {
             const box = pinNodes.get(object.id)?.getBoundingClientRect();
             return box && Math.abs(event.clientX - box.left - box.width / 2) < 22 && Math.abs(event.clientY - box.top - box.height / 2) < 22;
@@ -238,6 +240,7 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
       const shadowOffset = heroShadow?.position.clone().sub(hero.root.position);
       const decodedLayerBytes = [...resources.values()].reduce((sum, r) => sum + (r.kind === 'image' ? r.width * r.height * 4 : 0), 0);
       const samples: number[] = [];
+      let labelWidth = 0, labelHeight = 0;
       function draw(now = 0) {
         frame = 0; if (!alive || !attached || paused || request.signal.aborted) return;
         const elapsed = last ? Math.min((now - last) / 1000, 0.05) : 0; if (last && now > last) { samples.push(now - last); if (samples.length > 300) samples.shift(); } last = now;
@@ -258,6 +261,7 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
         decoration?.layout(camera, width, height);
         const project = (element: HTMLElement, position: readonly [number, number, number]) => { const p = new THREE.Vector3(...position).project(camera); element.style.left = `${(p.x + 1) * 50}%`; element.style.top = `${(1 - p.y) * 50}%`; };
         for (const anchor of composition.anchors) project(pinNodes.get(anchor.objectId)!, anchor.position);
+        if (width !== labelWidth || height !== labelHeight) { fitVerbLabels(pins); labelWidth = width; labelHeight = height; }
         project(markerLabel, [walk.position.x, walk.position.y + 2.2, walk.position.z]);
         if (stops.length) root.dataset['playerFoot'] = walk.position.toArray().map(v => v.toFixed(3)).join(',');
         root.dataset['rendered'] = 'true'; root.dataset['renderCount'] = String(++renders); root.dataset['triangles'] = String(webgl.info.render.triangles); root.dataset['drawCalls'] = String(webgl.info.render.calls);
@@ -292,7 +296,11 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
         attach() { if (!alive || request.signal.aborted) return; attached = true; reaction = react; residentAbility = playAbility; host.replaceChildren(root);
           removeInspections = mountEquipmentInspections(composition.roomId, host, webgl, id => scene.children.find(c => c.userData['roomSubjectId'] === id));
           party?.updateView(currentView); observer.observe(stage); draw(); },
-        updateView(view) { pointer.cancel(); currentView = view; decoration?.updateView(view); party?.updateView(view); updateChoices(); schedule(); },
+        updateView(view) {
+          pointer.cancel();
+          if (selectedSceneVerb(view) !== selectedSceneVerb(currentView)) { selected = null; touchChoices = []; }
+          currentView = view; updateVerbMarkers(pinNodes, view.objects); decoration?.updateView(view); party?.updateView(view); updateChoices(); schedule();
+        },
         setPaused(value) { paused = value; last = 0; root.dataset['paused'] = String(value); if (value) { pointer.cancel(); window.cancelAnimationFrame(frame); frame = 0; } else schedule(); },
         dispose() { if (!alive) return; alive = false; if (reaction === react) { reaction = null; residentAbility = undefined; } pointer.dispose(); events.abort(); observer.disconnect(); window.cancelAnimationFrame(frame); for (const actor of actors) { actor.mixer.stopAllAction(); actor.mixer.uncacheRoot(actor.root); } removeInspections?.(); party?.dispose(); decoration?.dispose(); scene.clear(); contactGeometry?.dispose(); contactMaterial?.dispose(); for (const stand of supports) { stand.geometry.dispose(); stand.material.dispose(); } webgl.renderLists.dispose(); root.remove(); if (layered) destroy(); },
       };

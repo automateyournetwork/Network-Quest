@@ -6,6 +6,7 @@ import type { ActionResult } from '../ui/action-bus';
 import type { SceneObjectView, SemanticControl } from '../ui/app-shell';
 import type { DeferredIntent, RoomRenderer, RoomView } from './room-adapter';
 import type { ResourceSpec } from './resource-pool';
+import { fitVerbLabels, selectedSceneVerb, updateVerbMarkers } from './verb-markers';
 
 type Pair = readonly [number, number];
 type Triple = readonly [number, number, number];
@@ -73,6 +74,7 @@ export function createIntroductionGraybox(host: HTMLElement, source?: { readonly
   const layouts = validateGrayboxLayouts(source?.data ?? authored, source?.roomIds), document = host.ownerDocument, window = document.defaultView!;
   let webgl: THREE.WebGLRenderer | null = null, disposed = false, selectedId: string | null = null;
   let latestFeedback: HTMLElement | null = null, feedbackMessage = '';
+  let previousVerb: string | undefined;
   const geometry: ResourceSpec<GrayboxGeometry> = { key: 'introduction-graybox-primitives-v1', bytes: 16_384,
     load: async () => { const box = new THREE.BoxGeometry(), cylinder = new THREE.CylinderGeometry(0.5, 0.5, 1, 12);
       const bytes = [box, cylinder].reduce((sum, g) => sum + Object.values(g.attributes).reduce((n, a) => n + a.array.byteLength, 0) + (g.index?.array.byteLength ?? 0), 0);
@@ -89,6 +91,9 @@ export function createIntroductionGraybox(host: HTMLElement, source?: { readonly
       if (!layout || !safe || layout.objects.length !== objectMap.size || layout.objects.some(object => !objectMap.has(object.id))) throw new Error('Graybox projection and current room disagree');
       const primitives = await request.resources.acquire(geometry).ready;
       if (request.signal.aborted || disposed) throw new Error('Graybox preparation canceled');
+      const verb = selectedSceneVerb(request.view);
+      if (previousVerb !== verb) selectedId = null;
+      previousVerb = verb;
       if (!webgl) {
         webgl = new THREE.WebGLRenderer({ antialias: true, alpha: false });
         webgl.setClearColor('#172332'); webgl.outputColorSpace = THREE.SRGBColorSpace;
@@ -176,6 +181,7 @@ export function createIntroductionGraybox(host: HTMLElement, source?: { readonly
         const pin = selectable(String(index + 1), object, true); pins.append(pin); pinNodes.set(object.id, pin);
         legend.append(selectable(`${index + 1}. ${object.label}`, object, false));
       });
+      updateVerbMarkers(pinNodes, request.view.objects);
       const updateChoices = (id: string | null) => {
         const object = id && objectMap.get(id); if (!object) { choices.replaceChildren(); choiceTitle.textContent = 'Choose an object to see its actions.'; return; }
         selectedId = object.id;
@@ -228,6 +234,7 @@ export function createIntroductionGraybox(host: HTMLElement, source?: { readonly
         renderer.render(scene, camera);
         const project = (element: HTMLElement, point: THREE.Vector3) => { const p = point.clone().project(camera); element.style.left = `${(p.x + 1) * 50}%`; element.style.top = `${(1 - p.y) * 50}%`; };
         for (const [id, element] of pinNodes) project(element, anchors.get(id)!);
+        fitVerbLabels(pins);
         project(markerLabel, new THREE.Vector3(safe!.point[0], 1.3, safe!.point[1]));
         if (ledgerImage) {
           // Project three corners of the 1.8 × 1.2 sign onto this orthographic

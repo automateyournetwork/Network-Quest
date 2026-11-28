@@ -1,5 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
-import { clickButton, pressButton, openFrame, closeFrame, revealControl } from './support/adventure-controls';
+import { clickButton, pressButton, openFrame, closeFrame, revealControl, tabTo } from './support/adventure-controls';
 import { expect, firefox, test, type BrowserContext, type Page } from '@playwright/test';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -40,6 +40,30 @@ test.describe('T035/T066/T135 actual playable Arrival Lift and Workshop', () => 
     await target(id).click();
     if (choice) await visual().locator('[data-graybox-control]').filter({ hasText: choice }).click();
   }
+  test('390 px guest taps the visible verb labels to talk, use the satchel and leave the lift', async () => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await openFrame(page, 'Scene'); await clickButton(page, 'Show hotspots'); await closeFrame(page);
+    const pin = (id: string) => visual().locator(`.nq-graybox-pin[data-graybox-object="${id}"]`);
+    const tapLabel = async (id: string, label: string) => {
+      const caption = pin(id).locator('.nq-verb-label');
+      await expect(caption).toHaveText(label);
+      const bounds = await caption.boundingBox(); expect(bounds).not.toBeNull();
+      expect(bounds!.x).toBeGreaterThanOrEqual(0); expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(390);
+      await caption.tap();
+    };
+    await button('Look').tap();
+    await expect(visual().locator('[data-verb-target=available]')).toHaveCount(7);
+    await button('Talk').tap();
+    await tapLabel('spec001:HOTSPOT-photon', 'Photon the Firefly');
+    await expect(page.getByRole('dialog', { name: 'Dialogue' })).toBeVisible(); await clickButton(page, 'Skip dialogue');
+    await button('Use').tap();
+    await tapLabel('spec001:HOTSPOT-satchel', 'Apprentice satchel'); await expect(page.locator('.nq-shell-status')).toContainText('kit');
+    await button('Walk').tap();
+    await expect(visual().locator('.nq-graybox-choices')).toBeEmpty();
+    await expect(visual().locator('[data-verb-target=current]')).toHaveCount(1);
+    await tapLabel('exit:spec001:R01:spec001:R02', "Titan's Workshop"); await ready('spec001:R02');
+    await expect(visual().locator('[data-verb-target=unavailable]')).toHaveCount(5);
+  });
   test('visual pointer and semantic keyboard share evidence, O01/O02, movement and actual packet state', async ({}, info) => {
     const budgets: unknown[] = [];
     async function budget() {
@@ -78,7 +102,16 @@ test.describe('T035/T066/T135 actual playable Arrival Lift and Workshop', () => 
     await act('Look', 'spec001:HOTSPOT-capsule'); await expect(journey).toContainText('Length only: 95 m');
     for (let index = 0; index < 4; index++) await pressButton(page, 'Step journey', 'Enter');
     await expect(journey).toContainText('Recovered bits: 01001110 01010001'); await clickButton(page, 'Return to investigation');
-    await clickButton(page, 'Walk'); await target('exit:spec001:R01:spec001:R02').click(); await ready('spec001:R02');
+    const destination = "Walk to The Titan's Workshop";
+    const status = page.locator('.nq-shell-status');
+    await openFrame(page, 'Scene'); await clickButton(page, 'Show hotspots'); await closeFrame(page);
+    await clickButton(page, 'Walk');
+    await expect(status).toContainText(destination);
+    await expect(status).toHaveAttribute('aria-live', 'polite');
+    const exitMarker = target('exit:spec001:R01:spec001:R02');
+    await expect(exitMarker).toHaveCSS('opacity', '1');
+    await exitMarker.click(); await ready('spec001:R02');
+    await openFrame(page, 'Scene'); await clickButton(page, 'Show hotspots'); await closeFrame(page);
     await act('Talk', 'spec001:HOTSPOT-titan'); await pressButton(page, 'Skip dialogue', 'Enter');
     await act('Look', 'spec001:HOTSPOT-endpoints'); await act('Look', 'spec001:HOTSPOT-declared-path');
     await pressButton(page, 'Notebook', 'Enter'); await page.getByRole('textbox', { name: 'Hypothesis', exact: true }).fill('The service loop may exceed the declared length; compare its segments.');
@@ -93,6 +126,14 @@ test.describe('T035/T066/T135 actual playable Arrival Lift and Workshop', () => 
     await pressButton(page, 'Walk', 'Enter'); await pressButton(page, 'Walk to The Arrival Lift', 'Enter'); await ready('spec001:R01');
     await page.screenshot({ path: info.outputPath('T035-graybox-arrival-desktop.png'), fullPage: true });
     await visual().screenshot({ path: info.outputPath('T035-graybox-arrival-detail.png') });
+    await closeFrame(page);
+    await tabTo(page, button('Look')); await page.keyboard.press('w');
+    await expect(status).toContainText(destination);
+    await tabTo(page, button('Scene')); await page.keyboard.press('Enter');
+    await tabTo(page, button('Clear lift landing')); await page.keyboard.press('Enter');
+    await expect(status).toContainText('already on the lift landing');
+    await expect(status).toContainText(destination);
+    await tabTo(page, button(destination)); await page.keyboard.press('Enter'); await ready('spec001:R02');
   });
   test('canceled and stale visual presses cannot affect a new adventure; repeated room swaps keep one canvas', async () => {
     await clickButton(page, 'Look'); const old = await target('spec001:HOTSPOT-power').elementHandle();

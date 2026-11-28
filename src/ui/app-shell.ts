@@ -17,6 +17,7 @@ export interface SceneObjectView {
   readonly id: string;
   readonly label: string;
   readonly description: string;
+  readonly verbTarget?: 'available' | 'current' | 'unavailable' | undefined;
   readonly actions: readonly SemanticControl[];
 }
 export interface EvidenceView {
@@ -295,7 +296,8 @@ export function createAppShell(host: HTMLElement, bus: Pick<ActionBus, 'captureS
           objectNodes.set(object.id, entry);
         }
         text(entry.title, object.label);
-        text(entry.description, object.description);
+        const cue = object.verbTarget === 'current' ? 'You are here. ' : object.verbTarget === 'unavailable' ? 'Unavailable for this verb. ' : '';
+        text(entry.description, cue + object.description);
         group(entry.actions, `${object.label} actions`, object.actions);
         return entry.element;
       }));
