@@ -1,0 +1,329 @@
+{
+  "license": "CC-BY-4.0",
+  "samplesFile": "service-samples.ndjson",
+  "samplesSHA256": "eb44dc778e191f52634bc4985de28b3b5df281a3da1a709796cec78977770110",
+  "columns": [
+    "trial",
+    "syntheticSessionNumber",
+    "roundMinusOneIsInitial",
+    "operation",
+    "httpStatus",
+    "curlCode",
+    "elapsedMilliseconds",
+    "invalidResponse"
+  ],
+  "sourceDistribution": "354fd20c49a2bceff3b0da7f2b864de9b68e9e6d46a203e87897c1d596a4e831",
+  "trials": {
+    "controlled-load": {
+      "rawSHA256": "561cb8ca83f3fd453f8b0d1e1c9b9bca7ba8e7cd50c3abe3cd52edd722386058",
+      "dateUTC": "2026-11-28T13:33:17+00:00",
+      "mode": "pre-fix production PHP",
+      "rounds": 12,
+      "intervalMs": 1000,
+      "summary": {
+        "all": {
+          "count": 260,
+          "p95Milliseconds": 774.976,
+          "maxMilliseconds": 1744.3580000000002
+        },
+        "save": {
+          "count": 80,
+          "p95Milliseconds": 771.893,
+          "maxMilliseconds": 1736.8680000000002
+        },
+        "failures": 15,
+        "statusCounts": {
+          "201": 20,
+          "503": 15,
+          "200": 225
+        },
+        "localSaveTargetSatisfied": false
+      },
+      "ownedStorageRemoved": true
+    },
+    "settled-load-1": {
+      "rawSHA256": "2b0bb0e80e2881bdd718c1f787a28da43823256b5254bcd530122914a3b535f9",
+      "dateUTC": "2026-11-28T13:34:58+00:00",
+      "mode": "pre-fix production PHP",
+      "rounds": 12,
+      "intervalMs": 1000,
+      "summary": {
+        "all": {
+          "count": 260,
+          "p95Milliseconds": 113.693,
+          "maxMilliseconds": 156.46699999999998
+        },
+        "save": {
+          "count": 80,
+          "p95Milliseconds": 133.731,
+          "maxMilliseconds": 156.46699999999998
+        },
+        "failures": 0,
+        "statusCounts": {
+          "201": 20,
+          "200": 240
+        },
+        "localSaveTargetSatisfied": true
+      },
+      "ownedStorageRemoved": true
+    },
+    "settled-load-2": {
+      "rawSHA256": "6e9aa5bb64a2000917a36c5915ca93a2d6395891860a441e7359f5e3ce63391b",
+      "dateUTC": "2026-11-28T13:35:12+00:00",
+      "mode": "pre-fix production PHP",
+      "rounds": 12,
+      "intervalMs": 1000,
+      "summary": {
+        "all": {
+          "count": 260,
+          "p95Milliseconds": 130.45499999999998,
+          "maxMilliseconds": 184.50300000000001
+        },
+        "save": {
+          "count": 80,
+          "p95Milliseconds": 138.808,
+          "maxMilliseconds": 172.61399999999998
+        },
+        "failures": 0,
+        "statusCounts": {
+          "201": 20,
+          "200": 240
+        },
+        "localSaveTargetSatisfied": true
+      },
+      "ownedStorageRemoved": true
+    },
+    "settled-load-3": {
+      "rawSHA256": "14fceaafc74f0442b9a889c919bb2fc67edefa8c4b9c73939066327534e8baea",
+      "dateUTC": "2026-11-28T13:35:26+00:00",
+      "mode": "pre-fix production PHP",
+      "rounds": 12,
+      "intervalMs": 1000,
+      "summary": {
+        "all": {
+          "count": 260,
+          "p95Milliseconds": 284.83000000000004,
+          "maxMilliseconds": 747.5889999999999
+        },
+        "save": {
+          "count": 80,
+          "p95Milliseconds": 202.34,
+          "maxMilliseconds": 603.463
+        },
+        "failures": 1,
+        "statusCounts": {
+          "201": 20,
+          "200": 239,
+          "503": 1
+        },
+        "localSaveTargetSatisfied": false
+      },
+      "ownedStorageRemoved": true
+    },
+    "diag-load-1": {
+      "rawSHA256": "56d44b768be07e49c031f90e5ed951f0317595fac2052d744a183e8aeac14ab4",
+      "dateUTC": "2026-11-28T13:36:54+00:00",
+      "mode": "pre-fix with diagnostic exception site capture",
+      "rounds": 12,
+      "intervalMs": 1000,
+      "summary": {
+        "all": {
+          "count": 260,
+          "p95Milliseconds": 329.66,
+          "maxMilliseconds": 1672.893
+        },
+        "save": {
+          "count": 80,
+          "p95Milliseconds": 336.47700000000003,
+          "maxMilliseconds": 1672.893
+        },
+        "failures": 1,
+        "statusCounts": {
+          "201": 20,
+          "200": 239,
+          "503": 1
+        },
+        "localSaveTargetSatisfied": false
+      },
+      "ownedStorageRemoved": true
+    },
+    "diag-load-2": {
+      "rawSHA256": "f0e7363619a5f06b462a9ad5f55acd85799a8da17399bb67d42e7202b88aa480",
+      "dateUTC": "2026-11-28T13:37:11+00:00",
+      "mode": "pre-fix with diagnostic exception site capture",
+      "rounds": 12,
+      "intervalMs": 1000,
+      "summary": {
+        "all": {
+          "count": 260,
+          "p95Milliseconds": 250.986,
+          "maxMilliseconds": 395.61400000000003
+        },
+        "save": {
+          "count": 80,
+          "p95Milliseconds": 250.986,
+          "maxMilliseconds": 379.955
+        },
+        "failures": 0,
+        "statusCounts": {
+          "201": 20,
+          "200": 240
+        },
+        "localSaveTargetSatisfied": true
+      },
+      "ownedStorageRemoved": true
+    },
+    "diag-load-3": {
+      "rawSHA256": "2916390155f64ff0e5dae9807f9cb23dda84ae88c6f7160d4b56e4ed01b0fbdf",
+      "dateUTC": "2026-11-28T13:37:27+00:00",
+      "mode": "pre-fix with diagnostic exception site capture",
+      "rounds": 12,
+      "intervalMs": 1000,
+      "summary": {
+        "all": {
+          "count": 260,
+          "p95Milliseconds": 155.32299999999998,
+          "maxMilliseconds": 235.43900000000002
+        },
+        "save": {
+          "count": 80,
+          "p95Milliseconds": 181.938,
+          "maxMilliseconds": 222.855
+        },
+        "failures": 0,
+        "statusCounts": {
+          "201": 20,
+          "200": 240
+        },
+        "localSaveTargetSatisfied": true
+      },
+      "ownedStorageRemoved": true
+    },
+    "read-retry-load-1": {
+      "rawSHA256": "cfad896877b786522159d58bf1f9145ed69f1319d12b16791abda89c62ce4b41",
+      "dateUTC": "2026-11-28T13:40:37+00:00",
+      "mode": "production PHP with one read-only retry",
+      "rounds": 12,
+      "intervalMs": 1000,
+      "summary": {
+        "all": {
+          "count": 260,
+          "p95Milliseconds": 593.905,
+          "maxMilliseconds": 685.534
+        },
+        "save": {
+          "count": 80,
+          "p95Milliseconds": 590.716,
+          "maxMilliseconds": 628.045
+        },
+        "failures": 0,
+        "statusCounts": {
+          "201": 20,
+          "200": 240
+        },
+        "localSaveTargetSatisfied": true
+      },
+      "ownedStorageRemoved": true
+    },
+    "read-retry-load-2": {
+      "rawSHA256": "c9322e8dcf29fe2dc823e0389699e807dbd738fd7c8c0b08e3baca8048f07a12",
+      "dateUTC": "2026-11-28T13:40:56+00:00",
+      "mode": "production PHP with one read-only retry",
+      "rounds": 12,
+      "intervalMs": 1000,
+      "summary": {
+        "all": {
+          "count": 260,
+          "p95Milliseconds": 182.87,
+          "maxMilliseconds": 209.886
+        },
+        "save": {
+          "count": 80,
+          "p95Milliseconds": 187.619,
+          "maxMilliseconds": 206.672
+        },
+        "failures": 0,
+        "statusCounts": {
+          "201": 20,
+          "200": 240
+        },
+        "localSaveTargetSatisfied": true
+      },
+      "ownedStorageRemoved": true
+    },
+    "read-retry-load-3": {
+      "rawSHA256": "62289b69c6cef112e6848f62a6c872bf7bc7b3e99c0159257f370c8a12082861",
+      "dateUTC": "2026-11-28T13:41:15+00:00",
+      "mode": "production PHP with one read-only retry",
+      "rounds": 12,
+      "intervalMs": 1000,
+      "summary": {
+        "all": {
+          "count": 260,
+          "p95Milliseconds": 170.348,
+          "maxMilliseconds": 245.76999999999998
+        },
+        "save": {
+          "count": 80,
+          "p95Milliseconds": 216.263,
+          "maxMilliseconds": 245.76999999999998
+        },
+        "failures": 0,
+        "statusCounts": {
+          "201": 20,
+          "200": 240
+        },
+        "localSaveTargetSatisfied": true
+      },
+      "ownedStorageRemoved": true
+    }
+  },
+  "scope": "Independent normal twenty-session HTTPS trials on this Mac: twenty first saves plus twelve rounds with five each of save, read, session and preference. Every HTTP and timing sample is retained. All paths started from new disposable storage; the diagnostic fixture instrumented the fixed public error mapping only.",
+  "originalSchemaRead": [
+    {
+      "scenario": "brief",
+      "milliseconds": 271.267208,
+      "primaryCode": 5
+    },
+    {
+      "scenario": "sustained",
+      "milliseconds": 273.734917,
+      "primaryCode": 5
+    },
+    {
+      "scenario": "missing-table",
+      "primaryCode": 1,
+      "milliseconds": 0.086875
+    }
+  ],
+  "revisedSchemaRead": [
+    {
+      "scenario": "brief",
+      "milliseconds": 372.63,
+      "matches": true
+    },
+    {
+      "scenario": "sustained",
+      "milliseconds": 555.762875,
+      "primaryCode": 5
+    },
+    {
+      "scenario": "missing-table",
+      "primaryCode": 1,
+      "milliseconds": 0.094458
+    }
+  ],
+  "failedDiagnosticSite": {
+    "class": "PDOException",
+    "file": "server/src/Application.php",
+    "operation": "read-only installed migration version and checksum query before routing",
+    "errorCodeInCapturedMixedRun": "unrecorded",
+    "deterministicExclusiveLockControlSQLiteCode": 5
+  },
+  "servicePatchSHA256": "0b133dd4390e6c85c887805377bbf06c3248cb18e7db36ad138e544eb354f83c",
+  "isolatedRevisedSha256": {
+    "server/src/Application.php": "80a29d74c590f3530e74fcf6079340087baacb7db73737e81e74a0443f8a1c41",
+    "server/src/Database.php": "d1a3cd18a267887cc15d86ea42d2bfce1db9316629554060681259813157574b",
+    "server/tests/DatabaseTest.php": "c03c6faf5af7d3fe61381d10ce97615f28a1c00cc1d1de37c5be3ea5ae38ff9e"
+  }
+}

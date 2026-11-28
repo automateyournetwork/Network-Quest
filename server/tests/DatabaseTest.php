@@ -278,6 +278,44 @@ final class DatabaseTest extends TestCase
         self::assertSame(9, $writer->query('SELECT revision FROM saves')->fetchColumn());
     }
 
+    public function testStartupMigrationReadSurvivesABriefExclusiveLockAndFailsOnASustainedLock(): void
+    {
+        $this->ready();
+        $expected = $this->database->readMigrationChecksums();
+        self::assertCount(2, $expected);
+        $holder = <<<'PHP'
+            $database = new PDO('sqlite:' . $argv[1]);
+            $database->exec('BEGIN EXCLUSIVE');
+            fwrite(STDOUT, "locked\n");
+            stream_set_timeout(STDIN, 3);
+            fgets(STDIN);
+            if ($argv[2] === 'brief') { usleep(360000); } else { fgets(STDIN); }
+            $database->exec('ROLLBACK');
+            PHP;
+        foreach (['brief', 'sustained'] as $duration) {
+            $process = proc_open([PHP_BINARY, '-d', 'auto_prepend_file=', '-d', 'auto_append_file=',
+                '-r', $holder, $this->path(), $duration],
+                [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['file', '/dev/null', 'w']], $pipes);
+            self::assertIsResource($process);
+            try {
+                stream_set_timeout($pipes[1], 3);
+                self::assertSame("locked\n", fgets($pipes[1]));
+                fwrite($pipes[0], "start\n");
+                if ($duration === 'brief') {
+                    self::assertSame($expected, $this->database->readMigrationChecksums());
+                } else {
+                    $error = $this->rejected(fn () => $this->database->readMigrationChecksums());
+                    self::assertSame(5, $error->errorInfo[1]);
+                }
+            } finally {
+                fclose($pipes[0]);
+                fclose($pipes[1]);
+                proc_close($process);
+            }
+        }
+        self::assertSame($expected, $this->database->readMigrationChecksums());
+    }
+
     public function testMigrationFailureIsAtomicAndChecksumUnknownVersionAndTransactionControlFailClosed(): void
     {
         // Explicit alternate migration history; independent of packaged forward additions.

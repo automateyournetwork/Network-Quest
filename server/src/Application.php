@@ -17,6 +17,8 @@ use NetworkQuest\Routes\DeletionStatus;
 use Throwable;
 
 require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/Operations/PrivatePaths.php';
+require_once __DIR__.'/Operations/RequestLog.php';
 foreach (['Router','Configuration','HttpRequest','Database','Security','Sessions','AccountAccess','DeletionLedger','RecoveryAccountAccess','AccountDeletion','DeletionReceipts',
     'Identity/AuthTransactions','Identity/ProviderHttp','Identity/Google','Identity/GitHub','SaveValidator','SaveRepository',
     'Routes/Auth','Routes/Save','Routes/Preferences','Routes/Account','Routes/DeletionStatus'] as $source) require_once __DIR__.'/'.$source.'.php';
@@ -26,7 +28,7 @@ final class Application
 {
     private ?Router $router = null;
     private function __construct(private readonly Configuration $configuration, private readonly array $documentRoots,
-        private readonly array $routing, private readonly ?string $proxyToken) {}
+        private readonly array $routing, private readonly ?string $proxyToken, private readonly ?string $logDir) {}
 
     public static function fromEnvironment(array $environment): self
     {
@@ -46,21 +48,37 @@ final class Application
         $proxy=$environment['NQ_DEV_PROXY_TOKEN'] ?? null;
         if ($proxy!==null) $routing['proxy_token']=$proxy;
         new Router($routing);
-        return new self($config,$roots,$routing,$proxy);
+        $logDir = $environment['NQ_REQUEST_LOG_DIR'] ?? null;
+        if ($logDir !== null) {
+            Operations\PrivatePaths::directory($logDir);
+            Operations\PrivatePaths::outside($logDir, array_merge($roots, $config->rollbackRoots,
+                [dirname($config->ledgerFile), dirname($file)]));
+        }
+        return new self($config,$roots,$routing,$proxy,$logDir);
     }
 
     /** The entry supplies PHP_SAPI/getallheaders/$_SERVER directly; caller cannot choose these over HTTP. */
     public function handleSapi(array $server,array $headers,mixed $body,string $sapi=PHP_SAPI): array
     {
+        $start = hrtime(true);
         try {
             // Early TLS/token/known-path/method admission can answer without opening storage.
             $preflight=(new Router($this->routing))->handleServer($server);
-            if ($preflight['status']!==503) return $this->response($preflight,$server);
-            $fields=(new HttpRequest($this->configuration->origin,$this->proxyToken))->fields($server,$headers,$sapi);
-            return $this->response($this->services()->handleServer($server,$fields,$body),$server);
+            if ($preflight['status'] !== 503) {
+                $response = $preflight;
+            } else {
+                $fields=(new HttpRequest($this->configuration->origin,$this->proxyToken))->fields($server,$headers,$sapi);
+                $response=$this->services()->handleServer($server,$fields,$body);
+            }
         } catch (Throwable $error) {
-            return $this->response(Security::problem($error),$server);
+            $response = Security::problem($error);
         }
+        if ($this->logDir !== null) {
+            // A log sink outage must never replace an already committed acknowledgement.
+            try { Operations\RequestLog::append($this->logDir, $this->configuration->apiPath, $server, $response, $start); }
+            catch (Throwable) { error_log('Network Quest request metadata sink unavailable.'); }
+        }
+        return $this->response($response,$server);
     }
 
     private function response(array $response,array $server): array
@@ -86,7 +104,7 @@ final class Application
         $database=Database::open($config->databasePath,$this->documentRoots);
         $expected=[];
         foreach ([1=>'001_game.sql',2=>'002_delete_reauth.sql'] as $version=>$file) $expected[]=['version'=>$version,'checksum'=>hash_file('sha256',__DIR__.'/../migrations/'.$file)];
-        if ($database->connection()->query('SELECT version,checksum FROM schema_migrations ORDER BY version')->fetchAll()!==$expected) throw new RequestRejected('unavailable');
+        if ($database->readMigrationChecksums()!==$expected) throw new RequestRejected('unavailable');
         $ledger=DeletionLedger::open($config->ledgerFile,$this->documentRoots,$config->rollbackRoots,
             new DeletionRetentionPolicy($config->backupSeconds,$config->restorationSeconds,$config->retentionEvidence));
         $access=new RecoveryAccountAccess($database,$ledger);

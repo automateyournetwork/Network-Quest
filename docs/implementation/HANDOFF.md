@@ -27,12 +27,14 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 ## Current position — 2026-11-28
 
 <!-- current public checkpoint -->
-Latest reviewed GitHub checkpoint: `0c085ad79c65d207466b51b011759e7161462cc9`. The independent technical review packet documents observations from the baseline guest game and the two diagnostic teaching issues sent to T162. Human technical and beginner observations are still pending.
+Latest reviewed GitHub checkpoint: `ff3f3eb50045c883803ab9196bcd456c17b96f2b`. The corrected room 3 touch interaction, optical and power diagnostics, and reproducible 442-file client are on GitHub. The new native picker cases and independent episode regressions passed. The full regression, concurrent save retest and human acceptance remain open.
 <!-- end current public checkpoint -->
 
-**181 loops started; 144/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+**183 loops started; 145/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
 
 The verified browser, clean-build and episode evidence reached GitHub at `08b2381fb77ee87cbde64c714dcc8e5a9df23312`. The independent Firefox episode suite reached all three endings and migrated the prior balcony save. The coordinator repeated all four native cases and independently verified the 32 browser receipts against the 442-file distribution. The wider regression run subsequently exposed a room 3 Chromium touch issue. Review also found that room 6 needed a clearer distinction between the measured optical path and the proposed remedy. [Browser matrix](../evidence/spec001/browser-matrix.md) · [Independent build](../evidence/spec001/independent-build.md) · [Integrated episode](../evidence/spec001/US8.md)
+
+Nine isolated recovery and rollback drills passed. The prior public application read the acknowledged save and committed the next revision against the same database. The coordinator independently ran 92 combined recovery, application, schema and access tests with 3,604 passing assertions. The local disaster recovery measurements are recorded by fixture size. Longest actual backup retention, independent ledger continuity and real-host recovery still require evidence. The 20-session service run exposed an intermittent migration-table read conflict. The bounded read-only retry passed three consecutive 260-request trials. [Recovery drills](../evidence/spec001/recovery-drill.md) · [Operational instructions](../operations.md) · [Load trials](../evidence/spec001/regression/service-trials.json)
 
 The room 3 picker and the two diagnostic refinements now pass on the same 442-file client. Two builds matched the revised SHA-256 `354fd20c49a2bceff3b0da7f2b864de9b68e9e6d46a203e87897c1d596a4e831`. The coordinator independently verified all three endings, the legacy save and both independent repair routes. The revised Chromium and Firefox picker tests also passed. Broader regression, human review and host acceptance continue. [Revised build and retests](../evidence/spec001/refinements.md)
 
@@ -235,8 +237,12 @@ Loop 177/T160: Ran and documented three guest journeys, identified two diagnosti
 
 Loop 179/T162: Repaired and retested the optical-path and equipment-card attribution, two distinct failure explanations, and the objective goal label. Rejoin on further integrated or human findings. [Verification](loops/179-T162.md).
 
+Loop 180/T165: Implemented and tested encrypted backups, expiry, isolated restore and rollback. Awaiting actual longest host retention, independently recoverable deletion ledger, scheduled backup freshness and measured host recovery. [Verification](loops/180-T165.md).
+
+Loop 181/T166: Nine isolated recovery drills passed, including a prior public service reading and writing the same single save through a code rollback. The coordinator reran the integrated PHP checks: 92 tests and 3,604 assertions passed. [Verification](loops/181-T166.md).
+
 <!-- current production assignments -->
-Active assignments: 176/T159, 180/T165, 181/T166.
+Active assignments: 176/T159, 182/T164, 183/T163.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

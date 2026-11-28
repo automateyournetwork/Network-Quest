@@ -201,6 +201,47 @@ final class DeletionLedger
         });
     }
 
+    /** A durable release drain shares the account barrier, so all admitted writes finish first. */
+    public function drained(): bool
+    {
+        $this->assertHeld();
+        $path = $this->file . '.write-drain';
+        clearstatcache(true, $path);
+        if (@lstat($path) === false) return false;
+        self::lockMetadata($path, $this->identity['uid']);
+        return true;
+    }
+
+    /** Aggregate capacity only; the operator can plan retention review before intake closes. */
+    public function remainingCapacity(): array
+    {
+        $this->assertHeld();
+        $pdo = $this->storage->connection();
+        return ['markers' => self::MAX_MARKERS - (int)$pdo->query('SELECT count(*) FROM deletion_markers')->fetchColumn(),
+            'spentReceipts' => self::MAX_SPENT_RECEIPTS - (int)$pdo->query('SELECT count(*) FROM spent_receipts')->fetchColumn()];
+    }
+
+    public function setDrained(bool $enabled): void
+    {
+        if ($this->drained() === $enabled) return;
+        $path = $this->file . '.write-drain';
+        if ($enabled) {
+            $mask = umask(0077);
+            try {
+                $handle = fopen($path, 'xb');
+                try {
+                    if (!fsync($handle)) throw new RuntimeException('Release drain synchronization failed.');
+                } finally { fclose($handle); }
+            } finally { umask($mask); }
+        } elseif (!unlink($path)) {
+            throw new RuntimeException('Release drain removal failed.');
+        }
+        $dir = fopen(dirname($path), 'rb');
+        try {
+            if (!fsync($dir)) throw new RuntimeException('Release drain directory synchronization failed.');
+        } finally { fclose($dir); }
+    }
+
     public function assertHeld(): void
     {
         if (!$this->held) { throw new LogicException('Acquire the external recovery barrier first.'); }

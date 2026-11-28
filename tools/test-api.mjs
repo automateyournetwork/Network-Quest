@@ -10,6 +10,8 @@ if (process.versions.node !== '26.13.1') {
 const php = process.env.NQ_PHP_BIN ?? 'php';
 const env = { PATH: process.env.PATH ?? '', LANG: 'C', LC_ALL: 'C' };
 if (process.env.NQ_OPENSSL_BIN) env.NQ_OPENSSL_BIN = process.env.NQ_OPENSSL_BIN;
+if (process.env.NQ_TEST_COMPOSER_PHAR) env.NQ_TEST_COMPOSER_PHAR = process.env.NQ_TEST_COMPOSER_PHAR;
+if (process.env.COMPOSER_CACHE_DIR) env.COMPOSER_CACHE_DIR = process.env.COMPOSER_CACHE_DIR;
 if (process.env.NQ_TEST_NODE_BIN) env.NQ_TEST_NODE_BIN = process.env.NQ_TEST_NODE_BIN;
 const version = spawnSync(php, ['-r', 'echo PHP_VERSION;'], { env, encoding: 'utf8' });
 if (version.status !== 0 || version.stdout !== '8.4.28') {

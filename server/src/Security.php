@@ -277,12 +277,12 @@ final class Security
             'body' => json_encode(['code' => $problem->reason, 'message' => $problem->getMessage(), 'requestId' => $requestId], JSON_THROW_ON_ERROR)];
     }
 
-    /** Metadata constructor only. T165 owns private log sink/rotation/seven-day retention. */
+    /** Allowlisted metadata for the private, time-bucketed operational log. */
     public static function logRecord(string $route, int $status, int $durationMs, string $requestId, string $reason): array
     {
         if (!in_array($route, self::ROUTES, true) || $status < 100 || $status > 599 || $durationMs < 0 || $durationMs > 600000
             || !preg_match('/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/D', $requestId)
-            || ($reason !== 'ok' && !RequestRejected::knownReason($reason))) {
+            || (!in_array($reason, ['ok', 'request-rejected'], true) && !RequestRejected::knownReason($reason))) {
             throw new InvalidArgumentException('Only bounded allowlisted operational metadata may be logged.');
         }
         return compact('route', 'status', 'durationMs', 'requestId', 'reason');

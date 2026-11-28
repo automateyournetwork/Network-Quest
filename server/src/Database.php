@@ -125,6 +125,21 @@ final class Database
         return $this->pdo;
     }
 
+    /** Read the installed versions before admitting a request. A competing commit can briefly block this SELECT. */
+    public function readMigrationChecksums(): array
+    {
+        $read = fn (): array => $this->connection()->query('SELECT version,checksum FROM schema_migrations ORDER BY version')->fetchAll();
+        try {
+            return $read();
+        } catch (\PDOException $error) {
+            // Mask extended SQLite codes to their primary SQLITE_BUSY / SQLITE_LOCKED code.
+            $code = ((int) ($error->errorInfo[1] ?? 0)) & 0xff;
+            if (!in_array($code, [5, 6], true)) { throw $error; }
+            usleep(5000);
+            return $read();
+        }
+    }
+
     /**
      * Short synchronous callback. No external calls, BEGIN/COMMIT/ROLLBACK or nested calls.
      * Reauthorization and receipt recheck belong inside the caller's callback (T043 onward).

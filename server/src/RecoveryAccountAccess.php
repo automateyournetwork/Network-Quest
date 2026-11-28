@@ -29,6 +29,7 @@ final class RecoveryAccountAccess implements AccountAccess
     {
         if ($this->database->connection()->inTransaction()) { throw new LogicException('Acquire account recovery before the game transaction.'); }
         return $this->ledger->exclusive(function () use ($operation): mixed {
+            if ($this->ledger->drained()) throw new RuntimeException('Account operations are drained for maintenance.');
             $markers = $this->ledger->markers();
             if ($markers !== []) {
                 $now = ($this->clock)();
