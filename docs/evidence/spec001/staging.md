@@ -2,7 +2,15 @@
 
 **T167 remains open for same-host acceptance.** On November 28, 2026 the worker rehearsed the versioned handoff on an isolated Mac using a disposable website, two synthetic accounts and a separate analytics fixture. The game-only public path, private PHP handoff, cache policy, callback cancellation, save ownership and public-pointer rollback were exercised against real processes. Hosted routing, genuine provider sign-in and the actual arcade and analytics baselines still require staging evidence. [Deployment procedure](../../deployment.md) · [Package build and source](../../implementation/loops/182-T164.md)
 
-## Candidate and fixture
+## Current candidate with visible verb targets
+
+The November 28 repeat ran from 14:21:08 to 14:21:44 UTC against `network-quest-spec001-1.0.0-15abb7bed50b-30e751619af8.tar.gz`, 67,775,959 bytes, SHA-256 `3f51ddf808da4b02311ce311c1a6e4f59c82ff5df3ad025415f7dbe033c8616b`. The embedded manifest matched game revision `15abb7bed50b80807215cd2f2e046e49fe9a9dd5` and the independently reproduced client digest `a6b70a1d5e7496950ef728f5bf4ead62083ecc7a2dbc737e3234e121cd0fca38`. All 39,163 checksum entries verified. [Client build ledger](refinements/verb-targets-production.json)
+
+In a disposable muted Chromium 159.0.8154.6 session, the player followed the arcade detail link and inspected the power indication in the Arrival Lift. After closing Scene, pressing W selected Walk and exposed the on-scene **Titan's Workshop** label. Its full rectangle lay inside the viewport, and browser hit testing identified the destination pin under the label center. A pointer click at (901.94, 492.85) CSS pixels changed the heading to **The Titan's Workshop** and the rendered room to `spec001:R02`. Scene stayed closed through arrival. The browser recorded zero uncaught errors, CSP violations or attempted external page-request origins.
+
+All **92 direct HTTPS checks** passed again. Apache served 71 requests and the configured local service handled 21. The new bundles `assets/index-CyD00Rne.js` and `assets/index-B50et-8E.css` matched their package bytes and received the immutable cache policy. The shell and stable assets revalidated. With PHP offline, session, save and both callbacks each returned 503 with exactly one no-store header. Both synthetic callback cancellations, the two accounts' separate revision-1 reads after rollback and reactivation, the private-path denials and all five neighboring fixture routes passed. The separate analytics database matched its earlier hash. The temporary website, writable state and listeners were removed. Actual same-host and provider checks remain open.
+
+## Earlier candidate and fixture
 
 | Item | Observed |
 | --- | --- |
@@ -15,9 +23,9 @@
 
 The runner verified the archive SHA-256 before extraction and checked all 39,163 entries in the enclosed checksum ledger. The local web fixture used the exact packaged `.htaccess` and game bytes. Python verified the TLS certificate and loopback IP on each HTTP request. Chromium pinned the disposable certificate's public key in its transient process. The tests used no system trust change or production credentials. [Shipped route configuration](../../../release/game.htaccess) · [Local TLS transport](../../../server/tests/Support/https-proxy.mjs)
 
-## HTTP, browser and storage observations
+## Earlier HTTP, browser and storage observations
 
-The final run on November 28, 2026 between 14:02:33 and 14:02:46 UTC sent 92 direct HTTPS requests, 71 through the synthetic website and 21 through the configured local transport. Browser navigation was additional. The following paths under the game are relative to `/arcade/play/network-quest/`.
+The earlier run on November 28, 2026 between 14:02:33 and 14:02:46 UTC sent 92 direct HTTPS requests, 71 through the synthetic website and 21 through the configured local transport. Browser navigation was additional. The following paths under the game are relative to `/arcade/play/network-quest/`.
 
 | Request or event | Status and response | Observation |
 | --- | --- | --- |

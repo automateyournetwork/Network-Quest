@@ -10,7 +10,7 @@
 
 ## For the observer
 
-Prepare the [public candidate](https://github.com/automateyournetwork/Network-Quest/tree/ff3f3eb50045c883803ab9196bcd456c17b96f2b) at `ff3f3eb50045c883803ab9196bcd456c17b96f2b`. Build it on the participant’s machine and run `npm run preview:client`. Open the printed loopback address in a fresh tab at `/arcade/play/network-quest/`. Give the player control at the title screen and share only the player instructions above. [Build and preview instructions](../../../README.md#build-and-play-from-a-public-checkout) · [Verified build and guest entry](independent-build.md)
+Prepare the [public candidate](https://github.com/automateyournetwork/Network-Quest/tree/15abb7bed50b80807215cd2f2e046e49fe9a9dd5) at `15abb7bed50b80807215cd2f2e046e49fe9a9dd5`. Build it on the participant’s machine and run `npm run preview:client`. Open the printed loopback address in a fresh tab at `/arcade/play/network-quest/`. Give the player control at the title screen and share only the player instructions above. [Build and preview instructions](../../../README.md#build-and-play-from-a-public-checkout) · [Verified build and guest entry](independent-build.md)
 
 Confirm this is their first run and ask what experience they have troubleshooting networks. Ask whether they’re comfortable with anonymous written notes. Keep the public summary free of names, contact details, account data and recordings.
 

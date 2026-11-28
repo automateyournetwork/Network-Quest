@@ -27,14 +27,18 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 ## Current position — 2026-11-28
 
 <!-- current public checkpoint -->
-Latest reviewed GitHub checkpoint: `84e2da253b28be30c37e01bf15fc54e613f09027`. The production Settings screen now reads the versioned public account policy. Native Chromium displayed the correct unverified or reviewed disclosure in two independent fixture builds. Actual hosting retention awaits operator evidence.
+Latest reviewed GitHub checkpoint: `15abb7bed50b80807215cd2f2e046e49fe9a9dd5`. The selected verb now reveals clickable objects and named exits in the room. Native browsers activated the printed labels with the Scene menu closed, and the mobile journey checked every room.
 <!-- end current public checkpoint -->
 
-**187 loops started; 147/170 tasks accepted; no deployment.** The original refinement worker is responding to the owner’s Arrival Lift finding. Players could travel using the Scene menu, but the picture did not show where to click for the selected verb. The separate G2 evidence worker is reconciling the world graph, single slot and external-provider gaps. [Owner feedback](../evidence/spec001/owner-review.md) · [Two-device provider session](../evidence/spec001/real-providers.md)
+**187 loops started; 147/170 tasks accepted; no deployment.** No fresh task assignment is due. The current game is `15abb7bed50b80807215cd2f2e046e49fe9a9dd5`. Selecting a verb reveals relevant click or tap targets in the scene. The owner reported that the indicators are “MUCH better”. The original T162 loop disposed of this finding and remains available for the remaining reviews. [First-run feedback](../evidence/spec001/owner-review.md) · [Reproducible 442-file build](../evidence/spec001/refinements/verb-targets-production.json)
 
-The packaged game passed 92 local HTTPS checks after an outage-cache correction. Same-host staging and both real provider runs remain open. The app now reads the reviewed public backup wording from a versioned source. Its current value remains unverified pending actual GoDaddy and manual-copy evidence. [Staging evidence](../evidence/spec001/staging.md) · [Operations](../operations.md)
+All 4,411 executable domain cases passed at two workers. The independent G2 run passed 548 client tests, 207 PHP tests and 41 native Firefox cases, including all three endings. Each of the 24 headless desktop cells and four isolated Safari 26 cells passed the full episode on the revised candidate. Four Safari 27.2 cells remain. A separate Tahoe test guest is being prepared for the matching Apple browser. [Current browser evidence](../evidence/spec001/browser-matrix.md) · [World and save assessment](loops/187-T058.md)
 
- All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+The final local rehearsal archive is 67,775,959 bytes, SHA-256 `3f51ddf808da4b02311ce311c1a6e4f59c82ff5df3ad025415f7dbe033c8616b`. Its 39,163 payload checksums, 42 first-party service and contract files, 20 locked dependencies and 2,067 sources verified. The game passed 92 local HTTPS checks and direct travel in muted Chromium. T169 and T170 have no assigned loop. Resume their work after the preceding evidence permits actual publication. [Release and rollback handoff](../evidence/spec001/release-readiness.md) · [Host staging](../evidence/spec001/staging.md)
+
+Outstanding evidence includes the host's limits, backup coverage and restoration policy, minimized provider settings, real two-device sign-in and saves, 109 audio recordings and mixes, independent technical review, a timed beginner playthrough and whole-episode owner satisfaction. Rejoin the original loops when the relevant evidence arrives. The two production registrations and the earlier listening, representative-screen and new indicator findings are already recorded. [Provider session sheet](../evidence/spec001/real-providers.md) · [Listening packets](../evidence/spec001/audio-production/listening.md) · [Human review](../evidence/spec001/owner-review.md)
+
+All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
 
 The verified browser, clean-build and episode evidence reached GitHub at `08b2381fb77ee87cbde64c714dcc8e5a9df23312`. The independent Firefox episode suite reached all three endings and migrated the prior balcony save. The coordinator repeated all four native cases and independently verified the 32 browser receipts against the 442-file distribution. The wider regression run subsequently exposed a room 3 Chromium touch issue. Review also found that room 6 needed a clearer distinction between the measured optical path and the proposed remedy. [Browser matrix](../evidence/spec001/browser-matrix.md) · [Independent build](../evidence/spec001/independent-build.md) · [Integrated episode](../evidence/spec001/US8.md)
 
@@ -261,8 +265,16 @@ Loop 185/T168: The reviewed rehearsal and rollback decision are recorded. Public
 
 Loop 186/T057: Prepared both real two-device provider runs. The 28 observations await controlled identities, devices, test registrations and a configured HTTPS service. [Verification](loops/186-T057.md).
 
+Loop 187/T058: All twelve rooms, fourteen connections, three endings and isolated one-slot cases passed. G2 still needs G0/G1 and 28 real-provider observations. [Verification](loops/187-T058.md).
+
+Loop 179/T162: The owner found the new indicators much better. Direct label activation, all twelve rooms and mobile geometry passed. Rejoin on technical, beginner or further owner findings. [Verification](loops/179-T162.md).
+
+Loop 184/T167: The revised package passed 92 local HTTPS checks and direct named travel in muted Chromium. Same-host staging and actual provider saves await external evidence. [Verification](loops/184-T167.md).
+
+Loop 185/T168: The revised artifact, all 39,163 checksums and the rollback handoff are verified. Pre-publication acceptance remains open. [Verification](loops/185-T168.md).
+
 <!-- current production assignments -->
-Active assignments: 179/T162, 187/T058.
+All 187 loop assignments have returned. The coordinator has completed the current independent package and gameplay joins.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

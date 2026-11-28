@@ -1,6 +1,25 @@
-# US4 — independent prepared browser persistence evidence
+# US4 · Account saves across the twelve-room world
 
 Copyright 2026 John Capobianco. SPDX-License-Identifier: CC-BY-4.0.
+
+## G2 decision on November 28, 2026
+
+**Pending real Google and GitHub evidence.** The authored game reaches all twelve rooms and supports E01 permanent restoration, E02 temporary restoration, and E03 deliberate safe shutdown. Each controlled local account owns one revisioned save. T057 still has zero completed provider observations out of 28. G0 remains blocked and G1 awaits G0. [Gate ledger](gates.md#g2--identity-one-save-and-world-structure) · [Two-device session](real-providers.md#execution-record)
+
+| Verification layer | Evidence and what it establishes |
+| --- | --- |
+| Authored world | The content validator loaded 12 room identities and 142 authored records. All 40 graph tests passed against independently specified destinations and unlocks. They exercise fourteen reversible pairs, safe anchors, optional return travel, and the unavailable Iron City door. On each of four approaches to the Rift, the tests supply all 32 combinations of five objective receipts. A branch proof plus O10 admits inspection. The selected branch and both O09/O10 are needed for intervention. Walking onto the O11-unlocked balcony awards no ending. [Graph cases](../../../tests/content/world-graph.test.ts) · [Walk contract](../../../SPEC.md#walk-graph-and-unlocks) |
+| Earned routes and endings | Three earlier no-recruit journeys each visited eight rooms, earned eight objectives and wrote one manual save at revision 1. Their combined paths visited all twelve rooms. The records show permanent copper, permanent fiber and temporary radio. The later twelve-room play record separately shows E03 followed by E01 on copper, E01 on fiber and E02 on radio. The T089 outcome tests exercise the complementary durations and deliberate isolation on each branch through ordinary New Adventure controls. [No-recruit route receipts](routes-t105/root-review.md) · [Twelve-room play record](final-rooms/twelve-room-join.json) · [Outcome cases](US6.md#executed-ac07-and-save0613-coverage) |
+| Account and preparation | The independently authored T056 scenarios use disposable identities with real browser and PHP/SQLite persistence. They exercise guest adoption, cancel/load/replace, opt-in autosave, competing tabs, response loss, expiry, logout and account-specific deletion receipts. A retry of an already committed write can return an older acknowledgement while the only slot retains its newer revision. An unknown, pending or expired deletion receipt keeps deletion unconfirmed. [Prepared cases below](#save-traceability) · [Service concurrency](../../../server/tests/SaveConcurrencyTest.php) |
+| Full encounter and migration | On fatal Retry or E03 Continue, the player regains preparation and inventory, retains clues, notes and hint history, and must repeat the measurements. An explicit Restore Save replaces the adventure with the saved snapshot. The later migration cases seed hypothetical 0.9.1 rows in isolated storage and use ordinary Continue/Restore. A subsequent eligible write advances revision 7 to 8. With two tabs, replay of the revision-8 receipt leaves the winner at revision 9. [Encounter journeys](US6.md) · [Historical fixture and slot evidence](migrations.md) |
+
+The T159 service-correction inventory contains 33 individually recorded Firefox passes, including all three finished-room endings and the returning migrated player. The loop 187 rerun uses the published `b1d3c4bc` sources. Its commands, counts and historical digest checks are in the loop record. [Post-correction case inventory](regression/schema-browser.json) · [Loop 187](../../implementation/loops/187-T058.md)
+
+To finish T057, the operator needs two controlled identities, two physical devices, separate test registrations and a configured reachable HTTPS test service. The two-device sheet records refusal and blocked-popup recovery, close/reopen, same-account restore on device B, account switching, concurrency, expiry and deletion reauthorization for each provider. The owner has already confirmed the production registrations and exact callbacks. Actual consent, account isolation across devices and callback results remain unverified. Hosted backup retention and release recovery have separate evidence at T003/T165–T167. [Provider session and remaining inputs](real-providers.md) · [Current SAVE01–13 results](acceptance-matrix.md#one-slot-regression)
+
+## Original T056 prepared-state run on November 26
+
+The following account describes the evidence and outstanding work at the time of that run. T056 subsequently received coordinator acceptance. The November 28 decision above incorporates the later full-encounter and migration results.
 
 **Final local result:22 independent T056 cases and15 prior cases PASS (37/37,2.7m),
 including the normal typecheck/save-policy/build wrapper.**
