@@ -24,6 +24,7 @@ import { createNavigationPlanner, createSceneObjectProjection } from '../ui/scen
 import { createTitleController, createTitlePanel } from '../ui/title';
 import { createSaveDialogsController, createSaveDialogsPanel } from '../ui/save-dialogs';
 import { createAccountSettingsController, createAccountSettingsPanel, createAutosaveSettingsPanel } from '../ui/account-settings';
+import { accountBackupPolicy } from './account-backup-policy';
 import { AccountService, browserAccountWindowPort } from '../services/account';
 import { GameApi } from '../services/game-api';
 import { SaveCoordinator } from '../services/save-coordinator';
@@ -378,6 +379,7 @@ export function createIntroductionApplication(host: HTMLElement) {
   });
   const deletionAccount = api ? new AccountService(api, browserAccountWindowPort(window)) : null;
   accountSettings = api && deletionAccount ? createAccountSettingsController({ api, account: deletionAccount, getState: store.getState, changed: () => render(),
+    backupPolicy: accountBackupPolicy,
     lifecycle: {
       capture: () => accountScope, isCurrent: view => !disposed && accountScope === view,
       stopCompetingWork: view => {

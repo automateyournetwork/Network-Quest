@@ -23,6 +23,8 @@ Supply a private flat JSON configuration to both commands. It contains storage s
 
 Keep the game, ledger, game archive, ledger archive, restore and log directories disjoint. Reserve filenames starting with `.nq-` there for these tools. Validate actual maximum retention against the hosting account and every other copy owner. The 30-day maximum in the synthetic tests is fixture input. Unknown coverage leaves host retention and the public deletion explanation open. Preserve the existing policy and markers during investigation.
 
+Keep the [public account policy](../src/app/account-backup-policy.ts) set to `unverified` until the operator confirms coverage for every eligible copy and the deletion ledger. After review, set its status to `verified` and supply two complete player-facing statements. `backupExpiry` explains when the last recoverable copy can expire. `deletionMarkerRetention` explains how long deletion protection persists, including restoration handling and any longer-lived markers. Keep private evidence in the operations record. Rebuild the release and open **Settings → Account data and backup policy** over HTTPS to check both statements on the packaged candidate.
+
 For initial provisioning, create each new key exclusively under umask 0077. PHP's `sodium_crypto_secretstream_xchacha20poly1305_keygen()` generates the raw bytes. Write them directly to the file. Keep recovery access to every still-eligible archive's original key. A key change requires a tested key recovery or re-encryption plan for those archives.
 
 ## Schedule and monitor the jobs
