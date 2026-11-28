@@ -27,7 +27,7 @@ import { AccountService, browserAccountWindowPort } from '../services/account';
 import { GameApi } from '../services/game-api';
 import { SaveCoordinator } from '../services/save-coordinator';
 import { SaveValidator } from '../services/save-validator';
-import { SaveReader } from '../state/save-migrations';
+import { createSpec001SaveReader } from '../state/migrations/spec001';
 import { AutosaveController } from '../state/autosave';
 import { publicPaths } from '../config';
 import { createVerbController } from '../ui/verbs';
@@ -310,7 +310,7 @@ export function createIntroductionApplication(host: HTMLElement) {
   // Static HTTP remains playable. The API itself refuses non-HTTPS origins.
   const api = window.location.protocol === 'https:' ? new GameApi({ origin: window.location.origin, apiBase: publicPaths.apiBase }) : null;
   const policy = introductionSavePolicy(registry, world), validator = new SaveValidator([policy]);
-  const reader = new SaveReader({ currentContentVersion: policy.contentVersion, readPolicies: [policy], migrations: [] });
+  const reader = createSpec001SaveReader(policy);
   const account = api ? new AccountService(api, browserAccountWindowPort(window)) : null;
   const coordinator = api ? new SaveCoordinator({ api, store, validator, reader }) : null;
   const autosave = api && coordinator ? new AutosaveController({ api, coordinator, store }) : null;

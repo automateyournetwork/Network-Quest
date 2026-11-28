@@ -10,8 +10,9 @@ export interface SaveMigration {
   toVersion: string;
   /** Qualified identity references only; prose/UUIDs/opaque values stay untouched. */
   renamedIds: Record<string, string>;
-  relocatedPositions: Record<string, { roomId: string; safePositionId: string }>;
-  changesConfiguration: boolean;
+  relocatedPositions: Record<string, { roomId: string; safePositionId: string; explanation?: string }>;
+  /** true affects every source position; on-relocation affects only a mapped position. */
+  changesConfiguration: boolean | 'on-relocation';
   explanation: string;
 }
 export interface SaveReaderOptions {
@@ -78,9 +79,11 @@ export class SaveReader {
     for (const step of config.migrations) {
       if (this.migrations.has(step.fromVersion) || step.fromVersion === step.toVersion || !this.validators.has(step.fromVersion)
         || !this.validators.has(step.toVersion) || !step.explanation.trim()
-        || typeof step.changesConfiguration !== 'boolean' || (Object.keys(step.relocatedPositions).length > 0 && !step.changesConfiguration)
+        || (typeof step.changesConfiguration !== 'boolean' && step.changesConfiguration !== 'on-relocation')
+        || (Object.keys(step.relocatedPositions).length > 0 && !step.changesConfiguration)
         || Object.entries(step.renamedIds).some(([from, to]) => !qualified.test(from) || !qualified.test(to))
-        || Object.entries(step.relocatedPositions).some(([from, to]) => !qualified.test(from) || !qualified.test(to.roomId) || !qualified.test(to.safePositionId))) {
+        || Object.entries(step.relocatedPositions).some(([from, to]) => !qualified.test(from) || !qualified.test(to.roomId)
+          || !qualified.test(to.safePositionId) || (to.explanation !== undefined && !to.explanation.trim()))) {
         throw new TypeError('Invalid or ambiguous save migration');
       }
       this.migrations.set(step.fromVersion, freeze(step));
@@ -130,36 +133,39 @@ export class SaveReader {
       if (!step) return unsupported('migration-unavailable');
       steps.push(step); cursor = step.toVersion;
     }
+    const explanations: string[] = [];
     for (const step of steps) {
       if (signal?.aborted) return interrupted();
       const migrated = migrate(snapshot, step);
       if (!migrated.ok) return Object.freeze({ ...blocked, status: 'migration-failed', code: migrated.code, path: '/world' });
       const target = this.validators.get(step.toVersion)!.validateNewWrite(new TextEncoder().encode(JSON.stringify(migrated.snapshot)));
       if (!target.ok) return Object.freeze({ ...blocked, status: 'migration-failed', code: target.code, path: target.path });
+      explanations.push(migrated.explanation);
       snapshot = target.candidate;
     }
     if (signal?.aborted) return interrupted();
-    return Object.freeze({ status: 'ready', originalBytes, snapshot, migrated: steps.length > 0, explanations: Object.freeze(steps.map(step => step.explanation)) });
+    return Object.freeze({ status: 'ready', originalBytes, snapshot, migrated: steps.length > 0, explanations: Object.freeze(explanations) });
   }
 }
 
-type MigrationResult = { ok: true; snapshot: SaveSnapshotV1 } | { ok: false; code: 'generation-exhausted' | 'mapping-collision' };
+type MigrationResult = { ok: true; snapshot: SaveSnapshotV1; explanation: string } | { ok: false; code: 'generation-exhausted' | 'mapping-collision' };
 function migrate(source: SaveSnapshotV1, step: Readonly<SaveMigration>): MigrationResult {
   const id = <T extends string>(value: T): T => (own(step.renamedIds, value) ?? value) as T;
   const ids = <T extends string>(values: readonly T[]): T[] => values.map(id);
   const w = source.world, n = source.notebook;
   const relocation = own(step.relocatedPositions, w.position.safePositionId);
+  const configurationChanged = step.changesConfiguration === true || relocation !== undefined;
   const flags = Object.entries(w.flags).map(([key, value]) => [id(key), value] as const);
   if (new Set(flags.map(([key]) => key)).size !== flags.length) return { ok: false, code: 'mapping-collision' };
   let revision = w.configurationRevision;
-  if (step.changesConfiguration) {
+  if (configurationChanged) {
     const highest = Math.max(w.configurationRevision, ...n.measurements.map(m => m.configurationRevision));
     if (highest >= maxRevision) return { ok: false, code: 'generation-exhausted' };
     revision = (highest + 1) as ConfigurationRevision;
   }
   // Explicit schema projection: no recursive text replacement, completion grants,
   // reset, inferred future-door objective, or discarded historical observations.
-  return { ok: true, snapshot: {
+  return { ok: true, explanation: relocation?.explanation ?? step.explanation, snapshot: {
     saveSchemaVersion: 1, contentVersion: step.toVersion as ContentVersion, episodeId: source.episodeId,
     adventureId: source.adventureId, safeState: source.safeState,
     world: { roomId: relocation ? relocation.roomId as RoomId : id(w.roomId),
@@ -174,7 +180,7 @@ function migrate(source: SaveSnapshotV1, step: Readonly<SaveMigration>): Migrati
     notebook: { factIds: ids(n.factIds), mapRoomIds: ids(n.mapRoomIds), personalNotes: n.personalNotes,
       hypotheses: n.hypotheses.map(row => ({ id: row.id, text: row.text, subjectIds: ids(row.subjectIds), status: row.status })),
       measurements: n.measurements.map(row => ({ id: row.id, ruleId: id(row.ruleId), subjectIds: ids(row.subjectIds), roomId: id(row.roomId),
-        configurationRevision: row.configurationRevision, attemptId: row.attemptId, stale: row.stale || step.changesConfiguration,
+        configurationRevision: row.configurationRevision, attemptId: row.attemptId, stale: row.stale || configurationChanged,
         readings: row.readings.map(reading => ({ ...reading })), conclusionCode: row.conclusionCode })) },
     assistance: source.assistance.map(row => ({ objectiveId: id(row.objectiveId), hintId: id(row.hintId), level: row.level, attemptId: row.attemptId })),
     outcomeHistory: source.outcomeHistory.map(row => ({ id: row.id, outcome: row.outcome, attemptId: row.attemptId, route: row.route, caveatIds: ids(row.caveatIds) })),

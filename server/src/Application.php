@@ -99,8 +99,14 @@ final class Application
         // Packaged authored policy only; no operator/request/test fixture selects content.
         $policy=json_decode(file_get_contents(__DIR__.'/../content/save-policy.generated.json'),false,64,JSON_THROW_ON_ERROR);
         if (($policy->formatVersion ?? null)!==1 || ($policy->scope ?? null)!=='authored-spec001-twelve-room-gameplay' || !is_array($policy->policies ?? null)) throw new RequestRejected('unavailable');
+        // The reader can migrate the hypothetical 0.9.1 stored slot. New
+        // request bodies must still pass the current authored policy above.
+        $replaceable = [
+            ['saveSchemaVersion'=>1,'contentVersion'=>'0.9.1'],
+            ['saveSchemaVersion'=>1,'contentVersion'=>'1.0.0'],
+        ];
         $repository=new SaveRepository($database,$sessions,$security,new SaveValidator($policy->policies),
-            [['saveSchemaVersion'=>1,'contentVersion'=>'1.0.0']],$access,route:$config->apiPath.'/save');
+            $replaceable,$access,route:$config->apiPath.'/save');
         return $this->router=new Router($this->routing,$auth,new Save($database,$sessions,$security,$repository,$access),
             new Preferences($database,$sessions,$security,$access),
             new Account($database,$sessions,$security,$access,new AccountDeletion($database,$sessions,$security,$access,$ledger)),

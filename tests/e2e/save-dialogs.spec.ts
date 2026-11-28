@@ -29,7 +29,7 @@ test.describe('T050 actual application and isolated configured native HTTPS save
   async function start(tab = page) { await clickButton(tab, 'New Adventure'); await pressButton(tab, 'Start new adventure', 'Enter'); await expect(tab.getByRole('heading', { name: 'The Arrival Lift', exact: true })).toBeVisible(); }
   async function notes(value: string, tab = page) { await clickButton(tab, 'Notebook'); await dialog('Notebook', tab).getByRole('textbox', { name: 'Personal notes', exact: true }).fill(value); await clickButton(tab, 'Close notebook'); }
   async function expectNotes(value: string, tab = page) { await clickButton(tab, 'Notebook'); await expect(dialog('Notebook', tab).getByRole('textbox', { name: 'Personal notes', exact: true })).toHaveValue(value); await clickButton(tab, 'Close notebook'); }
-  async function firstSave() { await clickButton(page, 'Save'); await pressButton(page, 'Save this adventure', 'Enter'); await expect(page.getByText(/^Saved at /)).toBeVisible(); }
+  async function firstSave() { await clickButton(page, 'Save'); await pressButton(page, 'Save this adventure', 'Enter'); await expect(page.getByText(/^Saved at \d{4}-\d{2}-\d{2}T/)).toBeVisible(); }
 
   test('manual empty-slot consent, Cancel, exact restore and reload Continue through actual PHP', async () => {
     await start(); await notes('Literal <b>server notes</b> W L T U');
@@ -58,7 +58,7 @@ test.describe('T050 actual application and isolated configured native HTTPS save
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     await page.screenshot({ path: '.local/T050-replacement-390px-200text.png', fullPage: true });
     const accessibility = await new AxeBuilder({ page }).analyze(); expect(accessibility.violations).toEqual([]);
-    await button('Confirm replacement').tap(); await expect(page.getByText(/^Saved at /)).toBeVisible();
+    await button('Confirm replacement').tap(); await expect(page.getByText(/^Saved at \d{4}-\d{2}-\d{2}T/)).toBeVisible();
     const current = await local.inspect(); expect(current?.revision).toBe(2); expect(current?.snapshot.adventureId).not.toBe(original?.snapshot.adventureId);
     expect(current?.snapshot.notebook.personalNotes).toBe('new adventure'); expect(writes[0]!.key).not.toBe(writes[1]!.key);
   });
@@ -68,12 +68,12 @@ test.describe('T050 actual application and isolated configured native HTTPS save
     const other = await context.newPage(); await other.goto(local.url); await expect(button('Continue', other)).toHaveAttribute('aria-disabled', 'false'); await clickButton(other, 'Continue');
     await clickButton(page, 'New Adventure'); await clickButton(page, 'Start new adventure'); await notes('replacement candidate');
     await clickButton(page, 'Save'); await clickButton(page, 'Replace With This Adventure');
-    await notes('other tab revision two', other); await clickButton(other, 'Save'); await expect(other.getByText(/^Saved at /)).toBeVisible();
+    await notes('other tab revision two', other); await clickButton(other, 'Save'); await expect(other.getByText(/^Saved at \d{4}-\d{2}-\d{2}T/)).toBeVisible();
     expect((await local.inspect())?.revision).toBe(2);
     await clickButton(page, 'Confirm replacement'); await expect(dialog('The server save changed')).toBeVisible(); expect((await local.inspect())?.revision).toBe(2);
     await clickButton(page, 'Review Server Save'); await expect(dialog('Review the account save')).toContainText('Revision: 2.');
     await clickButton(page, 'Replace With This Adventure'); await clickButton(page, 'Confirm replacement');
-    await expect(page.getByText(/^Saved at /)).toBeVisible(); expect((await local.inspect())?.revision).toBe(3);
+    await expect(page.getByText(/^Saved at \d{4}-\d{2}-\d{2}T/)).toBeVisible(); expect((await local.inspect())?.revision).toBe(3);
     expect(writes).toHaveLength(4); expect(writes[2]!.key).not.toBe(writes[3]!.key);
     await page.screenshot({ path: '.local/T050-native-conflict-recovered.png', fullPage: true });
   });

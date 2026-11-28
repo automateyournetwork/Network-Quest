@@ -366,7 +366,7 @@ describe('GameApi contract transport (synthetic)', () => {
     const snapshotJson = '{ \n "futureInteger":900719925474099312345, "nested":[{"quoted":"} , \\\"quoted\\\"", "empty":{}}] }';
     const raw = `{ "summary": ${JSON.stringify(newer)}, "snap\\u0073hot": \n${snapshotJson} \n }`;
     const { api } = rig([json(account()), new Response(raw, { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ETag: newer.etag } })]);
-    await api.getSession(); expect(await api.getSave()).toMatchObject({ ok: true, snapshotJson, rawJson: raw });
+    await api.getSession(); expect(await api.getSave()).toMatchObject({ ok: true, snapshotJson: ` \n${snapshotJson} \n `, rawJson: raw });
   });
 
   it.each([

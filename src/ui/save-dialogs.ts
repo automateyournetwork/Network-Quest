@@ -4,8 +4,8 @@ import type { ApiFailure, GameApi, Session } from '../services/game-api';
 import type { SaveCoordinator, SaveCoordinatorFailure, SaveCoordinatorStore, SaveCoordinatorView, SaveSlotReview, SaveWriteResult } from '../services/save-coordinator';
 import type { AuthProvider, ClientGeneration, CsrfToken, RuntimeState, SaveSummary, ServerTimestamp } from '../state/types';
 
-export type SaveDialogAction = 'cancel' | 'confirm-adopt' | 'load' | 'confirm-load' | 'replace' | 'confirm-replace' | 'review' | 'retry' | 'open-tab' | 'check-session' | 'google' | 'github' | 'reauth';
-type Panel = 'none' | 'signin' | 'adopt' | 'choice' | 'confirm-load' | 'confirm-replace' | 'blocked' | 'conflict' | 'recovery';
+export type SaveDialogAction = 'cancel' | 'confirm-adopt' | 'load' | 'confirm-load' | 'resume-migration' | 'replace' | 'confirm-replace' | 'review' | 'retry' | 'open-tab' | 'check-session' | 'google' | 'github' | 'reauth';
+type Panel = 'none' | 'signin' | 'adopt' | 'choice' | 'confirm-load' | 'migrated' | 'confirm-replace' | 'blocked' | 'conflict' | 'recovery';
 export interface SaveDialogsView {
   readonly panel: Panel; readonly status: string; readonly message: string; readonly summary: SaveSummary | null;
   readonly identity: string; readonly account: AccountState | null; readonly busy: boolean; readonly available: boolean;
@@ -115,15 +115,16 @@ export function createSaveDialogsController(options: {
     finishWrite(await coordinator.save('manual'), operation, view);
   };
   const load = () => {
-    if (!validReview() || !reviewed || reviewed.review.read?.status !== 'ready' || !reviewed.review.summary) { staleReview(); return; }
+    if (!coordinator || !reviewed || reviewed.review.read?.status !== 'ready' || !reviewed.review.summary) { staleReview(); return; }
     const candidate = reviewed;
-    if (!coordinator!.isCurrentView(candidate.view) || !coordinator!.isCurrentReview(candidate.review)) { staleReview(); return; }
-    if (!options.restore(candidate.review, candidate.view)) { staleReview(); return; }
-    panel = 'none'; message = `Loaded the confirmed server adventure from ${candidate.review.summary!.savedAt}. ${candidate.review.read?.status === 'ready' ? candidate.review.read.explanations.join(' ') : ''}`.trim(); changed();
+    const { read, summary } = reviewed.review;
+    if (!coordinator.restoreReviewedSlot(candidate.review, () => options.restore(candidate.review, candidate.view))) { staleReview(); return; }
+    panel = read.migrated ? 'migrated' : 'none';
+    message = `Loaded the confirmed server adventure from ${summary.savedAt}. ${read.explanations.join(' ')}`.trim(); changed();
   };
   const chooseLoad = () => {
     if (!validReview() || reviewed?.review.read?.status !== 'ready') { staleReview(); return; }
-    if (store.getState().runtime.game) { panel = 'confirm-load'; message = ''; changed(); } else load();
+    if (store.getState().runtime.game) { panel = 'confirm-load'; message = reviewed.review.read.explanations.join(' '); changed(); } else load();
   };
   const reviewSlot = async (intent: 'save' | 'continue' | 'review') => {
     if (disposed) return;
@@ -199,6 +200,7 @@ export function createSaveDialogsController(options: {
         case 'confirm-adopt': if (panel === 'adopt' && reviewed?.review.summary === null) await write(coordinator?.state.kind === 'conflict'); break;
         case 'load': if (panel === 'choice') chooseLoad(); break;
         case 'confirm-load': if (panel === 'confirm-load') load(); break;
+        case 'resume-migration': if (panel === 'migrated') { panel = 'none'; changed(); } break;
         case 'replace': if (panel === 'choice' && validReview()) { panel = 'confirm-replace'; changed(); } break;
         case 'confirm-replace': if (panel === 'confirm-replace') await write(true); break;
         case 'review': await reviewSlot('review'); break;
@@ -233,7 +235,7 @@ export function createSaveDialogsPanel(host: HTMLElement, act: (action: SaveDial
   heading.tabIndex = -1; dialog.setAttribute('role', 'dialog'); dialog.setAttribute('aria-label', 'Account save decision'); dialog.hidden = true;
   controls.className = 'nq-shell-controls'; dialog.append(heading, identity, explanation, summary, providerStatus, controls); element.append(status, message, dialog); host.append(element);
   const labels: Record<SaveDialogAction, string> = { cancel: 'Keep playing without saving', 'confirm-adopt': 'Save this adventure', load: 'Load Existing Save',
-    'confirm-load': 'Discard current progress and load', replace: 'Replace With This Adventure', 'confirm-replace': 'Confirm replacement', review: 'Review Server Save',
+    'confirm-load': 'Discard current progress and load', 'resume-migration': 'Resume adventure', replace: 'Replace With This Adventure', 'confirm-replace': 'Confirm replacement', review: 'Review Server Save',
     retry: 'Retry pending save', 'open-tab': 'Open Sign-in Tab', 'check-session': 'Check Session', google: 'Google', github: 'GitHub', reauth: 'Sign in again' };
   const buttons = new Map<SaveDialogAction, HTMLButtonElement>();
   for (const [action, label] of Object.entries(labels) as [SaveDialogAction, string][]) {
@@ -244,13 +246,14 @@ export function createSaveDialogsPanel(host: HTMLElement, act: (action: SaveDial
     adopt: ['Save this adventure?', 'This account has no save. Confirm the first manual save of this adventure. It will use your one account slot.', ['confirm-adopt', 'cancel']],
     choice: ['Review the account save', 'Choose which adventure to keep playing. Loading replaces this tab’s adventure. Replacing overwrites the one server slot after another confirmation. Inventories and notes are never merged.', ['load', 'replace', 'cancel']],
     'confirm-load': ['Load the server adventure?', 'This discards the current adventure and any unsaved notes in this tab. The exact saved notes, inventory and progress will be restored. Cancel keeps your current adventure.', ['confirm-load', 'cancel']],
+    migrated: ['Your adventure has been updated', 'You are playing the updated adventure in this tab. Your account slot keeps the earlier version until your next safe save.', ['resume-migration']],
     'confirm-replace': ['Replace the server save?', 'This replaces the reviewed account save with this adventure and its current notes. The previous adventure will no longer be selectable. A further server change requires another review.', ['confirm-replace', 'cancel']],
     blocked: ['Save preserved', 'The original server save is preserved. This build cannot safely load or replace it. You may keep playing in memory.', ['cancel']],
     conflict: ['The server save changed', 'Another save is newer than the reviewed state or acknowledgement. Read its current summary before choosing to load or replace it.', ['review', 'cancel']],
     recovery: ['Save outcome unconfirmed', 'The exact pending operation is retained in memory. Retry checks that same operation; newer notes are not included in that retry. Keep this tab open to preserve unsaved progress.', ['retry', 'reauth', 'cancel']],
   };
   let shown: Panel = 'none', returnFocus: HTMLElement | null = null;
-  element.addEventListener('keydown', event => { if (event.key === 'Escape' && shown !== 'none' && !event.repeat && !event.isComposing) { event.preventDefault(); act('cancel'); } }, { signal: events.signal });
+  element.addEventListener('keydown', event => { if (event.key === 'Escape' && shown !== 'none' && !event.repeat && !event.isComposing) { event.preventDefault(); act(shown === 'migrated' ? 'resume-migration' : 'cancel'); } }, { signal: events.signal });
   return { element, render(view: SaveDialogsView) {
     status.textContent = view.status; message.textContent = view.message; dialog.hidden = view.panel === 'none';
     const previous = shown; shown = view.panel;

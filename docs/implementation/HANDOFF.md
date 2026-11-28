@@ -26,11 +26,13 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**162 loops started; 129/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. Fifteen conditional uses are reserved for the next G5 audit checkpoint. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+**163 loops started; 130/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. Fifteen conditional uses are reserved for the next G5 audit checkpoint. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+
+Normal Continue and Restore can now read the hypothetical 0.9.1 slot, explain either moved position and retain the original bytes until an eligible save. The signed-in tests exercised both manual and opted-in automatic revision 7 to 8 writes. Independent AC13 and SAVE11 acceptance is in progress. [Compatibility evidence](loops/161-T143.md)
 
 The one-slot migration fixtures now preserve two independently specified prior adventures across safe relocation, retained histories and later conditional saving. The seven new fixture checks, 22 original migration cases and eight PHP comparisons passed. [Migration fixtures](loops/159-T142.md)
 
-The public twelve-room source pin supplied all 2,063 indexed files, including 929 distinct declared sources, for an exact total of 2,022,916,002 bytes. A second verifier checked every digest, 179 Blender files and 110 native Audacity projects. [Public retrieval evidence](../evidence/spec001/source-retrieval.md)
+Source retrieval and the prior-save fixtures reached the remote at `eff5a5586dd49ca001d7242efa769349030714ab`. The public twelve-room source pin supplied all 2,063 indexed files, including 929 distinct declared sources, for an exact total of 2,022,916,002 bytes. A second verifier checked every digest, 179 Blender files and 110 native Audacity projects. [Public retrieval evidence](../evidence/spec001/source-retrieval.md)
 
 The first six finished rooms reached the remote at `4d9ec809330fd804badff4796de0df7e1f402e82`. [Six-room checkpoint](../evidence/spec001/final-rooms/first-six-join.json)
 
@@ -171,8 +173,10 @@ Loop 159/T142: Two independently specified prior saves, four typed renames and t
 
 Loop 160/T145: A clean anonymous checkout retrieved and hashed 2,063 public source and supporting files, including 179 Blender files and 110 Audacity projects. Nineteen targeted CLI cases passed. [Verification](loops/160-T145.md).
 
+Loop 161/T143: Normal Continue and Restore migrated historical saves in memory, explained either relocation, and preserved original slot bytes until a later eligible revision 7 to 8 save. All 21 Firefox cases, 485 affected unit cases and 909 PHP tests passed. [Verification](loops/161-T143.md).
+
 <!-- current production assignments -->
-Active assignments: 158/T141, 161/T143, 162/T146.
+Active assignments: 158/T141, 162/T146, 163/T144.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

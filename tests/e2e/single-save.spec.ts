@@ -17,7 +17,7 @@ test.describe('T056 independent composed single-slot prepared-state acceptance',
       await clickButton(j.page, 'Notebook'); await expect(dialog(j.page, 'Notebook')).toContainText('power'); await clickButton(j.page, 'Close notebook');
     }
     expect(j.writes().length).toBe(0); expect(await j.local.inspect()).toBeNull();
-    await expect(j.page.getByText(/^Saved at /)).toHaveCount(0);
+    await expect(j.page.getByText(/^Saved at \d{4}-\d{2}-\d{2}T/)).toHaveCount(0);
     expect(await j.page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length }))).toEqual({ local: 0, session: 0 });
   });
 
@@ -82,7 +82,7 @@ test.describe('T056 independent composed single-slot prepared-state acceptance',
     await tab.route('**/api/v1/save', async route => { if (route.request().method() !== 'PUT') return route.continue(); reached(); await held; await route.continue(); });
     try {
       await clickButton(tab, 'Save'); await pending;
-      await j.notes('Winning revision two'); await clickButton(j.page, 'Save'); await expect(j.page.getByText(/^Saved at /)).toBeVisible();
+      await j.notes('Winning revision two'); await clickButton(j.page, 'Save'); await expect(j.page.getByText(/^Saved at \d{4}-\d{2}-\d{2}T/)).toBeVisible();
       const winner = await j.local.inspectSlot(); release(); await expect(dialog(tab, 'The server save changed')).toBeVisible();
       await tab.screenshot({ path: _info.outputPath('T056-actual-put-conflict.png'), fullPage: true });
       expect(await j.local.inspectSlot()).toEqual(winner); await clickButton(tab, 'Keep Playing Without Saving'); await j.expectNotes('Losing local changes', tab);
@@ -98,7 +98,7 @@ test.describe('T056 independent composed single-slot prepared-state acceptance',
     await clickButton(j.page, 'Save'); await clickButton(j.page, 'Save this adventure'); await expect(dialog(j.page, 'Save outcome unconfirmed')).toBeVisible();
     await clickButton(j.page, 'Keep Playing Without Saving'); await j.notes('Later local notes');
     const tab = await j.context.newPage(); await tab.goto(j.local.url); await clickButton(tab, 'Continue'); await j.notes('Other tab current revision', tab); await clickButton(tab, 'Save');
-    await expect(tab.getByText(/^Saved at /)).toBeVisible(); const newer = await j.local.inspectSlot();
+    await expect(tab.getByText(/^Saved at \d{4}-\d{2}-\d{2}T/)).toBeVisible(); const newer = await j.local.inspectSlot();
     await j.page.unroute('**/api/v1/save'); await clickButton(j.page, 'Save'); await clickButton(j.page, 'Retry pending save');
     await expect(dialog(j.page, 'The server save changed')).toBeVisible(); expect(await j.local.inspectSlot()).toEqual(newer);
     const [first, , retry] = j.writes(); expect(retry?.body).toBe(first?.body); expect(retry?.headers['idempotency-key']).toBe(first?.headers['idempotency-key']);
@@ -146,7 +146,7 @@ test.describe('T056 independent composed single-slot prepared-state acceptance',
     const response = j.page.waitForResponse(value => value.request().method() === 'PUT' && value.url().endsWith('/save'));
     await clickButton(j.page, 'Save'); expect((await response).status()).toBe(kind === 'oversize-body' ? 413 : 422);
     expect(await j.local.inspectSlot('github')).toEqual(github); expect(await j.local.inspectSlot('google')).toEqual(google);
-    await expect(j.page.getByText(/^Saved at /)).toHaveCount(0); expect(j.writes().length).toBe(3);
+    await expect(j.page.getByText(/^Saved at \d{4}-\d{2}-\d{2}T/)).toHaveCount(0); expect(j.writes().length).toBe(3);
   });
 
   for (const version of ['0.9.0', '99.0.0']) test(`SAVE10–11 unsupported stored content ${version} retains exact bytes and blocks load/replacement`, async ({ journey: j }, _info) => {

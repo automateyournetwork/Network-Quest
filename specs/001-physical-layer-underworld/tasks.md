@@ -787,7 +787,7 @@ settled the playable routes. Reconcile the candidate with that accepted build.
 **Ready after**: T133–T141.
 
 - [X] T142 [US8] Create explicitly hypothetical prior/future-door/renamed-ID/removed-position fixtures and independent preserved-state expectations in `tests/fixtures/migrations/spec001.json`; retain inventory, achievements, clues, notes, recruits, hint/outcome history without implementing Spec002.
-- [ ] T143 [US8] Complete explicit content mapping/safe-position migration and player explanations in `src/state/save-migrations.ts` and `src/state/migrations/spec001.ts`; GET never rewrites storage and a migration is durable only through an eligible conditional save.
+- [X] T143 [US8] Complete explicit content mapping/safe-position migration and player explanations in `src/state/save-migrations.ts` and `src/state/migrations/spec001.ts`; GET never rewrites storage and a migration is durable only through an eligible conditional save.
 - [ ] T144 [US8] Test old-content/future-door migration, unknown newer preservation, interrupted migration and later safe saving in `tests/state/migrations.test.ts` and `tests/e2e/migrations.spec.ts`; record SAVE11/AC13 in `docs/evidence/spec001/migrations.md`.
 - [X] T145 [US8] Implement public versioned large-source retrieval and hash verification in `tools/fetch-sources.mjs`, `assets-src/source-index.json` and `docs/source-retrieval.md`; prove .blend/.aup4/raw/generated source availability without private website/player data.
 

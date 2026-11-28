@@ -137,7 +137,10 @@ function objectMembers(raw: string): Map<string, string> | null {
     }
     const key: unknown = JSON.parse(raw.slice(keyStart, i));
     if (typeof key !== 'string' || members.has(key)) return null;
-    whitespace(); if (raw[i++] !== ':') return null; whitespace(); const valueStart = i;
+    whitespace(); if (raw[i++] !== ':') return null;
+    // The GET route embeds the stored bytes directly between the member colon
+    // and its delimiter. Whitespace at either end can belong to the saved file.
+    const valueStart = i;
     let depth = 0, quoted = false; escaped = false;
     for (; i < raw.length; i++) {
       const char = raw[i];
@@ -147,9 +150,7 @@ function objectMembers(raw: string): Map<string, string> | null {
       else if (char === '}' || char === ']') { if (depth === 0) break; depth--; }
       else if (char === ',' && depth === 0) break;
     }
-    let valueEnd = i;
-    while (valueEnd > valueStart && /[\x20\t\r\n]/.test(raw[valueEnd - 1]!)) valueEnd--;
-    members.set(key, raw.slice(valueStart, valueEnd));
+    members.set(key, raw.slice(valueStart, i));
     if (raw[i] === '}') { i++; whitespace(); return i === raw.length ? members : null; }
     if (raw[i++] !== ',') return null;
   }

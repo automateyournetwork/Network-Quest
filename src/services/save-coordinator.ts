@@ -114,6 +114,24 @@ export class SaveCoordinator {
   isCurrentReview(handle: SaveSlotReview): boolean {
     return !this.busy && !this.pending && !!this.reviewed && this.reviewed.handle === handle && this.reviewIsCurrent(this.reviewed);
   }
+  /** Carry the verified slot across a synchronous restore only. The old
+   * confirmation retires with its view. A later eligible save still uses the
+   * reviewed ETag and the normal capture, permission and receipt checks. */
+  restoreReviewedSlot(handle: SaveSlotReview, install: () => boolean): boolean {
+    const previous = this.binding, session = this.api.session;
+    if (!previous || !this.isCurrentReview(handle) || !handle.summary || handle.read?.status !== 'ready') return false;
+    const snapshot = handle.read.snapshot;
+    if (!install()) return false;
+    const binding = this.binding, { game, persistence } = this.store.getState().runtime;
+    if (!binding || binding === previous || !this.current(binding) || this.api.session !== session
+      || binding.clientGeneration !== previous.clientGeneration || this.view.kind !== 'idle'
+      || persistence.knownSlot !== handle.summary || game?.adventureId !== snapshot.adventureId
+      || game.world !== snapshot.world || game.notebook !== snapshot.notebook
+      || game.assistance !== snapshot.assistance || game.outcomeHistory !== snapshot.outcomeHistory) return false;
+    this.slot = 'ready';
+    this.set({ kind: 'slot', review: handle });
+    return this.current(binding);
+  }
   subscribe(listener: (state: SaveCoordinatorState) => void): () => void {
     this.listeners.add(listener); return () => { this.listeners.delete(listener); };
   }

@@ -207,6 +207,17 @@ describe('T050 save dialogs composed with accepted API/account/coordinator/reade
     expect(await f.coordinator.save('automatic')).toMatchObject({ ok: false }); expect(f.writes).toHaveLength(0);
     await f.dialogs.save(); expect(f.dialogs.project().panel).toBe('choice'); expect(f.writes).toHaveLength(0);
   });
+  it('retains the reviewed slot for a later opted-in safe save after Continue', async () => {
+    const f = fixture({ title: true, slot: true, autosave: true });
+    await f.dialogs.bootstrap(); await f.dialogs.continue();
+    expect(f.restored).toHaveBeenCalledOnce();
+    expect(f.writes).toHaveLength(0);
+    f.edit('A later observation');
+    const result = await f.coordinator.save('automatic');
+    expect(result).toMatchObject({ ok: true, current: true, acknowledgement: { committedRevision: 2 } });
+    expect(f.writes).toHaveLength(1);
+    expect(new Headers(f.writes[0]!.headers).get('If-Match')).toBe('"save-1"');
+  });
   it('read drift after a same-ID restore stays a conflict and cannot authorize an automatic overwrite', async () => {
     const f = fixture({ slot: true, same: true, autosave: true }); await f.dialogs.bootstrap();
     await f.dialogs.continue(); await f.dialogs.act('confirm-load');
