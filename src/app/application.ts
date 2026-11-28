@@ -68,6 +68,7 @@ import { createRegisteredLayeredRooms } from '../presentation/layered-room';
 import type { RoomRenderer } from '../presentation/room-adapter';
 import { resolveRoomMedia } from '../presentation/room-media';
 import { createRoomAudioPanel } from '../presentation/room-audio';
+import { observeVisibility } from '../presentation/visibility';
 import { createIntroductionRuntime, restoreIntroduction, startIntroduction } from './adventure';
 import { episodeNavigationEntries, loadIntroductionContent } from './content';
 import { introductionBindings } from './introduction';
@@ -248,8 +249,9 @@ export function createIntroductionApplication(host: HTMLElement) {
       autosave?.objectiveFeedbackDismissed(); render();
     }, { signal: events.signal });
     motionPreference.addEventListener('change', () => { if (presentation.reducedMotion === 'system' && state.runtime.game) render(); }, { signal: events.signal });
-    const pause = () => { grayAdapter.setPaused(host.ownerDocument.hidden); finishedAdapter.setPaused(host.ownerDocument.hidden); };
-    host.ownerDocument.addEventListener('visibilitychange', pause, { signal: events.signal }); pause();
+    observeVisibility(host.ownerDocument, events.signal, hidden => {
+      grayAdapter.setPaused(hidden); finishedAdapter.setPaused(hidden);
+    });
     // First visible gameplay dialog owns the frame. A recovery confirmation
     // therefore precedes the epilogue that opened it, while both keep their own
     // captured commands and local presentation state.
@@ -282,10 +284,15 @@ export function createIntroductionApplication(host: HTMLElement) {
             ?? host.ownerDocument.createElement('button');
           button.dataset['activity'] = entry.activityId; button.type = 'button'; button.textContent = optionalNames[entry.activityId] ?? world.optionalActivities.find(activity => activity.id === entry.activityId)?.name ?? entry.label;
           button.disabled = !entry.available;
-          if (entry.activityId === q('MG03') && entry.unavailableReason) { button.textContent = 'Channel Scout · complete radio verification first'; button.title = entry.unavailableReason; }
-          else if (entry.activityId === q('MG02') && entry.unavailableReason) { button.textContent = 'Prism Bench · complete fiber verification first'; button.title = entry.unavailableReason; }
-          else button.removeAttribute('title');
-          button.setAttribute('aria-label', entry.unavailableReason ?? `Open ${button.textContent}`);
+          if (entry.unavailableReason) {
+            if (entry.activityId === q('MG03')) button.textContent = 'Channel Scout · complete radio verification first';
+            if (entry.activityId === q('MG02')) button.textContent = 'Prism Bench · complete fiber verification first';
+            button.removeAttribute('aria-label');
+            button.title = entry.unavailableReason;
+          } else {
+            button.removeAttribute('title');
+            button.setAttribute('aria-label', `Open ${button.textContent}`);
+          }
           button.addEventListener('click', () => {
             if (!button.disabled && entry.available && button.isConnected && optionalOpeners.contains(button) && !button.closest('[hidden], [inert]'))
               bus.dispatch(projected.capture({ kind: 'start-optional', activityId: entry.activityId, hotspotId: entry.hotspotId }));

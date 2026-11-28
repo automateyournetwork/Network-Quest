@@ -1,9 +1,10 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import AxeBuilder from '@axe-core/playwright';
-import { firefox, type Page } from '@playwright/test';
+import { firefox, type Locator, type Page, type TestInfo } from '@playwright/test';
 import { DatabaseSync } from 'node:sqlite';
 import { join } from 'node:path';
 import { closeFrame, openFrame, tabTo } from './support/adventure-controls';
+import { paintedContrast } from './support/painted-contrast';
 import { dialog, expect, notesBefore, test, type RouteInput } from './support/outcome-journey';
 
 function routeInput(page: Page, touch: boolean): RouteInput {
@@ -57,7 +58,12 @@ const variants = [
     proof: ['Receive power: -12 dBm', 'Sensitivity reserve: 2 dB'] },
 ] as const;
 
-for (const variant of variants) test.describe(`T146 ${variant.route} ${variant.result}`, () => {
+const playthroughs = [
+  ...variants.map(variant => ({ ...variant, group: 'T146' })),
+  { ...variants[0], group: 'T152 combined native zoom and text scene', width: 1440, height: 900, zoom: true },
+];
+
+for (const variant of playthroughs) test.describe(`${variant.group} ${variant.route} ${variant.result}`, () => {
   test.use({ outcomeBrowser: { viewport: { width: variant.width, height: variant.height }, hasTouch: variant.touch,
     ...(variant.zoom ? { configureProfile: firefoxDoubleZoom } : {}) } });
   test('guest from title through evidence, commitment, ending and Continue', async ({ outcome: j }, info) => {
@@ -95,6 +101,35 @@ for (const variant of variants) test.describe(`T146 ${variant.route} ${variant.r
           await expect(page.locator('.nq-graybox')).toHaveCount(0);
           input.textScene = true;
         }
+      }
+      if (variant.touch && room === 'The Clockworks') {
+        await closeFrame(page, input.activate);
+        await openFrame(page, 'Sound and reading', input.activate);
+        const size = page.getByRole('slider', { name: 'Text size' });
+        await size.press('End');
+        await expect(page.locator('.nq-game')).toHaveCSS('font-size', '32px');
+        await closeFrame(page, input.activate);
+        const status = page.locator('.nq-game-stage .nq-shell-status');
+        const message = await status.innerText();
+        expect(message).toMatch(/Clockworks/i);
+        await tabTo(page, status);
+        await page.keyboard.press('End');
+        await expect.poll(() => status.evaluate(el => el.scrollHeight - el.clientHeight - el.scrollTop)).toBeLessThanOrEqual(1);
+        await openFrame(page, 'Scene', input.activate);
+        await expect(dialog(page, 'Scene objects and exits').getByRole('status').filter({ hasText: message })).toBeVisible();
+        await closeFrame(page, input.activate);
+        await openFrame(page, 'Sound and reading', input.activate);
+        const cue = page.locator('.nq-media-cue').filter({ hasText: 'A gentle clockwork melody plays without a countdown.' });
+        await expect(cue.locator('p')).toBeVisible();
+        const transcript = await cue.locator('p').innerText();
+        await input.activate(cue.getByRole('button', { name: /^Replay/ }));
+        await expect(cue).toHaveAttribute('data-audio-status', 'muted');
+        await closeFrame(page, input.activate);
+        await expect(page.locator('.nq-media-caption')).toHaveText(transcript);
+        await info.attach('390px double text overlays', { body: JSON.stringify({ message, transcript }), contentType: 'application/json' });
+        await openFrame(page, 'Sound and reading', input.activate);
+        await size.press('Home');
+        await closeFrame(page, input.activate);
       }
       if (room === 'The Iron Threshold') {
         await closeFrame(page, input.activate);
@@ -172,54 +207,87 @@ test('T146 focus restoration and typing-safe shortcuts at 1440 desktop and 768 r
   }
 });
 
-test('T146 full-page axe audit in the actual R12 ending', async ({ outcome: j }, info) => {
-  test.setTimeout(180_000);
-  await j.prepare('copper', false);
-  await j.choosePlan('copper', 'permanent'); await j.execute();
-  await j.page.setViewportSize({ width: 390, height: 844 });
-  await j.validate('permanent', false, async panel => {
-    // Prior axe results called this explanation partially obscured. Sample the
-    // painted paragraph itself, including real antialiased glyphs and backdrop.
-    const explanation = panel.locator(':scope > div > p').first();
-    await expect(explanation).toContainText(/endpoint/i);
-    const pixels = await explanation.screenshot({ path: info.outputPath('R12-validation-explanation.png') });
-    const sample = await explanation.evaluate(async (el, png) => {
-      const bitmap = await createImageBitmap(new Blob([Uint8Array.from(atob(png), c => c.charCodeAt(0))], { type: 'image/png' }));
-      const canvas = new OffscreenCanvas(bitmap.width, bitmap.height), ctx = canvas.getContext('2d')!;
-      ctx.drawImage(bitmap, 0, 0); bitmap.close();
-      const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const counts = new Map<string, number>();
-      for (let i = 0; i < data.length; i += 4) {
-        const rgb = [data[i], data[i + 1], data[i + 2]].join(',');
-        counts.set(rgb, (counts.get(rgb) ?? 0) + 1);
-      }
-      const text = el.firstChild!;
-      const obscured: string[] = [];
-      for (const match of text.textContent!.matchAll(/\S+/g)) {
-        const range = document.createRange();
-        range.setStart(text, match.index); range.setEnd(text, match.index + match[0].length);
-        if (Array.from(range.getClientRects()).some(r => !el.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)))) obscured.push(match[0]);
-      }
-      const foreground = getComputedStyle(el).color.match(/\d+(?:\.\d+)?/g)!.slice(0, 3).join(',');
-      const background = Array.from(counts).sort((a, b) => b[1] - a[1])[0]![0];
-      const luminance = (rgb: string) => rgb.split(',').reduce((total, value, i) => {
-        const c = Number(value) / 255;
-        return total + [0.2126, 0.7152, 0.0722][i]! * (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
-      }, 0);
-      const light = [luminance(foreground), luminance(background)].sort((a, b) => a - b);
-      return { foreground, background, obscured, solidGlyphPixels: counts.get(foreground) ?? 0, contrast: (light[1]! + 0.05) / (light[0]! + 0.05) };
-    }, pixels.toString('base64'));
-    await info.attach('validation-contrast', { body: JSON.stringify(sample), contentType: 'application/json' });
-    expect(sample.obscured).toEqual([]);
-    expect(sample.solidGlyphPixels).toBeGreaterThan(0);
-    expect(sample.contrast).toBeGreaterThanOrEqual(4.5);
+async function measureValidationContrast(panel: Locator, info: TestInfo) {
+  const explanation = panel.locator(':scope > div > p').first();
+  await expect(explanation).toContainText(/endpoint/i);
+  await explanation.screenshot({ path: info.outputPath('R12-validation-explanation.png') });
+  const selector = '[role="dialog"][aria-label="Validate repair"] > div > p';
+  const sample = await paintedContrast(explanation, selector);
+  await info.attach('validation-contrast', { body: JSON.stringify(sample), contentType: 'application/json' });
+}
+
+async function auditPage(page: Page, name: string, info: TestInfo) {
+  const audit = await new AxeBuilder({ page }).analyze();
+  const findings = (rules: typeof audit.violations) => rules.map(rule => ({
+    id: rule.id, impact: rule.impact, nodes: rule.nodes.map(node => ({ target: node.target, reason: node.failureSummary })),
+  }));
+  await info.attach('axe ' + name, {
+    body: JSON.stringify({ name, engine: audit.testEngine, viewport: page.viewportSize(),
+      userAgent: audit.testEnvironment.userAgent, passed: audit.passes.map(rule => rule.id),
+      inapplicable: audit.inapplicable.map(rule => rule.id),
+      violations: findings(audit.violations), incomplete: findings(audit.incomplete) }),
+    contentType: 'application/json',
   });
-  await expect(dialog(j.page, 'The Steady Light')).toBeVisible();
-  await j.page.screenshot({ path: info.outputPath('R12-ending-before-axe.png') });
-  // Record the actual engine and incomplete findings, including color contrast
-  // the scanner cannot resolve. Only the full-page audit may certify its rules.
-  await info.attach('browser', { body: JSON.stringify({ version: j.context.browser()?.version(), ua: await j.page.evaluate(() => navigator.userAgent) }), contentType: 'application/json' });
-  const audit = await new AxeBuilder({ page: j.page }).analyze();
-  await info.attach('axe', { body: JSON.stringify({ url: audit.url, violations: audit.violations, incomplete: audit.incomplete }), contentType: 'application/json' });
-  expect(audit.violations.map(v => ({ rule: v.id, targets: v.nodes.map(n => n.target) }))).toEqual([]);
+  expect.soft(findings(audit.violations), name).toEqual([]);
+  expect.soft(findings(audit.incomplete.filter(rule => rule.id !== 'color-contrast')), name + ' findings needing review').toEqual([]);
+  for (const finding of audit.incomplete.filter(rule => rule.id === 'color-contrast')) {
+    for (const node of finding.nodes) {
+      const [selector] = node.target;
+      if (node.target.length !== 1 || typeof selector !== 'string') throw new Error('Unexpected nested contrast target');
+      const targets = await page.locator(selector).filter({ visible: true }).all();
+      expect(targets.length, 'Resolve the reported axe target ' + selector).toBeGreaterThan(0);
+      for (const target of targets) {
+        const sample = await paintedContrast(target, selector);
+        await info.attach('painted contrast ' + name, { body: JSON.stringify({ selector, ...sample }), contentType: 'application/json' });
+      }
+    }
+  }
+}
+
+for (const variant of variants) test(`T152 full-page axe through the ${variant.route} route and ${variant.result} ending`, async ({ outcome: j }, info) => {
+  test.setTimeout(300_000);
+  const { page } = j;
+  expect(j.context.browser()?.browserType().name()).toBe('chromium');
+  await page.setViewportSize({ width: variant.zoom ? 768 : variant.width, height: variant.height });
+  await page.goto(j.local.url);
+  await expect(page.getByRole('button', { name: 'New Adventure' })).toBeVisible();
+  await auditPage(page, 'Title', info);
+  const sound = '.nq-game-chrome button:first-of-type';
+  await expect(page.locator(sound)).toHaveAccessibleName('Sound and reading');
+  const titleControl = await paintedContrast(page.locator(sound), sound);
+  await info.attach('painted contrast Title', { body: JSON.stringify({ selector: sound, ...titleControl }), contentType: 'application/json' });
+  const rooms = new Set<string>();
+  let currentRoom = '';
+  const input: RouteInput = {
+    activate: control => control.click(),
+    write: (field, value) => field.fill(value),
+    async arrived(name) {
+      currentRoom = name;
+      if (rooms.has(name)) return;
+      rooms.add(name);
+      await closeFrame(page);
+      await expect(page.locator('[aria-modal=true]')).toHaveCount(0);
+      await auditPage(page, 'Stage — ' + name, info);
+      await openFrame(page, 'Scene');
+      await expect(dialog(page, 'Scene objects and exits')).toHaveAttribute('aria-modal', 'true');
+      await auditPage(page, 'Scene objects and exits — ' + name, info);
+      await closeFrame(page);
+    },
+    async measured() { await auditPage(page, 'Diagnostics — ' + currentRoom, info); },
+  };
+  await j.prepare(variant.route, false, input);
+  await j.choosePlan(variant.route, variant.result);
+  await auditPage(page, 'Reviewed commitment', info);
+  await j.execute();
+  if (variant.result === 'permanent') await page.setViewportSize({ width: 390, height: 844 });
+  await j.validate(variant.result, false, async panel => {
+    await auditPage(page, 'Validate repair', info);
+    if (variant.result === 'permanent') await measureValidationContrast(panel, info);
+  });
+  await expect(dialog(page, variant.title)).toBeVisible();
+  await page.screenshot({ path: info.outputPath('R12-ending-before-axe.png') });
+  await auditPage(page, variant.title, info);
+  expect(rooms.size).toBe(8);
+  expect(j.writes).toEqual([]);
+  expect(await j.local.inspectSlot()).toBeNull();
 });

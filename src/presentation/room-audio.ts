@@ -5,6 +5,7 @@ import type { ActionResult, SemanticAction } from '../ui/action-bus';
 import type { PresentationSettings, RuntimeState } from '../state/types';
 import { createAudioAdapter, createHtmlAudioBackend, volumesFromSettings, type AudioState } from './audio';
 import { publicMediaUrl, type RoomMedia } from './room-media';
+import { observeVisibility } from './visibility';
 
 /** Optional reviewed playback with permanent transcripts. No progress or save authority. */
 export function createRoomAudioPanel(host: HTMLElement, media: RoomMedia, gameBase: string, initial: PresentationSettings, registry?: ContentRegistry) {
@@ -18,22 +19,29 @@ export function createRoomAudioPanel(host: HTMLElement, media: RoomMedia, gameBa
   const settingsHost = node('div'); details.append(settingsHost);
   const rows = new Map<string, { element: HTMLElement; status: HTMLElement; replay: HTMLButtonElement }>();
   const cueStatuses = new Map<string, AudioState['status']>();
-  let captionId: string | undefined, transientCaption: number | undefined;
+  const interrupted = 'Sound paused. Select Replay to hear a cue again.';
+  let displayed: AudioState | undefined, transientCaption: number | undefined;
   const clearCaption = () => {
     document.defaultView?.clearTimeout(transientCaption); transientCaption = undefined;
-    captionId = undefined; caption.textContent = ''; caption.tabIndex = -1;
+    displayed = undefined; caption.textContent = ''; caption.tabIndex = -1;
+  };
+  const scheduleCaption = () => {
+    document.defaultView?.clearTimeout(transientCaption); transientCaption = undefined;
+    if (displayed && !document.hidden && room !== media.composition.roomId && displayed.channel !== 'voice') {
+      transientCaption = document.defaultView?.setTimeout(() => {
+        if (!document.hidden && document.activeElement !== caption) clearCaption();
+      }, 3500);
+    }
   };
   const showCaption = (state: AudioState) => {
-    clearCaption(); captionId = state.id; caption.textContent = state.text; caption.tabIndex = 0; caption.hidden = !settings.captions;
-    if (room !== media.composition.roomId && state.channel !== 'voice') {
-      transientCaption = document.defaultView?.setTimeout(() => { if (document.activeElement !== caption) clearCaption(); }, 3500);
-    }
+    displayed = state; caption.textContent = state.text; caption.tabIndex = 0; caption.hidden = !settings.captions;
+    scheduleCaption();
   };
   const update = (state: AudioState) => {
     const changed = state.status !== cueStatuses.get(state.id);
     cueStatuses.set(state.id, state.status);
     const row = rows.get(state.id); if (row) { row.status.textContent = state.status === 'awaiting-gesture' ? 'Select Replay to enable sound.' : state.status === 'unavailable' ? 'Audio unavailable. The transcript remains available.' : state.status; row.element.dataset['audioStatus'] = state.status; }
-    if (room !== media.composition.roomId && changed && captionId === state.id && document.activeElement !== caption && ['stopped','disposed','ended'].includes(state.status)) clearCaption();
+    if (!document.hidden && room !== media.composition.roomId && changed && displayed?.id === state.id && document.activeElement !== caption && ['stopped','disposed','ended'].includes(state.status)) clearCaption();
     if (state.status === 'unavailable' || state.status === 'awaiting-gesture') status.textContent = state.status === 'unavailable' ? 'Audio unavailable. Read the transcript or retry playback.' : 'Sound waits for your choice. Select a Replay button.';
   };
   const adapter = createAudioAdapter({ backend: createHtmlAudioBackend(document), volumes: volumesFromSettings(settings), maxCues: 64, maxVoices: 5, maxPendingPlays: 5, onChange: update });
@@ -49,7 +57,10 @@ export function createRoomAudioPanel(host: HTMLElement, media: RoomMedia, gameBa
     const handle = handles.get(id)!;
     // Captions describe a cue even when the volume is zero or native playback fails.
     // Late media promises must not replace the caption for a newer interaction.
-    if (!document.hidden) showCaption(handle.snapshot());
+    if (!document.hidden) {
+      if (status.textContent === interrupted) status.textContent = '';
+      showCaption(handle.snapshot());
+    }
     void handle.play();
   };
   const play = (id: string) => {
@@ -111,8 +122,11 @@ export function createRoomAudioPanel(host: HTMLElement, media: RoomMedia, gameBa
       adapter.setVolumes(volumesFromSettings(next));
     }
   };
-  const pause = () => { adapter.setSuspended(document.hidden); if (document.hidden) status.textContent = 'Sound paused while this tab is hidden. Use Replay when you return.'; };
-  document.addEventListener('visibilitychange', pause, { signal: events.signal }); pause();
+  observeVisibility(document, events.signal, hidden => {
+    if (hidden && [...cueStatuses.values()].some(state => state === 'loading' || state === 'playing')) status.textContent = interrupted;
+    adapter.setSuspended(hidden);
+    scheduleCaption();
+  });
   return {
     settingsHost, applySettings,
     show(nextRoom: string | null, next: PresentationSettings, runtime?: RuntimeState) {
@@ -120,7 +134,7 @@ export function createRoomAudioPanel(host: HTMLElement, media: RoomMedia, gameBa
       applySettings(next);
       if (nextRoom !== room || runtime?.game?.adventureId !== previous?.game?.adventureId || runtime?.game?.world.attemptId !== previous?.game?.world.attemptId) {
         clearContext(); activeCues = roomCues(nextRoom, registry);
-        room = nextRoom; for (const handle of handles.values()) handle.stop(); caption.textContent = ''; caption.tabIndex = -1; status.textContent = '';
+        room = nextRoom; for (const handle of handles.values()) handle.stop(); clearCaption(); status.textContent = '';
         const arrival = new Set(['arrival']);
         if (runtime?.game?.world.completedObjectiveIds.some(id => String(id) === 'spec001:O10')) arrival.add('return-with-repair-preparation');
         reveal(arrival);

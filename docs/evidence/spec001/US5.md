@@ -1,0 +1,56 @@
+# US5 accessible play and recovery
+
+On November 28, 2026, four Firefox guests completed the core adventure with reduced motion and muted music, effects and voice. Each started at the title, performed the physical measurements, acknowledged the repair plan, reached an ending and selected Continue. Each retained the expected notes and produced zero save writes. A fifth Firefox case checked keyboard focus in the Notebook. The integrated recovery and visibility suites passed fourteen cases. These local results cover FR-019 through FR-021 for AC14 and AC20. [Browser results](accessibility/episode/browser-results.json)
+
+## Playthroughs
+
+| Route and input | Observed result |
+| --- | --- |
+| Copper, keyboard, 1280×720 | Tab, Enter and Space operated the named controls. After selecting Text scene in R01, the guest measured 105 m before repair and 95 m after it, retained the recorded open and separately validated link and endpoint service. The Steady Light (E01) continued at R12. |
+| Copper, keyboard, 1440×900 at 200% browser zoom | On the same physical browser viewport, Firefox’s native full-zoom preference produced 720 CSS pixels. The guest selected Text scene in R01, read the narrator transcript with all three channels muted, and finished the permanent repair with reduced motion. The full 30 W kit and eight represented bits remained necessary. |
+| Fiber, keyboard, 1440×900 at 200% browser zoom | The rendered route exposed the −12 dBm receive reading and 2 dB reserve. The guest opened and closed the R09 inspection, read the classification criteria, recorded unresolved isolation and read The Honest Shutdown (E03) handover. Confirmed Continue returned to preparation in R11, with the personal notes retained. |
+| Radio, Firefox touch input, 390×844 | The guest recorded 20 dB SNR and the shared power and symbol readings. The Borrowed Dawn (E02) identified the temporary dependency, limitation and follow-up. Continue returned to R12. Text entry used the browser keyboard. |
+| Focus and reflow, 1440×900 and 768×900 | The guest opened Notebook by tabbing, typed all seven shortcut letters into Personal notes and closed with Escape. Focus returned to Notebook and Walk remained selected. |
+
+At 390×844 with 200% in-game text, the Clockworks overlays initially show only part of each message. Keyboard End reached the bottom of the focused arrival status. The Scene window also exposed the entire status. In Sound and reading, the player reached the full melody transcript, “A gentle clockwork melody plays without a countdown.” Explicit Replay with the channel muted displayed that same complete caption. The presentation retains a separate reachable reading when only the first lines fit over the art. [Route checks](../../../tests/e2e/accessibility.spec.ts) · [Frame screenshot](accessibility/responsive-layout/R10-390-32px.png)
+
+The T149 companion journeys cover an unzoomed 1440×900 keyboard completion and a 768×900 touch journey with enlarged-text inspection at 390×844. Its measurements include all twelve active toolbar commands in R10 and R12 at both desktop sizes and at 768/390 px with ordinary and enlarged text. [Responsive measurements](accessibility/responsive-layout/measurements.json) · [T149 review](../../implementation/loops/166-T149.md)
+
+## Document audits and painted text
+
+All 73 full-document axe-core 4.14.1 scans passed with zero reported violations and no rule exclusions. Copper accounted for 25 states, radio for 24 and fiber for 24. The guest uses New Adventure and the native controls to reach the twelve rooms across three branches. Each stage and its Scene objects and exits dialog are audited separately. Audits also cover the title, measured benches, reviewed commitment, validation and the three epilogues. The results retain axe's unresolved findings separately from the pixel checks. [Per-state scans and samples](accessibility/episode/browser-results.json)
+
+The pinned Firefox 159.0 revision 1572 previously crashed during the full-page R12 audit. Its keyboard, touch, native zoom, recovery and Continue tests still execute in the Firefox HTTPS project. Chrome for Testing 159.0.8154.6 revision 1255 owns the full-document audit, with explicit test assignment. Its private process receives the exact public-key pin of its disposable loopback certificate. Firefox trusts its disposable CA through a private NSS profile. The standard Chrome desktop automation persona supplies the user-agent string recorded by axe on the Mac host. [Historical Firefox process failure](accessibility/firefox-reflection-diagnosis.md) · [T146 browser evidence](../../implementation/loops/162-T146.md)
+
+Each epilogue’s Next action controls now form a named group in the accessibility tree. The nonmodal title menu had darkened its usable header. Before correction, the highest painted contrast for its brand, location and Sound and reading control was 2.57:1, 2.52:1 and 2.88:1 at desktop size. The corrected menu keeps its own shadow and leaves the header readable. At 1280 px the corresponding minimum ratios sampled under glyphs were 8.61:1, 8.23:1 and 10.03:1. [Epilogue controls](../../../src/ui/epilogue.ts) · [Title styling](../../../src/app/application.css)
+
+For an indeterminate contrast target, the browser captured the same element twice, once as painted and once with only the ink made transparent. The comparison sampled the background under the glyphs, checked for fully painted text and tested the center of every word rectangle after scrolling it into view. Axe left 105 color-contrast target occurrences indeterminate across 28 scans. All 105 received pixel checks. The minimum sampled ratio was 7.53:1, and no checked word center was obscured after scrolling. The copper validation explanation at 390 px measured 12.02:1. [Pixel measurement](../../../tests/e2e/support/painted-contrast.ts)
+
+The expanded stage audits found a serious label mismatch on two locked controls. In the Prism Vault and Storm Observatory the accessible names omitted some words on the buttons. The buttons now expose their complete visible labels and the authored verification requirement as their accessible description. Earning the required objective restores the existing Open Prism Budget Bench or Open Channel Scout action. [Control projection](../../../src/app/application.ts) · [Prerequisite checks](../../../tests/e2e/optional-activities.spec.ts)
+
+## Operator-directed focus and assistive inspection
+
+Codex operated a dedicated hidden, headed Chrome for Testing window through the macOS ApplicationServices accessibility API. The operating system already granted AX access. LaunchServices started the isolated browser in the background and the frontmost application matched before and after launch. The headless trial exposed an application and menu bar only. The headed browser exposed the game web area, headings, actions, live status and text fields. [Selected native macOS AX readings](accessibility/episode/macos-ax.json)
+
+- The title tree exposed New Adventure and the guest-session status. AXPress on New Adventure moved focus to The Arrival Lift heading. AXPress on Look and Scene exposed the named power and link controls. AXPress on Look at power indication returned its written observation in the panel’s polite status. Closing Scene returned native focus to the Scene button.
+- Opening Notebook focused the Notebook heading. Keyboard Tab focused Close notebook, visibly outlined in gold. Shift+Tab wrapped to the named Personal notes text area. Escape restored Notebook in the room toolbar. Reopening and entering `wltuinc` left all seven characters in the focused native text area. [Focus screenshot](accessibility/episode/notebook-focus.png)
+
+## Recovery
+
+| Condition | Result through the production controls |
+| --- | --- |
+| Image HTTP 503, corrupt room model, indefinitely held room download | A bounded fallback kept the named room actions available. Explicit visual retry retained the observations, notes and safe position. A late retired request could not replace the recovered scene. |
+| No WebGL2 at startup or loss of the active native context | Text and low detail preserved the investigation. On context loss the focused link action still worked. On startup without WebGL2 the guest carried the introduction’s evidence into the Workshop. |
+| Corrupt or indefinitely held voice, failed illustration and portrait | The transcript or caption remained readable. An explicit Replay, or reopening the image disclosure, recovered the asset. A late voice response could not undo Skip. |
+| Network loss on save | The UI retained newer local notes and reported an unconfirmed save. The synthetic PHP/SQLite service kept its acknowledged row. A deliberate save after connectivity returned advanced that row by one revision. |
+| Hidden tab and foreground return | Real Chromium tab transitions paused playing or pending audio and rendering. A packet preview waited for the next explicit step. The Workshop caption remained readable, and the Echo Cavern presented its first sprite frame on return. The guest could explicitly replay an individual cue. |
+
+Nine recovery cases used Firefox on loopback HTTPS. Five actual background-tab cases used Chrome for Testing with a disposable built guest and focus emulation disabled. [Recovery cases](../../../tests/e2e/recovery.spec.ts) · [Tab cases](../../../tests/e2e/visibility.spec.ts) · [Asset recovery findings](../../implementation/loops/167-T150.md) · [Visibility findings](../../implementation/loops/168-T151.md)
+
+## Untested combinations
+
+The completed input, route, viewport and failure combinations are the rows above. The other branch/ending permutations at each input size, every optional activity/dialog under axe, repeated failures in every room, and all preference combinations lack separate T152 observations. Native full zoom was verified on Firefox. The 390/768 touch samples used browser-generated touch events. Physical phones, tablets, their onscreen keyboards, pinch zoom, external switches and braille displays were untested. The macOS AX inspection records native roles, focus, live-region exposure and actions. It did not operate VoiceOver, NVDA, JAWS, or an audible speech session. Human screen-reader usability, real provider/device restoration, current/previous release browsers including Mac Safari, performance budgets, learning and owner acceptance retain their own evidence requirements.
+
+To reproduce the registered interactions, use the pinned Node, PHP and NSS paths and run `npm run test:e2e -- tests/e2e/accessibility.spec.ts tests/e2e/recovery.spec.ts tests/e2e/visibility.spec.ts`. T152 used the registered projects and disposable fixtures with the unrelated static preview omitted in the isolated worker configuration. The JSON lists each run’s start time and the final inspected source hashes. The Firefox playthrough and recovery runs preceded the final changes to the two locked activity names. The closing Chromium audits exercised the corrected controls. A separate frozen-copy Firefox journey also passed the name, description and disabled-state assertions, all seven activity lifecycles, and the existing source-consistency guard. [Toolchain](runtime.md) · [Project selection](../../../playwright.config.ts)
+
+Copyright 2026 John Capobianco. Licensed under CC BY 4.0.

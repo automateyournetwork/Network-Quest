@@ -151,15 +151,15 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
       function stopTimer() { if (timer !== undefined) win.clearTimeout(timer); timer = undefined; }
       function draw() {
         stopTimer();
-        if (!alive || !attached || request.signal.aborted) return;
+        if (!alive || !attached || paused || request.signal.aborted) return;
         const now = win.performance.now();
-        if (last !== null && !paused) {
+        if (last !== null) {
           const elapsed = Math.min((now - last) / 1000, .25);
           walk.advance(elapsed);
           if (motion) models.party.animate(elapsed);
           clock += now-last;
         }
-        last = paused ? null : now;
+        last = now;
         let next = Infinity;
         ctx!.clearRect(0,0,canvas.width,canvas.height);
         ctx!.drawImage(models.plate, 0, 0);
@@ -189,8 +189,8 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
         }
         for (; allyIndex < allies.length; allyIndex++) allies[allyIndex]!.draw();
         root.dataset['rendered'] = 'true'; root.dataset['renderCount'] = String(++draws);
-        root.dataset['animatedActors'] = motion && !paused ? String(sprites.filter(s => s.clip !== 'rest').length) : '0';
-        if (motion && !paused && Number.isFinite(next)) timer = win.setTimeout(draw,Math.max(1,Math.ceil(next)));
+        root.dataset['animatedActors'] = motion ? String(sprites.filter(s => s.clip !== 'rest').length) : '0';
+        if (motion && Number.isFinite(next)) timer = win.setTimeout(draw,Math.max(1,Math.ceil(next)));
       }
       function react(kind: 'walk'|'reaction', target?: string) {
         if (!alive || paused) return;

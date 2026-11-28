@@ -1,7 +1,9 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
-import { expect, firefox, test as base, type Locator, type Page, type Request } from '@playwright/test';
+import { chromium, expect, firefox, test as base, type Locator, type Page, type Request } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { request } from 'node:https';
+import { createHash, X509Certificate } from 'node:crypto';
+import { join } from 'node:path';
 import { configuredSave } from './configured-save';
 import { closeFrame, revealControl, type Activate } from './adventure-controls';
 
@@ -29,11 +31,22 @@ export interface OutcomeBrowser {
   configureProfile?: (profile: string, url: string) => Promise<void>;
 }
 
-async function journey(browser: OutcomeBrowser) {
+async function journey(browser: OutcomeBrowser, engine: 'chromium' | 'firefox') {
   const local = await configuredSave();
   const launch = async () => {
     try {
       await browser.configureProfile?.(local.profile, local.url);
+      if (engine === 'chromium') {
+        // Authorize only the public key of this run's short-lived loopback leaf
+        // inside the disposable Chromium process. Keep other TLS errors enabled.
+        const leaf = new X509Certificate(await readFile(join(local.directory, 'leaf.pem')));
+        const pin = createHash('sha256').update(leaf.publicKey.export({ type: 'spki', format: 'der' })).digest('base64');
+        return await chromium.launchPersistentContext(join(local.directory, 'chromium'), {
+          channel: 'chromium', headless: true, ignoreHTTPSErrors: false, reducedMotion: 'reduce',
+          viewport: browser.viewport, hasTouch: browser.hasTouch ?? false,
+          args: ['--ignore-certificate-errors-spki-list=' + pin],
+        });
+      }
       return await firefox.launchPersistentContext(local.profile, { headless: true, ignoreHTTPSErrors: false,
         reducedMotion: 'reduce', viewport: browser.viewport, hasTouch: browser.hasTouch ?? false,
         ...(browser.disableWebGL ? { firefoxUserPrefs: { 'webgl.disabled': true } } : {}) });
@@ -214,7 +227,7 @@ export type OutcomeJourney = Awaited<ReturnType<typeof journey>>;
 export const test = base.extend<{ outcome: OutcomeJourney; outcomeBrowser: OutcomeBrowser }>({
   outcomeBrowser: [{ viewport: { width: 1280, height: 900 } }, { option: true }],
   outcome: async ({ outcomeBrowser }, use, info) => {
-    const j = await journey(outcomeBrowser);
+    const j = await journey(outcomeBrowser, info.project.name === 'chromium-accessibility' ? 'chromium' : 'firefox');
     try { await use(j); }
     finally {
       if (info.status !== info.expectedStatus) await j.page.screenshot({ path: info.outputPath('T089-failure.png'), fullPage: true }).catch(() => {});

@@ -31,6 +31,24 @@ function fixture(reuseView = false) {
 }
 
 describe('room presentation boundary', () => {
+  it('retires deferred room inputs across a visibility change while media is loading', async () => {
+    const f = fixture();
+    try {
+      f.adapter.show(view(), { mode: 'three', detail: 'default', reducedMotion: false });
+      const request = f.requests[0]!;
+      const before = request.capture('look');
+      f.adapter.setPaused(true);
+      const hidden = request.capture('look');
+      const session = f.session(); f.preparations[0]!.resolve(session); await tick();
+      expect(session.setPaused).toHaveBeenCalledWith(true);
+      expect(hidden.dispatch().status).toBe('rejected');
+      f.adapter.setPaused(false);
+      expect(before.dispatch().status).toBe('rejected');
+      expect(hidden.dispatch().status).toBe('rejected');
+      expect(f.handler).not.toHaveBeenCalled();
+      expect(request.capture('look').dispatch().status).toBe('handled');
+    } finally { f.adapter.dispose(); f.bus.dispose(); f.pool.dispose(); }
+  });
   it('expires a preparation once, keeps the latest semantic view and retires a late session after explicit retry', async () => {
     vi.useFakeTimers();
     const f = fixture(true);

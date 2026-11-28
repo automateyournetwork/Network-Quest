@@ -172,7 +172,7 @@ export function createEpiloguePanel<Command>(host: HTMLElement, options: {
         if (!projection.retryAvailable) result.append(paragraph('No in-memory encounter preparation is available in this session.'));
         if (projection.restore === 'unavailable') result.append(paragraph('Account save access is unavailable right now.'));
       }
-      const actions = doc.createElement('div'); actions.setAttribute('aria-label', 'Next action');
+      const actions = doc.createElement('div'); actions.setAttribute('role', 'group'); actions.setAttribute('aria-label', 'Next action');
       const command = (intent: EpilogueIntent, label: string, disabled = false) => {
         const captured = projection.capture(intent);
         return button(scope, intent, label, () => {

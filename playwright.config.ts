@@ -12,7 +12,7 @@ const httpsSpecs = ['foundation-tls.spec.ts', 'ui-shell.spec.ts', 'presentation.
 httpsSpecs.push('repair-routes.spec.ts', 'outcomes.spec.ts', 'packet-journey.spec.ts', 'optional-activities.spec.ts');
 httpsSpecs.push('migrations.spec.ts', 'accessibility.spec.ts', 'recovery.spec.ts');
 httpsSpecs.push('responsive-layout.spec.ts');
-const assigned = new Set([...staticSpecs, ...ownedStaticSpecs, ...httpsSpecs]);
+const assigned = new Set([...staticSpecs, ...ownedStaticSpecs, ...httpsSpecs, 'visibility.spec.ts']);
 const browserTests = fileURLToPath(new URL('./tests/e2e', import.meta.url));
 // T022/T030 and later journeys must choose an appropriate project explicitly.
 // An unassigned new spec is a failure, never a silently omitted green run.
@@ -49,8 +49,9 @@ export default defineConfig({
     { name: 'chromium-static', testMatch: staticSpecs.map((file) => `**/${file}`), use: { ...devices['Desktop Chrome'] } },
     { name: 'firefox-static', testMatch: staticSpecs.map((file) => `**/${file}`), use: { ...devices['Desktop Firefox'] } },
     { name: 'firefox-owned-static', testMatch: ownedStaticSpecs.map((file) => `**/${file}`), use: { ...devices['Desktop Firefox'] } },
-    { name: 'firefox-local-https', testMatch: httpsSpecs.map((file) => `**/${file}`), grepInvert: /native Chromium tab/, use: { ...devices['Desktop Firefox'] } },
-    { name: 'chromium-native-visibility', testMatch: '**/recovery.spec.ts', grep: /native Chromium tab/, use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox-local-https', testMatch: httpsSpecs.map((file) => `**/${file}`), grepInvert: /native Chromium tab|full-page axe/, use: { ...devices['Desktop Firefox'] } },
+    { name: 'chromium-native-visibility', testMatch: ['**/recovery.spec.ts', '**/visibility.spec.ts'], grep: /native Chromium tab/, use: { ...devices['Desktop Chrome'] } },
+    { name: 'chromium-accessibility', testMatch: '**/accessibility.spec.ts', grep: /full-page axe/, use: { ...devices['Desktop Chrome'] } },
   ],
   webServer: {
     command: 'node node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 4173',

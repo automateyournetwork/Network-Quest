@@ -1,5 +1,6 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import { evaluatePacketJourney } from '../domain/packet-journey';
+import { observeVisibility } from '../presentation/visibility';
 import type { illustrationBinding } from '../content/schema-types.generated';
 import { illustrationDetails } from './illustration';
 import type { JourneyObservation, JourneyPhase, PacketJourneyChallenge, PacketJourneyWorld, PacketResult } from '../domain/packet-journey';
@@ -171,7 +172,7 @@ export function createPacketJourneyPanel(host: HTMLElement, bus: Pick<ActionDisp
     }
   };
   const updateAvailability = () => { for (const entry of buttons.values()) if (entry.model.action.kind === 'resume-packet') entry.button.disabled = motionBlocked() || doc.hidden; };
-  doc.addEventListener('visibilitychange', () => { if (doc.hidden) pauseForEnvironment(); updateAvailability(); }, { signal: abort.signal });
+  observeVisibility(doc, abort.signal, hidden => { if (hidden) pauseForEnvironment(); updateAvailability(); });
   media.addEventListener('change', () => { if (motionBlocked()) pauseForEnvironment(); updateAvailability(); }, { signal: abort.signal });
   element.addEventListener('keydown', event => {
     if (event.key !== 'Escape' || event.repeat || event.isComposing || event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || !current?.view.open) return;

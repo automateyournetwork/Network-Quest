@@ -26,9 +26,11 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-28
 
-**170 loops started; 136/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+**173 loops started; 139/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
 
 The November 28 resumption recovered the same three interrupted workers. T148 passed all eighteen Firefox settings and focus cases, T149 verified the complete Clockworks and Iron Threshold toolbars across desktop, touch and true full-page zoom, and T150 passed ten recovery cases. The held room download now exposes recovery within twelve seconds. The three tasks closed under their original loop numbers. [Settings](loops/165-T148.md) · [Responsive layout](loops/166-T149.md) · [Recovery](loops/167-T150.md)
+
+Settings, responsive controls and media recovery reached GitHub at `96aebe4701944f02b27f06434d529ddf1a4fb746`. Independent verification passed 4,389 executable domain cases across 121 suites, retained 360 earlier TODOs, and passed six native settings/layout and ten native recovery checks on the frozen sources.
 
 The integrated media audit verified all visual quantities. It counted 25 character models, 150 props including 103 interactive or evidence props, 36 scene layers, 25 portraits and 24 illustrations. All 120 active audio renditions have observed uses. Eight voices and three effects have applicable human approval. Listening on speakers and headphones for the other 109 recordings and their mixes is still required for AC10 and G5. [Media audit](../evidence/spec001/media-audit.md) · [Owner review packet](../evidence/spec001/media-audit/review.html)
 
@@ -197,8 +199,14 @@ Loop 165/T148: All six live sound and reading controls passed guest-memory and s
 
 Loop 167/T150: Ten native recovery journeys passed. Stalled media offers retry after twelve seconds, late replacements preserve the room and notes, and corrupt illustrations and portraits reload on deliberate reopen. [Verification](loops/167-T150.md).
 
+Loop 168/T151: Five genuine Chromium tab-switch cases and 91 focused unit tests passed. Hidden frames, deferred inputs, captions, packet progress and per-channel audio now respect the native visibility state. [Verification](loops/168-T151.md).
+
+Loop 171/T154: Measured all twelve rooms, two viewports, twelve startup attempts, released resources and twenty-session service behavior. Geometry and texture budgets passed. Three reproduced regressions are assigned to T155. [Verification](loops/171-T154.md).
+
+Loop 169/T152: All 22 registered accessibility, recovery and visibility cases passed. Across 73 full-page audits and 105 painted contrast checks the final candidate had no reported violations. Genuine macOS accessibility actions verified note entry and focus. [Verification](loops/169-T152.md).
+
 <!-- current production assignments -->
-Active assignments: 168/T151, 169/T152, 170/T153.
+Active assignments: 170/T153, 172/T155, 173/T156.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

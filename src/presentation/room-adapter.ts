@@ -88,12 +88,15 @@ export function createRoomAdapter<T>(options: RoomAdapterOptions<T>) {
     state = Object.freeze({ kind, mode: settings.mode, message, ...(reason ? { reason } : {}) });
     if (view) options.onView(Object.freeze({ ...view, presentationStatus: message }), captureView);
   }
+  function cancelActions(actions: Set<CapturedAction>) {
+    for (const captured of actions) options.dispatcher.cancel(captured);
+    actions.clear();
+  }
   function stop() {
     const previous = active; active = null;
     if (!previous) return;
     previous.cancelDeadline();
-    for (const captured of previous.actions) options.dispatcher.cancel(captured);
-    previous.actions.clear();
+    cancelActions(previous.actions);
     if (previous.session) safely(() => previous.session?.dispose());
     previous.scope.dispose();
   }
@@ -122,10 +125,11 @@ export function createRoomAdapter<T>(options: RoomAdapterOptions<T>) {
         const control = controls.get(controlId);
         if (!control || control.unavailableReason !== undefined) throw new Error('Semantic control is unknown or unavailable');
         const captured = captureView!(control.action);
-        current.actions.add(captured);
+        if (paused) options.dispatcher.cancel(captured);
+        else current.actions.add(captured);
         return Object.freeze({
           dispatch() {
-            if (!isCurrent()) return { status: 'rejected' as const, reason: 'inactive-presentation' };
+            if (!isCurrent() || paused) return { status: 'rejected' as const, reason: 'inactive-presentation' };
             // Preserve the same bus-owned object for duplicate callbacks/receipts.
             current.actions.delete(captured);
             return options.dispatcher.dispatch(captured);
@@ -173,8 +177,7 @@ export function createRoomAdapter<T>(options: RoomAdapterOptions<T>) {
         return;
       }
       if (reusable && active) {
-        for (const action of active.actions) options.dispatcher.cancel(action);
-        active.actions.clear();
+        cancelActions(active.actions);
         try {
           if (active.session) { active.session.updateView!(copied); announce('ready', 'Visual presentation ready. Equivalent text and actions remain available.'); }
           else announce('loading', 'Visual presentation loading. Scene descriptions, evidence and actions are available.');
@@ -193,6 +196,7 @@ export function createRoomAdapter<T>(options: RoomAdapterOptions<T>) {
     setPaused(value: boolean) {
       if (disposed) return;
       paused = value;
+      if (value && active) cancelActions(active.actions);
       try { active?.session?.setPaused(value); } catch (error) { report(error); unavailable('prepare-failed'); }
     },
     status() { return state; },
