@@ -226,6 +226,6 @@ See [T011 evidence](docs/evidence/spec001/local-development.md) and
 Original controlled code/build scripts use [Apache-2.0](LICENSE); controlled
 documentation/creative work uses [CC BY 4.0](LICENSE-ASSETS). Third-party material
 retains its licenses: [notices](THIRD-PARTY-NOTICES.md), [contributing](CONTRIBUTING.md),
-and [source retrieval](THIRD-PARTY-NOTICES.md). Production credentials, player
+and [media source retrieval](docs/source-retrieval.md). Production credentials, player
 records, and the closed website are not public source assets. The owner has authorized reviewed source checkpoints on the feature branch. A
 finished live game release still requires all applicable acceptance and owner reviews.

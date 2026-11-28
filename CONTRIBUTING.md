@@ -66,7 +66,8 @@ Players receive reviewed media and need no generation account or API key.
 
 ## Public sources and large files
 
-Authored sources remain public and retrievable. Small sources belong in the
+Use the [source retrieval guide](docs/source-retrieval.md) to fetch and verify the
+current pinned media library or an individual source. Small sources belong in the
 repository. Before accepting a source too large for ordinary Git, arrange either
 public Git LFS storage or a versioned public source archive attached to the same
 release, with anonymous access and no expiring/private URLs. No such archive is

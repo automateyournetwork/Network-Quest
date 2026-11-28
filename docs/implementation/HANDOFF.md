@@ -26,7 +26,11 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**160 loops started; 127/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. Fifteen conditional uses are reserved for the next G5 audit checkpoint. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+**162 loops started; 129/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. Fifteen conditional uses are reserved for the next G5 audit checkpoint. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+
+The one-slot migration fixtures now preserve two independently specified prior adventures across safe relocation, retained histories and later conditional saving. The seven new fixture checks, 22 original migration cases and eight PHP comparisons passed. [Migration fixtures](loops/159-T142.md)
+
+The public twelve-room source pin supplied all 2,063 indexed files, including 929 distinct declared sources, for an exact total of 2,022,916,002 bytes. A second verifier checked every digest, 179 Blender files and 110 native Audacity projects. [Public retrieval evidence](../evidence/spec001/source-retrieval.md)
 
 The first six finished rooms reached the remote at `4d9ec809330fd804badff4796de0df7e1f402e82`. [Six-room checkpoint](../evidence/spec001/final-rooms/first-six-join.json)
 
@@ -163,8 +167,12 @@ Loop 157/T140: Three independent ordinary guest routes exercised the Rift, the T
 
 Loop 156/T139: Shell Market and Clockworks passed the combined twelve-room guest repeat. Eleven close-ups retained keyboard focus and released their canvases, and all twenty contextual cues and fifteen party placements were observed. [Verification](loops/156-T139.md).
 
+Loop 159/T142: Two independently specified prior saves, four typed renames and two safe relocations passed 29 focused tests and eight PHP comparisons. Future-door and newer opaque cases preserve the one-slot contract. [Verification](loops/159-T142.md).
+
+Loop 160/T145: A clean anonymous checkout retrieved and hashed 2,063 public source and supporting files, including 179 Blender files and 110 Audacity projects. Nineteen targeted CLI cases passed. [Verification](loops/160-T145.md).
+
 <!-- current production assignments -->
-Active assignments: 158/T141, 159/T142, 160/T145.
+Active assignments: 158/T141, 161/T143, 162/T146.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

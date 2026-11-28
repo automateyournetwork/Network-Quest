@@ -1,0 +1,1456 @@
+{
+  "license": "CC-BY-4.0",
+  "task": "T142",
+  "requirements": [
+    "FR-025",
+    "SAVE11",
+    "AC13"
+  ],
+  "fixtureVersion": 1,
+  "scope": "Hypothetical pre-release content 0.9.1 and synthetic adventures only. Target 1.0.0 is the authored Spec001 world. No prior shipment, other realm, live identity or player record is asserted.",
+  "authorship": "Both complete snapshots and both revisit variants specify their own field values. The historical party measurements and completed copper bypass observations use current gameplay conventions. Fixed UUIDs, versions, prior names, positions, revision sequence and notes are invented test inputs. No migration generated an expected snapshot.",
+  "policy": {
+    "fromVersion": "0.9.1",
+    "toVersion": "1.0.0",
+    "schema": 1,
+    "basis": "The hypothetical read catalog uses the authored 1.0.0 membership and relationships with exactly the historical differences below. A rename replaces the target in each listed member kind. Rename the item quantity key as well. Replace the balcony anchor, add the historical arrival bench, and omit the future door metadata in the older world.",
+    "renames": [
+      {
+        "prior": "spec001:R12-balcony",
+        "current": "spec001:R12",
+        "memberKinds": [
+          "room",
+          "subject"
+        ]
+      },
+      {
+        "prior": "spec001:ITEM-field-case",
+        "current": "spec001:ITEM-inspection-kit",
+        "memberKinds": [
+          "item",
+          "subject"
+        ]
+      },
+      {
+        "prior": "spec001:EFFECT-classify-bypass",
+        "current": "spec001:EFFECT-repair-classify-temporary",
+        "memberKinds": [
+          "effect"
+        ]
+      },
+      {
+        "prior": "spec001:FACT-bypass-followup",
+        "current": "spec001:FACT-repair-maintenance",
+        "memberKinds": [
+          "fact",
+          "caveat"
+        ]
+      }
+    ],
+    "relocations": [
+      {
+        "priorRoomId": "spec001:R12-balcony",
+        "priorPositionId": "spec001:R12.signal-ledge",
+        "roomId": "spec001:R12",
+        "safePositionId": "spec001:R12.entry",
+        "eligibleStates": [
+          "stable-exploration",
+          "safe-continue"
+        ],
+        "targetExistsInPrior": false
+      },
+      {
+        "priorRoomId": "spec001:R01",
+        "priorPositionId": "spec001:R01.instrument-bench",
+        "roomId": "spec001:R01",
+        "safePositionId": "spec001:R01.entry",
+        "eligibleStates": [
+          "stable-exploration"
+        ],
+        "targetExistsInPrior": true
+      }
+    ],
+    "configurationChange": "Moving from either removed position advances physical configuration. Historical records retain the attempt, revision, units, values, conclusion and order. Previously current evidence becomes stale. Retained history cannot certify a new repair.",
+    "futureDoor": {
+      "priorPresent": false,
+      "currentId": "spec001:FD-IRON-CITY",
+      "currentRoomId": "spec001:R12",
+      "targetEpisodeId": "spec002",
+      "traversable": false,
+      "requiredForMainStory": false,
+      "grantsProgress": false,
+      "unplayedQuestId": "spec001:SQ04"
+    }
+  },
+  "input": {
+    "saveSchemaVersion": 1,
+    "contentVersion": "0.9.1",
+    "episodeId": "spec001",
+    "adventureId": "00000142-0000-4000-8000-000000000001",
+    "safeState": "safe-continue",
+    "world": {
+      "roomId": "spec001:R12-balcony",
+      "position": {
+        "safePositionId": "spec001:R12.signal-ledge"
+      },
+      "attemptId": "00000142-0000-4000-8000-000000000003",
+      "configurationRevision": 55,
+      "flags": {
+        "spec001:FLAG-kit-issued": true,
+        "spec001:FLAG-power-observed": true,
+        "spec001:FLAG-link-observed": true,
+        "spec001:FLAG-path-inspected": true,
+        "spec001:FLAG-endpoints-identified": true,
+        "spec001:FLAG-path-declared": true,
+        "spec001:FLAG-hypothesis-pinned": true,
+        "spec001:FLAG-path-mode": "direct",
+        "spec001:FLAG-copper-path": "section-replacement",
+        "spec001:FLAG-copper-repeater-claim": "requires-continuity",
+        "spec001:FLAG-market-kit": "compatible-kit-A",
+        "spec001:FLAG-equipment-capability": "100/full",
+        "spec001:FLAG-clock-method": "step-and-decode",
+        "spec001:FLAG-clock-role": "physical-sampling-not-address-discovery",
+        "spec001:FLAG-clock-bits-0": "00",
+        "spec001:FLAG-clock-bits-1": "10",
+        "spec001:FLAG-clock-bits-2": "11",
+        "spec001:FLAG-clock-bits-3": "01",
+        "spec001:FLAG-repair-selected": "copper-section",
+        "spec001:FLAG-repair-duration": "temporary",
+        "spec001:FLAG-repair-executed": "copper-section",
+        "spec001:FLAG-repair-classification": "temporary"
+      },
+      "completedObjectiveIds": [
+        "spec001:O01",
+        "spec001:O02",
+        "spec001:O03",
+        "spec001:O04",
+        "spec001:O09",
+        "spec001:O10",
+        "spec001:O11",
+        "spec001:O12"
+      ],
+      "completedQuestIds": [
+        "spec001:SQ01"
+      ],
+      "achievementIds": [
+        "spec001:ACHIEVEMENT-MG01-complete"
+      ],
+      "dialogueEffectIds": [
+        "spec001:EFFECT-repair-execute-copper-section",
+        "spec001:EFFECT-classify-bypass"
+      ],
+      "inventory": [
+        {
+          "itemId": "spec001:ITEM-field-case",
+          "quantity": 1
+        }
+      ],
+      "recruits": [
+        {
+          "characterId": "spec001:CH04",
+          "level": 2,
+          "abilityIds": [
+            "spec001:ABILITY-CH04-continuity-comparison",
+            "spec001:ABILITY-CH04-explain"
+          ],
+          "progressFlags": []
+        },
+        {
+          "characterId": "spec001:CH19",
+          "level": 1,
+          "abilityIds": [
+            "spec001:ABILITY-CH19-delivered-power"
+          ],
+          "progressFlags": []
+        }
+      ],
+      "activeAllyIds": [
+        "spec001:CH19",
+        "spec001:CH04"
+      ],
+      "compendiumIds": [
+        "spec001:COMPENDIUM-CH01",
+        "spec001:COMPENDIUM-CH04",
+        "spec001:COMPENDIUM-CH13",
+        "spec001:COMPENDIUM-CH19",
+        "spec001:COMPENDIUM-CH21"
+      ],
+      "route": "copper",
+      "continueOutcome": "E02"
+    },
+    "notebook": {
+      "factIds": [
+        "spec001:FACT-power",
+        "spec001:FACT-link",
+        "spec001:FACT-inspection",
+        "spec001:FACT-endpoints",
+        "spec001:FACT-endpoint-a",
+        "spec001:FACT-endpoint-b",
+        "spec001:FACT-path",
+        "spec001:FACT-O03-compatibility",
+        "spec001:FACT-O03-defect",
+        "spec001:FACT-O03-path",
+        "spec001:FACT-O04-before",
+        "spec001:FACT-O04-after",
+        "spec001:FACT-O04-repeater-limit",
+        "spec001:FACT-O09-power",
+        "spec001:FACT-O09-module",
+        "spec001:FACT-O09-capability",
+        "spec001:FACT-SQ01-symbol-strip",
+        "spec001:FACT-SQ01-delivery",
+        "spec001:FACT-MG01-symbol-strip",
+        "spec001:FACT-MG01-completion",
+        "spec001:FACT-repair-isolation",
+        "spec001:FACT-O11-plan",
+        "spec001:FACT-bypass-followup",
+        "spec001:FACT-O11-execution",
+        "spec001:FACT-O12-classification"
+      ],
+      "mapRoomIds": [
+        "spec001:R01",
+        "spec001:R02",
+        "spec001:R03",
+        "spec001:R04",
+        "spec001:R09",
+        "spec001:R10",
+        "spec001:R11",
+        "spec001:R12-balcony"
+      ],
+      "personalNotes": "After the bypass, return the borrowed installation.\nThe old labels in my notebook read spec001:ITEM-field-case and spec001:R12-balcony. Keep those labels in this quotation. 🧰",
+      "hypotheses": [
+        {
+          "id": "00000142-0000-4000-8000-000000000009",
+          "text": "I called my tool spec001:ITEM-field-case. Could the declared copper length explain this link?",
+          "subjectIds": [
+            "spec001:R02",
+            "spec001:PR012"
+          ],
+          "status": "open"
+        }
+      ],
+      "measurements": [
+        {
+          "id": "00000142-0000-4000-8000-000000000020",
+          "ruleId": "spec001:PHY04",
+          "roomId": "spec001:R03",
+          "subjectIds": [
+            "spec001:O03",
+            "spec001:PROFILE-COPPER-100",
+            "spec001:PR022",
+            "spec001:PR023",
+            "spec001:PR029",
+            "spec001:PR030"
+          ],
+          "configurationRevision": 13,
+          "attemptId": "00000142-0000-4000-8000-000000000002",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Compatible path",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Total channel length",
+              "value": 105,
+              "unit": "m"
+            },
+            {
+              "name": "Inclusive maximum",
+              "value": 100,
+              "unit": "m"
+            },
+            {
+              "name": "Open required conductors",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "O03:ACTION-O03-section-replacement:incorrect"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000021",
+          "ruleId": "spec001:PHY04",
+          "roomId": "spec001:R04",
+          "subjectIds": [
+            "spec001:O04",
+            "spec001:PROFILE-COPPER-100",
+            "spec001:PR038",
+            "spec001:PR031",
+            "spec001:PR037"
+          ],
+          "configurationRevision": 16,
+          "attemptId": "00000142-0000-4000-8000-000000000002",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Compatible path",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Total channel length",
+              "value": 95,
+              "unit": "m"
+            },
+            {
+              "name": "Inclusive maximum",
+              "value": 100,
+              "unit": "m"
+            },
+            {
+              "name": "Open required conductors",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Historical open recorded",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Repeater role distinguished",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "O04:ACTION-O04-conventional-continuity-tool:correct"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000022",
+          "ruleId": "spec001:PHY04",
+          "roomId": "spec001:R03",
+          "subjectIds": [
+            "spec001:O03",
+            "spec001:PROFILE-COPPER-100",
+            "spec001:PR022",
+            "spec001:PR023",
+            "spec001:PR029",
+            "spec001:PR030"
+          ],
+          "configurationRevision": 19,
+          "attemptId": "00000142-0000-4000-8000-000000000002",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Compatible path",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Total channel length",
+              "value": 105,
+              "unit": "m"
+            },
+            {
+              "name": "Inclusive maximum",
+              "value": 100,
+              "unit": "m"
+            },
+            {
+              "name": "Open required conductors",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "O03:ACTION-O03-section-replacement:incorrect"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000023",
+          "ruleId": "spec001:PHY04",
+          "roomId": "spec001:R04",
+          "subjectIds": [
+            "spec001:O04",
+            "spec001:PROFILE-COPPER-100",
+            "spec001:PR038",
+            "spec001:PR031",
+            "spec001:PR037"
+          ],
+          "configurationRevision": 20,
+          "attemptId": "00000142-0000-4000-8000-000000000002",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Compatible path",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Total channel length",
+              "value": 105,
+              "unit": "m"
+            },
+            {
+              "name": "Inclusive maximum",
+              "value": 100,
+              "unit": "m"
+            },
+            {
+              "name": "Open required conductors",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Historical open recorded",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Repeater role distinguished",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "O04:ACTION-O04-conventional-continuity-tool:incorrect"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000024",
+          "ruleId": "spec001:PHY04",
+          "roomId": "spec001:R04",
+          "subjectIds": [
+            "spec001:O04",
+            "spec001:PROFILE-COPPER-100",
+            "spec001:PR038",
+            "spec001:PR031",
+            "spec001:PR037"
+          ],
+          "configurationRevision": 23,
+          "attemptId": "00000142-0000-4000-8000-000000000002",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Compatible path",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Total channel length",
+              "value": 95,
+              "unit": "m"
+            },
+            {
+              "name": "Inclusive maximum",
+              "value": 100,
+              "unit": "m"
+            },
+            {
+              "name": "Open required conductors",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Historical open recorded",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Repeater role distinguished",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "O04:ACTION-O04-conventional-continuity-tool:correct"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000025",
+          "ruleId": "spec001:PHY08",
+          "roomId": "spec001:R09",
+          "subjectIds": [
+            "spec001:O09",
+            "spec001:PROFILE-POWER",
+            "spec001:PROFILE-CAPABILITIES",
+            "spec001:R09"
+          ],
+          "configurationRevision": 29,
+          "attemptId": "00000142-0000-4000-8000-000000000002",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Delivered budget",
+              "value": 30,
+              "unit": "W"
+            },
+            {
+              "name": "Total delivered demand",
+              "value": 23,
+              "unit": "W"
+            },
+            {
+              "name": "Delivered headroom",
+              "value": 7,
+              "unit": "W"
+            },
+            {
+              "name": "Selected common rate",
+              "value": 100,
+              "unit": "Mbps"
+            },
+            {
+              "name": "Selected full duplex",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Common mode supported",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "O09:ACTION-O09-compatible-kit-A:correct"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000030",
+          "ruleId": "spec001:STATE04",
+          "roomId": "spec001:R11",
+          "subjectIds": [
+            "spec001:O11",
+            "spec001:R11",
+            "spec001:PROFILE-COPPER-100",
+            "spec001:PROFILE-POWER",
+            "spec001:PROFILE-CAPABILITIES",
+            "spec001:PROFILE-SYMBOLS"
+          ],
+          "configurationRevision": 52,
+          "attemptId": "00000142-0000-4000-8000-000000000003",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Damaged installation removed",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Temporary dependency remains",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Unresolved defect identified",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Deliberate isolation",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Total channel length",
+              "value": 95,
+              "unit": "m"
+            },
+            {
+              "name": "Inclusive maximum",
+              "value": 100,
+              "unit": "m"
+            },
+            {
+              "name": "Current route checks pass",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Current equipment and calibration pass",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "repair:review:copper-section:temporary:correct"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000031",
+          "ruleId": "spec001:PHY11",
+          "roomId": "spec001:R12-balcony",
+          "subjectIds": [
+            "spec001:O12",
+            "spec001:R12-balcony",
+            "spec001:PROFILE-COPPER-100",
+            "spec001:PROFILE-POWER",
+            "spec001:PROFILE-CAPABILITIES",
+            "spec001:PROFILE-SYMBOLS",
+            "spec001:PROFILE-PACKET"
+          ],
+          "configurationRevision": 54,
+          "attemptId": "00000142-0000-4000-8000-000000000003",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Damaged installation removed",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Temporary dependency remains",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Unresolved defect identified",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Deliberate isolation",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Total channel length",
+              "value": 95,
+              "unit": "m"
+            },
+            {
+              "name": "Inclusive maximum",
+              "value": 100,
+              "unit": "m"
+            },
+            {
+              "name": "Current route checks pass",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Current equipment and calibration pass",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Recovered highlighted bits",
+              "value": 16,
+              "unit": "bit"
+            },
+            {
+              "name": "Differing highlighted positions",
+              "value": 0,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "repair:link:copper-section:temporary:correct"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000032",
+          "ruleId": "spec001:STATE04",
+          "roomId": "spec001:R12-balcony",
+          "subjectIds": [
+            "spec001:O12",
+            "spec001:R12-balcony"
+          ],
+          "configurationRevision": 54,
+          "attemptId": "00000142-0000-4000-8000-000000000003",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Endpoint service acknowledged",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "repair:endpoint:copper-section:temporary:correct"
+        }
+      ]
+    },
+    "assistance": [
+      {
+        "objectiveId": "spec001:SQ01",
+        "hintId": "spec001:HINT-SQ01-method",
+        "level": 1,
+        "attemptId": "00000142-0000-4000-8000-000000000002"
+      },
+      {
+        "objectiveId": "spec001:O12",
+        "hintId": "spec001:HINT-O12-method",
+        "level": 1,
+        "attemptId": "00000142-0000-4000-8000-000000000003"
+      }
+    ],
+    "outcomeHistory": [
+      {
+        "id": "00000142-0000-4000-8000-000000000050",
+        "outcome": "E03",
+        "attemptId": "00000142-0000-4000-8000-000000000002",
+        "route": null,
+        "caveatIds": [
+          "spec001:FACT-repair-isolation"
+        ]
+      },
+      {
+        "id": "00000142-0000-4000-8000-000000000051",
+        "outcome": "E02",
+        "attemptId": "00000142-0000-4000-8000-000000000003",
+        "route": "copper",
+        "caveatIds": [
+          "spec001:FACT-bypass-followup"
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "saveSchemaVersion": 1,
+    "contentVersion": "1.0.0",
+    "episodeId": "spec001",
+    "adventureId": "00000142-0000-4000-8000-000000000001",
+    "safeState": "safe-continue",
+    "world": {
+      "roomId": "spec001:R12",
+      "position": {
+        "safePositionId": "spec001:R12.entry"
+      },
+      "attemptId": "00000142-0000-4000-8000-000000000003",
+      "configurationRevision": 56,
+      "flags": {
+        "spec001:FLAG-kit-issued": true,
+        "spec001:FLAG-power-observed": true,
+        "spec001:FLAG-link-observed": true,
+        "spec001:FLAG-path-inspected": true,
+        "spec001:FLAG-endpoints-identified": true,
+        "spec001:FLAG-path-declared": true,
+        "spec001:FLAG-hypothesis-pinned": true,
+        "spec001:FLAG-path-mode": "direct",
+        "spec001:FLAG-copper-path": "section-replacement",
+        "spec001:FLAG-copper-repeater-claim": "requires-continuity",
+        "spec001:FLAG-market-kit": "compatible-kit-A",
+        "spec001:FLAG-equipment-capability": "100/full",
+        "spec001:FLAG-clock-method": "step-and-decode",
+        "spec001:FLAG-clock-role": "physical-sampling-not-address-discovery",
+        "spec001:FLAG-clock-bits-0": "00",
+        "spec001:FLAG-clock-bits-1": "10",
+        "spec001:FLAG-clock-bits-2": "11",
+        "spec001:FLAG-clock-bits-3": "01",
+        "spec001:FLAG-repair-selected": "copper-section",
+        "spec001:FLAG-repair-duration": "temporary",
+        "spec001:FLAG-repair-executed": "copper-section",
+        "spec001:FLAG-repair-classification": "temporary"
+      },
+      "completedObjectiveIds": [
+        "spec001:O01",
+        "spec001:O02",
+        "spec001:O03",
+        "spec001:O04",
+        "spec001:O09",
+        "spec001:O10",
+        "spec001:O11",
+        "spec001:O12"
+      ],
+      "completedQuestIds": [
+        "spec001:SQ01"
+      ],
+      "achievementIds": [
+        "spec001:ACHIEVEMENT-MG01-complete"
+      ],
+      "dialogueEffectIds": [
+        "spec001:EFFECT-repair-execute-copper-section",
+        "spec001:EFFECT-repair-classify-temporary"
+      ],
+      "inventory": [
+        {
+          "itemId": "spec001:ITEM-inspection-kit",
+          "quantity": 1
+        }
+      ],
+      "recruits": [
+        {
+          "characterId": "spec001:CH04",
+          "level": 2,
+          "abilityIds": [
+            "spec001:ABILITY-CH04-continuity-comparison",
+            "spec001:ABILITY-CH04-explain"
+          ],
+          "progressFlags": []
+        },
+        {
+          "characterId": "spec001:CH19",
+          "level": 1,
+          "abilityIds": [
+            "spec001:ABILITY-CH19-delivered-power"
+          ],
+          "progressFlags": []
+        }
+      ],
+      "activeAllyIds": [
+        "spec001:CH19",
+        "spec001:CH04"
+      ],
+      "compendiumIds": [
+        "spec001:COMPENDIUM-CH01",
+        "spec001:COMPENDIUM-CH04",
+        "spec001:COMPENDIUM-CH13",
+        "spec001:COMPENDIUM-CH19",
+        "spec001:COMPENDIUM-CH21"
+      ],
+      "route": "copper",
+      "continueOutcome": "E02"
+    },
+    "notebook": {
+      "factIds": [
+        "spec001:FACT-power",
+        "spec001:FACT-link",
+        "spec001:FACT-inspection",
+        "spec001:FACT-endpoints",
+        "spec001:FACT-endpoint-a",
+        "spec001:FACT-endpoint-b",
+        "spec001:FACT-path",
+        "spec001:FACT-O03-compatibility",
+        "spec001:FACT-O03-defect",
+        "spec001:FACT-O03-path",
+        "spec001:FACT-O04-before",
+        "spec001:FACT-O04-after",
+        "spec001:FACT-O04-repeater-limit",
+        "spec001:FACT-O09-power",
+        "spec001:FACT-O09-module",
+        "spec001:FACT-O09-capability",
+        "spec001:FACT-SQ01-symbol-strip",
+        "spec001:FACT-SQ01-delivery",
+        "spec001:FACT-MG01-symbol-strip",
+        "spec001:FACT-MG01-completion",
+        "spec001:FACT-repair-isolation",
+        "spec001:FACT-O11-plan",
+        "spec001:FACT-repair-maintenance",
+        "spec001:FACT-O11-execution",
+        "spec001:FACT-O12-classification"
+      ],
+      "mapRoomIds": [
+        "spec001:R01",
+        "spec001:R02",
+        "spec001:R03",
+        "spec001:R04",
+        "spec001:R09",
+        "spec001:R10",
+        "spec001:R11",
+        "spec001:R12"
+      ],
+      "personalNotes": "After the bypass, return the borrowed installation.\nThe old labels in my notebook read spec001:ITEM-field-case and spec001:R12-balcony. Keep those labels in this quotation. 🧰",
+      "hypotheses": [
+        {
+          "id": "00000142-0000-4000-8000-000000000009",
+          "text": "I called my tool spec001:ITEM-field-case. Could the declared copper length explain this link?",
+          "subjectIds": [
+            "spec001:R02",
+            "spec001:PR012"
+          ],
+          "status": "open"
+        }
+      ],
+      "measurements": [
+        {
+          "id": "00000142-0000-4000-8000-000000000020",
+          "ruleId": "spec001:PHY04",
+          "roomId": "spec001:R03",
+          "subjectIds": [
+            "spec001:O03",
+            "spec001:PROFILE-COPPER-100",
+            "spec001:PR022",
+            "spec001:PR023",
+            "spec001:PR029",
+            "spec001:PR030"
+          ],
+          "configurationRevision": 13,
+          "attemptId": "00000142-0000-4000-8000-000000000002",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Compatible path",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Total channel length",
+              "value": 105,
+              "unit": "m"
+            },
+            {
+              "name": "Inclusive maximum",
+              "value": 100,
+              "unit": "m"
+            },
+            {
+              "name": "Open required conductors",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "O03:ACTION-O03-section-replacement:incorrect"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000021",
+          "ruleId": "spec001:PHY04",
+          "roomId": "spec001:R04",
+          "subjectIds": [
+            "spec001:O04",
+            "spec001:PROFILE-COPPER-100",
+            "spec001:PR038",
+            "spec001:PR031",
+            "spec001:PR037"
+          ],
+          "configurationRevision": 16,
+          "attemptId": "00000142-0000-4000-8000-000000000002",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Compatible path",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Total channel length",
+              "value": 95,
+              "unit": "m"
+            },
+            {
+              "name": "Inclusive maximum",
+              "value": 100,
+              "unit": "m"
+            },
+            {
+              "name": "Open required conductors",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Historical open recorded",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Repeater role distinguished",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "O04:ACTION-O04-conventional-continuity-tool:correct"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000022",
+          "ruleId": "spec001:PHY04",
+          "roomId": "spec001:R03",
+          "subjectIds": [
+            "spec001:O03",
+            "spec001:PROFILE-COPPER-100",
+            "spec001:PR022",
+            "spec001:PR023",
+            "spec001:PR029",
+            "spec001:PR030"
+          ],
+          "configurationRevision": 19,
+          "attemptId": "00000142-0000-4000-8000-000000000002",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Compatible path",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Total channel length",
+              "value": 105,
+              "unit": "m"
+            },
+            {
+              "name": "Inclusive maximum",
+              "value": 100,
+              "unit": "m"
+            },
+            {
+              "name": "Open required conductors",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "O03:ACTION-O03-section-replacement:incorrect"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000023",
+          "ruleId": "spec001:PHY04",
+          "roomId": "spec001:R04",
+          "subjectIds": [
+            "spec001:O04",
+            "spec001:PROFILE-COPPER-100",
+            "spec001:PR038",
+            "spec001:PR031",
+            "spec001:PR037"
+          ],
+          "configurationRevision": 20,
+          "attemptId": "00000142-0000-4000-8000-000000000002",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Compatible path",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Total channel length",
+              "value": 105,
+              "unit": "m"
+            },
+            {
+              "name": "Inclusive maximum",
+              "value": 100,
+              "unit": "m"
+            },
+            {
+              "name": "Open required conductors",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Historical open recorded",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Repeater role distinguished",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "O04:ACTION-O04-conventional-continuity-tool:incorrect"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000024",
+          "ruleId": "spec001:PHY04",
+          "roomId": "spec001:R04",
+          "subjectIds": [
+            "spec001:O04",
+            "spec001:PROFILE-COPPER-100",
+            "spec001:PR038",
+            "spec001:PR031",
+            "spec001:PR037"
+          ],
+          "configurationRevision": 23,
+          "attemptId": "00000142-0000-4000-8000-000000000002",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Compatible path",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Total channel length",
+              "value": 95,
+              "unit": "m"
+            },
+            {
+              "name": "Inclusive maximum",
+              "value": 100,
+              "unit": "m"
+            },
+            {
+              "name": "Open required conductors",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Historical open recorded",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Repeater role distinguished",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "O04:ACTION-O04-conventional-continuity-tool:correct"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000025",
+          "ruleId": "spec001:PHY08",
+          "roomId": "spec001:R09",
+          "subjectIds": [
+            "spec001:O09",
+            "spec001:PROFILE-POWER",
+            "spec001:PROFILE-CAPABILITIES",
+            "spec001:R09"
+          ],
+          "configurationRevision": 29,
+          "attemptId": "00000142-0000-4000-8000-000000000002",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Delivered budget",
+              "value": 30,
+              "unit": "W"
+            },
+            {
+              "name": "Total delivered demand",
+              "value": 23,
+              "unit": "W"
+            },
+            {
+              "name": "Delivered headroom",
+              "value": 7,
+              "unit": "W"
+            },
+            {
+              "name": "Selected common rate",
+              "value": 100,
+              "unit": "Mbps"
+            },
+            {
+              "name": "Selected full duplex",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Common mode supported",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "O09:ACTION-O09-compatible-kit-A:correct"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000030",
+          "ruleId": "spec001:STATE04",
+          "roomId": "spec001:R11",
+          "subjectIds": [
+            "spec001:O11",
+            "spec001:R11",
+            "spec001:PROFILE-COPPER-100",
+            "spec001:PROFILE-POWER",
+            "spec001:PROFILE-CAPABILITIES",
+            "spec001:PROFILE-SYMBOLS"
+          ],
+          "configurationRevision": 52,
+          "attemptId": "00000142-0000-4000-8000-000000000003",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Damaged installation removed",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Temporary dependency remains",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Unresolved defect identified",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Deliberate isolation",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Total channel length",
+              "value": 95,
+              "unit": "m"
+            },
+            {
+              "name": "Inclusive maximum",
+              "value": 100,
+              "unit": "m"
+            },
+            {
+              "name": "Current route checks pass",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Current equipment and calibration pass",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "repair:review:copper-section:temporary:correct"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000031",
+          "ruleId": "spec001:PHY11",
+          "roomId": "spec001:R12",
+          "subjectIds": [
+            "spec001:O12",
+            "spec001:R12",
+            "spec001:PROFILE-COPPER-100",
+            "spec001:PROFILE-POWER",
+            "spec001:PROFILE-CAPABILITIES",
+            "spec001:PROFILE-SYMBOLS",
+            "spec001:PROFILE-PACKET"
+          ],
+          "configurationRevision": 54,
+          "attemptId": "00000142-0000-4000-8000-000000000003",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Damaged installation removed",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Temporary dependency remains",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Unresolved defect identified",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Deliberate isolation",
+              "value": 0,
+              "unit": "count"
+            },
+            {
+              "name": "Total channel length",
+              "value": 95,
+              "unit": "m"
+            },
+            {
+              "name": "Inclusive maximum",
+              "value": 100,
+              "unit": "m"
+            },
+            {
+              "name": "Current route checks pass",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Current equipment and calibration pass",
+              "value": 1,
+              "unit": "count"
+            },
+            {
+              "name": "Recovered highlighted bits",
+              "value": 16,
+              "unit": "bit"
+            },
+            {
+              "name": "Differing highlighted positions",
+              "value": 0,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "repair:link:copper-section:temporary:correct"
+        },
+        {
+          "id": "00000142-0000-4000-8000-000000000032",
+          "ruleId": "spec001:STATE04",
+          "roomId": "spec001:R12",
+          "subjectIds": [
+            "spec001:O12",
+            "spec001:R12"
+          ],
+          "configurationRevision": 54,
+          "attemptId": "00000142-0000-4000-8000-000000000003",
+          "stale": true,
+          "readings": [
+            {
+              "name": "Endpoint service acknowledged",
+              "value": 1,
+              "unit": "count"
+            }
+          ],
+          "conclusionCode": "repair:endpoint:copper-section:temporary:correct"
+        }
+      ]
+    },
+    "assistance": [
+      {
+        "objectiveId": "spec001:SQ01",
+        "hintId": "spec001:HINT-SQ01-method",
+        "level": 1,
+        "attemptId": "00000142-0000-4000-8000-000000000002"
+      },
+      {
+        "objectiveId": "spec001:O12",
+        "hintId": "spec001:HINT-O12-method",
+        "level": 1,
+        "attemptId": "00000142-0000-4000-8000-000000000003"
+      }
+    ],
+    "outcomeHistory": [
+      {
+        "id": "00000142-0000-4000-8000-000000000050",
+        "outcome": "E03",
+        "attemptId": "00000142-0000-4000-8000-000000000002",
+        "route": null,
+        "caveatIds": [
+          "spec001:FACT-repair-isolation"
+        ]
+      },
+      {
+        "id": "00000142-0000-4000-8000-000000000051",
+        "outcome": "E02",
+        "attemptId": "00000142-0000-4000-8000-000000000003",
+        "route": "copper",
+        "caveatIds": [
+          "spec001:FACT-repair-maintenance"
+        ]
+      }
+    ]
+  },
+  "revisit": {
+    "description": "A second saved position after E02. Back at the arrival bench the player inspects the direct 85 m path plus 10 m of leads. Existing repair measurements are already stale. Overlay the named safeState and world fields on the matching complete snapshot and append exactly one measurement. All remaining values and their order carry over.",
+    "inputOverrides": {
+      "safeState": "stable-exploration",
+      "world": {
+        "roomId": "spec001:R01",
+        "position": {
+          "safePositionId": "spec001:R01.instrument-bench"
+        },
+        "configurationRevision": 70,
+        "continueOutcome": null
+      },
+      "appendMeasurement": {
+        "id": "00000142-0000-4000-8000-000000000040",
+        "ruleId": "spec001:PHY04",
+        "subjectIds": [
+          "spec001:PR003",
+          "spec001:PROFILE-COPPER-100"
+        ],
+        "roomId": "spec001:R01",
+        "configurationRevision": 70,
+        "attemptId": "00000142-0000-4000-8000-000000000003",
+        "stale": false,
+        "readings": [
+          {
+            "name": "Channel length",
+            "value": 95,
+            "unit": "m"
+          },
+          {
+            "name": "Inclusive maximum",
+            "value": 100,
+            "unit": "m"
+          },
+          {
+            "name": "Headroom",
+            "value": 5,
+            "unit": "m"
+          }
+        ],
+        "conclusionCode": "length-within-profile"
+      }
+    },
+    "expectedOverrides": {
+      "safeState": "stable-exploration",
+      "world": {
+        "roomId": "spec001:R01",
+        "position": {
+          "safePositionId": "spec001:R01.entry"
+        },
+        "configurationRevision": 71,
+        "continueOutcome": null
+      },
+      "appendMeasurement": {
+        "id": "00000142-0000-4000-8000-000000000040",
+        "ruleId": "spec001:PHY04",
+        "subjectIds": [
+          "spec001:PR003",
+          "spec001:PROFILE-COPPER-100"
+        ],
+        "roomId": "spec001:R01",
+        "configurationRevision": 70,
+        "attemptId": "00000142-0000-4000-8000-000000000003",
+        "stale": true,
+        "readings": [
+          {
+            "name": "Channel length",
+            "value": 95,
+            "unit": "m"
+          },
+          {
+            "name": "Inclusive maximum",
+            "value": 100,
+            "unit": "m"
+          },
+          {
+            "name": "Headroom",
+            "value": 5,
+            "unit": "m"
+          }
+        ],
+        "conclusionCode": "length-within-profile"
+      }
+    }
+  },
+  "expectedPlayerExplanation": {
+    "balcony": [
+      "The old signal ledge was removed.",
+      "Resume at the Iron Threshold entrance."
+    ],
+    "revisit": [
+      "The old instrument bench was removed.",
+      "Resume at the Arrival Lift entrance."
+    ],
+    "both": [
+      "Explain that observations remain in the notebook and that a new measurement is needed for current proof."
+    ],
+    "match": "Player-readable meaning. Exact UI wording is free."
+  },
+  "persistence": {
+    "priorRevision": 7,
+    "priorETag": "\"save-7\"",
+    "priorBytes": "UTF-8 of one LF, two spaces, JSON.stringify(input, null, 2), one CRLF. For the revisit variant serialize the materialized older snapshot the same way.",
+    "supportedGet": {
+      "status": "ready",
+      "migrated": true,
+      "writes": 0,
+      "storageRevision": 7,
+      "storedBytes": "original"
+    },
+    "interruptedBeforeInstall": {
+      "installedCandidate": false,
+      "writes": 0,
+      "storageRevision": 7,
+      "storedBytes": "original",
+      "retry": "Read the same slot again and produce the full expected candidate."
+    },
+    "unsafeOrUnconfirmed": {
+      "writes": 0,
+      "storageRevision": 7,
+      "storedBytes": "original"
+    },
+    "eligibleManualSave": {
+      "mode": "manual",
+      "method": "PUT",
+      "ifMatch": "\"save-7\"",
+      "writes": 1,
+      "storageRevision": 8,
+      "etag": "\"save-8\"",
+      "storedSnapshot": "expected",
+      "receiptCommittedRevision": 8,
+      "slotCount": 1
+    },
+    "concurrentWinner": {
+      "ifMatch": "\"save-7\"",
+      "winnerRevision": 8,
+      "responseStatus": 412,
+      "storedBytes": "winning snapshot",
+      "automaticRetry": false
+    }
+  },
+  "unknownNewer": [
+    {
+      "description": "Newer opaque schema",
+      "rawUtf8": " { \"saveSchemaVersion\": 2, \"episodeId\":\"spec001\", \"future\": { \"count\":900719925474099312345, \"label\":\"\\u0041\", \"ratio\":1.000e+02 } }\r\n",
+      "byteLength": 134,
+      "sha256": "314c6756d855f4c390a7a3bfe253acdec2cdd313560f3ec6e3e7edb986ab6266",
+      "reason": "schema-version",
+      "updateNeeded": true,
+      "canReplace": false,
+      "canAutosave": false,
+      "writes": 0,
+      "storedBytes": "original"
+    },
+    {
+      "description": "Known schema with newer opaque content",
+      "rawUtf8": "\n{ \"saveSchemaVersion\":1, \"contentVersion\":\"2.0.0\", \"opaque\":[\"\\u0061\",900719925474099312345,\"🧰\"] }\t",
+      "byteLength": 103,
+      "sha256": "f1b159cda859ab5c6ca2171801e19b132fbd3805d6aceba25a826158b38a1eba",
+      "reason": "content-version",
+      "updateNeeded": true,
+      "canReplace": false,
+      "canAutosave": false,
+      "writes": 0,
+      "storedBytes": "original"
+    }
+  ]
+}
