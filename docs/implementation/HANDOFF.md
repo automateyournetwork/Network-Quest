@@ -26,9 +26,13 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-28
 
-**175 loops started; 141/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+**179 loops started; 144/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
 
-The release candidate now passes the three previously failing local performance checks. All 12 title activations reached the Arrival Lift, eight real Echo Cavern walks exceeded 119 position updates per second and all 780 requests across three 20-session service trials validated. Credits cover the 398 media renditions and runtime dependencies. The older and current native browser matrix, independent public build, real-provider checks, listening and human release gates retain their own evidence. [Performance retest](../evidence/spec001/performance.md) · [Credits verification](loops/173-T156.md)
+The independent Firefox episode suite reached all three endings and migrated the prior balcony save. The coordinator repeated all four native cases and independently verified the 32 browser receipts against the 442-file distribution. The wider regression run subsequently exposed a room 3 Chromium touch issue. Review also found that room 6 needed a clearer distinction between the measured optical path and the proposed remedy. [Browser matrix](../evidence/spec001/browser-matrix.md) · [Independent build](../evidence/spec001/independent-build.md) · [Integrated episode](../evidence/spec001/US8.md)
+
+The joined candidate reached GitHub at `ae8472469b5f7d98e939ccb5471b03893630993a`. All 442 production files matched an independent build. The portable test runtime passed 910 PHP tests and 19,175 assertions, all 4,390 domain cases passed, and all 203 dependency notices matched. The contributor index pins 2,067 files and 2,024,142,069 bytes at the immutable integrated media revision. T157 finished the fresh anonymous checkout, verified every indexed source and reproduced all 442 production files. [Contributor instructions](../../README.md) · [Source retrieval](../source-retrieval.md)
+
+The release candidate now passes the three previously failing local performance checks. All 12 title activations reached the Arrival Lift, eight real Echo Cavern walks exceeded 119 position updates per second and all 780 requests across three 20-session service trials validated. Credits cover the 398 media renditions and runtime dependencies. The native browser matrix completed 32 full guest runs across eight browser distributions and four viewport sizes. Real-provider, listening and human release checks remain open. [Performance retest](../evidence/spec001/performance.md) · [Credits verification](loops/173-T156.md)
 
 The accessibility and performance checkpoint reached GitHub at `ec8c33becbcb52ba6560fcf10cbbf3b50663dbe1`. All twelve rooms and three endings passed 73 automated accessibility audits, with 105 uncertain contrast readings checked against rendered pixels. The independent build matched the browser matrix across all 440 public files. The domain rerun passed 4,390 executable cases. T155 owns three measured regressions involving simultaneous saves, active Echo Cavern walking and the New Adventure button moving during a pointer press. [Whole-episode access](../evidence/spec001/US5.md) · [Performance evidence](../evidence/spec001/performance.md)
 
@@ -213,8 +217,16 @@ Loop 173/T156: All 398 media renditions and 424 public media files have verified
 
 Loop 172/T155: The verified 442-file normal build passed twelve first-click loads, smooth Echo Cavern movement, resource disposal and 780 out of 780 simultaneous-service checks. A repeated six-fixture pressure control and the full PHP suite passed. [Verification](loops/172-T155.md).
 
+Loop 175/T158: Four finished-episode journeys passed across all twelve rooms and three endings, including a complete prior-save migration. Real ambience playback, 64 exports, public source hashes, companions and all seven optional activities were checked. Human listening and release recovery remain open. [Verification](loops/175-T158.md).
+
+Loop 174/T157: A clean anonymous checkout reproduced all 442 production files. All 2,067 source files downloaded and matched their immutable Git objects, including 179 Blender and 110 native Audacity projects. The full local suites passed. [Verification](loops/174-T157.md).
+
+Loop 170/T153: Eight genuine browser distributions completed all twelve rooms at all four viewport sizes. All 32 journeys passed against the public 442-file candidate, including Safari 27.2 and 26.6.1 on macOS. [Verification](loops/170-T153.md).
+
+Loop 178/T161: First-run guest entry and 442 candidate hashes verified. Awaiting the actual beginner playthrough with timing, reasoning, help and outcome. [Verification](loops/178-T161.md).
+
 <!-- current production assignments -->
-Active assignments: 170/T153, 174/T157, 175/T158.
+Active assignments: 176/T159, 177/T160, 179/T162.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

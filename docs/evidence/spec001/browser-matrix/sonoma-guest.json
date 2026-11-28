@@ -1,0 +1,58 @@
+{
+  "guestImage": {
+    "registry": "ghcr.io/cirruslabs/macos-sonoma-base",
+    "manifest": "sha256:e2ebdfc4d354b336fe00d729c11a8136a019b8046f41cc183a2fe51b85d18f49",
+    "tart": "2.42.0",
+    "tartArchiveSHA256": "a95dda214b5f676298430d665a8174992e6b300dd20c653385b60481ae819ddf",
+    "annotations": {
+      "org.cirruslabs.tart.uncompressed-disk-size": "50000000000",
+      "org.cirruslabs.tart.upload-time": "2026-09-05T08:31:09Z"
+    },
+    "compressedBytes": 22563882329
+  },
+  "imagePublisher": "Cirrus Labs",
+  "imageTemplates": "https://github.com/cirruslabs/macos-image-templates",
+  "tartRelease": "https://github.com/openai/tart/releases/tag/2.42.0",
+  "resources": {
+    "cpus": 4,
+    "megabytes": 6144,
+    "virtualDisplay": "1728x1117pt",
+    "network": "host-only",
+    "hostDirectoryShares": 0,
+    "clipboard": false,
+    "USB": false,
+    "audioPassthrough": false
+  },
+  "macOS": {
+    "version": "14.8.7",
+    "build": "23J520"
+  },
+  "browserBefore": "Safari 17.6 (19618.3.11.11.5)",
+  "officialUpdate": {
+    "catalog": "https://swscan.apple.com/content/catalogs/others/index-14-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog.gz",
+    "product": "140-79456",
+    "package": "https://swcdn.apple.com/content/downloads/49/10/140-79456-A_O404JLOL6M/o3tv0l3yuo1eakvajp35rrb6leojgv5a4f/Safari26.6.1SonomaAuto.pkg",
+    "bytes": 223271246,
+    "sha256": "d094ff679bd79a85ada608c5c622adb4def5040ce178ff9f27db2cf1ff3e31eb",
+    "signature": "Package \"Safari26.6.1SonomaAuto.pkg\":\n   Status: signed Apple Software\n   Certificate Chain:\n    1. Software Update\n       Expires: 2029-04-14 21:28:23 +0000\n       SHA256 Fingerprint:\n           E0 74 D2 04 AC 24 98 E9 DC 90 4A 7B C7 CE D8 46 41 19 B7 9D 05 66 \n           80 28 92 05 83 B1 E8 96 EB B4\n       ------------------------------------------------------------------------\n    2. Apple Software Update Certification Authority\n       Expires: 2031-10-15 00:00:00 +0000\n       SHA256 Fingerprint:\n           12 99 E9 BF E7 76 A2 9F F4 52 F8 C4 F5 E5 5F 3B 4D FD 29 34 34 9D \n           D1 85 0B 82 74 F3 5C 71 74 5C\n       ------------------------------------------------------------------------\n    3. Apple Root CA\n       Expires: 2035-02-09 21:40:36 +0000\n       SHA256 Fingerprint:\n           B0 B1 73 0E CB C7 FF 45 05 14 2C 49 F1 29 5E 6E DA 6B CA ED 7E 2C \n           68 C5 BE 91 B5 A1 10 01 F0 24",
+    "distribution": "https://swdist.apple.com/content/downloads/49/10/140-79456-A_O404JLOL6M/o3tv0l3yuo1eakvajp35rrb6leojgv5a4f/140-79456.English.dist",
+    "distributionSHA256": "5bbf541d272a71a549b545da160edf097316b3ca6053317d3d78eedd888e21aa",
+    "result": "Apple component by itself returned PKInstallErrorDomain 109. Installer accepted Apple’s unchanged distribution referencing the original filename, completed successfully, and Safari and safaridriver subsequently reported 26.6.1."
+  },
+  "result": {
+    "browser": "Safari",
+    "version": "26.6.1",
+    "build": "19624.5.1.18.3",
+    "safaridriver": "Included with Safari 26.6.1 (19624.5.1.18.3)",
+    "installedSignature": "codesign --verify --strict -R=\"anchor apple\" /Applications/Safari.app returned 0",
+    "designatedRequirement": "identifier \"com.apple.Safari\" and anchor apple"
+  },
+  "controls": "Only the checked public fixture and measurement tools were transferred to the disposable guest. Safari WebDriver was enabled only within that guest.",
+  "completed": {
+    "matrix": "release-records/safari-26.json",
+    "cellsPassed": 4,
+    "candidateSHA256": "b2837859285e3f00adea34342ffeee2606de5383ca3295c8e689f26dec2f3361",
+    "guestStateAfterRuns": "stopped",
+    "guestStateCheck": "tart list --format json"
+  }
+}

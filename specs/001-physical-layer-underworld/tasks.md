@@ -571,7 +571,7 @@ This preparation does not replace independent technical or human review.
 - [X] T150 [US5] Complete failed asset/decode/audio/network and WebGL2/context-loss recovery in `src/presentation/recovery.ts`; offer retry/text/low-detail controls with identical gameplay state, bounded loading and honest unsaved status.
 - [X] T151 [US5] Pause presentation/audio on hidden tabs and resume safely in `src/presentation/visibility.ts`; no invisible mandatory timer, delayed effect or motion-dependent clue may change the lesson.
 - [X] T152 [US5] Run axe plus complete keyboard/text/muted/reduced-motion/zoom/touch and media/scene/network failures in `tests/e2e/accessibility.spec.ts` and `tests/e2e/recovery.spec.ts`; record manual focus/assistive checks and exact untested combinations in `docs/evidence/spec001/US5.md` (AC14/20).
-- [ ] T153 [US5] Test actual current/previous supported major Safari, Chromium and Firefox at release, including real Mac Safari and all declared viewports, in `docs/evidence/spec001/browser-matrix.md`; Playwright WebKit is supplemental and narrow layout does not certify full mobile performance.
+- [X] T153 [US5] Test actual current/previous supported major Safari, Chromium and Firefox at release, including real Mac Safari and all declared viewports, in `docs/evidence/spec001/browser-matrix.md`; Playwright WebKit is supplemental and narrow layout does not certify full mobile performance.
 - [X] T154 [US5] Measure final cold load, worst-room frames/resources/disposal and 20 mixed-session save latency using the recorded profile in `docs/evidence/spec001/performance.md`; check 5MiB shell/15MiB first room/12s/30FPS/500k triangles/128MiB estimated textures/p95<2s and report failed samples.
 - [X] T155 [US5] Resolve measured budget/recovery regressions in `src/presentation/resource-pool.ts`, export presets in `tools/asset-presets.json` and affected UI paths; retest changed scenes and record actual AC15/20 results in `docs/evidence/spec001/performance.md` without reducing required assets or readable evidence.
 
@@ -796,8 +796,8 @@ settled the playable routes. Reconcile the candidate with that accepted build.
 **Ready after**: T146–T155.
 
 - [X] T156 [US8] Generate credits and complete third-party/source/output notices in `src/ui/credits.ts`, `THIRD_PARTY_NOTICES.md` and `docs/licenses.md`; preserve actual licenses/AI disclosure and verify no private inputs enter public artifacts.
-- [ ] T157 [US8] Execute the documented setup/build/source retrieval from a clean isolated release-candidate copy using only public inputs; fix README/quickstart drift and record AC16 in `docs/evidence/spec001/independent-build.md`, distinguishing candidate reproducibility from later public availability.
-- [ ] T158 [US8] Verify finished-room continuity, media/source availability and migration evidence together in `tests/e2e/finished-episode.spec.ts`; record US8 acceptance in `docs/evidence/spec001/US8.md` without treating it as permission to publish or advance realms.
+- [X] T157 [US8] Execute the documented setup/build/source retrieval from a clean isolated release-candidate copy using only public inputs; fix README/quickstart drift and record AC16 in `docs/evidence/spec001/independent-build.md`, distinguishing candidate reproducibility from later public availability.
+- [X] T158 [US8] Verify finished-room continuity, media/source availability and migration evidence together in `tests/e2e/finished-episode.spec.ts`; record US8 acceptance in `docs/evidence/spec001/US8.md` without treating it as permission to publish or advance realms.
 
 ## Phase 11: Polish & cross-cutting concerns — mandatory episode acceptance and release
 

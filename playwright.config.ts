@@ -12,6 +12,7 @@ const httpsSpecs = ['foundation-tls.spec.ts', 'ui-shell.spec.ts', 'presentation.
 httpsSpecs.push('repair-routes.spec.ts', 'outcomes.spec.ts', 'packet-journey.spec.ts', 'optional-activities.spec.ts');
 httpsSpecs.push('migrations.spec.ts', 'accessibility.spec.ts', 'recovery.spec.ts');
 httpsSpecs.push('responsive-layout.spec.ts');
+httpsSpecs.push('finished-episode.spec.ts');
 const assigned = new Set([...staticSpecs, ...ownedStaticSpecs, ...httpsSpecs, 'visibility.spec.ts']);
 const browserTests = fileURLToPath(new URL('./tests/e2e', import.meta.url));
 // T022/T030 and later journeys must choose an appropriate project explicitly.

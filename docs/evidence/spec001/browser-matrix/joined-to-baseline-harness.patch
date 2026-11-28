@@ -1,0 +1,154 @@
+--- a/tools/measurement/browser-matrix/run.py
++++ b/tools/measurement/browser-matrix/run.py
+@@ -88,7 +88,7 @@
+         send(self.session+'/url','POST',{'url':url})
+     def open_desktop(self, fixture, size):
+         width, height = (int(n) for n in size.split('x'))
+-        self.open(fixture.origin+BASE+'?size='+size+'&input=keyboard&suite='+fixture.suite)
++        self.open(fixture.origin+BASE+'?size='+size+'&input=keyboard')
+         for _ in range(4):
+             view = send(self.session+'/execute/sync','POST',{'script':'return [innerWidth,innerHeight,outerWidth,outerHeight]','args':[]})
+             if view[:2] == [width,height]: break
+@@ -106,11 +106,8 @@
+             elif kind in ['shortcut','text']: keys = list(command['value'])
+             else: raise ValueError('Unknown input')
+             events = [{'type':event,'value':key} for key in keys for event in ['keyDown','keyUp']]
+-            if kind=='tab':
+-                modifiers=[]
+-                if self.engine=='safari-webdriver': modifiers.append('\ue00a')  # Safari Option+Tab visits every control.
+-                if command.get('reverse'): modifiers.append('\ue008')
+-                events=[*[{'type':'keyDown','value':m} for m in modifiers],*events,*[{'type':'keyUp','value':m} for m in reversed(modifiers)]]
++            if kind=='tab' and command.get('reverse'):
++                events = [{'type':'keyDown','value':'\ue008'},*events,{'type':'keyUp','value':'\ue008'}]
+             source = {'type':'key','id':'t153-keyboard','actions':events}
+         send(self.session+'/actions','POST',{'actions':[source]})
+     def screenshot(self, path):
+@@ -124,8 +121,7 @@
+             self.log.close()
+ 
+ class Fixture:
+-    def __init__(self, directory, driver, size, mode, screenshot, suite):
+-        self.suite=suite
++    def __init__(self, directory, driver, size, mode, screenshot):
+         self.done = threading.Event()
+         self.result = {}
+         self.image = None
+@@ -155,8 +151,6 @@
+                 if path=='/test':
+                     html = f'<!doctype html><html><head><meta charset="utf-8"><title>Network Quest isolated compatibility check</title><style>html,body{{margin:0;background:#12151c}}iframe{{display:block;border:0;width:{width}px;height:{height}px}}</style></head><body><iframe src="{BASE}" title="Guest game"></iframe><script>const frame=document.querySelector("iframe");frame.addEventListener("load",()=>import("/journey.mjs"),{{once:true}})</script></body></html>'
+                     return self.reply(200,html.encode(),'text/html')
+-                if path=='/refinements.mjs' and suite!='baseline':
+-                    return self.reply(200,(HERE/'refinements.mjs').read_bytes(),'text/javascript')
+                 if path=='/journey.mjs':
+                     return self.reply(200,owner.probe,'text/javascript')
+                 if path.startswith(BASE+'api/'):
+@@ -226,7 +220,7 @@
+                 self.reply(404)
+         self.server = ThreadingHTTPServer(('127.0.0.1',0),Handler)
+         self.origin=f'http://127.0.0.1:{self.server.server_port}'
+-        self.url=f'{self.origin}/test?size={size}&input={mode}&suite={suite}'
++        self.url=f'{self.origin}/test?size={size}&input={mode}'
+         self.thread=threading.Thread(target=self.server.serve_forever,daemon=True)
+         self.thread.start()
+     def close(self):
+@@ -238,7 +232,6 @@
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument('--dist',type=Path,required=True)
+     parser.add_argument('--out',type=Path,required=True)
+-    parser.add_argument('--suite',choices=['baseline','performance','credits'],default='baseline')
+     parser.add_argument('--capture',type=Path,help='Save the cropped native R12 ending as JPEG')
+     parser.add_argument('--engine',choices=['chromium','firefox','safari','safari-webdriver'],required=True)
+     parser.add_argument('--browser',type=Path)
+@@ -254,9 +247,9 @@
+             driver=Safari()
+         else:
+             driver=Driver(args.engine,args.driver.resolve(),args.browser.resolve(),Path(tmp))
+-        fixtures = [HERE/'run.py',HERE/'journey.mjs',HERE/'crop.js',*([HERE/'refinements.mjs'] if args.suite!='baseline' else []),*([HERE/'safari.py'] if args.engine=='safari' else [])]
++        fixtures = [HERE/'run.py',HERE/'journey.mjs',HERE/'crop.js',*([HERE/'safari.py'] if args.engine=='safari' else [])]
+         source_hashes = {p.name:digest(p.read_bytes()) for p in fixtures}
+-        fixture=Fixture(dist,driver,args.size,args.input,args.capture,args.suite)
++        fixture=Fixture(dist,driver,args.size,args.input,args.capture)
+         assert digest(fixture.probe) == source_hashes['journey.mjs']
+         try:
+             if args.engine != 'safari' and args.input=='keyboard':
+--- a/tools/measurement/browser-matrix/safari.py
++++ b/tools/measurement/browser-matrix/safari.py
+@@ -23,7 +23,7 @@
+            'CFBundleVersion':plist('CFBundleVersion'),'process':'Native private window with System Events keyboard',
+            'platformName':subprocess.check_output(['sw_vers','-productVersion'],text=True).strip()}
+     def open(self,url):
+-        if not re.fullmatch(r'http://127\.0\.0\.1:\d+/test\?size=\d+x\d+&input=keyboard&suite=(?:baseline|performance|credits)',url):
++        if not re.fullmatch(r'http://127\.0\.0\.1:\d+/test\?size=\d+x\d+&input=keyboard',url):
+             raise ValueError('Expected isolated loopback keyboard fixture')
+         self.url=url
+         before=apple('tell application "Safari" to return id of every window')
+@@ -36,12 +36,7 @@
+                 break
+             time.sleep(.12)
+         if not self.wid: raise RuntimeError('New private window identity unavailable')
+-        requested=re.search(r'size=(\d+)x(\d+)',url)
+-        width,height=(int(x) for x in requested.groups())
+-        # With this native private window, the toolbar occupies 52 points.
+-        # Receipts measure the resulting host viewport and guest viewport.
+-        right,bottom=(10+width,32+height+52) if width>=1280 else (1630,1110)
+-        apple(f'tell application "Safari"\nactivate\nset bounds of window id {self.wid} to {{10,32,{right},{bottom}}}\nset URL of current tab of window id {self.wid} to {json.dumps(url)}\nend tell')
++        apple(f'tell application "Safari"\nactivate\nset bounds of window id {self.wid} to {{10,32,1630,1110}}\nset URL of current tab of window id {self.wid} to {json.dumps(url)}\nend tell')
+     def guard(self):
+         if self.wid is None or self.wid == 7338: raise RuntimeError('Expected a task-created private window')
+         return f'''tell application "Safari"
+@@ -71,7 +66,7 @@
+         if self.wid:
+             # Cleanup does not require bringing any window forward. Recheck its
+             # unique URL by ID before closing, even after a lost-focus error.
+-            was_front=apple(f'tell application "Safari" to return (frontmost and id of front window is {self.wid})') == 'true'
++            was_front=apple('tell application "Safari" to return frontmost') == 'true'
+             apple(f'tell application "Safari"\nif (URL of current tab of window id {self.wid}) is {json.dumps(self.url)} then close window id {self.wid}\nend tell')
+ 
+             if was_front and self.previous_pid.isdigit():
+--- a/tools/measurement/browser-matrix/journey.mjs
++++ b/tools/measurement/browser-matrix/journey.mjs
+@@ -66,7 +66,7 @@
+     if (doc.hasFocus() && focused() === el && (!frame || document.activeElement === frame)) return;
+     const active = focused();
+     const stops = [...doc.querySelectorAll('button, input, textarea, a[href], summary, select, [tabindex]')]
+-      .filter(item => visible(item) && !item.disabled && item.tabIndex >= 0);
++      .filter(item => usable(item) && item.tabIndex >= 0);
+     const from = stops.indexOf(active), to = stops.indexOf(el);
+     const distance = to - from;
+     const reverse = doc.hasFocus() && from >= 0 && to >= 0 && distance < 0;
+@@ -145,13 +145,10 @@
+   await click('Close diagnostics');
+ }
+ const sequence = async (...labels) => { for (const label of labels) await click(label); };
+-const suite=params.get('suite') ?? 'baseline';
+-const extra=suite==='baseline' ? null : (await import('/refinements.mjs')).refinements({doc,app,get,wait,click,close,walk,reach,result,suite,input:params.get('input')});
+ try {
+   if (result.viewport.some((n,i) => n !== requested[i])) throw Error('Guest viewport mismatch');
+   await wait(() => get('New Adventure'),'New Adventure title');
+-  await extra?.title();
+-  await click('New Adventure'); await room(1); await extra?.inGame();
++  await click('New Adventure'); await room(1);
+   if (app.innerWidth === 390) await post('capture',{phase:'R01 arrival',hostViewport:[innerWidth,innerHeight]});
+   await sequence('Look','Look at power indication','Look at link indication','Talk','Talk to Photon the Firefly','Skip dialogue','Use','Inspect physical path');
+   await walk(2);
+@@ -162,17 +159,16 @@
+   await sequence('Use','Read and keep the supplied compatibility card','Read and keep the diagnosed-defect card; this is not a performed measurement');
+   await measure(false); await sequence('Use','Fit the supplied replacement section: 85 m + 10 m'); await measure(true);
+   await walk(4); await sequence('Use','Read and keep the before-record instructions; retain an actual measured open result','Read and keep the repeater role and limits','Conclude: a repeater needs the physical connection restored');
+-  await measure(true); await extra?.floor('R04','Dry cavern ledge',false); await walk(3); await walk(2); await walk(5);
+-  await extra?.discover();
++  await measure(true); await walk(3); await walk(2); await walk(5);
+   await sequence('Use','Read and keep all five supplied compatibility checks','Select the supplied fully matching optic/fiber pair: all five fields match',
+     'Inspect the original connection at the dock before any intervention','Have the dock fit the supplied compatible replacement to the inspected connection','Reinspect the replaced connection to confirm the diagnosed defect was removed');
+   await measure(true); await walk(6); await sequence('Use','Read and keep the current compatibility and inspection reminder','Select passive path B: total loss 9 dB');
+-  await measure(true); await walk(5); await extra?.recruit(); await walk(2,'Walk to The Titan’s Workshop'); await walk(7);
++  await measure(true); await walk(5); await walk(2,'Walk to The Titan’s Workshop'); await walk(7);
+   await sequence('Use','Keep the path survey in the notebook','Keep the endpoint settings card','Select the alternate surveyed path','Match both endpoint band, channel and PHY settings');
+   await measure(true); await walk(8); await sequence('Use','Keep the survey and freshness instructions','Isolate the local emitter and return to surveyed conditions','Select fictional scenario channel B at both endpoints');
+   await measure(true); await walk(7); await walk(2); await walk(9);
+   await sequence('Use','Read and record all separate equipment checks','Select 100/full','Choose complete kit B: 12 W + 11 W + 7 W');
+-  await measure(true); await extra?.floor('R09','Clear market aisle',true); await walk(2); await extra?.revisit(); await walk(10);
++  await measure(true); await walk(2); await walk(10);
+   await sequence('Use','Read and record the physical-role and upper-layer explanation','Use untimed step-by-step decoding',
+     'Explain: sample physical signals representing bits; this does not discover addresses');
+   for (const [position,pair] of ['00','10','11','01'].entries()) await sequence('Inspect sample position '+position,'Write '+pair+' for sample position '+position);

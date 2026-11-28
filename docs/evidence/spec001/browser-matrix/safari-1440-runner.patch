@@ -1,0 +1,11 @@
+--- a/tools/measurement/browser-matrix/run.py
++++ b/tools/measurement/browser-matrix/run.py
+@@ -67,7 +67,7 @@
+                 caps = {'browserName':'safari'}
+             elif engine=='firefox':
+                 caps = {'browserName':'firefox','moz:firefoxOptions':{'binary':str(browser),'args':['-headless'],
+-                  'prefs':{'app.update.auto':False}}}
++                  'prefs':{'app.update.auto':False,'media.autoplay.default':5}}}
+             else:
+                 caps = {'browserName':'chrome','goog:chromeOptions':{'binary':str(browser),'args':['--headless=new','--window-size=1620,1100',
+                    '--no-first-run','--disable-background-networking','--no-default-browser-check','--disable-component-update',

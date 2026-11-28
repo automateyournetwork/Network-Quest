@@ -1,0 +1,36 @@
+--- a/tools/measurement/browser-matrix/run.py
++++ b/tools/measurement/browser-matrix/run.py
+@@ -67,7 +67,7 @@
+                 caps = {'browserName':'safari'}
+             elif engine=='firefox':
+                 caps = {'browserName':'firefox','moz:firefoxOptions':{'binary':str(browser),'args':['-headless'],
+-                  'prefs':{'app.update.auto':False}}}
++                  'prefs':{'app.update.auto':False,'media.autoplay.default':5}}}
+             else:
+                 caps = {'browserName':'chrome','goog:chromeOptions':{'binary':str(browser),'args':['--headless=new','--window-size=1620,1100',
+                    '--no-first-run','--disable-background-networking','--no-default-browser-check','--disable-component-update',
+@@ -201,13 +201,8 @@
+                                 y=round(ih-value['hostViewport'][1]*scale) if driver.engine=='safari-private' else 0
+                                 if cw>iw or ch>ih-y or y<0: raise ValueError('Guest capture exceeds native content area')
+                                 screenshot.parent.mkdir(parents=True,exist_ok=True)
+-                                crop=Path(tmp)/'crop.png'
+-                                subprocess.run(['/usr/bin/osascript','-l','JavaScript',str(HERE/'crop.js'),str(raw),str(crop),
+-                                    '0',str(y),str(cw),str(ch)],check=True,stdout=subprocess.DEVNULL)
+-                                if struct.unpack('>II',crop.read_bytes()[16:24])!=(cw,ch):
+-                                    raise ValueError('Native capture crop dimensions disagree')
+-                                subprocess.run(['sips','--resampleWidth',str(min(768,cw)),'-s','format','jpeg','-s','formatOptions','80',
+-                                    str(crop),'--out',str(screenshot)],check=True,stdout=subprocess.DEVNULL)
++                                subprocess.run(['sips','-c',str(ch),str(cw),'--cropOffset',str(y),'0','--resampleWidth',str(min(768,cw)),
++                                    '-s','format','jpeg','-s','formatOptions','80',str(raw),'--out',str(screenshot)],check=True,stdout=subprocess.DEVNULL)
+                                 owner.image={'phase':value['phase'],'file':screenshot.name,'sha256':digest(screenshot.read_bytes()),
+                                     'nativeCanvas':[iw,ih], 'guestCrop':[0,y,cw,ch]}
+                         except Exception as error: return self.reply(500,str(error).encode())
+@@ -247,7 +242,7 @@
+             driver=Safari()
+         else:
+             driver=Driver(args.engine,args.driver.resolve(),args.browser.resolve(),Path(tmp))
+-        fixtures = [HERE/'run.py',HERE/'journey.mjs',HERE/'crop.js',*([HERE/'safari.py'] if args.engine=='safari' else [])]
++        fixtures = [HERE/'run.py',HERE/'journey.mjs',*([HERE/'safari.py'] if args.engine=='safari' else [])]
+         source_hashes = {p.name:digest(p.read_bytes()) for p in fixtures}
+         fixture=Fixture(dist,driver,args.size,args.input,args.capture)
+         assert digest(fixture.probe) == source_hashes['journey.mjs']
