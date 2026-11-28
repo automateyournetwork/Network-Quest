@@ -31,6 +31,10 @@ The eight listening packets include full cues, repeat boundaries and spoken comp
 
 John’s November 26 listening approval covers twelve sealed audition files on Mac speakers and earbuds. Eight voices and three effects still use those bytes. The twelfth audition was a 20-second title excerpt. The game now uses a 72.4-second title cue. John also accepted the revised Arrival Lift screen after the controls moved inside the adventure frame. Both decisions stand. [Recorded listening](audio-auditions.md) · [Corrected Arrival Lift approval](presentation/owner-frame-approval-2026-11-26.md)
 
+## First-run feedback, November 28
+
+In the Arrival Lift, pressing **W** or selecting **Walk** left the owner unsure where to click or whether to use the arrow keys. The owner reached the Workshop by opening **Scene** and selecting its exit. They requested visible targets directly on the scene when selecting **Walk**, **Look**, **Talk** or **Use**. The original refinement loop reopened for this finding. Whole-episode satisfaction and the separate beginner session remain open. [Refinement record](refinements.md)
+
 ## Record the owner’s decision
 
 | Field | Owner finding |
