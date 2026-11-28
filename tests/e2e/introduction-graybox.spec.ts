@@ -40,7 +40,7 @@ test.describe('T035/T066/T135 actual playable Arrival Lift and Workshop', () => 
     await target(id).click();
     if (choice) await visual().locator('[data-graybox-control]').filter({ hasText: choice }).click();
   }
-  test('visual pointer and semantic keyboard share evidence, O01/O02, movement and actual packet state', async () => {
+  test('visual pointer and semantic keyboard share evidence, O01/O02, movement and actual packet state', async ({}, info) => {
     const budgets: unknown[] = [];
     async function budget() {
       const sample = await visual().evaluate(element => { const data = (element as HTMLElement).dataset, canvas = element.querySelector('canvas')!;
@@ -87,12 +87,12 @@ test.describe('T035/T066/T135 actual playable Arrival Lift and Workshop', () => 
     await expect(objectives.locator('li').filter({ hasText: 'Completed' })).toHaveCount(2);
     await pressButton(page, 'Close notebook', 'Enter'); await clickButton(page, 'Continue as guest');
     await expect(visual().locator('[data-safe-position]')).toHaveAttribute('data-safe-position', 'spec001:R02.entry');
-    await budget(); await writeFile('test-results/T035-graybox-budget.json', JSON.stringify(budgets, null, 2));
-    await page.screenshot({ path: 'test-results/T035-graybox-workshop-desktop.png', fullPage: true });
-    await visual().screenshot({ path: 'test-results/T035-graybox-workshop-detail.png' });
+    await budget(); await writeFile(info.outputPath('T035-graybox-budget.json'), JSON.stringify(budgets, null, 2));
+    await page.screenshot({ path: info.outputPath('T035-graybox-workshop-desktop.png'), fullPage: true });
+    await visual().screenshot({ path: info.outputPath('T035-graybox-workshop-detail.png') });
     await pressButton(page, 'Walk', 'Enter'); await pressButton(page, 'Walk to The Arrival Lift', 'Enter'); await ready('spec001:R01');
-    await page.screenshot({ path: 'test-results/T035-graybox-arrival-desktop.png', fullPage: true });
-    await visual().screenshot({ path: 'test-results/T035-graybox-arrival-detail.png' });
+    await page.screenshot({ path: info.outputPath('T035-graybox-arrival-desktop.png'), fullPage: true });
+    await visual().screenshot({ path: info.outputPath('T035-graybox-arrival-detail.png') });
   });
   test('canceled and stale visual presses cannot affect a new adventure; repeated room swaps keep one canvas', async () => {
     await clickButton(page, 'Look'); const old = await target('spec001:HOTSPOT-power').elementHandle();
@@ -134,12 +134,12 @@ test.describe('T035/T066/T135 actual playable Arrival Lift and Workshop', () => 
     await page.setViewportSize({ width: 390, height: 844 }); await button('Look').tap(); await target('spec001:HOTSPOT-power').tap();
     await expect(page.locator('.nq-shell-evidence')).toContainText('Power indication');
     expect(await visual().locator('button, a, input, [tabindex]').count()).toBe(0);
-    await page.screenshot({ path: 'test-results/T035-graybox-390px.png', fullPage: true });
+    await page.screenshot({ path: info.outputPath('T035-graybox-390px.png'), fullPage: true });
     await page.evaluate(() => { document.documentElement.style.fontSize = '200%'; });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await pressButton(page, 'Link indication', 'Enter'); await expect(page.locator('.nq-shell-evidence')).toContainText('Link indication');
-    await page.screenshot({ path: 'test-results/T035-graybox-200percent.png', fullPage: true });
-    await visual().locator('.nq-graybox-stage').screenshot({ path: 'test-results/T035-graybox-200percent-stage.png' });
+    await page.screenshot({ path: info.outputPath('T035-graybox-200percent.png'), fullPage: true });
+    await visual().locator('.nq-graybox-stage').screenshot({ path: info.outputPath('T035-graybox-200percent-stage.png') });
     const count = await visual().getAttribute('data-render-count'); await page.waitForTimeout(150); expect(await visual().getAttribute('data-render-count')).toBe(count);
     // Native Firefox SIGSEGV is reproducible only inside the test runner's
     // process. A separate owned Firefox repeats this exact journey and audits

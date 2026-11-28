@@ -1,0 +1,39 @@
+# Spec001 G6 refinements
+
+November 28, 2026 · T162 · C9, C10, C12 and C14 · FR-004, FR-005 and FR-026 · AC03 and AC18.
+
+## Findings and retests
+
+The baseline was the 442-file playable build from `ae8472469b5f7d98e939ccb5471b03893630993a`. An automated Chromium guest run exposed two places where the diagnostics panel named a possible repair while omitting the card on the bench. Both rooms produced the expected physical result. The failing Firefox regression independently reproduced the missing optical card before the correction. [Baseline technical review](technical-review.md) · [Authored optical alternatives](fiber-rooms.md) · [Reviewed cases](../../../tests/fixtures/physical-cases.json)
+
+| Player action | Before | After |
+| --- | --- | --- |
+| In the Prism Vault, measure and submit the initial or explicitly selected 10 dB path | The only named path in the open panel was the proposed passive path A. Its actual card has 8 dB loss. | The panel identifies the high-loss test path and its 10 dB total loss separately from proposed path A. The reading still gives −13 dBm receive and 1 dB reserve. Submission explains the reserve shortfall and keeps the objective incomplete. |
+| Switch from high loss to passive A, then passive B | The panel named the proposed solution and displayed recorded values. | The selected card changes from 10 to 8 to 9 dB. A yields −11 dBm and 3 dB reserve. B yields −12 dBm and exactly 2 dB reserve, which the objective accepts. The earlier readings retain their original values and become stale. |
+| In the Shell Market, select 100/full and inspect the original 12 W + 11 W + 10 W proposal | The panel proposed validating kit A while the reading rejected the original 33 W allocation. | It names the original three demands. Its 3 W excess over the delivered 30 W budget remains visible. Kit A is labeled as the proposed solution. |
+| Compare the two separate 23 W failure cards | Both displayed the same proposed kit, generic failure text and 100/full capability readings. | The same-shaped module identifies a PHY/media mismatch. The per-port allocation identifies its failed port check. Both retain their supported common-mode observation, and neither completes the objective. |
+| Inspect compatible kit A or B | The readout named the proposed kit. | The panel identifies the tested kit and its individual endpoint demands. Kit A's 23 W total leaves 7 W. Kit B's 30 W total leaves 0 W and passes the inclusive budget. |
+| Read the objective after a failed measurement | The panel stated the authored completion criterion in the present tense, including when Diagnostics had just reported insufficient reserve. | The panel introduces the authored statement with **Goal**. A separate line reports whether the objective is complete. Native Firefox checks both a failed submission and a passing boundary submission. |
+
+The same authored selection supplies the card label and the loss or endpoint demands used by the evaluator. The display reads the live selection each time the panel opens. A card change creates no reading. Historical observations keep their stored values and their own submission eligibility. The regenerated server policy differs in exactly two fields, the input digests of the two scenario modules. The pre-existing save format and validation rules continue to apply. [Fiber selection](../../../src/state/fiber-scenario.ts) · [Market selection](../../../src/state/equipment-scenarios.ts) · [Diagnostics](../../../src/ui/diagnostics.ts) · [Generated policy](../../../server/content/save-policy.generated.json)
+
+The guest captures show how the same failed reading appears before and after the change. The original 33 W card exceeds the 30 W supply by 3 W. The revised panel names that card even while proposing kit A. [Prism Vault before](refinements/r06-before.png) · [Prism Vault after](refinements/r06-after.png) · [Shell Market before](refinements/r09-before.png) · [Shell Market after](refinements/r09-after.png)
+
+Two independent normal production builds that also include the room 3 picker correction produced identical bytes for all 442 files. The combined client is 72,386,013 bytes with SHA-256 `354fd20c49a2bceff3b0da7f2b864de9b68e9e6d46a203e87897c1d596a4e831` under the component-sorted path ledger. The coordinator ran six native HTTPS cases covering all three endings, the older save, the changed readings, both independent repair routes and their one-slot saves. All six passed. A retail Firefox 161 guest then took 262 actions at 390 × 844 through all twelve rooms, nine readings, the permanent-restoration ending and Continue. [Build input and distribution hashes](refinements/production.json)
+
+## Verification
+
+- The registered Firefox fiber and radio journeys used the running application, trusted loopback HTTPS and isolated PHP storage. They completed their routes, wrote their single slots, reloaded and continued. The expanded fiber case covers the default high-loss path, both passive alternatives, all three failing market cards, stale readings and the completion-goal label. [Registered regression](../../../tests/e2e/independent-repair-routes.spec.ts)
+- An additional Firefox run manually saved in R06 with the implicit high-loss selection, changed to path A, reloaded and continued. The restored card showed 10 dB loss, the current −13 dBm reading and its enabled submission control. A second save in R09 held the failed per-port comparison. After changing to valid kit A and restoring, the same per-port reading was current and produced the correct rejection. Each restored slot matched its saved bytes. The run used one disposable fixture account and its dedicated local storage.
+- A headless Chromium 159.0.8154.6 guest used the production distribution, selected high loss explicitly, compared boundary B, used the optional Prism Bench, tried the three failing market cards and both valid kits, and continued through the endpoint test to the permanent-restoration ending. The session recorded zero external HTTP requests, API writes or page errors.
+- All 180 tests passed across the optical and power domain suites, the fiber and equipment state suites and the Diagnostics controller suite. The normal content/type/policy checks and production build passed. An earlier Vite-only build had omitted the generated-policy check. The ordinary build exposed the stale provenance, which was regenerated and rechecked.
+
+The local runner retained full observations, before/after screenshots, the intentional pre-fix Firefox failure, the two-revision restore log and screenshots, and build and source digests. Those receipts contain test-only details and stay outside the public checkout.
+
+## Remaining review
+
+T159 separately owns the Copper Warrens touch finding. The original Chromium tap on an overlapping pair cutaway left the bench card selected. The first repair passed the ordinary touch and Firefox keyboard journeys. The combined candidate passed the expanded room 3 case in native Chromium and Firefox, including cancellation, a late click after blur, dragging across a choice, an unavailable action and ordinary touch and keyboard activation. The first combined Chromium attempt timed out during room 2 setup under concurrent load. The final case kept the same action checks and batched its read-only layout measurements. Chromium finished in 69.567 seconds and Firefox in 7.725 seconds. [Room 3 case](../../../tests/e2e/layered-room.spec.ts)
+
+Independent human technical findings, the timed networking-beginner playthrough and actual owner review remain open. New findings from those reviews or T159 require disposition against the exact candidate. T162 remains open for that work. [Technical review](technical-review.md) · [Beginner playthrough](beginner-playthrough.md) · [Acceptance gates](gates.md)
+
+Copyright 2026 John Capobianco. SPDX-License-Identifier: CC-BY-4.0.

@@ -26,9 +26,15 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-28
 
-**180 loops started; 144/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+<!-- current public checkpoint -->
+Latest reviewed GitHub checkpoint: `0c085ad79c65d207466b51b011759e7161462cc9`. The independent technical review packet documents observations from the baseline guest game and the two diagnostic teaching issues sent to T162. Human technical and beginner observations are still pending.
+<!-- end current public checkpoint -->
+
+**181 loops started; 144/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
 
 The verified browser, clean-build and episode evidence reached GitHub at `08b2381fb77ee87cbde64c714dcc8e5a9df23312`. The independent Firefox episode suite reached all three endings and migrated the prior balcony save. The coordinator repeated all four native cases and independently verified the 32 browser receipts against the 442-file distribution. The wider regression run subsequently exposed a room 3 Chromium touch issue. Review also found that room 6 needed a clearer distinction between the measured optical path and the proposed remedy. [Browser matrix](../evidence/spec001/browser-matrix.md) · [Independent build](../evidence/spec001/independent-build.md) · [Integrated episode](../evidence/spec001/US8.md)
+
+The room 3 picker and the two diagnostic refinements now pass on the same 442-file client. Two builds matched the revised SHA-256 `354fd20c49a2bceff3b0da7f2b864de9b68e9e6d46a203e87897c1d596a4e831`. The coordinator independently verified all three endings, the legacy save and both independent repair routes. The revised Chromium and Firefox picker tests also passed. Broader regression, human review and host acceptance continue. [Revised build and retests](../evidence/spec001/refinements.md)
 
 The joined candidate reached GitHub at `ae8472469b5f7d98e939ccb5471b03893630993a`. All 442 production files matched an independent build. The portable test runtime passed 910 PHP tests and 19,175 assertions, all 4,390 domain cases passed, and all 203 dependency notices matched. The contributor index pins 2,067 files and 2,024,142,069 bytes at the immutable integrated media revision. T157 finished the fresh anonymous checkout, verified every indexed source and reproduced all 442 production files. [Contributor instructions](../../README.md) · [Source retrieval](../source-retrieval.md)
 
@@ -227,8 +233,10 @@ Loop 178/T161: First-run guest entry and 442 candidate hashes verified. Awaiting
 
 Loop 177/T160: Ran and documented three guest journeys, identified two diagnostic labeling issues, and supplied the reviewer packet. Awaiting dated independent human technical findings. [Verification](loops/177-T160.md).
 
+Loop 179/T162: Repaired and retested the optical-path and equipment-card attribution, two distinct failure explanations, and the objective goal label. Rejoin on further integrated or human findings. [Verification](loops/179-T162.md).
+
 <!-- current production assignments -->
-Active assignments: 176/T159, 179/T162, 180/T165.
+Active assignments: 176/T159, 180/T165, 181/T166.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

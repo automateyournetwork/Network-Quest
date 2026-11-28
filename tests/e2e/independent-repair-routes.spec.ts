@@ -48,13 +48,30 @@ for (const branch of ['fiber', 'radio'] as const) {
         await ui.measure(true); await expect(ui.readings().last()).toContainText('Inspection complete: 1 count'); await ui.closeDiagnostics();
         await ui.objective('Prepare fiber in R05', true);
         await ui.walk('The Prism Vault'); await ui.click('Use'); await ui.click('Read and keep the current compatibility and inspection reminder');
+        await ui.click('Diagnostics');
+        await expect(ui.diagnostic()).toContainText('Configuration under test: High-loss test path (10 dB total loss).');
+        await expect(ui.diagnostic()).toContainText('Proposed solution: Validate passive optical path A.');
+        await expect(ui.readings()).toHaveCount(0);
+        await ui.click('Take measurement'); await ui.submit(false);
+        await expect(ui.diagnostic()).toContainText('Goal: The fiber branch has a matching profile and fresh range/reserve results.');
+        await expect(ui.diagnostic()).toContainText('The receive level has insufficient reserve');
+        await expect(ui.readings().last()).toContainText('Receive power: -13 dBm');
+        await expect(ui.readings().last()).toContainText('Sensitivity reserve: 1 dB');
+        await ui.closeDiagnostics(); await ui.click('Use');
         await ui.click('Select passive path A: total loss 8 dB'); await ui.click('Diagnostics'); await ui.click('Take measurement');
+        await expect(ui.diagnostic()).toContainText('Configuration under test: Passive path A (8 dB total loss).');
+        await expect(ui.readings().first()).toContainText('Stale reading');
+        await expect(ui.readings().first()).toContainText('Total passive loss: 10 dB');
         await expect(ui.readings().last()).toContainText('Receive power: -11 dBm'); await ui.closeDiagnostics();
         await ui.click('Use'); await ui.click('Select passive path B: total loss 9 dB'); await ui.click('Diagnostics');
+        await expect(ui.diagnostic()).toContainText('Configuration under test: Passive path B (9 dB total loss).');
+        await expect(ui.diagnostic()).toContainText('Proposed solution: Validate passive optical path B.');
         await expect(ui.readings().last()).toContainText('Stale reading'); await expect(ui.readings().last().getByRole('button', { name: 'Submit this reading', exact: true })).toBeDisabled();
         await ui.click('Take measurement'); await expect(ui.readings().last()).toContainText('Receive power: -12 dBm');
         await expect(ui.readings().last()).toContainText('Sensitivity reserve: 2 dB'); await expect(ui.readings().last()).toContainText('Total passive loss: 9 dB');
-        await ui.submit(true); await page.screenshot({ path: info.outputPath('T081-fiber-boundary.png'), fullPage: true }); await ui.closeDiagnostics();
+        await ui.submit(true);
+        await expect(ui.diagnostic()).toContainText('Goal: The fiber branch has a matching profile and fresh range/reserve results.');
+        await page.screenshot({ path: info.outputPath('T081-fiber-boundary.png'), fullPage: true }); await ui.closeDiagnostics();
         await ui.objective('Prove fiber in R06', true); await ui.walk('The Photon Gardens');
       } else {
         await ui.walk('The Skywell'); await ui.click('Use'); await ui.click('Keep the path survey in the notebook'); await ui.click('Keep the endpoint settings card');
@@ -74,7 +91,22 @@ for (const branch of ['fiber', 'radio'] as const) {
         await ui.objective('Prove radio in R08', true); await ui.walk('The Skywell');
       }
       await ui.walk("The Titan's Workshop", branch === 'fiber' ? 'Walk to The Titan’s Workshop' : "Walk to The Titan's Workshop"); await ui.walk('The Shell Market'); await ui.click('Use');
-      await ui.click('Read and record all separate equipment checks'); await ui.click('Select 100/full'); await ui.click('Choose complete kit B: 12 W + 11 W + 7 W');
+      await ui.click('Read and record all separate equipment checks'); await ui.click('Select 100/full');
+      if (branch === 'fiber') {
+        const comparisons = [
+          ['Inspect the original 12 W + 11 W + 10 W proposal', 'Original allocation (12 W + 11 W + 10 W)', 'The allocation exceeds the delivered power budget.'],
+          ['Inspect the same-shaped, mismatched module at 23 W', 'Same-shaped module (12 W + 11 W)', 'The module fits the socket, but its PHY and media do not match.'],
+          ['Inspect the 23 W allocation with a failed port check', 'Per-port test allocation (12 W + 11 W)', 'The supplied per-port check failed.'],
+        ] as const;
+        for (const [choice, card, reason] of comparisons) {
+          await ui.click(choice); await ui.measure(false);
+          await expect(ui.diagnostic()).toContainText(`Configuration under test: ${card}.`);
+          await expect(ui.diagnostic()).toContainText('Proposed solution: Validate compatible kit A.');
+          await expect(ui.diagnostic()).toContainText(reason);
+          await ui.closeDiagnostics(); await ui.click('Use');
+        }
+      }
+      await ui.click('Choose complete kit B: 12 W + 11 W + 7 W');
       await ui.measure(true); await expect(ui.readings().last()).toContainText('Total delivered demand: 30 W'); await ui.closeDiagnostics(); await ui.objective('Equip the repair in R09', true);
       await ui.walk("The Titan's Workshop"); await ui.walk('The Clockworks'); await ui.click('Use');
       await ui.click('Read and record the physical-role and upper-layer explanation'); await ui.click('Use untimed step-by-step decoding');
@@ -147,7 +179,7 @@ function controls(page: Page) {
     await expect(page.locator('.nq-graybox')).toHaveAttribute('data-rendered', 'true'); await expect(page.locator('.nq-graybox canvas')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight + 1)).toBe(true);
   };
-  return { click, room, readings, submit,
+  return { click, room, diagnostic, readings, submit,
     closeDiagnostics: () => click('Close diagnostics'),
     walk: async (name: string, label = `Walk to ${name}`) => { await click('Walk'); await click(label); await room(name); },
     measure: async (complete: boolean) => { await click('Diagnostics'); await click('Take measurement'); await submit(complete); },

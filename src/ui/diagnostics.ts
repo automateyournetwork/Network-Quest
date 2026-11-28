@@ -5,7 +5,9 @@ import { illustrationDetails } from './illustration';
 import type { ContentRegistry } from '../content/registry';
 import type { MeasurementId, ObjectiveId, QualifiedId } from '../domain/types';
 import { evaluateObjective, objectiveHints } from '../state/objectives';
-import type { ObjectiveInput, ObjectiveScenarioResolver } from '../state/objectives';
+import type { ObjectiveInput, ObjectiveScenario, ObjectiveScenarioResolver } from '../state/objectives';
+import { selectedFiberPath } from '../state/fiber-scenario';
+import { selectedMarketKit } from '../state/equipment-scenarios';
 import { isMeasurementCurrent } from '../state/reducer';
 import type { GameState } from '../state/types';
 import { contextFromRuntime } from './action-bus';
@@ -19,6 +21,7 @@ export interface DiagnosticsView {
   readonly explanation: string;
   readonly available: boolean;
   readonly completed: boolean;
+  readonly configuration: string | null;
   readonly alternative: { readonly id: QualifiedId; readonly label: string } | null;
   readonly measurements: readonly { readonly id: MeasurementId; readonly freshness: 'current' | 'stale'; readonly text: string; readonly eligible: boolean }[];
   readonly hints: readonly string[];
@@ -47,6 +50,8 @@ const messages: Record<string, string> = {
   'snr-below-profile': 'The measured signal-to-noise ratio is below the supplied threshold.',
   'required-reserve-not-met': 'The receive level has insufficient reserve for this profile.',
   'delivered-power-budget-exceeded': 'The allocation exceeds the delivered power budget.',
+  'physical-profile-mismatch': 'The module fits the socket, but its PHY and media do not match.',
+  'per-port-constraint-fails': 'The supplied per-port check failed. A total within the delivered budget still requires every port to meet its own constraints.',
   'incompatible-profiles': 'The supplied physical profiles do not match; passing arithmetic cannot override incompatibility.',
   'inspect-before-changing': 'Inspect the connection before changing it.',
   'connection-defect-remains': 'The diagnosed connection defect still needs repair.',
@@ -59,6 +64,17 @@ const messages: Record<string, string> = {
   'unsupported-by-both': 'Neither endpoint advertises the selected rate and duplex.',
   'symbol-answer-differs': 'Compare each sampled symbol with the supplied bit map and try the decoding again.',
 };
+function configurationUnderTest(game: GameState, scenario: ObjectiveScenario | null) {
+  if (scenario?.kind === 'fiber-proof') {
+    const path = selectedFiberPath(game);
+    return path ? `${path.label} (${path.lossDb} dB total loss)` : null;
+  }
+  if (scenario?.kind === 'equipment') {
+    const kit = selectedMarketKit(game);
+    return kit ? `${kit.label} (${kit.demands.map(watts => `${watts} W`).join(' + ')})` : null;
+  }
+  return null;
+}
 function feedback(reason: string, status: string) {
   return messages[reason] ?? (status === 'correct' ? 'The supplied physical checks pass within this exercise’s stated scope.'
     : status === 'content-error' ? 'The supplied exercise has a content error. No progress or attempt penalty was applied.'
@@ -96,8 +112,9 @@ export function createDiagnosticsController(options: { readonly registry: Conten
       const scenario = game ? resolveScenario(game, objectiveId) : null;
       const alternative = record?.kind === 'objective' ? record.alternatives.find(a => a.id === scenario?.alternativeId) : undefined;
       const hints = game ? objectiveHints(registry, game, objectiveId) : null;
-      return { capture: projection.capture, view: structuredClone({ objectiveId, illustration: game ? illustrationFor(registry, game.world.roomId, 'diagnostic', objectiveId) : undefined, explanation: record?.kind === 'objective' ? record.observableOutcome : 'This objective is unavailable.',
+      return { capture: projection.capture, view: structuredClone({ objectiveId, illustration: game ? illustrationFor(registry, game.world.roomId, 'diagnostic', objectiveId) : undefined, explanation: record?.kind === 'objective' ? `Goal: ${record.observableOutcome}` : 'This objective is unavailable.',
         available: playable(state) && !!alternative, completed: game?.world.completedObjectiveIds.includes(objectiveId) ?? false,
+        configuration: game ? configurationUnderTest(game, scenario) : null,
         alternative: alternative ? { id: alternative.id as QualifiedId, label: alternative.label } : null,
         measurements: game?.notebook.measurements.filter(m => m.subjectIds.includes(objectiveId)).map(m => ({ id: m.id,
           freshness: isMeasurementCurrent(m, game.world) ? 'current' as const : 'stale' as const,
@@ -168,7 +185,8 @@ export function createDiagnosticsPanel(host: HTMLElement, dispatcher: Pick<Actio
       if (view.illustration) children.push(illustrationDetails(doc, view.illustration));
       if (view.alternative) {
         const alternativeId = view.alternative.id;
-        children.push(paragraph(`Proposed solution: ${view.alternative.label}. Measurement observes the current configuration.`),
+        if (view.configuration) children.push(paragraph(`Configuration under test: ${view.configuration}.`));
+        children.push(paragraph(`Proposed solution: ${view.alternative.label}.${view.configuration ? '' : ' Measurement observes the current configuration.'}`),
           button(scope, 'measure', 'Take measurement', () => dispatcher.dispatch(capture({ kind: 'measure-objective', objectiveId: view.objectiveId, alternativeId })), !view.available));
         const list = doc.createElement('ol'); list.setAttribute('aria-label', 'Recorded measurements');
         for (const m of view.measurements) { const item = doc.createElement('li'); item.append(paragraph(`${m.freshness === 'current' ? 'Current reading' : 'Stale reading — retained for comparison'}: ${m.text}`),

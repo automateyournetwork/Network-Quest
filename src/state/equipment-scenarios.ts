@@ -24,7 +24,16 @@ export const clockworksSamples: readonly ToySample[] = Object.freeze([
   { position: 2, value: 3, unit: 'toy-level' }, { position: 3, value: -1, unit: 'toy-level' },
 ].map(sample => Object.freeze(sample as ToySample)));
 const pairValues = new Set(['00', '01', '10', '11']);
-const kitValues = new Set(['original-over-budget', 'compatible-kit-A', 'compatible-kit-B', 'same-shell-mismatch', 'per-port-failure']);
+const marketKits = [
+  { value: 'original-over-budget', label: 'Original allocation', demands: [12, 11, 10] },
+  { value: 'compatible-kit-A', label: 'Compatible kit A', demands: [12, 11] },
+  { value: 'compatible-kit-B', label: 'Compatible kit B', demands: [12, 11, 7] },
+  { value: 'same-shell-mismatch', label: 'Same-shaped module', demands: [12, 11] },
+  { value: 'per-port-failure', label: 'Per-port test allocation', demands: [12, 11] },
+] as const;
+export function selectedMarketKit(game: GameState) {
+  return marketKits.find(kit => kit.value === game.world.flags[equipmentFlags.kit]);
+}
 const value = (game: GameState, flag: FlagId) => game.world.flags[flag];
 const capability = (game: GameState) => {
   const selected = value(game, equipmentFlags.capability);
@@ -46,17 +55,16 @@ export const resolveEquipmentPreparation: ObjectiveScenarioResolver = (game, obj
   const common = capability(game);
   if (!common) return null;
   if (objectiveId === q('O09')) {
-    const kit = value(game, equipmentFlags.kit);
-    if (typeof kit !== 'string' || !kitValues.has(kit)) return null;
+    const kit = selectedMarketKit(game);
+    if (!kit) return null;
     // Reviewed T10/RR-O09 cards explicitly supply these checks. They are not
     // inferred from a shell, a passing sum or an animation. No port rating added.
-    const demands = kit === 'original-over-budget' ? [12, 11, 10] : kit === 'compatible-kit-B' ? [12, 11, 7] : [12, 11];
     return {
-      kind: 'equipment', alternativeId: q(`ACTION-O09-${kit === 'compatible-kit-B' ? 'compatible-kit-B' : 'compatible-kit-A'}`),
-      allocation: { demands: demands.map(watts => ({ value: watts, unit: 'W' as const })),
+      kind: 'equipment', alternativeId: q(`ACTION-O09-${kit.value === 'compatible-kit-B' ? 'compatible-kit-B' : 'compatible-kit-A'}`),
+      allocation: { demands: kit.demands.map(watts => ({ value: watts, unit: 'W' as const })),
         budgetBoundary: 'delivered-after-losses', demandBoundary: 'delivered-after-losses',
-        formFactorMatch: true, phyAndMediaMatch: kit !== 'same-shell-mismatch', hostSupport: true,
-        portPowerCompatible: true, perPortConstraintsMet: kit !== 'per-port-failure' },
+        formFactorMatch: true, phyAndMediaMatch: kit.value !== 'same-shell-mismatch', hostSupport: true,
+        portPowerCompatible: true, perPortConstraintsMet: kit.value !== 'per-port-failure' },
       capability: common,
     };
   }
@@ -108,7 +116,7 @@ const context = (name: string, source: string, fact: string, ...targets: ActionC
 const caseTarget = target('R09', 'market-case'), loomTarget = target('R10', 'clockworks-loom');
 /** Closed effect/target contracts, independent of editable dialogue labels. */
 const contracts: readonly ActionContract[] = [
-  ...[...kitValues].map(kit => selected(`market-${kit}`, 'market-equipment', equipmentFlags.kit, kit, caseTarget)),
+  ...marketKits.map(kit => selected(`market-${kit.value}`, 'market-equipment', equipmentFlags.kit, kit.value, caseTarget)),
   context('market-read-checklist', 'market-equipment', 'FACT-O09-module', caseTarget,
     ...['market-hermit', 'market-chimera', 'market-mole', 'market-badger'].map(id => target('R09', id, 'talk'))),
   context('market-read-power', 'market-equipment', 'FACT-market-ledger', caseTarget, target('R09', 'market-eel', 'talk')),

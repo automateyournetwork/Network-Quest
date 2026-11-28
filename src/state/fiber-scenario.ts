@@ -12,7 +12,15 @@ import type { GameState } from './types';
 const q = <T extends string = string>(id: string) => `spec001:${id}` as QualifiedId<T>;
 const connections = ['original', 'inspected', 'cleaned', 'replaced', 'verified-cleaned', 'verified-replaced'] as const;
 const profiles = ['matched', 'wrong-fiber', 'wrong-wavelength', 'wrong-rate', 'wrong-polarity', 'unsupported-host'] as const;
-const paths = ['passive-path-A', 'passive-path-B', 'high-loss'] as const;
+const paths = [
+  { value: 'passive-path-A', action: 'A', label: 'Passive path A', lossDb: 8, proposal: 'A' },
+  { value: 'passive-path-B', action: 'B', label: 'Passive path B', lossDb: 9, proposal: 'B' },
+  { value: 'high-loss', action: 'high-loss', label: 'High-loss test path', lossDb: 10, proposal: 'A' },
+] as const;
+export function selectedFiberPath(game: GameState) {
+  const value = game.world.flags[q<'flag'>('FLAG-fiber-path')];
+  return paths.find(path => path.value === (value === undefined ? 'high-loss' : value));
+}
 interface Contract {
   readonly name: string;
   readonly room: 'R05' | 'R06';
@@ -39,8 +47,8 @@ const contracts: readonly Contract[] = [
   ...profiles.map(value => ({ name: `profile-${value}`, room: 'R05' as const, condition: withKit(beforeChange), effects: [flag(`profile-${value}`, 'profiles', value)] })),
   { name: 'leave-gardens', room: 'R05', condition: { kind: 'always' }, effects: [] },
   { name: 'read-compatibility', room: 'R06', condition: { kind: 'always' }, effects: [fact('read-compatibility', 'FACT-O06-compatibility')] },
-  ...paths.map((value, index) => ({ name: `path-${['A', 'B', 'high-loss'][index]}`, room: 'R06' as const, condition: kit,
-    effects: [flag(`path-${['A', 'B', 'high-loss'][index]}`, 'path', value)] })),
+  ...paths.map(path => ({ name: `path-${path.action}`, room: 'R06' as const, condition: kit,
+    effects: [flag(`path-${path.action}`, 'path', path.value)] })),
   { name: 'filter-shutter', room: 'R06', condition: { kind: 'always' }, effects: [] },
   { name: 'leave-vault', room: 'R06', condition: { kind: 'always' }, effects: [] },
 ];
@@ -67,10 +75,10 @@ function authored(registry: ContentRegistry, contract: Contract) {
 function selections(game: GameState) {
   const connection = game.world.flags[q<'flag'>('FLAG-fiber-connection')];
   const profile = game.world.flags[q<'flag'>('FLAG-fiber-profiles')];
-  const path = game.world.flags[q<'flag'>('FLAG-fiber-path')];
+  const path = selectedFiberPath(game);
   if ((connection !== undefined && !connections.some(v => v === connection)) || (profile !== undefined && !profiles.some(v => v === profile))
-    || (path !== undefined && !paths.some(v => v === path))) return null;
-  return { connection: connection ?? 'original', profile: profile ?? 'wrong-wavelength', path: path ?? 'high-loss' };
+    || !path) return null;
+  return { connection: connection ?? 'original', profile: profile ?? 'wrong-wavelength', path };
 }
 
 /** Only the exact reviewed, repeatable authored effects may enter the reducer. */
@@ -111,8 +119,8 @@ export function createFiberScenarioResolver(registry: ContentRegistry): Objectiv
     if (objectiveId === q('O05')) return { kind: 'fiber-preparation',
       alternativeId: q(`ACTION-O05-inspected-connector-${selected.connection === 'replaced' || selected.connection === 'verified-replaced' ? 'replacement' : 'cleaning'}`),
       preparation: { checks, inspectedBeforeChange: selected.connection !== 'original', connectionDefectRemoved: verified } };
-    return { kind: 'fiber-proof', alternativeId: q(`ACTION-O06-passive-path-${selected.path === 'passive-path-B' ? 'B' : 'A'}`),
-      path: { compatible: Object.values(checks).every(Boolean), loss: { value: selected.path === 'passive-path-A' ? 8 : selected.path === 'passive-path-B' ? 9 : 10, unit: 'dB' } },
+    return { kind: 'fiber-proof', alternativeId: q(`ACTION-O06-passive-path-${selected.path.proposal}`),
+      path: { compatible: Object.values(checks).every(Boolean), loss: { value: selected.path.lossDb, unit: 'dB' } },
       inspectionComplete: verified };
   };
 }

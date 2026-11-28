@@ -175,7 +175,10 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
           const label = node('strong'); label.textContent = 'Choose a subject';
           choices.replaceChildren(label, ...touchChoices.map(object => {
             const option = node('span', 'nq-graybox-choice'); option.dataset['grayboxObject'] = object.id;
-            option.textContent = object.label; return option;
+            option.textContent = object.label;
+            const reason = object.actions[0]?.unavailableReason;
+            if (reason) { option.dataset['unavailable'] = 'true'; option.textContent += ` — ${reason}`; }
+            return option;
           }));
           return;
         }
@@ -205,12 +208,28 @@ export function createThreeRoom(host: HTMLElement, media: RoomMedia, gameBase: s
         if (!id && element === canvas) { const bounds = canvas.getBoundingClientRect(); point.set((event.clientX - bounds.left) / bounds.width * 2 - 1, -(event.clientY - bounds.top) / bounds.height * 2 + 1); ray.setFromCamera(point, camera); id = ray.intersectObjects(pickable, false)[0]?.object.userData['objectId'] as string | undefined; }
         const object = currentView.objects.find(o => o.id === id); return { object, control: object?.actions[0] };
       };
-      root.addEventListener('pointerdown', event => { if (!alive || event.button !== 0) return; const hit = find(event); if (hit.object) { selected = hit.object.id; touchChoices = []; updateChoices(); }
-        if (hit.control && !hit.control.unavailableReason) pointer.down(event.pointerId, event.clientX, event.clientY, hit.control.id); else { pointer.cancel(); feedback.textContent = hit.control?.unavailableReason ?? ''; } }, { signal: events.signal });
+      root.addEventListener('pointerdown', event => {
+        if (!alive || event.button !== 0) return;
+        const hit = find(event);
+        // Picker options stay mounted and unselected until their captured click.
+        if (hit.object && !(event.target instanceof window.Node && choices.contains(event.target))) {
+          selected = hit.object.id; touchChoices = []; updateChoices();
+        }
+        if (hit.control && !hit.control.unavailableReason) pointer.down(event.pointerId, event.clientX, event.clientY, hit.control.id);
+        else { pointer.cancel(); feedback.textContent = hit.control?.unavailableReason ?? ''; }
+      }, { signal: events.signal });
       window.addEventListener('pointermove', event => pointer.move(event.pointerId, event.clientX, event.clientY), { signal: events.signal });
       window.addEventListener('pointercancel', () => pointer.cancel(), { signal: events.signal }); window.addEventListener('blur', () => pointer.cancel(), { signal: events.signal });
       window.addEventListener('pointerup', event => { if (!(event.target instanceof window.Node) || !root.contains(event.target)) pointer.cancel(); }, { signal: events.signal });
-      root.addEventListener('click', event => { const result = pointer.click((event as PointerEvent).pointerId); if (result?.message) feedback.textContent = result.message; }, { signal: events.signal });
+      root.addEventListener('click', event => {
+        const subject = event.target instanceof window.HTMLElement ? event.target.dataset['grayboxObject'] : undefined;
+        const fromPicker = subject && touchChoices.some(object => object.id === subject);
+        const result = pointer.click((event as PointerEvent).pointerId);
+        if (result?.message) feedback.textContent = result.message;
+        if (alive && fromPicker && result && result.status !== 'rejected') {
+          selected = subject; touchChoices = []; updateChoices();
+        }
+      }, { signal: events.signal });
       canvas.addEventListener('webglcontextlost', event => { event.preventDefault(); if (alive) { request.contextLost(); destroy(); } }, { signal: events.signal });
       const player = composition.models.find(m => m.semanticId === 'spec001:CH01')!;
       const hero = actors.find(actor => actor.id === player.assetId)!;

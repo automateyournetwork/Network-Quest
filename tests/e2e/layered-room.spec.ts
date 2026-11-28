@@ -7,10 +7,11 @@ import room from '../../content/spec001/rooms/R03.json' with { type: 'json' };
 import composition from '../../content/spec001/presentation/R03.json' with { type: 'json' };
 import layout from '../../assets-src/rooms/scene-layouts.json' with { type: 'json' };
 
-test.use({ hasTouch: true, viewport: { width: 1280, height: 800 }, reducedMotion: 'no-preference' });
+test.use({ hasTouch: true, viewport: { width: 1280, height: 800 }, reducedMotion: 'reduce' });
 
 test('T133 guest enters the camera-registered Copper Warrens and retains its controls in each detail mode', async ({ page, browser }, info) => {
-  test.setTimeout(150_000);
+  // This end-to-end case includes two viewports, touch cancellation and resource recovery.
+  test.setTimeout(300_000);
   const click = (label: string) => clickButton(page, label);
   const errors: string[] = [], reads = new Map<string, Promise<string>>();
   const hash = (b: Buffer) => createHash('sha256').update(b).digest('hex');
@@ -36,6 +37,8 @@ test('T133 guest enters the camera-registered Copper Warrens and retains its con
   await click('Look'); await click('Identify known-good endpoints'); await click('Identify physical path under test');
   await click('Notebook'); await page.getByRole('textbox', { name: 'Hypothesis', exact: true }).fill('Inspect the original conductor before repairing and testing the path.');
   await click('Pin hypothesis'); await click('Close notebook'); await click('Continue as guest');
+  // The approach only sets up the guest. Exercise continuous animation in R03 itself.
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
   // The protagonist is also used by R01. No other R03 visual is loaded before entry.
   expect([...reads.keys()].filter(k => !k.endsWith('/CH01.glb'))).toEqual([]);
   await click('Walk'); await click('Walk to The Copper Warrens'); await closeFrame(page);
@@ -72,14 +75,20 @@ test('T133 guest enters the camera-registered Copper Warrens and retains its con
     expect(plate.x).toBeGreaterThanOrEqual(stage.x - 1); expect(plate.y).toBeGreaterThanOrEqual(stage.y - 1);
     expect(plate.x + plate.width).toBeLessThanOrEqual(stage.x + stage.width + 1);
     expect(plate.y + plate.height).toBeLessThanOrEqual(stage.y + stage.height + 1);
-    for (const button of await page.locator('.nq-game-toolbar button:visible').all()) {
-      expect(await button.evaluate(el => el.scrollWidth - el.clientWidth), await button.innerText()).toBeLessThanOrEqual(1);
-    }
+    const toolbar = await page.locator('.nq-game-toolbar button:visible').evaluateAll(elements =>
+      elements.map(button => ({ label: button.textContent, overflow: button.scrollWidth - button.clientWidth })));
+    for (const button of toolbar) expect(button.overflow, button.label ?? '').toBeLessThanOrEqual(1);
+    const positions = await scene.locator('.nq-graybox-pin[data-graybox-object]').evaluateAll(elements =>
+      Object.fromEntries(elements.map(marker => {
+        const box = marker.getBoundingClientRect();
+        return [marker.getAttribute('data-graybox-object'), { x: box.x + box.width / 2, y: box.y + box.height / 2 }];
+      })));
     let maxError = 0;
     for (const anchor of anchors) {
-      const box = (await scene.locator(`[data-graybox-object="${anchor.id}"]`).boundingBox())!;
+      const center = positions[anchor.id];
+      expect(center, anchor.id).toBeDefined();
       const [u, v] = anchor.uvAt16by9;
-      maxError = Math.max(maxError, Math.hypot(box.x + box.width/2 - (plate.x + u! * plate.width), box.y + box.height/2 - (plate.y + v! * plate.height)));
+      maxError = Math.max(maxError, Math.hypot(center.x - (plate.x + u! * plate.width), center.y - (plate.y + v! * plate.height)));
     }
     expect(maxError).toBeLessThan(2);
     metrics.push({ width, height, stage, plate, maxAnchorErrorCssPixels: maxError, runtime: await scene.evaluate(el => ({ ...(el as HTMLElement).dataset })) });
@@ -98,8 +107,35 @@ test('T133 guest enters the camera-registered Copper Warrens and retains its con
   const cut = (await cutaway.boundingBox())!, sep = (await separator.boundingBox())!;
   await page.touchscreen.tap((cut.x + sep.x + cut.width) / 2, (cut.y + sep.y + cut.height) / 2);
   await expect(scene.locator('.nq-graybox-choices')).toContainText('Choose a subject');
-  await scene.locator('.nq-graybox-choices [data-graybox-object="spec001:HOTSPOT-copper-pair-cutaway"]').tap();
+  const picker = scene.locator('.nq-graybox-choices');
+  const subject = picker.locator('[data-graybox-object="spec001:HOTSPOT-copper-pair-cutaway"]');
+  const initialOptions = await picker.innerText();
+  const priorFeedback = await page.locator('.nq-shell-status').textContent();
+  // A canceled press followed by a late click cannot activate or dismiss the picker.
+  for (const cancellation of ['pointercancel', 'blur'] as const) {
+    await subject.dispatchEvent('pointerdown', { pointerId: 8, pointerType: 'touch', button: 0 });
+    if (cancellation === 'pointercancel') await subject.dispatchEvent(cancellation, { pointerId: 8 });
+    else await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+    await subject.evaluate(el => el.dispatchEvent(new PointerEvent('click', { bubbles: true, pointerId: 8 })));
+    expect(await picker.innerText()).toBe(initialOptions);
+    expect(await page.locator('.nq-shell-status').textContent()).toBe(priorFeedback);
+  }
+  const box = (await subject.boundingBox())!;
+  await page.mouse.move(box.x + 5, box.y + box.height / 2); await page.mouse.down();
+  await page.mouse.move(box.x + 25, box.y + box.height / 2); await page.mouse.up();
+  expect(await picker.innerText()).toBe(initialOptions);
+  expect(await page.locator('.nq-shell-status').textContent()).toBe(priorFeedback);
+  await subject.tap();
   await expect(page.locator('.nq-shell-status')).toContainText('transparent cutaway');
+  await expect(picker).not.toContainText('Choose a subject');
+  // Choosing an unsupported verb must explain the limitation without evidence gains.
+  const priorEvidence = await page.locator('.nq-shell-evidence').textContent();
+  await page.keyboard.press('t');
+  await page.touchscreen.tap((cut.x + sep.x + cut.width) / 2, (cut.y + sep.y + cut.height) / 2);
+  await subject.tap();
+  await expect(page.locator('.nq-shell-status')).toContainText('Do not infer continuity');
+  expect(await page.locator('.nq-shell-evidence').textContent()).toBe(priorEvidence);
+  await page.keyboard.press('l');
   const selectedActions = await semanticButtons();
   await click('Text scene'); await expect(scene).toHaveCount(0);
   expect(await semanticButtons()).toEqual(selectedActions);
