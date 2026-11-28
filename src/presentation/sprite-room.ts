@@ -4,6 +4,7 @@ import type { ContentRegistry } from '../content/registry';
 import type { RoomRenderer, RoomView } from './room-adapter';
 import type { RoomResource } from './three-room';
 import { createRoomResource, modelResidency } from './three-room';
+import { decodeRoomImage } from './recovery';
 import { createGrayboxPointer } from './introduction-graybox';
 import { createRoomWalk } from './room-walk';
 import { createSpriteStageModels } from './sprite-stage-models';
@@ -79,8 +80,8 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
         const resource = await request.resources.acquire(createRoomResource(binding, gameBase, doc, entry)).ready;
         if (resource.kind !== 'image' || request.signal.aborted) throw new Error('Sprite preparation canceled');
         const image = doc.createElement('img');
-        image.alt = ''; image.draggable = false; image.src = resource.url;
-        await image.decode();
+        image.alt = ''; image.draggable = false;
+        await decodeRoomImage(image, resource.url, request.signal);
         if (disposed || request.signal.aborted) throw new Error('Sprite preparation canceled');
         image.dataset['assetId'] = entry.assetId; image.dataset['exportPath'] = binding.exportPath;
         images.set(entry.assetId, image);

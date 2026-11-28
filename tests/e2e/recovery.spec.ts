@@ -1,5 +1,6 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import { test as nativeTest, type Page } from '@playwright/test';
+import { fileURLToPath } from 'node:url';
 import { clickButton, closeFrame, openFrame } from './support/adventure-controls';
 import { test as guestTest } from './support/outcome-journey';
 import { withNativeChromiumTabs } from './support/native-chromium-tabs';
@@ -51,7 +52,14 @@ test('T146 unresolved room request offers a bounded fallback and keeps native ac
   const path = '**/assets/models/R01-architecture.glb';
   let release!: () => void;
   const parked = new Promise<void>(resolve => { release = resolve; });
-  await page.route(path, async route => { await parked; await route.abort().catch(() => {}); });
+  let requests = 0;
+  await page.route(path, async route => {
+    if (++requests > 1) return route.continue();
+    await parked;
+    // The retired request may already have been canceled by the browser.
+    const model = fileURLToPath(new URL('../../public/assets/models/R01-architecture.glb', import.meta.url));
+    await route.fulfill({ path: model, contentType: 'model/gltf-binary' }).catch(() => {});
+  });
   try {
     const requested = page.waitForRequest(path);
     await clickButton(page, 'New Adventure');
@@ -60,12 +68,123 @@ test('T146 unresolved room request offers a bounded fallback and keeps native ac
     // A 15 s test ceiling is an explicit verification budget for loopback. It
     // includes the room owner's timeout and publishing the recovery controls.
     await expect(page.locator('.nq-shell-presentation-status')).toContainText(/unavailable|timed out/i, { timeout: 15_000 });
-    await readIndicators(page);
+    await expect(page.locator('.nq-shell-presentation-status')).toBeVisible();
+    const facts = await readIndicators(page);
+    await j.notes('I heard the relay but the link lamp stayed dark.');
+    await clickButton(page, 'Use'); await clickButton(page, 'Apprentice satchel');
+    await clickButton(page, 'Inventory'); await clickButton(page, 'Select Reusable inspection kit');
+    await page.keyboard.press('Escape');
+    await openFrame(page, 'Scene');
+    await expect(page.locator('.nq-shell-presentation-status')).toContainText('timed out');
+    expect(requests).toBe(1);
+    await clickButton(page, 'Retry visual scene');
+    const scene = presentation(page);
+    await expect(scene).toHaveAttribute('data-rendered', 'true');
+    const restored = await scene.elementHandle();
+    release();
+    await page.unrouteAll({ behavior: 'wait' });
+    await page.evaluate(() => new Promise<void>(done => requestAnimationFrame(() => requestAnimationFrame(() => done()))));
+    expect(requests).toBe(2);
+    expect(await scene.evaluate((element, previous) => element === previous, restored)).toBe(true);
+    await expect(scene).toHaveCount(1);
+    await expect(scene).toHaveAttribute('data-room-id', 'spec001:R01');
+    await expect(scene.locator('[data-safe-position]')).toHaveAttribute('data-safe-position', 'spec001:R01.entry');
+    await closeFrame(page);
+    await expect(button(page, 'Use')).toHaveAttribute('aria-pressed', 'true');
+    await clickButton(page, 'Inventory');
+    await expect(button(page, 'Deselect Reusable inspection kit')).toHaveAttribute('aria-pressed', 'true');
+    await page.keyboard.press('Escape');
+    await j.expectNotes('I heard the relay but the link lamp stayed dark.');
+    await openFrame(page, 'Evidence');
+    for (const label of ['Power indication', 'Link indication']) {
+      expect(facts).toContain(label);
+      await expect(evidence(page).locator('li').filter({ hasText: label })).toHaveCount(1);
+    }
+    expect(j.mutations).toEqual([]);
+    expect(await j.local.inspectSlot()).toBeNull();
   } finally { release(); await page.unrouteAll({ behavior: 'wait' }); }
-  await clickButton(page, 'Retry visual scene');
-  await expect(presentation(page)).toHaveAttribute('data-room-id', 'spec001:R01');
-  await expect(presentation(page)).toHaveAttribute('data-rendered', 'true');
-  expect(j.writes()).toEqual([]);
+});
+
+test('T150 a stalled native voice times out with its transcript and can replay while the old response is held', async ({ journey: j }) => {
+  test.setTimeout(45_000);
+  const page = j.page, path = '**/assets/audio/auditions/photon-035.mp3';
+  let release!: () => void, requests = 0;
+  const parked = new Promise<void>(resolve => { release = resolve; });
+  await j.start();
+  await page.route(path, async route => {
+    if (++requests > 1) return route.continue();
+    await parked;
+    await route.abort().catch(() => {});
+  });
+  try {
+    await openFrame(page, 'Sound and reading');
+    const cue = page.locator('.nq-media-cue[data-asset-id="spec001:ASSET-VOICE-035"]');
+    const transcript = await cue.locator('p').innerText();
+    await clickButton(page, 'Replay Photon');
+    await expect(cue).toHaveAttribute('data-audio-status', 'loading');
+    await expect(cue).toHaveAttribute('data-audio-status', 'unavailable', { timeout: 15_000 });
+    await expect(cue.locator('p')).toHaveText(transcript);
+    await clickButton(page, 'Replay Photon');
+    await expect(cue).toHaveAttribute('data-audio-status', 'playing');
+    expect(requests).toBeGreaterThan(1);
+    await clickButton(page, 'Skip Photon');
+    release();
+    await page.unrouteAll({ behavior: 'wait' });
+    await expect(cue).toHaveAttribute('data-audio-status', 'stopped');
+    await expect(cue.locator('p')).toHaveText(transcript);
+    expect(j.mutations).toEqual([]);
+    expect(await j.local.inspectSlot()).toBeNull();
+  } finally { release(); await page.unrouteAll({ behavior: 'wait' }); }
+});
+
+test('T150 an inspected illustration and a discovered portrait retain their reading and retry on reopen', async ({ journey: j }) => {
+  test.setTimeout(45_000);
+  const page = j.page;
+  const guide = '**/assets/illustrations/03.webp', portrait = '**/assets/portraits/CH03.webp';
+  const requests: string[] = [];
+  page.on('request', request => {
+    const path = new URL(request.url()).pathname;
+    if (/\/(illustrations\/03|portraits\/CH03)\.webp$/.test(path)) requests.push(path);
+  });
+  await j.start();
+  await readIndicators(page);
+  await clickButton(page, 'Talk'); await clickButton(page, 'Talk to Photon the Firefly'); await clickButton(page, 'Skip dialogue');
+  await clickButton(page, 'Compendium');
+  const character = dialog(page, 'Compendium').locator('summary').filter({ hasText: 'Photon the Firefly ·' });
+  const entry = character.locator('..');
+  expect(requests).toEqual([]);
+  await page.route(portrait, route => route.fulfill({ status: 503, body: 'unavailable' }));
+  await character.click();
+  await expect(entry.getByRole('status')).toContainText(/Portrait unavailable.*reopen to retry/);
+  const portraitCaption = await entry.locator('figcaption').innerText();
+  expect(portraitCaption).toContain('Photon tilts a dark, smiling face');
+  await page.unroute(portrait);
+  await character.press('Enter'); await expect(entry).not.toHaveAttribute('open', '');
+  await character.press('Enter');
+  await expect.poll(() => entry.locator('img').evaluate(img => (img as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+  await expect(entry.locator('figcaption')).toHaveText(portraitCaption);
+  await expect(character).toBeFocused();
+  await clickButton(page, 'Close compendium');
+  await clickButton(page, 'Use'); await clickButton(page, 'Apprentice satchel');
+  await clickButton(page, 'Walk'); await clickButton(page, "Walk to The Titan's Workshop");
+  await clickButton(page, 'Inventory'); await clickButton(page, 'Select Reusable inspection kit');
+  const illustration = dialog(page, 'Inventory').locator('details[data-illustration="spec001:ASSET-ILLUSTRATION-03"]');
+  const summary = illustration.locator('summary');
+  expect(requests.some(url => url.endsWith('/illustrations/03.webp'))).toBe(false);
+  await page.route(guide, route => route.fulfill({ contentType: 'image/webp', body: 'corrupt image bytes' }));
+  await summary.press('Enter');
+  await expect(illustration.getByRole('status')).toContainText('An open notebook');
+  const guideCaption = await illustration.locator('figcaption').innerText();
+  await page.unroute(guide);
+  await summary.press('Enter'); await expect(illustration).not.toHaveAttribute('open', '');
+  await summary.press('Enter');
+  await expect.poll(() => illustration.locator('img').evaluate(img => (img as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+  await expect(illustration.locator('figcaption')).toHaveText(guideCaption);
+  expect(requests.filter(path => path.endsWith('/illustrations/03.webp'))).toHaveLength(2);
+  expect(requests.filter(path => path.endsWith('/portraits/CH03.webp'))).toHaveLength(2);
+  await expect(button(page, 'Deselect Reusable inspection kit')).toHaveAttribute('aria-pressed', 'true');
+  await expect(summary).toBeFocused();
+  expect(j.mutations).toEqual([]); expect(await j.local.inspectSlot()).toBeNull();
 });
 
 test('T146 native WebGL context loss and text/low-detail recovery keep the existing observation and focus', async ({ journey: j }) => {

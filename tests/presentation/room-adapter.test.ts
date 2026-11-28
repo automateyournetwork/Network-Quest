@@ -5,6 +5,7 @@ import { createResourcePool } from '../../src/presentation/resource-pool';
 import { createActionBus, type ActionCapture, type ActionContext } from '../../src/ui/action-bus';
 import type { AdventureId, AttemptId, ConfigurationRevision, RoomId } from '../../src/domain/types';
 import type { AppShellView } from '../../src/ui/app-shell';
+import { MEDIA_LOAD_TIMEOUT_MS } from '../../src/presentation/recovery';
 
 const context: ActionContext = { adventureId: 'adventure' as AdventureId, configurationRevision: 0 as ConfigurationRevision, attemptId: 'attempt' as AttemptId };
 function view(title = 'Test room'): RoomView {
@@ -30,6 +31,39 @@ function fixture(reuseView = false) {
 }
 
 describe('room presentation boundary', () => {
+  it('expires a preparation once, keeps the latest semantic view and retires a late session after explicit retry', async () => {
+    vi.useFakeTimers();
+    const f = fixture(true);
+    try {
+      f.adapter.show(view(), { mode: 'three', detail: 'default', reducedMotion: false });
+      const old = f.requests[0]!, captured = old.capture('look');
+      const load = deferred<{ value: string; bytes: number }>(), destroy = vi.fn();
+      const lease = old.resources.acquire({ key: 'late', bytes: 10, load: () => load.promise, dispose: destroy });
+      const refusal = expect(lease.ready).rejects.toThrow(/released/);
+      await vi.advanceTimersByTimeAsync(MEDIA_LOAD_TIMEOUT_MS / 2);
+      f.adapter.show(view('New observation'));
+      await vi.advanceTimersByTimeAsync(MEDIA_LOAD_TIMEOUT_MS / 2);
+      await refusal;
+      expect(old.signal.aborted).toBe(true);
+      expect(captured.dispatch().status).toBe('rejected');
+      expect(f.adapter.status().reason).toBe('timed-out');
+      f.adapter.show(view('Both observations'));
+      expect(f.render.mock.lastCall?.[0]).toMatchObject({ title: 'Both observations', presentationStatus: expect.stringMatching(/timed out/) });
+      expect(f.prepare).toHaveBeenCalledTimes(1);
+      f.adapter.retry();
+      const current = { ...f.session(), updateView: vi.fn() };
+      f.preparations[1]!.resolve(current); await tick();
+      const late = f.session(); f.preparations[0]!.resolve(late);
+      load.resolve({ value: 'retired', bytes: 10 }); await tick();
+      expect(current.attach).toHaveBeenCalledTimes(1);
+      expect(late.attach).not.toHaveBeenCalled(); expect(late.dispose).toHaveBeenCalledTimes(1);
+      expect(destroy).toHaveBeenCalledExactlyOnceWith('retired');
+      expect(f.pool.stats()).toMatchObject({ inFlight: 0, leases: 0, entries: 0 });
+      await vi.advanceTimersByTimeAsync(MEDIA_LOAD_TIMEOUT_MS);
+      expect(f.adapter.status().kind).toBe('ready'); expect(f.handler).not.toHaveBeenCalled();
+      expect(vi.getTimerCount()).toBe(0);
+    } finally { f.adapter.dispose(); f.bus.dispose(); f.pool.dispose(); vi.useRealTimers(); }
+  });
   it('keeps one decode in flight through rapid same-room changes and attaches the latest view', async () => {
     const f = fixture(true); f.adapter.show(view(), { mode: 'three', detail: 'default', reducedMotion: false });
     const request = f.requests[0]!;

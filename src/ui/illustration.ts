@@ -2,6 +2,7 @@
 import type { illustrationBinding } from '../content/schema-types.generated';
 import { publicPaths } from '../config';
 import { appendSignalComparison } from './signal-comparison-figure';
+import { bindDisclosedImage } from '../presentation/recovery';
 
 export function illustrationDetails(doc: Document, binding: illustrationBinding, unavailableText?: string) {
   const details = doc.createElement('details'), summary = doc.createElement('summary');
@@ -16,23 +17,12 @@ export function illustrationDetails(doc: Document, binding: illustrationBinding,
   const image = doc.createElement('img');
   image.alt = binding.alt;
   image.style.cssText = 'display:block;width:min(100%,32rem);height:auto;margin-block:.3em';
-  const status = doc.createElement('p');
-  let started = false;
-  function unavailable() {
-    image.remove();
-    status.textContent = (unavailableText ?? 'The illustration is unavailable.') + ' ' + binding.alt;
-    figure.prepend(status);
+  const failureText = (unavailableText ?? 'The illustration is unavailable.') + ' ' + binding.alt;
+  const base = publicPaths.gameBase;
+  if (/^\/(?:[A-Za-z0-9_-]+\/)*$/.test(base) && /^public\/assets\/illustrations\/(?:0[1-9]|1[0-9]|2[0-4])\.webp$/.test(binding.exportPath)) {
+    bindDisclosedImage(details, figure, image, base + binding.exportPath.slice('public/'.length), failureText);
+  } else {
+    const status = doc.createElement('p'); status.textContent = failureText; figure.prepend(status);
   }
-  // Keep the image request behind a native user-controlled disclosure. A hidden
-  // panel, a generated roster or an undiscovered notebook fact loads no image.
-  details.addEventListener('toggle', () => {
-    if (!details.open || started) return;
-    started = true;
-    const base = publicPaths.gameBase;
-    if (!/^\/(?:[A-Za-z0-9_-]+\/)*$/.test(base) || !/^public\/assets\/illustrations\/(?:0[1-9]|1[0-9]|2[0-4])\.webp$/.test(binding.exportPath)) { unavailable(); return; }
-    image.addEventListener('error', unavailable, { once: true });
-    image.src = base + binding.exportPath.slice('public/'.length);
-    figure.prepend(image);
-  });
   return details;
 }

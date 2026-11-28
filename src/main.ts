@@ -2,6 +2,7 @@
 import './styles.css';
 import './ui/app-shell.css';
 import './app/application.css';
+import './ui/styles/layout.css';
 import { createIntroductionApplication } from './app/application';
 
 const host = document.querySelector('main');

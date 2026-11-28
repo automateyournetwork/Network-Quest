@@ -1,5 +1,6 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import type { PresentationSettings } from '../state/types';
+import { boundedPlayback } from './recovery';
 
 export type AudioChannel = 'music' | 'effects' | 'voice';
 export type AudioVolumes = Readonly<Record<AudioChannel, number>>;
@@ -123,7 +124,7 @@ export function createAudioAdapter(options: AudioOptions) {
             let started: Promise<void>;
             // This call deliberately occurs before any await/microtask boundary.
             try { started = playingVoice.play(); } catch (error) { started = Promise.reject(error); }
-            const completion = Promise.resolve(started).then(() => {
+            const completion = boundedPlayback(started).then(() => {
               if (!closed && generation === token && voice === playingVoice) { unlocked = true; return emit('playing'); }
               return state;
             }, error => {

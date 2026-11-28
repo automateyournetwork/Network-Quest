@@ -1,5 +1,6 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import { describe, expect, it, vi } from 'vitest';
+import { MEDIA_LOAD_TIMEOUT_MS } from '../../src/presentation/recovery';
 import { createAudioAdapter, createHtmlAudioBackend, type AudioBackend, type AudioCue, type AudioVoice } from '../../src/presentation/audio';
 
 function deferred() {
@@ -23,6 +24,23 @@ function fixture() {
 const tick = async () => { await Promise.resolve(); await Promise.resolve(); await Promise.resolve(); };
 
 describe('audio is optional presentation', () => {
+  it('releases a stalled voice at the deadline and ignores its late success after explicit replay', async () => {
+    vi.useFakeTimers();
+    const f = fixture();
+    try {
+      f.activate(); const cue = f.audio.present(f.cue('reading'));
+      const first = cue.play();
+      await vi.advanceTimersByTimeAsync(MEDIA_LOAD_TIMEOUT_MS);
+      expect(await first).toMatchObject({ status: 'unavailable', text: 'Transcript reading' });
+      expect(f.created[0]!.voice.dispose).toHaveBeenCalledTimes(1);
+      expect(f.audio.stats()).toMatchObject({ voices: 0, pendingPlays: 0 });
+      const retry = cue.play(); f.created[1]!.pending.resolve();
+      expect((await retry).status).toBe('playing');
+      f.created[0]!.pending.resolve(); f.created[0]!.events.ended(); await tick();
+      expect(cue.snapshot().status).toBe('playing');
+      expect(vi.getTimerCount()).toBe(0);
+    } finally { f.audio.dispose(); vi.useRealTimers(); }
+  });
   it('retains text without creating/loading audio before a user gesture or when missing/muted', async () => {
     const f = fixture(); const voice = f.audio.present(f.cue('voice'));
     expect(voice.snapshot().text).toBe('Transcript voice');

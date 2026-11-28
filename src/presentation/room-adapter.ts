@@ -5,6 +5,7 @@ import type { ActionCapture, ActionDispatcher, ActionResult, CapturedAction } fr
 import type { AppShellView, SemanticControl } from '../ui/app-shell';
 import { createResourceScope } from './resource-pool';
 import type { ResourcePool, ResourceScope } from './resource-pool';
+import { startMediaDeadline } from './recovery';
 
 /** A projection of validated authoritative state, never a mutable GameState or reward channel. */
 export interface RoomView extends Omit<AppShellView, 'presentationStatus'> { readonly roomId: RoomId; readonly activeAllyIds?: readonly string[] }
@@ -43,7 +44,7 @@ export interface RoomRenderer<T> {
 export interface RoomStatus {
   readonly kind: 'empty' | 'loading' | 'ready' | 'text' | 'unavailable' | 'disposed';
   readonly mode: RoomMode;
-  readonly reason?: 'renderer-unavailable' | 'prepare-failed' | 'context-lost' | 'preparation-capacity';
+  readonly reason?: 'renderer-unavailable' | 'prepare-failed' | 'context-lost' | 'preparation-capacity' | 'timed-out';
   readonly message: string;
 }
 export interface RoomAdapterOptions<T> {
@@ -80,7 +81,7 @@ export function createRoomAdapter<T>(options: RoomAdapterOptions<T>) {
   let captureView: ActionCapture | undefined;
   let settings: RoomSettings = Object.freeze({ mode: 'text', detail: 'default', reducedMotion: true });
   let state: RoomStatus = Object.freeze({ kind: 'empty', mode: 'text', message: 'No room presentation.' });
-  let active: { scope: ResourceScope<T>; actions: Set<CapturedAction>; session: PreparedRoom | null } | null = null;
+  let active: { scope: ResourceScope<T>; actions: Set<CapturedAction>; session: PreparedRoom | null; cancelDeadline: () => void } | null = null;
   const report = (error: unknown) => { try { options.onError?.(error); } catch { /* Error reporting cannot interrupt disposal. */ } };
   const safely = (work: () => void) => { try { work(); } catch (error) { report(error); } };
   function announce(kind: RoomStatus['kind'], message: string, reason?: RoomStatus['reason']) {
@@ -90,6 +91,7 @@ export function createRoomAdapter<T>(options: RoomAdapterOptions<T>) {
   function stop() {
     const previous = active; active = null;
     if (!previous) return;
+    previous.cancelDeadline();
     for (const captured of previous.actions) options.dispatcher.cancel(captured);
     previous.actions.clear();
     if (previous.session) safely(() => previous.session?.dispose());
@@ -97,7 +99,8 @@ export function createRoomAdapter<T>(options: RoomAdapterOptions<T>) {
   }
   function unavailable(reason: NonNullable<RoomStatus['reason']>) {
     stop();
-    announce('unavailable', 'Visual presentation unavailable. Scene descriptions, evidence and actions remain available. Retry or select text/low detail.', reason);
+    const cause = reason === 'timed-out' ? 'Visual presentation unavailable. Loading timed out.' : 'Visual presentation unavailable.';
+    announce('unavailable', cause + ' Scene descriptions, evidence and actions remain available. Retry or select text/low detail.', reason);
   }
   function start() {
     stop();
@@ -106,7 +109,8 @@ export function createRoomAdapter<T>(options: RoomAdapterOptions<T>) {
     const renderer = options.renderers?.[settings.mode];
     if (!renderer) { unavailable('renderer-unavailable'); return; }
     if (pending >= maxPending) { unavailable('preparation-capacity'); return; }
-    const current = { scope: createResourceScope(options.pool), actions: new Set<CapturedAction>(), session: null as PreparedRoom | null };
+    const current = { scope: createResourceScope(options.pool), actions: new Set<CapturedAction>(), session: null as PreparedRoom | null,
+      cancelDeadline: startMediaDeadline(() => { if (active === current) unavailable('timed-out'); }) };
     active = current;
     const currentView = view;
     const isCurrent = () => !disposed && active === current && !current.scope.signal.aborted;
@@ -137,6 +141,7 @@ export function createRoomAdapter<T>(options: RoomAdapterOptions<T>) {
     let preparing: Promise<PreparedRoom>;
     try { preparing = renderer.prepare(request); } catch (error) { preparing = Promise.reject(error); }
     void Promise.resolve(preparing).then(session => {
+      current.cancelDeadline();
       if (!isCurrent()) { safely(() => session.dispose()); return; }
       current.session = session;
       try {
@@ -150,16 +155,23 @@ export function createRoomAdapter<T>(options: RoomAdapterOptions<T>) {
         session.attach();
         if (isCurrent()) announce('ready', 'Visual presentation ready. Equivalent text and actions remain available.');
       } catch (error) { report(error); if (isCurrent()) unavailable('prepare-failed'); }
-    }, error => { report(error); if (isCurrent()) unavailable('prepare-failed'); }).finally(() => { pending--; });
+    }, error => { if (isCurrent()) { report(error); unavailable('prepare-failed'); } }).finally(() => { pending--; });
   }
   return Object.freeze({
     show(next: RoomView, nextSettings: RoomSettings = settings) {
       if (disposed) throw new Error('Room adapter disposed');
       const copied = snapshot(next); // reject malformed projection without tearing down the current view
+      const keepFailure = state.kind === 'unavailable' && view?.roomId === copied.roomId
+        && settings.mode === nextSettings.mode && settings.detail === nextSettings.detail;
       const reusable = view?.roomId === copied.roomId && settings.mode === nextSettings.mode && settings.detail === nextSettings.detail
         && settings.reducedMotion === nextSettings.reducedMotion && active && (active.session?.updateView
           || (settings.mode !== 'text' && options.renderers?.[settings.mode]?.reuseView));
       view = copied; captureView = options.dispatcher.captureScope(copied.context);
+      if (keepFailure) {
+        settings = Object.freeze({ ...nextSettings });
+        announce('unavailable', state.message, state.reason);
+        return;
+      }
       if (reusable && active) {
         for (const action of active.actions) options.dispatcher.cancel(action);
         active.actions.clear();

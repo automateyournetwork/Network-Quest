@@ -274,10 +274,11 @@ export function createAccountSettingsPanel(host: HTMLElement, act: (action: Acco
     const button = doc.createElement('button'); button.type = 'button'; button.textContent = label; button.addEventListener('click', () => act(action), { signal: abort.signal });
     buttons.set(action, button); controls.append(button);
   }
-  element.append(heading, identity, status, controls, policy); host.append(element);
+  const presentationHost = doc.createElement('div');
+  element.append(heading, identity, status, controls, presentationHost, policy); host.append(element);
   let wasOpen = false, previousPhase: AccountSettingsPhase = 'idle', focusBack: HTMLElement | null = null, lastPolicy: readonly string[] | null = null;
   element.addEventListener('keydown', event => { if (event.key === 'Escape' && !event.repeat && !event.isComposing && !event.ctrlKey && !event.metaKey && !event.altKey) { event.preventDefault(); act('close'); } }, { signal: abort.signal });
-  return { element,
+  return { element, presentationHost,
     render(view: AccountSettingsView) {
       element.hidden = !view.open; identity.textContent = view.identity; status.textContent = view.message;
       if (lastPolicy !== view.policy) { lastPolicy = view.policy; policy.replaceChildren(); const title = doc.createElement('h3'); title.textContent = 'Account data and backup policy'; policy.append(title);

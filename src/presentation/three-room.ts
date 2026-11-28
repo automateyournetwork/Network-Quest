@@ -11,6 +11,7 @@ import { createRoomWalk } from './room-walk';
 import { createRoomParty } from './room-party';
 import { createGrayboxPointer } from './introduction-graybox';
 import { publicMediaUrl, roomFraming, type RoomMedia } from './room-media';
+import { decodeRoomImage, startMediaDeadline } from './recovery';
 
 let areaLightsInitialized = false;
 export type RoomResource = { kind: 'model'; gltf: GLTF } | { kind: 'image'; url: string; width: number; height: number };
@@ -30,22 +31,39 @@ export function createRoomResource(binding: Readonly<mediaBinding>, gameBase: st
   const width = options.width ?? (webp ? 1600 : 1672), height = options.height ?? (webp ? 900 : 941);
   if (image && (![width, height].every(n => Number.isSafeInteger(n) && n > 0) || width * height > 16_777_216)) throw new Error('Invalid room image bounds');
   return { key: `room-media:${url}:${image ? width + 'x' + height : 'glb'}`, bytes: options.bytes ?? (image ? width * height * 4 : 16_777_216),
-    async load(signal) {
-      const response = await fetch(url, { signal, credentials: 'same-origin' });
-      if (!response.ok) throw new Error(`Room asset unavailable: ${binding.assetId}`);
-      const bytes = await response.arrayBuffer();
-      if (bytes.byteLength > 4_194_304 || signal.aborted) throw new Error('Room asset canceled or oversized');
-      if (!image) {
-        const gltf = await new GLTFLoader().parseAsync(bytes, '');
-        if (signal.aborted) { disposeModel(gltf); throw new Error('Room model canceled'); }
-        return { value: { kind: 'model', gltf }, bytes: modelResidency(gltf) };
-      }
-      const objectUrl = URL.createObjectURL(new Blob([bytes], { type: webp ? 'image/webp' : 'image/png' })), element = document.createElement('img');
+    async load(owner) {
+      // Party members may acquire assets after the initial room is ready.
+      const timeout = new AbortController();
+      const signal = AbortSignal.any([owner, timeout.signal]);
+      const cancel = startMediaDeadline(() => timeout.abort());
       try {
-        element.src = objectUrl; await element.decode();
-        if (signal.aborted || element.naturalWidth !== width || element.naturalHeight !== height) throw new Error('Room layer canceled or invalid dimensions');
-        return { value: { kind: 'image', url: objectUrl, width: element.naturalWidth, height: element.naturalHeight }, bytes: element.naturalWidth * element.naturalHeight * 4 };
-      } catch (error) { URL.revokeObjectURL(objectUrl); throw error; }
+        const response = await fetch(url, { signal, credentials: 'same-origin' });
+        if (!response.ok) {
+          void response.body?.cancel().catch(() => {});
+          throw new Error(`Room asset unavailable: ${binding.assetId}`);
+        }
+        const bytes = await response.arrayBuffer();
+        if (bytes.byteLength > 4_194_304 || signal.aborted) throw new Error('Room asset canceled or oversized');
+        if (!image) {
+          const manager = new THREE.LoadingManager();
+          const abort = () => manager.abort();
+          signal.addEventListener('abort', abort, { once: true });
+          try {
+            const gltf = await new GLTFLoader(manager).parseAsync(bytes, '');
+            if (signal.aborted) { disposeModel(gltf); throw new Error('Room model canceled'); }
+            return { value: { kind: 'model', gltf }, bytes: modelResidency(gltf) };
+          } finally {
+            signal.removeEventListener('abort', abort);
+          }
+        }
+        const objectUrl = URL.createObjectURL(new Blob([bytes], { type: webp ? 'image/webp' : 'image/png' }));
+        const element = document.createElement('img');
+        try {
+          await decodeRoomImage(element, objectUrl, signal);
+          if (element.naturalWidth !== width || element.naturalHeight !== height) throw new Error('Invalid room layer dimensions');
+          return { value: { kind: 'image', url: objectUrl, width, height }, bytes: width * height * 4 };
+        } catch (error) { URL.revokeObjectURL(objectUrl); throw error; }
+      } finally { cancel(); }
     },
     dispose(value) { if (value.kind === 'model') disposeModel(value.gltf); else URL.revokeObjectURL(value.url); },
   };

@@ -102,7 +102,8 @@ export function createTitlePanel(host: HTMLElement, act: (action: TitleAction) =
   invitation.append(button('Continue as guest', 'decline'));
   const settings = makePanel('settings', 'Settings', ['Autosave is off until explicitly enabled for your account. Manual saves use one account slot.',
     'All dialogue is readable as text. Open Sound and reading for audio levels, replay, captions, text size and reduced motion. Native keyboard controls and browser zoom remain available.']);
-  settings.append(button('Close settings', 'cancel'));
+  const presentationHost = doc.createElement('div');
+  settings.append(button('Close settings', 'cancel'), presentationHost);
   const credits = makePanel('credits', 'Credits', ['Network Quest — John Capobianco.', 'Original code: Apache-2.0. Original writing and project materials: CC BY 4.0.',
     'This development build contains the opening investigation and the Arrival Lift’s produced media. The complete episode remains in production; room and release reviews are separate.']);
   const source = doc.createElement('a'); source.href = 'https://github.com/automateyournetwork/Network-Quest'; source.textContent = 'Source and attribution notices'; credits.append(source, button('Close credits', 'cancel'));
@@ -112,7 +113,7 @@ export function createTitlePanel(host: HTMLElement, act: (action: TitleAction) =
       event.preventDefault(); act(shown === 'invitation' ? 'decline' : 'cancel');
     }
   }, { signal: abort.signal });
-  return { element, render(view: TitleView) {
+  return { element, presentationHost, render(view: TitleView) {
     element.dataset['adventure'] = String(view.hasAdventure);
     heading.hidden = view.hasAdventure; subtitle.hidden = view.hasAdventure; save.hidden = !view.hasAdventure;
     continueButton.textContent = view.hasAdventure ? 'Restore Save' : 'Continue';

@@ -24,15 +24,19 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 5. Root owns tracking, staging, review, commits and pushes. Optional automatic Git
    hooks remain disabled. Workers do not change counters, publish or spawn workers.
 
-## Current position — 2026-11-27
+## Current position — 2026-11-28
 
-**167 loops started; 133/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+**170 loops started; 136/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+
+The November 28 resumption recovered the same three interrupted workers. T148 passed all eighteen Firefox settings and focus cases, T149 verified the complete Clockworks and Iron Threshold toolbars across desktop, touch and true full-page zoom, and T150 passed ten recovery cases. The held room download now exposes recovery within twelve seconds. The three tasks closed under their original loop numbers. [Settings](loops/165-T148.md) · [Responsive layout](loops/166-T149.md) · [Recovery](loops/167-T150.md)
 
 The integrated media audit verified all visual quantities. It counted 25 character models, 150 props including 103 interactive or evidence props, 36 scene layers, 25 portraits and 24 illustrations. All 120 active audio renditions have observed uses. Eight voices and three effects have applicable human approval. Listening on speakers and headphones for the other 109 recordings and their mixes is still required for AC10 and G5. [Media audit](../evidence/spec001/media-audit.md) · [Owner review packet](../evidence/spec001/media-audit/review.html)
 
 The integrated media checkpoint reached GitHub at `33db08b7ba26cdcbcac5460229f8cf484c7db5e8`. All 699 reviewed paths matched the independently tested tree. Content checks, the production build and 4,381 executable tests across 120 suites passed, with 360 earlier TODOs recorded. The audit covered 69 operated props and all fifteen conditional uses. G5 remains partial pending listening.
 
 Normal Continue and Restore can now read the hypothetical 0.9.1 slot, explain either moved position and retain the original bytes until an eligible save. The signed-in tests exercised both manual and opted-in automatic revision 7 to 8 writes. The independent seven-journey Firefox suite passed AC13 and SAVE11 against a disposable local account service. It checked complete restored adventures, interrupted reads, opaque newer records and a two-tab conflict through receipt replay. [Compatibility evidence](../evidence/spec001/migrations.md)
+
+The independent save and keyboard checkpoint reached GitHub at `c04af0838288c723ed98be3987d350ad2933894d`. The pinned domain suite passed 4,387 cases across 121 suites, with 360 earlier TODOs. Five new keyboard journeys passed in a second checkout. The 13-case accessibility and recovery suite passed eleven cases, including all three guest endings. A held room download and the Firefox full-page accessibility audit remain open for T150 and T152. [Keyboard evidence](loops/164-T147.md) · [Recovery baseline](loops/162-T146.md)
 
 The one-slot migration fixtures now preserve two independently specified prior adventures across safe relocation, retained histories and later conditional saving. The seven new fixture checks, 22 original migration cases and eight PHP comparisons passed. [Migration fixtures](loops/159-T142.md)
 
@@ -187,8 +191,14 @@ Loop 164/T147: Five normal Firefox keyboard journeys and six historical checks p
 
 Loop 162/T146: Thirteen executable accessibility and recovery cases ran. Eleven passed, including all three guest endings and Continue. The stalled request and Firefox audit crash remain assigned to T150 and T152. [Verification](loops/162-T146.md).
 
+Loop 166/T149: All twelve commands stayed visible at the Clockworks and Iron Threshold. Eight native Firefox cases passed across desktop, narrow touch and true 200% browser zoom. The doubled-text Clockworks stage rose from 106 to 310 pixels. [Verification](loops/166-T149.md).
+
+Loop 165/T148: All six live sound and reading controls passed guest-memory and signed-in conditional persistence checks, including stale edits and account changes. Eighteen Firefox journeys, 211 unit cases and 45 PHP tests passed. [Verification](loops/165-T148.md).
+
+Loop 167/T150: Ten native recovery journeys passed. Stalled media offers retry after twelve seconds, late replacements preserve the room and notes, and corrupt illustrations and portraits reload on deliberate reopen. [Verification](loops/167-T150.md).
+
 <!-- current production assignments -->
-Active assignments: 165/T148, 166/T149, 167/T150.
+Active assignments: 168/T151, 169/T152, 170/T153.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

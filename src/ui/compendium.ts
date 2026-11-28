@@ -1,4 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import { bindDisclosedImage } from '../presentation/recovery';
 import './compendium.css';
 import type { ContentRegistry } from '../content/registry';
 import type * as S from '../content/schema-types.generated';
@@ -119,16 +120,16 @@ export function createCompendiumPanel(host: HTMLElement, bus: Pick<ActionDispatc
   element.append(heading, count, entries, evidenceTitle, evidenceList, notes, close); host.append(element);
   const paragraph = (text: string) => { const node = doc.createElement('p'); node.textContent = text; node.style.whiteSpace = 'pre-wrap'; return node; };
   const list = (label: string, texts: readonly string[]) => { const node = doc.createElement('ul'); node.setAttribute('aria-label', label); for (const text of texts) { const item = doc.createElement('li'); item.textContent = text; node.append(item); } return node; };
-  const rows = new Map<string, { node: HTMLElement; signature: string }>();
+  const rows = new Map<string, { node: HTMLElement; signature: string; dispose?: (() => void) | void }>();
   const actions = new WeakMap<HTMLButtonElement, { input: SemanticAction; capture: ActionCapture }>();
   let activeControls = new Set<HTMLButtonElement>();
   let current: { capture: ActionCapture; open: boolean } | null = null, returnFocus: HTMLElement | null = null, disposed = false;
   const button = (text: string, input: SemanticAction, capture: ActionCapture) => { const button = doc.createElement('button'); button.type = 'button'; button.textContent = text; actions.set(button, { input, capture }); return button; };
   const reconcile = (parent: HTMLElement, children: HTMLElement[]) => { children.forEach((child, i) => { if (parent.children[i] !== child) parent.insertBefore(child, parent.children[i] ?? null); }); while (parent.children.length > children.length) parent.lastElementChild!.remove(); };
-  const row = (id: string, signature: unknown, tag: 'details' | 'li', build: (node: HTMLElement) => void) => {
+  const row = (id: string, signature: unknown, tag: 'details' | 'li', build: (node: HTMLElement) => void | (() => void)) => {
     const text = JSON.stringify(signature); let entry = rows.get(id);
     if (!entry) { entry = { node: doc.createElement(tag), signature: '' }; rows.set(id, entry); }
-    if (entry.signature !== text) { entry.node.replaceChildren(); build(entry.node); entry.signature = text; }
+    if (entry.signature !== text) { entry.dispose?.(); entry.node.replaceChildren(); entry.dispose = build(entry.node); entry.signature = text; }
     return entry.node;
   };
   const active = () => current?.open && !disposed && element.isConnected && host.contains(element) && !element.closest('[hidden], [inert]');
@@ -153,9 +154,10 @@ export function createCompendiumPanel(host: HTMLElement, bus: Pick<ActionDispatc
       const summary = doc.createElement('summary'); summary.tabIndex = 0; summary.textContent = `${entry.name} · ${entry.status}`; node.append(summary);
       const figure = doc.createElement('figure'), caption = doc.createElement('figcaption'); caption.textContent = entry.portrait.text;
       figure.style.margin = '0';
+      let releasePortrait: (() => void) | undefined;
       if (entry.portrait.status === 'available') {
-        const image = doc.createElement('img'); image.alt = entry.portrait.text; image.src = entry.portrait.src; image.loading = 'lazy'; image.style.maxWidth = '100%'; image.style.height = 'auto';
-        image.addEventListener('error', () => { image.remove(); caption.textContent = `Portrait unavailable. ${entry.portrait.text}`; }, { once: true, signal: abort.signal }); figure.append(image);
+        const image = doc.createElement('img'); image.alt = entry.portrait.text; image.style.maxWidth = '100%'; image.style.height = 'auto';
+        releasePortrait = bindDisclosedImage(node as HTMLDetailsElement, figure, image, entry.portrait.src, 'Portrait unavailable.');
       } else caption.textContent = `Portrait not yet available. ${entry.portrait.text}`;
       figure.append(caption); node.append(figure, paragraph(entry.role), paragraph(entry.description), paragraph(`Technology: ${entry.technology}`), paragraph(`Ability: ${entry.abilitySummary}`), list('Limitations', entry.limitations),
         paragraph(`Realm and dependencies: ${entry.realmNote}`), paragraph(`Recruitment: ${entry.recruitment}`), paragraph(`Progression: ${entry.progression}`), paragraph('RPG attributes are fictional balancing values.'));
@@ -171,6 +173,7 @@ export function createCompendiumPanel(host: HTMLElement, bus: Pick<ActionDispatc
         if (/^https:\/\//.test(source.url)) sources.append(sourceLink(source.title, source.url));
       }
       node.append(sources);
+      return releasePortrait;
     })));
     reconcile(evidenceList, model.evidence.map(({ evidence, route }) => row(`evidence:${evidence.id}`, [evidence, route], 'li', node => {
       const title = doc.createElement('h4'); title.textContent = evidence.heading;
@@ -193,7 +196,7 @@ export function createCompendiumPanel(host: HTMLElement, bus: Pick<ActionDispatc
       (replacement ?? heading).focus({ preventScroll: !!replacement });
       if (replacement) element.scrollTop = scroll;
     }
-  }, dispose() { if (disposed) return; disposed = true; abort.abort(); rows.clear(); current = null; element.remove(); } };
+  }, dispose() { if (disposed) return; disposed = true; abort.abort(); for (const entry of rows.values()) entry.dispose?.(); rows.clear(); current = null; element.remove(); } };
 }
 
 import { contextFromRuntime } from './action-bus';
