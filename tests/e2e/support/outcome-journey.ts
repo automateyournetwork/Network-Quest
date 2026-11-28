@@ -1,9 +1,9 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
-import { expect, firefox, test as base, type Page, type Request } from '@playwright/test';
+import { expect, firefox, test as base, type Locator, type Page, type Request } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { request } from 'node:https';
 import { configuredSave } from './configured-save';
-import { closeFrame, revealControl } from './adventure-controls';
+import { closeFrame, revealControl, type Activate } from './adventure-controls';
 
 export type Branch = 'copper' | 'fiber' | 'radio';
 export type Duration = 'permanent' | 'temporary';
@@ -15,10 +15,31 @@ export const dialog = (page: Page, name: string) => page.getByRole('dialog', { n
 
 /** Only native controls drive the production application. The private fixture
  * installs a local synthetic identity, never an adventure or an evaluator result. */
-async function journey() {
+export interface RouteInput {
+  activate: Activate;
+  write: (field: Locator, value: string) => Promise<void>;
+  arrived?: (name: string) => Promise<void>;
+  measured?: (reading: Locator) => Promise<void>;
+  textScene?: boolean;
+}
+export interface OutcomeBrowser {
+  viewport: { width: number; height: number };
+  hasTouch?: boolean;
+  disableWebGL?: boolean;
+  configureProfile?: (profile: string, url: string) => Promise<void>;
+}
+
+async function journey(browser: OutcomeBrowser) {
   const local = await configuredSave();
-  const context = await firefox.launchPersistentContext(local.profile, { headless: true, ignoreHTTPSErrors: false,
-    reducedMotion: 'reduce', viewport: { width: 1280, height: 900 } });
+  const launch = async () => {
+    try {
+      await browser.configureProfile?.(local.profile, local.url);
+      return await firefox.launchPersistentContext(local.profile, { headless: true, ignoreHTTPSErrors: false,
+        reducedMotion: 'reduce', viewport: browser.viewport, hasTouch: browser.hasTouch ?? false,
+        ...(browser.disableWebGL ? { firefoxUserPrefs: { 'webgl.disabled': true } } : {}) });
+    } catch (error) { await local.stop(); throw error; }
+  };
+  const context = await launch();
   const errors: string[] = [], external: string[] = [];
   const writes: { body: string; mode: string | undefined }[] = [];
   context.on('request', request => {
@@ -50,31 +71,44 @@ async function journey() {
     });
   };
   let keyboard = false;
+  let input: RouteInput | undefined;
+  const activate = (control: Locator) => {
+    if (input) return input.activate(control);
+    return keyboard ? control.press('Enter') : control.click();
+  };
+  const write = (name: string, value: string) => {
+    const field = page.getByRole('textbox', { name, exact: true });
+    return input ? input.write(field, value) : field.fill(value);
+  };
   const click = async (name: string) => {
-    if (['Scene', 'Evidence', 'Diagnostics', 'Repair plan', 'Validate repair'].includes(name)) await closeFrame(page);
-    const control = await revealControl(page, name);
-    if (keyboard) await control.press('Enter'); else await control.click();
+    if (['Scene', 'Evidence', 'Diagnostics', 'Repair plan', 'Validate repair'].includes(name)) await closeFrame(page, input?.activate);
+    await activate(await revealControl(page, name, input?.activate));
   };
   const check = async (name: string) => {
-    const input = page.getByRole('checkbox', { name, exact: true });
-    if (keyboard) { await input.focus(); await input.press('Space'); } else await input.check();
+    const box = page.getByRole('checkbox', { name, exact: true });
+    if (input) await input.activate(box);
+    else if (keyboard) { await box.focus(); await box.press('Space'); }
+    else await box.check();
   };
   const room = async (name: string) => {
     await expect(page.getByRole('heading', { name, exact: true })).toBeVisible();
-    await expect(page.locator('.nq-graybox')).toHaveAttribute('data-rendered', 'true');
+    if (input?.textScene) await expect(page.locator('.nq-game')).toHaveAttribute('data-text-scene', 'true');
+    else await expect(page.locator('.nq-graybox')).toHaveAttribute('data-rendered', 'true');
     expect(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight + 1)).toBe(true);
+    await input?.arrived?.(name);
   };
   const walk = async (name: string, label = `Walk to ${name}`) => { await click('Walk'); await click(label); await room(name); };
   const readings = () => dialog(page, 'Diagnostics').locator('ol[aria-label="Recorded measurements"] > li');
   const measure = async (complete: boolean) => {
     await click('Diagnostics'); await click('Take measurement');
     const submit = readings().last().getByRole('button', { name: 'Submit this reading', exact: true });
-    if (keyboard) await submit.press('Enter'); else await submit.click();
+    await input?.measured?.(readings().last());
+    await activate(submit);
     if (complete) await expect(dialog(page, 'Diagnostics')).toContainText('Objective complete.');
     else await expect(dialog(page, 'Diagnostics')).not.toContainText('Objective complete.');
     await click('Close diagnostics');
   };
-  const notes = async (text: string) => { await click('Notebook'); await page.getByRole('textbox', { name: 'Personal notes', exact: true }).fill(text); await click('Close notebook'); };
+  const notes = async (text: string) => { await click('Notebook'); await write('Personal notes', text); await click('Close notebook'); };
   const expectNotes = async (text: string) => { await click('Notebook'); await expect(page.getByRole('textbox', { name: 'Personal notes', exact: true })).toHaveValue(text); await click('Close notebook'); };
   const objective = async (label: string, completed: boolean) => {
     await click('Notebook'); const item = dialog(page, 'Notebook').locator('ul[aria-label="Objectives"] > li').filter({ hasText: label });
@@ -84,8 +118,9 @@ async function journey() {
     await click('Save'); if (first) await click('Save this adventure');
     await expect(page.getByText(/^Saved at /)).toBeVisible(); return (await local.inspectSlot())!;
   };
-  const prepare = async (branch: Branch, authenticated = true, keys = false) => {
-    keyboard = keys;
+  const prepare = async (branch: Branch, authenticated = true, keys: boolean | RouteInput = false) => {
+    keyboard = keys === true;
+    input = typeof keys === 'object' ? keys : undefined;
     if (authenticated) {
       const [name, value] = local.cookies[0]!.split('=');
       await context.addCookies([{ name: name!, value: value!, domain: '127.0.0.1', path: '/arcade/play/network-quest/', secure: true, httpOnly: true, sameSite: 'Lax' }]);
@@ -96,8 +131,8 @@ async function journey() {
     await click('Talk'); await click('Talk to Photon the Firefly'); await click('Skip dialogue'); await click('Use'); await click('Inspect physical path');
     await walk("The Titan's Workshop"); await click('Talk'); await click('Talk to the Titan'); await click('Skip dialogue');
     await click('Look'); await click('Identify known-good endpoints'); await click('Identify physical path under test');
-    await click('Notebook'); await page.getByRole('textbox', { name: 'Hypothesis', exact: true }).fill('Compare observations before and after intervention, then test endpoint service.');
-    await click('Pin hypothesis'); await page.getByRole('textbox', { name: 'Personal notes', exact: true }).fill(notesBefore); await click('Close notebook');
+    await click('Notebook'); await write('Hypothesis', 'Compare observations before and after intervention, then test endpoint service.');
+    await click('Pin hypothesis'); await write('Personal notes', notesBefore); await click('Close notebook');
     if (!authenticated) { await expect(dialog(page, 'Sign in to save')).toBeVisible(); await click('Continue as guest'); }
     if (branch === 'copper') {
       await walk('The Copper Warrens'); await click('Use'); await click('Read and keep the supplied compatibility card');
@@ -144,12 +179,13 @@ async function journey() {
     await expect(dialog(page, 'Repair plan')).toContainText('without a recruited ally');
   };
   const execute = async () => { await check(warningLabel); await click('Execute reviewed plan'); await click('Close repair controls'); };
-  const validate = async (duration: Duration | 'shutdown', learn = false) => {
+  const validate = async (duration: Duration | 'shutdown', learn = false, inspect?: (panel: Locator) => Promise<void>) => {
     await walk('The Iron Threshold', 'Walk to the validation balcony');
     if (learn) {
       await notes(notesAfter); await click('Diagnostics'); await click('Show method hint'); await click('Show worked step'); await click('Show solution'); await click('Close diagnostics');
     }
     await click('Validate repair'); await click('Read classification criteria');
+    await inspect?.(dialog(page, 'Validate repair'));
     if (duration === 'shutdown') await click('Record unresolved isolation');
     else {
       const classify = duration === 'permanent' ? 'Classify permanent restoration' : 'Classify temporary restoration';
@@ -175,13 +211,16 @@ async function journey() {
   };
 }
 export type OutcomeJourney = Awaited<ReturnType<typeof journey>>;
-export const test = base.extend<{ outcome: OutcomeJourney }>({ outcome: async ({}, use, info) => {
-  const j = await journey();
-  try { await use(j); }
-  finally {
-    if (info.status !== info.expectedStatus) await j.page.screenshot({ path: info.outputPath('T089-failure.png'), fullPage: true }).catch(() => {});
-    try { await j.context.close(); } finally { await j.local.stop(); }
-    expect(j.errors).toEqual([]); expect(j.external).toEqual([]);
-  }
-} });
+export const test = base.extend<{ outcome: OutcomeJourney; outcomeBrowser: OutcomeBrowser }>({
+  outcomeBrowser: [{ viewport: { width: 1280, height: 900 } }, { option: true }],
+  outcome: async ({ outcomeBrowser }, use, info) => {
+    const j = await journey(outcomeBrowser);
+    try { await use(j); }
+    finally {
+      if (info.status !== info.expectedStatus) await j.page.screenshot({ path: info.outputPath('T089-failure.png'), fullPage: true }).catch(() => {});
+      try { await j.context.close(); } finally { await j.local.stop(); }
+      expect(j.errors).toEqual([]); expect(j.external).toEqual([]);
+    }
+  },
+});
 export { expect };

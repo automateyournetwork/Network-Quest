@@ -92,6 +92,17 @@ try {
       $snapshot['contentVersion']=$command['version'];$summary['contentVersion']=$command['version'];
       $raw=" ".json_encode($snapshot,JSON_THROW_ON_ERROR)."\n";
       $pdo->prepare('UPDATE saves SET content_version=?,payload_json=?,payload_hash=?,summary_json=? WHERE account_id=?')->execute([$command['version'],$raw,hash('sha256',$raw),json_encode($summary,JSON_THROW_ON_ERROR),$id]);echo "{}\n";
+    }elseif($command['kind']==='migration-slot'){
+      // Private fixture for a version that the current write API cannot create.
+      // Keep the exact source bytes, even for an opaque version without v1 fields.
+      $raw=$command['raw'];
+      $summary=json_encode(['episodeId'=>'spec001','roomId'=>$command['roomId'],'outcome'=>$command['outcome']],JSON_THROW_ON_ERROR);
+      $pdo->prepare('INSERT INTO saves(account_id,revision,saved_at,schema_version,content_version,adventure_id,payload_json,payload_hash,summary_json)
+        VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT(account_id) DO UPDATE SET revision=excluded.revision,saved_at=excluded.saved_at,
+        schema_version=excluded.schema_version,content_version=excluded.content_version,adventure_id=excluded.adventure_id,
+        payload_json=excluded.payload_json,payload_hash=excluded.payload_hash,summary_json=excluded.summary_json')
+        ->execute([$id,$command['revision'],time(),$command['schemaVersion'],$command['contentVersion'],$command['adventureId'],$raw,hash('sha256',$raw),$summary]);
+      echo "{}\n";
     }elseif($command['kind']==='inspect-slot'){
       $account=$command['provider']==='google'?'60000000-0000-4000-8000-000000000002':$id;
       $query=$pdo->prepare('SELECT revision,payload_json FROM saves WHERE account_id=?');$query->execute([$account]);$row=$query->fetch();$query->closeCursor();unset($query);
@@ -112,7 +123,9 @@ try {
 
 export async function configuredSave() {
   const root = fileURLToPath(new URL('../../../', import.meta.url));
-  const child = spawn(process.env['NQ_PHP_BIN'] ?? 'php', ['-d', 'display_errors=stderr', '-d', 'auto_prepend_file=', '-d', 'auto_append_file=', '-r', program, root], {
+  // fgets(STDIN) on the control pipe otherwise times out during a long browser route.
+  // The stop command or the parent's closed pipe still terminates this synthetic CLI.
+  const child = spawn(process.env['NQ_PHP_BIN'] ?? 'php', ['-d', 'default_socket_timeout=-1', '-d', 'display_errors=stderr', '-d', 'auto_prepend_file=', '-d', 'auto_append_file=', '-r', program, root], {
     env: { PATH: process.env['PATH'] ?? '', LANG: 'C', LC_ALL: 'C' }, stdio: ['pipe', 'pipe', 'pipe'],
   });
   let diagnostic = '';
@@ -139,12 +152,12 @@ export async function configuredSave() {
     local = await localTls({ probeRouter: ready.router }); await command({ kind: 'origin', origin: local.origin });
     const fixture = { ...local, stop, cookies: ready.cookies,
       /** Send the intercepted native request to the real service, trusting only
-       * this fixture's disposable CA, then let the test drop its response. */
+       * this fixture's disposable CA, then let the test delay or drop its response. */
       forwardNative: async (native: Request): Promise<{ status: number; body: string; headers: Record<string, string> }> => {
         const path = native.url().slice(local!.origin.length);
         if (!native.url().startsWith(local!.origin + '/') || ![
-          ['PUT', '/arcade/play/network-quest/api/v1/save'], ['DELETE', '/arcade/play/network-quest/api/v1/account'], ['POST', '/arcade/play/network-quest/api/v1/logout'], ['POST', '/arcade/play/network-quest/api/v1/account/deletion-status'],
-        ].some(([method, route]) => native.method() === method && path === route)) throw new Error('Expected this fixture save/account mutation');
+          ['GET', '/arcade/play/network-quest/api/v1/save'], ['PUT', '/arcade/play/network-quest/api/v1/save'], ['DELETE', '/arcade/play/network-quest/api/v1/account'], ['POST', '/arcade/play/network-quest/api/v1/logout'], ['POST', '/arcade/play/network-quest/api/v1/account/deletion-status'],
+        ].some(([method, route]) => native.method() === method && path === route)) throw new Error('Expected this fixture save/account operation');
         const ca = await readFile(local!.directory + '/ca.pem'), headers = await native.allHeaders();
         return new Promise((resolve, reject) => {
           const upstream = request(native.url(), { method: native.method(), headers, ca, rejectUnauthorized: true }, reply => {
@@ -164,6 +177,8 @@ export async function configuredSave() {
       syntheticSession: (provider: 'github' | 'google') => command({ kind: 'synthetic-session', provider }) as Promise<{ cookie: string }>,
       expireSession: (cookie: string) => command({ kind: 'expire-session', cookie }),
       storedContent: (version: string) => command({ kind: 'stored-content', version }),
+      seedMigrationSlot: (slot: { raw: string; revision: number; schemaVersion: number; contentVersion: string; adventureId: string; roomId: string; outcome: string | null }) =>
+        command({ kind: 'migration-slot', ...slot }),
       inspectSlot: (provider: 'github' | 'google' = 'github') => command({ kind: 'inspect-slot', provider }) as Promise<null | { revision: number; raw: string; snapshot: SaveSnapshotV1 }>,
       prepareDeletion: (receipt: string, expired = false) => command({ kind: 'prepared-deletion', receipt, expired }),
       completeDeletionReauth: (cookie: string) => command({ kind: 'deletion-reauth', cookie }) as Promise<{ cookie: string }>,

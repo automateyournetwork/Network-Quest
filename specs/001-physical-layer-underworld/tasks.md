@@ -564,8 +564,8 @@ This preparation does not replace independent technical or human review.
 
 **Ready after**: T142–T145.
 
-- [ ] T146 [US5] Author representative complete-route/ending keyboard, muted, reduced-motion, 200%-zoom, narrow-layout and failure expectations in `tests/e2e/accessibility.spec.ts` and `tests/e2e/recovery.spec.ts`; preserve the same required observations/actions.
-- [ ] T147 [US5] Complete focus restoration, named scene/inventory/dialogue controls, text announcements and typing-safe shortcuts in `src/ui/accessibility.ts`; note entry cannot dispatch verbs and restored rendering retains the same focus/state.
+- [X] T146 [US5] Author representative complete-route/ending keyboard, muted, reduced-motion, 200%-zoom, narrow-layout and failure expectations in `tests/e2e/accessibility.spec.ts` and `tests/e2e/recovery.spec.ts`; preserve the same required observations/actions.
+- [X] T147 [US5] Complete focus restoration, named scene/inventory/dialogue controls, text announcements and typing-safe shortcuts in `src/ui/accessibility.ts`; note entry cannot dispatch verbs and restored rendering retains the same focus/state.
 - [ ] T148 [US5] Implement caption/text-scale/reduced-motion and separate music/effects/voice controls in `src/ui/settings.ts` and `src/ui/styles/accessibility.css`; persist signed-in preferences through the existing conditional API and keep guest settings in memory.
 - [ ] T149 [US5] Implement 1280×720/1440×900 desktop and 768/390px touch layouts in `src/ui/styles/layout.css`; at 200% zoom all critical evidence/actions remain reachable without hover or precise pointing.
 - [ ] T150 [US5] Complete failed asset/decode/audio/network and WebGL2/context-loss recovery in `src/presentation/recovery.ts`; offer retry/text/low-detail controls with identical gameplay state, bounded loading and honest unsaved status.
@@ -788,7 +788,7 @@ settled the playable routes. Reconcile the candidate with that accepted build.
 
 - [X] T142 [US8] Create explicitly hypothetical prior/future-door/renamed-ID/removed-position fixtures and independent preserved-state expectations in `tests/fixtures/migrations/spec001.json`; retain inventory, achievements, clues, notes, recruits, hint/outcome history without implementing Spec002.
 - [X] T143 [US8] Complete explicit content mapping/safe-position migration and player explanations in `src/state/save-migrations.ts` and `src/state/migrations/spec001.ts`; GET never rewrites storage and a migration is durable only through an eligible conditional save.
-- [ ] T144 [US8] Test old-content/future-door migration, unknown newer preservation, interrupted migration and later safe saving in `tests/state/migrations.test.ts` and `tests/e2e/migrations.spec.ts`; record SAVE11/AC13 in `docs/evidence/spec001/migrations.md`.
+- [X] T144 [US8] Test old-content/future-door migration, unknown newer preservation, interrupted migration and later safe saving in `tests/state/migrations.test.ts` and `tests/e2e/migrations.spec.ts`; record SAVE11/AC13 in `docs/evidence/spec001/migrations.md`.
 - [X] T145 [US8] Implement public versioned large-source retrieval and hash verification in `tools/fetch-sources.mjs`, `assets-src/source-index.json` and `docs/source-retrieval.md`; prove .blend/.aup4/raw/generated source availability without private website/player data.
 
 ### Independent contributor verification

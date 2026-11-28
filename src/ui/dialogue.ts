@@ -187,6 +187,10 @@ export function createDialoguePanel(host: HTMLElement, bus: Pick<ActionDispatche
   const element = doc.createElement('div'), dialog = doc.createElement('section'), replayHost = doc.createElement('div');
   dialog.setAttribute('role', 'dialog'); dialog.setAttribute('aria-label', 'Dialogue'); dialog.hidden = true;
   const heading = doc.createElement('h2'), text = doc.createElement('p'), actions = doc.createElement('div');
+  text.id = `dialogue-line-${crypto.randomUUID()}`;
+  dialog.setAttribute('aria-describedby', text.id);
+  text.setAttribute('aria-live', 'polite');
+  text.setAttribute('aria-atomic', 'true');
   heading.tabIndex = -1; text.style.whiteSpace = 'pre-wrap'; text.style.overflowWrap = 'anywhere';
   actions.style.display = 'flex'; actions.style.flexWrap = 'wrap'; actions.style.gap = '0.5rem';
   dialog.append(heading, text, actions); element.append(dialog, replayHost); host.append(element);
@@ -220,7 +224,9 @@ export function createDialoguePanel(host: HTMLElement, bus: Pick<ActionDispatche
     const model = structuredClone(view);
     if (new Set(model.controls.map(c => c.id)).size !== model.controls.length) throw new TypeError('Dialogue controls must have unique identities.');
     const wasOpen = !dialog.hidden, focus = doc.activeElement;
-    current = { view: model, capture }; heading.textContent = model.speaker; text.textContent = model.text;
+    current = { view: model, capture };
+    if (heading.textContent !== model.speaker) heading.textContent = model.speaker;
+    if (text.textContent !== model.text) text.textContent = model.text;
     const buttons = model.controls.map(c => control(c, capture));
     reconcile(actions, model.open ? buttons : []); reconcile(replayHost, model.open ? [] : buttons);
     for (const key of controls.keys()) if (!model.controls.some(c => c.id === key)) controls.delete(key);

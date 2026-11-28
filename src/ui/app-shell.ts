@@ -1,6 +1,7 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import type { illustrationBinding } from '../content/schema-types.generated';
 import { illustrationDetails } from './illustration';
+import { isEditingControl, isPlainShortcut } from './accessibility';
 import { copySemanticAction } from './action-bus';
 import type { ActionBus, ActionCapture, ActionContext, SemanticAction } from './action-bus';
 
@@ -67,10 +68,6 @@ function shortcut(action: SemanticAction): string | undefined {
   if (action.kind === 'open-panel') return shortcuts[action.panel];
   return action.kind === 'close-panel' ? 'Escape' : undefined;
 }
-function editing(target: Element): boolean {
-  return !!target.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"]), [role="textbox"], [role="combobox"], [role="searchbox"], [role="spinbutton"], [role="slider"]');
-}
-
 /**
  * Passive view and input routing, with no authored story, game mutation, save or
  * account claims. Native click unifies Enter/Space, mouse, pen and touch: no
@@ -111,6 +108,7 @@ export function createAppShell(host: HTMLElement, bus: Pick<ActionBus, 'captureS
   const presentationHost = node('div', 'nq-shell-presentation');
   presentationHost.setAttribute('aria-hidden', 'true');
   const presentationStatus = node('p', 'nq-shell-presentation-status');
+  presentationStatus.id = `${prefix}-presentation-status`;
   const objects = node('ul', 'nq-shell-objects');
   const noObjects = node('p');
   noObjects.textContent = 'No scene objects are available.';
@@ -158,7 +156,7 @@ export function createAppShell(host: HTMLElement, bus: Pick<ActionBus, 'captureS
     const window = status.closest<HTMLElement>('.nq-window-active');
     // Action feedback sits below the fixed window heading. Reveal it by scrolling
     // only that window; notes/sliders keep their editing position and focus.
-    if (changed && message && window && !(document.activeElement instanceof Element && editing(document.activeElement))) window.scrollTop = 0;
+    if (changed && message && window && !(document.activeElement instanceof Element && isEditingControl(document.activeElement))) window.scrollTop = 0;
   };
   const unsubscribe = bus.subscribe((_action, result) => { if (result.message) announce(result.message); });
 
@@ -181,8 +179,8 @@ export function createAppShell(host: HTMLElement, bus: Pick<ActionBus, 'captureS
   shell.addEventListener('compositionend', () => { composing = false; }, { signal: abort.signal });
   shell.addEventListener('keydown', event => {
     const target = event.target;
-    if (!(target instanceof Element) || event.defaultPrevented || event.isComposing || composing || event.keyCode === 229
-      || event.repeat || event.ctrlKey || event.metaKey || event.altKey || event.shiftKey || editing(target)) return;
+    if (!(target instanceof Element) || !isPlainShortcut(event, composing)
+      || event.composedPath().some(node => node instanceof Element && isEditingControl(node))) return;
     const key = event.key === 'Escape' ? 'Escape' : event.key.toLowerCase();
     const shortcutButton = shortcutButtons.get(key);
     if (shortcutButton) { event.preventDefault(); activate(shortcutButton); return; }

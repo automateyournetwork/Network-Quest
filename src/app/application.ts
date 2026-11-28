@@ -544,7 +544,9 @@ export function createIntroductionApplication(host: HTMLElement) {
     // Focus the invitation only after the panel that just closed restores focus.
     menu.render(title.project());
     // Coordinator events and ordinary reducer edits both update save status.
-    saveDialogs.render(saves.project());
+    const saveView = saves.project();
+    saveDialogs.render(saveView);
+    if (saveView.panel === 'migrated') focusRoom = true;
     if (accountSettings && settingsPanel) {
       const settings = accountSettings.project(); settingsPanel.render(settings); autosavePanel?.render(settings.open, settings.busy);
       // Busy account operations cannot race another title/save choice. Gameplay
@@ -553,7 +555,11 @@ export function createIntroductionApplication(host: HTMLElement) {
       saveHost.inert = settings.busy;
     }
     frame.sync(!!game, renderFocus);
-    if (focusRoom) { panels.shell.element.querySelector('h1')?.focus(); focusRoom = false; }
+    // A migration notice owns focus until the player resumes the installed room.
+    if (focusRoom) {
+      const heading = panels.shell.element.querySelector('h1');
+      if (heading && !heading.closest('[inert], [hidden]')) { heading.focus(); focusRoom = false; }
+    }
     autosave?.observe();
   }
   // Every controller subscriber was registered before this final render observer.

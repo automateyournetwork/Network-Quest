@@ -1,6 +1,8 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
-import { clickButton, openFrame, closeFrame } from './support/adventure-controls';
+import { clickButton, openFrame, closeFrame, tabTo } from './support/adventure-controls';
 import { test, expect, button, installCookie } from './support/t056-journey';
+import type { Page, Route } from '@playwright/test';
+import { arrival as previousArrival, historicalBytes } from '../fixtures/migrations/spec001-cases';
 import AxeBuilder from '@axe-core/playwright';
 import { writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
@@ -228,5 +230,170 @@ test.describe('T066 finished R01', () => {
     await openFrame(j.page, 'Sound and reading'); await clickButton(j.page, 'Replay Photon');
     await expect(j.page.locator('.nq-media-cue[data-asset-id="spec001:ASSET-VOICE-035"]')).toHaveAttribute('data-audio-status','unavailable');
     await expect(j.page.locator('.nq-media')).toContainText('I am Photon. I carry light'); expect(j.writes()).toHaveLength(0);
+  });
+});
+
+test.describe('T147 keyboard focus through the composed application', () => {
+  const enter = async (page: Page, name: string) => {
+    await tabTo(page, button(page, name));
+    await page.keyboard.press('Enter');
+  };
+  async function start(page: Page) {
+    await enter(page, 'New Adventure');
+    await enter(page, 'Start new adventure');
+    await expect(page.getByRole('heading', { name: 'The Arrival Lift', exact: true })).toBeFocused();
+  }
+
+  test('scene and dialogue keep the current line, item, notebook editing and their original openers', async ({ journey: j }) => {
+    const page = j.page;
+    await page.setViewportSize({ width: 1280, height: 720 });
+    await start(page);
+    await enter(page, 'Scene');
+    await page.keyboard.press('Shift+Escape');
+    await expect(page.getByRole('dialog', { name: 'Scene objects and exits' })).toHaveAttribute('aria-modal', 'true');
+    await page.keyboard.press('t');
+    await enter(page, 'Talk to Photon the Firefly');
+    const dialogue = page.getByRole('dialog', { name: 'Dialogue', exact: true });
+    await expect(dialogue.getByRole('heading', { name: 'Photon the Firefly' })).toBeFocused();
+    await expect(dialogue).toHaveAccessibleDescription(/Welcome to the Underworld/);
+    const dialogueGame = dialogue.getByRole('button', { name: 'Game', exact: true });
+    await tabTo(page, dialogueGame);
+    await page.keyboard.press('Enter');
+    await enter(page, 'Settings');
+    const settings = page.getByRole('dialog', { name: 'Settings', exact: true });
+    await expect(settings.getByRole('heading', { level: 2 })).toBeFocused();
+    await enter(page, 'Close settings');
+    await expect(button(page, 'Settings')).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(dialogueGame).toBeFocused();
+    await enter(page, 'Next dialogue line');
+    await expect(dialogue).toHaveAccessibleDescription(/The power lamp is lit/);
+    await expect(dialogue.getByRole('heading')).toBeFocused();
+    await enter(page, 'Finish dialogue');
+    await expect(button(page, 'Talk to Photon the Firefly')).toBeFocused();
+    await expect(page.locator('.nq-shell-status')).toHaveText('Dialogue finished. Required clues remain in your notebook.');
+    await page.keyboard.press('Escape');
+    await expect(button(page, 'Scene')).toBeFocused();
+    await page.keyboard.press('i');
+    await enter(page, 'Select Reusable inspection kit');
+    const selected = button(page, 'Deselect Reusable inspection kit');
+    await expect(selected).toBeFocused();
+    await expect(selected).toHaveAttribute('aria-pressed', 'true');
+    await page.keyboard.press('Escape');
+    await expect(button(page, 'Scene')).toBeFocused();
+    await page.keyboard.press('n');
+    const notes = page.getByRole('textbox', { name: 'Personal notes', exact: true });
+    await tabTo(page, notes);
+    await page.keyboard.type('wltuinc WL TU IN C');
+    await expect(notes).toBeFocused();
+    await expect(notes).toHaveValue('wltuinc WL TU IN C');
+    await page.keyboard.press('Escape');
+    await expect(button(page, 'Scene')).toBeFocused();
+    await expect(button(page, 'Use')).toHaveAttribute('aria-pressed', 'true');
+    await page.keyboard.press('i');
+    await expect(selected).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByText('Quantity: 1', { exact: true })).toBeVisible();
+    expect(j.writes()).toEqual([]);
+  });
+
+  test('narrow inventory keeps the equipped kit illustration in the forward and reverse tab cycle', async ({ journey: j }) => {
+    const page = j.page;
+    await page.setViewportSize({ width: 390, height: 844 });
+    await start(page);
+    await enter(page, 'Scene');
+    await page.keyboard.press('u');
+    await enter(page, 'Apprentice satchel');
+    await page.keyboard.press('w');
+    await enter(page, "Walk to The Titan's Workshop");
+    await page.keyboard.press('Escape');
+    await enter(page, 'Inventory');
+    const dialog = page.getByRole('dialog', { name: 'Inventory', exact: true });
+    await enter(page, 'Select Reusable inspection kit');
+    const summary = dialog.locator('summary').filter({ hasText: 'View illustration' });
+    const close = button(page, 'Close Inventory');
+    await page.keyboard.press('Tab');
+    await expect(summary).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(dialog.getByRole('img', { name: /An open notebook/ })).toBeVisible();
+    await page.keyboard.press('Tab');
+    await expect(close).toBeFocused();
+    await page.keyboard.press('Shift+Tab');
+    await expect(summary).toBeFocused();
+    await page.keyboard.press('Space');
+    await expect(dialog.locator('details')).not.toHaveAttribute('open', '');
+    await page.keyboard.press('Escape');
+    await expect(button(page, 'Inventory')).toBeFocused();
+    expect(j.writes()).toEqual([]);
+  });
+
+  test('migrated Continue gives the notice first focus and resumes at the restored room heading', async ({ journey: j }) => {
+    const page = j.page, prior = previousArrival.prior, raw = historicalBytes(prior);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await j.local.seedMigrationSlot({ raw, revision: 7, schemaVersion: prior.saveSchemaVersion,
+      contentVersion: prior.contentVersion, adventureId: prior.adventureId, roomId: prior.world.roomId, outcome: prior.world.continueOutcome });
+    await page.reload();
+    await expect(button(page, 'Continue')).toHaveAttribute('aria-disabled', 'false');
+    await enter(page, 'Continue');
+    const notice = page.getByRole('dialog', { name: 'Your adventure has been updated', exact: true });
+    await expect(notice.getByRole('heading')).toBeFocused();
+    await expect(notice).toContainText(previousArrival.explanation[0]!);
+    await enter(page, 'Resume adventure');
+    await expect(page.getByRole('heading', { name: 'The Arrival Lift', exact: true })).toBeFocused();
+    await page.keyboard.press('n');
+    await expect(page.getByRole('textbox', { name: 'Personal notes', exact: true })).toHaveValue(previousArrival.expected.notebook.personalNotes);
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('heading', { name: 'The Arrival Lift', exact: true })).toBeFocused();
+    expect(await j.local.inspectSlot()).toMatchObject({ revision: 7, raw });
+    expect(j.writes()).toEqual([]);
+  });
+
+  test('an asynchronous scene failure during note entry preserves the draft, caret, focus and selected verb', async ({ journey: j }) => {
+    const page = j.page, path = '**/assets/images/R01/midground.png';
+    let takeRequest!: (route: Route) => void;
+    const pending = new Promise<Route>(resolve => { takeRequest = resolve; });
+    await page.route(path, route => { takeRequest(route); });
+    await start(page);
+    const request = await pending;
+    await page.keyboard.press('t');
+    await page.keyboard.press('n');
+    const field = page.getByRole('textbox', { name: 'Personal notes', exact: true });
+    await tabTo(page, field);
+    await page.keyboard.type('wlinc');
+    await page.keyboard.press('ArrowLeft');
+    await request.fulfill({ status: 503, body: 'Scene art unavailable' });
+    await expect(page.locator('.nq-game')).toHaveAttribute('data-text-scene', 'true');
+    await expect(field).toBeFocused();
+    expect(await field.evaluate(node => (node as HTMLTextAreaElement).selectionStart)).toBe(4);
+    await page.keyboard.type('tu');
+    await expect(field).toHaveValue('wlintuc');
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('heading', { name: 'The Arrival Lift', exact: true })).toBeFocused();
+    await expect(button(page, 'Talk')).toHaveAttribute('aria-pressed', 'true');
+    expect(j.writes()).toEqual([]);
+  });
+
+  test('unavailable art opens a readable Scene window and keyboard retry retains the focused control', async ({ journey: j }) => {
+    const page = j.page, path = '**/assets/images/R01/midground.png';
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.route(path, route => route.fulfill({ status: 503, body: 'Scene art unavailable' }));
+    await enter(page, 'New Adventure');
+    await enter(page, 'Start new adventure');
+    const scene = page.getByRole('dialog', { name: 'Scene objects and exits', exact: true });
+    await expect(scene.getByRole('heading', { name: 'Scene', exact: true })).toBeFocused();
+    await expect(scene).toHaveAccessibleDescription(/Visual presentation unavailable/);
+    await expect(scene.locator('.nq-shell-presentation-status')).toBeVisible();
+    await page.keyboard.press('l');
+    await enter(page, 'Look at power indication');
+    await expect(scene.locator('.nq-shell-status')).toContainText('Power indication does not prove a data link');
+    await page.unroute(path);
+    await enter(page, 'Retry visual scene');
+    await expect(page.locator('.nq-room')).toHaveAttribute('data-rendered', 'true');
+    await expect(button(page, 'Retry visual scene')).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('heading', { name: 'The Arrival Lift', exact: true })).toBeFocused();
+    await enter(page, 'Evidence');
+    await expect(page.getByRole('heading', { name: 'Power indication', exact: true })).toBeVisible();
+    expect(await j.local.inspectSlot()).toBeNull();
+    expect(j.writes()).toEqual([]);
   });
 });

@@ -1,0 +1,42 @@
+T144 / SAVE11 / AC13 — 2026-11-27
+Selected runner output. Each browser journey used a disposable loopback TLS and SQLite fixture.
+
+Vitest
+ ✓ tests/services/game-api.test.ts (86 tests) 55ms
+ ✓ tests/state/spec001-migration-fixture.test.ts (7 tests) 12ms
+ ✓ tests/state/migrations.test.ts (6 tests) 22ms
+ ✓ tests/state/save-migrations.test.ts (22 tests) 1081ms
+ ✓ tests/ui/save-dialogs.test.ts (26 tests) 20951ms
+ ✓ tests/services/save-coordinator.test.ts (53 tests) 44397ms
+ ✓ tests/state/autosave.test.ts (54 tests) 47750ms
+ Test Files  7 passed (7)
+      Tests  254 passed (254)
+   Duration  48.35s (tests 96%, import 2%, transform 2%)
+
+Registered Firefox project
+Running 7 tests using 2 workers
+  ✓  1 [firefox-local-https] › tests/e2e/migrations.spec.ts:114:3 › SAVE11 / AC13 hypothetical migration on the actual single-slot service › Restore cancellation keeps live notes, a retry installs the bench migration, and the next safe room triggers autosave (10.5s)
+  ✓  2 [firefox-local-https] › tests/e2e/migrations.spec.ts:78:3 › SAVE11 / AC13 hypothetical migration on the actual single-slot service › Continue retains the old slot through boundary-gate inspection and commits exactly one eligible manual save (11.5s)
+  ✓  4 [firefox-local-https] › tests/e2e/migrations.spec.ts:180:3 › SAVE11 / AC13 hypothetical migration on the actual single-slot service › an incomplete Restore response keeps the live adventure and the next complete read can save the entire Arrival Lift fixture (10.8s)
+  ✓  3 [firefox-local-https] › tests/e2e/migrations.spec.ts:146:3 › SAVE11 / AC13 hypothetical migration on the actual single-slot service › a successful historical GET held across confirmed logout cannot install its candidate in a later generation (14.0s)
+  ✓  6 [firefox-local-https] › tests/e2e/migrations.spec.ts:292:5 › SAVE11 / AC13 hypothetical migration on the actual single-slot service › Newer opaque schema preserves its UTF-8 bytes and prevents replacement and automatic saving in the same adventure (10.8s)
+  ✓  5 [firefox-local-https] › tests/e2e/migrations.spec.ts:226:3 › SAVE11 / AC13 hypothetical migration on the actual single-slot service › two migrated tabs enforce stale If-Match and retry a lost revision-8 receipt against revision 9 (14.2s)
+  ✓  7 [firefox-local-https] › tests/e2e/migrations.spec.ts:292:5 › SAVE11 / AC13 hypothetical migration on the actual single-slot service › Known schema with newer opaque content preserves its UTF-8 bytes and prevents replacement and automatic saving in the same adventure (7.1s)
+  7 passed (43.0s)
+
+Two-tab replay after the shared PHP fixture pipe timeout change
+Running 1 test using 1 worker
+  ✓  1 [firefox-local-https] › tests/e2e/migrations.spec.ts:226:3 › SAVE11 / AC13 hypothetical migration on the actual single-slot service › two migrated tabs enforce stale If-Match and retry a lost revision-8 receipt against revision 9 (11.3s)
+  1 passed (11.6s)
+
+npm run check — exit 0
+> tsc --noEmit
+Content validation passed: 12 room identities, 142 authored records; independent routes: copper, fiber, radio. Metadata is not playable-content acceptance.
+> node tools/generate-save-content-policy.ts
+
+SHA-256 of the exercised suites and the final shared fixture
+276c7218b8b08eb1dea5085d1739b648cb90cf8eaa1b32f8a161f83b050436f6  tests/fixtures/migrations/spec001.json
+6918748d73fab3bce7a1a26a8efdd55f655f8661eebd7a77bc2169fa717adbd4  tests/fixtures/migrations/spec001-cases.ts
+ed1bb516a3f5c9c58251f353739d80534edea7b5d6555aef751c066e97e00181  tests/state/migrations.test.ts
+f3b65d42594a59efe8626af4f8f9457b7c9e0d81c38f214ac3da7a0cb596850f  tests/e2e/migrations.spec.ts
+06268353d2ca7e16150298b48f3c85ef8b03a779790f24ed2976f7ec338db347  tests/e2e/support/configured-save.ts

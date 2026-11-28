@@ -1,4 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import { containWindowTab, isPlainShortcut } from './accessibility';
 import type { AppShell } from './app-shell';
 
 /** Presentation-only window composition. Controllers retain every action and capture. */
@@ -11,12 +12,12 @@ export function createAdventureFrame(host: HTMLElement, ports: {
   const chrome = doc.createElement('header'); chrome.className = 'nq-game-chrome';
   const brand = doc.createElement('span'); brand.className = 'nq-game-brand'; brand.textContent = 'NETWORK QUEST';
   const roomName = doc.createElement('span'); roomName.className = 'nq-game-location';
-  const makeButton = (label: string, action: () => void, signal = abort.signal) => {
+  const makeButton = (label: string, action: (button: HTMLButtonElement) => void, signal = abort.signal) => {
     const b = doc.createElement('button'); b.type = 'button'; b.textContent = label;
-    b.addEventListener('click', action, { signal }); return b;
+    b.addEventListener('click', () => action(b), { signal }); return b;
   };
-  const menuButton = makeButton('Game', () => open('game'));
-  const soundButton = makeButton('Sound and reading', () => open('sound'));
+  const menuButton = makeButton('Game', opener => open('game', opener));
+  const soundButton = makeButton('Sound and reading', opener => open('sound', opener));
   chrome.append(brand, roomName, soundButton, menuButton);
   const windows = doc.createElement('div'); windows.className = 'nq-game-windows';
   root.append(chrome, ports.adventure, windows); host.replaceChildren(root);
@@ -25,9 +26,9 @@ export function createAdventureFrame(host: HTMLElement, ports: {
   const suspendedWindows = new WeakMap<HTMLElement, string>();
   const movedControls = new Map<HTMLButtonElement, { parent: HTMLElement; next: ChildNode | null }>();
   let inputFocus: HTMLElement | null = null;
-  root.addEventListener('pointerdown', event => { const target = event.target instanceof Element ? event.target.closest<HTMLElement>('button, input, select, textarea') : null; inputFocus = target ?? (doc.activeElement instanceof HTMLElement ? doc.activeElement : null); }, { capture:true, signal:abort.signal });
+  root.addEventListener('pointerdown', event => { const target = event.target instanceof Element ? event.target.closest<HTMLElement>('button, input, select, textarea, summary, a[href]') : null; inputFocus = target ?? (doc.activeElement instanceof HTMLElement ? doc.activeElement : null); }, { capture:true, signal:abort.signal });
   root.addEventListener('keydown', () => { inputFocus = doc.activeElement instanceof HTMLElement ? doc.activeElement : null; }, { capture:true, signal:abort.signal });
-  let manual: string | null = null, back: HTMLElement | null = null, active: HTMLElement | null = null;
+  let manual: string | null = null, active: HTMLElement | null = null;
   let stageHost: HTMLElement | null = null, feedback: HTMLElement | null = null, saveIndicator: HTMLElement | null = null, saveMessage: HTMLElement | null = null;
   let playing = false, shell: AppShell | null = null, lastFallback = false, dialogueWrapper: HTMLElement | null = null;
   const makeWindow = (id: string, label: string, content: HTMLElement[], signal = abort.signal) => {
@@ -45,12 +46,14 @@ export function createAdventureFrame(host: HTMLElement, ports: {
   windows.append(ports.settings);
   const visible = (element: HTMLElement) => !element.closest('[hidden]');
   function closeWindow() {
+    const back = active && returnTargets.get(active);
     manual = null; sync(playing);
     if (back?.isConnected && visible(back) && !back.closest('[inert]')) back.focus();
     else if (playing) menuButton.focus();
   }
-  function open(id: string) {
-    if (doc.activeElement instanceof HTMLElement) back = doc.activeElement;
+  function open(id: string, opener: Element | null = doc.activeElement) {
+    const target = windowMap.get(id);
+    if (target && opener instanceof HTMLElement) returnTargets.set(target, opener);
     manual = id;
     if (id === 'sound') { const details = ports.sound.querySelector('details'); if (details) details.open = true; }
     sync(playing);
@@ -59,17 +62,11 @@ export function createAdventureFrame(host: HTMLElement, ports: {
   // Only the selected window is modal. Browser Tab and accessibility traversal
   // cannot leave it, while Escape is first offered to its owning controller.
   root.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && !event.defaultPrevented && !event.repeat && !event.isComposing) {
+    if (event.key === 'Escape' && isPlainShortcut(event)) {
       if (manual && active === windowMap.get(manual)) { event.preventDefault(); closeWindow(); }
       return;
     }
-    if (event.key !== 'Tab' || !active) return;
-    const focusable = [...active.querySelectorAll<HTMLElement>('button, a[href], input, select, textarea, [tabindex="0"]')]
-      .filter(el => visible(el) && !el.closest('[inert]') && !(el as HTMLButtonElement).disabled && el.getClientRects().length > 0);
-    const first = focusable[0], last = focusable.at(-1);
-    if (!first) { event.preventDefault(); return; }
-    if (event.shiftKey && (doc.activeElement === first || !focusable.includes(doc.activeElement as HTMLElement))) { event.preventDefault(); last?.focus(); }
-    else if (!event.shiftKey && (doc.activeElement === last || !active.contains(doc.activeElement))) { event.preventDefault(); first.focus(); }
+    if (active) containWindowTab(event, active);
   }, { signal: abort.signal });
   function sync(hasGame: boolean, renderFocus?: Element | null) {
     saveMessage ??= ports.saves.querySelector<HTMLElement>('.nq-save > p:nth-child(2)');
@@ -115,7 +112,12 @@ export function createAdventureFrame(host: HTMLElement, ports: {
     // must preserve the parent's original opener, not replace it with a heading
     // in the child that is about to be hidden.
     const resumingOwner = !!next && !!previous && !!returnTargets.get(previous) && next.contains(returnTargets.get(previous)!);
-    if (next && next !== previous && !resumingOwner && inputFocus && inputWasVisible && !inputFocus.classList.contains('nq-window-close') && !next.contains(inputFocus)) returnTargets.set(next, inputFocus);
+    // open() already remembered each frame window's actual opener. A nested
+    // Game or Settings window must not replace Scene's original return target.
+    if (next && next !== previous && !next.classList.contains('nq-frame-window') && !resumingOwner
+      && inputFocus && inputWasVisible && !inputFocus.classList.contains('nq-window-close') && !next.contains(inputFocus)) {
+      returnTargets.set(next, inputFocus);
+    }
     active = next;
     if (!playing && !active) game.classList.add('nq-window-active');
     if (feedback && stageHost) {
@@ -133,10 +135,10 @@ export function createAdventureFrame(host: HTMLElement, ports: {
     }
     if (active) {
       if (active === panel && active.querySelector('[data-epilogue-result]') && !active.querySelector('.nq-ending-sound')) {
-        const listen = makeButton('Sound and reading', () => open('sound'), attachment.signal);
+        const listen = makeButton('Sound and reading', opener => open('sound', opener), attachment.signal);
         listen.className = 'nq-ending-sound'; active.querySelector('h2')?.after(listen);
       }
-      if (active === panel && !active.querySelector('.nq-panel-game')) { const button = makeButton('Game', () => open('game'), attachment.signal); button.className = 'nq-panel-game'; active.querySelector('h2')?.after(button); }
+      if (active === panel && !active.querySelector('.nq-panel-game')) { const button = makeButton('Game', opener => open('game', opener), attachment.signal); button.className = 'nq-panel-game'; active.querySelector('h2')?.after(button); }
       if (!active.classList.contains('nq-frame-window')) {
         const close = [...active.querySelectorAll<HTMLButtonElement>('button')].find(b => !b.hidden && (b.getAttribute('aria-keyshortcuts') === 'Escape' || /^(Close |Cancel(?: sign-in)?$|Keep [Pp]laying [Ww]ithout [Ss]aving$|Continue as guest$)/.test(b.textContent ?? '')));
         close?.classList.add('nq-sticky-close');
@@ -164,7 +166,12 @@ export function createAdventureFrame(host: HTMLElement, ports: {
     roomName.textContent = playing ? shell?.element.querySelector('h1')?.textContent ?? '' : 'THE UNDERWORLD';
     const presentationStatus = shell?.element.querySelector<HTMLElement>('.nq-shell-presentation-status');
     const unavailable = presentationStatus?.textContent ?? '';
-    if (presentationStatus) presentationStatus.hidden = !/unavailable/i.test(unavailable);
+    if (presentationStatus) {
+      presentationStatus.hidden = !/unavailable/i.test(unavailable);
+      const scene = windowMap.get('scene');
+      if (presentationStatus.hidden) scene?.removeAttribute('aria-describedby');
+      else scene?.setAttribute('aria-describedby', presentationStatus.id);
+    }
     const fallback = playing && /unavailable|Text presentation/i.test(unavailable);
     root.dataset['textScene'] = String(fallback);
     const revealFallback = fallback && !lastFallback && !active; lastFallback = fallback;
@@ -174,7 +181,7 @@ export function createAdventureFrame(host: HTMLElement, ports: {
     element: root,
     attach(next: AppShell, visualControls: HTMLElement) {
       attachment.abort(); movedControls.clear(); attachment = new AbortController(); inputFocus = null;
-      shell = next; manual = null; back = null; active = null; lastFallback = false; dialogueWrapper = null;
+      shell = next; manual = null; active = null; lastFallback = false; dialogueWrapper = null;
       for (const id of ['scene', 'evidence']) { windowMap.get(id)?.remove(); windowMap.delete(id); }
       const section = next.element; section.classList.add('nq-framed-shell');
       const title = section.querySelector<HTMLElement>('h1')!; title.classList.add('nq-room-heading');
@@ -186,7 +193,7 @@ export function createAdventureFrame(host: HTMLElement, ports: {
       const controls = section.querySelector<HTMLElement>('.nq-shell-controls')!;
       const stage = doc.createElement('div'); stage.className = 'nq-game-stage'; stageHost = stage; feedback = status;
       next.presentationHost.dataset['contained'] = 'true';
-      const fallback = makeButton('Open scene description', () => open('scene'), attachment.signal); fallback.className = 'nq-scene-fallback';
+      const fallback = makeButton('Open scene description', opener => open('scene', opener), attachment.signal); fallback.className = 'nq-scene-fallback';
       stage.append(next.presentationHost, fallback, status);
       const audioCaption = ports.sound.querySelector<HTMLElement>('.nq-media-caption'); if (audioCaption) stage.append(audioCaption);
       scene.prepend(presentationStatus, visualControls);
@@ -199,7 +206,7 @@ export function createAdventureFrame(host: HTMLElement, ports: {
       section.append(sceneWindow, evidenceWindow);
       scene.querySelector('h2')!.hidden = true;
       const tools = doc.createElement('div'); tools.className = 'nq-frame-tools';
-      tools.append(makeButton('Scene', () => open('scene'), attachment.signal), makeButton('Evidence', () => open('evidence'), attachment.signal));
+      tools.append(makeButton('Scene', opener => open('scene', opener), attachment.signal), makeButton('Evidence', opener => open('evidence', opener), attachment.signal));
       const toolbar = doc.createElement('div'); toolbar.className = 'nq-game-toolbar'; toolbar.append(controls, tools);
       section.querySelector('.nq-shell-layout')?.remove();
       section.prepend(title, stage, toolbar);
