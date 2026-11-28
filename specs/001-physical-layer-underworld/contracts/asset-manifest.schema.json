@@ -473,6 +473,15 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+              "spriteSubject": {
+                "type": "object", "additionalProperties": false,
+                "required": ["atlasId", "drawsPath", "stageInspectionPath"],
+                "properties": {
+                  "atlasId": { "type": "string", "pattern": "^spec001:ASSET-SPRITE-[A-Za-z0-9-]+$" },
+                  "drawsPath": { "type": "string", "pattern": "^docs/evidence/spec001/[A-Za-z0-9_/-]+[.]json$", "maxLength": 512 },
+                  "stageInspectionPath": { "type": "string", "pattern": "^docs/evidence/spec001/[A-Za-z0-9_/-]+[.]json$", "maxLength": 512 }
+                }
+              },
               "contentId": {
                 "type": "string",
                 "minLength": 1,
@@ -489,6 +498,11 @@
                 "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./ -]+$"
               }
             },
+            "allOf": [{
+              "if": { "properties": { "use": { "const": "sprite-subject-placement" } } },
+              "then": { "required": ["spriteSubject"], "properties": { "contentId": { "pattern": "^spec001:R(0[1-9]|1[0-2])$" } } },
+              "else": { "not": { "required": ["spriteSubject"] } }
+            }],
             "required": [
               "contentId",
               "use",

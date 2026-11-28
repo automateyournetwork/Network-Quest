@@ -1,0 +1,38 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-PORTRAIT-CH12",
+  "hashes": [
+    "20e6859c69481323ca6b405a02675b4112081e0c9d1be05f76fae2205e1778ff",
+    "3a4264c345c91c337624a614a700a39b0b7285d4426cb33662831e429a52fbf6",
+    "d49a01aa46d9799972983c8e21d63778d96c9941dc6d1600ad3e250f54cb117f",
+    "fc5281bd028a5e601f1c01a72e836bd13432761f155b17473d8b2ee012165a01"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Spec001 T141 media audit",
+  "date": "2026-11-27",
+  "environment": "Mac16,7, macOS 26.6.2 arm64, Blender 5.2.1 LTS, Firefox 159, Pillow, ffprobe.",
+  "check": "budget",
+  "details": {
+    "usage": [
+      "docs/evidence/spec001/assets/T120/CH12-usage.json"
+    ],
+    "roomBudgetPath": "docs/evidence/spec001/media-audit/room-budgets.json",
+    "roomBudgetSha256": "be3bd78d58fc6a80622fd4a5d279c7460c1e06673c91c76025059d44d65003bc",
+    "rooms": [],
+    "exportDimensions": [
+      [
+        512,
+        512
+      ],
+      [
+        256,
+        256
+      ]
+    ],
+    "estimatedExportRGBABytes": 1310720,
+    "conservativeSingleEntryPlusLargestCapturedRoomRGBABytes": 25094936,
+    "allGuideExportsPlusLargestCapturedRoomRGBABytes": 88544024,
+    "scope": "Both display and optional thumbnail bytes for this individual entry, plus the largest observed room texture set as a conservative single-entry bound. Actual menu decode and dimensions are in the existing usage/browser records. The peak across a long notebook session is a separate T154 measurement."
+  }
+}

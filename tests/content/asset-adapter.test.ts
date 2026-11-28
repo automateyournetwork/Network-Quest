@@ -11,7 +11,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { assetAllocations } from '../../tools/asset-allocations.ts';
 import { AssetFileReader, auditAssetRepository, extractAuthoredAssetContent, missingRegisteredAssetUses, publicAssetPath } from '../../tools/asset-files.ts';
 import { validateAssetManifest } from '../../tools/validate-assets.ts';
-import { emptyCounts } from '../../tools/asset-types.ts';
+import { emptyCounts, minimums } from '../../tools/asset-types.ts';
 import type { Asset, AssetEvidenceRecord, AssetEvidenceSnapshot, AssetManifest } from '../../tools/asset-types.ts';
 
 const project = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -258,6 +258,16 @@ describe('bounded rooted asset filesystem adapter', () => {
     await expect(reader.json('assets-src/large.json')).rejects.toMatchObject({ code: 'FILE_TOO_LARGE' });
     await expect(reader.json('assets-src/broken.json')).rejects.toMatchObject({ code: 'JSON_INVALID' });
   });
+  it('admits a complete canonical manifest while keeping other JSON and maximum manifest size bounded', async () => {
+    const root = await sandbox();
+    const path = 'assets-src/manifest.json';
+    await put(root, path, ' '.repeat(4_194_304) + '{}');
+    const reader = await AssetFileReader.create(root);
+    await expect(reader.json(path)).resolves.toEqual({});
+    await truncate(resolve(root, path), 8_388_609);
+    const reopened = await AssetFileReader.create(root);
+    await expect(reopened.json(path)).rejects.toMatchObject({ code: 'FILE_TOO_LARGE' });
+  });
   it('reads exact admitted bytes and cannot use a directory as a file', async () => {
     const root = await sandbox(); await put(root, 'assets-src/source.txt', 'public source'); const reader = await AssetFileReader.create(root);
     expect(new TextDecoder().decode(await reader.read('assets-src/source.txt'))).toBe('public source');
@@ -298,9 +308,22 @@ describe('bounded rooted asset filesystem adapter', () => {
     const binding = { assetId: a.assetId, contentId: 'spec001:R01', use: 'prop-placement', exportPath: 'public/assets/models/one.glb', interactiveOrEvidence: true };
     expect(extractAuthoredAssetContent(world, [{ ...graybox, bindings: [binding] }]).uses).toEqual([binding]);
   });
-  it('actual repository inventory passes while release fails with zero accepted counts', async () => {
-    expect(await auditAssetRepository(project, 'inventory')).toEqual({ valid: true, issues: [], counts: emptyCounts() });
-    const release = await auditAssetRepository(project, 'release'); expect(release.valid).toBe(false); expect(release.counts).toEqual(emptyCounts()); expect(release.issues.map(i => i.code)).toContain('QUOTA_MINIMUM');
+  it('reconciles the finished visual inventory and every unmet release quota', async () => {
+    const inventory = await auditAssetRepository(project, 'inventory');
+    expect(inventory.issues).toEqual([]);
+    expect(inventory.valid).toBe(true);
+    expect(inventory.counts).toMatchObject({
+      characterModels: 25, props: 150, roomsWithImageSet: 12,
+      sceneLayers: 36, portraits: 25, illustrations: 24,
+    });
+    expect(inventory.counts.interactiveProps).toBeGreaterThanOrEqual(50);
+    const release = await auditAssetRepository(project, 'release');
+    expect(release.counts).toEqual(inventory.counts);
+    const keys = Object.keys(minimums) as (keyof typeof minimums)[];
+    const shortfalls = keys.filter(key => inventory.counts[key] < minimums[key]).sort();
+    const reported = release.issues.filter(issue => issue.code === 'QUOTA_MINIMUM').map(issue => issue.path).sort();
+    expect(reported).toEqual(shortfalls);
+    if (shortfalls.length) expect(release.valid).toBe(false);
   }, 30_000); // Two complete disk audits of the production corpus.
   it('CLI emits structured failure without printing arbitrary private bytes', async () => {
     const root = await sandbox(); await put(root, 'assets-src/manifest.json', JSON.stringify(manifest()));

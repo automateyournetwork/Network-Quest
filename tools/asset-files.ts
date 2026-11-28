@@ -11,6 +11,8 @@ import type { AssetEvidenceSnapshot, AssetFileDigest, AssetEntity, AssetIssue, A
 import { isAssetManifest, isEvidenceRecord, validateAssetObservations } from './validate-assets.ts';
 
 const jsonLimit = 4_194_304, fileLimit = 268_435_456, totalLimit = 1_073_741_824;
+// The complete episode manifest includes per-asset review hashes for every finished rendition.
+const canonicalManifestLimit = 8 * 1024 * 1024;
 // Bound total media I/O independently from the original 1 GiB in-memory evidence ceiling.
 const mediaReadLimit = 8 * totalLimit;
 const mediaFile = /\.(?:aup4|blend|glb|png|webp|avif|jpe?g|wav|ogg|flac|mp3|zip|tar|gz)$/i;
@@ -102,7 +104,7 @@ export class AssetFileReader {
     });
   }
   async json(path: string): Promise<unknown> {
-    const bytes = await this.read(path, jsonLimit);
+    const bytes = await this.read(path, path === 'assets-src/manifest.json' ? canonicalManifestLimit : jsonLimit);
     try { return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)); }
     catch { throw new AuditError('JSON_INVALID', path); }
   }
@@ -206,7 +208,14 @@ function manifestPaths(manifest: AssetManifest): { files: Set<string>; records: 
     for (const p of a.production) { files.add(p.settingsPath); files.add(p.promptOrScriptPath); }
     for (const path of [...a.rights.noticePaths, ...a.rights.termsSnapshotPaths, ...a.rights.inputPermissionPaths]) files.add(path);
     for (const v of a.verification) if (a.status === 'accepted' || v.status === 'passed') proof(v.evidencePath);
-    for (const u of a.usedBy) proof(u.evidencePath);
+    for (const u of a.usedBy) {
+      proof(u.evidencePath);
+      if (u.spriteSubject) {
+        const code = u.contentId.slice(8);
+        files.add('content/spec001/presentation/'+code+'.json'); files.add('content/spec001/rooms/'+code+'.json');
+        files.add(u.spriteSubject.drawsPath); files.add(u.spriteSubject.stageInspectionPath);
+      }
+    }
     if (a.image) { files.add(a.image.cameraRecordPath); files.add(a.image.registrationPath); }
     if (a.audio) { files.add(a.audio.nativeProjectPath); files.add(a.audio.masterPath); if (a.audio.voiceRecordPath) files.add(a.audio.voiceRecordPath); }
   }

@@ -1,0 +1,40 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-LAYER-R04-foreground",
+  "hashes": [
+    "722685e38a73999f70351fc0cf32ec663a46b05055127d23bb7ea221ae739dc4",
+    "f66c92deaf9bc57ade33a42d478f4643020e0346dcc4c368268d19c8aabe934c",
+    "5c7d1dfc16fcc9ecb527f06eba8d3a0af5db0431b4cd7245163bf602a862431d",
+    "583224736d4397d84cd06ef9f14bdda79be48a22fb25c6845fe81e6fd6269424",
+    "4135aaa9cc2c2c06c673cd5f803782050d089288ee0db291f2ab304b8c003a34"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Spec001 T141 media audit",
+  "date": "2026-11-27",
+  "environment": "Mac16,7, macOS 26.6.2 arm64, Blender 5.2.1 LTS, Firefox 159, Pillow, ffprobe.",
+  "check": "browser-comparison",
+  "details": {
+    "methods": [
+      "browser-inspection"
+    ],
+    "findings": "Compared each preserved input/output and its decoded image or registered native geometry with the actual composed room capture and the individual subject or layer usage. The visible result preserves the registered spatial role; opacity, geometry and source identity are recorded separately.",
+    "tool": "Firefox 159, captured source/decoded-export comparison and native guest receipts",
+    "observedPaths": [
+      "assets-src/images/R04/originals/background.png",
+      "assets-src/images/R04/reference/camera-guide.png",
+      "assets-src/images/R04/originals/foreground.png",
+      "assets-src/images/R04/foreground-allow-mask.png",
+      "public/assets/images/R04/foreground.webp"
+    ],
+    "uses": [
+      "docs/evidence/spec001/assets/T134/foreground-usage.json"
+    ],
+    "runtimeEvidencePaths": [
+      "docs/evidence/spec001/sprites/T134/browser.json",
+      "docs/evidence/spec001/sprites/T134/desktop.png"
+    ],
+    "sourceAudit": "docs/evidence/spec001/media-audit/media-formats.json",
+    "roomGallery": "docs/evidence/spec001/media-audit/twelve-rooms.jpg"
+  }
+}

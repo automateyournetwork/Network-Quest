@@ -1,0 +1,41 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-MUSIC-copper",
+  "hashes": [
+    "1465d5f9bc7757e41eff179389a05357afca8f75249278c79a1fad7018e2dabe",
+    "7039775040798d952eb0fc5dd3c283fd325875c6599adc422e926a5c0a71301e",
+    "8efdc5f30f8d6a6744a010f24a6b4cce19f665d14a0cf45ee13eea0b82ba5ba3",
+    "6cb0b41192c19325a0ce9142ade71cd820bf47e0ddb0ed0c5a7c72f56f17d393",
+    "ad8492b848979385e291d0c16ef854f729aeb520b3b92ee35718cef29b724596",
+    "803d05749c5a784aa0213585286e82837fc9d17a97a185b7f7d42fbd44df1ade"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Spec001 T141 media audit",
+  "date": "2026-11-27",
+  "environment": "Mac16,7, macOS 26.6.2 arm64, Blender 5.2.1 LTS, Firefox 159, Pillow, ffprobe.",
+  "check": "browser-comparison",
+  "details": {
+    "methods": [
+      "browser-inspection"
+    ],
+    "findings": "Compared every source/master/export digest and full ffprobe media duration with the actual native-browser cue use. The retained usage includes the real trigger and response. Acoustic judgment remains in the separate listening record.",
+    "tool": "Firefox 159, captured source/decoded-export comparison and native guest receipts",
+    "observedPaths": [
+      "assets-src/audio/T124/sources/copper.wav",
+      "assets-src/audio/T124/records/copper-request.json",
+      "assets-src/audio/T124/records/copper-edit.json",
+      "assets-src/audio/T124/projects/copper.aup4",
+      "assets-src/audio/T124/masters/copper.wav",
+      "public/assets/audio/music/copper.mp3"
+    ],
+    "uses": [
+      "docs/evidence/spec001/final-rooms/T136/usage/R03-MUSIC-copper.json"
+    ],
+    "runtimeEvidencePaths": [
+      "docs/evidence/spec001/final-rooms/T136/browser.json"
+    ],
+    "sourceAudit": "docs/evidence/spec001/media-audit/media-formats.json",
+    "roomGallery": "docs/evidence/spec001/media-audit/twelve-rooms.jpg"
+  }
+}

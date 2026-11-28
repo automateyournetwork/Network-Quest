@@ -12,6 +12,7 @@ import type { GameState, Measurement } from './types';
 export type NotebookOperation =
   | { readonly kind: 'notes'; readonly text: string }
   | { readonly kind: 'pin-hypothesis'; readonly id: HypothesisId; readonly text: string }
+  | { readonly kind: 'retire-hypothesis'; readonly id: HypothesisId }
   | { readonly kind: 'inspect-path'; readonly id: MeasurementId };
 type Failure = { readonly ok: false; readonly reason: RejectionReason };
 export type NotebookFinalization = { readonly ok: true; readonly game: GameState } | Failure;
@@ -25,7 +26,7 @@ const q = <T extends string = string>(id: string) => `spec001:${id}` as Qualifie
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const fail = (reason: RejectionReason): Failure => ({ ok: false, reason });
 const fields: Record<NotebookOperation['kind'], readonly string[]> = {
-  notes: ['kind', 'text'], 'pin-hypothesis': ['kind', 'id', 'text'], 'inspect-path': ['kind', 'id'],
+  notes: ['kind', 'text'], 'pin-hypothesis': ['kind', 'id', 'text'], 'inspect-path': ['kind', 'id'], 'retire-hypothesis': ['kind', 'id'],
 };
 
 /** JSON save lengths count Unicode code points, never UTF-16 code units. */
@@ -82,6 +83,12 @@ export function prepareNotebookChange(registry: ContentRegistry, game: GameState
     return prepared([], candidate => ({ ok: true, game: { ...candidate, notebook: { ...candidate.notebook, personalNotes: text } } }));
   }
   if (!uuid.test(operation.id)) return fail('invalid-input');
+  if (operation.kind === 'retire-hypothesis') {
+    const hypothesis = game.notebook.hypotheses.find(row => row.id === operation.id);
+    if (game.world.roomId !== q('R02') || !game.notebook.measurements.length || !hypothesis || hypothesis.status !== 'open') return fail('precondition');
+    return prepared([], candidate => ({ ok: true, game: { ...candidate, notebook: { ...candidate.notebook,
+      hypotheses: candidate.notebook.hypotheses.map(row => row.id === operation.id ? { ...row, status: 'rejected' } : row) } } }));
+  }
   if (operation.kind === 'pin-hypothesis') {
     if (!validNotebookText(operation.text, 512, true)) return fail('invalid-input');
     const prior = game.notebook.hypotheses.find(h => h.id === operation.id);

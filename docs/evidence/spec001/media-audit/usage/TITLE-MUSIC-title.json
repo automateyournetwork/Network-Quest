@@ -1,0 +1,32 @@
+{
+  "type": "usage",
+  "assetId": "spec001:ASSET-MUSIC-title",
+  "hashes": [
+    "bfceceba89fcc84b828167eac040b513e2cbb171cf8792c14ca2ec1589c9712d"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Codex loop158/T141",
+  "date": "2026-11-27",
+  "environment": "Native Firefox 159.0 on macOS 26.6.2, Node 26.13.1.",
+  "details": {
+    "bindings": [
+      {
+        "assetId": "spec001:ASSET-MUSIC-title",
+        "contentId": "spec001:TITLE",
+        "use": "music",
+        "exportPath": "public/assets/audio/music/title.mp3",
+        "interactiveOrEvidence": false
+      }
+    ],
+    "visible": true,
+    "meaningful": true,
+    "findings": "From the actual title screen a user gesture played the full T124 export, Skip stopped it, Replay resumed it and entering the Lift stopped it. The original audition was absent from the browser requests.",
+    "tool": "Playwright Firefox with response-byte SHA-256",
+    "observedPaths": [
+      "public/assets/audio/music/title.mp3",
+      "docs/evidence/spec001/media-audit/title-playback.json"
+    ],
+    "runtimeEvidencePath": "docs/evidence/spec001/media-audit/title-playback.json"
+  }
+}

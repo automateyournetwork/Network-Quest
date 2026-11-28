@@ -1,0 +1,43 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-AMBIENCE-R05",
+  "hashes": [
+    "7310ff18c0bb3da44d760ee4c250358bd350c981ebe194e04334ef251b21bd6d",
+    "2b8d539c24c3646a4c05ab1b65dfc5e38a4ef037b5403db2d1f2b463cbd705e3",
+    "4d62eb72f1a6ff3f87287d6172ad85fc3a2b7b961772a1a2b8c2b32793c8089c",
+    "383ddc222ca0375bea9d6d7ab84ea4a20ad145d4dfb20c31304e6dea05d96ec2",
+    "97c58a9eb7c739d7db39df1a1cf9ba98ae8943e70a321048c40038b3708fe767",
+    "5aa0025022c11fc52b3f9e038db78fe6b0f746ca398193447997a9092f4a40aa",
+    "b4e1004992d6dd5313807cf89e0f00610afe6140a23c5a40600f85ce3f5bdb12"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Spec001 T141 media audit",
+  "date": "2026-11-27",
+  "environment": "Mac16,7, macOS 26.6.2 arm64, Blender 5.2.1 LTS, Firefox 159, Pillow, ffprobe.",
+  "check": "browser-comparison",
+  "details": {
+    "methods": [
+      "browser-inspection"
+    ],
+    "findings": "Compared every source/master/export digest and full ffprobe media duration with the actual native-browser cue use. The retained usage includes the real trigger and response. Acoustic judgment remains in the separate listening record.",
+    "tool": "Firefox 159, captured source/decoded-export comparison and native guest receipts",
+    "observedPaths": [
+      "assets-src/audio/T126/sources/r05-garden-air-handler.flac",
+      "assets-src/audio/T126/sources/r05-glass-reeds.flac",
+      "assets-src/audio/T126/synthesize.py",
+      "assets-src/audio/T126/records/r05-score.json",
+      "assets-src/audio/T126/projects/r05.aup4",
+      "assets-src/audio/T126/masters/r05.wav",
+      "public/assets/audio/ambience/r05.mp3"
+    ],
+    "uses": [
+      "docs/evidence/spec001/final-rooms/T137/usage/R05-AMBIENCE-R05.json"
+    ],
+    "runtimeEvidencePaths": [
+      "docs/evidence/spec001/final-rooms/T137/guest.json"
+    ],
+    "sourceAudit": "docs/evidence/spec001/media-audit/media-formats.json",
+    "roomGallery": "docs/evidence/spec001/media-audit/twelve-rooms.jpg"
+  }
+}

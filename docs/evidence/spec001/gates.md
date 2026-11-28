@@ -15,7 +15,7 @@ Authority: [constitution](../../../.specify/memory/constitution.md#development-w
 | G2 | W03 / T058 | T036–T057 after G1 | PENDING | Not executed; reviewer not assigned; no runtime evidence |
 | G3 | W04 / T067 | T059 measurement harness, T060–T066 after G2 | PENDING | 2026-11-26: historical R01 candidate has real sources/media and 12 passing Firefox budget samples. Actual Safari timing remains unverified; owner requests a contained game-screen correction before final acceptance. [Representative review](representative-room.md). No aggregate gate passed. |
 | G4 | W05/W06 / T105 | T068–T104 after G3, including first route, outcomes, R12 and optional activities | PENDING (upstream aggregate gates) | Local T105 gameplay accepted: three independent native routes,734focused checks,98original-case dispositions; US2/US6/US3/US7 evidence. Finished media/human/provider scope remains separate. |
-| G5 | W07 / T141 | T106–T140 after G4 | PENDING | Not executed; visual/listening review pending; no accepted inventory |
+| G5 | W07 / T141 | T106–T140 after G4 | PARTIAL | AC08/09 inventory verified. AC10 awaits listening for 109 active audio renditions and their in-game mixes. [T141 audit](media-audit.md) |
 | G6 | W08 / T163 | T142–T158 then T159–T162; G0–G5 | PENDING | Not executed; beginner/technical/owner reviews pending |
 | G7 | W09 / T170 | T164–T169 after G6; owner initiation required for T169 live publication | PENDING | Not executed; packaging/recovery/staging/publication evidence pending |
 
@@ -127,11 +127,9 @@ T089 proves E01 permanent restoration, E02 temporary restoration, E03 unresolved
 
 ## G5 — complete integrated media
 
-**Status: PENDING.** Decision task T141; destination `docs/evidence/spec001/media-audit.md` and this ledger, supported by `assets-src/manifest.json` and per-batch/source/export records. Coverage: C3/C5/C11/C13; FR-002/017/018/024; NQ-09; AC08–10 and final illustrated AC05 dependency.
+**Partial on November 27, 2026.** T141 verified all twelve finished rooms, the real-time, layered and rendered sprite modes, 25 modeled characters, 150 distinct placed props, 103 interactive or evidence props, 36 layers, 25 portraits and 24 illustrations. Blender reopened all native projects. Sixty-nine distinct prop interactions were exercised through normal game controls. The release validator credits AC08 and AC09 quantities and the unchanged eight voices and three effects with applicable listening records. [Media audit](media-audit.md) · [Inventory](media-audit/inventory-audit.json)
 
-Exit: inspect all twelve finished rooms; reopen actual `.blend` sources for at least 25 distinct character models and 150 named reusable props, with at least 50 interactive/evidence props, required animations, usable exports, rights and observed placements. Recolors, duplicate instances, invisible filler and pictures of models do not satisfy counts. Benchmark assets count once.
-
-Prove at least 36 usable room layers, 25 portraits, 24 illustrations, eight music cues, twelve ambiences, forty effects and sixty selected voice lines, with actual generation/edit lineage and native sources. Retain `.aup4`, raw generation/recording/MIDI where applicable, lossless masters and web exports; Audacity 4 has no legacy scripting pipe. Record visual inspection and genuine listening, not waveform-only assertions. Demonstrate R01 3D, R05 layered/real-time and R04 Blender sprites with shared state and accessible text. T132 inventory consolidation alone is not runtime integration or quality acceptance.
+AC10 and G5 await listening findings for eight full music cues, twelve beds, 37 effects and 52 voices, including the integrated mix. All 120 primary sounds have observed uses. T065’s twelfth reviewed item remains the archived title excerpt. The root checkpoint keeps the original benchmark and listening decisions. The existing packet also supports owner visual feedback across the twelve scenes. C3/C5/C11/C13, FR-002/017/018/024 and NQ-09 are traced in the audit. [Release findings](media-audit/release-audit.json) · [Review packet](media-audit/review.html)
 
 ## G6 — whole-episode validation and refinement
 

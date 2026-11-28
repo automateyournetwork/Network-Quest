@@ -2,8 +2,8 @@
   "feature": "001-physical-layer-underworld",
   "authorizedAt": "2026-11-25",
   "loopCap": 200,
-  "loopsStarted": 163,
-  "activeTask": "Active assignments: 158/T141, 162/T146, 163/T144.",
+  "loopsStarted": 164,
+  "activeTask": "Active assignments: 162/T146, 163/T144, 164/T147.",
   "status": "running",
   "completedTasks": [
     "T001",
@@ -152,15 +152,8 @@
       "note": "docs/implementation/loops/004-T004.md"
     }
   ],
-  "lastLoopNote": "docs/implementation/loops/161-T143.md",
+  "lastLoopNote": "docs/implementation/loops/158-T141.md",
   "activeLoops": [
-    {
-      "loop": 158,
-      "task": "T141",
-      "agent": "/root/loop158_t141",
-      "scope": "Audit native room sources, actual game placements, playable media, interactive props and G5 evidence. The last two room pairs will join the first eight when verified.",
-      "status": "Assigned for production and verification."
-    },
     {
       "loop": 162,
       "task": "T146",
@@ -174,11 +167,24 @@
       "agent": "/root/loop163_t144",
       "scope": "Independently verify SAVE11 and AC13 with the prior/current snapshots, opaque newer versions, interrupted reads and conditional safe saving.",
       "status": "Assigned for production and verification."
+    },
+    {
+      "loop": 164,
+      "task": "T147",
+      "agent": "/root/loop164_t147",
+      "scope": "Complete keyboard focus, named controls and typing-safe shortcuts with the full playable rooms, preserving dialog returns and one-slot state.",
+      "status": "Assigned for production and verification."
     }
   ],
   "gates": {
     "G0": "blocked",
-    "G1-G7": "pending"
+    "G1": "pending",
+    "G2": "pending",
+    "G3": "pending",
+    "G4": "pending",
+    "G5": "partial",
+    "G6": "pending",
+    "G7": "pending"
   },
   "g0PreparationOrder": [
     "T008",
@@ -186,7 +192,7 @@
     "T011",
     "T007 final reassessment"
   ],
-  "nextAction": "Review and join production evidence, then continue the next ready assignments in the Spec001 execution table. Full room, external and human acceptance remain open.",
+  "nextAction": "Continue independent migration, accessibility, recovery and compatibility verification. Rejoin T124\u2013T131 and T141 on actual human listening findings. Host/provider and release gates retain their recorded dependencies.",
   "executionDirection": "docs/implementation/execution-direction.md",
   "publicationAuthorization": {
     "date": "2026-11-25",
@@ -196,8 +202,8 @@
   },
   "publication": {
     "branch": "001-physical-layer-underworld",
-    "lastPushedCommit": "eff5a5586dd49ca001d7242efa769349030714ab",
-    "scope": "Public source retrieval and the independent hypothetical migration fixtures reached the remote. All twelve rooms are in the parent commit. Native and generated source checks passed. Full media review, provider/host, whole-episode and release acceptance remain open.",
+    "lastPushedCommit": "a4b701ff67d4c059a261522fc9f9ac1eeda2b2f3",
+    "scope": "The remote includes the verified prior-save reader, explanatory controls and ETag-protected manual and automatic saves. The public source retrieval pin and all twelve rooms are in its parent history. Independent SAVE11 and episode release acceptance remain open.",
     "releaseDeployed": false
   },
   "pendingReviews": [
@@ -450,6 +456,14 @@
       "scope": "Final twenty voice lines including outcomes and reactions; lock script, sources, intelligibility and rights.",
       "status": "All twenty Photon and Hermit lines passed native and browser verification. Seventeen new recordings await two-output human review.",
       "note": "docs/implementation/loops/148-T131.md"
+    },
+    {
+      "loop": 158,
+      "task": "T141",
+      "agent": "/root/loop158_t141",
+      "scope": "Audit native room sources, actual game placements, playable media, interactive props and G5 evidence. The last two room pairs will join the first eight when verified.",
+      "status": "AC08 and AC09 pass the twelve-room audit. All 120 active sounds have genuine uses, 11 have applicable human listening evidence, and 109 plus their integrated mixes await owner listening on speakers and headphones. The previous answers and audition hashes are preserved.",
+      "note": "docs/implementation/loops/158-T141.md"
     }
   ],
   "experienceDirection": {

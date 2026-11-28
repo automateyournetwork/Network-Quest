@@ -1,0 +1,46 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-VOICE-028",
+  "hashes": [
+    "28ac04c8da551dff41ec80379c12f7c77e22cf4644ccd722814682d7d8401360",
+    "0d09bd0797b6c8fecd1b25decd9d622a09e5ebedd698e1e4172bb08712db90d4",
+    "79ef9c9c71d6cb6b0f09ded4e79552f66b980eb000f00cac3e62bb9a894137fd",
+    "b9e3bd81706da20ff6ac4a7951d3962a8270346838df50df3f52c92216c0892c",
+    "6bb58b41e3a12188cc6ccfe11d0089811487ab7492b0c3b6d7231f739a305fcd",
+    "ec12eced61d4b0c6ff88a95d5e0212371e64fdedbb476eac452b6f566192f2aa"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Spec001 T141 media audit",
+  "date": "2026-11-27",
+  "environment": "Mac16,7, macOS 26.6.2 arm64, Blender 5.2.1 LTS, Firefox 159, Pillow, ffprobe.",
+  "check": "budget",
+  "details": {
+    "usage": [
+      "docs/evidence/spec001/media-audit/usage/R02-VOICE-028.json"
+    ],
+    "roomBudgetPath": "docs/evidence/spec001/media-audit/room-budgets.json",
+    "roomBudgetSha256": "be3bd78d58fc6a80622fd4a5d279c7460c1e06673c91c76025059d44d65003bc",
+    "registeredRooms": [
+      "R02"
+    ],
+    "encodedOnDemandBytes": 143276,
+    "mediaProbes": [
+      {
+        "path": "assets-src/audio/T130/masters/voice-028.wav",
+        "codec_name": "pcm_s24le",
+        "sample_rate": "48000",
+        "channels": 1,
+        "duration": 8.9
+      },
+      {
+        "path": "public/assets/audio/voices/voice-028.mp3",
+        "codec_name": "mp3",
+        "sample_rate": "48000",
+        "channels": 1,
+        "duration": 8.9
+      }
+    ],
+    "scope": "Measured stream transfer and master/export channel, duration and sampling costs. The aggregate byte accounting for each registered room is attached. Delayed cues are loaded on demand; T154 measures the full timed application shell and arrival."
+  }
+}

@@ -6,6 +6,7 @@ import { pathToFileURL } from 'node:url';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import schema from '../specs/001-physical-layer-underworld/contracts/asset-manifest.schema.json' with { type: 'json' };
+import { observedSpriteSubject } from './sprite-subject-use.ts';
 import { emptyCounts, manifestRenditions, minimums } from './asset-types.ts';
 import type { Asset, AssetCounts, AssetEvidenceRecord, AssetEvidenceSnapshot, AssetFileDigest, AssetManifest, AssetValidationResult } from './asset-types.ts';
 export type { AssetEvidenceSnapshot, AssetValidationResult } from './asset-types.ts';
@@ -282,9 +283,17 @@ export function validateAssetObservations(manifest: unknown, evidence: AssetEvid
       }
     }
     for (const e of a.exports) if (accepted && !a.verification.some(v => v.check === 'browser-comparison' && v.evidencePath === e.integrationEvidencePath)) add('REVIEW_REQUIRED', a.assetId, e.integrationEvidencePath);
+    let observedInteractiveSprite = false;
     for (const use of a.usedBy) {
       const target = entities.get(use.contentId);
       if (!target) add('USE_TARGET_UNRESOLVED', a.assetId);
+      if (use.use === 'sprite-subject-placement') {
+        const valid = target?.kind === 'room' && observedSpriteSubject(a, use, byId.get(use.spriteSubject?.atlasId ?? ''),
+          get(use.evidencePath, a, 'USE_EVIDENCE_MISMATCH'), evidence.content.uses, path => decodeJson(fileAt(path)), hashAt);
+        if (!valid) add('SPRITE_SUBJECT_USE_MISMATCH', a.assetId, use.evidencePath);
+        else if (a.interactiveOrEvidence) observedInteractiveSprite = true;
+        continue;
+      }
       const allowed: Record<string, [string[], string[]]> = {
         'character-model': [['character-placement', 'party-placement'], ['room']], 'prop-model': [['prop-placement'], ['room']],
         'room-model': [['room-architecture'], ['room']],
@@ -310,7 +319,7 @@ export function validateAssetObservations(manifest: unknown, evidence: AssetEvid
         if (r.details['visible'] !== true || r.details['meaningful'] !== true) add('USE_NOT_MEANINGFUL', a.assetId);
       }
     }
-    if ((accepted || a.usedBy.length) && a.interactiveOrEvidence && !evidence.content.uses.some(b => b.assetId === a.assetId && b.interactiveOrEvidence && a.usedBy.some(u => u.contentId === b.contentId && u.use === b.use))) add('INTERACTION_UNVERIFIED', a.assetId);
+    if ((accepted || a.usedBy.length) && a.interactiveOrEvidence && !observedInteractiveSprite && !evidence.content.uses.some(b => b.assetId === a.assetId && b.interactiveOrEvidence && a.usedBy.some(u => u.contentId === b.contentId && u.use === b.use))) add('INTERACTION_UNVERIFIED', a.assetId);
     if (accepted && a.image) for (const path of [a.image.cameraRecordPath, a.image.registrationPath]) if (!object(decodeJson(fileAt(path)))) add('IMAGE_REGISTRATION_MISSING', a.assetId, path);
     if (accepted && audio) {
       const au = a.audio!;

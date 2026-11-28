@@ -74,6 +74,7 @@ export function actionSoundEvents(input: SemanticAction, result: ActionResult, s
   if (input.kind === 'open-panel' && state.ui?.panel === input.panel) events.add('panel/' + input.panel);
   if (input.kind === 'interact' || input.kind === 'choose-hotspot-action') {
     events.add(input.verb + '/' + input.targetId);
+    if (input.verb === 'look' && input.targetId === 'spec001:HOTSPOT-titan' && state.game?.assistance.length) events.add('discuss-recorded-hint');
     if (input.verb === 'walk' && !/^spec001:R(?:0[1-9]|1[0-2])$/.test(input.targetId)) events.add('walk');
   }
   if (input.kind === 'inspect-evidence' && state.game?.notebook.measurements.some(m => m.id === input.evidenceId && m.stale)) events.add('inspect-stale');

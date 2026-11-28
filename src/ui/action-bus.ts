@@ -1,6 +1,6 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
 import { maintenanceSubmission } from '../state/optional-maintenance';
-import type { AbilityId, ActionId, AdventureId, CharacterId, FactId, InstanceId, ItemId, MeasurementId, ObjectiveId, QualifiedId, RoomId, Verb, WorldVersion } from '../domain/types';
+import type { AbilityId, ActionId, AdventureId, CharacterId, FactId, HypothesisId, InstanceId, ItemId, MeasurementId, ObjectiveId, QualifiedId, RoomId, Verb, WorldVersion } from '../domain/types';
 import { validNotebookText } from '../state/notebook';
 import type { ReducerCommand, ReducerInput, ReducerState, Reduction } from '../state/reducer';
 import type { RuntimeState, UiState } from '../state/types';
@@ -33,6 +33,7 @@ export type SemanticAction =
   | { readonly kind: 'skip-dialogue'; readonly dialogueId: QualifiedId; readonly nodeId: QualifiedId; readonly sessionId: string }
   | { readonly kind: 'replay-dialogue' | 'close-dialogue'; readonly dialogueId: QualifiedId; readonly sessionId: string }
   | { readonly kind: 'edit-personal-notes' | 'pin-hypothesis'; readonly text: string }
+  | { readonly kind: 'retire-hypothesis'; readonly hypothesisId: HypothesisId }
   | { readonly kind: 'pin-objective'; readonly objectiveId: ObjectiveId }
   | { readonly kind: 'highlight-map-room'; readonly roomId: RoomId }
   | { readonly kind: 'step-packet' | 'pause-packet' | 'resume-packet' | 'replay-packet' | 'close-packet'; readonly sessionId: string }
@@ -112,6 +113,7 @@ const fields: Record<SemanticAction['kind'], readonly string[]> = {
   'submit-objective': ['kind', 'objectiveId', 'alternativeId', 'measurementId'],
   'request-objective-hint': ['kind', 'objectiveId'],
   'edit-personal-notes': ['kind', 'text'], 'pin-hypothesis': ['kind', 'text'],
+  'retire-hypothesis': ['kind', 'hypothesisId'],
   'pin-objective': ['kind', 'objectiveId'], 'highlight-map-room': ['kind', 'roomId'],
   'step-packet': ['kind', 'sessionId'], 'pause-packet': ['kind', 'sessionId'], 'resume-packet': ['kind', 'sessionId'],
   'replay-packet': ['kind', 'sessionId'], 'close-packet': ['kind', 'sessionId'],
@@ -202,6 +204,7 @@ export function copySemanticAction(input: SemanticAction): SemanticAction {
     case 'request-objective-hint': if (!qualifiedIdentity(input.objectiveId)) throw new TypeError('Invalid objective identity.'); break;
     case 'edit-personal-notes': if (!validNotebookText(input.text, 4096)) throw new TypeError('Notes require valid Unicode text of at most 4096 characters.'); break;
     case 'pin-hypothesis': if (!validNotebookText(input.text, 512, true)) throw new TypeError('A hypothesis requires 1–512 Unicode characters.'); break;
+    case 'retire-hypothesis': if (!identity(input.hypothesisId)) throw new TypeError('Invalid hypothesis identity.'); break;
     case 'pin-objective': if (!qualifiedIdentity(input.objectiveId)) throw new TypeError('Invalid objective identity.'); break;
     case 'highlight-map-room': if (!qualifiedIdentity(input.roomId)) throw new TypeError('Invalid map room identity.'); break;
     case 'step-packet': case 'pause-packet': case 'resume-packet': case 'replay-packet': case 'close-packet':

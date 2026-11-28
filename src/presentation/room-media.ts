@@ -12,7 +12,7 @@ export interface RoomComposition {
   models: readonly { assetId: string; semanticId: string; position: Triple; objectId: string | null; character: boolean; rotation?: Triple; scale?: number; supportHeight?: number }[];
   layers: readonly { assetId: string; plane: 'background' | 'midground' | 'foreground' }[];
   anchors: readonly { objectId: string; position: Triple }[];
-  audio: readonly { assetId: string; channel: 'music' | 'effects' | 'voice'; text: string; trigger: 'arrival' | 'photon' | 'title' | 'control'; loop: false }[];
+  audio: readonly { assetId: string; channel: 'music' | 'effects' | 'voice'; text: string; trigger: 'arrival' | 'photon' | 'title' | 'control'; loop: boolean }[];
 }
 export interface RoomMedia { readonly composition: RoomComposition; readonly bindings: ReadonlyMap<string, Readonly<mediaBinding>> }
 
@@ -48,7 +48,7 @@ export function resolveRoomMedia(registry: ContentRegistry, value: unknown = aut
   if (new Set(data.anchors.map(a => a.objectId)).size !== objects.length || data.anchors.some(a => !objects.includes(a.objectId) || !tuple(a.position, 3))) fail();
   for (const cue of data.audio) {
     const b = bindings.get(cue.assetId)!;
-    if (cue.loop !== false || !cue.text?.trim() || !['voice', 'music', 'effects'].includes(cue.channel) || !['arrival', 'photon', 'title', 'control'].includes(cue.trigger)) fail();
+    if (typeof cue.loop !== 'boolean' || (cue.loop && (cue.trigger !== 'title' || cue.channel !== 'music')) || !cue.text?.trim() || !['voice', 'music', 'effects'].includes(cue.channel) || !['arrival', 'photon', 'title', 'control'].includes(cue.trigger)) fail();
     binding(cue.assetId, cue.channel === 'voice' ? 'voice-line' : cue.channel === 'music' ? 'music' : 'effect', '.mp3');
     if (cue.channel === 'effects' && b.contentId !== (cue.trigger === 'control' ? 'spec001:ACTION-observe-power' : 'spec001:ACTION-talk-photon')) fail();
     if (cue.channel === 'music' && b.contentId !== 'spec001:TITLE') fail();

@@ -206,6 +206,7 @@ export function createNotebookController({ bus, registry, store, presentation: s
     if (!panelReady(before)) return rejected('notebook-closed', 'Open the notebook first.');
     if (input.kind === 'edit-personal-notes') return reductionPlan(store, action, before, { kind: 'notebook', operation: { kind: 'notes', text: input.text } }, 'Notes updated in this adventure.');
     if (input.kind === 'pin-hypothesis') return reductionPlan(store, action, before, { kind: 'notebook', operation: { kind: 'pin-hypothesis', id: crypto.randomUUID() as HypothesisId, text: input.text } }, 'Hypothesis pinned as player speculation.');
+    if (input.kind === 'retire-hypothesis') return reductionPlan(store, action, before, { kind: 'notebook', operation: { kind: 'retire-hypothesis', id: input.hypothesisId } }, 'Your hypothesis is marked rejected. Its text and measurements stay in the notebook.');
     if (input.kind === 'pin-objective') {
       if (!objectives.some(o => o.id === input.objectiveId) || registry.record(input.objectiveId)?.kind !== 'objective') return rejected('unknown-objective', 'That objective is not in this notebook.');
       return guardedPlan(store, before, { status: 'ready', commit: () => {
@@ -219,7 +220,7 @@ export function createNotebookController({ bus, registry, store, presentation: s
     }
     return rejected('invalid-input', 'Choose a notebook action.');
   };
-  try { for (const kind of ['edit-personal-notes', 'pin-hypothesis', 'pin-objective', 'highlight-map-room', 'inspect-evidence'] as const) registrations.push(bus.register(kind, handler)); }
+  try { for (const kind of ['edit-personal-notes', 'pin-hypothesis', 'retire-hypothesis', 'pin-objective', 'highlight-map-room', 'inspect-evidence'] as const) registrations.push(bus.register(kind, handler)); }
   catch (error) { registrations.forEach(off => off()); throw error; }
   return {
     panels, hotspotBindings: [...hotspotBindings, boardBinding],
@@ -341,8 +342,10 @@ export function createNotebookPanel(host: HTMLElement, bus: Pick<ActionDispatche
       if (e.list) { const list = doc.createElement(e.list.ordered ? 'ol' : 'ul'); list.setAttribute('aria-label', e.list.label); for (const text of e.list.items) { const item = doc.createElement('li'); item.textContent = text; list.append(item); } li.append(list); }
       if (model.maps.some(room => room.id === e.sourceRoomId)) li.append(button(`Highlight source: ${e.heading}`, { kind: 'highlight-map-room', roomId: e.sourceRoomId }, capture));
     })));
-    reconcile(hypothesisList, model.hypotheses.map(h => row(`hypothesis:${h.id}`, h, li => {
+    const canRetire = model.canPinHypothesis && model.evidence.some(e => e.freshness === 'current' || e.freshness === 'stale');
+    reconcile(hypothesisList, model.hypotheses.map(h => row(`hypothesis:${h.id}`, [h, canRetire], li => {
       li.append(paragraph(h.text), paragraph(`Pinned — Player hypothesis; ${h.status}. Source: your writing${h.subjectIds.includes(q('R02')) ? ` in ${roomName(q('R02'))}` : ''}. Freshness: speculation, not a measurement.`));
+      if (canRetire && h.status === 'open') li.append(button('Retire this hypothesis', { kind: 'retire-hypothesis', hypothesisId: h.id }, capture));
     })));
     reconcile(mapList, model.maps.map(room => row(`map:${room.id}`, [room, model.highlightedRoomId], li => {
       li.append(paragraph(`${room.label} — visited${model.highlightedRoomId === room.id ? ' — Highlighted' : ''}`), button(`Highlight ${room.label}`, { kind: 'highlight-map-room', roomId: room.id }, capture));

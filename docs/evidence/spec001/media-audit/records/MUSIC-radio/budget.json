@@ -1,0 +1,46 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-MUSIC-radio",
+  "hashes": [
+    "5ce77a2d8e9c1abcfca2d58a17c9423d94e8384d05a1f50ec62cf5dd23afc0e0",
+    "cc2df1ab100ebbcded5c1674965a04232f9cbe9c3c647726ad55223f538d75ef",
+    "31f9327777c9949b7d11a088a89158f085224ac9b9abee8af6c462e11b810062",
+    "5b22882b19216c2fc6087debf4083504d85a0ce521759760bce88ef0114b7bc7",
+    "6e4f749f5e7ae154ea33d8399266f465d42025d74b2a35a81e13573c4fbfde1a",
+    "655bb0a2e7d6efbc16dd48e2cb40157825c23179870dff8cf87814168793c9f3"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Spec001 T141 media audit",
+  "date": "2026-11-27",
+  "environment": "Mac16,7, macOS 26.6.2 arm64, Blender 5.2.1 LTS, Firefox 159, Pillow, ffprobe.",
+  "check": "budget",
+  "details": {
+    "usage": [
+      "docs/evidence/spec001/final-rooms/T138/usage/R07-MUSIC-radio.json"
+    ],
+    "roomBudgetPath": "docs/evidence/spec001/media-audit/room-budgets.json",
+    "roomBudgetSha256": "be3bd78d58fc6a80622fd4a5d279c7460c1e06673c91c76025059d44d65003bc",
+    "registeredRooms": [
+      "R07"
+    ],
+    "encodedOnDemandBytes": 1848428,
+    "mediaProbes": [
+      {
+        "path": "assets-src/audio/T125/masters/radio.wav",
+        "codec_name": "pcm_s24le",
+        "sample_rate": "48000",
+        "channels": 2,
+        "duration": 76.959979
+      },
+      {
+        "path": "public/assets/audio/music/radio.mp3",
+        "codec_name": "mp3",
+        "sample_rate": "48000",
+        "channels": 2,
+        "duration": 76.959979
+      }
+    ],
+    "scope": "Measured stream transfer and master/export channel, duration and sampling costs. The aggregate byte accounting for each registered room is attached. Delayed cues are loaded on demand; T154 measures the full timed application shell and arrival."
+  }
+}

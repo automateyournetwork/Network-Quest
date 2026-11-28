@@ -32,7 +32,9 @@ describe('actual R01 media admission', () => {
       'The lift stops with the dignity of a machine hoping nobody heard that. Welcome to the Underworld.',
       'I am Photon. I carry light and an unreasonable amount of optimism. Shall we inspect that dark link lamp?',
     ]);
-    expect(composition.audio.every(cue => cue.loop === false)).toBe(true);
+    const titleId = 'spec001:ASSET-MUSIC-title';
+    expect(composition.audio.filter(cue => cue.loop).map(cue => cue.assetId)).toEqual([titleId]);
+    expect(bindings.get(titleId)?.exportPath).toBe('public/assets/audio/music/title.mp3');
     expect([...bindings.values()].filter(b => b.interactiveOrEvidence).map(b => b.assetId).sort()).toEqual(['spec001:ASSET-PR002','spec001:ASSET-PR003','spec001:ASSET-PR004','spec001:ASSET-PR005','spec001:ASSET-PR006','spec001:ASSET-PR009']);
   });
   it('preserves source camera, outer translations and all ten logical anchors without double scale', () => {
@@ -63,7 +65,7 @@ describe('actual R01 media admission', () => {
     const bad = structuredClone(authored); bad.models[1]!.assetId = 'spec001:unregistered'; expect(() => resolveRoomMedia(registry,bad)).toThrow();
     const anchor = structuredClone(authored); anchor.anchors[0]!.objectId = 'spec001:invented'; expect(() => resolveRoomMedia(registry,anchor)).toThrow();
     const audio = structuredClone(authored); audio.audio[0]!.text = 'A changed line'; expect(() => resolveRoomMedia(registry,audio)).toThrow();
-    const loop = structuredClone(authored); loop.audio[2]!.loop = true; expect(() => resolveRoomMedia(registry,loop)).toThrow();
+    const loop = structuredClone(authored); loop.audio.find(cue => cue.channel === 'voice')!.loop = true; expect(() => resolveRoomMedia(registry,loop)).toThrow();
     expect(() => publicMediaUrl({ ...resolveRoomMedia(registry).bindings.values().next().value!, exportPath: 'public/assets/../../private.json' }, '/')).toThrow();
   });
 });

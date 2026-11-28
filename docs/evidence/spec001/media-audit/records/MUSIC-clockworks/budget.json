@@ -1,0 +1,46 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-MUSIC-clockworks",
+  "hashes": [
+    "e25bf9449aa7ac570d6f244ec98b78c28e0e0bd7fcd2a007def1644b65c3c2e9",
+    "3a767768e6acb7a73111b25bdaf08fd8fc5c2af6a9cd69e721e520e20d3fb302",
+    "1ca3ed49082f37e8d43674cffeece1f4f0d4dfb6574521cb2d6499606fbb9085",
+    "263b03a7354488c3f751f8135be15395f627441b0329b442728632950d077b3f",
+    "e133485d775e805ebd3d74c213cc453263d72f42f2055cf57a5176cd8fb322eb",
+    "9aec374335970d498986a8d44ab2ff9827c87df8f41ce676a308caeb2295a7cd"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Spec001 T141 media audit",
+  "date": "2026-11-27",
+  "environment": "Mac16,7, macOS 26.6.2 arm64, Blender 5.2.1 LTS, Firefox 159, Pillow, ffprobe.",
+  "check": "budget",
+  "details": {
+    "usage": [
+      "docs/evidence/spec001/final-rooms/T139/usage/R10-MUSIC-clockworks.json"
+    ],
+    "roomBudgetPath": "docs/evidence/spec001/media-audit/room-budgets.json",
+    "roomBudgetSha256": "be3bd78d58fc6a80622fd4a5d279c7460c1e06673c91c76025059d44d65003bc",
+    "registeredRooms": [
+      "R10"
+    ],
+    "encodedOnDemandBytes": 1622060,
+    "mediaProbes": [
+      {
+        "path": "assets-src/audio/T125/masters/clockworks.wav",
+        "codec_name": "pcm_s24le",
+        "sample_rate": "48000",
+        "channels": 2,
+        "duration": 67.519979
+      },
+      {
+        "path": "public/assets/audio/music/clockworks.mp3",
+        "codec_name": "mp3",
+        "sample_rate": "48000",
+        "channels": 2,
+        "duration": 67.519979
+      }
+    ],
+    "scope": "Measured stream transfer and master/export channel, duration and sampling costs. The aggregate byte accounting for each registered room is attached. Delayed cues are loaded on demand; T154 measures the full timed application shell and arrival."
+  }
+}

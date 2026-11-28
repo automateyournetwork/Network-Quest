@@ -1,0 +1,41 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-EFFECT-026",
+  "hashes": [
+    "ea1c0ab451ac21040047f272f4b84d27841c62af1dc53505885d6116d31d77cf",
+    "20978b7f2afcad18dd672901ab858c423633741ad46309ce3ccd707da1ce8452",
+    "5a16b5e381cd31cf840209e35ab550222e2db75d515909cb884df429f3087393",
+    "f10277f48741ce72ee49a9152c83b48f58b28a511ae4b6d8d34c98da7015d8b2",
+    "a367367a904a18da6160608e229d878f006eb9ff6ffffa67b541db766fb4d7f8",
+    "04993897892e01dfa476cb6a982f8ee1bd663b78c4bb3c33daa0c7e569b6acea"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Spec001 T141 media audit",
+  "date": "2026-11-27",
+  "environment": "Mac16,7, macOS 26.6.2 arm64, Blender 5.2.1 LTS, Firefox 159, Pillow, ffprobe.",
+  "check": "browser-comparison",
+  "details": {
+    "methods": [
+      "browser-inspection"
+    ],
+    "findings": "Compared every source/master/export digest and full ffprobe media duration with the actual native-browser cue use. The retained usage includes the real trigger and response. Acoustic judgment remains in the separate listening record.",
+    "tool": "Firefox 159, captured source/decoded-export comparison and native guest receipts",
+    "observedPaths": [
+      "assets-src/audio/T128/sources/fx26-joined-glass.wav",
+      "assets-src/audio/T128/sources/fx26-glass-halo.wav",
+      "assets-src/audio/T128/design.py",
+      "assets-src/audio/T128/projects/effect-026.aup4",
+      "assets-src/audio/T128/masters/effect-026.wav",
+      "public/assets/audio/effects/effect-026.mp3"
+    ],
+    "uses": [
+      "docs/evidence/spec001/final-rooms/T137/usage/R05-EFFECT-026.json"
+    ],
+    "runtimeEvidencePaths": [
+      "docs/evidence/spec001/final-rooms/T137/guest.json"
+    ],
+    "sourceAudit": "docs/evidence/spec001/media-audit/media-formats.json",
+    "roomGallery": "docs/evidence/spec001/media-audit/twelve-rooms.jpg"
+  }
+}

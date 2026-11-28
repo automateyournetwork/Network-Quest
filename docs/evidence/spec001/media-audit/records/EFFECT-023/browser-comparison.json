@@ -1,0 +1,44 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-EFFECT-023",
+  "hashes": [
+    "280668f06de8debd52ca91d634b914c920305904e02cc83df97c6fb97f405511",
+    "0145216e478f0a2361a553617efa61efa42fb49d68f470351ecf33d31205345a",
+    "761935fcbf1960758c218e3333b014bc883b9af0ad2e6719a0e7ddd77eea256d",
+    "3d17afa984c7ef855b7cd9bee434502c433f5a4ad28099a1b7e61043c6358d35",
+    "8346c67c8b126002d77cdad6669e447010b262d910ea9d7f966faa1b46fd22c7",
+    "ad19178c063e42f9a2ef0ad83afc66fbb5516293b8c5d1a1e96d5f6a51160383"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Spec001 T141 media audit",
+  "date": "2026-11-27",
+  "environment": "Mac16,7, macOS 26.6.2 arm64, Blender 5.2.1 LTS, Firefox 159, Pillow, ffprobe.",
+  "check": "browser-comparison",
+  "details": {
+    "methods": [
+      "browser-inspection"
+    ],
+    "findings": "Compared every source/master/export digest and full ffprobe media duration with the actual native-browser cue use. The retained usage includes the real trigger and response. Acoustic judgment remains in the separate listening record.",
+    "tool": "Firefox 159, captured source/decoded-export comparison and native guest receipts",
+    "observedPaths": [
+      "assets-src/audio/auditions/raw/effect-023.wav",
+      "assets-src/audio/auditions/synthesize-effects.py",
+      "assets-src/audio/auditions/mix-inputs/effect-023.wav",
+      "assets-src/audio/auditions/projects/audition-bank.aup4",
+      "assets-src/audio/auditions/masters/effect-023.wav",
+      "public/assets/audio/auditions/effect-023.mp3"
+    ],
+    "uses": [
+      "docs/evidence/spec001/assets/t066/EFFECT-023-usage.json",
+      "docs/evidence/spec001/final-rooms/T137/usage/R05-EFFECT-023.json"
+    ],
+    "runtimeEvidencePaths": [
+      "docs/evidence/spec001/assets/t066/t066-audio-transcripts.png",
+      "docs/evidence/spec001/final-rooms/T137/guest.json",
+      "docs/evidence/spec001/presentation/t066/t066-audio-runtime.json"
+    ],
+    "sourceAudit": "docs/evidence/spec001/media-audit/media-formats.json",
+    "roomGallery": "docs/evidence/spec001/media-audit/twelve-rooms.jpg"
+  }
+}

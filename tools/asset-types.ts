@@ -34,7 +34,7 @@ export type Asset = {
   exports: { file: AssetFile; mimeType: string; sourceHashes: string[]; tool: string; preset: string; integrationEvidencePath: string }[];
   production: AssetProduction[];
   rights: { reviewStatus: string; creators: string[]; licenseIds: string[]; noticePaths: string[]; sourceUrls: string[]; termsSnapshotPaths: string[]; inputPermissionPaths: string[]; aiDisclosure: string };
-  usedBy: { contentId: string; use: string; evidencePath: string }[]; verification: AssetVerification[];
+  usedBy: { contentId: string; use: string; evidencePath: string; spriteSubject?: { atlasId: string; drawsPath: string; stageInspectionPath: string } }[]; verification: AssetVerification[];
   model?: { blendSourcePath: string; objectIds: string[]; units: string; axes: string; pivot: string; collisionProxy: string; animationClips: string[]; triangles: number; textureBytes: number };
   image?: { width: number; height: number; colorSpace: string; alpha: boolean; cameraRecordPath: string; layerRole: string; registrationPath: string };
   audio?: { nativeProjectPath: string; masterPath: string; codec: string; sampleRate: number; channels: number; durationSeconds: number; loopStartSample: number | null; loopEndSample: number | null; loudnessLufs: number; peakDbfs: number; captionId: string | null; voiceRecordPath?: string };

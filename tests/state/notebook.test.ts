@@ -32,6 +32,21 @@ function fixture() {
 }
 
 describe('T027 notebook writes through the canonical reducer', () => {
+  it('retires one measured Workshop hypothesis only on the player’s decision, retaining its text and all readings', () => {
+    const f = fixture();
+    const hypothesisId = secondId as HypothesisId;
+    f.inspect(); f.workshop();
+    const pin = { kind: 'pin-hypothesis' as const, id: hypothesisId, text: 'Only the cable length is at fault.' };
+    expect(f.notebook(pin).status).not.toBe('rejected');
+    const before = f.store.getState().runtime.game!;
+    expect(f.notebook({ kind: 'retire-hypothesis', id: id as HypothesisId }).status).toBe('rejected');
+    expect(f.notebook({ kind: 'retire-hypothesis', id: hypothesisId }).status).not.toBe('rejected');
+    const after = f.store.getState().runtime.game!;
+    expect(after.notebook.hypotheses).toEqual([{ ...before.notebook.hypotheses[0], status: 'rejected' }]);
+    expect(after.notebook.measurements).toEqual(before.notebook.measurements);
+    expect(after.world).toEqual(before.world);
+    expect(f.notebook({ kind: 'retire-hypothesis', id: hypothesisId }).status).toBe('rejected');
+  });
   it('records a valid 105 m inspection as over-limit, atomically with its flag and actual resulting evaluation version', () => {
     const f = fixture(), before = f.store.getState();
     expect(f.inspect().status).toBe('applied');

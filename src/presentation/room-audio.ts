@@ -38,7 +38,7 @@ export function createRoomAudioPanel(host: HTMLElement, media: RoomMedia, gameBa
     if (state.status === 'unavailable' || state.status === 'awaiting-gesture') status.textContent = state.status === 'unavailable' ? 'Audio unavailable. Read the transcript or retry playback.' : 'Sound waits for your choice. Select a Replay button.';
   };
   const adapter = createAudioAdapter({ backend: createHtmlAudioBackend(document), volumes: volumesFromSettings(settings), maxCues: 64, maxVoices: 5, maxPendingPlays: 5, onChange: update });
-  const handles = new Map(media.composition.audio.map(cue => [cue.assetId, adapter.present({ id: cue.assetId, channel: cue.channel, src: publicMediaUrl(media.bindings.get(cue.assetId)!, gameBase), text: cue.text, loop: false })]));
+  const handles = new Map(media.composition.audio.map(cue => [cue.assetId, adapter.present({ id: cue.assetId, channel: cue.channel, src: publicMediaUrl(media.bindings.get(cue.assetId)!, gameBase), text: cue.text, loop: cue.loop })]));
   const contextual = new Map<string, ContextualCue>();
   let activeCues: readonly ContextualCue[] = [], previous: RuntimeState | undefined;
   const benchmark = new Map(media.composition.audio.map(cue => [cue.assetId, cue]));
@@ -68,7 +68,7 @@ export function createRoomAudioPanel(host: HTMLElement, media: RoomMedia, gameBa
     const cueStatus = node('span'); cueStatus.textContent = 'idle'; section.append(heading, transcript, replay, skip, cueStatus); details.append(section); rows.set(key, { element: section, status: cueStatus, replay });
   }
   for (const cue of media.composition.audio) {
-    const label = cue.channel === 'music' ? 'Title theme · 20-second excerpt' : cue.assetId.endsWith('VOICE-001') ? 'Narrator' : cue.assetId.endsWith('VOICE-035') ? 'Photon' : cue.trigger === 'photon' ? 'Photon glimmer' : 'Control click';
+    const label = cue.channel === 'music' ? 'Title theme' : cue.assetId.endsWith('VOICE-001') ? 'Narrator' : cue.assetId.endsWith('VOICE-035') ? 'Photon' : cue.trigger === 'photon' ? 'Photon glimmer' : 'Control click';
     addRow(cue, label, media.bindings.get(cue.assetId)!.exportPath);
   }
   function reveal(triggers: ReadonlySet<string>) {

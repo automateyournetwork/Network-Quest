@@ -26,7 +26,9 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-27
 
-**163 loops started; 130/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. Fifteen conditional uses are reserved for the next G5 audit checkpoint. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+**164 loops started; 130/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+
+The integrated media audit verified all visual quantities. It counted 25 character models, 150 props including 103 interactive or evidence props, 36 scene layers, 25 portraits and 24 illustrations. All 120 active audio renditions have observed uses. Eight voices and three effects have applicable human approval. Listening on speakers and headphones for the other 109 recordings and their mixes is still required for AC10 and G5. [Media audit](../evidence/spec001/media-audit.md) · [Owner review packet](../evidence/spec001/media-audit/review.html)
 
 Normal Continue and Restore can now read the hypothetical 0.9.1 slot, explain either moved position and retain the original bytes until an eligible save. The signed-in tests exercised both manual and opted-in automatic revision 7 to 8 writes. Independent AC13 and SAVE11 acceptance is in progress. [Compatibility evidence](loops/161-T143.md)
 
@@ -175,8 +177,10 @@ Loop 160/T145: A clean anonymous checkout retrieved and hashed 2,063 public sour
 
 Loop 161/T143: Normal Continue and Restore migrated historical saves in memory, explained either relocation, and preserved original slot bytes until a later eligible revision 7 to 8 save. All 21 Firefox cases, 485 affected unit cases and 909 PHP tests passed. [Verification](loops/161-T143.md).
 
+Loop 158/T141: AC08 and AC09 pass the twelve-room audit. All 120 active sounds have genuine uses, 11 have applicable human listening evidence, and 109 plus their integrated mixes await owner listening on speakers and headphones. The previous answers and audition hashes are preserved. [Verification](loops/158-T141.md).
+
 <!-- current production assignments -->
-Active assignments: 158/T141, 162/T146, 163/T144.
+Active assignments: 162/T146, 163/T144, 164/T147.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

@@ -1,0 +1,42 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-LAYER-R10-midground",
+  "hashes": [
+    "25e7b5125084f0af4b5486f68cb553a49dd148c533818ba80be96b5ab378385a",
+    "86d6871ded41d0e4224ac6c25332baaa83991365e47c4c67e72527dae1559964",
+    "85b7a016456105459b476ffc5e6435bec0d8bcdba0e55f2d0f04c3cd182ceed5",
+    "35e3d1fffa79e6439298909cd8e72bde53ccb8fa53e79b6233556fd721abcaf6",
+    "bf6f89de79552373897795ba9cf53ecc05c17b4d1666ff7e04e65c369838e5c3",
+    "b92f0ed923303f67b84602531839165ef14694d7c31483cf3c8a03b75b588c4b"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Spec001 T141 media audit",
+  "date": "2026-11-27",
+  "environment": "Mac16,7, macOS 26.6.2 arm64, Blender 5.2.1 LTS, Firefox 159, Pillow, ffprobe.",
+  "check": "browser-comparison",
+  "details": {
+    "methods": [
+      "browser-inspection"
+    ],
+    "findings": "Compared each preserved input/output and its decoded image or registered native geometry with the actual composed room capture and the individual subject or layer usage. The visible result preserves the registered spatial role; opacity, geometry and source identity are recorded separately.",
+    "tool": "Firefox 159, captured source/decoded-export comparison and native guest receipts",
+    "observedPaths": [
+      "assets-src/images/R10/originals/background.png",
+      "assets-src/images/R10/reference/camera-guide.png",
+      "assets-src/images/R10/originals/midground.png",
+      "assets-src/images/R10/originals/passage.png",
+      "assets-src/images/R10/registered/midground.png",
+      "public/assets/images/R10/midground.webp"
+    ],
+    "uses": [
+      "docs/evidence/spec001/final-rooms/T139/usage/R10-LAYER-R10-midground.json"
+    ],
+    "runtimeEvidencePaths": [
+      "docs/evidence/spec001/final-rooms/T139/R10-arrival-1280.png",
+      "docs/evidence/spec001/final-rooms/T139/guest.json"
+    ],
+    "sourceAudit": "docs/evidence/spec001/media-audit/media-formats.json",
+    "roomGallery": "docs/evidence/spec001/media-audit/twelve-rooms.jpg"
+  }
+}

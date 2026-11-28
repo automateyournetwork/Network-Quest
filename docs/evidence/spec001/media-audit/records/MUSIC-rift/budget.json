@@ -1,0 +1,46 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-MUSIC-rift",
+  "hashes": [
+    "b632860395ea997a955d1d00a3e77d1fe556376f37489f1020f5a335115108d7",
+    "a42e98b85e09b7e1f4f25fdfd3104c826be955c20379e5b75942419a3e5ef278",
+    "260b621067aed17c4f23c8a728783600339ad0037bca3db49a3b613d06c893fa",
+    "c9c991a0c6b8af41fb4aeca66779e6cf19c943e10726a99055cb4ef5af88f4a4",
+    "3085540951eaa011f555b4c9fc706f63b45ad765c9faa52e60e0be3537998659",
+    "34df3e350d09e6a61e4f4f85cfeaeed8e5c8d2d829ceae651d41bef5e84a1a5c"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Spec001 T141 media audit",
+  "date": "2026-11-27",
+  "environment": "Mac16,7, macOS 26.6.2 arm64, Blender 5.2.1 LTS, Firefox 159, Pillow, ffprobe.",
+  "check": "budget",
+  "details": {
+    "usage": [
+      "docs/evidence/spec001/final-rooms/T140/usage/R11-MUSIC-rift.json"
+    ],
+    "roomBudgetPath": "docs/evidence/spec001/media-audit/room-budgets.json",
+    "roomBudgetSha256": "be3bd78d58fc6a80622fd4a5d279c7460c1e06673c91c76025059d44d65003bc",
+    "registeredRooms": [
+      "R11"
+    ],
+    "encodedOnDemandBytes": 2048300,
+    "mediaProbes": [
+      {
+        "path": "assets-src/audio/T125/masters/rift.wav",
+        "codec_name": "pcm_s24le",
+        "sample_rate": "48000",
+        "channels": 2,
+        "duration": 85.28
+      },
+      {
+        "path": "public/assets/audio/music/rift.mp3",
+        "codec_name": "mp3",
+        "sample_rate": "48000",
+        "channels": 2,
+        "duration": 85.28
+      }
+    ],
+    "scope": "Measured stream transfer and master/export channel, duration and sampling costs. The aggregate byte accounting for each registered room is attached. Delayed cues are loaded on demand; T154 measures the full timed application shell and arrival."
+  }
+}

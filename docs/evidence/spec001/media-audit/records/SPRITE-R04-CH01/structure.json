@@ -1,0 +1,39 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-SPRITE-R04-CH01",
+  "hashes": [
+    "c15a81981f769105ef10735f9ebe8e0c4676f0b1be4f97b8332edc77a66e1af6",
+    "4ec0e01cb11800b9aa66861bc1bb4f738c973a1a55225994cd529c4810a86e6d",
+    "3d1d6163a9d296d337fad6a518c2476092939c4a82f09b21658b5a810369c2bc",
+    "8264d771d26aa7d1d715a6508c00701e1716d3b9a78c57e9281a5dd5fc4bd569"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Spec001 T141 media audit",
+  "date": "2026-11-27",
+  "environment": "Mac16,7, macOS 26.6.2 arm64, Blender 5.2.1 LTS, Firefox 159, Pillow, ffprobe.",
+  "check": "structure",
+  "details": {
+    "observedPaths": [
+      "assets-src/sprites/R04/R04-sprite-stage.blend",
+      "assets-src/sprites/R04/render.py",
+      "assets-src/sprites/R04/pack.py",
+      "public/assets/sprites/R04/CH01.webp"
+    ],
+    "checks": {
+      "decoded": {
+        "format": "WEBP",
+        "size": [
+          599,
+          714
+        ],
+        "alphaRange": [
+          0,
+          255
+        ]
+      },
+      "frames": "assets-src/sprites/R04/native-frames.json",
+      "actualDraws": "docs/evidence/spec001/media-audit/R04-canvas.json"
+    }
+  }
+}

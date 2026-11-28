@@ -1,0 +1,46 @@
+{
+  "type": "review",
+  "assetId": "spec001:ASSET-MUSIC-workshop",
+  "hashes": [
+    "d350850a479db2e2eb7be6e111331488836c467f80c964d295808a88837651e2",
+    "66d22b561576151aa824eaa466e2bc40e1d2c6f23c98bfd488005fe445f80458",
+    "f83d1a000e04f4f477c228ded8123c4a8e5781f4bf8e209b87d5613cb8c05988",
+    "64d5a10bb59bbb2a2ccf9c433075f2046d1c691ba8abacf480557ac8cb9317d9",
+    "5b5d107668c28b4ab64f47db9fae598769cfd8ae003b2506996faac08a7bde93",
+    "9f012fc075738f399af8697cb5600bd1847a020269fa939107941948baf03bd0"
+  ],
+  "status": "passed",
+  "actor": "agent",
+  "reviewer": "Spec001 T141 media audit",
+  "date": "2026-11-27",
+  "environment": "Mac16,7, macOS 26.6.2 arm64, Blender 5.2.1 LTS, Firefox 159, Pillow, ffprobe.",
+  "check": "budget",
+  "details": {
+    "usage": [
+      "docs/evidence/spec001/final-rooms/T135/usage/R02-MUSIC-workshop.json"
+    ],
+    "roomBudgetPath": "docs/evidence/spec001/media-audit/room-budgets.json",
+    "roomBudgetSha256": "be3bd78d58fc6a80622fd4a5d279c7460c1e06673c91c76025059d44d65003bc",
+    "registeredRooms": [
+      "R02"
+    ],
+    "encodedOnDemandBytes": 1969388,
+    "mediaProbes": [
+      {
+        "path": "assets-src/audio/T124/masters/workshop.wav",
+        "codec_name": "pcm_s24le",
+        "sample_rate": "48000",
+        "channels": 2,
+        "duration": 82.0
+      },
+      {
+        "path": "public/assets/audio/music/workshop.mp3",
+        "codec_name": "mp3",
+        "sample_rate": "48000",
+        "channels": 2,
+        "duration": 82.0
+      }
+    ],
+    "scope": "Measured stream transfer and master/export channel, duration and sampling costs. The aggregate byte accounting for each registered room is attached. Delayed cues are loaded on demand; T154 measures the full timed application shell and arrival."
+  }
+}
