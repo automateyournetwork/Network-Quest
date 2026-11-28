@@ -105,12 +105,14 @@ final class DeletionLedger
         return $ledger;
     }
 
-    /** Bounded250ms EX flock. Acquire BEFORE any game DB transaction; never nest/reenter. */
+    /** Bounded EX flock before any game transaction. Concurrent cold requests share this barrier. */
     public function exclusive(callable $operation): mixed
     {
         if ($this->held || $this->storage->connection()->inTransaction()) { throw new LogicException('Recovery barrier cannot be nested.'); }
         $this->assertStorage();
-        $until = hrtime(true) + 250000000;
+        // Allow a burst to pass the external barrier within the two-second
+        // service target. Individual SQLite transactions retain their 250 ms bound.
+        $until = hrtime(true) + 750_000_000;
         while (!flock($this->lock, LOCK_EX | LOCK_NB, $wouldBlock)) {
             if (!$wouldBlock || hrtime(true) >= $until) { throw new RuntimeException('Recovery barrier is unavailable.'); }
             usleep(5000);

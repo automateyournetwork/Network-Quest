@@ -442,6 +442,29 @@ final class DatabaseTest extends TestCase
         self::assertSame('', file_get_contents($this->path()));
     }
 
+    public function testLiveJournalMustBeAPrivateSingleLinkFileOfTheStorageOwner(): void
+    {
+        $journal = $this->path() . '-journal';
+        $other = $this->environment->writeFile('synthetic-journal', 'original bytes');
+        self::assertTrue(link($other, $journal));
+        try {
+            $this->rejected(fn () => $this->open(), RuntimeException::class);
+            self::assertSame('original bytes', file_get_contents($other));
+        } finally { unlink($journal); }
+        self::assertTrue(mkdir($journal, 0700));
+        try { $this->rejected(fn () => $this->open(), RuntimeException::class); }
+        finally { rmdir($journal); }
+
+        // Exercise ownership without privileges or changing another user's files.
+        file_put_contents($journal, 'untouched');
+        chmod($journal, 0600);
+        try {
+            $sidecars = new ReflectionMethod(Database::class, 'sidecars');
+            $this->rejected(fn () => $sidecars->invoke(null, $this->path(), fileowner($journal) + 1), RuntimeException::class);
+            self::assertSame('untouched', file_get_contents($journal));
+        } finally { unlink($journal); }
+    }
+
     public function testSymlinkAncestorsAndReplacementOfOpenStorageAreRejected(): void
     {
         $pdo = $this->ready();

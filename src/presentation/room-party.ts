@@ -26,6 +26,10 @@ export function createRoomParty(scene: Scene, media: {
     m.lease.release();
   }
   return {
+    get animating() {
+      for (const member of members.values()) if (member.mixer) return true;
+      return false;
+    },
     updateView(view: RoomView) {
       const selected = (view.activeAllyIds ?? []).slice(0, placements.length);
       for (const [id, member] of members) if (!selected.includes(id)) remove(id, member);
@@ -47,9 +51,11 @@ export function createRoomParty(scene: Scene, media: {
           member.root = root;
           root.position.set(...placements[member.slot]!);
           scene.add(root);
-          member.mixer = new AnimationMixer(root);
           const idle = resource.gltf.animations.find(clip => clip.name === 'idle');
-          if (idle) member.mixer.clipAction(idle).play();
+          if (idle) {
+            member.mixer = new AnimationMixer(root);
+            member.mixer.clipAction(idle).play();
+          }
           const arrays = new Set<ArrayBufferLike>();
           root.traverse(o => { if ('geometry' in o) {
             const g = (o as import('three').Mesh).geometry;

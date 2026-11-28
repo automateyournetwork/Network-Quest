@@ -141,16 +141,20 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
       }));
       const hero = sprites.find(s => s.subject.id === 'CH01')!;
       const walk = createRoomWalk(hero.subject.position, new Map(stageData.walkStops.map(stop => [stop.objectId, stop.position])));
-      let attached = false, alive = true, paused = false, timer: number | undefined;
+      let attached = false, alive = true, paused = false, timer: number | undefined, frame: number | undefined;
       let clock = 0, last: number | null = null, draws = 0;
       const motion = !request.settings.reducedMotion && request.settings.detail !== 'low';
       const media = { bindings: new Map(bindings.map(b => [b.assetId, b])), composition: {
         partyPositions: stageData.partyPositions, models: room.characterIds.map(semanticId => ({ character: true, semanticId })),
       } };
       const models = createSpriteStageModels(doc, root, request, media, stageData.camera, architecture, gameBase, draw);
-      function stopTimer() { if (timer !== undefined) win.clearTimeout(timer); timer = undefined; }
+      function cancelDraw() {
+        if (timer !== undefined) win.clearTimeout(timer);
+        if (frame !== undefined) win.cancelAnimationFrame(frame);
+        timer = frame = undefined;
+      }
       function draw() {
-        stopTimer();
+        cancelDraw();
         if (!alive || !attached || paused || request.signal.aborted) return;
         const now = win.performance.now();
         if (last !== null) {
@@ -190,7 +194,8 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
         for (; allyIndex < allies.length; allyIndex++) allies[allyIndex]!.draw();
         root.dataset['rendered'] = 'true'; root.dataset['renderCount'] = String(++draws);
         root.dataset['animatedActors'] = motion ? String(sprites.filter(s => s.clip !== 'rest').length) : '0';
-        if (motion && Number.isFinite(next)) timer = win.setTimeout(draw,Math.max(1,Math.ceil(next)));
+        if (motion && (walk.moving || models.party.animating)) frame = win.requestAnimationFrame(draw);
+        else if (motion && Number.isFinite(next)) timer = win.setTimeout(draw,Math.max(1,Math.ceil(next)));
       }
       function react(kind: 'walk'|'reaction', target?: string) {
         if (!alive || paused) return;
@@ -233,7 +238,7 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
       function disposeSession() {
         if (!alive) return;
         alive = false; if (active?.dispose === disposeSession) active = null;
-        events.abort(); pointer.dispose(); stopTimer(); models.dispose(); root.remove();
+        events.abort(); pointer.dispose(); cancelDraw(); models.dispose(); root.remove();
       }
       return {
         attach() {
@@ -243,7 +248,7 @@ export function createSpriteRoom(host: HTMLElement, registry: ContentRegistry, g
         updateView(next) { pointer.cancel(); view = next; models.party.updateView(view); updateChoices(); },
         setPaused(value) {
           paused = value; last = null; root.dataset['paused'] = String(paused);
-          if (paused) { pointer.cancel(); stopTimer(); root.dataset['animatedActors'] = '0'; }
+          if (paused) { pointer.cancel(); cancelDraw(); root.dataset['animatedActors'] = '0'; }
           else if (attached) draw();
         },
         dispose: disposeSession,

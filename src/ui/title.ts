@@ -1,4 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+import { appendCredits } from './credits';
 import type { AdventureId, ObjectiveId } from '../domain/types';
 import type { ReducerState } from '../state/reducer';
 import type { SaveSummary } from '../state/types';
@@ -81,7 +82,8 @@ export function createTitlePanel(host: HTMLElement, act: (action: TitleAction) =
   continueButton.setAttribute('aria-disabled', 'true'); continueButton.setAttribute('aria-describedby', 'continue-unavailable');
   const continueReason = doc.createElement('p'); continueReason.id = 'continue-unavailable';
   controls.append(newAdventure, continueButton, button('Settings', 'settings'), button('Credits', 'credits'), save);
-  element.append(heading, subtitle, identity, controls, continueReason, message);
+  // The asynchronously resolved identity may wrap onto several lines.
+  element.append(heading, subtitle, controls, identity, continueReason, message);
   const panels = new Map<Exclude<TitlePanel, 'none'>, { element: HTMLElement; heading: HTMLHeadingElement }>();
   const makePanel = (key: Exclude<TitlePanel, 'none'>, name: string, paragraphs: readonly string[]) => {
     const section = doc.createElement('section'), title = doc.createElement('h2'); section.setAttribute('role', 'dialog'); section.setAttribute('aria-label', name); section.hidden = true;
@@ -104,9 +106,9 @@ export function createTitlePanel(host: HTMLElement, act: (action: TitleAction) =
     'All dialogue is readable as text. Open Sound and reading for audio levels, replay, captions, text size and reduced motion. Native keyboard controls and browser zoom remain available.']);
   const presentationHost = doc.createElement('div');
   settings.append(button('Close settings', 'cancel'), presentationHost);
-  const credits = makePanel('credits', 'Credits', ['Network Quest — John Capobianco.', 'Original code: Apache-2.0. Original writing and project materials: CC BY 4.0.',
-    'This development build contains the opening investigation and the Arrival Lift’s produced media. The complete episode remains in production; room and release reviews are separate.']);
-  const source = doc.createElement('a'); source.href = 'https://github.com/automateyournetwork/Network-Quest'; source.textContent = 'Source and attribution notices'; credits.append(source, button('Close credits', 'cancel'));
+  const credits = makePanel('credits', 'Credits', []);
+  credits.append(button('Close credits', 'cancel'));
+  appendCredits(credits);
   host.append(element); let shown: TitlePanel = 'none', returnFocus: HTMLElement | null = null;
   element.addEventListener('keydown', event => {
     if (event.key === 'Escape' && shown !== 'none' && !event.repeat && !event.isComposing && !event.ctrlKey && !event.metaKey && !event.altKey) {

@@ -26,7 +26,11 @@ cap. **Do not restart, reset the counter or discard dirty work.**
 
 ## Current position — 2026-11-28
 
-**173 loops started; 139/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+**175 loops started; 141/170 tasks accepted; no deployment.** All twelve rooms passed their local technical checks and reached the remote at `59768bf788f9c8609b8687235ca21a2b7942f871`. The coordinator repeated eight ordinary Firefox journeys covering every room, including the three Rift endings. The combined run passed 4,350 executable tests across 117 suites. The inventory covers 396 primary records, two alternate renditions and 471 observed uses. The media audit subsequently observed all fifteen conditional uses. [Twelve-room verification](../evidence/spec001/final-rooms/twelve-room-join.json)
+
+The release candidate now passes the three previously failing local performance checks. All 12 title activations reached the Arrival Lift, eight real Echo Cavern walks exceeded 119 position updates per second and all 780 requests across three 20-session service trials validated. Credits cover the 398 media renditions and runtime dependencies. The older and current native browser matrix, independent public build, real-provider checks, listening and human release gates retain their own evidence. [Performance retest](../evidence/spec001/performance.md) · [Credits verification](loops/173-T156.md)
+
+The accessibility and performance checkpoint reached GitHub at `ec8c33becbcb52ba6560fcf10cbbf3b50663dbe1`. All twelve rooms and three endings passed 73 automated accessibility audits, with 105 uncertain contrast readings checked against rendered pixels. The independent build matched the browser matrix across all 440 public files. The domain rerun passed 4,390 executable cases. T155 owns three measured regressions involving simultaneous saves, active Echo Cavern walking and the New Adventure button moving during a pointer press. [Whole-episode access](../evidence/spec001/US5.md) · [Performance evidence](../evidence/spec001/performance.md)
 
 The November 28 resumption recovered the same three interrupted workers. T148 passed all eighteen Firefox settings and focus cases, T149 verified the complete Clockworks and Iron Threshold toolbars across desktop, touch and true full-page zoom, and T150 passed ten recovery cases. The held room download now exposes recovery within twelve seconds. The three tasks closed under their original loop numbers. [Settings](loops/165-T148.md) · [Responsive layout](loops/166-T149.md) · [Recovery](loops/167-T150.md)
 
@@ -205,8 +209,12 @@ Loop 171/T154: Measured all twelve rooms, two viewports, twelve startup attempts
 
 Loop 169/T152: All 22 registered accessibility, recovery and visibility cases passed. Across 73 full-page audits and 105 painted contrast checks the final candidate had no reported violations. Genuine macOS accessibility actions verified note entry and focus. [Verification](loops/169-T152.md).
 
+Loop 173/T156: All 398 media renditions and 424 public media files have verified credits, including runtime dependencies and source notices. Five native title and in-game credits checks passed and an independent build matched all 442 files. [Verification](loops/173-T156.md).
+
+Loop 172/T155: The verified 442-file normal build passed twelve first-click loads, smooth Echo Cavern movement, resource disposal and 780 out of 780 simultaneous-service checks. A repeated six-fixture pressure control and the full PHP suite passed. [Verification](loops/172-T155.md).
+
 <!-- current production assignments -->
-Active assignments: 170/T153, 172/T155, 173/T156.
+Active assignments: 170/T153, 174/T157, 175/T158.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

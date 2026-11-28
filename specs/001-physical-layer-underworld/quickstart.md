@@ -1,41 +1,44 @@
 # Quickstart: Spec001 implementation
 
-**Status:** implementation initiated on 2026-11-25. Follow [HANDOFF](../../docs/implementation/HANDOFF.md) for current progress. The pinned client/PHP toolchain, local HTTPS, content checks and test commands are implemented. Configured local service tests cover synthetic account/save/logout/deletion journeys; the default unconfigured server deliberately remains unavailable. [README](../../README.md) documents commands and boundaries. T061 implements `assets:verify`: inventory auditing passes with planned assets; `-- --mode release` correctly fails until finished media has evidence. Release packaging/deployment commands remain planned. Local checks do not certify actual provider behavior or episode acceptance.
+The Spec001 candidate includes twelve connected rooms and three endings. Choose
+**New Adventure** for the guest game. The public build includes the registered
+media and the Credits links from the title and Game menus. The configured PHP
+test service exercises single-slot account journeys with disposable synthetic
+accounts. The implementation handoff records the remaining provider, human and
+release evidence. [Current handoff](../../docs/implementation/HANDOFF.md) · [Delivery contract](contracts/delivery.md)
 
-Read [spec.md](spec.md), [plan.md](plan.md), [research.md](research.md) and [constitution](../../.specify/memory/constitution.md). The working branch is `001-physical-layer-underworld`. Execute the existing task batches with one task per fresh-agent loop and persistent verification notes.
+## Run the public candidate
 
-## G0 preparation
+1. Clone `001-physical-layer-underworld` from the public repository into a clean directory. For an exact repeat use the full Git revision of the candidate being checked. Use Node 26.13.1, npm 11.20.0, PHP 8.4.28 and Composer 2.11.3. The README includes the clone command and links to the verified downloads and PHP platform requirements. [Toolchain and build](../../README.md#build-and-play-from-a-public-checkout)
+2. From the project root run `npm ci` and `composer install --working-dir=server`. Run `npm run check` and `npm run build`. The build produces `dist/` with its Vite manifest, playable exports and both credits files.
+3. Run `npm run preview:client` and open the printed loopback address at `/arcade/play/network-quest/` for the static game. For a shared HTTPS client and PHP server, use the documented local certificate/key procedure and `npm run dev`. The default unconfigured API reports 503 and leaves guest play available. [Local HTTPS](../../README.md#local-https-and-php)
+4. Use an empty sibling directory to independently fetch editable media, including Blender scenes, Audacity projects, raw images and audio. The fetcher checks the size and SHA-256 of each source. The versioned index and guide retain the earlier source snapshot as well. [Retrieval and offline verification](../../docs/source-retrieval.md)
+5. Run the credit-register and bundle checks from the public checkout to verify asset and software attribution against source files, the lockfiles and installed production packages. [Verify the credits](../../docs/licenses.md#verify-the-registers)
 
-1. Record actual Mac hardware, free disk and tools. Local metadata observed Node 25.3.0/npm11.7.0, Blender5.2.1 and Audacity4.0.0 at /Applications/Audacity 4.app; these observations do not prove supported production readiness.
-2. Select Node26LTS, PHP8.4 supported patch, candidate dependency versions from the plan, a tested Blender5.2LTS patch and Audacity4.0.2 or an explicitly justified alternative. Install/lock only during implementation. Audacity4 uses .aup4 and lacks the old scripting pipe.
-3. Verify the actual GoDaddy web/CLI runtime, extensions, outbound HTTPS, private paths, locking/quota, scheduled backups/cleanup and recovery storage. Record non-secret evidence. Never reuse analytics storage.
-4. Register dedicated Google/GitHub applications with exact configured HTTPS callbacks in delivery.md. Keep secrets in private server environment/config outside docroot and Git. Client VITE_ variables contain public base/API paths only.
-5. Use real local HTTPS or a private staging origin, preserving Secure cookies. A same-origin proxy must present game and API under production-shaped nested paths. Document the chosen local TLS/PHP launch procedure when implemented; do not disable TLS/session checks to make OAuth appear to work.
-6. Author independent T01–T16 fixtures and precise source claims before evaluators. Validate correct/incorrect/boundary examples.
-7. Launch/reopen/export representative Blender and Audacity sources, review actual model/component/output licenses, then audition local Kokoro and ACE-Step1.5. Record runtime/memory/listening results before bulk media; no production feasibility is established by this document.
+## Local verification
 
-## Command contract (implemented status above and in README)
-
-These commands must be implemented, fail on real errors and never deploy implicitly:
-
-| Command | Contract |
+| Command | What it exercises |
 | --- | --- |
-| npm ci | Install pinned client/tool dependencies from committed lockfile |
-| composer install --working-dir=server | Install pinned PHP dependencies; package production without development dependencies |
-| npm run dev | Loopback HTTPS/Vite/PHP with explicit TLS inputs. The default unconfigured service reports unavailable; isolated configured test services execute account/save routes. README documents startup and limitations. |
-| npm run check | Type checking, schemas, content references and route/quest graph |
-| npm run test:domain | Independent physical-rule and state cases, including T01–T16 and retry invariants |
-| npm run test:api | Service/security/concurrency/migration checks against explicitly isolated test storage |
-| npm run test:e2e | Browser journeys, semantic keyboard path, save/adoption/conflict and recovery |
-| npm run assets:verify | Source/export/use/rights/count/hash checks; reports human reviews separately |
-| npm run build | Standalone static client and manifest; no private website dependency |
-| npm run package:release | Checksummed client/PHP/schema/credits/source index; excludes secrets, DBs and player data |
+| `npm run dev:verify` | Disposable local HTTPS, same-origin routing, certificate trust, synthetic cookie and private-file controls |
+| `npm run test:domain` | Authored content, UI, physical rules, measurements, state and retry handling |
+| `npm run test:api` | PHP services, security, concurrency, migrations and recovery against isolated storage |
+| `npm run test:e2e` | The registered browser projects, including guest play, keyboard/recovery and configured synthetic-account journeys |
+| `npm run assets:verify` | Inventory, uses, sources, exports, rights and recorded review |
+| `npm run assets:verify -- --mode release` | Enforces accepted counts and distribution; the media audit records the remaining listening-dependent findings |
 
-PHP test tooling uses PHPUnit12.5; shared Draft2020-12 fixtures must agree between Ajv2020 with ajv-formats and Opis. Production rejects test-auth configuration. Mock identities are confined to tests and cannot satisfy AC11.
+For PHP-backed tests put the pinned binaries on PATH. Set `NQ_PHP_BIN` and
+`NQ_TEST_NODE_BIN` to their absolute paths. The browser suite also requires
+its pinned Playwright browsers, OpenSSL and Mozilla NSS. Installation and
+test-run instructions are in the README. Release packaging, host recovery and
+publication are tracked separately. [Test commands](../../README.md#available-commands-and-limits) · [Gate ledger](../../docs/evidence/spec001/gates.md)
 
-## First executable slice
+## Implementation contracts
 
-After verified local runtime/source/bootstrap prerequisites, expand the local bootstrap into an R01/R02 graybox; retain external G0 checks and do not certify aggregate G1 until required evidence passes with four verbs and semantic objects, notebook freshness, T01/T02/T14 plus boundary, and the known-payload packet view. Then implement the world registry and account/single-slot contract. Finish and measure a representative room before full media production. Follow W01–W09 and G0–G7 rather than advancing to another episode.
+Read the specification, plan, research and constitution. The execution table
+controls the order of implementation across story sections. Preserve the
+independent teaching fixtures, the one-save contract, the external hosting and
+provider checks, genuine native sources and human listening decisions.
+[Spec001](spec.md) · [Plan](plan.md) · [Research](research.md) · [Constitution](../../.specify/memory/constitution.md) · [Task batches](tasks.md)
 
 ## Verification runs to preserve
 

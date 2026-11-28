@@ -2,41 +2,62 @@
 
 Copyright 2026 John Capobianco. SPDX-License-Identifier: CC-BY-4.0.
 
-An original browser adventure through the OSI realms, beginning with the Physical
-Layer Underworld. **Current state: the R01/R02 guest introduction is playable in
-memory, with four verbs, dialogue, inventory, a notebook, physical measurements
-and the initial packet journey. The PHP account/save service passes isolated
-integration tests; browser integration, real providers, finished media and the
-complete episode remain in development. No release has been deployed.**
-See [implementation status](docs/implementation/HANDOFF.md),
-[governing constitution](.specify/memory/constitution.md), [SPEC.md](SPEC.md) and
-[PLAN.md](PLAN.md). The public project builds independently of the owner's website.
+Network Quest is an original browser adventure through the OSI realms. The
+Physical Layer Underworld candidate has twelve connected rooms, copper, fiber
+and radio investigations, recruitable companions, packet journeys and three
+endings. Choose **New Adventure** to play as a guest. Guest progress lives in
+the current tab. The browser also supports one-slot account saves, Continue,
+settings, logout and deletion with the configured PHP service. The public
+development tests use disposable synthetic accounts. Real provider sign-in,
+human review and live release have their own acceptance records.
+[Implementation status](docs/implementation/HANDOFF.md) · [Constitution](.specify/memory/constitution.md) · [Spec001](SPEC.md) · [Plan](PLAN.md)
 
-## Toolchain
+## Build and play from a public checkout
 
-Use Node **26.13.1**, npm **11.20.0**, PHP **8.4.28**, and Composer **2.11.3**.
-[Runtime evidence](docs/evidence/spec001/runtime.md) documents the verified Mac
-installation. Other machines supply the same versions on their own paths; the
-launcher defaults to `php` on PATH. Do not load a credential `.env` as shell code.
-
-On the verified Mac, apply these overrides to each command (or a dedicated terminal):
+Clone the Spec001 branch into a new directory. The checkout contains the game,
+its exported media and the two dependency locks. Editable media account for
+about 2 GB before Git objects, dependencies and build output.
 
 ```sh
-export PATH="$PWD/.runtime/node-v26.13.1-darwin-arm64/bin:$PATH"
-export NQ_PHP_BIN=/opt/homebrew/opt/php@8.4/bin/php
-node --version
-npm --version
-"$NQ_PHP_BIN" --version
-npm ci
-"$NQ_PHP_BIN" .runtime/composer-2.11.3.phar install --working-dir=server
+git clone --depth 1 --branch 001-physical-layer-underworld \
+  https://github.com/automateyournetwork/Network-Quest.git
+cd Network-Quest
 ```
 
-On another machine use its own pinned Node/PHP/Composer paths; there is no runtime
-download or global configuration change in the development launcher. PHP uses its
-normal installed module configuration, with local session/error overrides and no
-inherited provider/configuration environment. Dependencies are pinned in the two
-lock files. [Client](docs/evidence/spec001/client-bootstrap.md) and
-[PHP](docs/evidence/spec001/php-bootstrap.md) evidence describe their scope.
+Use Node **26.13.1** with bundled npm **11.20.0**, PHP CLI **8.4.28** with the
+extensions in `server/composer.json`, and Composer **2.11.3**. Put the pinned
+executables on PATH. The runtime record includes the official Node and Composer
+download URLs and the verified SHA-256 values for macOS arm64. If using the
+Composer PHAR, substitute `php /path/to/composer-2.11.3.phar` for `composer`.
+[Runtime downloads and checksums](docs/evidence/spec001/runtime.md#artifact-verification)
+
+```sh
+node --version
+npm --version
+php --version
+composer --version
+npm ci
+composer install --working-dir=server
+npm run check
+npm run build
+npm run preview:client
+```
+
+Open the printed loopback address at `/arcade/play/network-quest/` (default
+`http://127.0.0.1:4173/arcade/play/network-quest/`). The static preview serves
+the guest adventure and the offline media and software credits. Stop it with
+Ctrl+C. The build writes the deployable static files to `dist/`, including
+`.vite/manifest.json`. It runs on the public game sources, without access to
+the owner's website or provider accounts. The separate media download is useful
+for contributors who want an independently verified editable copy.
+[Editable source instructions](docs/source-retrieval.md) · [Credits and licenses](docs/licenses.md)
+
+On the original development Mac the pinned Node installation lives under
+`.runtime/node-v26.13.1-darwin-arm64/bin`, PHP under
+`/opt/homebrew/opt/php@8.4/bin`, and Composer at
+`.runtime/composer-2.11.3.phar`. Supply your own tool paths on a new machine.
+The test harness accepts `NQ_PHP_BIN` and `NQ_TEST_NODE_BIN` as absolute paths.
+[Client bootstrap](docs/evidence/spec001/client-bootstrap.md) · [PHP bootstrap](docs/evidence/spec001/php-bootstrap.md)
 
 ## Local HTTPS and PHP
 
@@ -114,15 +135,14 @@ Do not bypass certificate errors, add insecure browser flags, use `curl -k`, or 
 `NODE_TLS_REJECT_UNAUTHORIZED=0`. The launcher does not open a browser. HMR and file
 watching are disabled in the combined bootstrap; restart after source or public-file
 edits, then reload. Vite's development connection shares the verified TLS port and
-requires the exact Host, Origin, game path and its connection token. Human
-accessibility, actual Safari and complete-episode acceptance remain separate checks.
+requires the exact Host, Origin, game path and its connection token. See the [browser matrix](docs/evidence/spec001/browser-matrix.md) for actual Safari runs and outstanding coverage.
 
 `NQ_DEV_PORT` may explicitly select another unprivileged port; the printed origin
 and any future provider registration must then match it exactly. Local HTTPS
 rejects `VITE_GAME_BASE`/`VITE_API_BASE` overrides that change the production-shaped
 paths. Static builds still support the validated public route variables.
 
-## Future development OAuth registrations
+## Development OAuth registrations
 
 No credentials are needed for this bootstrap. The privately stored owner-confirmed
 production Google/GitHub applications are production-only and are never loaded by
@@ -143,25 +163,24 @@ secrets, fake a login, or weaken Secure cookies to make a callback appear to wor
 
 | Command | Implemented behavior |
 | --- | --- |
-| `npm run dev` | Loopback HTTPS frontend plus shared PHP router; contracted operations are explicitly unavailable |
+| `npm run dev` | Loopback HTTPS guest game with the shared, unconfigured PHP router |
 | `npm run dev:verify` | Disposable TLS/HTTP/PHP transport checks; generates and removes private synthetic fixtures and a temporary certificate; no real login/data/browser |
 | `npm run dev:client` | HTTP Vite client only at the printed nested URL; no PHP/auth support |
 | `npm run typecheck` | Strict TypeScript check of client, TS tools/tests and runner configurations |
 | `npm run check` | Typecheck, content/reference validation and generated save-policy drift check |
-| `npm run test:domain` | Vitest content/state/UI/presentation and source-fixture checks; 15 reviewed copper/content-error cases execute, 68 evaluator cases remain pending |
+| `npm run test:domain` | Vitest physical rules, authored content, state, presentation, UI and contributor tooling. Earlier TODO cases are reported separately |
 | `npm run test:api` | Actual PHP auth/save/recovery/account services and local HTTPS entry using isolated synthetic accounts; no real providers or production data |
-| `npm run test:e2e` | Build plus Chromium/Firefox title checks and isolated Firefox HTTPS router, controllers, guest and packet journeys; see the implementation handoff for actual passing and pending evidence |
+| `npm run test:e2e` | Build and run registered browser projects covering the title, guest episode, trusted local HTTPS, synthetic accounts, accessibility and media recovery |
 | `npm run build` | Typecheck and save-policy drift check, then static Vite build in ignored `dist/` |
 | `npm run preview:client` | HTTP static build preview on loopback; no PHP/auth support |
-| `npm run save-policy:generate` | Regenerate the PHP new-write policy from actual authored introduction content |
+| `npm run save-policy:generate` | Regenerate the PHP new-write policy from the authored Spec001 content |
 | `npm run save-policy:check` | Fail if the checked-in policy differs from its actual source inputs |
 
 `dev:verify` needs the same pinned Node/PHP and OpenSSL. It verifies trust rejection,
 private-path/symlink denial, same-origin routing, header replacement, a **synthetic**
 Secure/HttpOnly/SameSite=Lax host-only cookie, port conflicts and shutdown. That
 cookie exists only in an external temporary probe router and represents no identity.
-No fixture is derived from production data. The shared public entry implements
-the route/security boundary only.
+The shared PHP entry selects its configured account service only when its private configuration and initialized stores are available.
 
 Vite retains its standard private-file deny patterns and adds project private paths.
 An early boundary also covers `public/`, symlinks, encoded paths and `/@fs`.
@@ -183,43 +202,28 @@ Install just the matching browser binaries when needed:
 
 ```sh
 PLAYWRIGHT_SKIP_BROWSER_GC=1 node node_modules/playwright/cli.js install chromium firefox
-NQ_PHP_BIN=/opt/homebrew/opt/php@8.4/bin/php npm run test:e2e
+NQ_PHP_BIN="$(command -v php)" NQ_TEST_NODE_BIN="$(command -v node)" npm run test:e2e
 ```
 
-Static smoke uses a freshly started loopback HTTP preview of `dist/` on port 4173;
-an occupied port fails instead of reusing an unknown server. It verifies shell
-JavaScript/CSS, nested routing, private-file denial and automated text-shell
-accessibility at 390px. It is not API/session evidence. The separate Firefox test
-uses a disposable HTTPS/PHP server, one-day CA/SAN leaf and unique NSS profile,
-proves an untrusted profile rejects that certificate, then verifies the trusted
-shell and actual 503/404/405 router behavior. Certificate errors are never ignored.
-CA/key/profile/server files and processes are removed after each check. No browser
-cookie is created by the real foundation API; synthetic Secure session checks
-belong to the isolated PHP/transport harnesses.
+Static smoke starts a loopback HTTP preview of `dist/` on port 4173 and checks
+the nested route, scripts, styles, private-file denial and narrow layout.
+The Firefox HTTPS projects use disposable certificate authorities, private
+profiles and local PHP. The unconfigured service returns 503/404/405 for the
+corresponding routes. Configured tests use isolated synthetic accounts to
+exercise saving, Continue, settings, logout and deletion. Close any preview
+using the test port before running the suite. Vitest discovers
+`tests/**/*.test.ts`. Playwright checks that every file under `tests/e2e/` is
+assigned to a project. [Browser projects](playwright.config.ts) · [Service test harness](server/tests/README.md)
 
-Vitest discovers `tests/**/*.test.ts`. Playwright explicitly assigns each suite
-under `tests/e2e/` to its static or trusted-HTTPS project; its discovery guard
-fails if a new browser test has no project. Current HTTPS suites cover the guest
-investigation, packet view, save/restore, settings, logout and deletion. Configured
-service journeys use isolated synthetic accounts, never production credentials
-or a substitute for actual provider acceptance.
-Both runners exclude runtime/dependency/build trees,
-fail empty runs, and report real failures. Traces/screenshots from failed local
-browser checks remain in ignored `test-results/` for diagnosis.
+`npm run assets:verify` audits the inventory against source, export, use,
+rights and review records. Add `-- --mode release` to enforce media counts and
+distribution. The current media audit records six outstanding release-mode
+findings tied to audio listening and distribution. Use the audit and listening
+packets for the exact reviewed files. [Media audit](docs/evidence/spec001/media-audit.md)
 
-`npm run assets:verify` audits the planned and produced inventory against source,
-hash, lineage, rights, review and actual-use records. Only accepted, evidenced
-assets count. `npm run assets:verify -- --mode release` also enforces the episode's
-media quantities and distribution; it currently fails because finished media is
-not yet accepted. The audit does not perform human listening or owner review.
-See [T061 evidence](docs/implementation/loops/066-T061.md) for limits and records.
-
-`package:release` and deployment commands remain **unimplemented**.
-No script returns false success for those future tasks. A passing foundation run
-does not certify evaluator coverage, gameplay, real sign-in/saves, actual Safari,
-manual assistive/zoom review, media, human learning or episode acceptance.
-See [T011 evidence](docs/evidence/spec001/local-development.md) and
-[T020 command evidence](docs/implementation/loops/024-T020.md).
+Release packaging, host recovery, provider validation and the live arcade
+entry have separate gates. The implementation handoff records their current
+status. [Gate ledger](docs/evidence/spec001/gates.md) · [Implementation handoff](docs/implementation/HANDOFF.md)
 
 ## Reuse and contributions
 
@@ -227,5 +231,5 @@ Original controlled code/build scripts use [Apache-2.0](LICENSE); controlled
 documentation/creative work uses [CC BY 4.0](LICENSE-ASSETS). Third-party material
 retains its licenses: [notices](THIRD-PARTY-NOTICES.md), [contributing](CONTRIBUTING.md),
 and [media source retrieval](docs/source-retrieval.md). Production credentials, player
-records, and the closed website are not public source assets. The owner has authorized reviewed source checkpoints on the feature branch. A
+records and the closed website stay outside this public checkout. The owner has authorized reviewed source checkpoints on the feature branch. A
 finished live game release still requires all applicable acceptance and owner reviews.

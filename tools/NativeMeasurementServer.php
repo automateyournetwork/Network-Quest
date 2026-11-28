@@ -19,6 +19,7 @@ final class NativeMeasurementServer
     public function __construct(TestEnvironment $game, array $config, array $roots)
     {
         if(PHP_VERSION!=='8.4.28'||!extension_loaded('pcntl')||!extension_loaded('posix')) throw new RuntimeException('Pinned PHP with pcntl/posix is required.');
+        $node = TestEnvironment::nodeBinary();
         $this->transport=TestEnvironment::create();
         try {
             $openssl=$this->transport->writeFile('openssl.cnf',"[req]\ndistinguished_name=dn\nx509_extensions=server\nprompt=no\n[dn]\nCN=127.0.0.1\n[server]\nsubjectAltName=IP:127.0.0.1\nbasicConstraints=critical,CA:TRUE\nkeyUsage=critical,digitalSignature,keyEncipherment,keyCertSign\nextendedKeyUsage=serverAuth\n");
@@ -68,7 +69,6 @@ final class NativeMeasurementServer
                 if($socket!==false) { fclose($socket); $ready=true; break; } usleep(20000);
             }
             if(!$ready) throw new RuntimeException('PHP listener startup timed out.');
-            $node=dirname(__DIR__).'/.runtime/node-v26.13.1-darwin-arm64/bin/node';
             $this->proxy=proc_open([$node,dirname(__DIR__).'/server/tests/Support/https-proxy.mjs',$this->ca,$keyFile,(string)$port],
                 [0=>['file','/dev/null','r'],1=>['pipe','w'],2=>['file','/dev/null','w']],$this->proxyPipes,$this->transport->directory(),['LANG'=>'C','LC_ALL'=>'C','NQ_PROXY_TOKEN'=>$token]);
             if(!is_resource($this->proxy)) throw new RuntimeException('TLS proxy failed.');

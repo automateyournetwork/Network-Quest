@@ -118,7 +118,12 @@ main:has(> .nq-game) { max-width: none; margin: 0; padding: 0; }
 .nq-game .nq-window-active button { margin:2px; }
 .nq-game .nq-title-window { width:min(40em,calc(100% - 28px)); padding:2em; }
 /* The title menu is a region. Its live header controls need full contrast. */
-.nq-game .nq-title-window[role=region] { box-shadow:0 12px 40px #000a; }
+.nq-game .nq-title-window[role=region] {
+  /* Account status can add lines below the controls during a native click. */
+  --title-top: max(4em, calc(50% - 12em));
+  inset-block-start:var(--title-top); margin-block:0; max-height:calc(100% - var(--title-top) - 14px);
+  box-shadow:0 12px 40px #000a;
+}
 .nq-game .nq-title-window .nq-menu .nq-shell-controls { gap:.5em; }
 .nq-game .nq-menu[data-adventure=true] { display:block; padding:0; }
 .nq-game .nq-menu[data-adventure=true] > p { margin:.6em 0; }

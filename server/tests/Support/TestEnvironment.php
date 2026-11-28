@@ -159,16 +159,23 @@ final class TestEnvironment
         ]);
     }
 
+    /** The HTTPS proxy enforces the exact Node version when it starts. */
+    public static function nodeBinary(): string
+    {
+        $node = getenv('NQ_TEST_NODE_BIN') ?: dirname(__DIR__, 3) . '/.runtime/node-v26.13.1-darwin-arm64/bin/node';
+        if (!str_starts_with($node, '/') || !is_executable($node)) {
+            throw new RuntimeException('Supply the absolute pinned Node 26.13.1 binary as NQ_TEST_NODE_BIN.');
+        }
+        return $node;
+    }
+
     private function start(string $router, array $extra): string
     {
         $this->assertOwned();
         if ($this->processes !== [] || PHP_VERSION !== '8.4.28') {
             throw new LogicException('Start once per environment with pinned PHP 8.4.28.');
         }
-        $node = getenv('NQ_TEST_NODE_BIN') ?: dirname(__DIR__, 3) . '/.runtime/node-v26.13.1-darwin-arm64/bin/node';
-        if (!str_starts_with($node, '/') || !is_executable($node)) {
-            throw new RuntimeException('Supply the absolute pinned Node 26.13.1 binary as NQ_TEST_NODE_BIN.');
-        }
+        $node = self::nodeBinary();
         $this->certificate();
         $errors = $this->writeFile('transport-errors', '');
         $listener = stream_socket_server('tcp://127.0.0.1:0', $errno, $error);

@@ -1,0 +1,43 @@
+{
+  "reference": "Mac16,7, Apple M4 Pro 14 logical CPUs, 48 GiB, macOS 26.6.2, Firefox 159.0 revision 1572, DPR 1, 1280x720 and 1440x900",
+  "unchangedT154ReportSha256": "beaadd0216001178ab5320a462072490083cac828dee6e26efe39c5821e2e46a",
+  "sourceAndDriverSha256": {
+    "server/src/Database.php": "dc54ba25e919c16103e817c25029973ac8c23f39c05d948faf46ccb95393b037",
+    "server/src/DeletionLedger.php": "4110eda889594967bf31cd0bd9febaf76acd22aded0826cb504f9b504356a5ac",
+    "server/tests/DatabaseTest.php": "c0bc2539ef8f0e118fcd9f24feff2920baba69f853928b9fd0d2913f036abd1b",
+    "server/tests/DeletionLedgerTest.php": "455438a7caf55dafbbb24b9790f38fd7c6fa729f3fb65764d0044bed12fec152",
+    "tests/e2e/title.spec.ts": "d2f3332fe94d894575f6de9aa63563df8ce74621cd600857d94a9e6c43df7263",
+    "tools/measurement/t155-motion.mjs": "d928379306e8cc8389ccdcf93c01daf3135ff6c2fa2cfcb64ae2c28cd71cd088",
+    "tools/measure-save-load.php": "83b4cd4e05d98f615fc065a4d2efc9cc262d3c20c14d4fdb2099631dd03be2f5",
+    "tools/measurement/t154-browser.mjs": "b7654332c2dc9c13e0d9d81be8d46e729ae9094fbf060e517d3e109f07ebdc74",
+    "tools/measurement/t154-party.mjs": "87a0c9e7a77260c7251780baf77050f2ead3433bef6555baca40339e001daca5",
+    "tools/measurement/t154-title.mjs": "065fe88b9f0dc79e3268f1cfad4aa7595d61b87bd96e72e47d138f855032c141",
+    "tools/measurement/t154-route.mjs": "d95caec22ee3f6a8831725641f85c8fa30ecc8578b2b052aa0d26f395fb448f1"
+  },
+  "T155OnlyBrowserSha256": {
+    "src/presentation/room-walk.ts": "f564f3250489cb9e7435f6423d831b8712906cc52e0d270dd6cbda90f43ab614",
+    "src/presentation/room-party.ts": "bca820150153f0168f2eac60f3f874852b4c2bf77a99abeb5f946e1a1ecbb38d",
+    "src/presentation/sprite-room.ts": "6acb078aa830df5dd24cfbafd3008e3d2c15ce683832ca5804dc7f03170714fa",
+    "src/ui/title.ts": "ec31fec8656cf54e2a407549516d57419847e706a8caf1bbd5b00ebfa17e23ee",
+    "src/app/application.css": "7667a418bd6b765def22e1e8fbfb9d1eaad5cbcb7096fdc840a6abbc5e185c44"
+  },
+  "normalCombinedBrowserSha256": {
+    "src/presentation/room-walk.ts": "f564f3250489cb9e7435f6423d831b8712906cc52e0d270dd6cbda90f43ab614",
+    "src/presentation/room-party.ts": "bca820150153f0168f2eac60f3f874852b4c2bf77a99abeb5f946e1a1ecbb38d",
+    "src/presentation/sprite-room.ts": "6acb078aa830df5dd24cfbafd3008e3d2c15ce683832ca5804dc7f03170714fa",
+    "src/ui/title.ts": "39abd8e27aaaf8cc7d5abc89349bd46cb7a853150afb220d835a05448d4fab50",
+    "src/app/application.css": "7667a418bd6b765def22e1e8fbfb9d1eaad5cbcb7096fdc840a6abbc5e185c44"
+  },
+  "tests": {
+    "clientChecks": "Typecheck, content and policy validation passed",
+    "presentationAndTitle": "62 / 62 cases in 9 suites",
+    "apiBeforeSecondFix": "910 cases, 19174 assertions",
+    "apiFinal": "910 cases, 19175 assertions",
+    "narrowFirstAccountRelease": "1 native Firefox test passed, synthetic verified session, remained on title after cancelling confirmation"
+  },
+  "service": {
+    "sqlite": "3.54.1 rollback DELETE, synchronous FULL, busy_timeout 250 ms",
+    "deletionLedgerMaximumWaitMs": 750,
+    "finalProfile": "20 simultaneous sessions for each 260-op, 80-save positive profile. No retries. Independent 20-way negative: missing CSRF and untrusted certificate."
+  }
+}

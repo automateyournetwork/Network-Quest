@@ -1,0 +1,359 @@
+[
+  {
+    "group": "pressure",
+    "fixture": 1,
+    "barriers": 178,
+    "maxWaitMs": 122.343666,
+    "maxHoldMs": 9.718583,
+    "waitedAtLeast250Ms": [],
+    "errors": [
+      {
+        "round": 1,
+        "session": 8,
+        "ms": 465201285.067625,
+        "class": "RuntimeException",
+        "file": "Database.php",
+        "line": 275,
+        "trace": [
+          "NetworkQuest\\Database::sidecars",
+          "NetworkQuest\\Database->assertStorage",
+          "NetworkQuest\\Database->connection",
+          "NetworkQuest\\RecoveryAccountAccess->run",
+          "NetworkQuest\\SaveRepository->write",
+          "NetworkQuest\\Routes\\Save->handle",
+          "NetworkQuest\\Router->dispatch",
+          "NetworkQuest\\Router->handleServer"
+        ]
+      }
+    ],
+    "sidecarObservations": [
+      {
+        "suffix": "-journal",
+        "mode": "100600",
+        "links": 0,
+        "sameOwner": true
+      }
+    ],
+    "sidecarRechecks": [],
+    "saveP95Ms": 279.411,
+    "failures": 1
+  },
+  {
+    "group": "pressure",
+    "fixture": 2,
+    "barriers": 181,
+    "maxWaitMs": 107.744583,
+    "maxHoldMs": 13.211167,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 286.618,
+    "failures": 0
+  },
+  {
+    "group": "pressure",
+    "fixture": 3,
+    "barriers": 181,
+    "maxWaitMs": 218.52725,
+    "maxHoldMs": 9.296875,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 430.892,
+    "failures": 0
+  },
+  {
+    "group": "synced",
+    "fixture": 1,
+    "barriers": 181,
+    "maxWaitMs": 188.492458,
+    "maxHoldMs": 8.629042,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 311.122,
+    "failures": 0
+  },
+  {
+    "group": "synced",
+    "fixture": 2,
+    "barriers": 181,
+    "maxWaitMs": 126.220208,
+    "maxHoldMs": 11.475958,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 304.747,
+    "failures": 0
+  },
+  {
+    "group": "synced",
+    "fixture": 3,
+    "barriers": 181,
+    "maxWaitMs": 144.030875,
+    "maxHoldMs": 19.821333,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 302.273,
+    "failures": 0
+  },
+  {
+    "group": "synced",
+    "fixture": 4,
+    "barriers": 181,
+    "maxWaitMs": 124.415583,
+    "maxHoldMs": 35.442917,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 313.15,
+    "failures": 0
+  },
+  {
+    "group": "crowd",
+    "fixture": 1,
+    "barriers": 181,
+    "maxWaitMs": 225.967,
+    "maxHoldMs": 58.694625,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 582.503,
+    "failures": 0
+  },
+  {
+    "group": "crowd",
+    "fixture": 2,
+    "barriers": 181,
+    "maxWaitMs": 222.358875,
+    "maxHoldMs": 48.177,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 578.491,
+    "failures": 0
+  },
+  {
+    "group": "crowd",
+    "fixture": 3,
+    "barriers": 181,
+    "maxWaitMs": 140.550625,
+    "maxHoldMs": 78.945334,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 622.565,
+    "failures": 0
+  },
+  {
+    "group": "crowd",
+    "fixture": 4,
+    "barriers": 175,
+    "maxWaitMs": 242.30525,
+    "maxHoldMs": 42.283375,
+    "waitedAtLeast250Ms": [],
+    "errors": [
+      {
+        "round": -1,
+        "session": 18,
+        "ms": 465317934.551083,
+        "class": "RuntimeException",
+        "file": "DeletionLedger.php",
+        "line": 116,
+        "trace": [
+          "NetworkQuest\\DeletionLedger->exclusive",
+          "NetworkQuest\\RecoveryAccountAccess->run",
+          "NetworkQuest\\SaveRepository->write",
+          "NetworkQuest\\Routes\\Save->handle",
+          "NetworkQuest\\Router->dispatch",
+          "NetworkQuest\\Router->handleServer",
+          "NetworkQuest\\Application->handleSapi"
+        ]
+      },
+      {
+        "round": -1,
+        "session": 19,
+        "ms": 465317954.058166,
+        "class": "RuntimeException",
+        "file": "DeletionLedger.php",
+        "line": 116,
+        "trace": [
+          "NetworkQuest\\DeletionLedger->exclusive",
+          "NetworkQuest\\RecoveryAccountAccess->run",
+          "NetworkQuest\\SaveRepository->write",
+          "NetworkQuest\\Routes\\Save->handle",
+          "NetworkQuest\\Router->dispatch",
+          "NetworkQuest\\Router->handleServer",
+          "NetworkQuest\\Application->handleSapi"
+        ]
+      },
+      {
+        "round": -1,
+        "session": 3,
+        "ms": 465317962.683208,
+        "class": "RuntimeException",
+        "file": "DeletionLedger.php",
+        "line": 116,
+        "trace": [
+          "NetworkQuest\\DeletionLedger->exclusive",
+          "NetworkQuest\\RecoveryAccountAccess->run",
+          "NetworkQuest\\SaveRepository->write",
+          "NetworkQuest\\Routes\\Save->handle",
+          "NetworkQuest\\Router->dispatch",
+          "NetworkQuest\\Router->handleServer",
+          "NetworkQuest\\Application->handleSapi"
+        ]
+      }
+    ],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 578.899,
+    "failures": 4
+  },
+  {
+    "group": "crowd",
+    "fixture": 5,
+    "barriers": 181,
+    "maxWaitMs": 135.63575,
+    "maxHoldMs": 61.021,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 526.642,
+    "failures": 0
+  },
+  {
+    "group": "crowd",
+    "fixture": 6,
+    "barriers": 177,
+    "maxWaitMs": 214.422334,
+    "maxHoldMs": 40.596417,
+    "waitedAtLeast250Ms": [],
+    "errors": [
+      {
+        "round": -1,
+        "session": 15,
+        "ms": 465317872.600333,
+        "class": "RuntimeException",
+        "file": "DeletionLedger.php",
+        "line": 116,
+        "trace": [
+          "NetworkQuest\\DeletionLedger->exclusive",
+          "NetworkQuest\\DeletionLedger::open",
+          "NetworkQuest\\Application->services",
+          "NetworkQuest\\Application->handleSapi"
+        ]
+      }
+    ],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 487.23100000000005,
+    "failures": 1
+  },
+  {
+    "group": "crowd-fixed",
+    "fixture": 1,
+    "barriers": 181,
+    "maxWaitMs": 238.564208,
+    "maxHoldMs": 53.215042,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 513.434,
+    "failures": 0
+  },
+  {
+    "group": "crowd-fixed",
+    "fixture": 2,
+    "barriers": 181,
+    "maxWaitMs": 221.432,
+    "maxHoldMs": 66.59025,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 639.522,
+    "failures": 0
+  },
+  {
+    "group": "crowd-fixed",
+    "fixture": 3,
+    "barriers": 181,
+    "maxWaitMs": 76.345,
+    "maxHoldMs": 68.601042,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [
+      {
+        "kind": "-journal",
+        "previousMode": "100600",
+        "previousLinks": 0,
+        "previousOwnerMatches": true,
+        "current": "absent",
+        "currentMode": null,
+        "currentLinks": null,
+        "currentOwnerMatches": null
+      }
+    ],
+    "saveP95Ms": 640.907,
+    "failures": 0
+  },
+  {
+    "group": "crowd-fixed",
+    "fixture": 4,
+    "barriers": 181,
+    "maxWaitMs": 286.274542,
+    "maxHoldMs": 81.714,
+    "waitedAtLeast250Ms": [
+      {
+        "waitMs": 286.274542,
+        "holdMs": 10.404416,
+        "caller": "run"
+      }
+    ],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 529.8960000000001,
+    "failures": 0
+  },
+  {
+    "group": "crowd-fixed",
+    "fixture": 5,
+    "barriers": 181,
+    "maxWaitMs": 184.908208,
+    "maxHoldMs": 58.608084,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 494.543,
+    "failures": 0
+  },
+  {
+    "group": "crowd-fixed",
+    "fixture": 6,
+    "barriers": 181,
+    "maxWaitMs": 155.142292,
+    "maxHoldMs": 45.82175,
+    "waitedAtLeast250Ms": [],
+    "errors": [],
+    "sidecarObservations": [],
+    "sidecarRechecks": [],
+    "saveP95Ms": 503.2180000000001,
+    "failures": 0
+  }
+]

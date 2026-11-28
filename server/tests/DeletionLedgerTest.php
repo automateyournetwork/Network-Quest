@@ -137,7 +137,11 @@ final class DeletionLedgerTest extends TestCase
         $first->exclusive(function () use ($second, &$ran): void {
             $started = hrtime(true);
             try { $second->exclusive(function () use (&$ran): void { $ran = true; }); self::fail('Expected actual lock contention.'); }
-            catch (\PHPUnit\Framework\AssertionFailedError $failure) { throw $failure; } catch (RuntimeException) { self::assertGreaterThanOrEqual(200000000, hrtime(true) - $started); }
+            catch (\PHPUnit\Framework\AssertionFailedError $failure) { throw $failure; } catch (RuntimeException) {
+                $elapsed = hrtime(true) - $started;
+                self::assertGreaterThanOrEqual(750_000_000, $elapsed);
+                self::assertLessThan(2_000_000_000, $elapsed);
+            }
         });
         self::assertFalse($ran);
         self::assertSame('released', $second->exclusive(fn () => 'released'));

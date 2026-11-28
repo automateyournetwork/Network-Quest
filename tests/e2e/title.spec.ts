@@ -1,5 +1,5 @@
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
-import { clickButton, pressButton, openFrame, closeFrame } from './support/adventure-controls';
+import { clickButton, pressButton, openFrame, closeFrame, tabTo } from './support/adventure-controls';
 import { expect, firefox, test, type BrowserContext, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { localTls } from './support/local-tls';
@@ -39,6 +39,39 @@ test.describe('T029 real title and memory-only introduction bootstrap', () => {
     await clickButton(page, 'Close notebook');
   }
 
+  test('first title release after a verified account response opens the replacement warning', async () => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    const name = 'Synthetic Network Quest test user with a long display name that wraps across title lines';
+    const values = { autosaveEnabled: false, musicVolume: 0.5, effectsVolume: 1, voiceVolume: 1,
+      captions: true, reducedMotion: 'system', textScale: 1 };
+    let release!: () => void;
+    const held = new Promise<void>(resolve => { release = resolve; });
+    await page.route('**/api/v1/session', async route => {
+      await held;
+      await route.fulfill({ json: { state: 'authenticated', provider: 'github', displayName: name,
+        csrfToken: 's'.repeat(43), expiresAt: '2099-01-01T00:00:00Z', saveSummary: null,
+        preferences: { revision: 1, etag: '"prefs-1"', values } }, headers: { 'Cache-Control': 'no-store' } });
+    });
+    try {
+      const request = page.waitForRequest('**/api/v1/session');
+      await page.reload({ waitUntil: 'domcontentloaded' }); await request;
+      const start = button('New Adventure');
+      await start.scrollIntoViewIfNeeded();
+      const bounds = await start.boundingBox();
+      if (!bounds) throw Error('Missing visible title control');
+      await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+      await page.mouse.down(); release();
+      await expect(button('Continue')).toHaveAttribute('aria-disabled', 'false');
+      expect(await start.boundingBox()).toEqual(bounds);
+      await page.mouse.up();
+      const warning = page.getByRole('dialog', { name: 'Start a new adventure?', exact: true });
+      await expect(warning).toBeVisible();
+      await warning.getByRole('button', { name: 'Cancel', exact: true }).click();
+      await expect(start).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'The Arrival Lift', exact: true })).toHaveCount(0);
+    } finally { release(); }
+  });
+
   test('native title choices, readable sign-in Continue and genuine R01 controls at narrow width', async () => {
     await page.setViewportSize({ width: 390, height: 844 });
     for (const name of ['New Adventure', 'Continue', 'Settings', 'Credits']) await expect(button(name)).toBeVisible();
@@ -51,6 +84,48 @@ test.describe('T029 real title and memory-only introduction bootstrap', () => {
     await expect(page.getByRole('textbox', { name: /API key|email|password/i })).toHaveCount(0);
     await page.screenshot({ path: '.local/T029-title-arrival-390px.png', fullPage: true });
     const accessibility = await new AxeBuilder({ page }).analyze(); expect(accessibility.violations).toEqual([]);
+  });
+
+  test('credits open from title and Game, preserve keyboard focus and link the distributed notices', async () => {
+    await page.setViewportSize({ width: 320, height: 640 });
+    const dialog = page.getByRole('dialog', { name: 'Credits', exact: true });
+    await tabTo(page, button('Credits'));
+    await page.keyboard.press('Enter');
+    await expect(dialog.getByRole('heading', { name: 'Credits', exact: true })).toBeFocused();
+    await expect(dialog).toContainText('John Capobianco');
+    await expect(dialog).toContainText('OpenAI image generation');
+    await expect(dialog).toContainText('ACE-Step');
+    await expect(dialog).toContainText('Kokoro');
+    await expect(dialog).toContainText('CC BY 4.0');
+    expect(await dialog.evaluate(el => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
+    const media = dialog.getByRole('link', { name: 'Media credits and editable sources' });
+    const notices = dialog.getByRole('link', { name: 'Software notices and full license texts' });
+    for (const link of [media, notices]) {
+      await expect(link).toHaveAttribute('target', '_blank');
+      await expect(link).toHaveAttribute('rel', /noopener/);
+    }
+    await tabTo(page, media);
+    const [mediaPage] = await Promise.all([context.waitForEvent('page'), page.keyboard.press('Enter')]);
+    await expect(mediaPage.getByRole('heading', { name: 'Media credits and editable sources' })).toBeVisible();
+    await mediaPage.getByText('CH03 · alternate rendition', { exact: false }).first().press('Enter');
+    await expect(mediaPage.locator('details[open]')).toContainText('Codex');
+    await mediaPage.close();
+    await tabTo(page, notices);
+    const [noticePage] = await Promise.all([context.waitForEvent('page'), page.keyboard.press('Enter')]);
+    await expect(noticePage.locator('body')).toContainText('Eric Heitz, Jonathan Dupuy, Stephen Hill and David Neubelt');
+    await expect(noticePage.locator('body')).toContainText('Nils Adermann, Jordi Boggiano');
+    await noticePage.close();
+    await pressButton(page, 'Close credits', 'Enter');
+    await expect(button('Credits')).toBeFocused();
+    await start();
+    await openFrame(page, 'Game');
+    await tabTo(page, button('Credits'));
+    await page.keyboard.press('Enter');
+    await expect(dialog).toHaveAttribute('aria-modal', 'true');
+    await dialog.getByRole('heading', { name: 'Credits', exact: true }).press('Escape');
+    await expect(button('Credits')).toBeFocused();
+    await closeFrame(page, control => control.press('Enter'));
+    await expect(page.getByRole('heading', { name: 'The Arrival Lift', exact: true })).toBeVisible();
   });
 
   test('real tutorial invites sign-in once, decline retains play and literal notes without a write or provider navigation', async () => {

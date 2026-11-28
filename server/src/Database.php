@@ -269,6 +269,13 @@ final class Database
             // path existence/access checks would mistake normal commit for a
             // permissions failure. Stable database files retain privateFile().
             $metadata = @lstat($path);
+            // On APFS, lstat racing SQLite's unlink can return the private inode
+            // with zero links. Inspect the current name once before proceeding.
+            if ($suffix === '-journal' && $metadata !== false && $metadata['nlink'] === 0
+                && ($metadata['mode'] & 0177777) === 0100600 && $metadata['uid'] === $owner) {
+                clearstatcache(true, $path);
+                $metadata = @lstat($path);
+            }
             if ($metadata === false) continue;
             if (($metadata['mode'] & 0177777) !== 0100600 || $metadata['nlink'] !== 1 || $metadata['uid'] !== $owner) {
                 throw new RuntimeException('Game sidecars must be private regular files with consistent ownership.');

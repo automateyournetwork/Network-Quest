@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 // Copyright 2026 John Capobianco. SPDX-License-Identifier: Apache-2.0
+use NetworkQuest\Tests\Support\TestEnvironment;
 use PHPUnit\Framework\TestCase;
 require_once __DIR__.'/../../tools/measure-save-load.php';
 
@@ -81,7 +82,8 @@ final class MeasurementHarnessTest extends TestCase
     public function testInterruptedNativeRunEmitsFailureAndVerifiedCleanup(): void
     {
         $process=proc_open([PHP_BINARY,'-d','auto_prepend_file=','-d','auto_append_file=',__DIR__.'/../../tools/measure-save-load.php','--rounds=100','--interval-ms=5000'],
-            [0=>['file','/dev/null','r'],1=>['pipe','w'],2=>['file','/dev/null','w']],$pipes,dirname(__DIR__,2),['LANG'=>'C','LC_ALL'=>'C']);
+            [0=>['file','/dev/null','r'],1=>['pipe','w'],2=>['file','/dev/null','w']],$pipes,dirname(__DIR__,2),
+            ['LANG'=>'C','LC_ALL'=>'C','NQ_TEST_NODE_BIN'=>TestEnvironment::nodeBinary()]);
         self::assertIsResource($process); stream_set_timeout($pipes[1],10);
         try {
             $profile=json_decode(fgets($pipes[1]),true,512,JSON_THROW_ON_ERROR); self::assertSame('profile',$profile['type']);
