@@ -23,16 +23,17 @@ cap. **Do not restart, reset the counter or discard dirty work.**
    external probes or ask for already-confirmed credentials/registration details.
 5. Root owns tracking, staging, review, commits and pushes. Optional automatic Git
    hooks remain disabled. Workers do not change counters, publish or spawn workers.
+6. Keep automated playback silent at the output layer. Use a muted test browser or a no-audio VM and preserve the owner's guest tab and foreground. Audio controls and captions can still be tested through the running application.
 
 ## Current position — 2026-11-28
 
 <!-- current public checkpoint -->
-Latest reviewed GitHub checkpoint: `15abb7bed50b80807215cd2f2e046e49fe9a9dd5`. The selected verb now reveals clickable objects and named exits in the room. Native browsers activated the printed labels with the Scene menu closed, and the mobile journey checked every room.
+Latest reviewed GitHub checkpoint: `c5da397e5aa7af2d4ec8a1e09dc1f7518151fa96`. This checkpoint recorded the first 28 current browser cells and the complete local package rehearsal. The four matching Safari 27.2 results have since joined the evidence below.
 <!-- end current public checkpoint -->
 
 **187 loops started; 147/170 tasks accepted; no deployment.** No fresh task assignment is due. The current game is `15abb7bed50b80807215cd2f2e046e49fe9a9dd5`. Selecting a verb reveals relevant click or tap targets in the scene. The owner reported that the indicators are “MUCH better”. The original T162 loop disposed of this finding and remains available for the remaining reviews. [First-run feedback](../evidence/spec001/owner-review.md) · [Reproducible 442-file build](../evidence/spec001/refinements/verb-targets-production.json)
 
-All 4,411 executable domain cases passed at two workers. The independent G2 run passed 548 client tests, 207 PHP tests and 41 native Firefox cases, including all three endings. Each of the 24 headless desktop cells and four isolated Safari 26 cells passed the full episode on the revised candidate. Four Safari 27.2 cells remain. A separate Tahoe test guest is being prepared for the matching Apple browser. [Current browser evidence](../evidence/spec001/browser-matrix.md) · [World and save assessment](loops/187-T058.md)
+All 4,411 executable domain cases passed at two workers. The complete run also passed all 198 registered browser cases and 926 PHP tests with 19,918 assertions. The independent G2 run passed 548 client tests, 207 PHP tests and 41 native Firefox cases, including all three endings. All 32 current browser and viewport cells passed full twelve-room journeys on the same client, including Safari 26 and 27 in separate no-audio Mac guests. [Current browser evidence](../evidence/spec001/browser-matrix.md) · [World and save assessment](loops/187-T058.md)
 
 The final local rehearsal archive is 67,775,959 bytes, SHA-256 `3f51ddf808da4b02311ce311c1a6e4f59c82ff5df3ad025415f7dbe033c8616b`. Its 39,163 payload checksums, 42 first-party service and contract files, 20 locked dependencies and 2,067 sources verified. The game passed 92 local HTTPS checks and direct travel in muted Chromium. T169 and T170 have no assigned loop. Resume their work after the preceding evidence permits actual publication. [Release and rollback handoff](../evidence/spec001/release-readiness.md) · [Host staging](../evidence/spec001/staging.md)
 
@@ -274,7 +275,7 @@ Loop 184/T167: The revised package passed 92 local HTTPS checks and direct named
 Loop 185/T168: The revised artifact, all 39,163 checksums and the rollback handoff are verified. Pre-publication acceptance remains open. [Verification](loops/185-T168.md).
 
 <!-- current production assignments -->
-All 187 loop assignments have returned. The coordinator has completed the current independent package and gameplay joins.
+All 187 loop assignments have returned. All 32 current browser cells and 198 registered browser tests passed. Awaiting actual human, provider and host evidence.
 <!-- end current production assignments -->
 
 Loop 128 corrected the PR024 and PR030 distance plaques to 85 m and 95/100 m during the Rift art review. The coordinator inspected the revised Firefox captures, verified the full updated seal and reran the fragment audit. [Correction and changed paths](../evidence/spec001/prop-production/T111/metre-correction.json).

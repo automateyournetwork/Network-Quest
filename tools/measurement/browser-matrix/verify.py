@@ -63,7 +63,12 @@ def verify_cell(record, group, seal, evidence=EVIDENCE):
     check(floors == [('R04', ''), ('R09', party), ('R04', party)], name + ' floor and party routes')
     check(all(step['before'] != step['after'] for step in changes[3:]), name + ' floor motion')
     for file, digest in row['harness'].items():
-        check(sha((HERE / file).read_bytes()) == digest, name + ' harness ' + file)
+        source = (HERE / file).read_bytes()
+        if file == 'run.py' and record.get('mutedOutput'):
+            # The two installed-Chrome repeats used this output-only launcher variant.
+            source = source.replace(b"'--headless=new',", b"'--headless=new','--mute-audio',")
+            source = source.replace(b"'app.update.auto':False", b"'app.update.auto':False,'media.volume_scale':'0.0'")
+        check(sha(source) == digest, name + ' harness ' + file)
     if row['capture']:
         capture = row['capture']
         check(sha((evidence / 'release-captures' / capture['file']).read_bytes()) == capture['sha256'], name + ' capture')
@@ -72,15 +77,16 @@ def verify_cell(record, group, seal, evidence=EVIDENCE):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--dist', type=Path, help='Compare every distribution file against the tested release candidate')
-    parser.add_argument('--candidate', choices=['credits', 'refinements'], default='credits',
-                        help='Select the original credits candidate or the corrected touch and diagnostics candidate')
+    parser.add_argument('--candidate', choices=['credits', 'refinements', 'verb-targets'], default='credits',
+                        help='Select the credits, touch and diagnostics, or direct verb target candidate')
     args = parser.parse_args()
-    evidence = EVIDENCE if args.candidate == 'credits' else EVIDENCE / 'refinements'
+    evidence = EVIDENCE if args.candidate == 'credits' else EVIDENCE / args.candidate
     manifest_name = 'credits-candidate.json' if args.candidate == 'credits' else 'candidate.json'
     manifest = json.loads((evidence / manifest_name).read_text())
     public = manifest['publicSource']
     revisions = {'credits': 'ae8472469b5f7d98e939ccb5471b03893630993a',
-                 'refinements': 'ff3f3eb50045c883803ab9196bcd456c17b96f2b'}
+                 'refinements': 'ff3f3eb50045c883803ab9196bcd456c17b96f2b',
+                 'verb-targets': '15abb7bed50b80807215cd2f2e046e49fe9a9dd5'}
     check(public['commit'] == revisions[args.candidate], 'published candidate commit')
     published_ledger = (HERE.parents[2] / public['productionLedger']).read_bytes()
     check(sha(published_ledger) == public['productionLedgerSHA256'], 'published ledger digest')

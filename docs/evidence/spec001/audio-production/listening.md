@@ -1,5 +1,7 @@
 # Spec001 audio listening packets
 
+The 109 active recordings awaiting review total **26 minutes 7 seconds** of solo playback. Playing each once on speakers and once on headphones or earbuds takes about **52 minutes 15 seconds**, before room mixes, loop boundaries, comparisons and notes. This uses the authored durations of the eight music cues, twelve room beds, 37 effects and 52 voices still awaiting listening evidence. The earlier approved recordings retain their existing results. [Integrated asset manifest](../../../../assets-src/manifest.json) · [Owner review](../owner-review.md)
+
 Each packet opens locally and plays the files identified in its checksum record. Listen to the complete cues, boundary excerpts and spoken comparisons on ordinary speakers and again on headphones or earbuds. For any change, record the cue or effect number, the output device and what you heard. The earlier T065 approval remains attached to the original twelve audition files.
 
 | Packet | What to listen for |
