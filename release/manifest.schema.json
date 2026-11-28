@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Network Quest Spec001 package manifest",
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifestVersion",
+    "episode",
+    "releaseVersion",
+    "codeRevision",
+    "gamePath",
+    "contentVersion",
+    "api",
+    "save",
+    "database",
+    "source",
+    "hashes"
+  ],
+  "properties": {
+    "manifestVersion": {
+      "const": 1
+    },
+    "episode": {
+      "const": "spec001"
+    },
+    "releaseVersion": {
+      "type": "string",
+      "pattern": "^spec001-1\\.0\\.0-[0-9a-f]{12}-[0-9a-f]{12}$"
+    },
+    "codeRevision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "gamePath": {
+      "type": "string",
+      "pattern": "^/(?:[A-Za-z0-9_-]+/)+$"
+    },
+    "contentVersion": {
+      "const": "1.0.0"
+    },
+    "api": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "version",
+        "contractVersion"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^/(?:[A-Za-z0-9_-]+/)+api/v1$"
+        },
+        "version": {
+          "const": 1
+        },
+        "contractVersion": {
+          "const": "1.0.0"
+        }
+      }
+    },
+    "save": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "readContent",
+        "writeContent"
+      ],
+      "properties": {
+        "schema": {
+          "const": 1
+        },
+        "readContent": {
+          "const": [
+            "0.9.1",
+            "1.0.0"
+          ]
+        },
+        "writeContent": {
+          "const": [
+            "1.0.0"
+          ]
+        }
+      }
+    },
+    "database": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current",
+        "migrateFrom",
+        "ledger"
+      ],
+      "properties": {
+        "current": {
+          "const": 2
+        },
+        "migrateFrom": {
+          "const": [
+            0,
+            1
+          ]
+        },
+        "ledger": {
+          "const": 1
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "mediaRevision",
+        "index"
+      ],
+      "properties": {
+        "repository": {
+          "const": "https://github.com/automateyournetwork/Network-Quest"
+        },
+        "mediaRevision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "index": {
+          "const": "assets-src/source-index.json"
+        }
+      }
+    },
+    "hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "client",
+        "policy",
+        "index",
+        "schema",
+        "npm",
+        "composer",
+        "recipe",
+        "ledger",
+        "migrations"
+      ],
+      "properties": {
+        "client": {
+          "$ref": "#/$defs/sha256"
+        },
+        "policy": {
+          "$ref": "#/$defs/sha256"
+        },
+        "index": {
+          "$ref": "#/$defs/sha256"
+        },
+        "schema": {
+          "$ref": "#/$defs/sha256"
+        },
+        "npm": {
+          "$ref": "#/$defs/sha256"
+        },
+        "composer": {
+          "$ref": "#/$defs/sha256"
+        },
+        "recipe": {
+          "$ref": "#/$defs/sha256"
+        },
+        "ledger": {
+          "$ref": "#/$defs/sha256"
+        },
+        "migrations": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/sha256"
+          }
+        }
+      }
+    }
+  }
+}

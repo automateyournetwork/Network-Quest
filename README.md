@@ -52,6 +52,11 @@ the owner's website or provider accounts. The separate media download is useful
 for contributors who want an independently verified editable copy.
 [Editable source instructions](docs/source-retrieval.md) · [Credits and licenses](docs/licenses.md)
 
+To build a standalone candidate with the browser game, PHP service, production dependencies,
+schemas, source index and credits, run `npm run package:release -- --ref HEAD`.
+The archive and SHA-256 sidecar are written to `.local/releases/`. Verify the
+extracted files before preparing the hosting handoff. [Package instructions](release/INTEGRATION.md)
+
 On the original development Mac the pinned Node installation lives under
 `.runtime/node-v26.13.1-darwin-arm64/bin`, PHP under
 `/opt/homebrew/opt/php@8.4/bin`, and Composer at

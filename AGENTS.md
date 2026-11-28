@@ -42,8 +42,9 @@ predicates do not accept composite routes. T030 owns acceptance of T022's nine
 independent guest browser cases; consult HANDOFF/state for current results.
 `npm run assets:verify` now audits inventory; `-- --mode release` also enforces
 media minima and distribution. It checks evidence consistency, not human review.
-`package:release` and deployment commands remain planned and must be implemented
-before invocation. No test command deploys.
+`npm run package:release -- --ref <commit>` creates a checksummed game-only candidate
+for isolated verification. See `release/INTEGRATION.md` for build and extraction.
+Actual staging and publication follow the evidence gates in HANDOFF and state. No test command deploys.
 
 ## Code Style
 

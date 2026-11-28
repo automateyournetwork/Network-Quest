@@ -18,6 +18,7 @@
     "test:domain": "vitest run",
     "test:api": "node tools/test-api.mjs",
     "test:e2e": "npm run build && playwright test",
+    "package:release": "node tools/package-release.mjs",
     "build": "npm run typecheck && npm run save-policy:check && vite build",
     "preview:client": "vite preview --host 127.0.0.1",
     "save-policy:generate": "node tools/generate-save-content-policy.ts --generate",
